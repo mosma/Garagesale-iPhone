@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BD5A37C140AC4B0002D00A8 /* NavigatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */; };
+		8BD5A387140ACAB4002D00A8 /* top-garagesale.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A386140ACAB4002D00A8 /* top-garagesale.png */; };
+		8BD5A38B140AD0D7002D00A8 /* MyGarage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5A389140AD0D7002D00A8 /* MyGarage.m */; };
+		8BD5A38C140AD0D7002D00A8 /* MyGarage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */; };
+		8BD5A38E140AD27A002D00A8 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38D140AD27A002D00A8 /* home.png */; };
+		8BD5A391140AD2E7002D00A8 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38F140AD2E7002D00A8 /* search.png */; };
+		8BD5A392140AD2E7002D00A8 /* mygarage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A390140AD2E7002D00A8 /* mygarage.png */; };
 		CE3B9408140A9D2A00D0394A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B9407140A9D2A00D0394A /* UIKit.framework */; };
 		CE3B940A140A9D2A00D0394A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B9409140A9D2A00D0394A /* Foundation.framework */; };
 		CE3B940C140A9D2A00D0394A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3B940B140A9D2A00D0394A /* CoreGraphics.framework */; };
@@ -36,6 +43,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8BD5A379140AC4B0002D00A8 /* NavigatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigatorController.h; sourceTree = "<group>"; };
+		8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigatorController.m; sourceTree = "<group>"; };
+		8BD5A386140ACAB4002D00A8 /* top-garagesale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-garagesale.png"; sourceTree = "<group>"; };
+		8BD5A388140AD0D7002D00A8 /* MyGarage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGarage.h; sourceTree = "<group>"; };
+		8BD5A389140AD0D7002D00A8 /* MyGarage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGarage.m; sourceTree = "<group>"; };
+		8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGarage.xib; sourceTree = "<group>"; };
+		8BD5A38D140AD27A002D00A8 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		8BD5A38F140AD2E7002D00A8 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		8BD5A390140AD2E7002D00A8 /* mygarage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mygarage.png; sourceTree = "<group>"; };
 		CE3B9403140A9D2A00D0394A /* garageSale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = garageSale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3B9407140A9D2A00D0394A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CE3B9409140A9D2A00D0394A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,6 +99,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8BD5A37E140AC4DB002D00A8 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				CE3B941C140A9D2A00D0394A /* garageSaleViewController.h */,
+				CE3B941D140A9D2A00D0394A /* garageSaleViewController.m */,
+				CE3B941F140A9D2A00D0394A /* garageSaleViewController.xib */,
+				CE3B9416140A9D2A00D0394A /* garageSaleAppDelegate.h */,
+				CE3B9417140A9D2A00D0394A /* garageSaleAppDelegate.m */,
+				CE3B9419140A9D2A00D0394A /* MainWindow.xib */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		8BD5A385140ACA9F002D00A8 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8BD5A38F140AD2E7002D00A8 /* search.png */,
+				8BD5A390140AD2E7002D00A8 /* mygarage.png */,
+				8BD5A38D140AD27A002D00A8 /* home.png */,
+				8BD5A386140ACAB4002D00A8 /* top-garagesale.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		8BD5A393140AD426002D00A8 /* MyGarage */ = {
+			isa = PBXGroup;
+			children = (
+				8BD5A388140AD0D7002D00A8 /* MyGarage.h */,
+				8BD5A389140AD0D7002D00A8 /* MyGarage.m */,
+				8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */,
+			);
+			name = MyGarage;
+			sourceTree = "<group>";
+		};
 		CE3B93F8140A9D2A00D0394A = {
 			isa = PBXGroup;
 			children = (
@@ -116,13 +166,12 @@
 		CE3B940D140A9D2A00D0394A /* garageSale */ = {
 			isa = PBXGroup;
 			children = (
-				CE3B9416140A9D2A00D0394A /* garageSaleAppDelegate.h */,
-				CE3B9417140A9D2A00D0394A /* garageSaleAppDelegate.m */,
-				CE3B9419140A9D2A00D0394A /* MainWindow.xib */,
-				CE3B941C140A9D2A00D0394A /* garageSaleViewController.h */,
-				CE3B941D140A9D2A00D0394A /* garageSaleViewController.m */,
-				CE3B941F140A9D2A00D0394A /* garageSaleViewController.xib */,
+				8BD5A393140AD426002D00A8 /* MyGarage */,
+				8BD5A385140ACA9F002D00A8 /* images */,
+				8BD5A37E140AC4DB002D00A8 /* Delegate */,
 				CE3B940E140A9D2A00D0394A /* Supporting Files */,
+				8BD5A379140AC4B0002D00A8 /* NavigatorController.h */,
+				8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */,
 			);
 			path = garageSale;
 			sourceTree = "<group>";
@@ -201,6 +250,9 @@
 /* Begin PBXProject section */
 		CE3B93FA140A9D2A00D0394A /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = CE3B93FD140A9D2A00D0394A /* Build configuration list for PBXProject "garageSale" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -227,6 +279,11 @@
 				CE3B9412140A9D2A00D0394A /* InfoPlist.strings in Resources */,
 				CE3B941B140A9D2A00D0394A /* MainWindow.xib in Resources */,
 				CE3B9421140A9D2A00D0394A /* garageSaleViewController.xib in Resources */,
+				8BD5A387140ACAB4002D00A8 /* top-garagesale.png in Resources */,
+				8BD5A38C140AD0D7002D00A8 /* MyGarage.xib in Resources */,
+				8BD5A38E140AD27A002D00A8 /* home.png in Resources */,
+				8BD5A391140AD2E7002D00A8 /* search.png in Resources */,
+				8BD5A392140AD2E7002D00A8 /* mygarage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +322,8 @@
 				CE3B9414140A9D2A00D0394A /* main.m in Sources */,
 				CE3B9418140A9D2A00D0394A /* garageSaleAppDelegate.m in Sources */,
 				CE3B941E140A9D2A00D0394A /* garageSaleViewController.m in Sources */,
+				8BD5A37C140AC4B0002D00A8 /* NavigatorController.m in Sources */,
+				8BD5A38B140AD0D7002D00A8 /* MyGarage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +499,7 @@
 				CE3B943D140A9D2B00D0394A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE3B943E140A9D2B00D0394A /* Build configuration list for PBXNativeTarget "garageSaleTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +508,7 @@
 				CE3B9440140A9D2B00D0394A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

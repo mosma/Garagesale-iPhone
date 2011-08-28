@@ -1,13 +1,5 @@
-//
-//  garageSaleAppDelegate.m
-//  garageSale
-//
-//  Created by Pedro Ivo B Gimenes on 8/28/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
-
+#import "NavigatorController.h"
 #import "garageSaleAppDelegate.h"
-
 #import "garageSaleViewController.h"
 
 @implementation garageSaleAppDelegate
@@ -17,9 +9,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-     
-    self.window.rootViewController = self.viewController;
+
+    NavigationController* home = [[[NavigationController alloc] initWithNibName:nil bundle:nil] autorelease];
+    home.tabBarItem.title = @"Home";
+    home.tabBarItem.image = [UIImage imageNamed:@"home"];
+    
+    NavigationController* garage = [[[NavigationController alloc] initWithNibName:nil bundle:nil] autorelease];
+    garage.tabBarItem.title = @"My Garage";
+    garage.tabBarItem.image = [UIImage imageNamed:@"mygarage"];    
+    
+    NavigationController* search = [[[NavigationController alloc] initWithNibName:nil bundle:nil] autorelease];
+    search.tabBarItem.title = @"Search";
+    search.tabBarItem.image = [UIImage imageNamed:@"search"];    
+    
+    UITabBarController* tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+    tabBarController.viewControllers = [NSArray arrayWithObjects: home, garage, search, nil];
+    
+    [self.window addSubview:tabBarController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
