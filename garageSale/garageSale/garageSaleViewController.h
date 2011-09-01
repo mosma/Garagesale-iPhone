@@ -1,9 +1,12 @@
 #import <UIKit/UIKit.h>
 
-@interface garageSaleViewController : UIViewController {
+@interface garageSaleViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     
+    NSArray* listaSecoes;    
+    IBOutlet UITableView* customTableView;
 }
 
--(IBAction) openCategoriesSection;
+@property (nonatomic, retain) IBOutlet UITableView* customTableView;
+@property (nonatomic, retain) NSArray* listaSecoes;
 
 @end

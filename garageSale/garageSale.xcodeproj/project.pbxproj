@@ -7,10 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B15CA41140FB6130022CA4B /* MyGarageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B15CA3F140FB6130022CA4B /* MyGarageViewController.m */; };
+		8B15CA42140FB6130022CA4B /* MyGarageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA40140FB6130022CA4B /* MyGarageViewController.xib */; };
+		8B15CA46140FB6410022CA4B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B15CA44140FB6410022CA4B /* SearchViewController.m */; };
+		8B15CA47140FB6410022CA4B /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA45140FB6410022CA4B /* SearchViewController.xib */; };
+		8B15CA49140FC1440022CA4B /* jogos.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA48140FC1440022CA4B /* jogos.png */; };
+		8B15CA4B140FC15B0022CA4B /* livros.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA4A140FC15B0022CA4B /* livros.png */; };
+		8B15CA4D140FC1950022CA4B /* cds.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA4C140FC1950022CA4B /* cds.png */; };
+		8B15CA57140FC4BB0022CA4B /* dvds.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA56140FC4BB0022CA4B /* dvds.png */; };
+		8B15CA59140FC4D60022CA4B /* moveis.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B15CA58140FC4D60022CA4B /* moveis.png */; };
+		8B319F2D140FB42600AEFE78 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B319F2B140FB42600AEFE78 /* ProductListViewController.m */; };
+		8B319F2E140FB42600AEFE78 /* ProductListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B319F2C140FB42600AEFE78 /* ProductListViewController.xib */; };
+		8B3486B7140FC7EB00240AD1 /* eletronicos.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B3486B6140FC7EB00240AD1 /* eletronicos.png */; };
+		8B3486B9140FC90700240AD1 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B3486B8140FC90700240AD1 /* background.jpg */; };
+		8B3486BC140FD16400240AD1 /* darkside.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B3486BA140FD16400240AD1 /* darkside.png */; };
+		8B3486BD140FD16400240AD1 /* pulse.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B3486BB140FD16400240AD1 /* pulse.jpg */; };
 		8BD5A37C140AC4B0002D00A8 /* NavigatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */; };
-		8BD5A387140ACAB4002D00A8 /* top-garagesale.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A386140ACAB4002D00A8 /* top-garagesale.png */; };
-		8BD5A38B140AD0D7002D00A8 /* MyGarage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD5A389140AD0D7002D00A8 /* MyGarage.m */; };
-		8BD5A38C140AD0D7002D00A8 /* MyGarage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */; };
+		8BD5A387140ACAB4002D00A8 /* top-garagasale.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A386140ACAB4002D00A8 /* top-garagasale.png */; };
 		8BD5A38E140AD27A002D00A8 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38D140AD27A002D00A8 /* home.png */; };
 		8BD5A391140AD2E7002D00A8 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A38F140AD2E7002D00A8 /* search.png */; };
 		8BD5A392140AD2E7002D00A8 /* mygarage.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BD5A390140AD2E7002D00A8 /* mygarage.png */; };
@@ -43,12 +56,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B15CA3E140FB6130022CA4B /* MyGarageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGarageViewController.h; sourceTree = "<group>"; };
+		8B15CA3F140FB6130022CA4B /* MyGarageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGarageViewController.m; sourceTree = "<group>"; };
+		8B15CA40140FB6130022CA4B /* MyGarageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGarageViewController.xib; sourceTree = "<group>"; };
+		8B15CA43140FB6410022CA4B /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		8B15CA44140FB6410022CA4B /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		8B15CA45140FB6410022CA4B /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		8B15CA48140FC1440022CA4B /* jogos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jogos.png; sourceTree = "<group>"; };
+		8B15CA4A140FC15B0022CA4B /* livros.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = livros.png; sourceTree = "<group>"; };
+		8B15CA4C140FC1950022CA4B /* cds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cds.png; sourceTree = "<group>"; };
+		8B15CA56140FC4BB0022CA4B /* dvds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dvds.png; sourceTree = "<group>"; };
+		8B15CA58140FC4D60022CA4B /* moveis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moveis.png; sourceTree = "<group>"; };
+		8B319F2A140FB42600AEFE78 /* ProductListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
+		8B319F2B140FB42600AEFE78 /* ProductListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
+		8B319F2C140FB42600AEFE78 /* ProductListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductListViewController.xib; sourceTree = "<group>"; };
+		8B3486B6140FC7EB00240AD1 /* eletronicos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eletronicos.png; sourceTree = "<group>"; };
+		8B3486B8140FC90700240AD1 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		8B3486BA140FD16400240AD1 /* darkside.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkside.png; sourceTree = "<group>"; };
+		8B3486BB140FD16400240AD1 /* pulse.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pulse.jpg; sourceTree = "<group>"; };
 		8BD5A379140AC4B0002D00A8 /* NavigatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigatorController.h; sourceTree = "<group>"; };
 		8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigatorController.m; sourceTree = "<group>"; };
-		8BD5A386140ACAB4002D00A8 /* top-garagesale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-garagesale.png"; sourceTree = "<group>"; };
-		8BD5A388140AD0D7002D00A8 /* MyGarage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGarage.h; sourceTree = "<group>"; };
-		8BD5A389140AD0D7002D00A8 /* MyGarage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGarage.m; sourceTree = "<group>"; };
-		8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGarage.xib; sourceTree = "<group>"; };
+		8BD5A386140ACAB4002D00A8 /* top-garagasale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top-garagasale.png"; sourceTree = "<group>"; };
 		8BD5A38D140AD27A002D00A8 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		8BD5A38F140AD2E7002D00A8 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		8BD5A390140AD2E7002D00A8 /* mygarage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mygarage.png; sourceTree = "<group>"; };
@@ -99,6 +127,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B319F1E140FB3C000AEFE78 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8B15CA43140FB6410022CA4B /* SearchViewController.h */,
+				8B15CA44140FB6410022CA4B /* SearchViewController.m */,
+				8B15CA45140FB6410022CA4B /* SearchViewController.xib */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		8BC39FAD140E555F0087773E /* ProductsList */ = {
+			isa = PBXGroup;
+			children = (
+				8B319F2A140FB42600AEFE78 /* ProductListViewController.h */,
+				8B319F2B140FB42600AEFE78 /* ProductListViewController.m */,
+				8B319F2C140FB42600AEFE78 /* ProductListViewController.xib */,
+			);
+			name = ProductsList;
+			sourceTree = "<group>";
+		};
 		8BD5A37E140AC4DB002D00A8 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,10 +163,19 @@
 		8BD5A385140ACA9F002D00A8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8B3486BA140FD16400240AD1 /* darkside.png */,
+				8B3486BB140FD16400240AD1 /* pulse.jpg */,
+				8B3486B8140FC90700240AD1 /* background.jpg */,
+				8B3486B6140FC7EB00240AD1 /* eletronicos.png */,
+				8B15CA56140FC4BB0022CA4B /* dvds.png */,
+				8B15CA58140FC4D60022CA4B /* moveis.png */,
+				8B15CA4C140FC1950022CA4B /* cds.png */,
+				8B15CA4A140FC15B0022CA4B /* livros.png */,
+				8B15CA48140FC1440022CA4B /* jogos.png */,
 				8BD5A38F140AD2E7002D00A8 /* search.png */,
 				8BD5A390140AD2E7002D00A8 /* mygarage.png */,
 				8BD5A38D140AD27A002D00A8 /* home.png */,
-				8BD5A386140ACAB4002D00A8 /* top-garagesale.png */,
+				8BD5A386140ACAB4002D00A8 /* top-garagasale.png */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -126,9 +183,9 @@
 		8BD5A393140AD426002D00A8 /* MyGarage */ = {
 			isa = PBXGroup;
 			children = (
-				8BD5A388140AD0D7002D00A8 /* MyGarage.h */,
-				8BD5A389140AD0D7002D00A8 /* MyGarage.m */,
-				8BD5A38A140AD0D7002D00A8 /* MyGarage.xib */,
+				8B15CA3E140FB6130022CA4B /* MyGarageViewController.h */,
+				8B15CA3F140FB6130022CA4B /* MyGarageViewController.m */,
+				8B15CA40140FB6130022CA4B /* MyGarageViewController.xib */,
 			);
 			name = MyGarage;
 			sourceTree = "<group>";
@@ -166,12 +223,14 @@
 		CE3B940D140A9D2A00D0394A /* garageSale */ = {
 			isa = PBXGroup;
 			children = (
+				8BD5A379140AC4B0002D00A8 /* NavigatorController.h */,
+				8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */,
+				8B319F1E140FB3C000AEFE78 /* Search */,
+				8BC39FAD140E555F0087773E /* ProductsList */,
 				8BD5A393140AD426002D00A8 /* MyGarage */,
 				8BD5A385140ACA9F002D00A8 /* images */,
 				8BD5A37E140AC4DB002D00A8 /* Delegate */,
 				CE3B940E140A9D2A00D0394A /* Supporting Files */,
-				8BD5A379140AC4B0002D00A8 /* NavigatorController.h */,
-				8BD5A37A140AC4B0002D00A8 /* NavigatorController.m */,
 			);
 			path = garageSale;
 			sourceTree = "<group>";
@@ -279,11 +338,22 @@
 				CE3B9412140A9D2A00D0394A /* InfoPlist.strings in Resources */,
 				CE3B941B140A9D2A00D0394A /* MainWindow.xib in Resources */,
 				CE3B9421140A9D2A00D0394A /* garageSaleViewController.xib in Resources */,
-				8BD5A387140ACAB4002D00A8 /* top-garagesale.png in Resources */,
-				8BD5A38C140AD0D7002D00A8 /* MyGarage.xib in Resources */,
+				8BD5A387140ACAB4002D00A8 /* top-garagasale.png in Resources */,
 				8BD5A38E140AD27A002D00A8 /* home.png in Resources */,
 				8BD5A391140AD2E7002D00A8 /* search.png in Resources */,
 				8BD5A392140AD2E7002D00A8 /* mygarage.png in Resources */,
+				8B319F2E140FB42600AEFE78 /* ProductListViewController.xib in Resources */,
+				8B15CA42140FB6130022CA4B /* MyGarageViewController.xib in Resources */,
+				8B15CA47140FB6410022CA4B /* SearchViewController.xib in Resources */,
+				8B15CA49140FC1440022CA4B /* jogos.png in Resources */,
+				8B15CA4B140FC15B0022CA4B /* livros.png in Resources */,
+				8B15CA4D140FC1950022CA4B /* cds.png in Resources */,
+				8B15CA57140FC4BB0022CA4B /* dvds.png in Resources */,
+				8B15CA59140FC4D60022CA4B /* moveis.png in Resources */,
+				8B3486B7140FC7EB00240AD1 /* eletronicos.png in Resources */,
+				8B3486B9140FC90700240AD1 /* background.jpg in Resources */,
+				8B3486BC140FD16400240AD1 /* darkside.png in Resources */,
+				8B3486BD140FD16400240AD1 /* pulse.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +393,9 @@
 				CE3B9418140A9D2A00D0394A /* garageSaleAppDelegate.m in Sources */,
 				CE3B941E140A9D2A00D0394A /* garageSaleViewController.m in Sources */,
 				8BD5A37C140AC4B0002D00A8 /* NavigatorController.m in Sources */,
-				8BD5A38B140AD0D7002D00A8 /* MyGarage.m in Sources */,
+				8B319F2D140FB42600AEFE78 /* ProductListViewController.m in Sources */,
+				8B15CA41140FB6130022CA4B /* MyGarageViewController.m in Sources */,
+				8B15CA46140FB6410022CA4B /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

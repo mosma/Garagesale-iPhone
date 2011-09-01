@@ -1,6 +1,6 @@
-#import "MyGarage.h"
+#import "MyGarageViewController.h"
 
-@implementation MyGarage
+@implementation MyGarageViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,7 +24,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+//    self.navigationController.navigationBarHidden = TRUE;
+    UIImageView *topBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top-garagesale.png"]];
+    [self.navigationController.navigationBar insertSubview:topBarImage atIndex:0];
+    [topBarImage release];
 }
 
 - (void)viewDidUnload

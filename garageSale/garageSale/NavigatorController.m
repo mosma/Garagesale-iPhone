@@ -1,5 +1,7 @@
 #import "NavigatorController.h"
 #import "garageSaleViewController.h"
+#import "MyGarageViewController.h"
+#import "SearchViewController.h"
 
 @implementation NavigationController
 
@@ -26,11 +28,17 @@
     
     if (self.tabBarItem.title == @"Home") {
         garageSaleViewController * home = [[[garageSaleViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+        
         [self pushViewController:home animated:YES];
     }
     else if (self.tabBarItem.title == @"Search") {
+        SearchViewController* search = [[SearchViewController alloc] initWithNibName:nil bundle:nil];
+        [self pushViewController:search animated:YES];
     }
     else if (self.tabBarItem.title == @"My Garage") {
+        MyGarageViewController* myGarage = [[[MyGarageViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+        
+        [self pushViewController:myGarage animated:YES];
     }
 }
 
