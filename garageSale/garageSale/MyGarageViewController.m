@@ -43,4 +43,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(IBAction)textFieldEditingEnded:(id)sender{
+	[sender resignFirstResponder]; 
+}
 @end
