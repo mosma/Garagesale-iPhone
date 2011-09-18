@@ -2,5 +2,4 @@
 
 @interface MyGarageViewController : UIViewController
 
--(IBAction)textFieldEditingEnded:(id)sender;
 @end
