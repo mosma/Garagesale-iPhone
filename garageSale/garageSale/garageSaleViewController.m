@@ -1,5 +1,6 @@
 #import "garageSaleViewController.h"
 #import "MyGarageViewController.h"
+#import "ProductListViewController.h"
 
 @implementation garageSaleViewController
 
@@ -9,6 +10,7 @@
 -(IBAction) openCategoriesSection {
     MyGarageViewController* myGarage = [[MyGarageViewController alloc] init];
     [self.navigationController pushViewController:myGarage animated:YES];
+    [myGarage release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -22,7 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     NSArray *array = [[NSArray alloc] initWithObjects:
 					  @"CDs", 
                       @"DVDs", 
@@ -60,7 +61,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [listaSecoes count];
 }
-
+ 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
@@ -94,7 +95,6 @@
         UIImage* image = [UIImage imageNamed:@"moveis"];
         cell.imageView.image = image;
     }
-    
    
 	cell.textLabel.text = [listaSecoes objectAtIndex:indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -103,10 +103,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSUInteger row = [indexPath row];
-    NSString *rowValue = [listaSecoes objectAtIndex:row];
-    
-    NSLog(@">>>> %@ ", rowValue);
+//    NSUInteger row = [indexPath row];
+//    NSString *rowValue = [listaSecoes objectAtIndex:row];
+//    NSLog(@">>>> %@ ", rowValue);
+    self.navigationItem.title = @"Categorias";
+    ProductListViewController *productListViewController = [[ProductListViewController alloc] initWithNibName:@"ProductListViewController" bundle:nil];
+    [self.navigationController pushViewController:productListViewController animated:YES];
+    [productListViewController release];    
 }
 
 @end
