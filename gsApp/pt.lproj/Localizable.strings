@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  garagesaleapp
+
+  Created by Tarek Jradi on 27/01/12.
+  Copyright (c) 2012 MOSMA. All rights reserved.
+*/
+
+//Localizable.Strings file for the Portuguese version.
+"offer"                         = "Valor (pergunte algo)";
+"description"                   = "Descrição"; 
+"bid"                           = "Ofertar";
+"bidSent"                       = "Oferta feita";
+"seeAllProducts"                = "Todos itens desta garagem";
+"products"                      = "Produtos";
+"detailProduct"                 = "Detalhes do Produto"; 
+"searchProduct"                 = "Buscar Produtos";
+"by"                            = "do";
+"garage"                        = "Garagem";
+"fieldsRequired"                = "Verificar Campos";
+"enterEmail"                    = "Oops! Isto não se parece com um email válido.";
+"enterValueProduct"             = "Hey, dê algum valor ao seu lance.";
+"home"                          = "Inicio";
+"search"                        = "Busca";
+"about"                         = "Sobre";
+"back"                          = "Back";
