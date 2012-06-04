@@ -19,6 +19,7 @@
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
 +(BOOL)isValidEmail:(NSString*) emailString;
 +(void)onlyNumberKey:(UITextField *)textField;
++(void)roundedLayer:(CALayer *)viewLayer radius:(float)r shadow:(BOOL)s;
 
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 

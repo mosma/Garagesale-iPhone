@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "galleryScrollViewController.h"
 #import "garageDetailViewController.h"
+#import "Photo.h"
 #import "Product.h"
+#import "ProductPhotos.h"
 #import "Garage.h"
 #import "Profile.h"
 #import "RestKit/RestKit.h"
@@ -20,12 +23,14 @@
 #import "garageDetailViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Category.h"
-#import "Photo.h"
 #import "Bid.h"
 #import "GlobalFunctions.h"
 
 @interface productDetailViewController : UIViewController <UITextFieldDelegate, 
-                                                           UITextViewDelegate, BSKeyboardControlsDelegate> {
+                                                            UITextViewDelegate, 
+                                                            BSKeyboardControlsDelegate,
+                                                            UIScrollViewDelegate,
+                                                            RKObjectLoaderDelegate> {
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;
     NSArray                                     *arrayGarage;
@@ -33,10 +38,12 @@
     NSArray                                     *arrayTags;
     BOOL                                        isIdPersonNumber;
     IBOutlet UILabel                            *nomeLabel;
-    UILabel                                     *descricaoLabel;
+    IBOutlet UILabel                            *currencyLabel;
+    IBOutlet UILabel                            *descricaoLabel;
     IBOutlet UILabel                            *valorEsperadoLabel;
     IBOutlet UIScrollView                       *scrollView;
-    IBOutlet UIImageView                        *imageView;
+    UIView                                      *shadowView;
+    //IBOutlet UIImageView                        *imageView;
     __unsafe_unretained IBOutlet UIButton       *bidButton;
     __unsafe_unretained IBOutlet UITextField    *emailTextField;
     __unsafe_unretained IBOutlet UITextField    *offerTextField;
@@ -48,13 +55,21 @@
     __unsafe_unretained IBOutlet UIButton       *showPicsButton;
     __unsafe_unretained IBOutlet UIButton       *garageDetailButton;
     __unsafe_unretained IBOutlet UIButton       *seeAllButton;
-    __unsafe_unretained IBOutlet UIImageView    *imgViewLoading;
     __unsafe_unretained IBOutlet UILabel        *offerLabel;
-    __unsafe_unretained IBOutlet UILabel        *descriptionLabel;
     __unsafe_unretained IBOutlet UILabel        *msgBidSentLabel;
     __unsafe_unretained IBOutlet UIView         *secondView;
     IBOutlet UIView                             *garageDetailView;
     UIButton                                    *addThisButton;
+                                                                
+    //Gallery Images Objects.
+    NSMutableArray          *productPhotos;
+    NSString                *idPessoa;     //from ProductDetail
+    NSNumber                *idProduto;    //from ProductDetail
+    UIImageView             *imageView;
+    IBOutlet UIScrollView   *galleryScrollView;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
+    __unsafe_unretained IBOutlet UIView *viewBidSend;
 }
 
 @property (strong, nonatomic) id detailItem;
@@ -66,10 +81,9 @@
 @property (nonatomic) BOOL                                      isIdPersonNumber;
 @property (retain, nonatomic) IBOutlet UILabel                  *nomeLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *currencyLabel;
-@property (retain, nonatomic) UILabel                           *descricaoLabel;
+@property (retain, nonatomic) IBOutlet UILabel                  *descricaoLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *valorEsperadoLabel;
 @property (retain, nonatomic) IBOutlet UIScrollView             *scrollView;
-@property (retain, nonatomic) IBOutlet UIImageView              *imageView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *bidButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *emailTextField;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *offerTextField;
@@ -81,15 +95,24 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *showPicsButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *garageDetailButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *seeAllButton;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView   *imgViewLoading;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *offerLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *descriptionLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *msgBidSentLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *secondView;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 
-- (void)loadAttribsToComponents;
+
+@property (retain, nonatomic) NSMutableArray         *productPhotos;
+@property (retain, nonatomic) NSString               *idPessoa;
+@property (retain, nonatomic) NSNumber               *idProduto;
+@property (retain, nonatomic) UIImageView            *imageView;
+@property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *viewBidSend;
+
 - (IBAction)actionEmailComposer;
+- (IBAction)animationBidView;
 - (IBAction)textFieldEditingEnded:(id)sender;
 - (void)setupGarageMapping;
 - (void)setupProfileMapping;
@@ -102,5 +125,11 @@
 - (void)setLoadAnimation;
 - (void)hideMsgBidSent;
 - (IBAction)isNumberKey:(UITextField *)textField;
+- (IBAction)bidPost:(id)sender;
+
+- (IBAction)pageControlCliked;
+- (void)setupProductMapping:(NSString *)localResource;
+- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
+- (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView;
 
 @end

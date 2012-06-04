@@ -13,28 +13,48 @@
 #import "QuartzCore/QuartzCore.h"
 #import "aboutViewController.h"
 #import "GlobalFunctions.h"
+#import "Product.h"
+#import "OHAttributedLabel.h"
 
-@interface ViewController : UIViewController <RKObjectLoaderDelegate,UISearchBarDelegate>{
+@interface ViewController : UIViewController <UIApplicationDelegate,RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{
     IBOutlet UILabel     *labelTitleTop;
     RKObjectManager      *RKObjManeger;
-    NSArray              *arrayTags;
-    UISearchBar          *searcBarProduct;
+    NSArray              *arrayProducts;
+    BOOL                 *isSearch;
+    int imageXPostion;
+    int imageYPostion; 
+    int countColumn; 
     __unsafe_unretained IBOutlet UIScrollView *scrollView;
-    __unsafe_unretained IBOutlet UIImageView  *imgViewLoading;
+    __unsafe_unretained IBOutlet UIView       *viewTopPage;
+    __unsafe_unretained IBOutlet UISearchBar *searchBarProduct;
+    
+    
+    
+    __unsafe_unretained IBOutlet OHAttributedLabel* label1;
+
+
+
 }
 
 @property (nonatomic, retain) IBOutlet UILabel      *labelTitleTop;
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
-@property (nonatomic, retain) NSArray               *arrayTags;
-@property (nonatomic, retain) IBOutlet UISearchBar  *searcBarProduct;
+@property (nonatomic, retain) NSArray               *arrayProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView   *imgViewLoading;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewTopPage;
+@property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *searchBarProduct;
 
-- (void)setupCategoryMapping;
+
+
+@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel* label1;
+
+
+- (void)setupProductMapping;
 - (void)reachability;
 - (void)loadAttribsToComponents;
 - (IBAction)reloadPage:(id)sender;
-- (void)gotoProductTableVC:(id)sender;
-- (void)setLoadAnimation;
+- (void)gotoProductDetailVC:(id)sender;
+- (void)loadImage:(NSString *)urlImage;
+- (void)displayImage:(UIImage *)image;
+- (IBAction)showSearch:(id)sender;
 
 @end

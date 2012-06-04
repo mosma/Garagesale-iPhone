@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Skg-Uz-Ovq">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller - Item 2-->
+        <scene sceneID="mYt-aV-zSp">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lws-LC-8Gg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="g4X-Lz-qUL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BGJ-if-Zyd">
+                        <rect key="frame" x="0.0" y="20" width="768" height="955"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Item 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sUF-IF-tdi">
+                                <rect key="frame" x="488" y="432" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="zh3-Sy-OqS"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-841" y="263"/>
+        </scene>
+        <!--View Controller - Item 1-->
+        <scene sceneID="G2J-mN-ROG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KYr-sL-OlL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="xfz-dj-eBQ" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fSW-U9-j8N">
+                        <rect key="frame" x="0.0" y="20" width="768" height="955"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="arp-4I-t1C">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="958"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </scrollView>
+                            <view alpha="0.60000002384185791" contentMode="scaleToFill" id="EsI-lo-5Xd" userLabel="viewTopPage">
+                                <rect key="frame" x="247" y="448" width="273" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="PQh-cU-2yV" userLabel="viewClip">
+                                <rect key="frame" x="250" y="459" width="267" height="37"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="Rqv-7j-afY" userLabel="viewSearch">
+                                        <rect key="frame" x="-6" y="-37" width="250" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="5DY-aB-sKd">
+                                                <rect key="frame" x="6" y="0.0" width="249" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="HMj-7K-9QR" userLabel="viewSignup">
+                                        <rect key="frame" x="-6" y="0.0" width="250" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bwZ-2Z-yVB">
+                                                <rect key="frame" x="7" y="0.0" width="100" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                                <state key="normal" backgroundImage="btSign.png">
+                                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iOU-5P-LGB">
+                                                <rect key="frame" x="115" y="0.0" width="100" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" image="btLogin.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="o1G-0h-k4O">
+                                        <rect key="frame" x="216" y="0.0" width="42" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btSearch@2x.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signSearchTransform:" destination="xfz-dj-eBQ" eventType="touchUpInside" id="JGk-Ki-epv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="hps-Yx-u9T"/>
+                    <connections>
+                        <outlet property="scrollView" destination="arp-4I-t1C" id="Cup-Wx-mVd"/>
+                        <outlet property="textFieldSearch" destination="5DY-aB-sKd" id="Ort-nU-HJ0"/>
+                        <outlet property="viewSearch" destination="Rqv-7j-afY" id="aNp-U1-Qww"/>
+                        <outlet property="viewSignup" destination="HMj-7K-9QR" id="LLn-9c-AqO"/>
+                        <outlet property="viewTopPage" destination="EsI-lo-5Xd" id="Ik2-sX-jvG"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-849" y="-2302"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="j5y-4k-8he">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ivH-gP-QHu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController definesPresentationContext="YES" id="Skg-Uz-Ovq" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="1VK-if-64R">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="xfz-dj-eBQ" kind="relationship" relationship="viewControllers" id="fRy-gg-xLe"/>
+                        <segue destination="g4X-Lz-qUL" kind="relationship" relationship="viewControllers" id="NFL-yh-iJE"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-1955" y="-1203"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="btLogin.png" width="100" height="37"/>
+        <image name="btSearch@2x.png" width="83" height="74"/>
+        <image name="btSign.png" width="100" height="37"/>
+    </resources>
+    <classes>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="action" name="signSearchTransform:"/>
+                <relationship kind="outlet" name="labelTitleTop" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="textFieldSearch" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="viewSearch" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewSignup" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

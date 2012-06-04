@@ -42,10 +42,13 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>DroidSans.ttf</string>
 		<string>Corben-Bold.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>MainStoryboard</string>
+	<string>IphoneStoryboard</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>IpadStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

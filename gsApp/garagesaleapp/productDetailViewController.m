@@ -34,7 +34,6 @@
 @synthesize currencyLabel;
 @synthesize valorEsperadoLabel;
 @synthesize scrollView;
-@synthesize imageView;
 @synthesize nameProfile;
 @synthesize cityProfile;
 @synthesize emailProfile;
@@ -42,13 +41,19 @@
 @synthesize showPicsButton;
 @synthesize garageDetailButton;
 @synthesize seeAllButton;
-@synthesize imgViewLoading;
 @synthesize offerLabel;
-@synthesize descriptionLabel;
 @synthesize msgBidSentLabel;
 @synthesize secondView;
 @synthesize garageDetailView;
 @synthesize keyboardControls;
+
+@synthesize productPhotos;
+@synthesize idPessoa;
+@synthesize idProduto;
+@synthesize imageView;
+@synthesize galleryScrollView;
+@synthesize activityIndicator;
+@synthesize viewBidSend;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -66,9 +71,6 @@
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
-    //Show Navigation Bar
-    [self.navigationController setNavigationBarHidden:YES];
-    
     //Setup Scroll animate to TextFields
     [self setupKeyboardControls];
     
@@ -77,20 +79,48 @@
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
     self.navigationItem.hidesBackButton = YES;
     [self setLoadAnimation];
-    [self.imgViewLoading startAnimating];
+   // [self.imgViewLoading startAnimating];
+
+    /*
+     
+     Esta verificaçao esta errada... bbbba garagem pode
+     ter so numeros ?
+     
+     */
+    self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
+                             characterIsMember:[self.product.idPessoa characterAtIndex:0]];
     
-    self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] characterIsMember:[self.product.idPessoa characterAtIndex:0]];
     
+    
+
+
+    //Custom Title Back Bar Button Item
+    UIImage *image = [UIImage imageNamed: @"nopicture.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
+
+    
+    self.navigationController.navigationBar.backItem.titleView =imageView;
+    
+    
+    //self.navigationController.navigationBar.i = NSLocalizedString(@"back", @"");
+
+    
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
+                                                                        green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+    //Show Navigation bar
+    [self.navigationController setNavigationBarHidden:NO];
+
+    [self loadAttribsToComponents:NO];
+    
+    [super viewDidLoad];
+
     //Check if Flag isIdPersonNumber is name or number
     if (isIdPersonNumber) {
         [self setupProfileMapping];
-    } else
+    } else{
         [self setupGarageMapping];
-    
-    [super viewDidLoad];
-    
-    //Custom Title Back Bar Button Item
-    self.navigationController.navigationBar.backItem.title = NSLocalizedString(@"back", @"");
+    }
+
 }
 
 - (void)configureView
@@ -99,6 +129,196 @@
     if (self.detailItem) {
         //self.detailDescriptionLabel.text = [self.detailItem description];
     }
+}
+
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+   
+    if (!isFromLoadObject) {
+        bidButton.layer.cornerRadius            = 5.0f;
+        garageDetailButton.layer.cornerRadius   = 5.0f;
+        seeAllButton.layer.cornerRadius         = 5.0f;
+        
+        shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
+        [shadowView setBackgroundColor:[UIColor blackColor]];
+        shadowView.alpha = 0;
+        viewBidSend.alpha = 0;
+        
+        viewBidSend.layer.cornerRadius = 5;
+        
+        commentTextView.layer.cornerRadius = 10;
+        
+        emailTextField.layer.shadowOpacity = 0.0;   
+        emailTextField.layer.shadowRadius = 0.0;
+        emailTextField.layer.shadowColor = [UIColor clearColor].CGColor;
+
+        garageDetailView.userInteractionEnabled = NO;
+
+        //Set Labels, titles, TextView...
+        nomeLabel.text            = [self.product nome];
+        valorEsperadoLabel.text   = [self.product valorEsperado];
+        currencyLabel.text        = [self.product currency];
+        offerLabel.text           = NSLocalizedString(@"offer", @"");
+        
+        self.navigationItem.title = NSLocalizedString(@"detailProduct", @"");
+
+        self.navigationItem.hidesBackButton = NO;
+
+        descricaoLabel.text = [NSString stringWithFormat:@"%@...", self.product.descricao];
+
+        galleryScrollView.frame                 = CGRectMake(0, 115, 320, 320);
+        galleryScrollView.clipsToBounds         = YES;
+        galleryScrollView.autoresizesSubviews   = YES;
+        
+    }else {
+        [seeAllButton setTitle: NSLocalizedString(@"seeAllProducts", @"") forState:UIControlStateNormal];
+        [bidButton setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+        
+        // Grab the reference to the router from the manager
+        RKObjectRouter *router = [RKObjectManager sharedManager].router;
+        
+        @try {
+            [router routeClass:[Bid class] toResourcePath:@"/bid" forMethod:RKRequestMethodPOST];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Object Exist...");
+        }
+        
+        
+        //    //Set Image Main Image Detail to show
+        //    if ([[[self.product fotos] caminho] length] != 0){
+        //        UIImage *imageSet = [UIImage imageWithData: [NSData dataWithContentsOfURL: 
+        //                                                     [NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", 
+        //                                                                           [[self.product fotos] caminho]]]]];
+        //        
+        //        imageView.image = imageSet;
+        //        //Set proporcional image, center.
+        //        if (imageSet.size.width < 320 ){
+        //            imageView.frame = CGRectMake(((320-imageSet.size.width)/2), 115, imageSet.size.width, 265);
+        //            imageView.contentMode = UIViewContentModeScaleAspectFit;
+        //        }
+        //        showPicsButton.hidden = NO;
+        //    }
+        //    else
+        //        imageView.image = [UIImage imageNamed:@"nopicture.png"];
+        
+        nameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
+        cityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
+        emailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
+        imgProfile.image    = [UIImage imageWithData: [NSData dataWithContentsOfURL:
+                                                       [self getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
+        
+        
+        //Calculate resize DescricaoLabel 
+        descricaoLabel.text = self.product.descricao;
+        [descricaoLabel sizeToFit];
+        secondView.frame = CGRectMake(0,0,320,760+descricaoLabel.frame.size.height);
+        garageDetailView.frame = CGRectMake(0, descricaoLabel.frame.origin.y+descricaoLabel.frame.size.height+10, 320, 70);
+        //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
+        [secondView addSubview:descricaoLabel];
+        // [secondView addSubview:tagsScrollView];
+        [secondView addSubview:garageDetailView];
+        self.scrollView.contentSize             = CGSizeMake(320,760+descricaoLabel.frame.size.height);
+        
+        
+        //configure addthis -- (this step is optional)
+        [AddThisSDK setNavigationBarColor:[UIColor colorWithRed:219.0/255.0 
+                                                          green:87.0/255.0 blue:87.0/255.0 alpha:1.0]];
+        [AddThisSDK setToolBarColor:[UIColor whiteColor]];
+        [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
+        
+        //Facebook connect settings
+        //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
+        [AddThisSDK setFacebookAPIKey:@"280819525292258"];
+        [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
+        
+        [AddThisSDK shouldAutoRotate:NO];
+        [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
+        
+        [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
+        //[AddThisSDK setAddThisApplicationId:@""];
+        
+        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
+                                                  withFrame:CGRectMake(225, 305, 36, 30)
+                                                   forImage:imageView.image
+                                                  withTitle:@"Product Send from Garagesaleapp.me"
+                                                description:descricaoLabel.text];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
+        
+        [activityIndicatorGarage stopAnimating];
+        garageDetailView.userInteractionEnabled = YES;
+        
+        UIImage *image;
+        CGRect rect;//             = imageView.frame;
+        
+        
+        if (self.product.fotos == NULL) {
+            image                   = [UIImage imageNamed:@"nopicture.png"];
+            imageView               = [[UIImageView alloc] initWithImage:image];            
+        } else {
+            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.in/%@",  [self.product.fotos caminho]]];
+            image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            imageView               = [[UIImageView alloc] initWithImage:image];
+            
+        }
+        
+        rect.size.width         = 320;
+        rect.size.height        = 280;
+        rect.origin.x             = 0;
+        imageView.frame         = rect;
+        
+        [galleryScrollView addSubview:imageView];
+        
+        NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadGalleryTop)
+                                            object:nil];
+        [queue addOperation:operation];
+        
+       // [self loadGalleryTop];
+    }
+
+    //    [self.imgViewLoading stopAnimating];
+    //    [self.imgViewLoading setHidden:YES];
+    
+    // [GlobalFunctions drawTagsButton:self.tags scrollView:self.scrollview viewController:self];
+    
+
+    
+}
+
+-(void)loadGalleryTop{
+    int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+    
+    UIImage *image;
+    CGRect rect;//             = imageView.frame;
+    rect.size.width         = 320;
+    rect.size.height        = 280;
+
+    if (countPhotos == 0) {
+        image                   = [UIImage imageNamed:@"nopicture.png"];
+        imageView               = [[UIImageView alloc] initWithImage:image];
+        imageView.frame         = rect;
+
+        [galleryScrollView addSubview:imageView];
+    }
+    
+    for (int i = 0; i < countPhotos; i++){
+        if (i > 1) break;
+        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.in/%@",[[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+        NSLog(@"url object at index %i is %@",i,url);
+        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        imageView               = [[UIImageView alloc] initWithImage:image];
+        rect.origin.x           = i*320;
+        imageView.frame         = rect;
+       // imageView.contentMode   = UIViewContentModeScaleAspectFit;
+        [galleryScrollView addSubview:imageView];
+    }
+
+    galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
+    galleryScrollView.delegate              = self;
+    [activityIndicator stopAnimating];
 }
 
 - (void)setupGarageMapping {
@@ -173,6 +393,43 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
 }
 
+
+- (void)setupProductPhotosMapping{
+    //Initializing the Object Manager
+   // RKObjManeger = [RKObjectManager sharedManager];
+    
+    //Configure Photo Object Mapping
+    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
+    [photoMapping mapAttributes:@"caminho",
+     @"caminhoThumb",
+     @"caminhoTiny",
+     @"principal",
+     @"idProduto",
+     @"id",
+     @"id_estado",
+     nil];
+    
+    //Configure Product Object Mapping
+    RKObjectMapping *productPhotoMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];    
+    [productPhotoMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
+    [productPhotoMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
+    [productPhotoMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
+    [productPhotoMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
+    [productPhotoMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
+    [productPhotoMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
+    [productPhotoMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
+    [productPhotoMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
+    [productPhotoMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];
+    //Relationship
+    [productPhotoMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+
+}
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
@@ -187,7 +444,11 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             self.arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             self.product.descricao = [(Product *)[objects objectAtIndex:0] descricao];
-            [self loadAttribsToComponents];
+            //[self loadAttribsToComponents];
+            [self setupProductPhotosMapping];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
+            self.productPhotos = (NSMutableArray *)objects;
+            [self loadAttribsToComponents:YES];
         }
     }
 }
@@ -236,110 +497,43 @@
     }
 }
 
-- (void)loadAttribsToComponents{
-    bidButton.layer.cornerRadius            = 5.0f;
-    garageDetailButton.layer.cornerRadius   = 5.0f;
-    seeAllButton.layer.cornerRadius         = 5.0f;
-    
-    //Show Navigation bar
-    [self.navigationController setNavigationBarHidden:NO];
-    
-    [seeAllButton setTitle: NSLocalizedString(@"seeAllProducts", @"") forState:UIControlStateNormal];
-    [bidButton setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
-    
-    // Grab the reference to the router from the manager
-    RKObjectRouter *router = [RKObjectManager sharedManager].router;
-    
-    @try {
-        [router routeClass:[Bid class] toResourcePath:@"/bid" forMethod:RKRequestMethodPOST];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Object Exist...");
-    }
-    
-    //Set Labels, titles, TextView...
-    nomeLabel.text            = [self.product nome];
-    valorEsperadoLabel.text   = [self.product valorEsperado];
-    currencyLabel.text        = [self.product currency];
-    offerLabel.text           = NSLocalizedString(@"offer", @"");
-    descriptionLabel.text     = NSLocalizedString(@"description", @"");
-    
-    self.navigationItem.title = NSLocalizedString(@"detailProduct", @"");
-    
-    //Set Image Main Image Detail to show
-    if ([[[self.product fotos] caminho] length] != 0){
-        UIImage *imageSet = [UIImage imageWithData: [NSData dataWithContentsOfURL: 
-                                                     [NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", 
-                                                                           [[self.product fotos] caminho]]]]];
-        
-        imageView.image = imageSet;
-        //Set proporcional image, center.
-        //        if (imageSet.size.width < 320 ){
-        imageView.frame = CGRectMake(((320-imageSet.size.width)/2), 0, imageSet.size.width, 265);
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        //        }
-        showPicsButton.hidden = NO;
-    }
-    else
-        imageView.image = [UIImage imageNamed:@"nopicture.png"];
-    
-    nameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
-    cityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
-    emailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
-    imgProfile.image    = [UIImage imageWithData: [NSData dataWithContentsOfURL:
-                                                   [self getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
-    
-    self.navigationItem.hidesBackButton = NO;
-    
-    //configure addthis -- (this step is optional)
-	[AddThisSDK setNavigationBarColor:[UIColor blueColor]];
-	[AddThisSDK setToolBarColor:[UIColor whiteColor]];
-	[AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
-	
-	//Facebook connect settings
-	//CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-	[AddThisSDK setFacebookAPIKey:@"280819525292258"];
-	[AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-    
-    [AddThisSDK shouldAutoRotate:NO];
-    [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-    
-    [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
-    //[AddThisSDK setAddThisApplicationId:@""];
-    
-    addThisButton = [AddThisSDK showAddThisButtonInView:self.view
-                                              withFrame:CGRectMake(225, 305, 80, 25)
-                                               forImage:imageView.image
-                                              withTitle:@"Product Send from Garagesaleapp.me"
-                                            description:descricaoLabel.text];
-    
-    addThisButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-	[AddThisSDK canUserEditServiceMenu:YES];
-	[AddThisSDK canUserReOrderServiceMenu:YES];
-	[AddThisSDK setDelegate:self];
-    [secondView addSubview:addThisButton];
-    
-    //Calculate resize DescricaoLabel 
-    descricaoLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 615, 307, 0)];
-    [descricaoLabel setFont:[UIFont systemFontOfSize:14]];
-    descricaoLabel.text = self.product.descricao;
-    descricaoLabel.lineBreakMode = UILineBreakModeWordWrap; 
-    descricaoLabel.numberOfLines = 0; 
-    [descricaoLabel sizeToFit];
-    secondView.frame = CGRectMake(0,0,320,960+descricaoLabel.frame.size.height);
-    garageDetailView.frame = CGRectMake(0, descricaoLabel.frame.origin.y+descricaoLabel.frame.size.height, 320, 180);
-    //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
-    [secondView addSubview:descricaoLabel];
-    // [secondView addSubview:tagsScrollView];
-    [secondView addSubview:garageDetailView];
-    self.scrollView.contentSize             = CGSizeMake(320,960+descricaoLabel.frame.size.height);
-    
-    [self.imgViewLoading stopAnimating];
-    [self.imgViewLoading setHidden:YES];
-    
-    // [GlobalFunctions drawTagsButton:self.tags scrollView:self.scrollview viewController:self];
-    
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return imageView;
 }
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    imageView.frame = [self centeredFrameForScrollView:scrollView andUIView:imageView];
+}
+
+- (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView {
+    CGSize boundsSize    = scroll.bounds.size;
+    CGRect frameToCenter = rView.frame;
+    // center horizontally
+    if (frameToCenter.size.width < boundsSize.width) {
+        frameToCenter.origin.x = (boundsSize.width - frameToCenter.size.width) / 2;
+    }
+    else {
+        frameToCenter.origin.x = 0;
+    }
+    // center vertically
+    if (frameToCenter.size.height < boundsSize.height) {
+        frameToCenter.origin.y = (boundsSize.height - frameToCenter.size.height) / 2;
+    }
+    else {
+        frameToCenter.origin.y = 0;
+    }
+    return frameToCenter;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+}
+
+-(IBAction)pageControlCliked{
+    //CGPoint offset = CGPointMake(PagContGallery.currentPage * self.view.frame.size.width, 0);
+    //[galleryScrollView setContentOffset:offset animated:YES];
+}
+
 
 -(void) hideMsgBidSent {
     [UIView beginAnimations:@"msgFade" context:nil];
@@ -378,8 +572,8 @@
                   [UIImage imageNamed:@"load-frame3.png"],
                   [UIImage imageNamed:@"load-frame4.png"],nil];
     
-    self.imgViewLoading.animationImages = imageArray;
-    self.imgViewLoading.animationDuration = 0.9;
+//    self.imgViewLoading.animationImages = imageArray;
+//    self.imgViewLoading.animationDuration = 0.9;
 }
 
 - (IBAction)gotoGalleryScrollVC{
@@ -430,7 +624,37 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (IBAction)actionEmailComposer {
+- (IBAction)actionEmailComposer {    
+    MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+    mail.mailComposeDelegate = self;
+    [mail setToRecipients:[NSArray arrayWithObject:[[self.arrayProfile objectAtIndex:0] email]]];
+    [mail setSubject:@"Contato Garagem."];    
+    [self presentModalViewController:mail animated:YES];
+}
+
+- (IBAction)animationBidView{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+    
+    if (viewBidSend.hidden) {
+        [self.scrollView insertSubview:shadowView belowSubview:viewBidSend];
+        viewBidSend.hidden = NO;
+        viewBidSend.alpha = 1.0;
+        shadowView.alpha = 0.7;
+        [UIView commitAnimations];
+    } else {
+        viewBidSend.alpha = 0;
+        shadowView.alpha = 0;
+        viewBidSend.hidden = YES;
+        [shadowView removeFromSuperview];
+    }
+    
+    [UIView commitAnimations];
+}
+
+-(IBAction)bidPost:(id)sender{
     //Validate fields
     if (([self.commentTextView.text length] == 0)) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterValueProduct", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -458,7 +682,7 @@
     bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]]; 
     
     // POST bid  
-    [[RKObjectManager sharedManager] postObject:bid delegate:self];
+//    [[RKObjectManager sharedManager] postObject:bid delegate:self];
      
     //Animate bidButton
     [UIView beginAnimations:@"buttonFades" context:nil];
@@ -468,15 +692,25 @@
     [UIView commitAnimations];
 }
 
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    [self dismissModalViewControllerAnimated:YES];
+    
+    if (result == MFMailComposeResultSent) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Sent!" message:@"Your message has been sent! \n Thank you for your feedback" delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil];
+        [alert show];
+    } if (result == MFMailComposeResultFailed) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Failed" message:@"Your email has failed to send \n Please try again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 - (IBAction)isNumberKey:(UITextField *)textField{
     [GlobalFunctions onlyNumberKey:textField];
 }
 
-/* 
- *
- Setup the keyboard controls BSKeyboardControls.h
- *
- */
+/* Setup the keyboard controls BSKeyboardControls.h */
 - (void)setupKeyboardControls
 {
     // Initialize the keyboard controls
@@ -525,11 +759,11 @@
 /* Scroll the view to the active text field */
 - (void)scrollViewToTextField:(id)textField
 {
-    UIScrollView* v = (UIScrollView*) self.view ;
+    UIScrollView* v = (UIScrollView*) self.scrollView ;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     rc.origin.x = 0 ;
-    rc.origin.y = 120 ;
+    rc.origin.y = -120 ;
     
     rc.size.height = 600;
     [self.scrollView scrollRectToVisible:rc animated:YES];
@@ -625,19 +859,22 @@
     garageDetailButton = nil;
     seeAllButton = nil;
     [self setSeeAllButton:nil];
-    imgViewLoading = nil;
-    [self setImgViewLoading:nil];
+//    imgViewLoading = nil;
+//    [self setImgViewLoading:nil];
     offerLabel = nil;
     [self setOfferLabel:nil];
-    descriptionLabel = nil;
-    [self setDescriptionLabel:nil];
     msgBidSentLabel = nil;
     [self setMsgBidSentLabel:nil];
     secondView = nil;
     [self setSecondView:nil];
     garageDetailView = nil;
     addThisButton = nil;
+    viewBidSend = nil;
     [super viewDidUnload];
+    
+    activityIndicator = nil;
+    [self setActivityIndicator:nil];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
