@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "NSAttributedString+Attributes.h"
 
 @implementation ViewController
 
@@ -17,7 +16,6 @@
 @synthesize scrollView;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
-@synthesize label1;
 
 - (void)didReceiveMemoryWarning
 {
@@ -26,39 +24,13 @@
 }
 #define TXT_BEGIN "Discover "
 #define TXT_BOLD "FoodReporter"
-#define TXT_MIDDLE " to "
-#define TXT_LINK "share your food"
-#define TXT_END " with your friends!"
+#define TXT_MIDDLE ""
+#define TXT_LINK ""
+#define TXT_END ""
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
-    
-    
-//    
-//    NSString* txt = @ TXT_BEGIN TXT_BOLD TXT_MIDDLE TXT_LINK TXT_END; // concat the 5 (#define) constant parts in a single NSString
-//	/**(1)** Build the NSAttributedString *******/
-//	NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:txt];
-//
-//	// for those calls we don't specify a range so it affects the whole string
-//	[attrStr setFont:[UIFont fontWithName:@"Helvetica" size:18]];
-//	[attrStr setTextColor:[UIColor grayColor]];
-//    
-//	// now we only change the color of "Hello"
-//	[attrStr setTextColor:[UIColor colorWithRed:0.f green:0.f blue:0.5 alpha:1.f] range:[txt rangeOfString:@TXT_BOLD]];
-//	[attrStr setTextBold:YES range:[txt rangeOfString:@TXT_BOLD]];
-//	
-//	/**(2)** Affect the NSAttributedString to the OHAttributedLabel *******/
-//	label1.attributedText = attrStr;
-//	// and add a link to the "share your food!" text
-//	[label1 addCustomLink:[NSURL URLWithString:@"http://www.foodreporter.net"] inRange:[txt rangeOfString:@TXT_LINK]];
-//    
-//	// Use the "Justified" alignment
-//	label1.textAlignment = UITextAlignmentJustify;
-//	// "Hello World!" will be displayed in the label, justified, "Hello" in red and " World!" in gray.
-    
-    
-    
-    
     [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];

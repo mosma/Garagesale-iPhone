@@ -11,6 +11,7 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "productDetailViewController.h"
 #import "productCustomViewCell.h"
+#import "OHAttributedLabel.h"
 #import "Product.h"
 #import "Photo.h"
 

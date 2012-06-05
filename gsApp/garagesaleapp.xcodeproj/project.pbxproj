@@ -503,6 +503,16 @@
 			name = OHAttributedLabel;
 			sourceTree = "<group>";
 		};
+		CC2D1677157D6490000B8BD3 /* AddOn */ = {
+			isa = PBXGroup;
+			children = (
+				CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */,
+				CC16B4121545BD6A00A4487B /* AddThis */,
+				CCD8373B1520BCC100DCF0FD /* BSKeyboardControls */,
+			);
+			name = AddOn;
+			sourceTree = "<group>";
+		};
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +563,7 @@
 				CC2AF17914C2CFF3001D9FA0 /* Default.png */,
 				CCB0676714B3956E0022BA5D /* RestKit.xcodeproj */,
 				CCB0643B14B2A5D20022BA5D /* garagesaleapp */,
+				CCB0643C14B2A5D20022BA5D /* Supporting Files */,
 				CCB0643414B2A5D20022BA5D /* Frameworks */,
 				CCB0645914B2A5D30022BA5D /* garagesaleappTests */,
 				CCB0643214B2A5D20022BA5D /* Products */,
@@ -590,10 +601,7 @@
 		CCB0643B14B2A5D20022BA5D /* garagesaleapp */ = {
 			isa = PBXGroup;
 			children = (
-				CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */,
-				CC16B4121545BD6A00A4487B /* AddThis */,
-				CCD8373B1520BCC100DCF0FD /* BSKeyboardControls */,
-				CCB0643C14B2A5D20022BA5D /* Supporting Files */,
+				CC2D1677157D6490000B8BD3 /* AddOn */,
 				CCB067A514B548C60022BA5D /* EntityClass */,
 				CCEA465F14BB601900952E1A /* resources */,
 				CC2EC55D14B74ACD00AEFE04 /* images */,
@@ -619,6 +627,7 @@
 				CCB0644314B2A5D20022BA5D /* garagesaleapp-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = garagesaleapp;
 			sourceTree = "<group>";
 		};
 		CCB0645914B2A5D30022BA5D /* garagesaleappTests */ = {

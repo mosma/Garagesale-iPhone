@@ -14,9 +14,8 @@
 #import "aboutViewController.h"
 #import "GlobalFunctions.h"
 #import "Product.h"
-#import "OHAttributedLabel.h"
 
-@interface ViewController : UIViewController <UIApplicationDelegate,RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{
+@interface ViewController : UIViewController <RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{
     IBOutlet UILabel     *labelTitleTop;
     RKObjectManager      *RKObjManeger;
     NSArray              *arrayProducts;
@@ -27,13 +26,6 @@
     __unsafe_unretained IBOutlet UIScrollView *scrollView;
     __unsafe_unretained IBOutlet UIView       *viewTopPage;
     __unsafe_unretained IBOutlet UISearchBar *searchBarProduct;
-    
-    
-    
-    __unsafe_unretained IBOutlet OHAttributedLabel* label1;
-
-
-
 }
 
 @property (nonatomic, retain) IBOutlet UILabel      *labelTitleTop;
@@ -42,11 +34,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewTopPage;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *searchBarProduct;
-
-
-
-@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel* label1;
-
 
 - (void)setupProductMapping;
 - (void)reachability;

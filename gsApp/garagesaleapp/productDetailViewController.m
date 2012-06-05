@@ -7,6 +7,7 @@
 //
 
 #import "productDetailViewController.h"
+#import "NSAttributedString+Attributes.h"
 #import <CommonCrypto/CommonDigest.h> //CC_MD5
 
 @interface productDetailViewController ()
@@ -155,11 +156,32 @@
 
         //Set Labels, titles, TextView...
         nomeLabel.text            = [self.product nome];
+        
+        
         valorEsperadoLabel.text   = [self.product valorEsperado];
+        
+        
+        
+        //set Navigation Title with OHAttributeLabel
+        NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", self.product.currency, self.product.valorEsperado];
+        NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
+        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+        [attrStr setTextColor:[UIColor grayColor]];
+        [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
+                        range:[titleNavItem rangeOfString:self.product.valorEsperado]];
+        [attrStr setFontName:@"Droid Sans" size:28 range:[titleNavItem rangeOfString:self.product.valorEsperado]];
+        [valorEsperadoLabel setBackgroundColor:[UIColor clearColor]];
+        valorEsperadoLabel.attributedText = attrStr;
+
+        
+        
+        
+        
+        
+        
         currencyLabel.text        = [self.product currency];
         offerLabel.text           = NSLocalizedString(@"offer", @"");
-        
-        self.navigationItem.title = NSLocalizedString(@"detailProduct", @"");
 
         self.navigationItem.hidesBackButton = NO;
 
@@ -208,40 +230,57 @@
                                                        [self getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         
+        //set Navigation Title with OHAttributeLabel
+            NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", nameProfile.text];
+            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
+            // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
+            [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
+            [attrStr setTextColor:[UIColor whiteColor]];
+            [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
+                            range:[titleNavItem rangeOfString:@"garage"]];
+            CGRect frame = CGRectMake(100, 0, 320, 27);
+            OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
+            [label setBackgroundColor:[UIColor clearColor]];
+            [label setShadowColor:[UIColor redColor]];
+            [label setShadowOffset:CGSizeMake(1, 1)];
+            label.attributedText = attrStr;
+            label.textAlignment = UITextAlignmentCenter;
+            self.navigationItem.titleView = label;
+        
         //Calculate resize DescricaoLabel 
-        descricaoLabel.text = self.product.descricao;
-        [descricaoLabel sizeToFit];
-        secondView.frame = CGRectMake(0,0,320,760+descricaoLabel.frame.size.height);
-        garageDetailView.frame = CGRectMake(0, descricaoLabel.frame.origin.y+descricaoLabel.frame.size.height+10, 320, 70);
-        //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
-        [secondView addSubview:descricaoLabel];
-        // [secondView addSubview:tagsScrollView];
-        [secondView addSubview:garageDetailView];
-        self.scrollView.contentSize             = CGSizeMake(320,760+descricaoLabel.frame.size.height);
+            descricaoLabel.text = self.product.descricao;
+            [descricaoLabel sizeToFit];
+            secondView.frame = CGRectMake(0,0,320,550+descricaoLabel.frame.size.height);
+            garageDetailView.frame = CGRectMake(0, descricaoLabel.frame.origin.y+descricaoLabel.frame.size.height+10, 320, 70);
+            //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
+            [secondView addSubview:descricaoLabel];
+            // [secondView addSubview:tagsScrollView];
+            [secondView addSubview:garageDetailView];
+            self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
         
         
         //configure addthis -- (this step is optional)
-        [AddThisSDK setNavigationBarColor:[UIColor colorWithRed:219.0/255.0 
-                                                          green:87.0/255.0 blue:87.0/255.0 alpha:1.0]];
-        [AddThisSDK setToolBarColor:[UIColor whiteColor]];
-        [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
-        
-        //Facebook connect settings
-        //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-        [AddThisSDK setFacebookAPIKey:@"280819525292258"];
-        [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-        
-        [AddThisSDK shouldAutoRotate:NO];
-        [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-        
-        [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
-        //[AddThisSDK setAddThisApplicationId:@""];
-        
-        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
-                                                  withFrame:CGRectMake(225, 305, 36, 30)
-                                                   forImage:imageView.image
-                                                  withTitle:@"Product Send from Garagesaleapp.me"
-                                                description:descricaoLabel.text];
+            [AddThisSDK setNavigationBarColor:[UIColor colorWithRed:219.0/255.0 
+                                                              green:87.0/255.0 blue:87.0/255.0 alpha:1.0]];
+            [AddThisSDK setToolBarColor:[UIColor whiteColor]];
+            [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
+            
+            //Facebook connect settings
+            //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
+            [AddThisSDK setFacebookAPIKey:@"280819525292258"];
+            [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
+            
+            [AddThisSDK shouldAutoRotate:NO];
+            [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
+            
+            [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
+            //[AddThisSDK setAddThisApplicationId:@""];
+            
+            addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
+                                                      withFrame:CGRectMake(225, 305, 36, 30)
+                                                       forImage:imageView.image
+                                                      withTitle:@"Product Send from Garagesaleapp.me"
+                                                    description:descricaoLabel.text];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
         

@@ -42,6 +42,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>DroidSans-Bold.ttf</string>
 		<string>DroidSans.ttf</string>
 		<string>Corben-Bold.ttf</string>
 	</array>

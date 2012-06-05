@@ -24,6 +24,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "Category.h"
 #import "Bid.h"
+#import "OHAttributedLabel.h"
 #import "GlobalFunctions.h"
 
 @interface productDetailViewController : UIViewController <UITextFieldDelegate, 
@@ -40,7 +41,7 @@
     IBOutlet UILabel                            *nomeLabel;
     IBOutlet UILabel                            *currencyLabel;
     IBOutlet UILabel                            *descricaoLabel;
-    IBOutlet UILabel                            *valorEsperadoLabel;
+    IBOutlet OHAttributedLabel                  *valorEsperadoLabel;
     IBOutlet UIScrollView                       *scrollView;
     UIView                                      *shadowView;
     //IBOutlet UIImageView                        *imageView;
@@ -82,7 +83,7 @@
 @property (retain, nonatomic) IBOutlet UILabel                  *nomeLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *currencyLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *descricaoLabel;
-@property (retain, nonatomic) IBOutlet UILabel                  *valorEsperadoLabel;
+@property (retain, nonatomic) IBOutlet OHAttributedLabel        *valorEsperadoLabel;
 @property (retain, nonatomic) IBOutlet UIScrollView             *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *bidButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *emailTextField;

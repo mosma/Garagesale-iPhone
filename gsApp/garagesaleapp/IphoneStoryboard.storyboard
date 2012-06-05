@@ -18,15 +18,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8RG-Ok-f0d">
                                 <rect key="frame" x="0.0" y="-2" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nIq-ek-hhz" customClass="OHAttributedLabel">
-                                        <rect key="frame" x="20" y="266" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
                             </scrollView>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" id="kfO-ax-how" userLabel="viewTopPage">
                                 <rect key="frame" x="20" y="131" width="273" height="60"/>
@@ -100,7 +91,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="label1" destination="nIq-ek-hhz" id="AlD-Wq-Eoy"/>
                         <outlet property="scrollView" destination="8RG-Ok-f0d" id="6jj-RL-v3e"/>
                         <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
                         <outlet property="viewTopPage" destination="kfO-ax-how" id="ALA-eP-e4D"/>
@@ -263,11 +253,11 @@
             </objects>
             <point key="canvasLocation" x="-1103" y="-244"/>
         </scene>
-        <!--Product Detail View Controller - Detalhe Produto-->
+        <!--Product Detail View Controller-->
         <scene sceneID="Wdk-y8-t01">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FSt-Eu-Xmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="DetailProduct" title="Detalhe Produto" id="Nbe-H5-7nH" customClass="productDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailProduct" id="Nbe-H5-7nH" customClass="productDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Gj-Mv-Hjm">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -287,8 +277,8 @@
                                                 <color key="textColor" red="0.50187340561224492" green="0.50187340561224492" blue="0.50187340561224492" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9">
-                                                <rect key="frame" x="10" y="73" width="233" height="26"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="valorEsperadoLabel" customClass="OHAttributedLabel">
+                                                <rect key="frame" x="10" y="72" width="233" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                 <color key="textColor" red="0.35294118523597717" green="0.63921570777893066" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
@@ -307,7 +297,7 @@
                                                 <rect key="frame" x="10" y="0.0" width="300" height="55"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
-                                                <color key="textColor" red="0.30906708386479592" green="0.31261957908163263" blue="0.31261957908163263" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="0.25346416975881259" green="0.25637755102040816" blue="0.25637755102040816" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                                             </label>
@@ -807,6 +797,110 @@
         <image name="more_pics.png" width="50" height="50"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
     </resources>
+    <classes>
+        <class className="OHAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="action" name="showSearch:"/>
+                <relationship kind="outlet" name="labelTitleTop" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="aboutViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/aboutViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mosmaWebView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="galleryScrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="garageDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="gotoUserProductTableVC"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="productCustomViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="valorEsperado" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="productDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="actionEmailComposer"/>
+                <relationship kind="action" name="animationBidView"/>
+                <relationship kind="action" name="bidPost:"/>
+                <relationship kind="action" name="gotoGalleryScrollVC"/>
+                <relationship kind="action" name="gotoGarageDetailVC"/>
+                <relationship kind="action" name="gotoUserProductTableVC"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="activityIndicatorGarage" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="bidButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cityProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="currencyLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descricaoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="garageDetailButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="imgProfile" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nomeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="offerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="offerTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="showPicsButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="valorEsperadoLabel" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="productTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadProducts:"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="searcBarProduct" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
