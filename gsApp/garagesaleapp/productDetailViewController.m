@@ -82,35 +82,6 @@
     [self setLoadAnimation];
    // [self.imgViewLoading startAnimating];
 
-    /*
-     
-     Esta verificaçao esta errada... bbbba garagem pode
-     ter so numeros ?
-     
-     */
-    self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
-                             characterIsMember:[self.product.idPessoa characterAtIndex:0]];
-    
-    
-    
-
-
-    //Custom Title Back Bar Button Item
-    UIImage *image = [UIImage imageNamed: @"nopicture.png"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
-
-    
-    self.navigationController.navigationBar.backItem.titleView =imageView;
-    
-    
-    //self.navigationController.navigationBar.i = NSLocalizedString(@"back", @"");
-
-    
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
-                                                                        green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
-    //Show Navigation bar
-    [self.navigationController setNavigationBarHidden:NO];
-
     [self loadAttribsToComponents:NO];
     
     [super viewDidLoad];
@@ -135,6 +106,31 @@
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
    
     if (!isFromLoadObject) {
+        /*
+         
+         Esta verificaçao esta errada... bbbba garagem pode
+         ter so numeros ?
+         
+         */
+        self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
+                                 characterIsMember:[self.product.idPessoa characterAtIndex:0]];
+        
+        //Custom Title Back Bar Button Item
+        UIImage *image = [UIImage imageNamed: @"nopicture.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
+        
+        
+        self.navigationController.navigationBar.backItem.titleView =imageView;
+        
+        
+        //self.navigationController.navigationBar.i = NSLocalizedString(@"back", @"");
+        
+        
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
+                                                                            green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+        //Show Navigation bar
+        [self.navigationController setNavigationBarHidden:NO];
+
         bidButton.layer.cornerRadius            = 5.0f;
         garageDetailButton.layer.cornerRadius   = 5.0f;
         seeAllButton.layer.cornerRadius         = 5.0f;

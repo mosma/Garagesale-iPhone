@@ -16,6 +16,7 @@
 @synthesize scrollView;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
+@synthesize activityMain;
 
 - (void)didReceiveMemoryWarning
 {
@@ -82,7 +83,8 @@
                                                     selector:@selector(loadProducts)
                                                     object:nil];
         [queue addOperation:operation];
-        
+        [activityMain stopAnimating];
+
      // [self loadProducts];
         
     }
@@ -152,6 +154,9 @@
     searchBarProduct.delegate           = self;
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
     
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
+                                                                        green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+
     [self.scrollView addSubview:logoButton];
 }
 
@@ -259,10 +264,19 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
-    for (UIButton *subview in [scrollView subviews]) 
-        [subview removeFromSuperview];
-    [self loadAttribsToComponents];
-    [self setupProductMapping];
+//    for (UIButton *subview in [scrollView subviews]) 
+//        [subview removeFromSuperview];
+//    [self loadAttribsToComponents];
+//    [self setupProductMapping];
+    
+    signUpViewController *prdDetailVC = [self.storyboard 
+                                         instantiateViewControllerWithIdentifier:@"signUp"];
+    
+    
+    
+    [prdDetailVC setHidesBottomBarWhenPushed:YES];
+    // prdDetailVC.product = (Product *)[self.arrayProducts objectAtIndex:sender.tag];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 
@@ -408,6 +422,8 @@
     [self setLabelTitleTop:nil];
     scrollView = nil;
     [self setScrollView:nil];
+    activityMain = nil;
+    [self setActivityMain:nil];
     [super viewDidUnload];
 }
 

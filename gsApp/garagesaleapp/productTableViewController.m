@@ -18,7 +18,7 @@
 @synthesize mutArrayDataThumbs;
 @synthesize activityIndicator;
 @synthesize RKObjManeger;
-@synthesize searcBarProduct;
+@synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
 @synthesize strTextSearch;
 
@@ -52,6 +52,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self loadAttribsToComponents:NO];
     [self.navigationController setNavigationBarHidden:NO];
     [self setupProductMapping];
 }
@@ -111,7 +112,7 @@
                               otherButtonTitles:nil];
         [alert show];
     }
-    [self loadAttribsToComponents];
+    [self loadAttribsToComponents:YES];
     [activityIndicator stopAnimating];
 }
 
@@ -144,38 +145,62 @@
     }
 }
 
-- (void)loadAttribsToComponents{
-    //Load cache thumbs in thumbsDataArray to TableView
-    mutArrayDataThumbs = [[NSMutableArray alloc] init];
-    for(int i = 0; i < [self.mutArrayProducts count]; i++)
-    {
-        if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
-            NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-            UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-            [mutArrayDataThumbs addObject:thumbImage];
-        }else 
-            [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+    if (!isFromLoadObject) {
+        //set searchBar settings
+        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,0,320,40)];
+        searchBarProduct.delegate = self;
+        searchBarProduct.placeholder = NSLocalizedString(@"searchProduct", @"");
+        searchBarProduct.tintColor = [UIColor colorWithRed:218.0/255.0 green:78.0/255.0 blue:78.0/255.0 alpha:1.0];
+        
+        self.navigationItem.title = NSLocalizedString(@"products", @"");
+        [self.view addSubview:searchBarProduct];
+
+    }else {
+        //Load cache thumbs in thumbsDataArray to TableView
+        mutArrayDataThumbs = [[NSMutableArray alloc] init];
+        for(int i = 0; i < [self.mutArrayProducts count]; i++)
+        {
+            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
+                NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+                [mutArrayDataThumbs addObject:thumbImage];
+            }else 
+                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+        }
+        
+        
+        if ([self.strTextSearch length] != 0)
+            searchBarProduct.text = self.strTextSearch;
+        
+        self.strTextSearch = @"";
     }
-    
-    //set searchBar settings
-    searcBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0,0,320,40)];
-    searcBarProduct.delegate = self;
-    searcBarProduct.placeholder = NSLocalizedString(@"searchProduct", @"");
-    
-    if ([self.strTextSearch length] != 0)
-        searcBarProduct.text = self.strTextSearch;
-    
-    self.strTextSearch = @"";
-    self.navigationItem.title = NSLocalizedString(@"products", @"");
-    [self.view addSubview:searcBarProduct];
 }
 
 - (IBAction)reloadProducts:(id)sender{
-	[activityIndicator startAnimating];
-    self.strLocalResourcePath = @"/product";
-    [self.mutArrayProducts removeAllObjects];
-    [self.tableView reloadData];
-    [self setupProductMapping];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
+    
+    if (!isSearch) {
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(320, 0);
+        [searchBarProduct becomeFirstResponder];
+    }
+    else {
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(-320, 0);
+        [searchBarProduct resignFirstResponder];
+    }
+    isSearch = !isSearch;
+    
+    //  viewSignup.transform = CGAffineTransformMakeRotation(0);
+    [UIView commitAnimations];
+
+//	[activityIndicator startAnimating];
+//    self.strLocalResourcePath = @"/product";
+//    [self.mutArrayProducts removeAllObjects];
+//    [self.tableView reloadData];
+//    [self setupProductMapping];
 }
 
 // Table view data source
@@ -209,7 +234,7 @@
     [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
     [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
                                                                             [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
-    cell.imageView.frame = CGRectMake(5, 5, 80, 80);
+
     cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
     return cell;
 }
@@ -234,7 +259,7 @@
     // focus is given to the UISearchBar
     // call our activate method so that we can do some 
     // additional things when the UISearchBar shows.
-    [self.searcBarProduct setShowsCancelButton:YES animated:YES];
+    [self.searchBarProduct setShowsCancelButton:YES animated:YES];
     [self searchBar:searchBar activate:YES];
 }
 
@@ -242,14 +267,14 @@
     // searchBarTextDidEndEditing is fired whenever the 
     // UISearchBar loses focus
     // We don't need to do anything here.
-    [self.searcBarProduct setShowsCancelButton:NO animated:YES];
+    [self.searchBarProduct setShowsCancelButton:NO animated:YES];
     
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // Clear the search text
     // Deactivate the UISearchBar
-    [self.searcBarProduct resignFirstResponder];
+    [self.searchBarProduct resignFirstResponder];
     // searchBar.text=@"";
     //[self searchBar:searchBar activate:YES];
 }
@@ -279,7 +304,7 @@
     //    self.tableView.scrollEnabled = !active;
     if (!active) {
         //        [disableViewOverlay removeFromSuperview];
-        [searcBarProduct resignFirstResponder];
+        [searchBarProduct resignFirstResponder];
     } else {
         //        self.disableViewOverlay.alpha = 0;
         //        [self.view addSubview:self.disableViewOverlay];

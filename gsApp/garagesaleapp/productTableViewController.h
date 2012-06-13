@@ -24,7 +24,8 @@
     NSMutableArray          *mutArrayDataThumbs;
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
-    IBOutlet UISearchBar    *searcBarProduct;
+    IBOutlet UISearchBar    *searchBarProduct;
+    BOOL                    *isSearch;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *UIAIV_Main;
 }
 
@@ -33,12 +34,12 @@
 @property (retain, nonatomic) NSMutableArray        *mutArrayDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
-@property (nonatomic, retain) IBOutlet UISearchBar  *searcBarProduct;
+@property (nonatomic, retain) IBOutlet UISearchBar  *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (void)setupProductMapping;
 - (void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
-- (void)loadAttribsToComponents;
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)reloadProducts:(id)sender;
 
 @end

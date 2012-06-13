@@ -40,6 +40,12 @@
 		CC16B46F1545BD6A00A4487B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CC16B4531545BD6A00A4487B /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CC1ED9C414B7AD2F006F50C8 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1ED9C314B7AD2F006F50C8 /* Product.m */; };
 		CC1ED9C714B7AFC1006F50C8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1ED9C614B7AFC1006F50C8 /* Photo.m */; };
+		CC200A6E1588A6D7006FE021 /* btProdBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A6C1588A6D7006FE021 /* btProdBlock.png */; };
+		CC200A6F1588A6D7006FE021 /* btProdBlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A6D1588A6D7006FE021 /* btProdBlock@2x.png */; };
+		CC200A721588BB92006FE021 /* btProdList.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A701588BB92006FE021 /* btProdList.png */; };
+		CC200A731588BB92006FE021 /* btProdList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A711588BB92006FE021 /* btProdList@2x.png */; };
+		CC200A821588C398006FE021 /* btProdListSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A801588C398006FE021 /* btProdListSearch.png */; };
+		CC200A831588C398006FE021 /* btProdListSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A811588C398006FE021 /* btProdListSearch@2x.png */; };
 		CC2AF17814C2CCF3001D9FA0 /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2AF17714C2CCF3001D9FA0 /* 57x57.png */; };
 		CC2D1654157D489A000B8BD3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D164D157D489A000B8BD3 /* AppDelegate.m */; };
 		CC2D1655157D489A000B8BD3 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D164E157D489A000B8BD3 /* GlobalFunctions.m */; };
@@ -83,6 +89,7 @@
 		CC7280B714CA4689006D7BF0 /* icon_search.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280B114CA4689006D7BF0 /* icon_search.png */; };
 		CC7280B814CA4689006D7BF0 /* icon_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280B214CA4689006D7BF0 /* icon_search@2x.png */; };
 		CC7D7E5D1545C9C200E47F71 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7D7E5C1545C9C200E47F71 /* Twitter.framework */; };
+		CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8ED71B157E9F6700FEB780 /* signUpViewController.m */; };
 		CC8EEDBB14BD41DF00B9DC22 /* UIButtonArrow280x160.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */; };
 		CCB0643614B2A5D20022BA5D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643514B2A5D20022BA5D /* UIKit.framework */; };
 		CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643714B2A5D20022BA5D /* Foundation.framework */; };
@@ -232,6 +239,12 @@
 		CC1ED9C314B7AD2F006F50C8 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		CC1ED9C514B7AFC1006F50C8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		CC1ED9C614B7AFC1006F50C8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		CC200A6C1588A6D7006FE021 /* btProdBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btProdBlock.png; sourceTree = "<group>"; };
+		CC200A6D1588A6D7006FE021 /* btProdBlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btProdBlock@2x.png"; sourceTree = "<group>"; };
+		CC200A701588BB92006FE021 /* btProdList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btProdList.png; sourceTree = "<group>"; };
+		CC200A711588BB92006FE021 /* btProdList@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btProdList@2x.png"; sourceTree = "<group>"; };
+		CC200A801588C398006FE021 /* btProdListSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btProdListSearch.png; sourceTree = "<group>"; };
+		CC200A811588C398006FE021 /* btProdListSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btProdListSearch@2x.png"; sourceTree = "<group>"; };
 		CC2AF17714C2CCF3001D9FA0 /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
 		CC2AF17914C2CFF3001D9FA0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CC2D164D157D489A000B8BD3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -283,6 +296,8 @@
 		CC7280B114CA4689006D7BF0 /* icon_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_search.png; sourceTree = "<group>"; };
 		CC7280B214CA4689006D7BF0 /* icon_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search@2x.png"; sourceTree = "<group>"; };
 		CC7D7E5C1545C9C200E47F71 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		CC8ED71A157E9F6700FEB780 /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
+		CC8ED71B157E9F6700FEB780 /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
 		CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonArrow280x160.png; sourceTree = "<group>"; };
 		CCB0643114B2A5D20022BA5D /* garagesaleapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = garagesaleapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB0643514B2A5D20022BA5D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -516,6 +531,12 @@
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CC200A801588C398006FE021 /* btProdListSearch.png */,
+				CC200A811588C398006FE021 /* btProdListSearch@2x.png */,
+				CC200A701588BB92006FE021 /* btProdList.png */,
+				CC200A711588BB92006FE021 /* btProdList@2x.png */,
+				CC200A6C1588A6D7006FE021 /* btProdBlock.png */,
+				CC200A6D1588A6D7006FE021 /* btProdBlock@2x.png */,
 				CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */,
 				CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */,
 				CCCE58861577FC0500F51ACA /* btBidThisItem.png */,
@@ -698,6 +719,8 @@
 				CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */,
 				CC7056A814CB627800C48D48 /* aboutViewController.h */,
 				CC7056A914CB627800C48D48 /* aboutViewController.m */,
+				CC8ED71A157E9F6700FEB780 /* signUpViewController.h */,
+				CC8ED71B157E9F6700FEB780 /* signUpViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -877,6 +900,12 @@
 				CCCE588C1577FD4600F51ACA /* btCancelBidItem.png in Resources */,
 				CCCE588D1577FD4600F51ACA /* btCancelBidItem@2x.png in Resources */,
 				CC2D1656157D489A000B8BD3 /* IphoneStoryboard.storyboard in Resources */,
+				CC200A6E1588A6D7006FE021 /* btProdBlock.png in Resources */,
+				CC200A6F1588A6D7006FE021 /* btProdBlock@2x.png in Resources */,
+				CC200A721588BB92006FE021 /* btProdList.png in Resources */,
+				CC200A731588BB92006FE021 /* btProdList@2x.png in Resources */,
+				CC200A821588C398006FE021 /* btProdListSearch.png in Resources */,
+				CC200A831588C398006FE021 /* btProdListSearch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -957,6 +986,7 @@
 				CC2D165F157D4A68000B8BD3 /* NSAttributedString+Attributes.m in Sources */,
 				CC2D1664157D4AF8000B8BD3 /* NSAttributedString+Attributes.m in Sources */,
 				CC2D1665157D4AF8000B8BD3 /* OHAttributedLabel.m in Sources */,
+				CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

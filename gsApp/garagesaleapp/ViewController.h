@@ -10,6 +10,7 @@
 #import "RestKit/RestKit.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "productTableViewController.h"
+#import "signUpViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "aboutViewController.h"
 #import "GlobalFunctions.h"
@@ -26,6 +27,7 @@
     __unsafe_unretained IBOutlet UIScrollView *scrollView;
     __unsafe_unretained IBOutlet UIView       *viewTopPage;
     __unsafe_unretained IBOutlet UISearchBar *searchBarProduct;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityMain;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel      *labelTitleTop;
@@ -34,6 +36,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewTopPage;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *searchBarProduct;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityMain;
 
 - (void)setupProductMapping;
 - (void)reachability;
