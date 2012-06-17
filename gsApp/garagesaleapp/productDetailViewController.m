@@ -107,27 +107,20 @@
    
     if (!isFromLoadObject) {
         /*
-         
          Esta verificaçao esta errada... bbbba garagem pode
          ter so numeros ?
-         
          */
         self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
                                  characterIsMember:[self.product.idPessoa characterAtIndex:0]];
         
         //Custom Title Back Bar Button Item
-        UIImage *image = [UIImage imageNamed: @"nopicture.png"];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
+//        UIImage *image = [UIImage imageNamed: @"nopicture.png"];
+//        UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
         
         
-        self.navigationController.navigationBar.backItem.titleView =imageView;
+        //self.navigationController.navigationBar.backItem.titleView = imageView;
         
         
-        //self.navigationController.navigationBar.i = NSLocalizedString(@"back", @"");
-        
-        
-        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
-                                                                            green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
 
@@ -156,8 +149,6 @@
         
         valorEsperadoLabel.text   = [self.product valorEsperado];
         
-        
-        
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", self.product.currency, self.product.valorEsperado];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
@@ -171,15 +162,13 @@
         valorEsperadoLabel.attributedText = attrStr;
 
         
-        
-        
-        
-        
-        
+        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+
         currencyLabel.text        = [self.product currency];
         offerLabel.text           = NSLocalizedString(@"offer", @"");
 
-        self.navigationItem.hidesBackButton = NO;
+        //self.navigationItem.hidesBackButton = NO;
 
         descricaoLabel.text = [NSString stringWithFormat:@"%@...", self.product.descricao];
 
@@ -256,8 +245,7 @@
         
         
         //configure addthis -- (this step is optional)
-            [AddThisSDK setNavigationBarColor:[UIColor colorWithRed:219.0/255.0 
-                                                              green:87.0/255.0 blue:87.0/255.0 alpha:1.0]];
+            [AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
             [AddThisSDK setToolBarColor:[UIColor whiteColor]];
             [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
             
@@ -318,9 +306,10 @@
     //    [self.imgViewLoading setHidden:YES];
     
     // [GlobalFunctions drawTagsButton:self.tags scrollView:self.scrollview viewController:self];
-    
+}
 
-    
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)loadGalleryTop{

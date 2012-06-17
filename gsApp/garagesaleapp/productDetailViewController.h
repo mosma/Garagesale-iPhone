@@ -25,7 +25,6 @@
 #import "Category.h"
 #import "Bid.h"
 #import "OHAttributedLabel.h"
-#import "GlobalFunctions.h"
 
 @interface productDetailViewController : UIViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 

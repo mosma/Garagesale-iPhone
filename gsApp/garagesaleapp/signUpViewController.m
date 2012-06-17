@@ -15,8 +15,6 @@
 - (void)scrollViewToTextField:(id)textField;
 @end
 
-
-
 @implementation signUpViewController
 @synthesize labelSignup;
 @synthesize textFieldPersonName;
@@ -47,78 +45,27 @@
     
     self.scrollView.contentSize             = CGSizeMake(320,650);
 
-    
-    labelSignup.font    = [UIFont fontWithName:@"Droid Sans" size:16 ];
+    self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+
+    labelSignup.font        = [UIFont fontWithName:@"Droid Sans" size:16 ];
     labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:14 ];
     labelPersonName.font    = [UIFont fontWithName:@"Droid Sans" size:14 ];
     labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:14 ];
     labelPassword.font      = [UIFont fontWithName:@"Droid Sans" size:14 ];
-    
-    textFieldGarageName.borderStyle = UITextBorderStyleNone;
-    textFieldGarageName.layer.borderWidth = 0.5f;
-    textFieldGarageName.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldGarageName.layer.cornerRadius = 5.0f;
-    textFieldGarageName.layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    
-    textFieldPersonName.borderStyle = UITextBorderStyleNone;
-    textFieldPersonName.layer.borderWidth = 0.5f;
-    textFieldPersonName.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldPersonName.layer.cornerRadius = 5.0f;
-    textFieldPersonName.layer.backgroundColor = [[UIColor whiteColor] CGColor];
 
-    
-    textFieldEmail.borderStyle = UITextBorderStyleNone;
-    textFieldEmail.layer.borderWidth = 0.5f;
-    textFieldEmail.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldEmail.layer.cornerRadius = 5.0f;
-    textFieldEmail.layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    
-    
-    textFieldPassword.borderStyle = UITextBorderStyleNone;
-    textFieldPassword.layer.borderWidth = 0.5f;
-    textFieldPassword.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldPassword.layer.cornerRadius = 5.0f;
-    textFieldPassword.layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    
-    textFieldUserName.borderStyle = UITextBorderStyleNone;
-    textFieldUserName.layer.borderWidth = 0.5f;
-    textFieldUserName.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldUserName.layer.cornerRadius = 5.0f;
-    textFieldUserName.layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    
-    textFieldUserPassword.borderStyle = UITextBorderStyleNone;
-    textFieldUserPassword.layer.borderWidth = 0.5f;
-    textFieldUserPassword.layer.borderColor = [[UIColor grayColor] CGColor];
-    textFieldUserPassword.layer.cornerRadius = 5.0f;
-    textFieldUserPassword.layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    
-    textFieldGarageName.frame = CGRectMake(textFieldGarageName.frame.origin.x, 
-                                           textFieldGarageName.frame.origin.y, 
-                                           textFieldGarageName.frame.size.width, 38); 
-    
-    textFieldPersonName.frame = CGRectMake(textFieldPersonName.frame.origin.x, 
-                                           textFieldPersonName.frame.origin.y, 
-                                           textFieldPersonName.frame.size.width, 38); 
-    
-    textFieldEmail.frame = CGRectMake(textFieldEmail.frame.origin.x, 
-                                           textFieldEmail.frame.origin.y, 
-                                           textFieldEmail.frame.size.width, 38); 
-    
-    textFieldPassword.frame = CGRectMake(textFieldPassword.frame.origin.x, 
-                                           textFieldPassword.frame.origin.y, 
-                                           textFieldPassword.frame.size.width, 38); 
-        
-    textFieldUserName.frame = CGRectMake(textFieldUserName.frame.origin.x, 
-                                         textFieldUserName.frame.origin.y, 
-                                         textFieldUserName.frame.size.width, 38); 
-    
-    textFieldUserPassword.frame = CGRectMake(textFieldUserPassword.frame.origin.x, 
-                                         textFieldUserPassword.frame.origin.y, 
-                                         textFieldUserPassword.frame.size.width, 38); 
+    [GlobalFunctions setTextFieldForm:textFieldGarageName];
+    [GlobalFunctions setTextFieldForm:textFieldPersonName];
+    [GlobalFunctions setTextFieldForm:textFieldEmail];
+    [GlobalFunctions setTextFieldForm:textFieldPassword];
+    [GlobalFunctions setTextFieldForm:textFieldUserName];
+    [GlobalFunctions setTextFieldForm:textFieldUserPassword];
     
     [self.navigationController setNavigationBarHidden:NO];
     
-    //set Navigation Title with OHAttributeLabel
+    /* 
+     set Navigation Title with OHAttributeLabel
+     */
     NSString *titleNavItem = @"Garagesaleapp";
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
     [attrStr setFont:[UIFont fontWithName:@"Corben" size:17]];
@@ -136,6 +83,14 @@
     label.attributedText = attrStr;
     label.textAlignment = UITextAlignmentCenter;
     self.navigationItem.titleView = label;
+    
+    
+    
+    
+}
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /* Setup the keyboard controls BSKeyboardControls.h */

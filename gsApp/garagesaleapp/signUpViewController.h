@@ -10,6 +10,7 @@
 #import "OHAttributedLabel.h"
 #import "BSKeyboardControls.h"
 #import "QuartzCore/QuartzCore.h"
+#import "GlobalFunctions.h"
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, 
 UITextViewDelegate, 

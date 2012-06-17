@@ -18,6 +18,32 @@ static NSString *urlServicePath;
     return urlServicePath; 
 }
 
++(UIColor *)getColorRedNavComponets {
+    return [UIColor colorWithRed:219.0/255.0                                                                         green:87.0/255.0 blue:87.0/255.0 alpha:1.0]; 
+}
+
+
++(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
+    // Add Search Bar Button  
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];  
+    UIImage *homeImage = [[UIImage imageNamed:imageNamed]  
+                          stretchableImageWithLeftCapWidth:10 topCapHeight:10];  
+    [button setBackgroundImage:homeImage forState:UIControlStateNormal];   
+    button.frame = CGRectMake(0, 0, 38, 32);
+    [button addTarget:viewContr action:selector
+           forControlEvents:UIControlEventTouchUpInside];  
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]  
+                                     initWithCustomView:button];      
+    return buttonItem;
+}
+
++(void)setSearchBarLayout:(UISearchBar *)searchBar{
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:searchBar.bounds];
+    backgroundView.image = [UIImage imageNamed:@"navBarBackground.png"];
+    [searchBar insertSubview:backgroundView atIndex:1];
+    searchBar.tintColor = [GlobalFunctions getColorRedNavComponets];
+}
+
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController{
     //define x,y position
     //sumY draw y position
@@ -117,6 +143,17 @@ static NSString *urlServicePath;
     return;
 }
 
++(void)setTextFieldForm:(UITextField *)textField{
+    textField.borderStyle = UITextBorderStyleNone;
+    textField.layer.borderWidth = 0.5f;
+    textField.layer.borderColor = [[UIColor grayColor] CGColor];
+    textField.layer.cornerRadius = 5.0f;
+    textField.layer.backgroundColor = [[UIColor whiteColor] CGColor];
+
+    textField.frame = CGRectMake(textField.frame.origin.x, 
+                                           textField.frame.origin.y, 
+                                           textField.frame.size.width, 38); 
+}
 
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{
     //Configure Product Object Mapping

@@ -13,7 +13,6 @@
 #import "signUpViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "aboutViewController.h"
-#import "GlobalFunctions.h"
 #import "Product.h"
 
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{

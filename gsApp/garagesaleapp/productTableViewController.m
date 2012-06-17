@@ -151,11 +151,17 @@
         searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,0,320,40)];
         searchBarProduct.delegate = self;
         searchBarProduct.placeholder = NSLocalizedString(@"searchProduct", @"");
-        searchBarProduct.tintColor = [UIColor colorWithRed:218.0/255.0 green:78.0/255.0 blue:78.0/255.0 alpha:1.0];
+        
+        [GlobalFunctions setSearchBarLayout:searchBarProduct];
         
         self.navigationItem.title = NSLocalizedString(@"products", @"");
         [self.view addSubview:searchBarProduct];
 
+        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+ 
+        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                                 @selector(showSearch:) viewContr:self imageNamed:@"btProdListSearch.jpg"];
     }else {
         //Load cache thumbs in thumbsDataArray to TableView
         mutArrayDataThumbs = [[NSMutableArray alloc] init];
@@ -169,7 +175,6 @@
                 [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
         }
         
-        
         if ([self.strTextSearch length] != 0)
             searchBarProduct.text = self.strTextSearch;
         
@@ -177,7 +182,11 @@
     }
 }
 
-- (IBAction)reloadProducts:(id)sender{
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)showSearch:(id)sender{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationDelegate:self];
@@ -196,6 +205,7 @@
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);
     [UIView commitAnimations];
 
+//- (IBAction)reloadProducts:(id)sender{
 //	[activityIndicator startAnimating];
 //    self.strLocalResourcePath = @"/product";
 //    [self.mutArrayProducts removeAllObjects];

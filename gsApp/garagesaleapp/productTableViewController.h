@@ -14,6 +14,7 @@
 #import "OHAttributedLabel.h"
 #import "Product.h"
 #import "Photo.h"
+#import "QuartzCore/QuartzCore.h"
 
 @interface productTableViewController : UITableViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
@@ -40,6 +41,6 @@
 - (void)setupProductMapping;
 - (void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
-- (IBAction)reloadProducts:(id)sender;
+- (IBAction)showSearch:(id)sender;
 
 @end

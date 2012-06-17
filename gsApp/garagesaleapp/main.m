@@ -7,21 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "AppDelegate.h"
 
 #ifndef OBJC_ARC_ENABLED
-
-#ifdef __has_feature
-
-#define OBJC_ARC_ENABLED __has_feature(objc_arc)
-
-#else
-
-#define OBJC_ARC_ENABLED 0
-
-#endif
-
+ #ifdef __has_feature
+   #define OBJC_ARC_ENABLED __has_feature(objc_arc)
+ #else
+   #define OBJC_ARC_ENABLED 0
+ #endif
 #endif
 
 

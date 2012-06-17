@@ -23,11 +23,6 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
-#define TXT_BEGIN "Discover "
-#define TXT_BOLD "FoodReporter"
-#define TXT_MIDDLE ""
-#define TXT_LINK ""
-#define TXT_END ""
 
 - (void)viewDidLoad
 {    
@@ -123,6 +118,11 @@
 }
 
 - (void)loadAttribsToComponents{
+    //[self hideTabBar:self.navigationController.tabBarController];
+
+    
+    [self.navigationController.tabBarController setHidesBottomBarWhenPushed:NO];
+    
     //Logo Button Settings
     UIButton *logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton.frame = CGRectMake(33, 20, 253, 55);
@@ -146,18 +146,35 @@
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewTopPage.layer setShadowOpacity:0.5];
-    
-    //set searchBar settings
-    
 
     //set searchBar settings
     searchBarProduct.delegate           = self;
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
-    
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:219.0/255.0 
-                                                                        green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
 
+    [GlobalFunctions setSearchBarLayout:searchBarProduct];
+
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
+                                                  forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     [self.scrollView addSubview:logoButton];
+}
+
+- (void) hideTabBar:(UITabBarController *) tabbarcontroller {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    for(UIView *view in tabbarcontroller.view.subviews)
+    {
+        if([view isKindOfClass:[UITabBar class]])
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+        } 
+        else 
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+        }
+    }
+    [UIView commitAnimations];
 }
 
 
@@ -190,10 +207,10 @@
 //} 
 
 
-- (void)displayImage:(UIActivityIndicatorView *)image {
-    [image stopAnimating];
-
-}
+//- (void)displayImage:(UIActivityIndicatorView *)image {
+//    [image stopAnimating];
+//
+//}
 
 -(void)loadProducts{
     //NSOperationQueue *queue = [NSOperationQueue new];
@@ -215,7 +232,6 @@
     int index = [[params objectAtIndex:1] intValue];
     
     NSLog(@"%i",index);
-    
     
     UIImage     *image;
     if ([[self.arrayProducts objectAtIndex:index] fotos] == NULL)    
@@ -254,29 +270,20 @@
     
     UIGraphicsEndImageContext();
     // tagsButton.image = resizedSpacer;
-//    [imgButton addSubview:spinner];
-//    [spinner startAnimating];
+    //[imgButton addSubview:spinner];
+   // [spinner startAnimating];
     [imgButton setImage:image forState:UIControlStateNormal];
     
-    //  [self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
+    //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
     
     [scrollView addSubview:imgButton];
 }
 
 - (IBAction)reloadPage:(id)sender{
-//    for (UIButton *subview in [scrollView subviews]) 
-//        [subview removeFromSuperview];
-//    [self loadAttribsToComponents];
-//    [self setupProductMapping];
-    
-    signUpViewController *prdDetailVC = [self.storyboard 
-                                         instantiateViewControllerWithIdentifier:@"signUp"];
-    
-    
-    
-    [prdDetailVC setHidesBottomBarWhenPushed:YES];
-    // prdDetailVC.product = (Product *)[self.arrayProducts objectAtIndex:sender.tag];
-    [self.navigationController pushViewController:prdDetailVC animated:YES];
+    for (UIButton *subview in [scrollView subviews]) 
+        [subview removeFromSuperview];
+    [self loadAttribsToComponents];
+    [self setupProductMapping];
 }
 
 
@@ -328,19 +335,6 @@
     prdTbl.strTextSearch = searchBar.text;
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
-
-
-/*
-
-    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    
-    //Search Service
-    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
-    prdTbl.strTextSearch = searchBar.text;
-    [self.navigationController pushViewController:prdTbl animated:YES];
-
-*/
-
 
 // Check if the network is available
 - (void)reachability {
@@ -412,8 +406,6 @@
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);
     [UIView commitAnimations];
 }
-
-
 
 - (void)viewDidUnload
 {
