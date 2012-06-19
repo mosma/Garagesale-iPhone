@@ -19,17 +19,44 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
-                            <view alpha="0.90000000000000002" contentMode="scaleToFill" id="kfO-ax-how" userLabel="viewTopPage">
-                                <rect key="frame" x="20" y="131" width="273" height="60"/>
+                            <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" id="oAx-vy-ZuX">
+                                <rect key="frame" x="20" y="113" width="280" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Products, categories and garages" minimumFontSize="17" id="3Md-Gc-0d7">
+                                        <rect key="frame" x="9" y="39" width="231" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TUu-cH-JsB">
+                                        <rect key="frame" x="235" y="39" width="35" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btSearch@2x.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SEARCH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0MP-fq-dd3">
+                                        <rect key="frame" x="9" y="6" width="204" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" red="0.24313727021217346" green="0.60784316062927246" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="ZSl-lT-o5g" userLabel="viewClip">
-                                <rect key="frame" x="26" y="142" width="258" height="40"/>
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" id="kfO-ax-how" userLabel="viewTopPage">
+                                <rect key="frame" x="20" y="131" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SdQ-AB-2L5">
-                                        <rect key="frame" x="216" y="0.0" width="42" height="37"/>
+                                        <rect key="frame" x="230" y="12" width="42" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btSearch@2x.png">
@@ -44,7 +71,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PIV-QD-y6b">
-                                        <rect key="frame" x="2" y="0.0" width="100" height="37"/>
+                                        <rect key="frame" x="10" y="12" width="100" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <state key="normal" backgroundImage="btSign.png">
@@ -59,7 +86,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pRG-k4-lDf">
-                                        <rect key="frame" x="109" y="0.0" width="100" height="37"/>
+                                        <rect key="frame" x="120" y="12" width="100" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btLogin.png">
@@ -74,7 +101,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <searchBar contentMode="redraw" barStyle="blackTranslucent" id="jEN-aj-m3q">
                                 <rect key="frame" x="0.0" y="-44" width="320" height="44"/>
@@ -96,8 +123,10 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityMain" destination="yiR-qf-TEA" id="84E-eC-I7E"/>
+                        <outlet property="labelSearch" destination="0MP-fq-dd3" id="iaB-kS-wNV"/>
                         <outlet property="scrollView" destination="8RG-Ok-f0d" id="6jj-RL-v3e"/>
                         <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
+                        <outlet property="viewSearch" destination="oAx-vy-ZuX" id="aIx-oH-wP4"/>
                         <outlet property="viewTopPage" destination="kfO-ax-how" id="ALA-eP-e4D"/>
                     </connections>
                 </viewController>
@@ -109,7 +138,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCy-md-mkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="nav3" id="NoP-A3-7y6" customClass="aboutViewController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icon_search.png" id="CcV-C7-Ilc">
+                    <tabBarItem key="tabBarItem" title="" image="plus.png" id="CcV-C7-Ilc">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                 </viewController>
@@ -121,7 +150,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yfs-v1-x7t" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="nav2" definesPresentationContext="YES" id="ddS-2A-Kzn" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="about.png" id="Qwf-On-9Z4">
+                    <tabBarItem key="tabBarItem" title="" image="person.png" id="Qwf-On-9Z4">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dms-OI-NJa">
@@ -767,11 +796,11 @@
             </objects>
             <point key="canvasLocation" x="-417" y="588"/>
         </scene>
-        <!--Sign Up View Controller - signUp-->
+        <!--Sign Up View Controller - SignUp-->
         <scene sceneID="oDh-UQ-qVn">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owd-vq-Bti" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="signUp" title="signUp" hidesBottomBarWhenPushed="YES" id="fgR-qs-ekZ" customClass="signUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUp" title="SignUp" id="fgR-qs-ekZ" customClass="signUpViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="U4r-OM-IqI">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -884,11 +913,11 @@
             </objects>
             <point key="canvasLocation" x="677" y="-591"/>
         </scene>
-        <!--Sign Up View Controller-->
+        <!--Sign Up View Controller - SigIn-->
         <scene sceneID="F9h-yu-4A8">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8km-1w-0vE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="sigin" hidesBottomBarWhenPushed="YES" id="L0X-YO-oem" customClass="signUpViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SigIn" title="SigIn" id="L0X-YO-oem" customClass="signUpViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="eE7-aM-oJW">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -934,6 +963,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="checkLogin:" destination="L0X-YO-oem" eventType="touchUpInside" id="LzJ-HL-TZq"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="v3H-S2-rUR">
                                         <rect key="frame" x="0.0" y="-6" width="320" height="65"/>
@@ -946,6 +978,10 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="QKl-Ef-jO9">
+                                        <rect key="frame" x="150" y="225" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -955,6 +991,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityLogin" destination="QKl-Ef-jO9" id="IDj-dI-QH6"/>
                         <outlet property="textFieldUserName" destination="2S8-5L-p5S" id="0Co-Xd-ngV"/>
                         <outlet property="textFieldUserPassword" destination="en8-F2-I3D" id="dpD-Yx-wQD"/>
                     </connections>
@@ -964,7 +1001,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="about.png" width="30" height="30"/>
         <image name="boxGarageDetail.png" width="284" height="440"/>
         <image name="btBidThisItem.png" width="102" height="35"/>
         <image name="btCancelBidItem.png" width="63" height="35"/>
@@ -976,133 +1012,11 @@
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSign.png" width="100" height="37"/>
         <image name="home.png" width="30" height="30"/>
-        <image name="icon_search.png" width="30" height="30"/>
         <image name="more_pics.png" width="50" height="50"/>
+        <image name="person.png" width="30" height="30"/>
+        <image name="plus.png" width="30" height="30"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
     </resources>
-    <classes>
-        <class className="OHAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="outlet" name="activityMain" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="labelTitleTop" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="aboutViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/aboutViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mosmaWebView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="galleryScrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="garageDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="productCustomViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="valorEsperado" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="productDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="actionEmailComposer"/>
-                <relationship kind="action" name="animationBidView"/>
-                <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="gotoGalleryScrollVC"/>
-                <relationship kind="action" name="gotoGarageDetailVC"/>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="activityIndicatorGarage" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="bidButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cityProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="currencyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descricaoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="garageDetailButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="imgProfile" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nomeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="offerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="offerTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="showPicsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="valorEsperadoLabel" candidateClass="OHAttributedLabel"/>
-                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="productTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="signUpViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPersonName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelSignup" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldGarageName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPersonName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserPassword" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

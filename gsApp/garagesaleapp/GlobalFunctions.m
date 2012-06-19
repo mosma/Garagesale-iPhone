@@ -7,6 +7,7 @@
 //
 
 #import "GlobalFunctions.h"
+#import "NSAttributedString+Attributes.h"
 
 @implementation GlobalFunctions
 
@@ -16,6 +17,10 @@ static NSString *urlServicePath;
     urlServicePath = @"http://gsapi.easylikethat.com";
     //urlServicePath = @"http://api.garagesaleapp.me";    
     return urlServicePath; 
+}
+
++(NSUserDefaults *)getUserDefaults {
+    return [NSUserDefaults standardUserDefaults];
 }
 
 +(UIColor *)getColorRedNavComponets {
@@ -35,6 +40,29 @@ static NSString *urlServicePath;
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]  
                                      initWithCustomView:button];      
     return buttonItem;
+}
+
++(UILabel *)getLabelTitleGaragesaleNavBar{    /* 
+    set Navigation Title with OHAttributeLabel
+    */
+    NSString *titleNavItem = @"Garagesaleapp";
+    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
+    [attrStr setFont:[UIFont fontWithName:@"Corben" size:17]];
+    [attrStr setTextColor:[UIColor whiteColor]];
+    [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
+                    range:[titleNavItem rangeOfString:@"app"]];
+    [attrStr setFont:[UIFont fontWithName:@"Corben" size:15] range:[titleNavItem rangeOfString:@"app"]];
+
+    CGRect frame = CGRectMake(0, 0, 200, 44);
+    OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setShadowColor:[UIColor redColor]];
+    [label setShadowOffset:CGSizeMake(1, 1)];
+    label.attributedText = attrStr;
+    label.textAlignment = UITextAlignmentCenter;
+    
+    
+    return label;
 }
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar{
@@ -99,7 +127,6 @@ static NSString *urlServicePath;
     }
 }
 
-
 +(BOOL)isValidEmail:(NSString*) emailString {
     NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
@@ -153,6 +180,41 @@ static NSString *urlServicePath;
     textField.frame = CGRectMake(textField.frame.origin.x, 
                                            textField.frame.origin.y, 
                                            textField.frame.size.width, 38); 
+}
+
++(void)hideTabBar:(UITabBarController *) tabbarcontroller {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    for(UIView *view in tabbarcontroller.view.subviews)
+    {
+        if([view isKindOfClass:[UITabBar class]])
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+        } 
+        else 
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+        }
+    }
+    [UIView commitAnimations];
+}
+
++(void)showTabBar:(UITabBarController *) tabbarcontroller {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.5];
+    for(UIView *view in tabbarcontroller.view.subviews)
+    {
+        NSLog(@"%@", view);
+        if([view isKindOfClass:[UITabBar class]])
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
+        } 
+        else 
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+        }
+    }
+    [UIView commitAnimations]; 
 }
 
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{

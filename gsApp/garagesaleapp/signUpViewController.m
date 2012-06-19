@@ -7,7 +7,6 @@
 //
 
 #import "signUpViewController.h"
-#import "NSAttributedString+Attributes.h"
 
 @interface signUpViewController ()
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
@@ -16,6 +15,7 @@
 @end
 
 @implementation signUpViewController
+
 @synthesize labelSignup;
 @synthesize textFieldPersonName;
 @synthesize textFieldEmail;
@@ -30,6 +30,8 @@
 @synthesize keyboardControls;
 @synthesize textFieldUserName;
 @synthesize textFieldUserPassword;
+@synthesize RKObjManeger;
+@synthesize activityLogin;
 
 - (void)viewDidLoad
 {
@@ -39,6 +41,8 @@
 }
 
 -(void)loadAttributs{
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+
     NSLog(@"Available Font Families: %@", [UIFont familyNames]);
 
     [self setupKeyboardControls];
@@ -63,30 +67,78 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     
-    /* 
-     set Navigation Title with OHAttributeLabel
-     */
-    NSString *titleNavItem = @"Garagesaleapp";
-    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-    [attrStr setFont:[UIFont fontWithName:@"Corben" size:17]];
-    [attrStr setTextColor:[UIColor whiteColor]];
-    [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
-                    range:[titleNavItem rangeOfString:@"app"]];
+    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar];
+
+}
+
+- (void)setupLogin{
+    //Configure Product Object Mapping
+    RKObjectMapping *loginMapping = [RKObjectMapping mappingForClass:[Login class]];    
+    [loginMapping mapKeyPath:@"idPerson"          toAttribute:@"idPerson"];
+    [loginMapping mapKeyPath:@"token"     toAttribute:@"token"];
     
-    [attrStr setFont:[UIFont fontWithName:@"Corben" size:15] range:[titleNavItem rangeOfString:@"app"]];
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
+                                                  textFieldUserName.text, textFieldUserPassword.text ] objectMapping:loginMapping delegate:self];
     
-    CGRect frame = CGRectMake(0, 0, 200, 44);
-    OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
-    [label setBackgroundColor:[UIColor clearColor]];
-    [label setShadowColor:[UIColor redColor]];
-    [label setShadowOffset:CGSizeMake(1, 1)];
-    label.attributedText = attrStr;
-    label.textAlignment = UITextAlignmentCenter;
-    self.navigationItem.titleView = label;
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    [activityLogin stopAnimating];
+    if ([objects count] > 0) {
+        if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
+            [self setUserDefaults:objects];
+        }
+    }
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    NSLog(@"Encountered an error: %@", error);
     
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
+                                                      message:@"check your values."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+    [activityLogin stopAnimating];
     
-    
-    
+}
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
+    if ([request isGET]) {
+        // Handling GET /foo.xml
+        if ([response isOK]) {
+            // Success! Let's take a look at the data
+            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+        }
+    } else if ([request isPOST]) {
+        
+        // Handling POST /other.json        
+        if ([response isJSON]) {
+            NSLog(@"Got a JSON response back from our POST!");
+        }
+    } else if ([request isDELETE]) {
+        
+        // Handling DELETE /missing_resource.txt
+        if ([response isNotFound]) {
+            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
+        }
+    }
+}
+
+-(IBAction)checkLogin:(id)sender{
+    [activityLogin startAnimating];
+    [self setupLogin];
+}
+
+-(void)setUserDefaults:(NSArray *)objects{
+    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
+    [loginDefaults setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
+    [loginDefaults synchronize];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)backPage{
@@ -104,9 +156,14 @@
     
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldGarageName,
-                                        textFieldPersonName,textFieldEmail,textFieldPassword,nil];
     
+    if([self.title isEqualToString:@"SignUp"])
+        self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldGarageName,
+                                            textFieldPersonName,textFieldEmail,textFieldPassword,nil];
+    else
+        self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
+                                            textFieldUserPassword,nil];
+
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
     
@@ -219,7 +276,6 @@
  *
  */
 
-
 - (void)viewDidUnload
 {
     [self setTextFieldGarageName:nil];
@@ -241,6 +297,8 @@
     [self setLabelSignup:nil];
     scrollView = nil;
     [self setScrollView:nil];
+    activityLogin = nil;
+    [self setActivityLogin:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

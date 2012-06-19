@@ -16,7 +16,6 @@
 #import "Product.h"
 
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{
-    IBOutlet UILabel     *labelTitleTop;
     RKObjectManager      *RKObjManeger;
     NSArray              *arrayProducts;
     BOOL                 *isSearch;
@@ -25,15 +24,18 @@
     int countColumn; 
     __unsafe_unretained IBOutlet UIScrollView *scrollView;
     __unsafe_unretained IBOutlet UIView       *viewTopPage;
+    __unsafe_unretained IBOutlet UIView       *viewSearch;
+    __unsafe_unretained IBOutlet UILabel      *labelSearch;
     __unsafe_unretained IBOutlet UISearchBar *searchBarProduct;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityMain;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel      *labelTitleTop;
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSArray               *arrayProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewTopPage;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewSearch;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityMain;
 

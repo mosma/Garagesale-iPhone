@@ -10,13 +10,15 @@
 
 @implementation ViewController
 
-@synthesize labelTitleTop;
 @synthesize RKObjManeger;
 @synthesize arrayProducts;
 @synthesize scrollView;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
 @synthesize activityMain;
+@synthesize viewSearch;
+@synthesize labelSearch;
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -26,6 +28,25 @@
 
 - (void)viewDidLoad
 {    
+    /*
+     
+     
+     Reset Token... Colocar isso no globalfuncionts
+    
+     
+     
+    */
+    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    for (NSString *key in [defaultsDictionary allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    
+    
+    
+    
     [super viewDidLoad];
     [self reachability];
     [self loadAttribsToComponents];
@@ -118,10 +139,10 @@
 }
 
 - (void)loadAttribsToComponents{
-    //[self hideTabBar:self.navigationController.tabBarController];
 
+    countColumn   = -1;
+    imageXPostion = 10;
     
-    [self.navigationController.tabBarController setHidesBottomBarWhenPushed:NO];
     
     //Logo Button Settings
     UIButton *logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -131,9 +152,11 @@
     [logoButton addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
     
-    countColumn   = -1;
-    imageXPostion = 10;
-    imageYPostion = 95;
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil){
+        imageYPostion = 95;
+        [self.scrollView addSubview:logoButton];
+    }else 
+        imageYPostion = 10;
     
     self.scrollView.contentSize	= CGSizeMake(320,825);   
     
@@ -146,7 +169,16 @@
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewTopPage.layer setShadowOpacity:0.5];
+    
+    viewSearch.layer.cornerRadius = 6;
+    [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
+    [viewSearch.layer setShadowOpacity:0.5];
 
+    
+    labelSearch.font = [UIFont fontWithName:@"Corben" size:20];
+    
+    
     //set searchBar settings
     searchBarProduct.delegate           = self;
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
@@ -157,25 +189,15 @@
                                                   forBarMetrics:UIBarMetricsDefault];
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    [self.scrollView addSubview:logoButton];
+    
+    
+    
+    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar];
+
 }
 
-- (void) hideTabBar:(UITabBarController *) tabbarcontroller {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    for(UIView *view in tabbarcontroller.view.subviews)
-    {
-        if([view isKindOfClass:[UITabBar class]])
-        {
-            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
-        } 
-        else 
-        {
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
-        }
-    }
-    [UIView commitAnimations];
-}
+
+
 
 
 //-(void)scrollViewDidScroll:(UIScrollView *)myScrollView {
@@ -410,8 +432,6 @@
 - (void)viewDidUnload
 {
     // Release any retained subviews of the main view.
-    labelTitleTop = nil;
-    [self setLabelTitleTop:nil];
     scrollView = nil;
     [self setScrollView:nil];
     activityMain = nil;
@@ -421,7 +441,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES];
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+        viewSearch.hidden = NO;
+        viewTopPage.hidden = YES;
+        [self reloadPage:nil];
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    }else {
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        [self.navigationController setNavigationBarHidden:YES];
+        //[self setHidesBottomBarWhenPushed:NO];
+    }
     [super viewWillAppear:animated];
 }
 

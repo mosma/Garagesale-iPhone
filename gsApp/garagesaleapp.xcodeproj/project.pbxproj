@@ -83,6 +83,9 @@
 		CC68C81C1569AA4D00353059 /* btSign.png in Resources */ = {isa = PBXBuildFile; fileRef = CC68C81B1569AA4D00353059 /* btSign.png */; };
 		CC7056AA14CB627800C48D48 /* aboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7056A914CB627800C48D48 /* aboutViewController.m */; };
 		CC7056AC14CB6D4E00C48D48 /* homeBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7056AB14CB6D4E00C48D48 /* homeBackground.png */; };
+		CC7228C6158E255300FB1E75 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7228C5158E255300FB1E75 /* plus.png */; };
+		CC7228C8158E260300FB1E75 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7228C7158E260300FB1E75 /* person.png */; };
+		CC7228CB158F39BA00FB1E75 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7228CA158F39BA00FB1E75 /* Login.m */; };
 		CC7280B314CA4689006D7BF0 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280AD14CA4689006D7BF0 /* about.png */; };
 		CC7280B414CA4689006D7BF0 /* about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280AE14CA4689006D7BF0 /* about@2x.png */; };
 		CC7280B514CA4689006D7BF0 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280AF14CA4689006D7BF0 /* home.png */; };
@@ -295,6 +298,10 @@
 		CC7056A814CB627800C48D48 /* aboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutViewController.h; sourceTree = "<group>"; };
 		CC7056A914CB627800C48D48 /* aboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutViewController.m; sourceTree = "<group>"; };
 		CC7056AB14CB6D4E00C48D48 /* homeBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homeBackground.png; sourceTree = "<group>"; };
+		CC7228C5158E255300FB1E75 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		CC7228C7158E260300FB1E75 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
+		CC7228C9158F39BA00FB1E75 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		CC7228CA158F39BA00FB1E75 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
 		CC7280AD14CA4689006D7BF0 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
 		CC7280AE14CA4689006D7BF0 /* about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about@2x.png"; sourceTree = "<group>"; };
 		CC7280AF14CA4689006D7BF0 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
@@ -541,6 +548,8 @@
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CC7228C7158E260300FB1E75 /* person.png */,
+				CC7228C5158E255300FB1E75 /* plus.png */,
 				CCE7B8E0158BAF2F0020E538 /* btBackNav.png */,
 				CCE7B8E1158BAF2F0020E538 /* btBackNav@2x.png */,
 				CCEAE5C1158BA3030009153C /* btProdListSearch.jpg */,
@@ -713,6 +722,8 @@
 				CC13C8CB14BC767E00045502 /* Profile.m */,
 				CCC02D8914D2FF180076BE31 /* Bid.h */,
 				CCC02D8A14D2FF180076BE31 /* Bid.m */,
+				CC7228C9158F39BA00FB1E75 /* Login.h */,
+				CC7228CA158F39BA00FB1E75 /* Login.m */,
 			);
 			name = EntityClass;
 			sourceTree = "<group>";
@@ -926,6 +937,8 @@
 				CCEAE5C4158BA3030009153C /* btProdListSearch@2x.jpg in Resources */,
 				CCE7B8E2158BAF2F0020E538 /* btBackNav.png in Resources */,
 				CCE7B8E3158BAF2F0020E538 /* btBackNav@2x.png in Resources */,
+				CC7228C6158E255300FB1E75 /* plus.png in Resources */,
+				CC7228C8158E260300FB1E75 /* person.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1020,7 @@
 				CC2D1664157D4AF8000B8BD3 /* NSAttributedString+Attributes.m in Sources */,
 				CC2D1665157D4AF8000B8BD3 /* OHAttributedLabel.m in Sources */,
 				CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */,
+				CC7228CB158F39BA00FB1E75 /* Login.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

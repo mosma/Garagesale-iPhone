@@ -7,16 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OHAttributedLabel.h"
+#import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
 #import "QuartzCore/QuartzCore.h"
 #import "GlobalFunctions.h"
+#import "Login.h"
 
-@interface signUpViewController : UIViewController <UITextFieldDelegate, 
-UITextViewDelegate, 
-BSKeyboardControlsDelegate,
-UIScrollViewDelegate,
-RKObjectLoaderDelegate>{
+@interface signUpViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, 
+                                  BSKeyboardControlsDelegate,UIScrollViewDelegate, RKObjectLoaderDelegate>{
     //Sigup outlets
     __weak IBOutlet UILabel *labelSignup;
     __weak IBOutlet UITextField *textFieldPersonName;
@@ -34,10 +32,13 @@ RKObjectLoaderDelegate>{
     //Sigin outlets
     __weak IBOutlet UITextField *textFieldUserName;
     __weak IBOutlet UITextField *textFieldUserPassword;
+                                      
+    __weak IBOutlet UIActivityIndicatorView *activityLogin;
+ 
+    RKObjectManager      *RKObjManeger;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *labelSignup;
-
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPersonName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldGarageName;
@@ -53,6 +54,12 @@ RKObjectLoaderDelegate>{
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUserName;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUserPassword;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;
+
+@property (nonatomic, retain) RKObjectManager *RKObjManeger;
+
 -(void)loadAttributs;
+-(void)setUserDefaults:(NSArray *)objects;
+-(IBAction)checkLogin:(id)sender;
 
 @end
