@@ -30,5 +30,5 @@
 +(void)setTextFieldForm:(UITextField *)textField;
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller;
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
-+(UILabel *)getLabelTitleGaragesaleNavBar;
++(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
 @end

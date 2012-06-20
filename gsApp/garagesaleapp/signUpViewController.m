@@ -53,10 +53,10 @@
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
     labelSignup.font        = [UIFont fontWithName:@"Droid Sans" size:16 ];
-    labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:14 ];
-    labelPersonName.font    = [UIFont fontWithName:@"Droid Sans" size:14 ];
-    labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:14 ];
-    labelPassword.font      = [UIFont fontWithName:@"Droid Sans" size:14 ];
+    labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelPersonName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelPassword.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
 
     [GlobalFunctions setTextFieldForm:textFieldGarageName];
     [GlobalFunctions setTextFieldForm:textFieldPersonName];
@@ -67,7 +67,7 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar];
+    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];
 
 }
 
@@ -138,7 +138,7 @@
     [loginDefaults setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
     [loginDefaults setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
     [loginDefaults synchronize];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)backPage{
@@ -202,10 +202,23 @@
     UIScrollView* v = (UIScrollView*) self.scrollView;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
-    rc.origin.x = 0 ;
+    
+    
+    if (textFieldGarageName.isEditing)
+        rc.origin.x = -400 ;
+    else 
+        rc.origin.x = 0 ;
+    
     rc.origin.y = 0 ;
     
-    rc.size.height = 700;
+    if([self.title isEqualToString:@"SignUp"]){
+        if (textFieldPersonName.isEditing)
+            rc.size.height = 500;
+        else
+            rc.size.height = 700;
+    }
+    else
+        rc.size.height = 500;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 

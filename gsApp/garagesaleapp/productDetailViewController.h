@@ -126,6 +126,7 @@
 - (void)hideMsgBidSent;
 - (IBAction)isNumberKey:(UITextField *)textField;
 - (IBAction)bidPost:(id)sender;
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 
 - (IBAction)pageControlCliked;
 - (void)setupProductMapping:(NSString *)localResource;

@@ -42,24 +42,24 @@ static NSString *urlServicePath;
     return buttonItem;
 }
 
-+(UILabel *)getLabelTitleGaragesaleNavBar{    /* 
++(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width{    /* 
     set Navigation Title with OHAttributeLabel
     */
     NSString *titleNavItem = @"Garagesaleapp";
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-    [attrStr setFont:[UIFont fontWithName:@"Corben" size:17]];
-    [attrStr setTextColor:[UIColor whiteColor]];
+    [attrStr setFont:[UIFont fontWithName:@"Corben" size:16]];
+    [attrStr setTextColor:[UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0]];
     [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
                     range:[titleNavItem rangeOfString:@"app"]];
-    [attrStr setFont:[UIFont fontWithName:@"Corben" size:15] range:[titleNavItem rangeOfString:@"app"]];
+    [attrStr setFont:[UIFont fontWithName:@"Corben" size:14] range:[titleNavItem rangeOfString:@"app"]];
 
-    CGRect frame = CGRectMake(0, 0, 200, 44);
+    CGRect frame = CGRectMake(0, 0, width, 36);
     OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
     [label setBackgroundColor:[UIColor clearColor]];
     [label setShadowColor:[UIColor redColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
     label.attributedText = attrStr;
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = textAlignment;
     
     
     return label;
@@ -172,14 +172,17 @@ static NSString *urlServicePath;
 
 +(void)setTextFieldForm:(UITextField *)textField{
     textField.borderStyle = UITextBorderStyleNone;
-    textField.layer.borderWidth = 0.5f;
-    textField.layer.borderColor = [[UIColor grayColor] CGColor];
-    textField.layer.cornerRadius = 5.0f;
-    textField.layer.backgroundColor = [[UIColor whiteColor] CGColor];
+    [textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+
+    textField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"textField01iphone.png"]];
+    
+    [textField setTextColor:[UIColor colorWithRed:147/255.0 green:147/255.0 blue:147/255.0 alpha:1.0]];
+    
+    [textField setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
 
     textField.frame = CGRectMake(textField.frame.origin.x, 
                                            textField.frame.origin.y, 
-                                           textField.frame.size.width, 38); 
+                                           textField.frame.size.width, 40); 
 }
 
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller {

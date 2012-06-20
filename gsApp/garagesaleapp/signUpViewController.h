@@ -12,6 +12,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "GlobalFunctions.h"
 #import "Login.h"
+#import "ViewController.h"
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, 
                                   BSKeyboardControlsDelegate,UIScrollViewDelegate, RKObjectLoaderDelegate>{

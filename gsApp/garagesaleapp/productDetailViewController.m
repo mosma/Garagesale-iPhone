@@ -82,7 +82,7 @@
     [self setLoadAnimation];
    // [self.imgViewLoading startAnimating];
 
-    [self loadAttribsToComponents:NO];
+   [self loadAttribsToComponents:NO];
     
     [super viewDidLoad];
 

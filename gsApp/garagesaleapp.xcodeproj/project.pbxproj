@@ -66,6 +66,8 @@
 		CC328CC71571652B0096180B /* btOffer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC328CC51571652B0096180B /* btOffer@2x.png */; };
 		CC328CCE1572797F0096180B /* btMail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC328CCC1572797F0096180B /* btMail.png */; };
 		CC328CCF1572797F0096180B /* btMail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC328CCD1572797F0096180B /* btMail@2x.png */; };
+		CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7C15924BA7006360E0 /* btSearchAccount.png */; };
+		CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */; };
 		CC34BE2D14BFD09D00295BCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34BE2C14BFD09D00295BCE /* MessageUI.framework */; };
 		CC3AB097156C892900544D93 /* btLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB092156C892900544D93 /* btLogin.png */; };
 		CC3AB098156C892900544D93 /* btLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB093156C892900544D93 /* btLogin@2x.png */; };
@@ -79,6 +81,12 @@
 		CC5B0A9F14D2C7C900F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
 		CC5B0AA114D2C7E700F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
 		CC6266C314CD049500896FC8 /* load-frame1.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6266BF14CD049400896FC8 /* load-frame1.png */; };
+		CC632C301590EBA800B3A617 /* textField01iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C2F1590EBA800B3A617 /* textField01iphone.png */; };
+		CC632C321590EE4F00B3A617 /* textField01iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C311590EE4F00B3A617 /* textField01iphone@2x.png */; };
+		CC632C351590F40F00B3A617 /* btRegister.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C331590F40F00B3A617 /* btRegister.png */; };
+		CC632C361590F40F00B3A617 /* btRegister@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C341590F40F00B3A617 /* btRegister@2x.png */; };
+		CC632C391590F84B00B3A617 /* btLoginForm.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C371590F84B00B3A617 /* btLoginForm.png */; };
+		CC632C3A1590F84B00B3A617 /* btLoginForm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C381590F84B00B3A617 /* btLoginForm@2x.png */; };
 		CC68C8171569219300353059 /* IpadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC68C8161569219300353059 /* IpadStoryboard.storyboard */; };
 		CC68C81C1569AA4D00353059 /* btSign.png in Resources */ = {isa = PBXBuildFile; fileRef = CC68C81B1569AA4D00353059 /* btSign.png */; };
 		CC7056AA14CB627800C48D48 /* aboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7056A914CB627800C48D48 /* aboutViewController.m */; };
@@ -95,6 +103,9 @@
 		CC7D7E5D1545C9C200E47F71 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7D7E5C1545C9C200E47F71 /* Twitter.framework */; };
 		CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8ED71B157E9F6700FEB780 /* signUpViewController.m */; };
 		CC8EEDBB14BD41DF00B9DC22 /* UIButtonArrow280x160.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */; };
+		CC96408E159192EC00D00915 /* productAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC96408D159192EB00D00915 /* productAccountViewController.m */; };
+		CC964091159195E600D00915 /* garageAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC964090159195E600D00915 /* garageAccountViewController.m */; };
+		CC9640941591A1E300D00915 /* settingsAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9640931591A1E200D00915 /* settingsAccountViewController.m */; };
 		CCB0643614B2A5D20022BA5D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643514B2A5D20022BA5D /* UIKit.framework */; };
 		CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643714B2A5D20022BA5D /* Foundation.framework */; };
 		CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643914B2A5D20022BA5D /* CoreGraphics.framework */; };
@@ -279,6 +290,8 @@
 		CC328CCC1572797F0096180B /* btMail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btMail.png; sourceTree = "<group>"; };
 		CC328CCD1572797F0096180B /* btMail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btMail@2x.png"; sourceTree = "<group>"; };
 		CC32DB7C1565BA9000FFB88C /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
+		CC331F7C15924BA7006360E0 /* btSearchAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearchAccount.png; sourceTree = "<group>"; };
+		CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchAccount@2x.png"; sourceTree = "<group>"; };
 		CC34BE2C14BFD09D00295BCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CC3AB092156C892900544D93 /* btLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btLogin.png; sourceTree = "<group>"; };
 		CC3AB093156C892900544D93 /* btLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btLogin@2x.png"; sourceTree = "<group>"; };
@@ -293,6 +306,12 @@
 		CC5B0AA014D2C7E700F22D35 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CC5F423814C8730800DED726 /* garagesaleapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = garagesaleapp.entitlements; sourceTree = "<group>"; };
 		CC6266BF14CD049400896FC8 /* load-frame1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "load-frame1.png"; sourceTree = "<group>"; };
+		CC632C2F1590EBA800B3A617 /* textField01iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textField01iphone.png; sourceTree = "<group>"; };
+		CC632C311590EE4F00B3A617 /* textField01iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textField01iphone@2x.png"; sourceTree = "<group>"; };
+		CC632C331590F40F00B3A617 /* btRegister.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btRegister.png; sourceTree = "<group>"; };
+		CC632C341590F40F00B3A617 /* btRegister@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btRegister@2x.png"; sourceTree = "<group>"; };
+		CC632C371590F84B00B3A617 /* btLoginForm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btLoginForm.png; sourceTree = "<group>"; };
+		CC632C381590F84B00B3A617 /* btLoginForm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btLoginForm@2x.png"; sourceTree = "<group>"; };
 		CC68C8161569219300353059 /* IpadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IpadStoryboard.storyboard; sourceTree = "<group>"; };
 		CC68C81B1569AA4D00353059 /* btSign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSign.png; sourceTree = "<group>"; };
 		CC7056A814CB627800C48D48 /* aboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutViewController.h; sourceTree = "<group>"; };
@@ -312,6 +331,12 @@
 		CC8ED71A157E9F6700FEB780 /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
 		CC8ED71B157E9F6700FEB780 /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
 		CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonArrow280x160.png; sourceTree = "<group>"; };
+		CC96408C159192EB00D00915 /* productsAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = productsAccountViewController.h; sourceTree = "<group>"; };
+		CC96408D159192EB00D00915 /* productAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = productAccountViewController.m; sourceTree = "<group>"; };
+		CC96408F159195E600D00915 /* garageAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = garageAccountViewController.h; sourceTree = "<group>"; };
+		CC964090159195E600D00915 /* garageAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = garageAccountViewController.m; sourceTree = "<group>"; };
+		CC9640921591A1E200D00915 /* settingsAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingsAccountViewController.h; sourceTree = "<group>"; };
+		CC9640931591A1E200D00915 /* settingsAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = settingsAccountViewController.m; sourceTree = "<group>"; };
 		CCB0643114B2A5D20022BA5D /* garagesaleapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = garagesaleapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB0643514B2A5D20022BA5D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCB0643714B2A5D20022BA5D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -548,6 +573,14 @@
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CC331F7C15924BA7006360E0 /* btSearchAccount.png */,
+				CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */,
+				CC632C371590F84B00B3A617 /* btLoginForm.png */,
+				CC632C381590F84B00B3A617 /* btLoginForm@2x.png */,
+				CC632C331590F40F00B3A617 /* btRegister.png */,
+				CC632C341590F40F00B3A617 /* btRegister@2x.png */,
+				CC632C311590EE4F00B3A617 /* textField01iphone@2x.png */,
+				CC632C2F1590EBA800B3A617 /* textField01iphone.png */,
 				CC7228C7158E260300FB1E75 /* person.png */,
 				CC7228C5158E255300FB1E75 /* plus.png */,
 				CCE7B8E0158BAF2F0020E538 /* btBackNav.png */,
@@ -747,6 +780,12 @@
 				CC7056A914CB627800C48D48 /* aboutViewController.m */,
 				CC8ED71A157E9F6700FEB780 /* signUpViewController.h */,
 				CC8ED71B157E9F6700FEB780 /* signUpViewController.m */,
+				CC96408C159192EB00D00915 /* productsAccountViewController.h */,
+				CC96408D159192EB00D00915 /* productAccountViewController.m */,
+				CC96408F159195E600D00915 /* garageAccountViewController.h */,
+				CC964090159195E600D00915 /* garageAccountViewController.m */,
+				CC9640921591A1E200D00915 /* settingsAccountViewController.h */,
+				CC9640931591A1E200D00915 /* settingsAccountViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -939,6 +978,14 @@
 				CCE7B8E3158BAF2F0020E538 /* btBackNav@2x.png in Resources */,
 				CC7228C6158E255300FB1E75 /* plus.png in Resources */,
 				CC7228C8158E260300FB1E75 /* person.png in Resources */,
+				CC632C301590EBA800B3A617 /* textField01iphone.png in Resources */,
+				CC632C321590EE4F00B3A617 /* textField01iphone@2x.png in Resources */,
+				CC632C351590F40F00B3A617 /* btRegister.png in Resources */,
+				CC632C361590F40F00B3A617 /* btRegister@2x.png in Resources */,
+				CC632C391590F84B00B3A617 /* btLoginForm.png in Resources */,
+				CC632C3A1590F84B00B3A617 /* btLoginForm@2x.png in Resources */,
+				CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */,
+				CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1068,9 @@
 				CC2D1665157D4AF8000B8BD3 /* OHAttributedLabel.m in Sources */,
 				CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */,
 				CC7228CB158F39BA00FB1E75 /* Login.m in Sources */,
+				CC96408E159192EC00D00915 /* productAccountViewController.m in Sources */,
+				CC964091159195E600D00915 /* garageAccountViewController.m in Sources */,
+				CC9640941591A1E300D00915 /* settingsAccountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

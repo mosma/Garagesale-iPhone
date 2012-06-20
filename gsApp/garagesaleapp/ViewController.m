@@ -28,24 +28,6 @@
 
 - (void)viewDidLoad
 {    
-    /*
-     
-     
-     Reset Token... Colocar isso no globalfuncionts
-    
-     
-     
-    */
-    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    for (NSString *key in [defaultsDictionary allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-    
-    
-    
     
     [super viewDidLoad];
     [self reachability];
@@ -91,17 +73,17 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
-      self.arrayProducts = objects;
+        self.arrayProducts = objects;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                                    initWithTarget:self
-                                                    selector:@selector(loadProducts)
-                                                    object:nil];
+                                            initWithTarget:self
+                                            selector:@selector(loadProducts)
+                                            object:nil];
         [queue addOperation:operation];
         [activityMain stopAnimating];
-
-     // [self loadProducts];
+        
+        // [self loadProducts];
         
     }
 }
@@ -139,7 +121,7 @@
 }
 
 - (void)loadAttribsToComponents{
-
+    
     countColumn   = -1;
     imageXPostion = 10;
     
@@ -169,31 +151,31 @@
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewTopPage.layer setShadowOpacity:0.5];
+    viewTopPage.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
     viewSearch.layer.cornerRadius = 6;
     [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewSearch.layer setShadowOpacity:0.5];
-
+    viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
-    labelSearch.font = [UIFont fontWithName:@"Corben" size:20];
-    
+    labelSearch.font = [UIFont fontWithName:@"Corben" size:21];
     
     //set searchBar settings
     searchBarProduct.delegate           = self;
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
-
+    
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
-
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     
+    self.navigationItem.hidesBackButton = YES;
     
+    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar];
-
 }
 
 
@@ -238,11 +220,11 @@
     //NSOperationQueue *queue = [NSOperationQueue new];
     for(int i = 0; i < [self.arrayProducts count]; i++)
     {
-       // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
-            NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.arrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-            
-            [NSThread detachNewThreadSelector:@selector(loadImage:) toTarget:self 
-                                   withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
+        // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
+        NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.arrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+        
+        [NSThread detachNewThreadSelector:@selector(loadImage:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
         //}
     }
 }
@@ -279,21 +261,21 @@
     [imgButton setTag:index];
     [imgButton addTarget:self action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
-//                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    
-//    [spinner setCenter:CGPointMake(imgButton.frame.size.width/2, 
-//                                   imgButton.frame.size.height/2)];
-//    
-//    UIGraphicsBeginImageContext(spinner.frame.size);
+    //    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
+    //                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    //    
+    //    [spinner setCenter:CGPointMake(imgButton.frame.size.width/2, 
+    //                                   imgButton.frame.size.height/2)];
+    //    
+    //    UIGraphicsBeginImageContext(spinner.frame.size);
     
-//    [image drawInRect:CGRectMake(0,0,spinner.frame.size.width, spinner.frame.size.height)];
+    //    [image drawInRect:CGRectMake(0,0,spinner.frame.size.width, spinner.frame.size.height)];
     //UIImage* resizedSpacer = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
     // tagsButton.image = resizedSpacer;
     //[imgButton addSubview:spinner];
-   // [spinner startAnimating];
+    // [spinner startAnimating];
     [imgButton setImage:image forState:UIControlStateNormal];
     
     //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
@@ -442,10 +424,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+        if (viewSearch.hidden)
+            [self reloadPage:nil];
         viewSearch.hidden = NO;
         viewTopPage.hidden = YES;
-        [self reloadPage:nil];
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        [self.navigationController setNavigationBarHidden:NO];
     }else {
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         [self.navigationController setNavigationBarHidden:YES];
