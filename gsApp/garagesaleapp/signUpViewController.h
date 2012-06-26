@@ -16,7 +16,11 @@
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, 
                                   BSKeyboardControlsDelegate,UIScrollViewDelegate, RKObjectLoaderDelegate>{
-    //Sigup outlets
+    
+    NSArray                         *arrayGarage;
+    NSArray                         *arrayProfile;
+                                      
+                                      //Sigup outlets
     __weak IBOutlet UILabel *labelSignup;
     __weak IBOutlet UITextField *textFieldPersonName;
     __weak IBOutlet UITextField *textFieldEmail;
@@ -38,6 +42,8 @@
  
     RKObjectManager      *RKObjManeger;
 }
+@property (retain, nonatomic) NSArray                           *arrayGarage;
+@property (retain, nonatomic) NSArray                           *arrayProfile;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelSignup;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPersonName;

@@ -7,11 +7,16 @@
 //
 
 #import "GlobalFunctions.h"
+#import <CommonCrypto/CommonDigest.h> //CC_MD5
 #import "NSAttributedString+Attributes.h"
 
 @implementation GlobalFunctions
 
 static NSString *urlServicePath;
+
+@synthesize imageThumbsXorigin_Iphone;
+@synthesize imageThumbsYorigin_Iphone;
+@synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
     urlServicePath = @"http://gsapi.easylikethat.com";
@@ -24,9 +29,58 @@ static NSString *urlServicePath;
 }
 
 +(UIColor *)getColorRedNavComponets {
-    return [UIColor colorWithRed:219.0/255.0                                                                         green:87.0/255.0 blue:87.0/255.0 alpha:1.0]; 
+    return [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0]; 
 }
 
+- (UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr {
+    NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
+                               [NSURL URLWithString:(NSString *)[params objectAtIndex:0]]];
+    
+    UIImage     *image;
+    if (isNull) 
+        image      = [UIImage imageNamed:@"nopicture.png"];
+    else 
+        image      = [[UIImage alloc] initWithData:imageData];
+    
+    if (countColumnImageThumbs == 3) {
+        imageThumbsXorigin_Iphone = 10;
+        imageThumbsYorigin_Iphone = imageThumbsYorigin_Iphone + 103;
+        countColumnImageThumbs = 0;
+    } else if (countColumnImageThumbs >= 1){
+        imageThumbsXorigin_Iphone = imageThumbsXorigin_Iphone + 103;
+    }
+    
+    if (countColumnImageThumbs == -1)
+        countColumnImageThumbs++;
+    
+    countColumnImageThumbs++;
+    
+    UIButton    *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    imgButton.frame = CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94);
+    [imgButton setTag:[[params objectAtIndex:1] intValue]];
+    [imgButton addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
+    //                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    //    
+    //    [spinner setCenter:CGPointMake(imgButton.frame.size.width/2, 
+    //                                   imgButton.frame.size.height/2)];
+    //    
+    //    UIGraphicsBeginImageContext(spinner.frame.size);
+    
+    //    [image drawInRect:CGRectMake(0,0,spinner.frame.size.width, spinner.frame.size.height)];
+    //UIImage* resizedSpacer = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    // tagsButton.image = resizedSpacer;
+    //[imgButton addSubview:spinner];
+    // [spinner startAnimating];
+    [imgButton setImage:image forState:UIControlStateNormal];
+    
+    //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
+    
+    return imgButton;
+}
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
     // Add Search Bar Button  
@@ -218,6 +272,27 @@ static NSString *urlServicePath;
         }
     }
     [UIView commitAnimations]; 
+}
+
++ (NSURL*) getGravatarURL:(NSString*) emailAddress {
+	NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
+							   [NSCharacterSet whitespaceCharacterSet]]
+							  lowercaseString];
+    
+	const char *cStr = [curatedEmail UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, strlen(cStr), result);
+    
+	NSString *md5email = [NSString stringWithFormat:
+                          @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                          result[0], result[1], result[2], result[3],
+                          result[4], result[5], result[6], result[7],
+                          result[8], result[9], result[10], result[11],
+                          result[12], result[13], result[14], result[15]
+                          ];
+	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=512", md5email];
+    
+	return [NSURL URLWithString:gravatarEndPoint];
 }
 
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{

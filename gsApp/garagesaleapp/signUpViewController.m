@@ -32,6 +32,8 @@
 @synthesize textFieldUserPassword;
 @synthesize RKObjManeger;
 @synthesize activityLogin;
+@synthesize arrayGarage;
+@synthesize arrayProfile;
 
 - (void)viewDidLoad
 {
@@ -84,11 +86,85 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+- (void)setGarage:(NSArray *)objects{
+    //Garage
+    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
+    [loginDefaults setObject:[[objects objectAtIndex:0] link] forKey:@"link"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] about] forKey:@"about"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] country] forKey:@"country"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] district] forKey:@"district"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] city] forKey:@"city"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] address] forKey:@"address"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] localization] forKey:@"localization"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] idState] forKey:@"idState"];
+    [loginDefaults synchronize];
     [activityLogin stopAnimating];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setProfile:(NSArray *)objects{
+    //Profile
+    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
+    [loginDefaults setObject:[[objects objectAtIndex:0] garagem] forKey:@"garagem"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] nome] forKey:@"nameProfile"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] email] forKey:@"email"];
+    [loginDefaults setObject:[[objects objectAtIndex:0] senha] forKey:@"senha"];
+    //Garage
+    [loginDefaults synchronize];
+}
+
+- (void)setupGarageMapping {
+    //Configure Garage Object Mapping
+    RKObjectMapping *garageMapping = [RKObjectMapping mappingForClass:[Garage class]];    
+    [garageMapping mapKeyPath:@"link"           toAttribute:@"link"];
+    [garageMapping mapKeyPath:@"about"          toAttribute:@"about"];
+    [garageMapping mapKeyPath:@"country"        toAttribute:@"country"];
+    [garageMapping mapKeyPath:@"district"       toAttribute:@"district"];
+    [garageMapping mapKeyPath:@"city"           toAttribute:@"city"];
+    [garageMapping mapKeyPath:@"address"        toAttribute:@"address"];
+    [garageMapping mapKeyPath:@"localization"   toAttribute:@"localization"];
+    [garageMapping mapKeyPath:@"idState"        toAttribute:@"idState"];
+    [garageMapping mapKeyPath:@"idPerson"       toAttribute:@"idPerson"];
+    [garageMapping mapKeyPath:@"id"             toAttribute:@"id"];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[self.arrayProfile objectAtIndex:0] garagem]] 
+                                  objectMapping:garageMapping delegate:self];
+
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];  
+}
+
+- (void)setupProfileMapping {
+    //Configure Profile Object Mapping
+    RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
+    [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
+    [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
+    [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
+    [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
+    [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];    
+    [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
+    [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];
+
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", 
+                                            [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]] 
+                                  objectMapping:prolileMapping delegate:self];
+
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];  
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
             [self setUserDefaults:objects];
+        }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+            self.arrayProfile = objects;
+            [self setProfile:objects];
+            [self setupGarageMapping];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            self.arrayGarage = objects;
+            [self setGarage:objects];
         }
     }
 }
@@ -96,14 +172,15 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
     
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
+   //if ([objectLoader isKindOfClass:[Login class]]){
+      UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
                                                       message:@"check your values."
                                                      delegate:nil
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
-    [message show];
-    [activityLogin stopAnimating];
-    
+      [message show];
+      [activityLogin stopAnimating];
+    //}
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
@@ -138,7 +215,7 @@
     [loginDefaults setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
     [loginDefaults setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
     [loginDefaults synchronize];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self setupProfileMapping];
 }
 
 -(void)backPage{

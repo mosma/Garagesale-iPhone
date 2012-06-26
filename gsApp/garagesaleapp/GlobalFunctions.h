@@ -15,6 +15,11 @@
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
     NSString *getUrlServicePath;
     NSUserDefaults *getUserDefaults;
+    
+    int imageThumbsXorigin_Iphone;
+    int imageThumbsYorigin_Iphone;
+    int countColumnImageThumbs;
+    
 }
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
@@ -31,4 +36,11 @@
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller;
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
+- (UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr;
++ (NSURL*) getGravatarURL:(NSString*) emailAddress;
+
+@property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
+@property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;
+@property (unsafe_unretained, nonatomic) int countColumnImageThumbs;
+
 @end

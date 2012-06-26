@@ -8,7 +8,6 @@
 
 #import "productDetailViewController.h"
 #import "NSAttributedString+Attributes.h"
-#import <CommonCrypto/CommonDigest.h> //CC_MD5
 
 @interface productDetailViewController ()
 - (void)configureView;
@@ -212,7 +211,7 @@
         cityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
         emailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
         imgProfile.image    = [UIImage imageWithData: [NSData dataWithContentsOfURL:
-                                                       [self getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
+                                                       [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         
         //set Navigation Title with OHAttributeLabel
@@ -566,27 +565,6 @@
     [UIView commitAnimations];
 }
 
-- (NSURL*) getGravatarURL:(NSString*) emailAddress {
-	NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
-							   [NSCharacterSet whitespaceCharacterSet]]
-							  lowercaseString];
-    
-	const char *cStr = [curatedEmail UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result);
-    
-	NSString *md5email = [NSString stringWithFormat:
-                          @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-                          result[0], result[1], result[2], result[3],
-                          result[4], result[5], result[6], result[7],
-                          result[8], result[9], result[10], result[11],
-                          result[12], result[13], result[14], result[15]
-                          ];
-	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=512", md5email];
-    
-	return [NSURL URLWithString:gravatarEndPoint];
-}
-
 - (void)setLoadAnimation{
     NSArray *imageArray;
     
@@ -611,7 +589,7 @@
     garageDetailViewController *garageDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GarageDetail"];
     garageDetailVC.garage = self.arrayGarage;
     garageDetailVC.profile = self.arrayProfile;
-    garageDetailVC.gravatarUrl = [self getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]];
+    garageDetailVC.gravatarUrl = [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]];
     [self.navigationController pushViewController:garageDetailVC animated:YES];
     
     //Custom Title Back Bar Button Item

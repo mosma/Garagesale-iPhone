@@ -117,7 +117,6 @@
 - (void)setupGarageMapping;
 - (void)setupProfileMapping;
 - (void)setupProductMapping;
-- (NSURL*) getGravatarURL:(NSString*) emailAddress;
 - (IBAction)gotoGalleryScrollVC;
 - (IBAction)gotoGarageDetailVC;
 - (IBAction)gotoUserProductTableVC;

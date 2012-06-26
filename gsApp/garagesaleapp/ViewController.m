@@ -28,16 +28,15 @@
 
 - (void)viewDidLoad
 {    
-    
     [super viewDidLoad];
     [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    [self setupProductMapping];
+  
+   [self setupProductMapping];
 }
 
 - (void)setupProductMapping{
-    
     //Configure Product Object Mapping
     RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
     [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
@@ -74,24 +73,14 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
         self.arrayProducts = objects;
-        
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
                                             selector:@selector(loadProducts)
                                             object:nil];
         [queue addOperation:operation];
-        [activityMain stopAnimating];
-        
-        // [self loadProducts];
-        
+        [activityMain stopAnimating];       
     }
-}
-
-- (void)gotoProductDetailVC:(UIButton *)sender{
-    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.arrayProducts objectAtIndex:sender.tag];
-    [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -122,11 +111,9 @@
 
 - (void)loadAttribsToComponents{
     
-    countColumn   = -1;
-    imageXPostion = 10;
-    
-    
-    //Logo Button Settings
+    self.scrollView.contentSize	= CGSizeMake(320,825);   
+
+    //Set Logo Top Button Not Account.
     UIButton *logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton.frame = CGRectMake(33, 20, 253, 55);
     [logoButton setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
@@ -134,13 +121,17 @@
     [logoButton addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
     
+    //init Global Functions
+    globalFunctions = [[GlobalFunctions alloc] init];
+    //Set Display thumbs on Home.
+    globalFunctions.countColumnImageThumbs = -1;
+    globalFunctions.imageThumbsXorigin_Iphone = 10;
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil){
-        imageYPostion = 95;
+        globalFunctions.imageThumbsYorigin_Iphone = 95;
         [self.scrollView addSubview:logoButton];
     }else 
-        imageYPostion = 10;
+        globalFunctions.imageThumbsYorigin_Iphone = 10;
     
-    self.scrollView.contentSize	= CGSizeMake(320,825);   
     
     //[GlobalFunctions roundedLayer:viewTopPage.layer radius:2.0 shadow:YES];  
     //[viewLayer setMasksToBounds:YES];
@@ -177,10 +168,6 @@
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
 }
-
-
-
-
 
 //-(void)scrollViewDidScroll:(UIScrollView *)myScrollView {
 //	/**
@@ -223,64 +210,16 @@
         // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
         NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.arrayProducts objectAtIndex:i] fotos] caminhoThumb]];
         
-        [NSThread detachNewThreadSelector:@selector(loadImage:) toTarget:self 
+        [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
         //}
     }
 }
 
-- (void)loadImage:(NSArray *)params {
-    NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
-                               [NSURL URLWithString:(NSString *)[params objectAtIndex:0]]];
-    
-    int index = [[params objectAtIndex:1] intValue];
-    
-    NSLog(@"%i",index);
-    
-    UIImage     *image;
-    if ([[self.arrayProducts objectAtIndex:index] fotos] == NULL)    
-        image      = [UIImage imageNamed:@"nopicture.png"];
-    else 
-        image      = [[UIImage alloc] initWithData:imageData];
-    
-    if (countColumn == 3) {
-        imageXPostion = 10;
-        imageYPostion = imageYPostion + 103;
-        countColumn = 0;
-    } else if (countColumn >= 1){
-        imageXPostion = imageXPostion + 103;
-    }
-    
-    if (countColumn == -1)
-        countColumn++;
-    
-    countColumn++;
-    
-    UIButton    *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    imgButton.frame = CGRectMake(imageXPostion, imageYPostion, 94, 94);
-    [imgButton setTag:index];
-    [imgButton addTarget:self action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
-    //                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    //    
-    //    [spinner setCenter:CGPointMake(imgButton.frame.size.width/2, 
-    //                                   imgButton.frame.size.height/2)];
-    //    
-    //    UIGraphicsBeginImageContext(spinner.frame.size);
-    
-    //    [image drawInRect:CGRectMake(0,0,spinner.frame.size.width, spinner.frame.size.height)];
-    //UIImage* resizedSpacer = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    // tagsButton.image = resizedSpacer;
-    //[imgButton addSubview:spinner];
-    // [spinner startAnimating];
-    [imgButton setImage:image forState:UIControlStateNormal];
-    
-    //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
-    
-    [scrollView addSubview:imgButton];
+- (void)loadImageGalleryThumbs:(NSArray *)params {
+    BOOL isPickNull = ([[self.arrayProducts objectAtIndex:
+                         [[params objectAtIndex:1] intValue]] fotos] == NULL);
+    [scrollView addSubview:[globalFunctions loadImage:params isNull:isPickNull viewContr:self]];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -290,6 +229,11 @@
     [self setupProductMapping];
 }
 
+- (void)gotoProductDetailVC:(UIButton *)sender{
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    prdDetailVC.product = (Product *)[self.arrayProducts objectAtIndex:sender.tag];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
+}
 
 // Settings SearchBar
 - (void)searchBar:(UISearchBar *)searchBar
@@ -305,20 +249,20 @@
     // focus is given to the UISearchBar
     // call our activate method so that we can do some 
     // additional things when the UISearchBar shows.
-    [self.searchBarProduct setShowsCancelButton:YES animated:YES];
-    UIButton *cancelButton = nil;
-    for(UIView *subView in searchBarProduct.subviews){
-        if([subView isKindOfClass:UIButton.class]){
-            cancelButton = (UIButton*)subView;
-        }
-    }
+    //[self.searchBarProduct setShowsCancelButton:YES animated:YES];
+   // UIButton *cancelButton = nil;
+    //for(UIView *subView in searchBarProduct.subviews){
+   //     if([subView isKindOfClass:UIButton.class]){
+    //        cancelButton = (UIButton*)subView;
+   //     }
+   // }
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
     // searchBarTextDidEndEditing is fired whenever the 
     // UISearchBar loses focus
     // We don't need to do anything here.
-    [self.searchBarProduct setShowsCancelButton:NO animated:YES];
+   // [self.searchBarProduct setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {

@@ -10,6 +10,7 @@
 		CC0846F114DA358400AD230B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2AF17914C2CFF3001D9FA0 /* Default.png */; };
 		CC0846F514DAB34300AD230B /* nopicture.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0846F414DAB34300AD230B /* nopicture.png */; };
 		CC13C8CC14BC767E00045502 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = CC13C8CB14BC767E00045502 /* Profile.m */; };
+		CC1415431594EA5000B93C16 /* ServicesGSAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1415421594EA5000B93C16 /* ServicesGSAPI.m */; };
 		CC16B4541545BD6A00A4487B /* ATResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC16B4141545BD6A00A4487B /* ATResources.bundle */; };
 		CC16B4551545BD6A00A4487B /* libAddThis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC16B4151545BD6A00A4487B /* libAddThis.a */; };
 		CC16B4561545BD6A00A4487B /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = CC16B4191545BD6A00A4487B /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -196,6 +197,8 @@
 		CC0846F414DAB34300AD230B /* nopicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nopicture.png; sourceTree = "<group>"; };
 		CC13C8CA14BC767E00045502 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
 		CC13C8CB14BC767E00045502 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
+		CC1415411594EA5000B93C16 /* ServicesGSAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServicesGSAPI.h; sourceTree = "<group>"; };
+		CC1415421594EA5000B93C16 /* ServicesGSAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesGSAPI.m; sourceTree = "<group>"; };
 		CC16B4131545BD6A00A4487B /* AddThis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddThis.h; sourceTree = "<group>"; };
 		CC16B4141545BD6A00A4487B /* ATResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATResources.bundle; sourceTree = "<group>"; };
 		CC16B4151545BD6A00A4487B /* libAddThis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAddThis.a; sourceTree = "<group>"; };
@@ -690,6 +693,8 @@
 				CC2D164D157D489A000B8BD3 /* AppDelegate.m */,
 				CC32DB7C1565BA9000FFB88C /* GlobalFunctions.h */,
 				CC2D164E157D489A000B8BD3 /* GlobalFunctions.m */,
+				CC1415411594EA5000B93C16 /* ServicesGSAPI.h */,
+				CC1415421594EA5000B93C16 /* ServicesGSAPI.m */,
 				CC5F423814C8730800DED726 /* garagesaleapp.entitlements */,
 			);
 			path = garagesaleapp;
@@ -1071,6 +1076,7 @@
 				CC96408E159192EC00D00915 /* productAccountViewController.m in Sources */,
 				CC964091159195E600D00915 /* garageAccountViewController.m in Sources */,
 				CC9640941591A1E300D00915 /* settingsAccountViewController.m in Sources */,
+				CC1415431594EA5000B93C16 /* ServicesGSAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

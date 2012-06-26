@@ -19,9 +19,7 @@
     RKObjectManager      *RKObjManeger;
     NSArray              *arrayProducts;
     BOOL                 *isSearch;
-    int imageXPostion;
-    int imageYPostion; 
-    int countColumn; 
+    GlobalFunctions      *globalFunctions;
     __unsafe_unretained IBOutlet UIScrollView *scrollView;
     __unsafe_unretained IBOutlet UIView       *viewTopPage;
     __unsafe_unretained IBOutlet UIView       *viewSearch;
@@ -44,7 +42,7 @@
 - (void)loadAttribsToComponents;
 - (IBAction)reloadPage:(id)sender;
 - (void)gotoProductDetailVC:(id)sender;
-- (void)loadImage:(NSString *)urlImage;
+//- (void)loadImage:(NSString *)urlImage;
 - (void)displayImage:(UIImage *)image;
 - (IBAction)showSearch:(id)sender;
 
