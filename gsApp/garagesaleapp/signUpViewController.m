@@ -288,6 +288,24 @@
     
     rc.origin.y = 0 ;
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     
+     Essa condicional esta sujeito a falhar .
+     
+     */
     if([self.title isEqualToString:@"SignUp"]){
         if (textFieldPersonName.isEditing)
             rc.size.height = 500;

@@ -271,20 +271,108 @@
             </objects>
             <point key="canvasLocation" x="-1103" y="-244"/>
         </scene>
-        <!--Products Account View Controller - Root View Controller-->
+        <!--Product Account View Controller - Root View Controller-->
         <scene sceneID="2Zf-CR-3Md">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJ9-BR-tHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="o08-vM-tNV" customClass="productsAccountViewController" sceneMemberID="viewController">
+                <viewController id="o08-vM-tNV" customClass="productAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Caq-1e-Cu3">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ORq-bA-TH3">
+                                <rect key="frame" x="12" y="80" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                <color key="textColor" red="0.70047455683267623" green="0.70852598852040816" blue="0.70852598852040816" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="y6I-wT-hoB">
+                                <rect key="frame" x="12" y="153" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sfm-yC-Kbv">
+                                <rect key="frame" x="12" y="233" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HiQ-Y2-wLZ">
+                                <rect key="frame" x="11" y="315" width="296" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Name of product" minimumFontSize="17" background="textField01iphone.png" id="sLH-eM-od5">
+                                <rect key="frame" x="11" y="182" width="296" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   0,00" minimumFontSize="17" background="textField01iphone.png" id="87y-9X-GKC">
+                                <rect key="frame" x="99" y="258" width="208" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="   visible" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY">
+                                <rect key="frame" x="11" y="107" width="150" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.53061224489795911" green="0.53061224489795911" blue="0.53061224489795911" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="   $" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2">
+                                <rect key="frame" x="11" y="260" width="80" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.55112005739795911" green="0.55112005739795911" blue="0.55112005739795911" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pAq-UN-gh2">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0k8-YX-jWQ">
+                                <rect key="frame" x="253" y="9" width="54" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="btAddPicsProduct.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
+                    <connections>
+                        <outlet property="scrollViewPicsProduct" destination="pAq-UN-gh2" id="qfi-Vu-2SN"/>
+                        <outlet property="txtFieldCurrency" destination="VJa-0J-gw2" id="fYA-lH-VaS"/>
+                        <outlet property="txtFieldState" destination="dhj-Dq-uqY" id="LdR-CJ-g9A"/>
+                        <outlet property="txtFieldTitle" destination="sLH-eM-od5" id="gl2-jG-c1c"/>
+                        <outlet property="txtFieldValue" destination="87y-9X-GKC" id="8My-Me-0zy"/>
+                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="574" y="-1733"/>
+            <point key="canvasLocation" x="574" y="-1741"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="RP4-Zh-jOg">
@@ -465,11 +553,11 @@
             </objects>
             <point key="canvasLocation" x="594" y="626"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Account View Controller-->
         <scene sceneID="TnB-O5-x89">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="li5-dd-Ljh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="5xi-Kh-5i5" sceneMemberID="viewController">
+                <viewController id="5xi-Kh-5i5" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="O4A-WE-qi1">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -661,11 +749,11 @@
             </objects>
             <point key="canvasLocation" x="1180" y="1526"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Account View Controller-->
         <scene sceneID="4Dy-zL-M3X">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCn-XI-bl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="K7a-eB-FnT" sceneMemberID="viewController">
+                <viewController id="K7a-eB-FnT" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="rIV-SN-IUS">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1386,11 +1474,11 @@
             </objects>
             <point key="canvasLocation" x="83" y="-923"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Account View Controller-->
         <scene sceneID="P2K-Hv-n6v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bP-aq-1Ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="tbg-8m-otZ" sceneMemberID="viewController">
+                <viewController id="tbg-8m-otZ" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DcC-rR-Xyk">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1579,11 +1667,11 @@
             </objects>
             <point key="canvasLocation" x="594" y="-923"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings Account View Controller-->
         <scene sceneID="WgA-07-zOl">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6qA-FP-QAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Agu-tx-O0b" sceneMemberID="viewController">
+                <viewController id="Agu-tx-O0b" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xkv-F3-dS8">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1615,6 +1703,7 @@
     </scenes>
     <resources>
         <image name="boxGarageDetail.png" width="284" height="440"/>
+        <image name="btAddPicsProduct.png" width="56" height="53"/>
         <image name="btBidThisItem.png" width="102" height="35"/>
         <image name="btCancelBidItem.png" width="63" height="35"/>
         <image name="btLogin.png" width="100" height="37"/>
@@ -1627,11 +1716,14 @@
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSearchAccount.png" width="39" height="31"/>
         <image name="btSign.png" width="100" height="37"/>
+        <image name="dropDownCurrency.png" width="80" height="32"/>
+        <image name="dropDownState.png" width="150" height="32"/>
         <image name="home.png" width="30" height="30"/>
         <image name="more_pics.png" width="50" height="50"/>
         <image name="nopicture.png" width="192" height="192"/>
         <image name="person.png" width="30" height="30"/>
         <image name="plus.png" width="30" height="30"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
     </resources>
     <classes>
@@ -1690,6 +1782,17 @@
                 <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
             </relationships>
         </class>
+        <class className="productAccountViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="saveProduct"/>
+                <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="productCustomViewCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
             <relationships>
@@ -1745,9 +1848,6 @@
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
             </relationships>
-        </class>
-        <class className="productsAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productsAccountViewController.h"/>
         </class>
         <class className="settingsAccountViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>

@@ -16,55 +16,55 @@
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, 
                                   BSKeyboardControlsDelegate,UIScrollViewDelegate, RKObjectLoaderDelegate>{
-    
-    NSArray                         *arrayGarage;
-    NSArray                         *arrayProfile;
                                       
-                                      //Sigup outlets
-    __weak IBOutlet UILabel *labelSignup;
-    __weak IBOutlet UITextField *textFieldPersonName;
-    __weak IBOutlet UITextField *textFieldEmail;
-    __weak IBOutlet UITextField *textFieldGarageName;
-    __weak IBOutlet UITextField *textFieldPassword;
-    __weak IBOutlet UIButton    *buttonRegister;
-    
-    __weak IBOutlet UILabel *labelGarageName;
-    __weak IBOutlet UILabel *labelPersonName;
-    __weak IBOutlet UILabel *labelEmail;
-    __weak IBOutlet UILabel *labelPassword;
-    __weak IBOutlet UIScrollView *scrollView;
+    //Sigup outlets
+    __weak IBOutlet UILabel         *labelSignup;
+    __weak IBOutlet UITextField     *textFieldPersonName;
+    __weak IBOutlet UITextField     *textFieldEmail;
+    __weak IBOutlet UITextField     *textFieldGarageName;
+    __weak IBOutlet UITextField     *textFieldPassword;
+    __weak IBOutlet UIButton        *buttonRegister;
+    __weak IBOutlet UILabel         *labelGarageName;
+    __weak IBOutlet UILabel         *labelPersonName;
+    __weak IBOutlet UILabel         *labelEmail;
+    __weak IBOutlet UILabel         *labelPassword;
+    __weak IBOutlet UIScrollView    *scrollView;
     
     //Sigin outlets
-    __weak IBOutlet UITextField *textFieldUserName;
-    __weak IBOutlet UITextField *textFieldUserPassword;
-                                      
+    __weak IBOutlet UITextField     *textFieldUserName;
+    __weak IBOutlet UITextField     *textFieldUserPassword;
+    
+    //Others
+    NSArray                         *arrayGarage;
+    NSArray                         *arrayProfile;
+    RKObjectManager                 *RKObjManeger;
     __weak IBOutlet UIActivityIndicatorView *activityLogin;
- 
-    RKObjectManager      *RKObjManeger;
 }
-@property (retain, nonatomic) NSArray                           *arrayGarage;
-@property (retain, nonatomic) NSArray                           *arrayProfile;
 
-@property (weak, nonatomic) IBOutlet UILabel *labelSignup;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldPersonName;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldEmail;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldGarageName;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
-@property (weak, nonatomic) IBOutlet UIButton *buttonRegister;
+//Sigup outlets
+@property (weak, nonatomic) IBOutlet UILabel        *labelSignup;
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldPersonName;
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldEmail;
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldGarageName;
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldPassword;
+@property (weak, nonatomic) IBOutlet UIButton       *buttonRegister;
+@property (weak, nonatomic) IBOutlet UILabel        *labelGarageName;
+@property (weak, nonatomic) IBOutlet UILabel        *labelPersonName;
+@property (weak, nonatomic) IBOutlet UILabel        *labelEmail;
+@property (weak, nonatomic) IBOutlet UILabel        *labelPassword;
+@property (weak, nonatomic) IBOutlet UIScrollView   *scrollView;
 
-@property (weak, nonatomic) IBOutlet UILabel *labelGarageName;
-@property (weak, nonatomic) IBOutlet UILabel *labelPersonName;
-@property (weak, nonatomic) IBOutlet UILabel *labelEmail;
-@property (weak, nonatomic) IBOutlet UILabel *labelPassword;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+//Sigin outlets
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldUserName;
+@property (weak, nonatomic) IBOutlet UITextField    *textFieldUserPassword;
 
-@property (weak, nonatomic) IBOutlet UITextField *textFieldUserName;
-@property (weak, nonatomic) IBOutlet UITextField *textFieldUserPassword;
-
+//Others
+@property (retain, nonatomic) NSArray               *arrayGarage;
+@property (retain, nonatomic) NSArray               *arrayProfile;
+@property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;
 
-@property (nonatomic, retain) RKObjectManager *RKObjManeger;
-
+//Actions and functions
 -(void)loadAttributs;
 -(void)setUserDefaults:(NSArray *)objects;
 -(IBAction)checkLogin:(id)sender;

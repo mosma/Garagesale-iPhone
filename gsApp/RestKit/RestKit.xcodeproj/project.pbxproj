@@ -264,7 +264,6 @@
 		25160F78145655D10060A5C5 /* RKManagedObjectThreadSafeInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D55145650490060A5C5 /* RKManagedObjectThreadSafeInvocation.m */; };
 		25160F79145655D10060A5C5 /* RKObjectPropertyInspector+CoreData.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160D56145650490060A5C5 /* RKObjectPropertyInspector+CoreData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160F7A145655D10060A5C5 /* RKObjectPropertyInspector+CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D57145650490060A5C5 /* RKObjectPropertyInspector+CoreData.m */; };
-		25160F7C145657220060A5C5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25160F7B145657220060A5C5 /* SystemConfiguration.framework */; };
 		25160F7E145657300060A5C5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25160F7D1456572F0060A5C5 /* Cocoa.framework */; };
 		25160F7F145657650060A5C5 /* NSData+MD5.h in Headers */ = {isa = PBXBuildFile; fileRef = 25160D5A145650490060A5C5 /* NSData+MD5.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25160F80145657650060A5C5 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 25160D5B145650490060A5C5 /* NSData+MD5.m */; };
@@ -514,7 +513,6 @@
 		25A341EB147C2F370009758D /* OCPartialMockRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A341BD147C2F370009758D /* OCPartialMockRecorder.m */; };
 		25A341EC147C2F370009758D /* OCProtocolMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A341BF147C2F370009758D /* OCProtocolMockObject.m */; };
 		25A341ED147C2F370009758D /* OCProtocolMockObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A341BF147C2F370009758D /* OCProtocolMockObject.m */; };
-		25A34245147D8AAA0009758D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A34244147D8AAA0009758D /* Security.framework */; };
 		25B408261491CDDC00F21111 /* RKDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = 25B408241491CDDB00F21111 /* RKDirectory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25B408271491CDDC00F21111 /* RKDirectory.h in Headers */ = {isa = PBXBuildFile; fileRef = 25B408241491CDDB00F21111 /* RKDirectory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25B408281491CDDC00F21111 /* RKDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B408251491CDDB00F21111 /* RKDirectory.m */; };
@@ -719,7 +717,6 @@
 		25160EBD1456532C0060A5C5 /* SOCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCKit.h; sourceTree = "<group>"; };
 		25160EBE1456532C0060A5C5 /* SOCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCKit.m; sourceTree = "<group>"; };
 		25160F161456538B0060A5C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		25160F7B145657220060A5C5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		25160F7D1456572F0060A5C5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		25160FA0145658BC0060A5C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = SDKs/MacOSX10.7.sdk/usr/lib/libxml2.dylib; sourceTree = DEVELOPER_DIR; };
 		25160FC71456F2330060A5C5 /* RKManagedObjectLoaderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKManagedObjectLoaderSpec.m; sourceTree = "<group>"; };
@@ -870,7 +867,6 @@
 		25A341BD147C2F370009758D /* OCPartialMockRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCPartialMockRecorder.m; sourceTree = "<group>"; };
 		25A341BE147C2F370009758D /* OCProtocolMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCProtocolMockObject.h; sourceTree = "<group>"; };
 		25A341BF147C2F370009758D /* OCProtocolMockObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCProtocolMockObject.m; sourceTree = "<group>"; };
-		25A34244147D8AAA0009758D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		25B408241491CDDB00F21111 /* RKDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDirectory.h; sourceTree = "<group>"; };
 		25B408251491CDDB00F21111 /* RKDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDirectory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -907,10 +903,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25A34245147D8AAA0009758D /* Security.framework in Frameworks */,
 				25160FA1145658BC0060A5C5 /* libxml2.dylib in Frameworks */,
 				25160F7E145657300060A5C5 /* Cocoa.framework in Frameworks */,
-				25160F7C145657220060A5C5 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -962,7 +956,6 @@
 		25160D1814564E810060A5C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				25A34244147D8AAA0009758D /* Security.framework */,
 				251611311456F56C0060A5C5 /* MobileCoreServices.framework */,
 				2516112F1456F5590060A5C5 /* Security.framework */,
 				2516112D1456F5520060A5C5 /* CoreData.framework */,
@@ -970,7 +963,6 @@
 				251611281456F50F0060A5C5 /* SystemConfiguration.framework */,
 				25160FA0145658BC0060A5C5 /* libxml2.dylib */,
 				25160F7D1456572F0060A5C5 /* Cocoa.framework */,
-				25160F7B145657220060A5C5 /* SystemConfiguration.framework */,
 				25160F161456538B0060A5C5 /* libxml2.dylib */,
 				25160D1914564E810060A5C5 /* Foundation.framework */,
 				25160D2714564E820060A5C5 /* SenTestingKit.framework */,

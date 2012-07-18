@@ -157,10 +157,10 @@
         self.navigationItem.title = NSLocalizedString(@"products", @"");
         [self.view addSubview:searchBarProduct];
 
-        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+        self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                  @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
  
-        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:
+        self.navigationItem.rightBarButtonItem  = [GlobalFunctions getIconNavigationBar:
                                                  @selector(showSearch:) viewContr:self imageNamed:@"btProdListSearch.jpg"];
     }else {
         //Load cache thumbs in thumbsDataArray to TableView

@@ -48,6 +48,11 @@
 		CC200A821588C398006FE021 /* btProdListSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A801588C398006FE021 /* btProdListSearch.png */; };
 		CC200A831588C398006FE021 /* btProdListSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC200A811588C398006FE021 /* btProdListSearch@2x.png */; };
 		CC2AF17814C2CCF3001D9FA0 /* 57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2AF17714C2CCF3001D9FA0 /* 57x57.png */; };
+		CC2C506815B34C2600837164 /* btAddPicsProduct.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2C506615B34C2600837164 /* btAddPicsProduct.png */; };
+		CC2C506915B34C2600837164 /* btAddPicsProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2C506715B34C2600837164 /* btAddPicsProduct@2x.png */; };
+		CC2C506C15B3505700837164 /* dropDownState.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2C506A15B3505700837164 /* dropDownState.png */; };
+		CC2C506D15B3505700837164 /* dropDownState@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2C506B15B3505700837164 /* dropDownState@2x.png */; };
+		CC2C506F15B3519B00837164 /* dropDownCurrency.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2C506E15B3519B00837164 /* dropDownCurrency.png */; };
 		CC2D1654157D489A000B8BD3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D164D157D489A000B8BD3 /* AppDelegate.m */; };
 		CC2D1655157D489A000B8BD3 /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D164E157D489A000B8BD3 /* GlobalFunctions.m */; };
 		CC2D1656157D489A000B8BD3 /* IphoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC2D164F157D489A000B8BD3 /* IphoneStoryboard.storyboard */; };
@@ -269,6 +274,11 @@
 		CC200A811588C398006FE021 /* btProdListSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btProdListSearch@2x.png"; sourceTree = "<group>"; };
 		CC2AF17714C2CCF3001D9FA0 /* 57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57x57.png; sourceTree = "<group>"; };
 		CC2AF17914C2CFF3001D9FA0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CC2C506615B34C2600837164 /* btAddPicsProduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btAddPicsProduct.png; sourceTree = "<group>"; };
+		CC2C506715B34C2600837164 /* btAddPicsProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btAddPicsProduct@2x.png"; sourceTree = "<group>"; };
+		CC2C506A15B3505700837164 /* dropDownState.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropDownState.png; sourceTree = "<group>"; };
+		CC2C506B15B3505700837164 /* dropDownState@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownState@2x.png"; sourceTree = "<group>"; };
+		CC2C506E15B3519B00837164 /* dropDownCurrency.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropDownCurrency.png; sourceTree = "<group>"; };
 		CC2D164D157D489A000B8BD3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CC2D164E157D489A000B8BD3 /* GlobalFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFunctions.m; sourceTree = "<group>"; };
 		CC2D164F157D489A000B8BD3 /* IphoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IphoneStoryboard.storyboard; sourceTree = "<group>"; };
@@ -334,7 +344,7 @@
 		CC8ED71A157E9F6700FEB780 /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
 		CC8ED71B157E9F6700FEB780 /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
 		CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonArrow280x160.png; sourceTree = "<group>"; };
-		CC96408C159192EB00D00915 /* productsAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = productsAccountViewController.h; sourceTree = "<group>"; };
+		CC96408C159192EB00D00915 /* productAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = productAccountViewController.h; sourceTree = "<group>"; };
 		CC96408D159192EB00D00915 /* productAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = productAccountViewController.m; sourceTree = "<group>"; };
 		CC96408F159195E600D00915 /* garageAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = garageAccountViewController.h; sourceTree = "<group>"; };
 		CC964090159195E600D00915 /* garageAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = garageAccountViewController.m; sourceTree = "<group>"; };
@@ -576,6 +586,11 @@
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CC2C506E15B3519B00837164 /* dropDownCurrency.png */,
+				CC2C506A15B3505700837164 /* dropDownState.png */,
+				CC2C506B15B3505700837164 /* dropDownState@2x.png */,
+				CC2C506615B34C2600837164 /* btAddPicsProduct.png */,
+				CC2C506715B34C2600837164 /* btAddPicsProduct@2x.png */,
 				CC331F7C15924BA7006360E0 /* btSearchAccount.png */,
 				CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */,
 				CC632C371590F84B00B3A617 /* btLoginForm.png */,
@@ -785,7 +800,7 @@
 				CC7056A914CB627800C48D48 /* aboutViewController.m */,
 				CC8ED71A157E9F6700FEB780 /* signUpViewController.h */,
 				CC8ED71B157E9F6700FEB780 /* signUpViewController.m */,
-				CC96408C159192EB00D00915 /* productsAccountViewController.h */,
+				CC96408C159192EB00D00915 /* productAccountViewController.h */,
 				CC96408D159192EB00D00915 /* productAccountViewController.m */,
 				CC96408F159195E600D00915 /* garageAccountViewController.h */,
 				CC964090159195E600D00915 /* garageAccountViewController.m */,
@@ -991,6 +1006,11 @@
 				CC632C3A1590F84B00B3A617 /* btLoginForm@2x.png in Resources */,
 				CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */,
 				CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */,
+				CC2C506815B34C2600837164 /* btAddPicsProduct.png in Resources */,
+				CC2C506915B34C2600837164 /* btAddPicsProduct@2x.png in Resources */,
+				CC2C506C15B3505700837164 /* dropDownState.png in Resources */,
+				CC2C506D15B3505700837164 /* dropDownState@2x.png in Resources */,
+				CC2C506F15B3519B00837164 /* dropDownCurrency.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
