@@ -21,7 +21,6 @@
     int countColumnImageThumbs;
     
 }
-
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
 +(NSUserDefaults *)getUserDefaults;
@@ -33,11 +32,13 @@
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 +(void)setTextFieldForm:(UITextField *)textField;
+//+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller;
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
-- (UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr;
-+ (NSURL*) getGravatarURL:(NSString*) emailAddress;
+-(UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr;
++(NSURL*) getGravatarURL:(NSString*) emailAddress;
++(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;

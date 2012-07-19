@@ -19,8 +19,8 @@ static NSString *urlServicePath;
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    urlServicePath = @"http://gsapi.local";
-    //urlServicePath = @"http://gsapi.easylikethat.com"; 
+    //urlServicePath = @"http://gsapi.local";
+    urlServicePath = @"http://gsapi.easylikethat.com"; 
     //urlServicePath = @"http://api.garagesaleapp.me";    
     return urlServicePath; 
 }
@@ -295,6 +295,18 @@ static NSString *urlServicePath;
     
 	return [NSURL URLWithString:gravatarEndPoint];
 }
+
++(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin {
+    UIGraphicsBeginImageContext(size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0.0, size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, size.width, size.height), imageOrigin.CGImage);
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{
     //Configure Product Object Mapping

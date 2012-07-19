@@ -32,7 +32,6 @@
     [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-  
    [self setupProductMapping];
 }
 
@@ -111,6 +110,22 @@
 
 - (void)loadAttribsToComponents{
     
+    //Custom Tab Bar Controller
+    UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
+    UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
+    UIImage *selectedImage1   = [UIImage imageNamed:@"addOver.png"];
+    UIImage *unselectedImage1 = [UIImage imageNamed:@"add.png"];
+    UIImage *selectedImage2   = [UIImage imageNamed:@"personOver.png"];
+    UIImage *unselectedImage2 = [UIImage imageNamed:@"person.png"];
+    UITabBar     *tabBar = self.tabBarController.tabBar;
+    UITabBarItem *item0  = [tabBar.items objectAtIndex:0];
+    UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
+    UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
+    [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
+    [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
+    [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
+    
+    //Set Scroll Size.
     self.scrollView.contentSize	= CGSizeMake(320,825);   
 
     //Set Logo Top Button Not Account.

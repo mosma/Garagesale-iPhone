@@ -10,12 +10,16 @@
 
 @implementation productAccountViewController
 
-@synthesize mutArrayPicsProduct;
+@synthesize mutDictPicsProduct;
 @synthesize RKObjManeger;
 @synthesize txtFieldTitle;
 @synthesize txtFieldValue;
 @synthesize txtFieldState;
 @synthesize txtFieldCurrency;
+@synthesize scrollViewPicsProduct;
+
+#define PICKERSTATE     20
+#define PICKERCURRENCY  21
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,8 +61,8 @@
         ((UITabBar *)tabBar).delegate = self;
     }
     
-    mutArrayPicsProduct = [[NSMutableArray alloc] init];
-    
+    mutDictPicsProduct      = [[NSMutableDictionary alloc] init];
+    nsMutArrayPicsProduct   = [[NSMutableArray alloc] init];
     nsArrayState    = [NSArray arrayWithObjects:@"Disponivel",
                                                 @"Vendido", nil];
     
@@ -68,17 +72,17 @@
                                                 @"USD", nil];
     
     //Set Picker View State
-    pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
+    UIPickerView *pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
     pickerViewState.delegate = self;
-    pickerViewState.tag = 1;
+    pickerViewState.tag = PICKERSTATE;
     pickerViewState.dataSource = self;
     pickerViewState.showsSelectionIndicator = YES;
     txtFieldState.inputView = pickerViewState;
     
     //Set Picker View Currency
-    pickerViewCurrency = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
+    UIPickerView *pickerViewCurrency = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
     pickerViewCurrency.delegate = self;
-    pickerViewCurrency.tag = 2;
+    pickerViewCurrency.tag = PICKERCURRENCY;
     pickerViewCurrency.dataSource = self;
     pickerViewCurrency.showsSelectionIndicator = YES;
     txtFieldCurrency.inputView = pickerViewCurrency;
@@ -116,8 +120,7 @@
     [txtFieldCurrency resignFirstResponder];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated{
+-(IBAction)addProduct:(id)sender{
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Adicionar Produto"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancela"
@@ -134,6 +137,10 @@
     [actionSheet showInView:self.view];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self addProduct:nil];
+}
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         [self showCamera];
@@ -144,10 +151,28 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    UIImageView *imagee = [[UIImageView alloc] initWithImage:image];
-    [scrollViewPicsProduct addSubview:imagee];
-   // [mutArrayPicsProduct addObject:[UIImage imageWithData:[info objectForKey:@"UIImagePickerControllerOriginalImage"]]];
+    UIImage *imageThumb = [GlobalFunctions scaleToSize:CGSizeMake(50.0f,50.0f) imageOrigin:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
+    
+    UIImage *imageFull = [GlobalFunctions scaleToSize:CGSizeMake(50.0f,50.0f) imageOrigin:[info objectForKey:@"UIImagePickerControllerOriginalImage"]];
+    
+    [mutDictPicsProduct setObject:imageFull forKey:@"imageFull"];
+    [mutDictPicsProduct setObject:imageThumb forKey:@"imageThumb"];
+    [nsMutArrayPicsProduct insertObject:mutDictPicsProduct atIndex:(NSInteger)countPicsAtProduct];
+    
+    int setXPosition;
+    UIImageView *imageThumbView = [[UIImageView alloc] initWithImage:imageThumb];
+    
+    //Set Position Thumb At scrollViewPicsProduct
+    if (countPicsAtProduct == 0) 
+        setXPosition = 10; 
+    else 
+        setXPosition = (countPicsAtProduct*60.0)+10;
+    
+    scrollViewPicsProduct.contentSize	= CGSizeMake(setXPosition+50,70);  
+    
+    countPicsAtProduct++;
+    imageThumbView.frame = CGRectMake(setXPosition, 10, 50, 50);
+    [scrollViewPicsProduct addSubview:imageThumbView];
     [picker dismissModalViewControllerAnimated:YES];
 }
 
@@ -170,20 +195,25 @@
 //}
 
 - (void)showCamera{
-	// Create image picker controller
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
-    // Set source to the camera
-	imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
-    
-    // Delegate is self
-	imagePicker.delegate = self;
-    
-    // Allow editing of image ?
-	imagePicker.allowsImageEditing = NO;
-    
-    // Show image picker
-	[self presentModalViewController:imagePicker animated:YES];	
+    //check presence of a camera:
+    if ([UIImagePickerController isSourceTypeAvailable:
+         UIImagePickerControllerSourceTypeCamera]) {
+        // Create image picker controller
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        
+        // Set source to the camera
+        imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
+        
+        // Delegate is self
+        imagePicker.delegate = self;
+        
+        // Allow editing of image ?
+        imagePicker.allowsImageEditing = NO;
+        
+        // Show image picker
+        [self presentModalViewController:imagePicker animated:YES];	
+    }
 }
 
 -(IBAction)saveProduct{
@@ -207,7 +237,7 @@
     [postData setObject:idPerson              forKey:@"idUser"];
 
     
-    //Parsing rpcData to JSON! 
+    //Parsing prodParams to JSON! 
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];    
@@ -258,7 +288,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     
     
-    if(pickerView.tag == 1)
+    if(pickerView.tag == PICKERSTATE)
         txtFieldState.text = [NSString stringWithFormat:@"   %@", (NSString *)[nsArrayState objectAtIndex:row]];
     else 
         txtFieldCurrency.text = [NSString stringWithFormat:@"   %@", (NSString *)[nsArrayCurrency objectAtIndex:row]];
@@ -268,7 +298,7 @@
 
 // tell the picker how many rows are available for a given component
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if(pickerView.tag == 1)
+    if(pickerView.tag == PICKERSTATE)
         return nsArrayState.count;
     else 
         return nsArrayCurrency.count;
@@ -281,7 +311,7 @@
 
 // tell the picker the title for a given component
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if(pickerView.tag ==1)
+    if(pickerView.tag == PICKERSTATE)
         return [nsArrayState objectAtIndex:row];
     else 
         return [nsArrayCurrency objectAtIndex:row];
@@ -292,7 +322,18 @@
     return 300;
 }
 
-
+//-(void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+//    if (error) {
+//        UIAlertView *alert = [[UIAlertView alloc]
+//                              initWithTitle: @"Save failed"
+//                              message: @"Failed to save image/video"
+//                              delegate: nil
+//                              cancelButtonTitle:@"OK"
+//                              otherButtonTitles:nil];
+//        
+//        [alert show];
+//    }
+//}
 
 - (void)viewDidUnload
 {

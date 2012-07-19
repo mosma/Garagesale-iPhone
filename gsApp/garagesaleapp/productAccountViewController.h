@@ -30,15 +30,15 @@
 
     //Others
     RKObjectManager         *RKObjManeger;
-    NSMutableArray          *mutArrayPicsProduct;
+    NSMutableDictionary     *mutDictPicsProduct;
+    NSMutableArray          *nsMutArrayPicsProduct;
     NSArray                 *nsArrayState;
     NSArray                 *nsArrayCurrency;
-    UIPickerView            *pickerViewState;
-    UIPickerView            *pickerViewCurrency;
+    int                     countPicsAtProduct;
 }
 
 @property (retain, nonatomic) RKObjectManager                   *RKObjManeger;
-@property (retain, nonatomic) NSMutableArray                    *mutArrayPicsProduct;
+@property (retain, nonatomic) NSMutableDictionary               *mutDictPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
@@ -47,5 +47,6 @@
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;
+-(IBAction)addProduct:(id)sender;
 
 @end

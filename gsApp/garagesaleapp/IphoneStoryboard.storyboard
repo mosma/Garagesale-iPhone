@@ -264,8 +264,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="7nw-DL-odb" kind="relationship" relationship="viewControllers" id="QkS-x4-196"/>
-                        <segue destination="2mx-I3-m95" kind="relationship" relationship="viewControllers" id="QSI-y6-4cf"/>
                         <segue destination="1qE-fR-jdU" kind="relationship" relationship="viewControllers" id="XuM-z5-Rdu"/>
+                        <segue destination="2mx-I3-m95" kind="relationship" relationship="viewControllers" id="QSI-y6-4cf"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -316,7 +316,7 @@
                                     <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Name of product" minimumFontSize="17" background="textField01iphone.png" id="sLH-eM-od5">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="textField01iphone.png" id="sLH-eM-od5">
                                 <rect key="frame" x="11" y="182" width="296" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -328,27 +328,33 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="   visible" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY">
                                 <rect key="frame" x="11" y="107" width="150" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.53061224489795911" green="0.53061224489795911" blue="0.53061224489795911" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="   $" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2">
                                 <rect key="frame" x="11" y="260" width="80" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.55112005739795911" green="0.55112005739795911" blue="0.55112005739795911" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pAq-UN-gh2">
+                            <view contentMode="scaleToFill" id="sfh-PS-VWG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec">
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </scrollView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
-                            </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0k8-YX-jWQ">
-                                <rect key="frame" x="253" y="9" width="54" height="51"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dPI-DF-bHS">
+                                <rect key="frame" x="260" y="9" width="54" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="btAddPicsProduct.png">
@@ -358,13 +364,16 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addProduct:" destination="o08-vM-tNV" eventType="touchUpInside" id="C7j-FW-Ugw"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
                     <connections>
-                        <outlet property="scrollViewPicsProduct" destination="pAq-UN-gh2" id="qfi-Vu-2SN"/>
+                        <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="txtFieldCurrency" destination="VJa-0J-gw2" id="fYA-lH-VaS"/>
                         <outlet property="txtFieldState" destination="dhj-Dq-uqY" id="LdR-CJ-g9A"/>
                         <outlet property="txtFieldTitle" destination="sLH-eM-od5" id="gl2-jG-c1c"/>
@@ -374,12 +383,14 @@
             </objects>
             <point key="canvasLocation" x="574" y="-1741"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="RP4-Zh-jOg">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dle-bs-lN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="1qE-fR-jdU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="plus.png" id="1yY-9c-uoS"/>
+                    <tabBarItem key="tabBarItem" title="" id="1yY-9c-uoS">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="WEu-Pu-Zjl">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -842,12 +853,14 @@
             </objects>
             <point key="canvasLocation" x="1616" y="1526"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="onA-jy-WRo">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yyh-77-LAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="2mx-I3-m95" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="person.png" id="OG9-oC-wbc"/>
+                    <tabBarItem key="tabBarItem" title="" id="OG9-oC-wbc">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ihs-Ox-iK0">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1342,7 +1355,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOD-nY-CFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="nav1" definesPresentationContext="YES" navigationBarHidden="YES" id="7nw-DL-odb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="home.png" id="Dxf-gj-zzz">
+                    <tabBarItem key="tabBarItem" title="" id="Dxf-gj-zzz">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="DBP-xI-ZK1"/>
@@ -1718,11 +1731,8 @@
         <image name="btSign.png" width="100" height="37"/>
         <image name="dropDownCurrency.png" width="80" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
-        <image name="home.png" width="30" height="30"/>
         <image name="more_pics.png" width="50" height="50"/>
         <image name="nopicture.png" width="192" height="192"/>
-        <image name="person.png" width="30" height="30"/>
-        <image name="plus.png" width="30" height="30"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
     </resources>
@@ -1785,6 +1795,7 @@
         <class className="productAccountViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addProduct:"/>
                 <relationship kind="action" name="saveProduct"/>
                 <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
