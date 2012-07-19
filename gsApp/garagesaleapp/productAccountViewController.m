@@ -164,9 +164,9 @@
     
     //Set Position Thumb At scrollViewPicsProduct
     if (countPicsAtProduct == 0) 
-        setXPosition = 10; 
+        setXPosition = 0; 
     else 
-        setXPosition = (countPicsAtProduct*60.0)+10;
+        setXPosition = (countPicsAtProduct*60.0);
     
     scrollViewPicsProduct.contentSize	= CGSizeMake(setXPosition+50,70);  
     
