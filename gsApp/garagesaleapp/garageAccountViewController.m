@@ -9,7 +9,8 @@
 #import "garageAccountViewController.h"
 
 @implementation garageAccountViewController
-
+@synthesize tableView;
+@synthesize blockView;
 @synthesize RKObjManeger;
 @synthesize gravatarUrl;
 @synthesize emailLabel;
@@ -85,7 +86,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+//    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
     gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
@@ -108,7 +109,16 @@
     self.navigationItem.hidesBackButton = NO;
 }
 
-
+-(IBAction)changeSeg{
+    if(segmentControl.selectedSegmentIndex == 0){
+        tableView.hidden = YES;
+        blockView.hidden = NO;
+    }
+    if(segmentControl.selectedSegmentIndex == 1){
+        tableView.hidden = NO;
+        blockView.hidden = YES;
+    }
+}
 
 - (void)viewDidUnload
 {
@@ -128,6 +138,14 @@
     [self setScrollView:nil];
     seeAllButton = nil;
     [self setSeeAllButton:nil];
+    tableView = nil;
+    blockView = nil;
+    tableView = nil;
+    blockView = nil;
+    [self setTableView:nil];
+    [self setTableView:nil];
+    [self setTableView:nil];
+    [self setBlockView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

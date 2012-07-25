@@ -23,6 +23,9 @@
     __unsafe_unretained IBOutlet UILabel        *link;
     __unsafe_unretained IBOutlet UIScrollView   *scrollView;
     __unsafe_unretained IBOutlet UIButton       *seeAllButton;
+    __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+    __unsafe_unretained IBOutlet UIView *tableView;
+    __unsafe_unretained IBOutlet UIView *blockView;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -35,7 +38,11 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *link;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *seeAllButton;
+@property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *tableView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *blockView;
 
-- (void)loadAttribsToComponents;
+-(void)loadAttribsToComponents;
+-(IBAction)changeSeg;
 
 @end

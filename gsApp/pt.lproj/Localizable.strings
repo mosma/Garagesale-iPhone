@@ -23,4 +23,6 @@
 "home"                          = "Inicio";
 "search"                        = "Busca";
 "about"                         = "Sobre";
-"back"                          = "Back";
+"back"                          = "Voltar";
+"Avaliable"                     = " Disponivel";
+"Sold"                          = " Vendido";

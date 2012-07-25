@@ -12,6 +12,11 @@
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 
+
+@protocol PhotoScrollingViewDelegate
+-(void)removedImageAtIndex:(int )aImageIndex;
+@end
+
 @interface productAccountViewController : UIViewController <UIActionSheetDelegate, 
                                                              UINavigationControllerDelegate, 
                                                              UIImagePickerControllerDelegate,
@@ -34,16 +39,21 @@
     NSMutableArray          *nsMutArrayPicsProduct;
     NSArray                 *nsArrayState;
     NSArray                 *nsArrayCurrency;
-    int                     countPicsAtProduct;
+    UITapGestureRecognizer  *singleTap;
+    float imageWidth_;
+    float imageHeight_;
 }
 
-@property (retain, nonatomic) RKObjectManager                   *RKObjManeger;
-@property (retain, nonatomic) NSMutableDictionary               *mutDictPicsProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewPicsProduct;
+@property (retain, nonatomic) id<PhotoScrollingViewDelegate>   delegate;
+@property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
+@property (retain, nonatomic) NSMutableDictionary              *mutDictPicsProduct;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldState;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
+@property (nonatomic) float widhtPaddingInImages;
+@property (nonatomic) float heightPaddingInImages;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

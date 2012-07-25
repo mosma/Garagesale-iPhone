@@ -19,8 +19,8 @@ static NSString *urlServicePath;
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //urlServicePath = @"http://gsapi.local";
-    urlServicePath = @"http://gsapi.easylikethat.com"; 
+    urlServicePath = @"http://gsapi.local";
+    //urlServicePath = @"http://gsapi.easylikethat.com"; 
     //urlServicePath = @"http://api.garagesaleapp.me";    
     return urlServicePath; 
 }
