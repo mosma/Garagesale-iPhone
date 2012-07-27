@@ -42,6 +42,7 @@
     UITapGestureRecognizer  *singleTap;
     float imageWidth_;
     float imageHeight_;
+    bool isPost;
 }
 
 @property (retain, nonatomic) id<PhotoScrollingViewDelegate>   delegate;

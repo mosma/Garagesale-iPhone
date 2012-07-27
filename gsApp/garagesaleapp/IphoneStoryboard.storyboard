@@ -1639,7 +1639,7 @@
                                         <color key="textColor" red="0.6407645089285714" green="0.6407645089285714" blue="0.6407645089285714" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" example@email.me" minimumFontSize="17" id="2S8-5L-p5S" userLabel="textFildUserName">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jradi3@gmail.com" borderStyle="roundedRect" placeholder=" example@email.me" minimumFontSize="17" id="2S8-5L-p5S" userLabel="textFildUserName">
                                         <rect key="frame" x="10" y="94" width="300" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
@@ -1652,7 +1652,7 @@
                                         <color key="textColor" red="0.60640545280612246" green="0.60640545280612246" blue="0.60640545280612246" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="en8-F2-I3D" userLabel="textFildUserPassword">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="50119f395c" borderStyle="roundedRect" minimumFontSize="17" id="en8-F2-I3D" userLabel="textFildUserPassword">
                                         <rect key="frame" x="10" y="175" width="300" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
