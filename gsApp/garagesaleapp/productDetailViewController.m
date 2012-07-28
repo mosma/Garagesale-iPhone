@@ -134,7 +134,9 @@
         
         viewBidSend.layer.cornerRadius = 5;
         
-        commentTextView.layer.cornerRadius = 10;
+  //      commentTextView.layer.cornerRadius = 10;
+        
+        commentTextView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"uitextViewBackground.png"]];
         
         emailTextField.layer.shadowOpacity = 0.0;   
         emailTextField.layer.shadowRadius = 0.0;

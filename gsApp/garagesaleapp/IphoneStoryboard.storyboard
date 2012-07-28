@@ -276,108 +276,212 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJ9-BR-tHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="o08-vM-tNV" customClass="productAccountViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Caq-1e-Cu3">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ghd-rh-LIi">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ORq-bA-TH3">
-                                <rect key="frame" x="12" y="80" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                <color key="textColor" red="0.70047455683267623" green="0.70852598852040816" blue="0.70852598852040816" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="y6I-wT-hoB">
-                                <rect key="frame" x="12" y="153" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sfm-yC-Kbv">
-                                <rect key="frame" x="12" y="233" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HiQ-Y2-wLZ">
-                                <rect key="frame" x="11" y="315" width="296" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jkhgjkg" minimumFontSize="17" background="textField01iphone.png" id="sLH-eM-od5">
-                                <rect key="frame" x="11" y="182" width="296" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="   89" minimumFontSize="17" background="textField01iphone.png" id="87y-9X-GKC">
-                                <rect key="frame" x="99" y="258" width="208" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY">
-                                <rect key="frame" x="11" y="107" width="150" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" red="0.53061224489795911" green="0.53061224489795911" blue="0.53061224489795911" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2">
-                                <rect key="frame" x="11" y="260" width="80" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" red="0.55112005739795911" green="0.55112005739795911" blue="0.55112005739795911" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <view contentMode="scaleToFill" id="sfh-PS-VWG">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                            <view contentMode="scaleToFill" id="Caq-1e-Cu3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="502"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec">
-                                        <rect key="frame" x="10" y="0.0" width="244" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </scrollView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ORq-bA-TH3">
+                                        <rect key="frame" x="12" y="80" width="295" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                        <color key="textColor" red="0.70047455683267623" green="0.70852598852040816" blue="0.70852598852040816" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="y6I-wT-hoB">
+                                        <rect key="frame" x="12" y="153" width="295" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sfm-yC-Kbv">
+                                        <rect key="frame" x="12" y="363" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0ft-6A-hn8">
+                                        <rect key="frame" x="12" y="233" width="295" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
+                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HiQ-Y2-wLZ">
+                                        <rect key="frame" x="9" y="445" width="300" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <state key="normal" title="Save" backgroundImage="btSaveProduct.png">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY" userLabel="txtFieldState">
+                                        <rect key="frame" x="11" y="107" width="150" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.53061224489795911" green="0.53061224489795911" blue="0.53061224489795911" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2" userLabel="txtFieldCurrency">
+                                        <rect key="frame" x="11" y="391" width="80" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.55112005739795911" green="0.55112005739795911" blue="0.55112005739795911" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" id="sfh-PS-VWG">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec">
+                                                <rect key="frame" x="10" y="0.0" width="244" height="70"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            </scrollView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dPI-DF-bHS">
+                                        <rect key="frame" x="260" y="9" width="54" height="51"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btAddPicsProduct.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addProduct:" destination="o08-vM-tNV" eventType="touchUpInside" id="C7j-FW-Ugw"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="inn-22-zk8">
+                                        <rect key="frame" x="12" y="262" width="295" height="91"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="831-yZ-49S">
+                                        <rect key="frame" x="11" y="182" width="296" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee">
+                                        <rect key="frame" x="99" y="387" width="208" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="KcX-L5-2OX">
+                                        <rect key="frame" x="20" y="182" width="280" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UWq-Q7-Mfp" userLabel="textViewDescription">
+                                        <rect key="frame" x="16" y="268" width="287" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                                    </textView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="oNN-KV-k3j" userLabel="txtFieldValue">
+                                        <rect key="frame" x="106" y="388" width="194" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                    </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dPI-DF-bHS">
-                                <rect key="frame" x="260" y="9" width="54" height="51"/>
+                            <view hidden="YES" contentMode="scaleToFill" id="72y-j0-giM" userLabel="ViewBidSend">
+                                <rect key="frame" x="315" y="42" width="300" height="283"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="btAddPicsProduct.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addProduct:" destination="o08-vM-tNV" eventType="touchUpInside" id="C7j-FW-Ugw"/>
-                                </connections>
-                            </button>
+                                <subviews>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00" minimumFontSize="17" id="M2p-Hu-eyz" userLabel="offerTextField">
+                                        <rect key="frame" x="14" y="297" width="271" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <action selector="isNumberKey:" destination="Nbe-H5-7nH" eventType="editingChanged" id="chX-l6-fDF"/>
+                                            <action selector="textFieldEditingEnded:" destination="Nbe-H5-7nH" eventType="touchDragOutside" id="NOJ-2X-YZR"/>
+                                            <action selector="textFieldEditingEnded:" destination="Nbe-H5-7nH" eventType="editingDidEndOnExit" id="g09-6d-C4Y"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uAe-DB-8Q5" userLabel="BtBidItem">
+                                        <rect key="frame" x="189" y="240" width="102" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btBidThisItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="bidPost:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="vPb-CN-EGI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VEl-N4-oPv" userLabel="BtCancel">
+                                        <rect key="frame" x="118" y="240" width="63" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btCancelBidItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="NdC-Di-zqY"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" minimumFontSize="10" id="Hwl-0X-RVS">
+                                        <rect key="frame" x="9" y="37" width="285" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.35714285709999999" green="0.35714285709999999" blue="0.35714285709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Ask something" lineBreakMode="tailTruncation" minimumFontSize="10" id="Hge-za-qhJ">
+                                        <rect key="frame" x="9" y="109" width="285" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.35714285709999999" green="0.35714285709999999" blue="0.35714285709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Offer" lineBreakMode="tailTruncation" minimumFontSize="10" id="wVb-Ir-mVw">
+                                        <rect key="frame" x="9" y="7" width="285" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="16"/>
+                                        <color key="textColor" red="0.37287705789999998" green="0.67432637120000005" blue="0.26359744950000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92941182850000004" green="0.92941182850000004" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
+                    </scrollView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
                     <connections>
+                        <outlet property="scrollView" destination="Ghd-rh-LIi" id="HWu-5z-SZL"/>
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
+                        <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
                         <outlet property="txtFieldCurrency" destination="VJa-0J-gw2" id="fYA-lH-VaS"/>
                         <outlet property="txtFieldState" destination="dhj-Dq-uqY" id="LdR-CJ-g9A"/>
-                        <outlet property="txtFieldTitle" destination="sLH-eM-od5" id="gl2-jG-c1c"/>
-                        <outlet property="txtFieldValue" destination="87y-9X-GKC" id="8My-Me-0zy"/>
+                        <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
+                        <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
                     </connections>
                 </viewController>
             </objects>
@@ -1167,7 +1271,7 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="CWC-8P-AHb"/>
                                                 </connections>
                                             </button>
-                                            <textField autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email@..." minimumFontSize="17" id="v6Z-Sw-iCu">
+                                            <textField autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email@..." minimumFontSize="17" background="textField01iphone.png" id="v6Z-Sw-iCu">
                                                 <rect key="frame" x="10" y="63" width="280" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1199,7 +1303,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="uWh-fX-Vgm">
-                                                <rect key="frame" x="10" y="139" width="280" height="92"/>
+                                                <rect key="frame" x="10" y="139" width="280" height="91"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1756,6 +1860,7 @@
         <image name="btProdBlock.png" width="17" height="14"/>
         <image name="btProdList.png" width="17" height="14"/>
         <image name="btRegister.png" width="300" height="37"/>
+        <image name="btSaveProduct.png" width="300" height="37"/>
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSearchAccount.png" width="39" height="31"/>
         <image name="btSign.png" width="100" height="37"/>
@@ -1765,6 +1870,7 @@
         <image name="nopicture.png" width="192" height="192"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
+        <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
     <classes>
         <class className="OHAttributedLabel" superclassName="UILabel">
@@ -1831,7 +1937,9 @@
             <relationships>
                 <relationship kind="action" name="addProduct:"/>
                 <relationship kind="action" name="saveProduct"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>

@@ -147,6 +147,11 @@
 		CCCE588C1577FD4600F51ACA /* btCancelBidItem.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */; };
 		CCCE588D1577FD4600F51ACA /* btCancelBidItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */; };
 		CCD1D8D914BD3A8600EBD63B /* boxGarageDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD1D8D814BD3A8600EBD63B /* boxGarageDetail.png */; };
+		CCD7958415C3118900F0B4D3 /* uitextViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */; };
+		CCD7958515C3118900F0B4D3 /* uitextViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */; };
+		CCD7958915C3A1D000F0B4D3 /* btSaveProduct.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958615C3A1D000F0B4D3 /* btSaveProduct.png */; };
+		CCD7958A15C3A1D000F0B4D3 /* btSaveProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958715C3A1D000F0B4D3 /* btSaveProduct@2x.png */; };
+		CCD7958B15C3A1D000F0B4D3 /* dropDownCurrency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */; };
 		CCD8373E1520BD1300DCF0FD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */; };
 		CCE7B8E2158BAF2F0020E538 /* btBackNav.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E0158BAF2F0020E538 /* btBackNav.png */; };
 		CCE7B8E3158BAF2F0020E538 /* btBackNav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E1158BAF2F0020E538 /* btBackNav@2x.png */; };
@@ -403,6 +408,11 @@
 		CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btCancelBidItem.png; sourceTree = "<group>"; };
 		CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btCancelBidItem@2x.png"; sourceTree = "<group>"; };
 		CCD1D8D814BD3A8600EBD63B /* boxGarageDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boxGarageDetail.png; sourceTree = "<group>"; };
+		CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uitextViewBackground.png; sourceTree = "<group>"; };
+		CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uitextViewBackground@2x.png"; sourceTree = "<group>"; };
+		CCD7958615C3A1D000F0B4D3 /* btSaveProduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSaveProduct.png; sourceTree = "<group>"; };
+		CCD7958715C3A1D000F0B4D3 /* btSaveProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSaveProduct@2x.png"; sourceTree = "<group>"; };
+		CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownCurrency@2x.png"; sourceTree = "<group>"; };
 		CCD8373C1520BD1300DCF0FD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		CCE7B8E0158BAF2F0020E538 /* btBackNav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btBackNav.png; sourceTree = "<group>"; };
@@ -604,6 +614,11 @@
 		CC2EC55D14B74ACD00AEFE04 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CCD7958615C3A1D000F0B4D3 /* btSaveProduct.png */,
+				CCD7958715C3A1D000F0B4D3 /* btSaveProduct@2x.png */,
+				CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */,
+				CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */,
+				CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */,
 				CC8BF4A015B878580048AE70 /* addOver.png */,
 				CC8BF4A115B878580048AE70 /* addOver@2x.png */,
 				CC8BF4A215B878580048AE70 /* homeOver.png */,
@@ -1047,6 +1062,11 @@
 				CC8BF4A915B878580048AE70 /* homeOver@2x.png in Resources */,
 				CC8BF4AA15B878580048AE70 /* personOver.png in Resources */,
 				CC8BF4AB15B878580048AE70 /* personOver@2x.png in Resources */,
+				CCD7958415C3118900F0B4D3 /* uitextViewBackground.png in Resources */,
+				CCD7958515C3118900F0B4D3 /* uitextViewBackground@2x.png in Resources */,
+				CCD7958915C3A1D000F0B4D3 /* btSaveProduct.png in Resources */,
+				CCD7958A15C3A1D000F0B4D3 /* btSaveProduct@2x.png in Resources */,
+				CCD7958B15C3A1D000F0B4D3 /* dropDownCurrency@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

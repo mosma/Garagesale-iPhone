@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GlobalFunctions.h"
 #import "Product.h"
+#import "BSKeyboardControls.h"
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 
@@ -24,15 +25,18 @@
                                                              RKRequestDelegate,
                                                              UIPickerViewDataSource, 
                                                              UIPickerViewDelegate, 
-                                                             UITextFieldDelegate> {
+                                                             UITextFieldDelegate,
+                                                             BSKeyboardControlsDelegate,
+                                                             UIScrollViewDelegate> {
     //Outlets
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewPicsProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldTitle;
     __unsafe_unretained IBOutlet UITextField    *txtFieldValue;
     __unsafe_unretained IBOutlet UITextField    *txtFieldState;   
     __unsafe_unretained IBOutlet UITextField    *txtFieldCurrency;                                                              
+    __weak IBOutlet UIScrollView    *scrollView;
 
-
+                                                                 __weak IBOutlet UITextView *textViewDescription;
     //Others
     RKObjectManager         *RKObjManeger;
     NSMutableDictionary     *mutDictPicsProduct;
@@ -42,7 +46,7 @@
     UITapGestureRecognizer  *singleTap;
     float imageWidth_;
     float imageHeight_;
-    bool isPost;
+    bool isPostProduct;
 }
 
 @property (retain, nonatomic) id<PhotoScrollingViewDelegate>   delegate;
@@ -53,8 +57,10 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldState;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
+@property (weak, nonatomic) IBOutlet UIScrollView   *scrollView;
 @property (nonatomic) float widhtPaddingInImages;
 @property (nonatomic) float heightPaddingInImages;
+@property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

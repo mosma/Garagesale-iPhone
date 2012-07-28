@@ -8,6 +8,12 @@
 
 #import "productAccountViewController.h"
 
+@interface productAccountViewController ()
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+- (void)setupKeyboardControls;
+- (void)scrollViewToTextField:(id)textField;
+@end
+
 @implementation productAccountViewController
 
 //@synthesize mutDictPicsProduct;
@@ -18,6 +24,8 @@
 @synthesize txtFieldCurrency;
 @synthesize scrollViewPicsProduct;
 @synthesize delegate;
+@synthesize scrollView;
+@synthesize keyboardControls;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -26,6 +34,7 @@
 #define kHeightPaddingInImages 10
 @synthesize widhtPaddingInImages;
 @synthesize heightPaddingInImages;
+@synthesize textViewDescription;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -119,6 +128,13 @@
     imageHeight_ = 50.0f;
     widhtPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
+    
+    self.scrollView.contentSize             = CGSizeMake(320,650);
+    
+    [self setupKeyboardControls];
+    
+
+
 }
 
 //Disable Select, Copy, Select All on TextField
@@ -378,13 +394,11 @@
 //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new]; 
 //        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
         
-        if (!isPost) {
+        if (!isPostProduct) {
             [self postProduct];
-            isPost = !isPost;
+            isPostProduct = !isPostProduct;
         }else 
-            isPost = !isPost;
-        
-
+            isPostProduct = !isPostProduct;
         
         // Handling POST /other.json        
         if ([response isJSON]) {
@@ -482,8 +496,139 @@
 //    }
 //}
 
+/* Setup the keyboard controls BSKeyboardControls.h */
+- (void)setupKeyboardControls
+{
+    // Initialize the keyboard controls
+    self.keyboardControls = [[BSKeyboardControls alloc] init];
+    
+    // Set the delegate of the keyboard controls
+    self.keyboardControls.delegate = self;
+    
+    // Add all text fields you want to be able to skip between to the keyboard controls
+    // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
+    
+
+    self.keyboardControls.textFields = [NSArray arrayWithObjects:
+                                            txtFieldState,txtFieldTitle,textViewDescription,txtFieldCurrency, txtFieldValue,nil];
+
+    
+    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
+    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
+    
+    // Set the tint color of the "Previous" and "Next" button. Default is black.
+    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
+    
+    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
+    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    // Set title for the "Previous" button. Default is "Previous".
+    self.keyboardControls.previousTitle = @"Previous";
+    
+    // Set title for the "Next button". Default is "Next".
+    self.keyboardControls.nextTitle = @"Next";
+    
+    // Add the keyboard control as accessory view for all of the text fields
+    // Also set the delegate of all the text fields to self
+    for (id textField in self.keyboardControls.textFields)
+    {
+        if ([textField isKindOfClass:[UITextField class]])
+        {
+            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
+            ((UITextField *) textField).delegate = self;
+        }
+        else if ([textField isKindOfClass:[UITextView class]])
+        {
+            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
+            ((UITextView *) textField).delegate = self;
+        }
+    }
+}
+
+/* Scroll the view to the active text field */
+- (void)scrollViewToTextField:(id)textField
+{
+    UIScrollView* v = (UIScrollView*) self.scrollView;
+    CGRect rc = [textField bounds];
+    rc = [textField convertRect:rc toView:v];
+    
+    rc.size.height = 300;
+
+    [self.scrollView scrollRectToVisible:rc animated:YES];
+    
+    /* 
+     Use this block case use UITableView
+     
+     UITableViewCell *cell = nil;
+     if ([textField isKindOfClass:[UITextField class]])
+     cell = (UITableViewCell *) ((UITextField *) textField).superview.superview;
+     else if ([textField isKindOfClass:[UITextView class]])
+     cell = (UITableViewCell *) ((UITextView *) textField).superview.superview;
+     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+     */
+}
+
+#pragma mark -
+#pragma mark BSKeyboardControls Delegate
+
+/* 
+ * The "Done" button was pressed
+ * We want to close the keyboard
+ */
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
+{
+    [controls.activeTextField resignFirstResponder];
+}
+
+/* Either "Previous" or "Next" was pressed
+ * Here we usually want to scroll the view to the active text field
+ * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
+ * KeyboardControlsDirectionPrevious        "Previous" was pressed
+ * KeyboardControlsDirectionNext            "Next" was pressed
+ */
+- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
+{
+    [textField becomeFirstResponder];
+    [self scrollViewToTextField:textField];
+}
+
+#pragma mark -
+#pragma mark UITextField Delegate
+
+/* Editing began */
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.keyboardControls.textFields containsObject:textField])
+        self.keyboardControls.activeTextField = textField;
+    [self scrollViewToTextField:textField];
+}
+
+#pragma mark -
+#pragma mark UITextView Delegate
+
+/* Editing began */
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.keyboardControls.textFields containsObject:textView])
+        self.keyboardControls.activeTextField = textView;
+    [self scrollViewToTextField:textView];
+}
+
+-(IBAction)textFieldEditingEnded:(id)sender{
+    [sender resignFirstResponder];
+}
+/* 
+ *
+ End Setup the keyboard controls 
+ *
+ */
+
+
 - (void)viewDidUnload
 {
+    textViewDescription = nil;
+    [self setTextViewDescription:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
