@@ -14,8 +14,11 @@
 #import "Login.h"
 #import "ViewController.h"
 
-@interface signUpViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, 
-                                  BSKeyboardControlsDelegate,UIScrollViewDelegate, RKObjectLoaderDelegate>{
+@interface signUpViewController : UIViewController <UITextFieldDelegate, 
+                                                    UITextViewDelegate, 
+                                                    BSKeyboardControlsDelegate,
+                                                    UIScrollViewDelegate, 
+                                                    RKObjectLoaderDelegate>{
                                       
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
@@ -65,7 +68,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;
 
 //Actions and functions
--(void)loadAttributs;
+-(void)loadAttribsToComponents;
 -(void)setUserDefaults:(NSArray *)objects;
 -(IBAction)checkLogin:(id)sender;
 

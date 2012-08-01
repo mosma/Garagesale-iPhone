@@ -9,8 +9,8 @@
 #import "garageAccountViewController.h"
 
 @implementation garageAccountViewController
-@synthesize tableView;
-@synthesize blockView;
+
+@synthesize tableViewProducts;
 @synthesize RKObjManeger;
 @synthesize gravatarUrl;
 @synthesize emailLabel;
@@ -19,8 +19,9 @@
 @synthesize description;
 @synthesize city;
 @synthesize link;
-@synthesize scrollView;
-@synthesize seeAllButton;
+@synthesize scrollViewProducts;
+@synthesize mutArrayProducts;
+@synthesize mutArrayDataThumbs;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,11 +45,52 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    [self loadAttribsToComponents];
+    [self loadAttribsToComponents:NO];
+    [self setupProductMapping];
 }
+
+- (void)setupProductMapping{
+    //Initializing the Object Manager
+    RKObjManeger = [RKObjectManager sharedManager];
+    
+    //Configure Product Object Mapping
+    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
+    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
+    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
+    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
+    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
+    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
+    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
+    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
+    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
+    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
+    
+    //Configure Photo Object Mapping
+    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
+    [photoMapping mapAttributes:@"caminho",
+     @"caminhoThumb",
+     @"caminhoTiny",
+     @"principal",
+     @"idProduto",
+     @"id",
+     @"id_estado",
+     nil];
+    
+    //Relationship
+    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+}
+
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if([objects count] > 0){
+        self.mutArrayProducts = (NSMutableArray *)objects;
+        [self loadAttribsToComponents:YES];
     }
 }
 
@@ -81,44 +123,146 @@
     }
 }
 
--(void)loadAttribsToComponents{
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+    if (!isFromLoadObject) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-//    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     
-    gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
+        gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
-    description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-    garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"garage"];
-    city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+        description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+        garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
+        city.text        = [NSString stringWithFormat:@"%@, %@, %@",
                         [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
-    link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
+        link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
-    self.scrollView.contentSize     = CGSizeMake(320,630);
+        self.scrollViewProducts.contentSize     = CGSizeMake(320,2845);
     
-    self.navigationItem.title       = NSLocalizedString(@"garage", @"");
+        self.navigationItem.title       = NSLocalizedString(@"garage", @"");
     
-    self.imageView.image            = [UIImage imageWithData: [NSData dataWithContentsOfURL:self.gravatarUrl]];
-    seeAllButton.layer.cornerRadius = 5.0f;
-    
-    [seeAllButton setTitle: NSLocalizedString(@"seeAllProducts", @"") forState:UIControlStateNormal];
-    self.navigationItem.hidesBackButton = NO;
+        self.imageView.image            = [UIImage imageWithData: [NSData dataWithContentsOfURL:self.gravatarUrl]];
+
+        self.navigationItem.hidesBackButton = NO;
+        
+        self.tableViewProducts.hidden = YES;
+
+    }else {
+        [self.tableViewProducts setDataSource:self];
+        [self.tableViewProducts setDelegate:self];
+        
+        //Load cache thumbs in thumbsDataArray to TableView
+        mutArrayDataThumbs = [[NSMutableArray alloc] init];
+        for(int i = 0; i < [self.mutArrayProducts count]; i++)
+        {
+            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
+                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+                [mutArrayDataThumbs addObject:thumbImage];
+            }else 
+                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+        }
+        
+        [self.tableViewProducts reloadData];
+        
+        //init Global Functions
+        globalFunctions = [[GlobalFunctions alloc] init];
+        //Set Display thumbs on Home.
+        globalFunctions.countColumnImageThumbs = -1;
+        globalFunctions.imageThumbsXorigin_Iphone = 10;
+        globalFunctions.imageThumbsYorigin_Iphone = 10;
+        
+        NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadButtonsProduct)
+                                            object:nil];
+        [queue addOperation:operation];
+
+
+    }  
 }
 
--(IBAction)changeSeg{
+-(IBAction)changeSegControl{
     if(segmentControl.selectedSegmentIndex == 0){
-        tableView.hidden = YES;
-        blockView.hidden = NO;
+        tableViewProducts.hidden = YES;
+        scrollViewProducts.hidden = NO;
     }
     if(segmentControl.selectedSegmentIndex == 1){
-        tableView.hidden = NO;
-        blockView.hidden = YES;
+        tableViewProducts.hidden = NO;
+        scrollViewProducts.hidden = YES;
     }
 }
+
+-(void)loadButtonsProduct{
+    //NSOperationQueue *queue = [NSOperationQueue new];
+    for(int i = 0; i < [self.mutArrayProducts count]; i++)
+    {
+        // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
+        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+        
+        [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
+        //}
+    }
+}
+
+- (void)loadImageGalleryThumbs:(NSArray *)params {
+    BOOL isPickNull = ([[self.mutArrayProducts objectAtIndex:
+                         [[params objectAtIndex:1] intValue]] fotos] == NULL);
+    [scrollViewProducts addSubview:[globalFunctions loadImage:params isNull:isPickNull viewContr:self]];
+}
+
+- (void)gotoProductDetailVC:(UIButton *)sender{
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
+}
+
+// Table view data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.mutArrayProducts count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"CellProduct";
+    
+    // Configure the cell...
+    productCustomViewCell *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
+    //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
+    [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
+    
+    if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
+        [[cell valorEsperado] setText:@"Vendido"];
+        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                           green:(float)102/255.0 \
+                                                            blue:(float)102/255.0 alpha:1.0]];
+    }else{
+        [[cell valorEsperado] setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ]];
+        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)90/255.0 \
+                                                           green:(float)163/255.0 \
+                                                            blue:(float)65/255.0 alpha:1.0]];
+    }
+    [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
+    [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
+                                         [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
+    
+    cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
+}
+
 
 - (void)viewDidUnload
 {
@@ -134,19 +278,12 @@
     [self setDescription:nil];
     [self setCity:nil];
     [self setLink:nil];
-    scrollView = nil;
-    [self setScrollView:nil];
-    seeAllButton = nil;
-    [self setSeeAllButton:nil];
-    tableView = nil;
-    blockView = nil;
-    tableView = nil;
-    blockView = nil;
-    [self setTableView:nil];
-    [self setTableView:nil];
-    [self setTableView:nil];
-    [self setBlockView:nil];
+    scrollViewProducts = nil;
+    [self setScrollViewProducts:nil];
+    tableViewProducts = nil;
+    [self setTableViewProducts:nil];
     [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -158,15 +295,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-

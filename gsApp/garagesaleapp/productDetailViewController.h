@@ -31,19 +31,20 @@
                                                             BSKeyboardControlsDelegate,
                                                             UIScrollViewDelegate,
                                                             RKObjectLoaderDelegate> {
+                                                                
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;
     NSArray                                     *arrayGarage;
     NSArray                                     *arrayProfile;
     NSArray                                     *arrayTags;
+    UIView                                      *shadowView;
     BOOL                                        isIdPersonNumber;
+                                                                                                    
     IBOutlet UILabel                            *nomeLabel;
     IBOutlet UILabel                            *currencyLabel;
     IBOutlet UILabel                            *descricaoLabel;
     IBOutlet OHAttributedLabel                  *valorEsperadoLabel;
     IBOutlet UIScrollView                       *scrollView;
-    UIView                                      *shadowView;
-    //IBOutlet UIImageView                        *imageView;
     __unsafe_unretained IBOutlet UIButton       *bidButton;
     __unsafe_unretained IBOutlet UITextField    *emailTextField;
     __unsafe_unretained IBOutlet UITextField    *offerTextField;
@@ -58,18 +59,17 @@
     __unsafe_unretained IBOutlet UILabel        *offerLabel;
     __unsafe_unretained IBOutlet UILabel        *msgBidSentLabel;
     __unsafe_unretained IBOutlet UIView         *secondView;
+    __unsafe_unretained IBOutlet UIView         *viewBidSend;
     IBOutlet UIView                             *garageDetailView;
     UIButton                                    *addThisButton;
                                                                 
     //Gallery Images Objects.
     NSMutableArray          *productPhotos;
-    NSString                *idPessoa;     //from ProductDetail
-    NSNumber                *idProduto;    //from ProductDetail
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
-    __unsafe_unretained IBOutlet UIView *viewBidSend;
+
 }
 
 @property (strong, nonatomic) id detailItem;
@@ -79,6 +79,7 @@
 @property (retain, nonatomic) NSArray                           *arrayProfile;
 @property (retain, nonatomic) NSArray                           *arrayTags;
 @property (nonatomic) BOOL                                      isIdPersonNumber;
+
 @property (retain, nonatomic) IBOutlet UILabel                  *nomeLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *currencyLabel;
 @property (retain, nonatomic) IBOutlet UILabel                  *descricaoLabel;
@@ -98,18 +99,15 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *offerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *msgBidSentLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *secondView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidSend;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 
-
+//Gallery Images Objects.
 @property (retain, nonatomic) NSMutableArray         *productPhotos;
-@property (retain, nonatomic) NSString               *idPessoa;
-@property (retain, nonatomic) NSNumber               *idProduto;
 @property (retain, nonatomic) UIImageView            *imageView;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
-
-@property (unsafe_unretained, nonatomic) IBOutlet UIView *viewBidSend;
 
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;
@@ -126,7 +124,6 @@
 - (IBAction)isNumberKey:(UITextField *)textField;
 - (IBAction)bidPost:(id)sender;
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
-
 - (IBAction)pageControlCliked;
 - (void)setupProductMapping:(NSString *)localResource;
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;

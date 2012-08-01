@@ -32,7 +32,7 @@
 
 #define kWidthPaddingInImages 10
 #define kHeightPaddingInImages 10
-@synthesize widhtPaddingInImages;
+@synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
 
@@ -94,7 +94,7 @@
     pickerViewState.tag = PICKERSTATE;
     pickerViewState.dataSource = self;
     pickerViewState.showsSelectionIndicator = YES;
-    txtFieldState.inputView = pickerViewState;
+    //txtFieldState.inputView = pickerViewState;
     txtFieldState.text = NSLocalizedString(@" Avaliable", @"");
     
     //Set Picker View Currency
@@ -126,25 +126,30 @@
     
     imageWidth_ = 50.0f;
     imageHeight_ = 50.0f;
-    widhtPaddingInImages = kWidthPaddingInImages;
+    widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
     self.scrollView.contentSize             = CGSizeMake(320,650);
     
     [self setupKeyboardControls];
-    
-
 
 }
 
-//Disable Select, Copy, Select All on TextField
--(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
-    if (menuController) {
-        [UIMenuController sharedMenuController].menuVisible = NO;
-    }
-    return NO;
-} 
+////Disable Select, Copy, Select All on TextField
+//-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+//    UIMenuController *menuController = [UIMenuController sharedMenuController];
+//    if (menuController) {
+//        [UIMenuController sharedMenuController].menuVisible = NO;
+//    }
+//    return NO;
+//} 
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+//    //This line dismisses the keyboard.       
+//    [theTextField resignFirstResponder];
+//    //Your view manipulation here if you moved the view up due to the keyboard etc.       
+//    return NO;
+//}
 
 -(void)pickerDoneClicked{
     [txtFieldState resignFirstResponder];
@@ -217,7 +222,7 @@
             [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollViewPicsProduct.frame.size.height/2, 0, 0)];                    
         }else if (viewNumber >= indexOfRemovedImageView ){
             CGPoint origin = ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame.origin;
-            origin.x = origin.x - self.widhtPaddingInImages - imageWidth_;
+            origin.x = origin.x - self.widthPaddingInImages - imageWidth_;
             origin.y = self.heightPaddingInImages;
             ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame = CGRectMake(origin.x, origin.y, imageWidth_, imageHeight_);
             scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
@@ -226,7 +231,7 @@
     }
         
     CGSize size = scrollViewPicsProduct.contentSize;
-    size.width = size.width - imageWidth_ -self.widhtPaddingInImages;
+    size.width = size.width - imageWidth_ -self.widthPaddingInImages;
     scrollViewPicsProduct.contentSize = size;
 }
 
@@ -244,7 +249,7 @@
         UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         [imageView addGestureRecognizer:longPressGesture];
         CGSize size = scrollViewPicsProduct.contentSize;
-        size.width = size.width + imageWidth_ + self.widhtPaddingInImages;
+        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
         scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
         scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
@@ -263,13 +268,13 @@
     }
     for (int imageNumber =0 ; imageNumber < [aImageList count]; imageNumber ++) {
         UIImageView * imageView = [[UIImageView alloc] initWithImage:[aImageList objectAtIndex:imageNumber]];
-        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widhtPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
+        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widthPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
         [scrollViewPicsProduct addSubview:imageView];
         [imageView setUserInteractionEnabled:YES];
         UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         [imageView addGestureRecognizer:longPressGesture];
         CGSize size = scrollViewPicsProduct.contentSize;
-        size.width = size.width + imageWidth_ + self.widhtPaddingInImages;
+        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
         scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
         scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
@@ -552,7 +557,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     
-    rc.size.height = 300;
+    rc.size.height = 350;
 
     [self.scrollView scrollRectToVisible:rc animated:YES];
     

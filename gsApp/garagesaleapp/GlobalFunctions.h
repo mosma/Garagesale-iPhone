@@ -13,7 +13,6 @@
 #import "Category.h"
 
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
-    NSString *getUrlServicePath;
     NSUserDefaults *getUserDefaults;
     
     int imageThumbsXorigin_Iphone;
@@ -23,6 +22,7 @@
 }
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
++(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface productCustomViewCell : UITableViewCell{
+@interface productCustomViewCell : UITableViewCell {
     IBOutlet UILabel        *productName;
     IBOutlet UILabel        *valorEsperado;
     IBOutlet UILabel        *currency;

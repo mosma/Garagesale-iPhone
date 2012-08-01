@@ -34,9 +34,9 @@
     __unsafe_unretained IBOutlet UITextField    *txtFieldValue;
     __unsafe_unretained IBOutlet UITextField    *txtFieldState;   
     __unsafe_unretained IBOutlet UITextField    *txtFieldCurrency;                                                              
-    __weak IBOutlet UIScrollView    *scrollView;
-
-                                                                 __weak IBOutlet UITextView *textViewDescription;
+    __unsafe_unretained IBOutlet UIScrollView   *scrollView;
+    __unsafe_unretained IBOutlet UITextView     *textViewDescription;
+                                                                 
     //Others
     RKObjectManager         *RKObjManeger;
     NSMutableDictionary     *mutDictPicsProduct;
@@ -49,7 +49,8 @@
     bool isPostProduct;
 }
 
-@property (retain, nonatomic) id<PhotoScrollingViewDelegate>   delegate;
+@property (retain, nonatomic) id <PhotoScrollingViewDelegate>  delegate;
+
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
 @property (retain, nonatomic) NSMutableDictionary              *mutDictPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
@@ -57,10 +58,11 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldState;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
-@property (weak, nonatomic) IBOutlet UIScrollView   *scrollView;
-@property (nonatomic) float widhtPaddingInImages;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (unsafe_unretained, nonatomic) IBOutlet UITextView   *textViewDescription;
+
+@property (nonatomic) float widthPaddingInImages;
 @property (nonatomic) float heightPaddingInImages;
-@property (weak, nonatomic) IBOutlet UITextView *textViewDescription;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

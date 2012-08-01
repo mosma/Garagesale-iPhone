@@ -11,11 +11,11 @@
 @implementation ViewController
 
 @synthesize RKObjManeger;
-@synthesize arrayProducts;
+@synthesize nsArrayProducts;
 @synthesize scrollView;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
-@synthesize activityMain;
+@synthesize activityLoadProducts;
 @synthesize viewSearch;
 @synthesize labelSearch;
 
@@ -71,14 +71,14 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
-        self.arrayProducts = objects;
+        self.nsArrayProducts = objects;
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
-                                            selector:@selector(loadProducts)
+                                            selector:@selector(loadButtonsProduct)
                                             object:nil];
         [queue addOperation:operation];
-        [activityMain stopAnimating];       
+        [activityLoadProducts stopAnimating];       
     }
 }
 
@@ -126,8 +126,8 @@
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     
     //Set Scroll Size.
-    self.scrollView.contentSize	= CGSizeMake(320,825);   
-
+    self.scrollView.contentSize	= CGSizeMake(320,1500);   
+    
     //Set Logo Top Button Not Account.
     UIButton *logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton.frame = CGRectMake(33, 20, 253, 55);
@@ -218,12 +218,12 @@
 //
 //}
 
--(void)loadProducts{
+-(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = 0; i < [self.arrayProducts count]; i++)
+    for(int i = 0; i < [self.nsArrayProducts count]; i++)
     {
         // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
-        NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.arrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.nsArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
         
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
@@ -232,7 +232,7 @@
 }
 
 - (void)loadImageGalleryThumbs:(NSArray *)params {
-    BOOL isPickNull = ([[self.arrayProducts objectAtIndex:
+    BOOL isPickNull = ([[self.nsArrayProducts objectAtIndex:
                          [[params objectAtIndex:1] intValue]] fotos] == NULL);
     [scrollView addSubview:[globalFunctions loadImage:params isNull:isPickNull viewContr:self]];
 }
@@ -246,7 +246,7 @@
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.arrayProducts objectAtIndex:sender.tag];
+    prdDetailVC.product = (Product *)[self.nsArrayProducts objectAtIndex:sender.tag];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -375,8 +375,8 @@
     // Release any retained subviews of the main view.
     scrollView = nil;
     [self setScrollView:nil];
-    activityMain = nil;
-    [self setActivityMain:nil];
+    activityLoadProducts = nil;
+    [self setActivityLoadProducts:nil];
     [super viewDidUnload];
 }
 

@@ -18,6 +18,7 @@
     NSArray             *profile;
     NSArray             *arrayTags;
     NSURL               *gravatarUrl;
+    
     __unsafe_unretained IBOutlet UILabel        *emailLabel;
     __unsafe_unretained IBOutlet UIImageView    *imageView;
     __unsafe_unretained IBOutlet UILabel        *garageName;
@@ -33,6 +34,7 @@
 @property (retain, nonatomic) NSArray           *profile;
 @property (retain, nonatomic) NSArray           *arrayTags;
 @property (retain, nonatomic) NSURL             *gravatarUrl;
+
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView   *imageView;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *garageName;

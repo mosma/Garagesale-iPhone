@@ -46,10 +46,7 @@
 @synthesize secondView;
 @synthesize garageDetailView;
 @synthesize keyboardControls;
-
 @synthesize productPhotos;
-@synthesize idPessoa;
-@synthesize idProduto;
 @synthesize imageView;
 @synthesize galleryScrollView;
 @synthesize activityIndicator;

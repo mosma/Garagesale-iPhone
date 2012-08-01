@@ -13,6 +13,7 @@
 @implementation GlobalFunctions
 
 static NSString *urlServicePath;
+static NSString *urlImagePath;
 
 @synthesize imageThumbsXorigin_Iphone;
 @synthesize imageThumbsYorigin_Iphone;
@@ -23,6 +24,13 @@ static NSString *urlServicePath;
     urlServicePath = @"http://gsapi.easylikethat.com"; 
     //urlServicePath = @"http://api.garagesaleapp.me";    
     return urlServicePath; 
+}
+
++(NSString *)getUrlImagePath {
+    //urlImagePath = @"http://localhost/...";
+    urlImagePath = @"http://gsapp.easylikethat.com"; 
+    //urlImagePath = @"http://www.garagesaleapp.me"; 
+    return urlImagePath; 
 }
 
 +(NSUserDefaults *)getUserDefaults {
@@ -36,7 +44,7 @@ static NSString *urlServicePath;
 - (UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr {
     NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
                                [NSURL URLWithString:(NSString *)[params objectAtIndex:0]]];
-    
+        
     UIImage     *image;
     if (isNull) 
         image      = [UIImage imageNamed:@"nopicture.png"];
@@ -77,7 +85,7 @@ static NSString *urlServicePath;
     //[imgButton addSubview:spinner];
     // [spinner startAnimating];
     [imgButton setImage:image forState:UIControlStateNormal];
-    
+        
     //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
     
     return imgButton;

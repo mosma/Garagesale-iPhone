@@ -12,37 +12,35 @@
 #import "productTableViewController.h"
 #import "signUpViewController.h"
 #import "QuartzCore/QuartzCore.h"
-#import "aboutViewController.h"
 #import "Product.h"
 
-@interface ViewController : UIViewController <RKObjectLoaderDelegate,UISearchBarDelegate,OHAttributedLabelDelegate>{
-    //Others
+@interface ViewController : UIViewController <RKObjectLoaderDelegate,
+                                              UISearchBarDelegate,
+                                              OHAttributedLabelDelegate>{
+
     RKObjectManager                             *RKObjManeger;
-    NSArray                                     *arrayProducts;
+    NSArray                                     *nsArrayProducts;
     BOOL                                        *isSearch;
     GlobalFunctions                             *globalFunctions;
     
-    //Outlets
     __unsafe_unretained IBOutlet UIScrollView   *scrollView;
     __unsafe_unretained IBOutlet UIView         *viewTopPage;
     __unsafe_unretained IBOutlet UIView         *viewSearch;
     __unsafe_unretained IBOutlet UILabel        *labelSearch;
     __unsafe_unretained IBOutlet UISearchBar    *searchBarProduct;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityMain;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityLoadProducts;
 }
-//Others
-@property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
-@property (nonatomic, retain) NSArray                           *arrayProducts;
 
-//Outlets
+@property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
+@property (nonatomic, retain) NSArray                           *nsArrayProducts;
+
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewTopPage;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar   *searchBarProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityMain;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityLoadProducts;
 
-//Actions and Functions
 - (void)setupProductMapping;
 - (void)reachability;
 - (void)loadAttribsToComponents;

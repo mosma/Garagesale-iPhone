@@ -38,11 +38,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadAttributs];
+    [self loadAttribsToComponents];
 	// Do any additional setup after loading the view.
 }
 
--(void)loadAttributs{
+- (void)loadAttribsToComponents{
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
     NSLog(@"Available Font Families: %@", [UIFont familyNames]);
@@ -287,20 +287,7 @@
         rc.origin.x = 0 ;
     
     rc.origin.y = 0 ;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      
      Essa condicional esta sujeito a falhar .

@@ -168,7 +168,7 @@
         for(int i = 0; i < [self.mutArrayProducts count]; i++)
         {
             if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
-                NSString* urlThumb = [NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
                 UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
                 [mutArrayDataThumbs addObject:thumbImage];
             }else 
