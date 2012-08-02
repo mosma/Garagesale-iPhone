@@ -105,7 +105,8 @@ static NSString *urlImagePath;
     return buttonItem;
 }
 
-+(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width{    /* 
++(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width{    
+    /* 
     set Navigation Title with OHAttributeLabel
     */
     NSString *titleNavItem = @"Garagesaleapp";
@@ -124,7 +125,13 @@ static NSString *urlImagePath;
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
     
-    
+    return label;
+}
+
++(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
+    label.textAlignment = textAlignment;
+    label.font = [UIFont fontWithName:@"Droid Sans" size:20];
     return label;
 }
 
@@ -231,21 +238,6 @@ static NSString *urlImagePath;
        // [viewLayer setShadowRadius:1.0];
     //}
     return;
-}
-
-+(void)setTextFieldForm:(UITextField *)textField{
-    textField.borderStyle = UITextBorderStyleNone;
-    [textField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-
-    textField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"textField01iphone.png"]];
-    
-    [textField setTextColor:[UIColor colorWithRed:147/255.0 green:147/255.0 blue:147/255.0 alpha:1.0]];
-    
-    [textField setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-
-    textField.frame = CGRectMake(textField.frame.origin.x, 
-                                           textField.frame.origin.y, 
-                                           textField.frame.size.width, 40); 
 }
 
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller {

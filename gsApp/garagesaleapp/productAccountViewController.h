@@ -36,6 +36,10 @@
     __unsafe_unretained IBOutlet UITextField    *txtFieldCurrency;                                                              
     __unsafe_unretained IBOutlet UIScrollView   *scrollView;
     __unsafe_unretained IBOutlet UITextView     *textViewDescription;
+    __unsafe_unretained IBOutlet UILabel *labelState;
+    __unsafe_unretained IBOutlet UILabel *labelTitle;
+    __unsafe_unretained IBOutlet UILabel *labelDescription;
+    __unsafe_unretained IBOutlet UILabel *labelValue;
                                                                  
     //Others
     RKObjectManager         *RKObjManeger;
@@ -60,9 +64,14 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextView   *textViewDescription;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelState;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelTitle;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 
 @property (nonatomic) float widthPaddingInImages;
 @property (nonatomic) float heightPaddingInImages;
+
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

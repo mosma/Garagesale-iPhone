@@ -26,16 +26,19 @@
 @synthesize delegate;
 @synthesize scrollView;
 @synthesize keyboardControls;
+@synthesize labelTitle;
+@synthesize labelDescription;
+@synthesize labelValue;
+@synthesize labelState;
+@synthesize widthPaddingInImages;
+@synthesize heightPaddingInImages;
+@synthesize textViewDescription;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
 
 #define kWidthPaddingInImages 10
 #define kHeightPaddingInImages 10
-@synthesize widthPaddingInImages;
-@synthesize heightPaddingInImages;
-@synthesize textViewDescription;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,6 +74,17 @@
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
+    labelState.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelTitle.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelDescription.font  = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    labelValue.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
+
+    [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [txtFieldTitle       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]]) {
@@ -95,7 +109,7 @@
     pickerViewState.dataSource = self;
     pickerViewState.showsSelectionIndicator = YES;
     //txtFieldState.inputView = pickerViewState;
-    txtFieldState.text = NSLocalizedString(@" Avaliable", @"");
+    txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
     
     //Set Picker View Currency
     UIPickerView *pickerViewCurrency = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
@@ -104,7 +118,7 @@
     pickerViewCurrency.dataSource = self;
     pickerViewCurrency.showsSelectionIndicator = YES;
     txtFieldCurrency.inputView = pickerViewCurrency;
-    txtFieldCurrency.text = @" BRL";
+    txtFieldCurrency.text = @"BRL";
     
     // Create done button in UIPickerView
     UIToolbar*  picViewStateToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
@@ -343,7 +357,7 @@
             [prodParams setObject:idPerson               forKey:@"idPessoa"];
             [prodParams setObject:txtFieldValue.text     forKey:@"valorEsperado"];
             [prodParams setObject:txtFieldTitle.text     forKey:@"nome"];
-            [prodParams setObject:@""                    forKey:@"descricao"];
+            [prodParams setObject:textViewDescription    forKey:@"descricao"];
             [prodParams setObject:@"1"                   forKey:@"idEstado"];
             [prodParams setObject:idPerson               forKey:@"idUser"];
             [prodParams setObject:@""                    forKey:@"categorias"];
@@ -354,7 +368,6 @@
             [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
             [postData setObject:idPerson              forKey:@"idUser"];
             
-            
             //Parsing prodParams to JSON! 
             id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
             NSError *error = nil;
@@ -364,7 +377,6 @@
             [postData setObject:json forKey:@"product"];
             
             [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
-            
             
             //If no error we send the post, voila!
             if (!error){
@@ -455,9 +467,9 @@
     
     
     if(pickerView.tag == PICKERSTATE)
-        txtFieldState.text = [NSString stringWithFormat:@"   %@", (NSString *)[nsArrayState objectAtIndex:row]];
+        txtFieldState.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayState objectAtIndex:row]];
     else 
-        txtFieldCurrency.text = [NSString stringWithFormat:@"   %@", (NSString *)[nsArrayCurrency objectAtIndex:row]];
+        txtFieldCurrency.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayCurrency objectAtIndex:row]];
     
     
 }
@@ -634,6 +646,14 @@
 {
     textViewDescription = nil;
     [self setTextViewDescription:nil];
+    labelState = nil;
+    labelTitle = nil;
+    labelDescription = nil;
+    [self setLabelState:nil];
+    [self setLabelTitle:nil];
+    [self setLabelDescription:nil];
+    [self setLabelValue:nil];
+    labelValue = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

@@ -12,6 +12,7 @@
 #import "Category.h"
 #import "GlobalFunctions.h"
 #import "productCustomViewCell.h"
+#import "settingsAccountViewController.h"
 
 @interface garageAccountViewController : UIViewController <RKObjectLoaderDelegate, 
                                                         UITableViewDelegate,

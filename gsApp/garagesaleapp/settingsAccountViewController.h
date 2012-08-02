@@ -16,16 +16,70 @@
                                                              BSKeyboardControlsDelegate,
                                                              UIScrollViewDelegate, 
                                                              RKObjectLoaderDelegate> {
-
+    
+    //ViewNewPassword Labels                                                             
+    __weak IBOutlet UILabel     *labelCurrentPassword;
+    __weak IBOutlet UILabel     *labelNewPassword;
+    __weak IBOutlet UILabel     *labelRepeatPassword;
+    //ViewNewPassword TextFields                                                       
+    __weak IBOutlet UITextField *txtFieldCurrentPassword;
+    __weak IBOutlet UITextField *txtFieldNewPassword;
+    __weak IBOutlet UITextField *txtFieldRepeatNewPassword;
                                                                  
-    __weak IBOutlet UIScrollView  *scrollView;
+    //ViewAddress Labels
+    __weak IBOutlet UILabel *labelAddress;                         
+    __weak IBOutlet UILabel *labelCity;
+    __weak IBOutlet UILabel *labelDistrict;
+    __weak IBOutlet UILabel *labelCountry;                                                            
+    //ViewAddress TxtFields                                            
+    __weak IBOutlet UITextField *txtFieldAddress;                                                       
+    __weak IBOutlet UITextField *txtFieldCity;
+    __weak IBOutlet UITextField *txtFieldDistrict;                                                            
+    __weak IBOutlet UITextField *txtFieldCountry;
+                                                                 
+    //ViewAccount Labels                                                            
+    __weak IBOutlet UILabel *labelGarageName;
+    __weak IBOutlet UILabel *labelYourName;
+    __weak IBOutlet UILabel *labelEmail;
+    __weak IBOutlet UILabel *labelAbout;
+    __weak IBOutlet UILabel *labelAnyLink;
+    //ViewAccount TxtFields                                                             
     __weak IBOutlet UITextField   *txtFieldGarageName;
     __weak IBOutlet UITextField   *txtFieldYourName;
     __weak IBOutlet UITextField   *txtFieldEmail;
     __weak IBOutlet UITextView    *txtViewAbout;
     __weak IBOutlet UITextField   *txtFieldAnyLink;
-}
 
+    __weak IBOutlet UIScrollView  *scrollView;
+}
+//ViewPassword Labels
+@property (weak, nonatomic) IBOutlet UILabel *labelCurrentPassword;
+@property (weak, nonatomic) IBOutlet UILabel *labelNewPassword;
+@property (weak, nonatomic) IBOutlet UILabel *labelRepeatPassword;
+//ViewPassword TxtFields
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldCurrentPassword;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldNewPassword;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldRepeatNewPassword;
+
+
+//ViewAddress Labels
+@property (weak, nonatomic) IBOutlet UILabel *labelAddress;
+@property (weak, nonatomic) IBOutlet UILabel *labelCity;
+@property (weak, nonatomic) IBOutlet UILabel *labelDistrict;
+@property (weak, nonatomic) IBOutlet UILabel *labelCountry;
+//ViewAddress TxtFields
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldAddress;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldCity;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldDistrict;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldCountry;
+
+//ViewAccount Labels  
+@property (weak, nonatomic) IBOutlet UILabel *labelGarageName;
+@property (weak, nonatomic) IBOutlet UILabel *labelYourName;
+@property (weak, nonatomic) IBOutlet UILabel *labelEmail;
+@property (weak, nonatomic) IBOutlet UILabel *labelAbout;
+@property (weak, nonatomic) IBOutlet UILabel *labelAnyLink;
+//ViewAccount TxtFields                                                             
 @property (weak, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldGarageName;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldYourName;

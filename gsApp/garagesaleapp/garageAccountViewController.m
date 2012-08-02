@@ -147,6 +147,8 @@
 
         self.navigationItem.hidesBackButton = NO;
         
+        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+        
         self.tableViewProducts.hidden = YES;
 
     }else {
@@ -183,6 +185,11 @@
 
 
     }  
+}
+
+-(void)gotoSettingsVC{
+    settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 -(IBAction)changeSegControl{

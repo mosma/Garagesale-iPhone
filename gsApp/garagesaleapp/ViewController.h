@@ -29,6 +29,7 @@
     __unsafe_unretained IBOutlet UILabel        *labelSearch;
     __unsafe_unretained IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityLoadProducts;
+    __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -40,6 +41,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityLoadProducts;
+@property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 
 - (void)setupProductMapping;
 - (void)reachability;

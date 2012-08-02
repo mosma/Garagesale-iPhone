@@ -31,11 +31,11 @@
 +(void)roundedLayer:(CALayer *)viewLayer radius:(float)r shadow:(BOOL)s;
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
-+(void)setTextFieldForm:(UITextField *)textField;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller;
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
++(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width;
 -(UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr;
 +(NSURL*) getGravatarURL:(NSString*) emailAddress;
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;

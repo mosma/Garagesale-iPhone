@@ -22,6 +22,7 @@
                                       
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
+    __weak IBOutlet UILabel         *labelLogin;
     __weak IBOutlet UITextField     *textFieldPersonName;
     __weak IBOutlet UITextField     *textFieldEmail;
     __weak IBOutlet UITextField     *textFieldGarageName;
@@ -41,11 +42,13 @@
     NSArray                         *arrayGarage;
     NSArray                         *arrayProfile;
     RKObjectManager                 *RKObjManeger;
+    NSUserDefaults                  *settingsAccount;
     __weak IBOutlet UIActivityIndicatorView *activityLogin;
 }
 
 //Sigup outlets
 @property (weak, nonatomic) IBOutlet UILabel        *labelSignup;
+@property (weak, nonatomic) IBOutlet UILabel        *labelLogin;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldPersonName;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldGarageName;
@@ -65,11 +68,12 @@
 @property (retain, nonatomic) NSArray               *arrayGarage;
 @property (retain, nonatomic) NSArray               *arrayProfile;
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
+@property (nonatomic, retain) NSUserDefaults        *settingsAccount;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;
 
 //Actions and functions
 -(void)loadAttribsToComponents;
--(void)setUserDefaults:(NSArray *)objects;
+-(void)setLogin:(NSArray *)objects;
 -(IBAction)checkLogin:(id)sender;
 
 @end

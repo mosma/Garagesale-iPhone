@@ -17,6 +17,7 @@
 @implementation signUpViewController
 
 @synthesize labelSignup;
+@synthesize labelLogin;
 @synthesize textFieldPersonName;
 @synthesize textFieldEmail;
 @synthesize textFieldGarageName;
@@ -34,6 +35,7 @@
 @synthesize activityLogin;
 @synthesize arrayGarage;
 @synthesize arrayProfile;
+@synthesize settingsAccount;
 
 - (void)viewDidLoad
 {
@@ -55,17 +57,18 @@
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
     labelSignup.font        = [UIFont fontWithName:@"Droid Sans" size:16 ];
+    labelLogin.font         = [UIFont fontWithName:@"Droid Sans" size:16 ];
     labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelPersonName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelPassword.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
 
-    [GlobalFunctions setTextFieldForm:textFieldGarageName];
-    [GlobalFunctions setTextFieldForm:textFieldPersonName];
-    [GlobalFunctions setTextFieldForm:textFieldEmail];
-    [GlobalFunctions setTextFieldForm:textFieldPassword];
-    [GlobalFunctions setTextFieldForm:textFieldUserName];
-    [GlobalFunctions setTextFieldForm:textFieldUserPassword];
+    [textFieldGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textFieldPersonName    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textFieldEmail         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textFieldPassword      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textFieldUserName      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [textFieldUserPassword  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
     [self.navigationController setNavigationBarHidden:NO];
     
@@ -76,8 +79,8 @@
 - (void)setupLogin{
     //Configure Product Object Mapping
     RKObjectMapping *loginMapping = [RKObjectMapping mappingForClass:[Login class]];    
-    [loginMapping mapKeyPath:@"idPerson"          toAttribute:@"idPerson"];
-    [loginMapping mapKeyPath:@"token"     toAttribute:@"token"];
+    [loginMapping mapKeyPath:@"idPerson"     toAttribute:@"idPerson"];
+    [loginMapping mapKeyPath:@"token"        toAttribute:@"token"];
     
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
@@ -88,29 +91,32 @@
 
 - (void)setGarage:(NSArray *)objects{
     //Garage
-    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
-    [loginDefaults setObject:[[objects objectAtIndex:0] link] forKey:@"link"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] about] forKey:@"about"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] country] forKey:@"country"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] district] forKey:@"district"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] city] forKey:@"city"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] address] forKey:@"address"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] localization] forKey:@"localization"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] idState] forKey:@"idState"];
-    [loginDefaults synchronize];
+    //NSUserDefaults *garageDefaults = [NSUserDefaults standardUserDefaults];
+    [settingsAccount setObject:[[objects objectAtIndex:0] link]           forKey:@"link"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] about]          forKey:@"about"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] country]        forKey:@"country"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] district]       forKey:@"district"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] city]           forKey:@"city"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] address]        forKey:@"address"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
+
+    [settingsAccount synchronize];
     [activityLogin stopAnimating];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setProfile:(NSArray *)objects{
     //Profile
-    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
-    [loginDefaults setObject:[[objects objectAtIndex:0] garagem] forKey:@"garagem"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] nome] forKey:@"nameProfile"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] email] forKey:@"email"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] senha] forKey:@"senha"];
-    //Garage
-    [loginDefaults synchronize];
+   //NSUserDefaults *profileDefaults = [NSUserDefaults standardUserDefaults];
+    [settingsAccount setObject:[[objects objectAtIndex:0] garagem]  forKey:@"garagem"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] nome]     forKey:@"nome"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] email]    forKey:@"email"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] senha]    forKey:@"senha"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"]; 
+    //[settingsAccount synchronize];
 }
 
 - (void)setupGarageMapping {
@@ -157,7 +163,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
-            [self setUserDefaults:objects];
+            [self setLogin:objects];
         }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
             self.arrayProfile = objects;
             [self setProfile:objects];
@@ -210,11 +216,12 @@
     [self setupLogin];
 }
 
--(void)setUserDefaults:(NSArray *)objects{
-    NSUserDefaults *loginDefaults = [NSUserDefaults standardUserDefaults];
-    [loginDefaults setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
-    [loginDefaults setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
-    [loginDefaults synchronize];
+-(void)setLogin:(NSArray *)objects{
+    
+    settingsAccount = [NSUserDefaults standardUserDefaults];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
+    //[settingsAccount synchronize];
     [self setupProfileMapping];
 }
 
@@ -390,6 +397,8 @@
     [self setLabelPassword:nil];
     labelSignup = nil;
     [self setLabelSignup:nil];
+    labelLogin = nil;
+    [self setLabelLogin:nil];
     scrollView = nil;
     [self setScrollView:nil];
     activityLogin = nil;

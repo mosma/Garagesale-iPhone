@@ -131,13 +131,8 @@
         
         viewBidSend.layer.cornerRadius = 5;
         
-  //      commentTextView.layer.cornerRadius = 10;
-        
-        commentTextView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"uitextViewBackground.png"]];
-        
-        emailTextField.layer.shadowOpacity = 0.0;   
-        emailTextField.layer.shadowRadius = 0.0;
-        emailTextField.layer.shadowColor = [UIColor clearColor].CGColor;
+        [emailTextField   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [commentTextView  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
 
         garageDetailView.userInteractionEnabled = NO;
 

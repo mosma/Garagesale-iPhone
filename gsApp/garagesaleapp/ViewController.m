@@ -16,6 +16,7 @@
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
 @synthesize activityLoadProducts;
+@synthesize txtFieldSearch;
 @synthesize viewSearch;
 @synthesize labelSearch;
 
@@ -110,7 +111,7 @@
 
 - (void)loadAttribsToComponents{
     
-    //Custom Tab Bar Controller
+    //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
     UIImage *selectedImage1   = [UIImage imageNamed:@"addOver.png"];
@@ -165,6 +166,7 @@
     [viewSearch.layer setShadowOpacity:0.5];
     viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
+    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     labelSearch.font = [UIFont fontWithName:@"Corben" size:21];
     
     //set searchBar settings
@@ -377,6 +379,8 @@
     [self setScrollView:nil];
     activityLoadProducts = nil;
     [self setActivityLoadProducts:nil];
+    txtFieldSearch = nil;
+    [self setTxtFieldSearch:nil];
     [super viewDidUnload];
 }
 
