@@ -132,8 +132,13 @@
             
         gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
+        
+        
+        garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
+        garageName.font        = [UIFont boldSystemFontOfSize:22];
+        
         description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-        garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
+        garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
         city.text        = [NSString stringWithFormat:@"%@, %@, %@",
                         [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
@@ -155,21 +160,7 @@
     }else {
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-        
-        //Load cache thumbs in thumbsDataArray to TableView
-//        mutArrayDataThumbs = [[NSMutableArray alloc] init];
-//        for(int i = 0; i < [self.mutArrayProducts count]; i++)
-//        {
-//            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
-//                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-//                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-//                [mutArrayDataThumbs addObject:thumbImage];
-//            }else 
-//                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
-//        }
-//        
-//        [self.tableViewProducts reloadData];
-        
+
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
         //Set Display thumbs on Home.
@@ -178,30 +169,21 @@
         globalFunctions.imageThumbsYorigin_Iphone = 10;
         
         NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+        
+        NSInvocationOperation *opThumbsProd = [[NSInvocationOperation alloc]
                                             initWithTarget:self
                                             selector:@selector(loadButtonsProduct)
                                             object:nil];
-        [queue addOperation:operation];
-
+        
+        NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadTableProduct)
+                                            object:nil];
+        [queue addOperation:opThumbsProd];
+        [queue addOperation:opTableProd];
+        
         [activityIndicator stopAnimating];
     }  
-}
-
--(void)gotoSettingsVC{
-    settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-    [self.navigationController pushViewController:settingsVC animated:YES];
-}
-
--(IBAction)changeSegControl{
-    if(segmentControl.selectedSegmentIndex == 0){
-        tableViewProducts.hidden = YES;
-        scrollViewProducts.hidden = NO;
-    }
-    if(segmentControl.selectedSegmentIndex == 1){
-        tableViewProducts.hidden = NO;
-        scrollViewProducts.hidden = YES;
-    }
 }
 
 -(void)loadButtonsProduct{
@@ -219,6 +201,55 @@
     [scrollViewProducts addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
                                                             showEdit:YES 
                                                            viewContr:self]];
+}
+
+-(void)loadTableProduct{
+    
+    
+    //Load cache thumbs in thumbsDataArray to TableView
+    mutArrayDataThumbs = [[NSMutableArray alloc] init];
+
+    for(int i = 0; i < [self.mutArrayProducts count]; i++)
+    {
+        [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i], 
+                                           [NSNumber numberWithInt:i], 
+                                           nil]];
+    }
+    [self.tableViewProducts reloadData];
+
+}
+
+- (void)loadImageTableThumbs:(NSArray *)arrayDetailProduct {
+    
+    
+    if ([[arrayDetailProduct objectAtIndex:0] fotos] != nil) {
+        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[arrayDetailProduct objectAtIndex:0] fotos] caminhoThumb]];
+        UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+        [mutArrayDataThumbs addObject:thumbImage];
+    }else 
+        [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+
+    
+   // [scrollViewProducts addSubview:[globalFunctions loadTableProduct:arrayDetailProduct
+     //                                                               showEdit:YES 
+       //                                                            viewContr:self]];
+}
+
+-(IBAction)changeSegControl{
+    if(segmentControl.selectedSegmentIndex == 0){
+        tableViewProducts.hidden = YES;
+        scrollViewProducts.hidden = NO;
+    }
+    if(segmentControl.selectedSegmentIndex == 1){
+        tableViewProducts.hidden = NO;
+        scrollViewProducts.hidden = YES;
+    }
+}
+
+-(void)gotoSettingsVC{
+    settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{

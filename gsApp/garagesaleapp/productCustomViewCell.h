@@ -14,6 +14,9 @@
     IBOutlet UILabel        *currency;
     IBOutlet UILabel        *garageName;
     IBOutlet UIImageView    *imageView;
+    
+    IBOutlet UIImageView    *imageEditButton;
+
 }
 
 @property (retain, nonatomic) IBOutlet UILabel      *productName;
@@ -21,5 +24,6 @@
 @property (retain, nonatomic) IBOutlet UILabel      *currency;
 @property (retain, nonatomic) IBOutlet UILabel      *garageName;
 @property (retain, nonatomic) IBOutlet UIImageView  *imageView;
+@property (retain, nonatomic) IBOutlet UIImageView  *imageEditButton;
 
 @end

@@ -15,6 +15,7 @@
 @synthesize currency;
 @synthesize garageName;
 @synthesize imageView;
+@synthesize imageEditButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

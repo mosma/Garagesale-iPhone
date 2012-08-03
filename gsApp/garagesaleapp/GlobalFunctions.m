@@ -90,24 +90,49 @@ static NSString *urlImagePath;
     [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
     [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
     [viewThumbs addSubview:buttonThumbsProduct];
-
+    
     //if (image) [spinner stopAnimating];
     
     UIGraphicsEndImageContext();
 
     if (showEdit) {
+        //Set View Price
+        UIView *viewPrice = [[UIView alloc] init];
+        
+        viewPrice.layer.cornerRadius = 4;
+        viewPrice.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
+        [viewThumbs addSubview:viewPrice];
+        
+        //Set Label Only
+        UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
+        [only setText:@"ONLY"];
+        only.backgroundColor = [UIColor clearColor];
+        [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
+        [viewPrice addSubview:only];
+        
+        //Set Label Price
+        UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(12, 12, 50, 20)];
+        [price setText:[NSString stringWithFormat:@"R$%@", product.valorEsperado]];
+        //[price setAdjustsFontSizeToFitWidth:YES];
+        [price sizeToFit];
+        price.backgroundColor = [UIColor clearColor];
+        price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
+        [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+        [viewPrice addSubview:price];
+        
+        //View Edit Pencil
         UIImageView *imageViewEditPencil = [[UIImageView alloc] initWithImage:
                                             [UIImage imageNamed:@"btPencilEditProductThumbs.png"]];
         [imageViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
         [viewThumbs addSubview:imageViewEditPencil];
+        
+        
+        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+15, 35)];        
+        
     }
     
     return viewThumbs;
 }
-//
-//- (void)displayImage:(UIActivityIndicatorView *)image {
-//    [image stopAnimating];
-//}
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
     // Add Search Bar Button  
