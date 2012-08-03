@@ -48,8 +48,6 @@
 - (void)loadAttribsToComponents;
 - (IBAction)reloadPage:(id)sender;
 - (void)gotoProductDetailVC:(id)sender;
-//- (void)loadImage:(NSString *)urlImage;
-- (void)displayImage:(UIImage *)image;
 - (IBAction)showSearch:(id)sender;
 
 @end

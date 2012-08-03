@@ -114,7 +114,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="yiR-qf-TEA">
-                                <rect key="frame" x="141" y="220" width="37" height="37"/>
+                                <rect key="frame" x="141" y="238" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.78501674109999997" green="0.78501674109999997" blue="0.78501674109999997" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
@@ -527,6 +527,10 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="nmh-5R-hnm" userLabel="activityIndicator">
+                                <rect key="frame" x="150" y="249" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" id="lt7-LU-cfI" userLabel="topView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -650,6 +654,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="nmh-5R-hnm" id="qAL-5g-kP5"/>
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>
                         <outlet property="description" destination="Rdc-zN-RV9" id="28Z-PN-JBn"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
@@ -2026,192 +2031,6 @@
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
-    <classes>
-        <class className="OHAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="outlet" name="activityLoadProducts" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="labelSearch" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="viewSearch" candidateClass="UIView"/>
-                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="galleryScrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="garageAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeSegControl"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="garageDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="productAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addProduct:"/>
-                <relationship kind="action" name="saveProduct"/>
-                <relationship kind="outlet" name="labelDescription" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelState" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelValue" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="productCustomViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="valorEsperado" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="productDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="actionEmailComposer"/>
-                <relationship kind="action" name="animationBidView"/>
-                <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="gotoGalleryScrollVC"/>
-                <relationship kind="action" name="gotoGarageDetailVC"/>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="activityIndicatorGarage" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="bidButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cityProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="currencyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descricaoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="garageDetailButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="imgProfile" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nomeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="offerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="offerTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="showPicsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="valorEsperadoLabel" candidateClass="OHAttributedLabel"/>
-                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="productTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="settingsAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="logout:"/>
-                <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelAddress" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelAnyLink" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCountry" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCurrentPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelDistrict" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelNewPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelRepeatPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelYourName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="txtFieldAddress" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldAnyLink" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCity" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCountry" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCurrentPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldDistrict" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldGarageName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldNewPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldRepeatNewPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldYourName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtViewAbout" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="signUpViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="checkLogin:"/>
-                <relationship kind="outlet" name="activityLogin" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelLogin" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPersonName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelSignup" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldGarageName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPersonName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserPassword" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

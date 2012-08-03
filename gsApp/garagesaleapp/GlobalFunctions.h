@@ -11,6 +11,7 @@
 #import "RestKit/RestKit.h"
 #import "OHAttributedLabel.h"
 #import "Category.h"
+#import "Product.h"
 
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
     NSUserDefaults *getUserDefaults;
@@ -36,7 +37,7 @@
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
 +(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width;
--(UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr;
+-(UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit viewContr:(UIViewController *)viewContr;
 +(NSURL*) getGravatarURL:(NSString*) emailAddress;
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;
 

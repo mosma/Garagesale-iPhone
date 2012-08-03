@@ -9,6 +9,7 @@
 #import "garageAccountViewController.h"
 
 @implementation garageAccountViewController
+@synthesize activityIndicator;
 
 @synthesize tableViewProducts;
 @synthesize RKObjManeger;
@@ -128,7 +129,7 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    
+            
         gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
         description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
@@ -156,18 +157,18 @@
         [self.tableViewProducts setDelegate:self];
         
         //Load cache thumbs in thumbsDataArray to TableView
-        mutArrayDataThumbs = [[NSMutableArray alloc] init];
-        for(int i = 0; i < [self.mutArrayProducts count]; i++)
-        {
-            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
-                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-                [mutArrayDataThumbs addObject:thumbImage];
-            }else 
-                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
-        }
-        
-        [self.tableViewProducts reloadData];
+//        mutArrayDataThumbs = [[NSMutableArray alloc] init];
+//        for(int i = 0; i < [self.mutArrayProducts count]; i++)
+//        {
+//            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
+//                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+//                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+//                [mutArrayDataThumbs addObject:thumbImage];
+//            }else 
+//                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+//        }
+//        
+//        [self.tableViewProducts reloadData];
         
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
@@ -183,7 +184,7 @@
                                             object:nil];
         [queue addOperation:operation];
 
-
+        [activityIndicator stopAnimating];
     }  
 }
 
@@ -207,19 +208,17 @@
     //NSOperationQueue *queue = [NSOperationQueue new];
     for(int i = 0; i < [self.mutArrayProducts count]; i++)
     {
-        // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
-        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-        
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
-        //}
+                               withObject:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i], 
+                                           [NSNumber numberWithInt:i], 
+                                           nil]];
     }
 }
 
-- (void)loadImageGalleryThumbs:(NSArray *)params {
-    BOOL isPickNull = ([[self.mutArrayProducts objectAtIndex:
-                         [[params objectAtIndex:1] intValue]] fotos] == NULL);
-    [scrollViewProducts addSubview:[globalFunctions loadImage:params isNull:isPickNull viewContr:self]];
+- (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
+    [scrollViewProducts addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
+                                                            showEdit:YES 
+                                                           viewContr:self]];
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
@@ -289,6 +288,8 @@
     [self setScrollViewProducts:nil];
     tableViewProducts = nil;
     [self setTableViewProducts:nil];
+    activityIndicator = nil;
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
     
     // Release any retained subviews of the main view.

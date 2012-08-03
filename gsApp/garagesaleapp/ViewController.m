@@ -61,6 +61,9 @@
      @"id_estado",
      nil];
     
+    
+    activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65); 
+    
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     
@@ -214,29 +217,22 @@
 //	}
 //} 
 
-
-//- (void)displayImage:(UIActivityIndicatorView *)image {
-//    [image stopAnimating];
-//
-//}
-
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
+    NSLog(@"Integer  : %i", [self.nsArrayProducts count]);
     for(int i = 0; i < [self.nsArrayProducts count]; i++)
     {
-        // if ([[self.arrayProducts objectAtIndex:i] fotos] == nil) {
-        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.nsArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-        
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:urlThumb, [NSNumber numberWithInt:i] , nil]];
-        //}
+                               withObject:[NSArray arrayWithObjects:[self.nsArrayProducts objectAtIndex:i], 
+                                                                    [NSNumber numberWithInt:i], 
+                                                                     nil]];
     }
 }
 
-- (void)loadImageGalleryThumbs:(NSArray *)params {
-    BOOL isPickNull = ([[self.nsArrayProducts objectAtIndex:
-                         [[params objectAtIndex:1] intValue]] fotos] == NULL);
-    [scrollView addSubview:[globalFunctions loadImage:params isNull:isPickNull viewContr:self]];
+- (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
+    [scrollView addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
+                                                                     showEdit:NO 
+                                                                     viewContr:self]];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -247,6 +243,8 @@
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
+    NSLog(@"%i", sender.tag);
+    
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[self.nsArrayProducts objectAtIndex:sender.tag];
     [self.navigationController pushViewController:prdDetailVC animated:YES];

@@ -41,16 +41,21 @@ static NSString *urlImagePath;
     return [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0]; 
 }
 
-- (UIButton *)loadImage:(NSArray *)params isNull:(BOOL)isNull viewContr:(UIViewController *)viewContr {
-    NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
-                               [NSURL URLWithString:(NSString *)[params objectAtIndex:0]]];
-        
-    UIImage     *image;
-    if (isNull) 
-        image      = [UIImage imageNamed:@"nopicture.png"];
-    else 
-        image      = [[UIImage alloc] initWithData:imageData];
+- (UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit viewContr:(UIViewController *)viewContr {
     
+    Product     *product    = (Product  *)[arrayDetailProduct objectAtIndex:0];
+    NSString    *urlThumb   = [NSString stringWithFormat:@"%@/%@", 
+                              [GlobalFunctions getUrlImagePath], [[product fotos] caminhoThumb]];
+    NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
+                               [NSURL URLWithString:urlThumb]];
+    UIImage     *image      = ([product fotos] == NULL) ? [UIImage imageNamed:@"nopicture.png"] 
+                                                        : [[UIImage alloc] initWithData:imageData];
+    /*
+     Logic Block of count Logic At X,Y Position viewThumbs display on Iphone.
+     imageThumbsXorigin_Iphone    Create by Instance Class
+     imageThumbsYorigin_Iphone    Create by Instance Class
+     countColumnImageThumbs       Create by Instance Class
+    */
     if (countColumnImageThumbs == 3) {
         imageThumbsXorigin_Iphone = 10;
         imageThumbsYorigin_Iphone = imageThumbsYorigin_Iphone + 103;
@@ -58,38 +63,51 @@ static NSString *urlImagePath;
     } else if (countColumnImageThumbs >= 1){
         imageThumbsXorigin_Iphone = imageThumbsXorigin_Iphone + 103;
     }
-    
     if (countColumnImageThumbs == -1)
         countColumnImageThumbs++;
-    
     countColumnImageThumbs++;
+    /*
+     End Block
+     */
+
+    UIView *viewThumbs = [[UIView alloc] initWithFrame:
+                            CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
     
-    UIButton    *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    imgButton.frame = CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94);
-    [imgButton setTag:[[params objectAtIndex:1] intValue]];
-    [imgButton addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
-    //                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    //    
-    //    [spinner setCenter:CGPointMake(imgButton.frame.size.width/2, 
-    //                                   imgButton.frame.size.height/2)];
-    //    
-    //    UIGraphicsBeginImageContext(spinner.frame.size);
-    
-    //    [image drawInRect:CGRectMake(0,0,spinner.frame.size.width, spinner.frame.size.height)];
-    //UIImage* resizedSpacer = UIGraphicsGetImageFromCurrentImageContext();
+    //ActivityIndicator
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
+                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    CGRect frame = spinner.frame;
+    frame.origin.x = viewThumbs.frame.size.width / 2 - frame.size.width / 2;
+    frame.origin.y = viewThumbs.frame.size.height / 2 - frame.size.height / 2;
+    spinner.frame = frame;
+    [viewThumbs addSubview:spinner];
+    [spinner startAnimating];
+
+    //Button Product
+    UIButton *buttonThumbsProduct  = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonThumbsProduct.frame      = CGRectMake(0, 0, 94, 94);
+    [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
+    [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
+    [viewThumbs addSubview:buttonThumbsProduct];
+
+    //if (image) [spinner stopAnimating];
     
     UIGraphicsEndImageContext();
-    // tagsButton.image = resizedSpacer;
-    //[imgButton addSubview:spinner];
-    // [spinner startAnimating];
-    [imgButton setImage:image forState:UIControlStateNormal];
-        
-    //[self performSelectorOnMainThread:@selector(displayImage:) withObject:spinner waitUntilDone:NO];
+
+    if (showEdit) {
+        UIImageView *imageViewEditPencil = [[UIImageView alloc] initWithImage:
+                                            [UIImage imageNamed:@"btPencilEditProductThumbs.png"]];
+        [imageViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
+        [viewThumbs addSubview:imageViewEditPencil];
+    }
     
-    return imgButton;
+    return viewThumbs;
 }
+//
+//- (void)displayImage:(UIActivityIndicatorView *)image {
+//    [image stopAnimating];
+//}
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
     // Add Search Bar Button  
