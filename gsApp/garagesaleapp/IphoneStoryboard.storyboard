@@ -557,12 +557,33 @@
                                 <color key="backgroundColor" red="0.22352942824363708" green="0.23529413342475891" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
-                                <rect key="frame" x="0.0" y="147" width="320" height="220"/>
+                                <rect key="frame" x="0.0" y="96" width="320" height="271"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="pAp-Tr-IJa">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="wGh-g7-ArN">
+                                            <rect key="frame" x="11" y="3" width="297" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.99607849120000003" green="0.34509804840000002" blue="0.41176474089999998" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="Rdc-zN-RV9" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
+                                            <rect key="frame" x="9" y="15" width="301" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="123"/>
+                                        <rect key="frame" x="0.0" y="66" width="320" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>
@@ -577,32 +598,25 @@
                                                     <rect key="frame" x="15" y="15" width="53" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="cHf-lD-giI">
-                                                    <rect key="frame" x="149" y="73" width="53" height="29"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="rnS-dq-rgJ">
+                                                    <rect key="frame" x="118" y="26" width="178" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.20000001788139343" green="0.20000001788139343" blue="0.20000001788139343" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TlK-S2-STs">
+                                                    <rect key="frame" x="119" y="68" width="14" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.61176472902297974" green="0.61176472902297974" blue="0.61176472902297974" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="cHf-lD-giI" userLabel="valorEsperado">
+                                                    <rect key="frame" x="128" y="63" width="166" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                    <color key="textColor" red="0.35294118520000001" green="0.63921570780000003" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="BoW-Ef-hVB">
-                                                    <rect key="frame" x="109" y="79" width="23" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="garage" lineBreakMode="tailTruncation" minimumFontSize="10" id="d7N-2v-T0Q">
-                                                    <rect key="frame" x="194" y="80" width="106" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="rnS-dq-rgJ">
-                                                    <rect key="frame" x="118" y="38" width="202" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.24313727021217346" green="0.60784316062927246" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -610,8 +624,6 @@
                                         </view>
                                         <color key="backgroundColor" red="0.18048469389999999" green="0.042337491429999999" blue="0.15565084279999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="currency" destination="BoW-Ef-hVB" id="wBi-WK-a0t"/>
-                                            <outlet property="garageName" destination="d7N-2v-T0Q" id="OgU-rI-JVf"/>
                                             <outlet property="imageView" destination="sJk-A0-owf" id="umR-DP-SE3"/>
                                             <outlet property="productName" destination="rnS-dq-rgJ" id="Nqm-aT-pjq"/>
                                             <outlet property="valorEsperado" destination="cHf-lD-giI" id="XkB-Wy-nUR"/>
@@ -620,23 +632,32 @@
                                 </prototypes>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3IH-JW-7oF" userLabel="scrollViewProducts">
-                                <rect key="frame" x="0.0" y="147" width="320" height="300"/>
+                                <rect key="frame" x="0.0" y="96" width="320" height="271"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="nJk-L9-atK">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="cR2-WC-ife">
+                                                <rect key="frame" x="11" y="3" width="297" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.99607849120000003" green="0.34509804840000002" blue="0.41176474089999998" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
+                                                <rect key="frame" x="9" y="15" width="301" height="23"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
                             </scrollView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="wGh-g7-ArN">
-                                <rect key="frame" x="11" y="100" width="297" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.99607849120000003" green="0.34509804840000002" blue="0.41176474089999998" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="Rdc-zN-RV9" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
-                                <rect key="frame" x="10" y="115" width="301" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -660,10 +681,10 @@
                     <connections>
                         <outlet property="activityIndicator" destination="nmh-5R-hnm" id="qAL-5g-kP5"/>
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>
-                        <outlet property="description" destination="Rdc-zN-RV9" id="28Z-PN-JBn"/>
+                        <outlet property="description" destination="buW-ao-lhU" id="5P0-JZ-rlE"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
                         <outlet property="imageView" destination="Znh-8E-y7D" id="rt2-ni-W0D"/>
-                        <outlet property="link" destination="wGh-g7-ArN" id="Pvq-ll-Xgm"/>
+                        <outlet property="link" destination="cR2-WC-ife" id="AOm-9P-RZO"/>
                         <outlet property="scrollViewProducts" destination="3IH-JW-7oF" id="Gv9-Mx-HXS"/>
                         <outlet property="segmentControl" destination="JLi-yi-yQG" id="5sJ-pT-ET2"/>
                         <outlet property="tableViewProducts" destination="qdi-Kb-uR5" id="wKO-68-n7j"/>

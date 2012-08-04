@@ -111,7 +111,7 @@ static NSString *urlImagePath;
         [viewPrice addSubview:only];
         
         //Set Label Price
-        UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(12, 12, 50, 20)];
+        UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(13, 12, 50, 20)];
         [price setText:[NSString stringWithFormat:@"R$%@", product.valorEsperado]];
         //[price setAdjustsFontSizeToFitWidth:YES];
         [price sizeToFit];

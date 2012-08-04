@@ -7,6 +7,7 @@
 //
 
 #import "garageAccountViewController.h"
+#import "NSAttributedString+Attributes.h"
 
 @implementation garageAccountViewController
 @synthesize activityIndicator;
@@ -166,7 +167,7 @@
         //Set Display thumbs on Home.
         globalFunctions.countColumnImageThumbs = -1;
         globalFunctions.imageThumbsXorigin_Iphone = 10;
-        globalFunctions.imageThumbsYorigin_Iphone = 10;
+        globalFunctions.imageThumbsYorigin_Iphone = 50;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         
@@ -275,20 +276,38 @@
     //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
     [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
     
+    
+    /* 
+     set Navigation Title with OHAttributeLabel
+     */
+//    NSString *titleNavItem = [NSString stringWithFormat:@"%@%@",  
+//                              (NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency],
+//                              (NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado]];
+//    
+//    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
+//    [attrStr setFont:[UIFont fontWithName:@"Corben" size:16]];
+//    [attrStr setTextColor:[UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0]];
+//    [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
+//                    range:[titleNavItem rangeOfString:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency]]];
+//    [attrStr setFont:[UIFont fontWithName:@"Corben" size:14] range:[titleNavItem rangeOfString:@"app"]];
+
+    [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    //[[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+
+    
+    
     if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-        [[cell valorEsperado] setText:@"Vendido"];
-        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                           green:(float)102/255.0 \
-                                                            blue:(float)102/255.0 alpha:1.0]];
+//        [[cell valorEsperado] setText:@"Vendido"];
+//        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+//                                                           green:(float)102/255.0 \
+//                                                            blue:(float)102/255.0 alpha:1.0]];
     }else{
-        [[cell valorEsperado] setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ]];
-        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)90/255.0 \
-                                                           green:(float)163/255.0 \
-                                                            blue:(float)65/255.0 alpha:1.0]];
+        [[cell valorEsperado] setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado]];
+        //cell.valorEsperado.text = attrStr;
     }
-    [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
-    [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
-                                         [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
+   // [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
+   // [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
+                                   //      [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
     
     cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
     return cell;

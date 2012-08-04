@@ -108,7 +108,7 @@
     pickerViewState.tag = PICKERSTATE;
     pickerViewState.dataSource = self;
     pickerViewState.showsSelectionIndicator = YES;
-    //txtFieldState.inputView = pickerViewState;
+    txtFieldState.inputView = pickerViewState;
     txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
     
     //Set Picker View Currency
