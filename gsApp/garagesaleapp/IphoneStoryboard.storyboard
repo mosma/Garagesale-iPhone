@@ -333,20 +333,6 @@
                                             <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" background="dropDownState.png" id="dhj-Dq-uqY" userLabel="txtFieldState">
-                                        <rect key="frame" x="11" y="107" width="150" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" red="0.53061224489795911" green="0.53061224489795911" blue="0.53061224489795911" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" background="dropDownCurrency.png" id="VJa-0J-gw2" userLabel="txtFieldCurrency">
-                                        <rect key="frame" x="11" y="391" width="80" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" red="0.55112005739795911" green="0.55112005739795911" blue="0.55112005739795911" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    </textField>
                                     <view contentMode="scaleToFill" id="sfh-PS-VWG" userLabel="viewTop">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -381,6 +367,14 @@
                                         <rect key="frame" x="11" y="182" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownState.png" id="6iD-7f-dLb" userLabel="textField01iphoneTitle.png">
+                                        <rect key="frame" x="11" y="106" width="150" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneTitle.png">
+                                        <rect key="frame" x="12" y="391" width="80" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee" userLabel="textField01iphoneValue.png">
                                         <rect key="frame" x="99" y="387" width="208" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -406,6 +400,20 @@
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
+                                        <rect key="frame" x="20" y="391" width="34" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gcC-s1-oMW" userLabel="txtFieldState">
+                                        <rect key="frame" x="20" y="107" width="105" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.53061224490000003" green="0.53061224490000003" blue="0.53061224490000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
@@ -491,8 +499,8 @@
                         <outlet property="scrollView" destination="Ghd-rh-LIi" id="HWu-5z-SZL"/>
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
-                        <outlet property="txtFieldCurrency" destination="VJa-0J-gw2" id="fYA-lH-VaS"/>
-                        <outlet property="txtFieldState" destination="dhj-Dq-uqY" id="LdR-CJ-g9A"/>
+                        <outlet property="txtFieldCurrency" destination="Ex6-UX-kFX" id="ZGM-U1-YWW"/>
+                        <outlet property="txtFieldState" destination="gcC-s1-oMW" id="Z1X-Q4-Qfw"/>
                         <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
                         <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
                     </connections>
@@ -527,137 +535,125 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="nmh-5R-hnm" userLabel="activityIndicator">
-                                <rect key="frame" x="150" y="249" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                            <view contentMode="scaleToFill" id="lt7-LU-cfI" userLabel="topView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="gzi-hc-7y8" userLabel="scrollViewMain">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Znh-8E-y7D">
-                                        <rect key="frame" x="10" y="10" width="71" height="72"/>
+                                    <view contentMode="scaleToFill" id="lt7-LU-cfI" userLabel="viewTop">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Garage" lineBreakMode="tailTruncation" minimumFontSize="10" id="cVx-0i-ETY">
-                                        <rect key="frame" x="87" y="10" width="222" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="City" lineBreakMode="tailTruncation" minimumFontSize="10" id="tqH-Cc-SCS">
-                                        <rect key="frame" x="89" y="40" width="220" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.40392160420000001" green="0.40392160420000001" blue="0.40392160420000001" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.22352942824363708" green="0.23529413342475891" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
-                                <rect key="frame" x="0.0" y="96" width="320" height="271"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="pAp-Tr-IJa">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="wGh-g7-ArN">
-                                            <rect key="frame" x="11" y="3" width="297" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" red="0.99607849120000003" green="0.34509804840000002" blue="0.41176474089999998" alpha="1" colorSpace="deviceRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="Rdc-zN-RV9" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
-                                            <rect key="frame" x="9" y="15" width="301" height="23"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
-                                        <rect key="frame" x="0.0" y="66" width="320" height="123"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="sJk-A0-owf">
-                                                    <rect key="frame" x="11" y="10" width="100" height="100"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="btPencilEditProductTable.png" id="OZp-gg-cfP">
-                                                    <rect key="frame" x="15" y="15" width="53" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="rnS-dq-rgJ">
-                                                    <rect key="frame" x="118" y="26" width="178" height="39"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.20000001788139343" green="0.20000001788139343" blue="0.20000001788139343" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TlK-S2-STs">
-                                                    <rect key="frame" x="119" y="68" width="14" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.61176472902297974" green="0.61176472902297974" blue="0.61176472902297974" alpha="1" colorSpace="deviceRGB"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="cHf-lD-giI" userLabel="valorEsperado">
-                                                    <rect key="frame" x="128" y="63" width="166" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                    <color key="textColor" red="0.24313727021217346" green="0.60784316062927246" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" red="0.18048469389999999" green="0.042337491429999999" blue="0.15565084279999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <outlet property="imageView" destination="sJk-A0-owf" id="umR-DP-SE3"/>
-                                            <outlet property="productName" destination="rnS-dq-rgJ" id="Nqm-aT-pjq"/>
-                                            <outlet property="valorEsperado" destination="cHf-lD-giI" id="XkB-Wy-nUR"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3IH-JW-7oF" userLabel="scrollViewProducts">
-                                <rect key="frame" x="0.0" y="96" width="320" height="271"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="nJk-L9-atK">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Znh-8E-y7D">
+                                                <rect key="frame" x="10" y="10" width="71" height="72"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="cVx-0i-ETY">
+                                                <rect key="frame" x="87" y="12" width="222" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="tqH-Cc-SCS">
+                                                <rect key="frame" x="89" y="37" width="220" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" baselineAdjustment="none" minimumFontSize="10" adjustsFontSizeToFit="NO" id="O6W-Ta-EBh" userLabel="labelTotalProducts" customClass="OHAttributedLabel">
+                                                <rect key="frame" x="89" y="54" width="220" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="E1Z-FY-4Gx" id="7zu-FV-Xbp"/>
+                                                </connections>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.22352942824363708" green="0.23529413342475891" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="nJk-L9-atK" userLabel="viewTitle">
+                                        <rect key="frame" x="0.0" y="97" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="cR2-WC-ife">
-                                                <rect key="frame" x="11" y="3" width="297" height="18"/>
+                                                <rect key="frame" x="11" y="4" width="297" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" red="0.99607849120000003" green="0.34509804840000002" blue="0.41176474089999998" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="textColor" red="0.95806760204081631" green="0.31425229456449394" blue="0.35586985198708293" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
-                                                <rect key="frame" x="9" y="15" width="301" height="23"/>
+                                                <rect key="frame" x="11" y="20" width="301" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="textColor" red="0.59604668838416042" green="0.60289779974489788" blue="0.60289779974489788" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
+                                    <tableView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="416"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="123"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="122"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="sJk-A0-owf">
+                                                            <rect key="frame" x="11" y="10" width="100" height="100"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="btPencilEditProductTable.png" id="OZp-gg-cfP">
+                                                            <rect key="frame" x="15" y="15" width="53" height="26"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        </imageView>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="rnS-dq-rgJ">
+                                                            <rect key="frame" x="118" y="26" width="178" height="39"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.20000001788139343" green="0.20000001788139343" blue="0.20000001788139343" alpha="1" colorSpace="deviceRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="cHf-lD-giI" userLabel="valorEsperado" customClass="OHAttributedLabel">
+                                                            <rect key="frame" x="119" y="63" width="177" height="29"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                            <color key="textColor" red="0.24313727021217346" green="0.60784316062927246" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.18048469389999999" green="0.042337491429999999" blue="0.15565084279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <outlet property="imageView" destination="sJk-A0-owf" id="umR-DP-SE3"/>
+                                                    <outlet property="productName" destination="rnS-dq-rgJ" id="Nqm-aT-pjq"/>
+                                                    <outlet property="valorEsperado" destination="cHf-lD-giI" id="XkB-Wy-nUR"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="3IH-JW-7oF" userLabel="scrollViewProducts">
+                                        <rect key="frame" x="0.0" y="143" width="320" height="416"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </scrollView>
                                 </subviews>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="nmh-5R-hnm" userLabel="activityIndicator">
+                                <rect key="frame" x="150" y="249" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -684,7 +680,9 @@
                         <outlet property="description" destination="buW-ao-lhU" id="5P0-JZ-rlE"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
                         <outlet property="imageView" destination="Znh-8E-y7D" id="rt2-ni-W0D"/>
+                        <outlet property="labelTotalProducts" destination="O6W-Ta-EBh" id="XWr-vg-Y0m"/>
                         <outlet property="link" destination="cR2-WC-ife" id="AOm-9P-RZO"/>
+                        <outlet property="scrollViewMain" destination="gzi-hc-7y8" id="dRw-Ng-6PE"/>
                         <outlet property="scrollViewProducts" destination="3IH-JW-7oF" id="Gv9-Mx-HXS"/>
                         <outlet property="segmentControl" destination="JLi-yi-yQG" id="5sJ-pT-ET2"/>
                         <outlet property="tableViewProducts" destination="qdi-Kb-uR5" id="wKO-68-n7j"/>
@@ -2098,6 +2096,7 @@
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="link" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
@@ -2143,7 +2142,7 @@
                 <relationship kind="outlet" name="imageEditButton" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="valorEsperado" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="valorEsperado" candidateClass="OHAttributedLabel"/>
             </relationships>
         </class>
         <class className="productDetailViewController" superclassName="UIViewController">

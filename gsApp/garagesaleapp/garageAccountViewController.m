@@ -21,6 +21,7 @@
 @synthesize description;
 @synthesize city;
 @synthesize link;
+@synthesize scrollViewMain;
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
 @synthesize mutArrayDataThumbs;
@@ -136,18 +137,29 @@
         
         
         garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
-        garageName.font        = [UIFont boldSystemFontOfSize:22];
+        
+        city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
+        [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
         description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+        description.font = [UIFont fontWithName:@"Droid Sans" size:12];
+        
         garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
         city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
+                            [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
+                            [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
+                            [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
         link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
-    
+        link.font        = [UIFont fontWithName:@"Droid Sans" size:12];
+
+        
+        
+        self.scrollViewMain.contentSize         = CGSizeMake(320,560);
         self.scrollViewProducts.contentSize     = CGSizeMake(320,2845);
-    
+        self.scrollViewMain.delegate = self;
+        self.scrollViewProducts.delegate = self;
+        
+        
         self.navigationItem.title       = NSLocalizedString(@"garage", @"");
     
         self.imageView.image            = [UIImage imageWithData: [NSData dataWithContentsOfURL:self.gravatarUrl]];
@@ -162,12 +174,36 @@
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
 
+        NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
+        NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
+        [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]
+                        range:[total rangeOfString:@"products"]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12] range:[total rangeOfString:@"products"]];
+        [attrStr setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
+        labelTotalProducts.attributedText   = attrStr;
+
+        
+        
+        [labelTotalProducts setBackgroundColor:[UIColor clearColor]];
+        [labelTotalProducts setShadowColor:[UIColor blackColor]];
+        [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
+        labelTotalProducts.attributedText = attrStr;
+        labelTotalProducts.textAlignment = UITextAlignmentLeft;
+        
+        
+        
+        
+        
+        
+        
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
         //Set Display thumbs on Home.
         globalFunctions.countColumnImageThumbs = -1;
         globalFunctions.imageThumbsXorigin_Iphone = 10;
-        globalFunctions.imageThumbsYorigin_Iphone = 50;
+        globalFunctions.imageThumbsYorigin_Iphone = 10;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         
@@ -185,6 +221,25 @@
         
         [activityIndicator stopAnimating];
     }  
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.tag == 0){
+        if (scrollViewMain.contentOffset.y > 130){
+            scrollViewProducts.userInteractionEnabled = YES;
+            tableViewProducts.userInteractionEnabled = YES;
+        }else{        
+            scrollViewProducts.userInteractionEnabled = NO;
+            tableViewProducts.userInteractionEnabled = NO;  
+        }
+    }
+    
+    if (scrollView.tag == 1 || scrollView.tag == 2) {
+        if (scrollView.contentOffset.y == 0){
+            [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];  
+        }
+    } 
 }
 
 -(void)loadButtonsProduct{
@@ -269,45 +324,36 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"CellProduct";
     
-    // Configure the cell...
-    productCustomViewCell *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
-    //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
+    static NSString             *CellIdentifier = @"CellProduct";
+    productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];    
+    
+    [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
-    
-    
-    /* 
-     set Navigation Title with OHAttributeLabel
-     */
-//    NSString *titleNavItem = [NSString stringWithFormat:@"%@%@",  
-//                              (NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency],
-//                              (NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado]];
-//    
-//    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-//    [attrStr setFont:[UIFont fontWithName:@"Corben" size:16]];
-//    [attrStr setTextColor:[UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:1.0]];
-//    [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
-//                    range:[titleNavItem rangeOfString:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency]]];
-//    [attrStr setFont:[UIFont fontWithName:@"Corben" size:14] range:[titleNavItem rangeOfString:@"app"]];
 
-    [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
-    //[[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+    NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
+                                                   [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
+    
+    NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
 
+    NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@", currency, valorEsperado];
     
-    
+    NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:24]];
+    [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]];
+    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]   
+                    range:[strFormat rangeOfString:currency]];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];
+
     if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-//        [[cell valorEsperado] setText:@"Vendido"];
-//        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-//                                                           green:(float)102/255.0 \
-//                                                            blue:(float)102/255.0 alpha:1.0]];
+        [[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+        [[cell valorEsperado] setText:@"Vendido"];
+        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                           green:(float)102/255.0 \
+                                                            blue:(float)102/255.0 alpha:1.0]];
     }else{
-        [[cell valorEsperado] setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado]];
-        //cell.valorEsperado.text = attrStr;
+        cell.valorEsperado.attributedText = attrStr;
     }
-   // [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
-   // [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
-                                   //      [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
     
     cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
     return cell;
@@ -340,6 +386,8 @@
     [self setTableViewProducts:nil];
     activityIndicator = nil;
     [self setActivityIndicator:nil];
+    scrollViewMain = nil;
+    [self setScrollViewMain:nil];
     [super viewDidUnload];
     
     // Release any retained subviews of the main view.

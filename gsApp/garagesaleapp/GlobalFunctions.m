@@ -350,6 +350,21 @@ static NSString *urlImagePath;
     return scaledImage;
 }
 
++(NSString *)getCurrencyByCode:(NSString*)currencyCode{
+    NSMutableDictionary *dictLang = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"en_US", @"en_US", @"en_US", @"pt_BR", nil] forKeys:[NSArray arrayWithObjects:@"USD", @"EUR", @"GBP", @"BRL", nil]];
+    
+//    [dictLang setObject:@"en_US" forKey:@"USD"];
+//    [dictLang setObject:@"en_US" forKey:@"EUR"];
+//    [dictLang setObject:@"en_US" forKey:@"GBP"];
+//    [dictLang setObject:@"pt_BR" forKey:@"BRL"];
+
+    NSLog(@"%@",[dictLang valueForKey:[NSString stringWithString:currencyCode]]);
+    
+    NSLocale *lcl = [[NSLocale alloc] initWithLocaleIdentifier:
+                     [NSString stringWithString:[dictLang valueForKey:[NSString stringWithString:currencyCode]]]];
+    
+    return [lcl displayNameForKey:NSLocaleCurrencySymbol value:currencyCode];
+}
 
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{
     //Configure Product Object Mapping
@@ -365,5 +380,7 @@ static NSString *urlImagePath;
     [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
     [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
 }*/
+
+
 
 @end

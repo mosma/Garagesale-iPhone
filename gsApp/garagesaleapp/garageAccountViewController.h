@@ -13,26 +13,30 @@
 #import "GlobalFunctions.h"
 #import "productCustomViewCell.h"
 #import "settingsAccountViewController.h"
+#import "OHAttributedLabel.h"
 
 @interface garageAccountViewController : UIViewController <RKObjectLoaderDelegate, 
                                                         UITableViewDelegate,
-                                                        UITableViewDataSource> {
+                                                        UITableViewDataSource,
+                                                        UIScrollViewDelegate> {
     RKObjectManager     *RKObjManeger;
     NSURL               *gravatarUrl;
     NSMutableArray      *mutArrayProducts;
     NSMutableArray      *mutArrayDataThumbs;
     GlobalFunctions     *globalFunctions;
                                                            
-    __unsafe_unretained IBOutlet UILabel        *emailLabel;
-    __unsafe_unretained IBOutlet UIImageView    *imageView;
-    __unsafe_unretained IBOutlet UILabel        *garageName;
-    __unsafe_unretained IBOutlet UILabel        *description;
-    __unsafe_unretained IBOutlet UILabel        *city;
-    __unsafe_unretained IBOutlet UILabel        *link;
-    __unsafe_unretained IBOutlet UIScrollView   *scrollViewProducts;
-    __unsafe_unretained IBOutlet UITableView    *tableViewProducts;
+    __unsafe_unretained IBOutlet UILabel            *emailLabel;
+    __unsafe_unretained IBOutlet UIImageView        *imageView;
+    __unsafe_unretained IBOutlet UILabel            *garageName;
+    __unsafe_unretained IBOutlet UILabel            *description;
+    __unsafe_unretained IBOutlet UILabel            *city;
+    __unsafe_unretained IBOutlet UILabel            *link;
+    __unsafe_unretained IBOutlet OHAttributedLabel  *labelTotalProducts;
+    __unsafe_unretained IBOutlet UIScrollView       *scrollViewMain;
+    __unsafe_unretained IBOutlet UIScrollView       *scrollViewProducts;
+    __unsafe_unretained IBOutlet UITableView        *tableViewProducts;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
-                                                            __weak IBOutlet UIActivityIndicatorView *activityIndicator;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -40,16 +44,17 @@
 @property (retain, nonatomic) NSMutableArray    *mutArrayProducts;
 @property (retain, nonatomic) NSMutableArray    *mutArrayDataThumbs;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *emailLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView   *imageView;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *garageName;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *description;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *city;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *link;
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewProducts;
-@property (unsafe_unretained, nonatomic) IBOutlet UITableView   *tableViewProducts;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIImageView        *imageView;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *garageName;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *description;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *city;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *link;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewMain;
+@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewProducts;
+@property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)changeSegControl;
