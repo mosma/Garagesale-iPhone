@@ -147,6 +147,21 @@
     txtFieldEmail.text      = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
+    
+    garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
+    
+    city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
+    [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+    
+    garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
+    city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+                        [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
+                        [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
+                        [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
+
+    imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
+
+    
     self.scrollView.contentSize = CGSizeMake(320,700);
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];

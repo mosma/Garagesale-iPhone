@@ -51,6 +51,11 @@
     __weak IBOutlet UITextField   *txtFieldAnyLink;
 
     __weak IBOutlet UIScrollView  *scrollView;
+                                                                 
+    __weak IBOutlet UIImageView   *imageView;
+    __weak IBOutlet UILabel       *garageName;
+    __weak IBOutlet UILabel       *city;
+                                                                 
 }
 //ViewPassword Labels
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrentPassword;

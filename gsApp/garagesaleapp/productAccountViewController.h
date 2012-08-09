@@ -12,7 +12,7 @@
 #import "BSKeyboardControls.h"
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
-
+#import "QuartzCore/QuartzCore.h"
 
 @protocol PhotoScrollingViewDelegate
 -(void)removedImageAtIndex:(int )aImageIndex;
@@ -27,7 +27,8 @@
                                                              UIPickerViewDelegate, 
                                                              UITextFieldDelegate,
                                                              BSKeyboardControlsDelegate,
-                                                             UIScrollViewDelegate> {
+                                                             UIScrollViewDelegate,
+                                                             UITabBarControllerDelegate> {
     //Outlets
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewPicsProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldTitle;
@@ -36,11 +37,12 @@
     __unsafe_unretained IBOutlet UITextField    *txtFieldCurrency;                                                              
     __unsafe_unretained IBOutlet UIScrollView   *scrollView;
     __unsafe_unretained IBOutlet UITextView     *textViewDescription;
-    __unsafe_unretained IBOutlet UILabel *labelState;
-    __unsafe_unretained IBOutlet UILabel *labelTitle;
-    __unsafe_unretained IBOutlet UILabel *labelDescription;
-    __unsafe_unretained IBOutlet UILabel *labelValue;
-                                                                 
+    __unsafe_unretained IBOutlet UILabel        *labelState;
+    __unsafe_unretained IBOutlet UILabel        *labelTitle;
+    __unsafe_unretained IBOutlet UILabel        *labelDescription;
+    __unsafe_unretained IBOutlet UILabel        *labelValue;
+    __unsafe_unretained IBOutlet UIView         *viewPicsControl;
+                                                             
     //Others
     RKObjectManager         *RKObjManeger;
     NSMutableDictionary     *mutDictPicsProduct;
@@ -48,6 +50,8 @@
     NSArray                 *nsArrayState;
     NSArray                 *nsArrayCurrency;
     UITapGestureRecognizer  *singleTap;
+    UIView                  *shadowView;
+
     float imageWidth_;
     float imageHeight_;
     bool isPostProduct;
@@ -68,6 +72,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
 
 @property (nonatomic) float widthPaddingInImages;
 @property (nonatomic) float heightPaddingInImages;
@@ -76,5 +81,9 @@
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;
 -(IBAction)addProduct:(id)sender;
-
+-(IBAction)isNumberKey:(UITextField *)textField;
+-(IBAction)animationPicsControl;
+-(IBAction)goBack:(id)sender;
+-(IBAction)getPicsByCamera:(id)sender;
+-(IBAction)getPicsByPhotosAlbum:(id)sender;
 @end

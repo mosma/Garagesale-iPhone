@@ -33,6 +33,7 @@
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
+@synthesize viewPicsControl;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -84,6 +85,12 @@
     [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    
+    shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
+    [shadowView setBackgroundColor:[UIColor blackColor]];
+    shadowView.alpha = 0;
+    viewPicsControl.alpha = 0;
+    viewPicsControl.layer.cornerRadius = 5;
 
     //Menu
     UIView *tabBar = [self rotatingFooterView];
@@ -97,10 +104,17 @@
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
                                                 NSLocalizedString(@"Sold", @""), nil];
     
-    nsArrayCurrency = [NSArray arrayWithObjects:@"BRL",
-                                                @"GBP",
-                                                @"EUR",
-                                                @"USD", nil];
+    
+    
+    NSLocale *theLocale = [NSLocale currentLocale];
+    NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
+    NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
+    
+    nsArrayCurrency = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@",code,symbol],
+                                                @"BRL - R$",
+                                                @"GBP - £",
+                                                @"EUR - €",
+                                                @"USD - $", nil];
     
     //Set Picker View State
     UIPickerView *pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
@@ -118,7 +132,8 @@
     pickerViewCurrency.dataSource = self;
     pickerViewCurrency.showsSelectionIndicator = YES;
     txtFieldCurrency.inputView = pickerViewCurrency;
-    txtFieldCurrency.text = @"BRL";
+    
+    txtFieldCurrency.text   = [NSString stringWithFormat:@"%@ - %@",code,symbol];
     
     // Create done button in UIPickerView
     UIToolbar*  picViewStateToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
@@ -146,6 +161,8 @@
     self.scrollView.contentSize             = CGSizeMake(320,650);
     
     [self setupKeyboardControls];
+    
+    [self animationPicsControl];
 
 }
 
@@ -165,38 +182,54 @@
 //    return NO;
 //}
 
+- (IBAction)isNumberKey:(UITextField *)textField{
+    [GlobalFunctions onlyNumberKey:textField];
+}
+
 -(void)pickerDoneClicked{
     [txtFieldState resignFirstResponder];
     [txtFieldCurrency resignFirstResponder];
 }
 
--(IBAction)addProduct:(id)sender{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Adicionar Produto"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancela"
-                                               destructiveButtonTitle:@"Tirar foto"
-                                                    otherButtonTitles:nil];
+- (IBAction)animationPicsControl{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
-    NSDictionary *colors = [[NSDictionary alloc] initWithObjectsAndKeys:[UIColor redColor], @"Biblioteca",
-                            [UIColor greenColor], @"Produto sem foto", nil];
+    if (viewPicsControl.hidden) {
+        [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
+        viewPicsControl.hidden = NO;
+        viewPicsControl.alpha = 1.0;
+        shadowView.alpha = 0.7;
+        [UIView commitAnimations];
+    } else {
+        viewPicsControl.alpha = 0;
+        shadowView.alpha = 0;
+        viewPicsControl.hidden = YES;
+        [shadowView removeFromSuperview];
+    }
     
-    [colors enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-		[actionSheet addButtonWithTitle:key];
-    }];
-    
-    [actionSheet showInView:self.view];
+    [UIView commitAnimations];
+}
+
+
+-(IBAction)goBack:(id)sender {
+    self.tabBarController.delegate = self;
+    self.tabBarController.selectedIndex = 0;
+    [self.tabBarController.selectedViewController viewDidAppear:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [self addProduct:nil];
+
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-      [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
-    } else if (buttonIndex == 2) {
-      [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-    } 
+-(IBAction)getPicsByCamera:(id)sender {
+    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
+}
+
+-(IBAction)getPicsByPhotosAlbum:(id)sender {
+    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{    
@@ -654,6 +687,8 @@
     [self setLabelDescription:nil];
     [self setLabelValue:nil];
     labelValue = nil;
+    viewPicsControl = nil;
+    [self setViewPicsControl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

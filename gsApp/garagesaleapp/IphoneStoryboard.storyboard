@@ -356,7 +356,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="addProduct:" destination="o08-vM-tNV" eventType="touchUpInside" id="C7j-FW-Ugw"/>
+                                            <action selector="animationPicsControl" destination="o08-vM-tNV" eventType="touchUpInside" id="Ta0-LY-BNP"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="inn-22-zk8" userLabel="uitextViewBackgroundDescription.png">
@@ -372,11 +372,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="391" width="80" height="32"/>
+                                        <rect key="frame" x="12" y="391" width="113" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee" userLabel="textField01iphoneValue.png">
-                                        <rect key="frame" x="99" y="387" width="208" height="40"/>
+                                        <rect key="frame" x="136" y="387" width="171" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="KcX-L5-2OX" userLabel="txtFieldTitle">
@@ -394,15 +394,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="oNN-KV-k3j" userLabel="txtFieldValue">
-                                        <rect key="frame" x="106" y="388" width="194" height="36"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0,00" minimumFontSize="17" id="oNN-KV-k3j" userLabel="txtFieldValue">
+                                        <rect key="frame" x="142" y="388" width="156" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <action selector="isNumberKey:" destination="o08-vM-tNV" eventType="editingChanged" id="RME-y7-xt8"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
-                                        <rect key="frame" x="20" y="391" width="34" height="31"/>
+                                        <rect key="frame" x="18" y="391" width="71" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
@@ -418,72 +421,81 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="72y-j0-giM" userLabel="ViewBidSend">
-                                <rect key="frame" x="315" y="42" width="300" height="283"/>
+                            <view hidden="YES" contentMode="scaleToFill" id="Tba-tA-i5u" userLabel="ViewPicsControl">
+                                <rect key="frame" x="10" y="42" width="300" height="239"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00" minimumFontSize="17" id="M2p-Hu-eyz" userLabel="offerTextField">
-                                        <rect key="frame" x="14" y="297" width="271" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
-                                        <connections>
-                                            <action selector="isNumberKey:" destination="Nbe-H5-7nH" eventType="editingChanged" id="chX-l6-fDF"/>
-                                            <action selector="textFieldEditingEnded:" destination="Nbe-H5-7nH" eventType="touchDragOutside" id="NOJ-2X-YZR"/>
-                                            <action selector="textFieldEditingEnded:" destination="Nbe-H5-7nH" eventType="editingDidEndOnExit" id="g09-6d-C4Y"/>
-                                        </connections>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uAe-DB-8Q5" userLabel="BtBidItem">
-                                        <rect key="frame" x="189" y="240" width="102" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btBidThisItem.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="bidPost:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="vPb-CN-EGI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VEl-N4-oPv" userLabel="BtCancel">
-                                        <rect key="frame" x="118" y="240" width="63" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btCancelBidItem.png">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="NdC-Di-zqY"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" minimumFontSize="10" id="Hwl-0X-RVS">
-                                        <rect key="frame" x="9" y="37" width="285" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.35714285709999999" green="0.35714285709999999" blue="0.35714285709999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Ask something" lineBreakMode="tailTruncation" minimumFontSize="10" id="Hge-za-qhJ">
-                                        <rect key="frame" x="9" y="109" width="285" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" red="0.35714285709999999" green="0.35714285709999999" blue="0.35714285709999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Offer" lineBreakMode="tailTruncation" minimumFontSize="10" id="wVb-Ir-mVw">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="New Product" lineBreakMode="tailTruncation" minimumFontSize="10" id="182-EG-vK5" userLabel="title">
                                         <rect key="frame" x="9" y="7" width="285" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="16"/>
-                                        <color key="textColor" red="0.37287705789999998" green="0.67432637120000005" blue="0.26359744950000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.20000001788139343" green="0.58823531866073608" blue="0.20392158627510071" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7sc-fe-UrJ">
+                                        <rect key="frame" x="8" y="193" width="285" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Cancel" backgroundImage="btSaveProduct.png">
+                                            <color key="titleColor" red="0.43529415129999999" green="0.43529415129999999" blue="0.43529415129999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="goBack:" destination="o08-vM-tNV" eventType="touchUpInside" id="xc0-E2-cXI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q">
+                                        <rect key="frame" x="8" y="42" width="285" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Camera" backgroundImage="btMenuTableTopB.png">
+                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="getPicsByCamera:" destination="o08-vM-tNV" eventType="touchUpInside" id="5W4-Xi-D6N"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jNI-vL-QVJ">
+                                        <rect key="frame" x="8" y="87" width="285" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Library" backgroundImage="btMenuTableMiddleB.png">
+                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="getPicsByPhotosAlbum:" destination="o08-vM-tNV" eventType="touchUpInside" id="R4D-n3-J8p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwr-kM-2YB">
+                                        <rect key="frame" x="8" y="130" width="285" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Send photo after" backgroundImage="btMenuTableBottomB.png">
+                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="animationPicsControl" destination="o08-vM-tNV" eventType="touchUpInside" id="6Bg-9v-Ip7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92941182850000004" green="0.92941182850000004" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -503,6 +515,7 @@
                         <outlet property="txtFieldState" destination="gcC-s1-oMW" id="Z1X-Q4-Qfw"/>
                         <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
                         <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
+                        <outlet property="viewPicsControl" destination="Tba-tA-i5u" id="5QD-vt-IDQ"/>
                     </connections>
                 </viewController>
             </objects>
@@ -799,6 +812,11 @@
                         <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Xkh-Q5-MxU"/>
+                    <connections>
+                        <outlet property="city" destination="mEy-2E-Ygq" id="ioH-If-rGZ"/>
+                        <outlet property="garageName" destination="qDc-J8-a8T" id="8pv-As-TgT"/>
+                        <outlet property="imageView" destination="qRe-Sm-Xzi" id="AxA-Gm-7Cr"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="714" y="866"/>
@@ -1347,7 +1365,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.22745099663734436" green="0.23921570181846619" blue="0.25882354378700256" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VzS-1E-fdJ">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VzS-1E-fdJ" userLabel="Offer">
                                                 <rect key="frame" x="251" y="67" width="59" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -2037,8 +2055,11 @@
         <image name="btLoginForm.png" width="300" height="37"/>
         <image name="btMail.png" width="41" height="36"/>
         <image name="btMenuTableBottom.png" width="300" height="46"/>
+        <image name="btMenuTableBottomB.png" width="285" height="46"/>
         <image name="btMenuTableMiddle.png" width="300" height="44"/>
+        <image name="btMenuTableMiddleB.png" width="285" height="44"/>
         <image name="btMenuTableTop.png" width="300" height="45"/>
+        <image name="btMenuTableTopB.png" width="285" height="45"/>
         <image name="btOffer.png" width="59" height="38"/>
         <image name="btPencilEditProductTable.png" width="53" height="26"/>
         <image name="btProdBlock.png" width="17" height="14"/>
@@ -2048,7 +2069,7 @@
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSearchAccount.png" width="39" height="31"/>
         <image name="btSign.png" width="100" height="37"/>
-        <image name="dropDownCurrency.png" width="80" height="32"/>
+        <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
         <image name="more_pics.png" width="50" height="50"/>
         <image name="textField01iphone.png" width="300" height="40"/>
@@ -2120,6 +2141,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addProduct:"/>
+                <relationship kind="action" name="animationPicsControl"/>
+                <relationship kind="action" name="getPicsByCamera:"/>
+                <relationship kind="action" name="getPicsByPhotosAlbum:"/>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="saveProduct"/>
                 <relationship kind="outlet" name="labelDescription" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelState" candidateClass="UILabel"/>
@@ -2132,6 +2158,7 @@
                 <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="viewPicsControl" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="productCustomViewCell" superclassName="UITableViewCell">
@@ -2195,6 +2222,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>
             <relationships>
                 <relationship kind="action" name="logout:"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelAddress" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelAnyLink" candidateClass="UILabel"/>

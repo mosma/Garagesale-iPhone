@@ -253,15 +253,15 @@ static NSString *urlImagePath;
 
 +(void)onlyNumberKey:(UITextField *)textField{
 	if ([textField.text length] > 0) {
-		int I01 = [textField.text length];
-		int Char01 = [textField.text characterAtIndex:I01-1];
-		//check and accept input if last character is a number from 0 to 9, accept("." 46), reject("/" 47)
-		if ((Char01 < 46) || (Char01 > 57) || (Char01 == 47)) {
-			if (I01 == 1) {
+		int length = [textField.text length];
+		int Char01 = [textField.text characterAtIndex:length-1];
+		//reference characters www.theasciicode.com.ar/ascii-printable-characters/dot-full-stop-ascii-code-46.html
+		if ((Char01 < 44) || (Char01 > 57) || (Char01 == 47)) {
+			if (length == 1) {
 				textField.text = nil;
 			}
 			else {
-				textField.text = [textField.text substringWithRange:NSMakeRange(0, I01-1)];
+				textField.text = [textField.text substringWithRange:NSMakeRange(0, length-1)];
 			}
 		}
 	}
