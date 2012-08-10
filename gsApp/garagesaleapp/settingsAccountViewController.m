@@ -102,7 +102,7 @@
 
 - (void)loadAttribsToComponents{
     
-    //ViewPassword
+    //Password ViewController
     labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelNewPassword.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelRepeatPassword.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -113,7 +113,7 @@
     
     txtFieldCurrentPassword.text = [[GlobalFunctions getUserDefaults] objectForKey:@"senha"];
     
-    //ViewAddress
+    //Address ViewController
     labelAddress.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelCity.font          = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelDistrict.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -129,7 +129,7 @@
     txtFieldDistrict.text   = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];
     txtFieldCountry.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"country"];
     
-    //ViewAccount
+    //Account ViewController
     labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelAbout.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -141,10 +141,10 @@
     [txtFieldEmail      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldAnyLink    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
-    txtFieldGarageName.text = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
+    txtFieldGarageName.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
     txtFieldYourName.text   = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
     txtViewAbout.text       = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-    txtFieldEmail.text      = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
+    txtFieldEmail.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
     
@@ -187,7 +187,20 @@
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
-    self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldGarageName, txtFieldYourName, txtFieldEmail, txtViewAbout, txtFieldAnyLink, nil];
+    
+  
+    NSString *nibId = [[self.navigationController visibleViewController] nibName];
+    
+    
+    if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
+        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldYourName, txtViewAbout, txtFieldAnyLink, nil];
+    else if  
+        ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) //Address ViewController
+        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldAddress, txtFieldCity, txtFieldDistrict, txtFieldCountry, nil];
+    else if  
+        ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) //Password ViewController
+        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldCurrentPassword, txtFieldNewPassword, txtFieldRepeatNewPassword, nil];
+
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
@@ -229,9 +242,9 @@
     rc = [textField convertRect:rc toView:v];
     
     //rc.origin.x = 0 ;
-    //rc.origin.y = 0 ;
+    //rc.origin.y = 0;
     
-    rc.size.height = 700;
+    rc.size.height = 350;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 
@@ -270,6 +283,38 @@
     [textField becomeFirstResponder];
     [self scrollViewToTextField:textField];
 }
+
+
+#pragma mark -
+#pragma mark UITextField Delegate
+
+/* Editing began */
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.keyboardControls.textFields containsObject:textField])
+        self.keyboardControls.activeTextField = textField;
+    [self scrollViewToTextField:textField];
+}
+
+#pragma mark -
+#pragma mark UITextView Delegate
+
+/* Editing began */
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.keyboardControls.textFields containsObject:textView])
+        self.keyboardControls.activeTextField = textView;
+    [self scrollViewToTextField:textView];
+}
+
+-(IBAction)textFieldEditingEnded:(id)sender{
+    [sender resignFirstResponder];
+}
+/* 
+ *
+ End Setup the keyboard controls 
+ *
+ */
 
 
 - (void)viewDidUnload

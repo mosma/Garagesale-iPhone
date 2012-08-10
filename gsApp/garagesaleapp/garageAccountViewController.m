@@ -282,7 +282,20 @@
     if ([[arrayDetailProduct objectAtIndex:0] fotos] != nil) {
         NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[arrayDetailProduct objectAtIndex:0] fotos] caminhoThumb]];
         UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-        [mutArrayDataThumbs addObject:thumbImage];
+        
+        
+        @try {
+            [mutArrayDataThumbs addObject:thumbImage];
+
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception);
+        }
+        @finally {
+        }
+        
+        
+        
     }else 
         [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
 
@@ -355,7 +368,15 @@
         cell.valorEsperado.attributedText = attrStr;
     }
     
-    cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+    @try {
+        cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
+    @finally {
+    }
+    
     return cell;
 }
 
