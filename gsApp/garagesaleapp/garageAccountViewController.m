@@ -10,7 +10,6 @@
 #import "NSAttributedString+Attributes.h"
 
 @implementation garageAccountViewController
-@synthesize activityIndicator;
 
 @synthesize tableViewProducts;
 @synthesize RKObjManeger;
@@ -87,13 +86,42 @@
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    
+    
+    
+    
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.scrollViewMain addSubview:HUD];
+	
+	// Regiser for HUD callbacks so we can remove it from the window at the right time
+    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
+	HUD.delegate = self;
+    HUD.labelText = @"Loading Products";
+    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+    
+    // Show the HUD while the provided method executes in a new thread
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+    
+    
+    
+    
+    
+    
 }
 
+- (void)myTask {
+	// Do something usefull in here instead of sleeping ...
+	while (!isLoading) {
+		sleep(1);
+	}
+}
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if([objects count] > 0){
         self.mutArrayProducts = (NSMutableArray *)objects;
         [self loadAttribsToComponents:YES];
+        isLoading = !isLoading;
     }
 }
 
@@ -219,7 +247,6 @@
         [queue addOperation:opThumbsProd];
         [queue addOperation:opTableProd];
         
-        [activityIndicator stopAnimating];
     }  
 }
 
@@ -387,6 +414,8 @@
 }
 
 
+
+
 - (void)viewDidUnload
 {
     emailLabel = nil;
@@ -405,8 +434,6 @@
     [self setScrollViewProducts:nil];
     tableViewProducts = nil;
     [self setTableViewProducts:nil];
-    activityIndicator = nil;
-    [self setActivityIndicator:nil];
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
     [super viewDidUnload];

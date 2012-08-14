@@ -14,17 +14,20 @@
 #import "productCustomViewCell.h"
 #import "settingsAccountViewController.h"
 #import "OHAttributedLabel.h"
+#import "MBProgressHUD.h"
 
 @interface garageAccountViewController : UIViewController <RKObjectLoaderDelegate, 
                                                         UITableViewDelegate,
                                                         UITableViewDataSource,
-                                                        UIScrollViewDelegate> {
+                                                        UIScrollViewDelegate,
+                                                        MBProgressHUDDelegate> {
     RKObjectManager     *RKObjManeger;
     NSURL               *gravatarUrl;
     NSMutableArray      *mutArrayProducts;
     NSMutableArray      *mutArrayDataThumbs;
     GlobalFunctions     *globalFunctions;
-                                                           
+    MBProgressHUD       *HUD;
+    BOOL                isLoading;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIImageView        *imageView;
     __unsafe_unretained IBOutlet UILabel            *garageName;
@@ -36,7 +39,6 @@
     __unsafe_unretained IBOutlet UIScrollView       *scrollViewProducts;
     __unsafe_unretained IBOutlet UITableView        *tableViewProducts;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -54,7 +56,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)changeSegControl;

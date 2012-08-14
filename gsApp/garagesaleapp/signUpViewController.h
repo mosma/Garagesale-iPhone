@@ -13,6 +13,7 @@
 #import "GlobalFunctions.h"
 #import "Login.h"
 #import "ViewController.h"
+#import "settingsAccountViewController.h"
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, 
                                                     UITextViewDelegate, 

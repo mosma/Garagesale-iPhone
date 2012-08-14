@@ -10,12 +10,18 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 #import "BSKeyboardControls.h"
+#import "MBProgressHUD.h"
+#import "RestKit/RestKit.h"
+#import "RestKit/RKJSONParserJSONKit.h"
+#import "Garage.h"
+#import "Profile.h"
 
 @interface settingsAccountViewController : UIViewController <UITextFieldDelegate, 
                                                              UITextViewDelegate, 
                                                              BSKeyboardControlsDelegate,
                                                              UIScrollViewDelegate, 
-                                                             RKObjectLoaderDelegate> {
+                                                             RKObjectLoaderDelegate,
+                                                             MBProgressHUDDelegate> {
     
     //ViewNewPassword Labels                                                             
     __weak IBOutlet UILabel     *labelCurrentPassword;
@@ -55,6 +61,10 @@
     __weak IBOutlet UIImageView   *imageView;
     __weak IBOutlet UILabel       *garageName;
     __weak IBOutlet UILabel       *city;
+    
+    MBProgressHUD                 *HUD;
+    RKObjectManager               *RKObjManeger;
+
                                                                  
 }
 //ViewPassword Labels
@@ -65,7 +75,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldCurrentPassword;
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldNewPassword;
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldRepeatNewPassword;
-
 
 //ViewAddress Labels
 @property (weak, nonatomic) IBOutlet UILabel *labelAddress;
@@ -92,7 +101,10 @@
 @property (weak, nonatomic) IBOutlet UITextView    *txtViewAbout;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldAnyLink;
 
+@property (retain, nonatomic) RKObjectManager      *RKObjManeger;
+
 -(IBAction)logout:(id)sender;
 -(void)loadAttribsToComponents;
+-(IBAction)saveSettings;
 
 @end

@@ -223,6 +223,8 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
     //[settingsAccount synchronize];
     [self setupProfileMapping];
+    
+    self.tabBarController.selectedIndex = 0;
 }
 
 -(void)backPage{
@@ -241,10 +243,15 @@
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
-    if([self.title isEqualToString:@"SignUp"])
+    
+    
+    NSString *nibId = [[self.navigationController visibleViewController] nibName];
+        
+    if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //Signup ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldGarageName,
                                             textFieldPersonName,textFieldEmail,textFieldPassword,nil];
-    else
+    else if  
+        ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
                                             textFieldUserPassword,nil];
 
@@ -286,28 +293,9 @@
     UIScrollView* v = (UIScrollView*) self.scrollView;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
-    
-    
-    if (textFieldGarageName.isEditing)
-        rc.origin.x = -400 ;
-    else 
-        rc.origin.x = 0 ;
-    
-    rc.origin.y = 0 ;
 
-    /**
-     
-     Essa condicional esta sujeito a falhar .
-     
-     */
-    if([self.title isEqualToString:@"SignUp"]){
-        if (textFieldPersonName.isEditing)
-            rc.size.height = 500;
-        else
-            rc.size.height = 700;
-    }
-    else
-        rc.size.height = 500;
+    rc.size.height = 350;
+    
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 

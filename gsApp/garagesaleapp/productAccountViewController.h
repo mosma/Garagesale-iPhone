@@ -13,6 +13,7 @@
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
+#import "MBProgressHUD.h"
 
 @protocol PhotoScrollingViewDelegate
 -(void)removedImageAtIndex:(int )aImageIndex;
@@ -28,7 +29,8 @@
                                                              UITextFieldDelegate,
                                                              BSKeyboardControlsDelegate,
                                                              UIScrollViewDelegate,
-                                                             UITabBarControllerDelegate> {
+                                                             UITabBarControllerDelegate,
+                                                             MBProgressHUDDelegate> {
     //Outlets
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewPicsProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldTitle;
@@ -51,7 +53,7 @@
     NSArray                 *nsArrayCurrency;
     UITapGestureRecognizer  *singleTap;
     UIView                  *shadowView;
-
+    MBProgressHUD           *HUD;
     float imageWidth_;
     float imageHeight_;
     bool isPostProduct;

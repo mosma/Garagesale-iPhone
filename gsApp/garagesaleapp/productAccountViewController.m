@@ -371,12 +371,101 @@
 }
 
 -(IBAction)saveProduct{
+    
+    
+//    // The hud will dispable all input on the view (use the higest view possible in the view hierarchy)
+//	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+//	[self.navigationController.view addSubview:HUD];
+//	
+//	// Regiser for HUD callbacks so we can remove it from the window at the right time
+//	HUD.delegate = self;
+//	HUD.labelText = @"Loading";
+//    HUD.detailsLabelText = @"updating data";
+//	HUD.square = YES;
+//    
+//	// Show the HUD while the provided method executes in a new thread
+//	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+
+    
+    
+    
+    
+    
+    
+    
+//    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+//	[self.navigationController.view addSubview:HUD];
+//	
+//	// Set determinate mode
+//	HUD.mode = MBProgressHUDModeDeterminate;
+//	
+//	HUD.delegate = self;
+//	HUD.labelText = @"Loading";
+//	
+//	// myProgressTask uses the HUD instance to update progress
+//	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
+    
+    
+    
+    
+    
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	// Set determinate mode
+	HUD.mode = MBProgressHUDModeAnnularDeterminate;
+	
+    
+    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
+	HUD.delegate = self;
+	HUD.labelText = @"Saving";
+	HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+    HUD.dimBackground = YES;
+    
+	// myProgressTask uses the HUD instance to update progress
+	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
+    
+    
+
+    
+    
     if([nsMutArrayPicsProduct count] != 0) {
         [self uploadPhotos:@""];
     }else {
         [self postProduct];
     }
+    
 }
+
+
+#pragma mark -
+#pragma mark Execution code
+
+- (void)myTask {
+	// Do something usefull in here instead of sleeping ...
+	sleep(3);
+}
+
+- (void)myProgressTask {
+	// This just increases the progress indicator in a loop
+	float progress = 0.0f;
+	while (progress < 1.0f) {
+		progress += 0.01f;
+		HUD.progress = progress;
+		usleep(50000);
+	}
+    
+    
+    
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+	HUD.mode = MBProgressHUDModeCustomView;
+	HUD.labelText = @"Completed";
+	sleep(2);
+    
+    
+}
+
 
 -(void)postProduct {
         if([nsMutArrayPicsProduct count] != 0){
