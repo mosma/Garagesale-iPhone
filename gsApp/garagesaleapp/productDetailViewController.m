@@ -272,7 +272,7 @@
             image                   = [UIImage imageNamed:@"nopicture.png"];
             imageView               = [[UIImageView alloc] initWithImage:image];            
         } else {
-            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.in/%@",  [self.product.fotos caminho]]];
+            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [self.product.fotos caminho]]];
             image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             imageView               = [[UIImageView alloc] initWithImage:image];
             
@@ -323,7 +323,7 @@
     
     for (int i = 0; i < countPhotos; i++){
         if (i > 1) break;
-        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.in/%@",[[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
         NSLog(@"url object at index %i is %@",i,url);
         image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
         imageView               = [[UIImageView alloc] initWithImage:image];

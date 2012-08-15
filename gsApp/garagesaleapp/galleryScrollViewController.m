@@ -111,7 +111,7 @@
         
         imageView = [UIImageView alloc];
         
-        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.in/%@",[[[[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
         
         NSLog(@"url object at index %i is %@",i,url);
         
