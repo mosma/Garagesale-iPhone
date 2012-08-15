@@ -468,7 +468,6 @@
 
 
 -(void)postProduct {
-        if([nsMutArrayPicsProduct count] != 0){
             //                [self uploadPhotos:[dictProduct valueForKey:@"id"]];
             //            }else {
             NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
@@ -479,13 +478,22 @@
             [prodParams setObject:idPerson               forKey:@"idPessoa"];
             [prodParams setObject:txtFieldValue.text     forKey:@"valorEsperado"];
             [prodParams setObject:txtFieldTitle.text     forKey:@"nome"];
-            [prodParams setObject:textViewDescription    forKey:@"descricao"];
+            [prodParams setObject:textViewDescription.text    forKey:@"descricao"];
             [prodParams setObject:@"1"                   forKey:@"idEstado"];
             [prodParams setObject:idPerson               forKey:@"idUser"];
             [prodParams setObject:@""                    forKey:@"categorias"];
             [prodParams setObject:@""                    forKey:@"newPhotos"];
-            [prodParams setObject:txtFieldCurrency.text  forKey:@"currency"];
-            
+    
+
+
+    
+
+  //  NSRange range = [txtFieldCurrency.text substringToIndex:2)];
+   // NSString *substring = [txtFieldCurrency.text substringFromIndex:range.location+1];
+    
+
+    [prodParams setObject:[txtFieldCurrency.text substringToIndex:2]  forKey:@"currency"];
+
             //The server ask me for this format, so I set it here:
             [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
             [postData setObject:idPerson              forKey:@"idUser"];
@@ -495,16 +503,17 @@
             NSError *error = nil;
             NSString *json = [parser stringFromObject:prodParams error:&error];    
             
-            //Add ProductJson in postData for key product
-            [postData setObject:json forKey:@"product"];
             
             [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
             
             //If no error we send the post, voila!
             if (!error){
+
+                //Add ProductJson in postData for key product
+                [postData setObject:json forKey:@"product"];
+                
                 [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
             }
-        }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -558,9 +567,16 @@
     RKParams* params = [RKParams params];
     for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
         NSData *dataImage = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 0.75);
-        [params setData:dataImage MIMEType:@"image/jpeg" forParam:[NSString stringWithFormat:@"files[%i]", i]];
+        
+        
+        
+        RKParamsAttachment *attachment = [params setData:dataImage forParam:@"files[]"];
+        attachment.MIMEType = @"image/png";
+        attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
+        
+       // [params setData:dataImage MIMEType:@"image/jpeg" forParam:[NSString stringWithFormat:@"files[]", i]];
      }
-    
+        
     if ([idProduct isEqualToString:@""]) {
             [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
     } else {

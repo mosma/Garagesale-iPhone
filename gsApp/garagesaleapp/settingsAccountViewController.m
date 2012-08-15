@@ -221,69 +221,118 @@
     
     
     
+    /*
+
+    
+    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
+    
+    //User and password params
+   // NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+    [profileParams setObject:@"9"               forKey:@"id"];
+    [profileParams setObject:@"asdjfaadsfasdfasdf"  forKey:@"token"];
+    
+    //The server ask me for this format, so I set it here:
+
+    //Parsing prodParams to JSON! 
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
+    NSError *error = nil;
+    NSString *json = [parser stringFromObject:profileParams error:&error];    
+    
+    //Add ProductJson in postData for key product
+    [postData setObject:json forKey:@"profile"];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+
+    RKObjManeger.serializationMIMEType = RKMIMETypeJSON;  
+
+    
+    //If no error we send the post, voila!
+    if (!error){
+        //[[[RKClient sharedClient] put:[NSString stringWithFormat:@"/profile/%@", idPerson] params:postData delegate:self] send];
+        [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521" params:postData delegate:self] send];
+
+    }
     
     
     
     
     
+    */
+    
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+    //Set SerializationMIMEType
+    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
+    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+
+    
+    //                [self uploadPhotos:[dictProduct valueForKey:@"id"]];
+    //            }else {
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
     //User and password params
-   // NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+    NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+    [prodParams setObject:@"turcoloco"               forKey:@"garagem"];
+    [prodParams setObject:@"123123"               forKey:@"oldPassword"];
+    [prodParams setObject:@"123123"               forKey:@"newPassword"];
+    [prodParams setObject:@"123123"               forKey:@"newPassword2"];
+    [prodParams setObject:@"Tarek Abdalaaaaaaa"               forKey:@"nome"];
+    [prodParams setObject:@"jradi3@gmail.com"               forKey:@"email"];
     [prodParams setObject:@"6"               forKey:@"id"];
-    [prodParams setObject:txtFieldYourName.text  forKey:@"nome"];
-
-   // [prodParams setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"]  forKey:@"token"];
-
+    
+//    [prodParams setObject:@"1"                   forKey:@"idEstado"];
+//    [prodParams setObject:idPerson               forKey:@"idUser"];
+//    [prodParams setObject:@""                    forKey:@"categorias"];
+//    [prodParams setObject:@""                    forKey:@"newPhotos"];
     
     //The server ask me for this format, so I set it here:
-    //[postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-   // [postData setObject:idPerson              forKey:@"idUser"];
+    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
+    [postData setObject:idPerson              forKey:@"idUser"];
     
     //Parsing prodParams to JSON! 
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];    
-    
-    //Add ProductJson in postData for key product
-    [postData setObject:json forKey:@"profile"];
-    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-    
+        
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
     
     //If no error we send the post, voila!
     if (!error){
-        //[[[RKClient sharedClient] put:[NSString stringWithFormat:@"/profile/%@", idPerson] params:postData delegate:self] send];
-        [[[RKClient sharedClient] put:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521" params:postData delegate:self] send];
+        //Add ProductJson in postData for key profile
+        [postData setObject:json forKey:@"profile"];
 
+        
+        [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13449623829585" params:postData delegate:self] send];
     }
+
     
     
+/*
 
 
-//    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-//
-//    
-//    RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
-//    RKObjManeger.serializationMIMEType = RKMIMETypeJSON; 
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+
+    
+    RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
+    RKObjManeger.serializationMIMEType = RKMIMETypeJSON; 
 //    
 //    
 //    //Post Bid Sent
-//    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Profile class]];
-//    [patientSerializationMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-//    [patientSerializationMapping mapKeyPath:@"id"      toAttribute:@"id"];
-//    [patientSerializationMapping mapKeyPath:@"iooioii" toAttribute:@"token"];
+    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Profile class]];
+    [patientSerializationMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
+    [patientSerializationMapping mapKeyPath:@"id"      toAttribute:@"id"];
+
 //
 //    
-//    [[RKObjManeger router] routeClass:[Profile class] toResourcePath:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521"];
-//    
-//    [RKObjManeger.mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Profile class]];    
+    [[RKObjManeger router] routeClass:[Profile class] toResourcePath:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521"];
+    
+    [RKObjManeger.mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Profile class]];    
 //    
 //    //Setting Bid Entity
-//    Profile* bid = [[Profile alloc] init];  
-//    bid.nome = txtFieldYourName.text;  
-//    bid.id = [NSNumber numberWithInt:6];
+    Profile* bid = [[Profile alloc] init];  
+    bid.nome = txtFieldYourName.text;  
+    bid.id = [NSNumber numberWithInt:9];
 //    
 //    
 //    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
@@ -293,10 +342,8 @@
     
     
     // POST bid  
-//        [RKObjManeger putObject:bid delegate:self];
-    
-    
-    
+        [RKObjManeger putObject:bid delegate:self];
+    */
     
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
