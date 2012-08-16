@@ -449,21 +449,22 @@
 
 - (void)myProgressTask {
 	// This just increases the progress indicator in a loop
-	float progress = 0.0f;
-	while (progress < 1.0f) {
+	
+    //float progress = 0.0f;
+	
+    float progress = 0.0f;
+    
+    while (!isLoading) {
 		progress += 0.01f;
 		HUD.progress = progress;
+        if (progress > 1) progress = 0.0f;
 		usleep(50000);
 	}
-    
-    
-    
+
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.labelText = @"Completed";
 	sleep(2);
-    
-    
 }
 
 
@@ -492,8 +493,11 @@
    // NSString *substring = [txtFieldCurrency.text substringFromIndex:range.location+1];
     
 
-    [prodParams setObject:[txtFieldCurrency.text substringToIndex:2]  forKey:@"currency"];
+    [prodParams setObject:[txtFieldCurrency.text substringToIndex:3]  forKey:@"currency"];
 
+   // [prodParams setObject:@"BRL"  forKey:@"currency"];
+
+    
             //The server ask me for this format, so I set it here:
             [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
             [postData setObject:idPerson              forKey:@"idUser"];
@@ -545,8 +549,10 @@
         if (!isPostProduct) {
             [self postProduct];
             isPostProduct = !isPostProduct;
-        }else 
+        }else {
             isPostProduct = !isPostProduct;
+            isLoading     = !isLoading;
+        }
         
         // Handling POST /other.json        
         if ([response isJSON]) {

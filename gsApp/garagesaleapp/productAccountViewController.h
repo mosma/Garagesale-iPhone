@@ -57,6 +57,7 @@
     float imageWidth_;
     float imageHeight_;
     bool isPostProduct;
+    BOOL isLoading;
 }
 
 @property (retain, nonatomic) id <PhotoScrollingViewDelegate>  delegate;
