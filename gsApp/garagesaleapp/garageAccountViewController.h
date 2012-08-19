@@ -59,5 +59,6 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)changeSegControl;
+- (IBAction)reloadPage:(id)sender;
 
 @end

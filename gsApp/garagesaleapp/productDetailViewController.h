@@ -60,6 +60,7 @@
     __unsafe_unretained IBOutlet UILabel        *msgBidSentLabel;
     __unsafe_unretained IBOutlet UIView         *secondView;
     __unsafe_unretained IBOutlet UIView         *viewBidSend;
+    __unsafe_unretained IBOutlet UIView         *viewBidMsg;
     IBOutlet UIView                             *garageDetailView;
     UIButton                                    *addThisButton;
                                                                 
@@ -100,6 +101,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *msgBidSentLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *secondView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidSend;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidMsg;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 
 //Gallery Images Objects.

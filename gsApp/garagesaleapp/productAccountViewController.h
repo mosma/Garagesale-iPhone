@@ -14,6 +14,7 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
 #import "MBProgressHUD.h"
+#import "garageAccountViewController.h"
 
 @protocol PhotoScrollingViewDelegate
 -(void)removedImageAtIndex:(int )aImageIndex;
@@ -46,24 +47,25 @@
     __unsafe_unretained IBOutlet UIView         *viewPicsControl;
                                                              
     //Others
-    RKObjectManager         *RKObjManeger;
-    NSMutableDictionary     *mutDictPicsProduct;
-    NSMutableArray          *nsMutArrayPicsProduct;
-    NSArray                 *nsArrayState;
-    NSArray                 *nsArrayCurrency;
-    UITapGestureRecognizer  *singleTap;
-    UIView                  *shadowView;
-    MBProgressHUD           *HUD;
+    RKObjectManager             *RKObjManeger;
+    NSMutableArray              *nsMutArrayPicsProduct;
+    NSArray                     *nsArrayState;
+    NSArray                     *nsArrayCurrency;
+    UITapGestureRecognizer      *singleTap;
+    UIView                      *shadowView;
+    MBProgressHUD               *HUD;
+    garageAccountViewController *garageAccVC;
     float imageWidth_;
     float imageHeight_;
-    bool isPostProduct;
+                                                                 
+    //Flags at Post
+    bool isImagesProductPosted;
     BOOL isLoading;
 }
 
 @property (retain, nonatomic) id <PhotoScrollingViewDelegate>  delegate;
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
-@property (retain, nonatomic) NSMutableDictionary              *mutDictPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldTitle;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
@@ -76,9 +78,11 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
+@property (nonatomic) garageAccountViewController              *garageAccVC;
 
-@property (nonatomic) float widthPaddingInImages;
 @property (nonatomic) float heightPaddingInImages;
+@property (nonatomic) float widthPaddingInImages;
+
 
 
 -(void)loadAttributsToComponents;

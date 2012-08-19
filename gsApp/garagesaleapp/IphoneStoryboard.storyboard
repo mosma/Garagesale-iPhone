@@ -405,14 +405,14 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
-                                        <rect key="frame" x="18" y="391" width="71" height="31"/>
+                                        <rect key="frame" x="18" y="391" width="107" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gcC-s1-oMW" userLabel="txtFieldState">
-                                        <rect key="frame" x="20" y="107" width="105" height="31"/>
+                                        <rect key="frame" x="20" y="107" width="141" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.53061224490000003" green="0.53061224490000003" blue="0.53061224490000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
@@ -543,7 +543,7 @@
         <scene sceneID="2b7-mf-Lcw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx4-es-tzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="E1Z-FY-4Gx" customClass="garageAccountViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="garageAccount" id="E1Z-FY-4Gx" customClass="garageAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QGh-vt-7Z6">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1472,12 +1472,12 @@
                                                 <rect key="frame" x="9" y="62" width="282" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Fzg-cv-wIL" userLabel="txtFieldTitle">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Fzg-cv-wIL" userLabel="emailtxtField">
                                                 <rect key="frame" x="14" y="62" width="271" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Roz-bE-ZnX" userLabel="textViewDescription">
                                                 <rect key="frame" x="14" y="139" width="271" height="80"/>
@@ -1489,6 +1489,42 @@
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.92941182851791382" green="0.92941182851791382" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" id="ufa-Jv-wRO" userLabel="ViewBidMsg">
+                                        <rect key="frame" x="10" y="67" width="300" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rgz-Bx-1Hk" userLabel="BtBack">
+                                                <rect key="frame" x="9" y="114" width="285" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Back" backgroundImage="btSaveProduct.png">
+                                                    <color key="titleColor" red="0.43529415129999999" green="0.43529415129999999" blue="0.43529415129999999" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="5Wd-ri-jy6"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Congrats, a email was sent for junks garage with yout offer. Soon, wait for a answer in your email box and make a good deal!" lineBreakMode="wordWrap" numberOfLines="3" minimumFontSize="10" id="HbV-ah-Vub">
+                                                <rect key="frame" x="9" y="34" width="285" height="63"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.35714285709999999" green="0.35714285709999999" blue="0.35714285709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Bid sent." lineBreakMode="tailTruncation" minimumFontSize="10" id="Hch-F9-JPR" userLabel="labelBidSent">
+                                                <rect key="frame" x="9" y="7" width="285" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="16"/>
+                                                <color key="textColor" red="0.37287705789999998" green="0.67432637120000005" blue="0.26359744950000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92941182850000004" green="0.92941182850000004" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1522,6 +1558,7 @@
                         <outlet property="seeAllButton" destination="9k5-33-1yu" id="huH-YP-Eum"/>
                         <outlet property="showPicsButton" destination="1TG-YL-hWp" id="QgS-xU-4ZR"/>
                         <outlet property="valorEsperadoLabel" destination="fV4-sm-nn9" id="i4k-Er-SLa"/>
+                        <outlet property="viewBidMsg" destination="ufa-Jv-wRO" id="NKv-nB-VFn"/>
                         <outlet property="viewBidSend" destination="XW6-ur-9kb" id="VgO-pu-8cE"/>
                     </connections>
                 </viewController>
@@ -1779,7 +1816,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="PZK-ya-bSY" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="11" y="340" width="296" height="40"/>
@@ -2006,7 +2043,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="KS5-U4-UsC" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="11" y="176" width="296" height="40"/>
@@ -2107,6 +2144,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
             <relationships>
                 <relationship kind="action" name="changeSegControl"/>
+                <relationship kind="action" name="reloadPage:"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
@@ -2203,6 +2241,7 @@
                 <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="showPicsButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="valorEsperadoLabel" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="viewBidMsg" candidateClass="UIView"/>
                 <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
             </relationships>
         </class>

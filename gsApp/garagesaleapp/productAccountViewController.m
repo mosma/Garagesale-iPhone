@@ -5,7 +5,6 @@
 //  Created by Tarek Jradi on 20/06/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
-
 #import "productAccountViewController.h"
 
 @interface productAccountViewController ()
@@ -16,7 +15,6 @@
 
 @implementation productAccountViewController
 
-//@synthesize mutDictPicsProduct;
 @synthesize RKObjManeger;
 @synthesize txtFieldTitle;
 @synthesize txtFieldValue;
@@ -34,6 +32,7 @@
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
 @synthesize viewPicsControl;
+@synthesize garageAccVC;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -79,7 +78,7 @@
     labelTitle.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelDescription.font  = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelValue.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
-
+    
     [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldTitle       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -91,30 +90,29 @@
     shadowView.alpha = 0;
     viewPicsControl.alpha = 0;
     viewPicsControl.layer.cornerRadius = 5;
-
+    
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+    
     //Menu
     UIView *tabBar = [self rotatingFooterView];
-    if ([tabBar isKindOfClass:[UITabBar class]]) {
+    if ([tabBar isKindOfClass:[UITabBar class]])
         ((UITabBar *)tabBar).delegate = self;
-    }
     
-    //mutDictPicsProduct      = [[NSMutableDictionary alloc] init];
     
     nsMutArrayPicsProduct   = [[NSMutableArray alloc] init];
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
-                                                NSLocalizedString(@"Sold", @""), nil];
-    
-    
+                       NSLocalizedString(@"Sold", @""), nil];
     
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
     
     nsArrayCurrency = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@",code,symbol],
-                                                @"BRL - R$",
-                                                @"GBP - £",
-                                                @"EUR - €",
-                                                @"USD - $", nil];
+                       @"BRL - R$",
+                       @"GBP - £",
+                       @"EUR - €",
+                       @"USD - $", nil];
     
     //Set Picker View State
     UIPickerView *pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
@@ -133,23 +131,19 @@
     pickerViewCurrency.showsSelectionIndicator = YES;
     txtFieldCurrency.inputView = pickerViewCurrency;
     
-    txtFieldCurrency.text   = [NSString stringWithFormat:@"%@ - %@",code,symbol];
+    txtFieldCurrency.text = [NSString stringWithFormat:@"%@ - %@",code,symbol];
     
-    // Create done button in UIPickerView
-    UIToolbar*  picViewStateToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
-    picViewStateToolbar.barStyle = UIBarStyleBlackOpaque;
+    //Create done button in UIPickerView
+    UIToolbar       *picViewStateToolbar    = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
+    picViewStateToolbar.barStyle            = UIBarStyleBlackOpaque;
     [picViewStateToolbar sizeToFit];
-    
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    	 
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    NSMutableArray  *barItems               = [[NSMutableArray alloc] init];
+    UIBarButtonItem *flexSpace              = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [barItems addObject:flexSpace];
-    	 
-    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
+    UIBarButtonItem *doneBtn                = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
     [barItems addObject:doneBtn];
-    	 
     [picViewStateToolbar setItems:barItems animated:YES];
-    	 
+    
     txtFieldState.inputAccessoryView = picViewStateToolbar;
     txtFieldCurrency.inputAccessoryView = picViewStateToolbar;
     
@@ -158,29 +152,10 @@
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
-    self.scrollView.contentSize             = CGSizeMake(320,650);
-    
+    self.scrollView.contentSize = CGSizeMake(320,650);
     [self setupKeyboardControls];
-    
     [self animationPicsControl];
-
 }
-
-////Disable Select, Copy, Select All on TextField
-//-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-//    UIMenuController *menuController = [UIMenuController sharedMenuController];
-//    if (menuController) {
-//        [UIMenuController sharedMenuController].menuVisible = NO;
-//    }
-//    return NO;
-//} 
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-//    //This line dismisses the keyboard.       
-//    [theTextField resignFirstResponder];
-//    //Your view manipulation here if you moved the view up due to the keyboard etc.       
-//    return NO;
-//}
 
 - (IBAction)isNumberKey:(UITextField *)textField{
     [GlobalFunctions onlyNumberKey:textField];
@@ -213,15 +188,32 @@
     [UIView commitAnimations];
 }
 
-
 -(IBAction)goBack:(id)sender {
     self.tabBarController.delegate = self;
     self.tabBarController.selectedIndex = 0;
     [self.tabBarController.selectedViewController viewDidAppear:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:NO];
+    if (isImagesProductPosted) {
+        txtFieldTitle.text          = @"";
+        textViewDescription.text    = @"";
+        txtFieldValue.text          = @"";
+        isImagesProductPosted       = !isImagesProductPosted;
+        isLoading                   = !isLoading;
+        imageWidth_                 = 50.0f;
+        imageHeight_                = 50.0f;
+        NSLocale *theLocale         = [NSLocale currentLocale];
+        txtFieldCurrency.text       = [NSString stringWithFormat:@"%@ - %@",
+                                       [theLocale objectForKey:NSLocaleCurrencyCode],
+                                       [theLocale objectForKey:NSLocaleCurrencySymbol]]; 
+        txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
+        [garageAccVC reloadInputViews];
+        [garageAccVC.view setNeedsDisplay];
+        garageAccVC = nil;
+        [self animationPicsControl];
+    }
 }
 
 -(IBAction)getPicsByCamera:(id)sender {
@@ -234,16 +226,14 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{    
     UIImage *imageThumb = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    
     [self addImageToScrollView:imageThumb];
-    
     [picker dismissModalViewControllerAnimated:YES];
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer*)sender { 
     if (sender.state == UIGestureRecognizerStateBegan) {
-        UIImageView * imageView = (UIImageView *)sender.view;
-        NSArray * imageViews = [scrollViewPicsProduct subviews];
+        UIImageView *imageView      = (UIImageView *)sender.view;
+        NSArray *imageViews         = [scrollViewPicsProduct subviews];
         int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
         
         [UIView animateWithDuration:0.75 animations: ^{
@@ -252,15 +242,15 @@
             [imageView removeFromSuperview];
             [nsMutArrayPicsProduct removeObject:imageView.image];	
             [self.delegate removedImageAtIndex:indexOfRemovedImageView];
-//            if ([nsMutArrayPicsProduct count]==0) {
-//                [self showNoPhotoAdded];
-//            }
+            //            if ([nsMutArrayPicsProduct count]==0) {
+            //                [self showNoPhotoAdded];
+            //            }
         }];
     }
 }
 
 -(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{
-    NSArray * imageViews = [scrollViewPicsProduct subviews];
+    NSArray *imageViews         = [scrollViewPicsProduct subviews];
     int indexOfRemovedImageView = [imageViews indexOfObject:aImageView];
     
     for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
@@ -276,14 +266,14 @@
             scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
         }
     }
-        
+    
     CGSize size = scrollViewPicsProduct.contentSize;
     size.width = size.width - imageWidth_ -self.widthPaddingInImages;
     scrollViewPicsProduct.contentSize = size;
 }
 
 -(void)addImageToScrollView:(UIImage *)aImage{
-   // [self removeNoPhotoAdded];
+    // [self removeNoPhotoAdded];
     if (nsMutArrayPicsProduct == nil) {
         [self displayImages:[NSArray arrayWithObject:aImage]];
     }else{
@@ -325,28 +315,8 @@
         scrollViewPicsProduct.contentSize = size;
         scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
         scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-        
     }
 }
-
-
-//-(void)imagePickerController:(UIImagePickerController *)imgPicker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-//{
-//    [self dismissModalViewControllerAnimated:YES];
-//    NSLog(@"Sauvegarde de l'image"); //Message de log
-//    
-//    NSData* imageData = UIImagePNGRepresentation(image);
-//    NSString* imageName = @"tempImage.jpg"; 
-//    
-//    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString* documentsDirectory = [paths objectAtIndex:0]; 
-//    
-//    NSString *fullPathToFile = [documentsDirectory stringByAppendingPathComponent:imageName];
-//    [imageData writeToFile:fullPathToFile atomically:NO];
-//    NSLog(@"Photo enregistrée avec succes");
-//    
-//    
-//}
 
 - (void)getTypeCameraOrPhotosAlbum:(UIImagePickerControllerSourceType)type{
     
@@ -371,52 +341,21 @@
 }
 
 -(IBAction)saveProduct{
-    
-    
-//    // The hud will dispable all input on the view (use the higest view possible in the view hierarchy)
-//	HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-//	[self.navigationController.view addSubview:HUD];
-//	
-//	// Regiser for HUD callbacks so we can remove it from the window at the right time
-//	HUD.delegate = self;
-//	HUD.labelText = @"Loading";
-//    HUD.detailsLabelText = @"updating data";
-//	HUD.square = YES;
-//    
-//	// Show the HUD while the provided method executes in a new thread
-//	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-
-    
-    
-    
-    
-    
-    
-    
-//    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-//	[self.navigationController.view addSubview:HUD];
-//	
-//	// Set determinate mode
-//	HUD.mode = MBProgressHUDModeDeterminate;
-//	
-//	HUD.delegate = self;
-//	HUD.labelText = @"Loading";
-//	
-//	// myProgressTask uses the HUD instance to update progress
-//	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
-    
-    
-    
-    
-    
-    
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
-	
 	// Set determinate mode
-	HUD.mode = MBProgressHUDModeAnnularDeterminate;
-	
+    [self myTask];
     
+    if([nsMutArrayPicsProduct count] != 0) {
+        [self uploadPhotos:@""];
+    }else {
+        [self postProduct];
+    }
+}
+
+#pragma mark -
+#pragma mark Execution code
+
+- (void)myTask {
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
 	HUD.labelText = @"Saving";
@@ -425,32 +364,10 @@
     
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
-    
-    
-
-    
-    
-    if([nsMutArrayPicsProduct count] != 0) {
-        [self uploadPhotos:@""];
-    }else {
-        [self postProduct];
-    }
-    
-}
-
-
-#pragma mark -
-#pragma mark Execution code
-
-- (void)myTask {
-	// Do something usefull in here instead of sleeping ...
-	sleep(3);
 }
 
 - (void)myProgressTask {
 	// This just increases the progress indicator in a loop
-	
-    //float progress = 0.0f;
 	
     float progress = 0.0f;
     
@@ -460,64 +377,70 @@
         if (progress > 1) progress = 0.0f;
 		usleep(50000);
 	}
-
+    
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.labelText = @"Completed";
 	sleep(2);
+    
+    [self reloadInputViews];
+    
+    garageAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
+    [self.navigationController pushViewController:garageAccVC animated:YES];
 }
 
+-(void)reloadInputViews{
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    for (UIView *subview in [scrollViewPicsProduct subviews]){
+        if([subview isKindOfClass:[UIImageView class]])
+            [subview removeFromSuperview];
+    }
+    [HUD.customView removeFromSuperview];
+    [nsMutArrayPicsProduct removeAllObjects];
+    nsMutArrayPicsProduct = nil;
+}
 
 -(void)postProduct {
-            //                [self uploadPhotos:[dictProduct valueForKey:@"id"]];
-            //            }else {
-            NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-            NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
-            
-            //User and password params
-            NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-            [prodParams setObject:idPerson               forKey:@"idPessoa"];
-            [prodParams setObject:txtFieldValue.text     forKey:@"valorEsperado"];
-            [prodParams setObject:txtFieldTitle.text     forKey:@"nome"];
-            [prodParams setObject:textViewDescription.text    forKey:@"descricao"];
-            [prodParams setObject:@"1"                   forKey:@"idEstado"];
-            [prodParams setObject:idPerson               forKey:@"idUser"];
-            [prodParams setObject:@""                    forKey:@"categorias"];
-            [prodParams setObject:@""                    forKey:@"newPhotos"];
+    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
-
-
+    //get idEstado indice
+    int idEstado = [nsArrayState indexOfObject:txtFieldState.text] + 1;
     
-
-  //  NSRange range = [txtFieldCurrency.text substringToIndex:2)];
-   // NSString *substring = [txtFieldCurrency.text substringFromIndex:range.location+1];
+    //User and password params
+    NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+    [prodParams setObject:idPerson                      forKey:@"idPessoa"];
+    [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
+    [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
+    [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
+    [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
+                   forKey:@"idEstado"];
+    [prodParams setObject:idPerson                      forKey:@"idUser"];
+    [prodParams setObject:@""                           forKey:@"categorias"];
+    [prodParams setObject:@""                           forKey:@"newPhotos"];
+    [prodParams setObject:[txtFieldCurrency.text
+                           substringToIndex:3]          forKey:@"currency"];
     
-
-    [prodParams setObject:[txtFieldCurrency.text substringToIndex:3]  forKey:@"currency"];
-
-   // [prodParams setObject:@"BRL"  forKey:@"currency"];
-
+    //The server ask me for this format, so I set it here:
+    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
+    [postData setObject:idPerson              forKey:@"idUser"];
     
-            //The server ask me for this format, so I set it here:
-            [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-            [postData setObject:idPerson              forKey:@"idUser"];
-            
-            //Parsing prodParams to JSON! 
-            id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
-            NSError *error = nil;
-            NSString *json = [parser stringFromObject:prodParams error:&error];    
-            
-            
-            [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
-            
-            //If no error we send the post, voila!
-            if (!error){
-
-                //Add ProductJson in postData for key product
-                [postData setObject:json forKey:@"product"];
-                
-                [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
-            }
+    //Parsing prodParams to JSON! 
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
+    NSError *error = nil;
+    NSString *json = [parser stringFromObject:prodParams error:&error];    
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    
+    //If no error we send the post, voila!
+    if (!error){
+        
+        //Add ProductJson in postData for key product
+        [postData setObject:json forKey:@"product"];
+        
+        [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -538,21 +461,9 @@
         }
         
     } else if ([request isPOST]) {
-        
-        
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
-//        NSError *error = nil;
-//        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new]; 
-//        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
-        
-        if (!isPostProduct) {
-            [self postProduct];
-            isPostProduct = !isPostProduct;
-        }else {
-            isPostProduct = !isPostProduct;
-            isLoading     = !isLoading;
-        }
+        [self setPostFlags];
         
         // Handling POST /other.json        
         if ([response isJSON]) {
@@ -567,55 +478,37 @@
     }
 }
 
+-(void)setPostFlags{
+    if (!isImagesProductPosted) {
+        [self postProduct];
+        isImagesProductPosted = !isImagesProductPosted;
+    }else {
+        isLoading = !isLoading;
+    }
+}
+
 -(void)uploadPhotos:(NSString *)idProduct{
-    
     
     RKParams* params = [RKParams params];
     for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-        NSData *dataImage = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 0.75);
-        
-        
-        
-        RKParamsAttachment *attachment = [params setData:dataImage forParam:@"files[]"];
+        NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 0.75);
+        RKParamsAttachment  *attachment = [params setData:dataImage forParam:@"files[]"];
         attachment.MIMEType = @"image/png";
         attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
-        
-       // [params setData:dataImage MIMEType:@"image/jpeg" forParam:[NSString stringWithFormat:@"files[]", i]];
-     }
-        
-    if ([idProduct isEqualToString:@""]) {
-            [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    } else {
-            [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
     }
-
-    // [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo/token=%@&idProduct=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"],[[dict valueForKey:@"id"] string]] params:params delegate:self];
     
-    
-    //        NSArray *keys;
-    //        int i, count;
-    //        id key, value;
-    //        
-    //        keys = [dict allKeys];
-    //        count = [keys count];
-    //        for (i = 0; i < count; i++)
-    //        {
-    //            key = [keys objectAtIndex: i];
-    //            value = [dict objectForKey: key];
-    //            NSLog (@"Key: %@ for value: %@", key, value);
-    //        }
+    if ([idProduct isEqualToString:@""]) {
+        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    } else {
+        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    }
 }
 
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
-    
-    
     if(pickerView.tag == PICKERSTATE)
         txtFieldState.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayState objectAtIndex:row]];
     else 
         txtFieldCurrency.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayCurrency objectAtIndex:row]];
-    
-    
 }
 
 // tell the picker how many rows are available for a given component
@@ -669,10 +562,8 @@
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
-
     self.keyboardControls.textFields = [NSArray arrayWithObjects:
-                                            txtFieldState,txtFieldTitle,textViewDescription,txtFieldCurrency, txtFieldValue,nil];
-
+                                        txtFieldState,txtFieldTitle,textViewDescription,txtFieldCurrency, txtFieldValue,nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
@@ -714,7 +605,7 @@
     rc = [textField convertRect:rc toView:v];
     
     rc.size.height = 350;
-
+    
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 
@@ -784,7 +675,6 @@
  End Setup the keyboard controls 
  *
  */
-
 
 - (void)viewDidUnload
 {

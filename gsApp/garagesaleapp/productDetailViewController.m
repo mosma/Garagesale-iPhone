@@ -51,6 +51,7 @@
 @synthesize galleryScrollView;
 @synthesize activityIndicator;
 @synthesize viewBidSend;
+@synthesize viewBidMsg;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -127,9 +128,12 @@
         shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
         [shadowView setBackgroundColor:[UIColor blackColor]];
         shadowView.alpha = 0;
-        viewBidSend.alpha = 0;
         
+        viewBidSend.alpha = 0;
         viewBidSend.layer.cornerRadius = 5;
+        
+        viewBidMsg.alpha = 0;
+        viewBidMsg.layer.cornerRadius = 5;
         
         [emailTextField   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [commentTextView  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -496,7 +500,14 @@
         [bidButton setEnabled:YES];
         [bidButton setAlpha:1.0];
         [msgBidSentLabel setAlpha:1.0];
+        [viewBidSend setAlpha:0];
+        viewBidSend.hidden = YES;
+        [viewBidMsg setAlpha:1.0f];
+        [self.scrollView insertSubview:shadowView belowSubview:viewBidMsg];
+        viewBidMsg.hidden = NO;        
         [UIView commitAnimations];
+        
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
         msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
         emailTextField.text  = @"";
@@ -634,9 +645,12 @@
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
-    if (viewBidSend.hidden) {
+    if (viewBidSend.hidden && viewBidMsg.hidden) {
+        [self.scrollView insertSubview:viewBidMsg belowSubview:viewBidSend];
         [self.scrollView insertSubview:shadowView belowSubview:viewBidSend];
+        
         viewBidSend.hidden = NO;
+        viewBidMsg.hidden = NO;
         viewBidSend.alpha = 1.0;
         shadowView.alpha = 0.7;
         [UIView commitAnimations];
@@ -644,6 +658,7 @@
         viewBidSend.alpha = 0;
         shadowView.alpha = 0;
         viewBidSend.hidden = YES;
+        viewBidMsg.hidden = YES;
         [shadowView removeFromSuperview];
     }
     
@@ -678,7 +693,7 @@
     bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]]; 
     
     // POST bid  
-//    [[RKObjectManager sharedManager] postObject:bid delegate:self];
+    [[RKObjectManager sharedManager] postObject:bid delegate:self];
      
     //Animate bidButton
     [UIView beginAnimations:@"buttonFades" context:nil];
@@ -755,13 +770,11 @@
 /* Scroll the view to the active text field */
 - (void)scrollViewToTextField:(id)textField
 {
-    UIScrollView* v = (UIScrollView*) self.scrollView ;
+    UIScrollView* v = (UIScrollView*) self.scrollView;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
-    rc.origin.x = 0 ;
-    rc.origin.y = -120 ;
     
-    rc.size.height = 600;
+    rc.size.height = 300;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 
@@ -866,6 +879,9 @@
     garageDetailView = nil;
     addThisButton = nil;
     viewBidSend = nil;
+    viewBidMsg = nil;
+    [self setViewBidSend:nil];
+    [self setViewBidMsg:nil];
     [super viewDidUnload];
     
     activityIndicator = nil;

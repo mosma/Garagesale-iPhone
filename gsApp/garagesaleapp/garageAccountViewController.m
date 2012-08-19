@@ -87,10 +87,16 @@
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
     
-    
-    
-    
-    
+    [self initLoadingGuear];
+}
+
+- (IBAction)reloadPage:(id)sender{
+    for (UIButton *subview in [scrollViewProducts subviews]) 
+        [subview removeFromSuperview];
+    [self setupProductMapping];
+}
+
+-(void)initLoadingGuear{
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.scrollViewMain addSubview:HUD];
 	
@@ -102,12 +108,10 @@
     
     // Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-    
-    
-    
-    
-    
-    
+}
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)myTask {
@@ -156,14 +160,15 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
+        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+        
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
             
         gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
-        
-        
         garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
         
         city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
@@ -180,8 +185,6 @@
         link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
         link.font        = [UIFont fontWithName:@"Droid Sans" size:12];
 
-        
-        
         self.scrollViewMain.contentSize         = CGSizeMake(320,560);
         self.scrollViewProducts.contentSize     = CGSizeMake(320,2845);
         self.scrollViewMain.delegate = self;
@@ -211,21 +214,13 @@
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12] range:[total rangeOfString:@"products"]];
         [attrStr setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
         labelTotalProducts.attributedText   = attrStr;
-
-        
         
         [labelTotalProducts setBackgroundColor:[UIColor clearColor]];
         [labelTotalProducts setShadowColor:[UIColor blackColor]];
         [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
-        
-        
-        
-        
-        
-        
-        
+
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
         //Set Display thumbs on Home.
@@ -251,7 +246,6 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
     if (scrollView.tag == 0){
         if (scrollViewMain.contentOffset.y > 130){
             scrollViewProducts.userInteractionEnabled = YES;
@@ -281,14 +275,17 @@
 }
 
 - (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
-    [scrollViewProducts addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
-                                                            showEdit:YES 
-                                                           viewContr:self]];
+    @try {
+        [scrollViewProducts addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
+                                                                        showEdit:YES 
+                                                                       viewContr:self]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
 }
 
 -(void)loadTableProduct{
-    
-    
     //Load cache thumbs in thumbsDataArray to TableView
     mutArrayDataThumbs = [[NSMutableArray alloc] init];
 
@@ -304,12 +301,9 @@
 }
 
 - (void)loadImageTableThumbs:(NSArray *)arrayDetailProduct {
-    
-    
     if ([[arrayDetailProduct objectAtIndex:0] fotos] != nil) {
         NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[arrayDetailProduct objectAtIndex:0] fotos] caminhoThumb]];
         UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-        
         
         @try {
             [mutArrayDataThumbs addObject:thumbImage];
@@ -320,16 +314,8 @@
         }
         @finally {
         }
-        
-        
-        
     }else 
         [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
-
-    
-   // [scrollViewProducts addSubview:[globalFunctions loadTableProduct:arrayDetailProduct
-     //                                                               showEdit:YES 
-       //                                                            viewContr:self]];
 }
 
 -(IBAction)changeSegControl{
@@ -412,9 +398,6 @@
     prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
-
-
-
 
 - (void)viewDidUnload
 {
