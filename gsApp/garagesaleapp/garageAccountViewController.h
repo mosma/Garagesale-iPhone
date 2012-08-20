@@ -28,8 +28,9 @@
     GlobalFunctions     *globalFunctions;
     MBProgressHUD       *HUD;
     BOOL                isLoading;
+    BOOL                isFromParent;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
-    __unsafe_unretained IBOutlet UIImageView        *imageView;
+    __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;
     __unsafe_unretained IBOutlet UILabel            *description;
     __unsafe_unretained IBOutlet UILabel            *city;
@@ -45,9 +46,10 @@
 @property (retain, nonatomic) NSURL             *gravatarUrl;
 @property (retain, nonatomic) NSMutableArray    *mutArrayProducts;
 @property (retain, nonatomic) NSMutableArray    *mutArrayDataThumbs;
+@property (nonatomic) BOOL                      isFromParent;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView        *imageView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *garageName;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *description;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *city;

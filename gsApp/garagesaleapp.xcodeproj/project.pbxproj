@@ -94,6 +94,7 @@
 		CC3AB09B156C892900544D93 /* btSign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB096156C892900544D93 /* btSign@2x.png */; };
 		CC3AB09E156C8D4C00544D93 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB09C156C8D4C00544D93 /* logo.png */; };
 		CC3AB09F156C8D4C00544D93 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB09D156C8D4C00544D93 /* logo@2x.png */; };
+		CC52437A15E1A93700130835 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC52437915E1A93200130835 /* icon.png */; };
 		CC53F36E158B9C6900904ECE /* navBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CC53F36D158B9C6900904ECE /* navBarBackground.jpg */; };
 		CC5999E014CA54F2005F3E88 /* more_pics.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5999DF14CA54F2005F3E88 /* more_pics.png */; };
 		CC5B0A9F14D2C7C900F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
@@ -362,6 +363,7 @@
 		CC3AB096156C892900544D93 /* btSign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSign@2x.png"; sourceTree = "<group>"; };
 		CC3AB09C156C8D4C00544D93 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		CC3AB09D156C8D4C00544D93 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		CC52437915E1A93200130835 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		CC53F36D158B9C6900904ECE /* navBarBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = navBarBackground.jpg; sourceTree = "<group>"; };
 		CC5999DF14CA54F2005F3E88 /* more_pics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_pics.png; sourceTree = "<group>"; };
 		CC5B0A9E14D2C7C900F22D35 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 		CCB0642614B2A5CE0022BA5D = {
 			isa = PBXGroup;
 			children = (
+				CC52437915E1A93200130835 /* icon.png */,
 				CC0846EF14DA351D00AD230B /* Default@2x.png */,
 				CCB0678C14B39ACD0022BA5D /* libxml2.dylib */,
 				CC2AF17714C2CCF3001D9FA0 /* 57x57.png */,
@@ -1158,6 +1161,7 @@
 				CC6B0FB715D3CFFF00BBB742 /* btMenuTableTopB@2x.png in Resources */,
 				CC6B0FDE15D62D4600BBB742 /* 37x-Checkmark.png in Resources */,
 				CC6B0FE015D62D4600BBB742 /* 37x-Checkmark@2x.png in Resources */,
+				CC52437A15E1A93700130835 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

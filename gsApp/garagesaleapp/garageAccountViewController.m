@@ -15,7 +15,7 @@
 @synthesize RKObjManeger;
 @synthesize gravatarUrl;
 @synthesize emailLabel;
-@synthesize imageView;
+@synthesize buttonGarageLogo;
 @synthesize garageName;
 @synthesize description;
 @synthesize city;
@@ -24,6 +24,7 @@
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
 @synthesize mutArrayDataThumbs;
+@synthesize isFromParent;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -190,14 +191,16 @@
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
         
-        
-        self.navigationItem.title       = NSLocalizedString(@"garage", @"");
+        self.navigationItem.title = NSLocalizedString(@"garage", @"");
     
-        self.imageView.image            = [UIImage imageWithData: [NSData dataWithContentsOfURL:self.gravatarUrl]];
-
+        NSData  *imageData  = [NSData dataWithContentsOfURL:self.gravatarUrl];
+        UIImage *image      = [[UIImage alloc] initWithData:imageData];
+        [buttonGarageLogo setImage:image forState:UIControlStateNormal];
+        
         self.navigationItem.hidesBackButton = NO;
         
-        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+        if (!isFromParent)
+            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
         
         self.tableViewProducts.hidden = YES;
 
@@ -402,13 +405,13 @@
 - (void)viewDidUnload
 {
     emailLabel = nil;
-    imageView = nil;
+    buttonGarageLogo = nil;
     garageName = nil;
     description = nil;
     city = nil;
     link = nil;
     [self setEmailLabel:nil];
-    [self setImageView:nil];
+    [self setButtonGarageLogo:nil];
     [self setGarageName:nil];
     [self setDescription:nil];
     [self setCity:nil];

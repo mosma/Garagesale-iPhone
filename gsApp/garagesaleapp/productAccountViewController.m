@@ -168,7 +168,7 @@
 
 - (IBAction)animationPicsControl{
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
@@ -386,6 +386,7 @@
     [self reloadInputViews];
     
     garageAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
+    garageAccVC.isFromParent = YES;
     [self.navigationController pushViewController:garageAccVC animated:YES];
 }
 

@@ -556,10 +556,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Znh-8E-y7D">
-                                                <rect key="frame" x="10" y="10" width="71" height="72"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="cVx-0i-ETY">
                                                 <rect key="frame" x="87" y="12" width="222" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -586,6 +582,21 @@
                                                     <outlet property="delegate" destination="E1Z-FY-4Gx" id="7zu-FV-Xbp"/>
                                                 </connections>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kiP-7d-erC">
+                                                <rect key="frame" x="10" y="11" width="71" height="72"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="reloadPage:" destination="E1Z-FY-4Gx" eventType="touchUpInside" id="HfW-X3-RNq"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.22352942824363708" green="0.23529413342475891" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
@@ -679,15 +690,12 @@
                                 <action selector="changeSegControl" destination="E1Z-FY-4Gx" eventType="valueChanged" id="umc-9C-Nke"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="yhA-bl-XTF">
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonGarageLogo" destination="kiP-7d-erC" id="MOI-FY-zQF"/>
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>
                         <outlet property="description" destination="buW-ao-lhU" id="5P0-JZ-rlE"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
-                        <outlet property="imageView" destination="Znh-8E-y7D" id="rt2-ni-W0D"/>
                         <outlet property="labelTotalProducts" destination="O6W-Ta-EBh" id="XWr-vg-Y0m"/>
                         <outlet property="link" destination="cR2-WC-ife" id="AOm-9P-RZO"/>
                         <outlet property="scrollViewMain" destination="gzi-hc-7y8" id="dRw-Ng-6PE"/>
@@ -2145,11 +2153,11 @@
             <relationships>
                 <relationship kind="action" name="changeSegControl"/>
                 <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="outlet" name="buttonGarageLogo" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="link" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
