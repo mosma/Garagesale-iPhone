@@ -2057,7 +2057,7 @@
                                         <rect key="frame" x="11" y="176" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="50119f395c" minimumFontSize="17" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123123" minimumFontSize="17" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
                                         <rect key="frame" x="20" y="176" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.61960786581039429" green="0.61960786581039429" blue="0.61960786581039429" alpha="1" colorSpace="deviceRGB"/>

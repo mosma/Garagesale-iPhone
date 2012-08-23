@@ -20,7 +20,8 @@
                                                         UITableViewDelegate,
                                                         UITableViewDataSource,
                                                         UIScrollViewDelegate,
-                                                        MBProgressHUDDelegate> {
+                                                        MBProgressHUDDelegate,
+                                                        UITabBarControllerDelegate> {
     RKObjectManager     *RKObjManeger;
     NSURL               *gravatarUrl;
     NSMutableArray      *mutArrayProducts;

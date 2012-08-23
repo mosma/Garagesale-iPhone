@@ -267,22 +267,6 @@ static NSString *urlImagePath;
 	}
 }
 
-+ (void)roundedLayer:(CALayer *)viewLayer radius:(float)r shadow:(BOOL)s{
-    [viewLayer setMasksToBounds:YES];
-    viewLayer.cornerRadius = 5;
-    [viewLayer setCornerRadius:r];        
-   // [viewLayer setBorderColor:[RGB(180, 180, 180) CGColor]];
-    [viewLayer setBorderWidth:1.0f];
-    //if(s)
-  //  {
-        [viewLayer setShadowColor:[[UIColor blackColor] CGColor]];
-        [viewLayer setShadowOffset:CGSizeMake(1, 1)];
-       //[viewLayer setShadowOpacity:1];
-       // [viewLayer setShadowRadius:1.0];
-    //}
-    return;
-}
-
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];

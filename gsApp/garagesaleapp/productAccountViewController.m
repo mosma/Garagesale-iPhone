@@ -99,6 +99,7 @@
     if ([tabBar isKindOfClass:[UITabBar class]])
         ((UITabBar *)tabBar).delegate = self;
     
+    self.tabBarController.delegate = self;
     
     nsMutArrayPicsProduct   = [[NSMutableArray alloc] init];
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
@@ -189,10 +190,63 @@
 }
 
 -(IBAction)goBack:(id)sender {
-    self.tabBarController.delegate = self;
-    self.tabBarController.selectedIndex = 0;
-    [self.tabBarController.selectedViewController viewDidAppear:YES];
+    [self goToTabBarController];
 }
+
+-(void)goToTabBarController{
+
+    
+    int index = [[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue];
+    
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"1" forKey:@"oldTabBar"];  
+    [userDefaults setInteger:index forKey:@"activateTabBar"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    // Get views. controllerIndex is passed in as the controller we want to go to. 
+    UIView * fromView = self.view.superview;
+    UIView * toView = [[self.tabBarController.viewControllers objectAtIndex:index] view];
+    
+    // Transition using a page curl.
+    [UIView transitionFromView:fromView 
+                        toView:toView 
+                      duration:0.5 
+                       options:(index > self.tabBarController.selectedIndex ? UIViewAnimationOptionTransitionCrossDissolve : UIViewAnimationOptionTransitionCrossDissolve)
+                    completion:^(BOOL finished) {
+                        if (finished) {
+                            self.tabBarController.selectedIndex = index;
+                        }
+                    }];
+}
+
+- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
+
+    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
+
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
+    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+
+}
+
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }   
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
@@ -333,7 +387,7 @@
         imagePicker.delegate = self;
         
         // Allow editing of image ?
-        imagePicker.allowsImageEditing = YES;
+        imagePicker.allowsImageEditing = NO;
         
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
@@ -492,8 +546,30 @@
     
     RKParams* params = [RKParams params];
     for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-        NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 0.75);
-        RKParamsAttachment  *attachment = [params setData:dataImage forParam:@"files[]"];
+        NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 1.0);
+        
+        
+        UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:i];
+        float w = loadedImage.size.width;
+        float h = loadedImage.size.height;
+        float ratio = w/h;
+                
+        int neww = 700;
+        //get image height proportionally;
+        float newh = neww/ratio;
+        
+        UIImage *image = [UIImage imageWithData:dataImage];
+        CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
+        UIGraphicsBeginImageContext(rect.size);
+        [image drawInRect:rect];
+        UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0); 
+        
+        
+        
+        
+        RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files[]"];
         attachment.MIMEType = @"image/png";
         attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
     }

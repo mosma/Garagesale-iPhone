@@ -20,7 +20,6 @@
 @synthesize viewSearch;
 @synthesize labelSearch;
 
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -33,7 +32,7 @@
     [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-   [self setupProductMapping];
+   //[self setupProductMapping];
 }
 
 - (void)setupProductMapping{
@@ -61,7 +60,6 @@
      @"id_estado",
      nil];
     
-    
     activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65); 
     
     //Relationship
@@ -75,7 +73,8 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
-        self.nsArrayProducts = objects;
+        [nsArrayProducts removeAllObjects];
+        self.nsArrayProducts = (NSMutableArray *)objects;
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
@@ -113,7 +112,6 @@
 }
 
 - (void)loadAttribsToComponents{
-    
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -129,33 +127,18 @@
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     
-    //Set Scroll Size.
-    self.scrollView.contentSize	= CGSizeMake(320,1500);   
-    
     //Set Logo Top Button Not Account.
-    UIButton *logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     logoButton.frame = CGRectMake(33, 20, 253, 55);
     [logoButton setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
     logoButton.adjustsImageWhenHighlighted = NO;
     [logoButton addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
+
+    self.tabBarController.delegate = self;
     
     //init Global Functions
     globalFunctions = [[GlobalFunctions alloc] init];
-    //Set Display thumbs on Home.
-    globalFunctions.countColumnImageThumbs = -1;
-    globalFunctions.imageThumbsXorigin_Iphone = 10;
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil){
-        globalFunctions.imageThumbsYorigin_Iphone = 95;
-        [self.scrollView addSubview:logoButton];
-    }else 
-        globalFunctions.imageThumbsYorigin_Iphone = 10;
-    
-    
-    //[GlobalFunctions roundedLayer:viewTopPage.layer radius:2.0 shadow:YES];  
-    //[viewLayer setMasksToBounds:YES];
-    //[viewLayer setBorderColor:[RGB(180, 180, 180) CGColor]];
-    //[viewTopPage.layer setBorderWidth:0.3f];
     
     viewTopPage.layer.cornerRadius = 6;
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -177,49 +160,42 @@
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
     
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-    
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    
     self.navigationItem.hidesBackButton = YES;
-    
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
-    
 }
 
-//-(void)scrollViewDidScroll:(UIScrollView *)myScrollView {
-//	/**
-//	 *	calculate the current page that is shown
-//	 *	you can also use myScrollview.frame.size.height if your image is the exact size of your scrollview
-//	 */
-//	int currentPage = (self.scrollView.contentOffset.y / currentImageSize.height);
-//    
-//	// display the image and maybe +/-1 for a smoother scrolling
-//	// but be sure to check if the image already exists, you can do this very easily using tags
-//	if ( [myScrollView viewWithTag:(currentPage +1)] ) {
-//		return;
-//	}
-//	else {
-//		// view is missing, create it and set its tag to currentPage+1
-//	}
-//    
-//	/**
-//	 *	using your paging numbers as tag, you can also clean the UIScrollView
-//	 *	from no longer needed views to get your memory back
-//	 *	remove all image views except -1 and +1 of the currently drawn page
-//	 */
-//	for ( int i = 0; i < currentPages; i++ ) {
-//		if ( (i < (currentPage-1) || i > (currentPage+1)) && [myScrollView viewWithTag:(i+1)] ) {
-//			[[myScrollView viewWithTag:(i+1)] removeFromSuperview];
-//		}
-//	}
-//} 
+- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
+    
+    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
+    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+}
+
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }   
+}
+
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-    NSLog(@"Integer  : %i", [self.nsArrayProducts count]);
+   // NSLog(@"Integer  : %i", [self.nsArrayProducts count]);
     for(int i = 0; i < [self.nsArrayProducts count]; i++)
     {
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
@@ -238,12 +214,38 @@
 - (IBAction)reloadPage:(id)sender{
     for (UIButton *subview in [scrollView subviews]) 
         [subview removeFromSuperview];
-    [self loadAttribsToComponents];
+    //[self loadAttribsToComponents];
+    [scrollView addSubview:logoButton];
     [self setupProductMapping];
+    
+    //Set Display thumbs on Home.
+    globalFunctions.countColumnImageThumbs = -1;
+    globalFunctions.imageThumbsXorigin_Iphone = 10;
+    
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+        viewSearch.hidden = NO;
+        viewTopPage.hidden = YES;
+        logoButton.hidden = YES;
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        [self.navigationController setNavigationBarHidden:NO];        
+        globalFunctions.imageThumbsYorigin_Iphone = 10;
+        self.scrollView.contentSize	= CGSizeMake(320,825);   
+    }else {
+        viewSearch.hidden = YES;
+        viewTopPage.hidden = NO;
+        logoButton.hidden = NO;
+        globalFunctions.imageThumbsYorigin_Iphone = 95;
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        [self.navigationController setNavigationBarHidden:YES];
+        self.scrollView.contentSize	= CGSizeMake(320,817);   
+        //[self setHidesBottomBarWhenPushed:NO];
+    }
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
-    NSLog(@"%i", sender.tag);
+    //NSLog(@"%i", sender.tag);
     
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[self.nsArrayProducts objectAtIndex:sender.tag];
@@ -384,19 +386,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-        if (viewSearch.hidden)
-            [self reloadPage:nil];
-        viewSearch.hidden = NO;
-        viewTopPage.hidden = YES;
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:NO];
-    }else {
-        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:YES];
-        //[self setHidesBottomBarWhenPushed:NO];
-    }
     [super viewWillAppear:animated];
+    [self reloadPage:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -417,7 +408,8 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+
 }
 
 @end

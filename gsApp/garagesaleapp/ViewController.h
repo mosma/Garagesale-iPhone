@@ -16,13 +16,14 @@
 
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,
-                                              OHAttributedLabelDelegate>{
+                                              OHAttributedLabelDelegate,
+                                              UITabBarControllerDelegate>{
 
     RKObjectManager                             *RKObjManeger;
-    NSArray                                     *nsArrayProducts;
+    NSMutableArray                              *nsArrayProducts;
     BOOL                                        *isSearch;
     GlobalFunctions                             *globalFunctions;
-    
+    UIButton                                    *logoButton;
     __unsafe_unretained IBOutlet UIScrollView   *scrollView;
     __unsafe_unretained IBOutlet UIView         *viewTopPage;
     __unsafe_unretained IBOutlet UIView         *viewSearch;
@@ -33,7 +34,7 @@
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
-@property (nonatomic, retain) NSArray                           *nsArrayProducts;
+@property (nonatomic, retain) NSMutableArray                    *nsArrayProducts;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewTopPage;

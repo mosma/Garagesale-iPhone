@@ -29,7 +29,6 @@
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
 +(BOOL)isValidEmail:(NSString*) emailString;
 +(void)onlyNumberKey:(UITextField *)textField;
-+(void)roundedLayer:(CALayer *)viewLayer radius:(float)r shadow:(BOOL)s;
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;

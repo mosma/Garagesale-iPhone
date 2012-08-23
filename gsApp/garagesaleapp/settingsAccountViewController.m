@@ -64,10 +64,10 @@
 
 -(void)logout:(id)sender{
     /*
-
+     
      Reset Token... Colocar isso no globalfuncionts
      
-
+     
      */
     NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     
@@ -79,9 +79,15 @@
         NSLog(@"quantidade : %i", i++);
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
-
-    ViewController *rootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-    [self.navigationController pushViewController:rootVC animated:YES];
+    
+    
+    // self.tabBarController.viewControllers = nil;
+    [(ViewController *)[self.tabBarController.viewControllers objectAtIndex:0] viewWillAppear:NO];
+    
+    self.tabBarController.selectedIndex = 0;
+    
+    //ViewController *rootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+    //   [self.navigationController pushViewController:rootVC animated:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -125,7 +131,7 @@
     labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelAbout.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelYourName.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
-
+    
     [txtFieldGarageName setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldYourName   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtViewAbout       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -149,9 +155,9 @@
                         [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
-
+    
     imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
-
+    
     
     self.scrollView.contentSize = CGSizeMake(320,700);
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
@@ -191,80 +197,80 @@
     //    @"idPerson", @"idPerson",
     //    @"id", @"id",
     //    
-
+    
     
     
     
     
     //   NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-//    NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
-//    NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
-//    
-//    NSNumber *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-//    
-//    [profileParams setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-//    [profileParams setObject:idPerson               forKey:@"id"];
-//    [profileParams setObject:txtFieldYourName.text  forKey:@"nome"];
-//    
-//    //[garageParams setObject:idPerson               forKey:@"id"];
-//    //[garageParams setObject:txtFieldAnyLink.text   forKey:@"link"];
-//    //[garageParams setObject:txtViewAbout.text      forKey:@"about"];
-//    
-//
-//    
-//    
-//    Profile* contact2 = [[Profile alloc] init];
-//    contact2.nome = txtFieldYourName.text;
-//    contact2.id     = idPerson;
-//    
-//    [RKObjManeger putObject:contact2 delegate:self];
+    //    NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
+    //    NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
+    //    
+    //    NSNumber *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+    //    
+    //    [profileParams setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
+    //    [profileParams setObject:idPerson               forKey:@"id"];
+    //    [profileParams setObject:txtFieldYourName.text  forKey:@"nome"];
+    //    
+    //    //[garageParams setObject:idPerson               forKey:@"id"];
+    //    //[garageParams setObject:txtFieldAnyLink.text   forKey:@"link"];
+    //    //[garageParams setObject:txtViewAbout.text      forKey:@"about"];
+    //    
+    //
+    //    
+    //    
+    //    Profile* contact2 = [[Profile alloc] init];
+    //    contact2.nome = txtFieldYourName.text;
+    //    contact2.id     = idPerson;
+    //    
+    //    [RKObjManeger putObject:contact2 delegate:self];
     
     
     
     /*
-
-    
-    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
-    
-    //User and password params
-   // NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    [profileParams setObject:@"9"               forKey:@"id"];
-    [profileParams setObject:@"asdjfaadsfasdfasdf"  forKey:@"token"];
-    
-    //The server ask me for this format, so I set it here:
-
-    //Parsing prodParams to JSON! 
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
-    NSError *error = nil;
-    NSString *json = [parser stringFromObject:profileParams error:&error];    
-    
-    //Add ProductJson in postData for key product
-    [postData setObject:json forKey:@"profile"];
-    
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
-
-    RKObjManeger.serializationMIMEType = RKMIMETypeJSON;  
-
-    
-    //If no error we send the post, voila!
-    if (!error){
-        //[[[RKClient sharedClient] put:[NSString stringWithFormat:@"/profile/%@", idPerson] params:postData delegate:self] send];
-        [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521" params:postData delegate:self] send];
-
-    }
-    
-    
-    
-    
-    
-    */
+     
+     
+     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+     NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
+     
+     //User and password params
+     // NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+     [profileParams setObject:@"9"               forKey:@"id"];
+     [profileParams setObject:@"asdjfaadsfasdfasdf"  forKey:@"token"];
+     
+     //The server ask me for this format, so I set it here:
+     
+     //Parsing prodParams to JSON! 
+     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
+     NSError *error = nil;
+     NSString *json = [parser stringFromObject:profileParams error:&error];    
+     
+     //Add ProductJson in postData for key product
+     [postData setObject:json forKey:@"profile"];
+     
+     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+     
+     RKObjManeger.serializationMIMEType = RKMIMETypeJSON;  
+     
+     
+     //If no error we send the post, voila!
+     if (!error){
+     //[[[RKClient sharedClient] put:[NSString stringWithFormat:@"/profile/%@", idPerson] params:postData delegate:self] send];
+     [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521" params:postData delegate:self] send];
+     
+     }
+     
+     
+     
+     
+     
+     */
     
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-
+    
     
     //                [self uploadPhotos:[dictProduct valueForKey:@"id"]];
     //            }else {
@@ -281,10 +287,10 @@
     [prodParams setObject:@"jradi3@gmail.com"     forKey:@"email"];
     [prodParams setObject:@"6"                    forKey:@"id"];
     
-//    [prodParams setObject:@"1"                   forKey:@"idEstado"];
-//    [prodParams setObject:idPerson               forKey:@"idUser"];
-//    [prodParams setObject:@""                    forKey:@"categorias"];
-//    [prodParams setObject:@""                    forKey:@"newPhotos"];
+    //    [prodParams setObject:@"1"                   forKey:@"idEstado"];
+    //    [prodParams setObject:idPerson               forKey:@"idUser"];
+    //    [prodParams setObject:@""                    forKey:@"categorias"];
+    //    [prodParams setObject:@""                    forKey:@"newPhotos"];
     
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
@@ -294,56 +300,56 @@
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];    
-        
+    
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
     
     //If no error we send the post, voila!
     if (!error){
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
-
+        
         
         [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13449623829585" params:postData delegate:self] send];
     }
-
     
     
-/*
-
-
-    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-
     
-    RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
-    RKObjManeger.serializationMIMEType = RKMIMETypeJSON; 
-//    
-//    
-//    //Post Bid Sent
-    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Profile class]];
-    [patientSerializationMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-    [patientSerializationMapping mapKeyPath:@"id"      toAttribute:@"id"];
-
-//
-//    
-    [[RKObjManeger router] routeClass:[Profile class] toResourcePath:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521"];
-    
-    [RKObjManeger.mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Profile class]];    
-//    
-//    //Setting Bid Entity
-    Profile* bid = [[Profile alloc] init];  
-    bid.nome = txtFieldYourName.text;  
-    bid.id = [NSNumber numberWithInt:9];
-//    
-//    
-//    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-//
-//    [postData setObject:bid forKey:@"profile"];
-//    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-    
-    
-    // POST bid  
-        [RKObjManeger putObject:bid delegate:self];
-    */
+    /*
+     
+     
+     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+     
+     
+     RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
+     RKObjManeger.serializationMIMEType = RKMIMETypeJSON; 
+     //    
+     //    
+     //    //Post Bid Sent
+     RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Profile class]];
+     [patientSerializationMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
+     [patientSerializationMapping mapKeyPath:@"id"      toAttribute:@"id"];
+     
+     //
+     //    
+     [[RKObjManeger router] routeClass:[Profile class] toResourcePath:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521"];
+     
+     [RKObjManeger.mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Profile class]];    
+     //    
+     //    //Setting Bid Entity
+     Profile* bid = [[Profile alloc] init];  
+     bid.nome = txtFieldYourName.text;  
+     bid.id = [NSNumber numberWithInt:9];
+     //    
+     //    
+     //    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+     //
+     //    [postData setObject:bid forKey:@"profile"];
+     //    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
+     
+     
+     // POST bid  
+     [RKObjManeger putObject:bid delegate:self];
+     */
     
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -361,11 +367,11 @@
     
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
-
     
     
     
-
+    
+    
     
 }
 
@@ -395,11 +401,11 @@
         //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new]; 
         //        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
         
-//        if (!isPostProduct) {
-//            [self postProduct];
-//            isPostProduct = !isPostProduct;
-//        }else 
-//            isPostProduct = !isPostProduct;
+        //        if (!isPostProduct) {
+        //            [self postProduct];
+        //            isPostProduct = !isPostProduct;
+        //        }else 
+        //            isPostProduct = !isPostProduct;
         
         // Handling POST /other.json        
         if ([response isJSON]) {
@@ -407,8 +413,8 @@
         }
         
     } else if ([request isPUT]) {
-            NSLog(@"after posting to server, %@", [response bodyAsString]);
-
+        NSLog(@"after posting to server, %@", [response bodyAsString]);
+        
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
         if ([response isNotFound]) {
@@ -449,7 +455,7 @@
     
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-
+    
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
@@ -460,7 +466,7 @@
     else if  
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) //Password ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldCurrentPassword, txtFieldNewPassword, txtFieldRepeatNewPassword, nil];
-
+    
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
     

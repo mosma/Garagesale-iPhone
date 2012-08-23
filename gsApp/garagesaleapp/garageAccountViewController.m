@@ -130,6 +130,32 @@
     }
 }
 
+- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
+    
+    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
+    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+}
+
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }   
+}
+
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
 }
@@ -161,8 +187,8 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
-        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+        
+        self.tabBarController.delegate = self;
         
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -201,7 +227,10 @@
         
         if (!isFromParent)
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
-        
+        else
+            self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                                     @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+
         self.tableViewProducts.hidden = YES;
 
     }else {
