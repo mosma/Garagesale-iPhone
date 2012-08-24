@@ -34,12 +34,12 @@
                                         <rect key="frame" x="8" y="38" width="252" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Products, categories and garages" minimumFontSize="17" id="wen-uR-S49" userLabel="txtFieldSearch">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wen-uR-S49" userLabel="txtFieldSearch">
                                         <rect key="frame" x="17" y="40" width="219" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884459999996" green="0.64705884459999996" blue="0.64705884459999996" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JVK-4c-9OI">
                                         <rect key="frame" x="235" y="37" width="39" height="33"/>
@@ -52,6 +52,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showSearchLoged:" destination="2" eventType="touchUpInside" id="Cd8-tN-fjH"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -156,7 +159,7 @@
                                     <rect key="frame" x="0.0" y="-13" width="320" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="20 results for &quot;cap&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sin-Wx-gne">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sin-Wx-gne" userLabel="labelTitleResults">
                                     <rect key="frame" x="10" y="13" width="302" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -252,6 +255,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="VBJ-Rd-gcI" id="hZR-BO-GY8"/>
+                        <outlet property="labelTitleResults" destination="sin-Wx-gne" id="kV6-MD-HTd"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -379,7 +383,7 @@
                                         <rect key="frame" x="136" y="387" width="171" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="KcX-L5-2OX" userLabel="txtFieldTitle">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="KcX-L5-2OX" userLabel="txtFieldTitle">
                                         <rect key="frame" x="20" y="182" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
@@ -394,17 +398,17 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0,00" minimumFontSize="17" id="oNN-KV-k3j" userLabel="txtFieldValue">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0,00" minimumFontSize="17" clearButtonMode="whileEditing" id="oNN-KV-k3j" userLabel="txtFieldValue">
                                         <rect key="frame" x="142" y="388" width="156" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                                         <connections>
                                             <action selector="isNumberKey:" destination="o08-vM-tNV" eventType="editingChanged" id="RME-y7-xt8"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
+                                    <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
                                         <rect key="frame" x="18" y="391" width="107" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -444,7 +448,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="goBack:" destination="o08-vM-tNV" eventType="touchUpInside" id="xc0-E2-cXI"/>
+                                            <action selector="goBack:" destination="o08-vM-tNV" eventType="touchUpInside" id="PfQ-fL-GvO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q">
@@ -2046,7 +2050,7 @@
                                         <rect key="frame" x="11" y="95" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jradi3@gmail.com" minimumFontSize="17" id="Pgb-b6-fCE" userLabel="txtFieldGarageName">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jradi3@gmail.com" minimumFontSize="17" clearButtonMode="whileEditing" id="Pgb-b6-fCE" userLabel="txtFieldGarageName">
                                         <rect key="frame" x="20" y="95" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
@@ -2057,7 +2061,7 @@
                                         <rect key="frame" x="11" y="176" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123123" minimumFontSize="17" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123123" minimumFontSize="17" clearButtonMode="whileEditing" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
                                         <rect key="frame" x="20" y="176" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.61960786581039429" green="0.61960786581039429" blue="0.61960786581039429" alpha="1" colorSpace="deviceRGB"/>
@@ -2130,6 +2134,7 @@
             <relationships>
                 <relationship kind="action" name="reloadPage:"/>
                 <relationship kind="action" name="showSearch:"/>
+                <relationship kind="action" name="showSearchLoged:"/>
                 <relationship kind="outlet" name="activityLoadProducts" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="labelSearch" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
@@ -2258,6 +2263,7 @@
             <relationships>
                 <relationship kind="action" name="showSearch:"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="labelTitleResults" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
             </relationships>
         </class>

@@ -211,6 +211,8 @@
 }
 
 -(IBAction)checkLogin:(id)sender{
+    [self.textFieldUserPassword resignFirstResponder];
+    [self.textFieldUserName resignFirstResponder];
     [activityLogin startAnimating];
     [self setupLogin];
 }
@@ -293,7 +295,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 350;
+    rc.size.height = 360;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
     

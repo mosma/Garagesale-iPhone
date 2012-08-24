@@ -17,7 +17,8 @@
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,
                                               OHAttributedLabelDelegate,
-                                              UITabBarControllerDelegate>{
+                                              UITabBarControllerDelegate,
+                                              UIScrollViewDelegate>{
 
     RKObjectManager                             *RKObjManeger;
     NSMutableArray                              *nsArrayProducts;
@@ -50,5 +51,5 @@
 - (IBAction)reloadPage:(id)sender;
 - (void)gotoProductDetailVC:(id)sender;
 - (IBAction)showSearch:(id)sender;
-
+- (IBAction)showSearchLoged:(id)sender;
 @end

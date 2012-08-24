@@ -24,7 +24,6 @@
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
 @synthesize mutArrayDataThumbs;
-@synthesize isFromParent;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,6 +49,16 @@
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     [self loadAttribsToComponents:NO];
     [self setupProductMapping];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+        [self reloadPage:nil];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"NO" forKey:@"isProductRecorded"];  
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)setupProductMapping{
@@ -94,7 +103,16 @@
 - (IBAction)reloadPage:(id)sender{
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
+    
+    [mutArrayProducts removeAllObjects];
+    [mutArrayDataThumbs removeAllObjects];
+    
+    mutArrayProducts = nil;
+    mutArrayDataThumbs = nil;
+    
     [self setupProductMapping];
+    
+    
 }
 
 -(void)initLoadingGuear{
@@ -131,30 +149,8 @@
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
-    
-    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
-    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
-    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
-
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
-    {
-        return NO;
-    }
-    else
-    {
-        return YES;
-    }   
-}
-
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
@@ -223,14 +219,13 @@
         UIImage *image      = [[UIImage alloc] initWithData:imageData];
         [buttonGarageLogo setImage:image forState:UIControlStateNormal];
         
+        //init Global Functions
+        globalFunctions = [[GlobalFunctions alloc] init];
+        
         self.navigationItem.hidesBackButton = NO;
         
-        if (!isFromParent)
-            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
-        else
-            self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                                     @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-
+        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+        
         self.tableViewProducts.hidden = YES;
 
     }else {
@@ -253,13 +248,12 @@
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
 
-        //init Global Functions
-        globalFunctions = [[GlobalFunctions alloc] init];
+
         //Set Display thumbs on Home.
         globalFunctions.countColumnImageThumbs = -1;
         globalFunctions.imageThumbsXorigin_Iphone = 10;
         globalFunctions.imageThumbsYorigin_Iphone = 10;
-        
+
         NSOperationQueue *queue = [NSOperationQueue new];
         
         NSInvocationOperation *opThumbsProd = [[NSInvocationOperation alloc]

@@ -267,6 +267,18 @@ static NSString *urlImagePath;
 	}
 }
 
++(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
+    
+    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    //NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
+    //NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+}
+
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];

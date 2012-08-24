@@ -29,7 +29,6 @@
     GlobalFunctions     *globalFunctions;
     MBProgressHUD       *HUD;
     BOOL                isLoading;
-    BOOL                isFromParent;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;

@@ -26,6 +26,7 @@
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     BOOL                    *isSearch;
+    IBOutlet UILabel        *labelTitleResults;
 
     IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *UIAIV_Main;
@@ -37,6 +38,7 @@
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 
+@property (nonatomic, retain) IBOutlet UILabel      *labelTitleResults;
 @property (nonatomic, retain) IBOutlet UISearchBar  *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

@@ -40,6 +40,7 @@
 +(NSURL*) getGravatarURL:(NSString*) emailAddress;
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;
 +(NSString *) getCurrencyByCode:(NSString*)currencyCode;
++(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController;
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;

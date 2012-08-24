@@ -153,6 +153,7 @@
     viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
     [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    txtFieldSearch.delegate = self;
     labelSearch.font = [UIFont fontWithName:@"Corben" size:21];
     
     //set searchBar settings
@@ -165,33 +166,13 @@
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+    
+    scrollView.delegate = self;
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
-    
-    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
-    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
-    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
+    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
-
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
-    {
-        return NO;
-    }
-    else
-    {
-        return YES;
-    }   
-}
-
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
@@ -209,6 +190,12 @@
     [scrollView addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
                                                                      showEdit:NO 
                                                                      viewContr:self]];
+}
+
+- (void) scrollViewDidScroll: (UIScrollView*) scrollView;
+{
+    [searchBarProduct resignFirstResponder];
+    [txtFieldSearch resignFirstResponder];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -301,6 +288,18 @@
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+	[theTextField resignFirstResponder];
+    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    
+    //Search Service
+    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", theTextField.text];
+    prdTbl.strTextSearch = theTextField.text;
+    [self.navigationController pushViewController:prdTbl animated:YES];
+
+	return YES;
+}
+
 // Check if the network is available
 - (void)reachability {
     [[RKClient sharedClient] isNetworkAvailable];
@@ -370,6 +369,13 @@
     
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);
     [UIView commitAnimations];
+}
+
+-(IBAction)showSearchLoged:(id)sender{
+    if ([txtFieldSearch isFirstResponder])
+        [txtFieldSearch resignFirstResponder];
+    else
+        [txtFieldSearch becomeFirstResponder];
 }
 
 - (void)viewDidUnload

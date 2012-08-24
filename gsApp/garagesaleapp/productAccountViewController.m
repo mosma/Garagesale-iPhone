@@ -153,10 +153,20 @@
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
-    self.scrollView.contentSize = CGSizeMake(320,650);
+    self.scrollView.contentSize = CGSizeMake(320,710);
     [self setupKeyboardControls];
     [self animationPicsControl];
 }
+//
+//-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+//    if (textField==txtFieldCurrency){
+//        textField.hidden = YES;
+//    }
+//    else {
+//        txtFieldCurrency.hidden = NO;
+//    }
+//    return YES;
+//}
 
 - (IBAction)isNumberKey:(UITextField *)textField{
     [GlobalFunctions onlyNumberKey:textField];
@@ -190,24 +200,21 @@
 }
 
 -(IBAction)goBack:(id)sender {
-    [self goToTabBarController];
+    [self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
 }
 
--(void)goToTabBarController{
-
-    
-    int index = [[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue];
-    
+-(void)goToTabBarController:(int)index{
+    if (index == 1) index = 0;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"1" forKey:@"oldTabBar"];  
     [userDefaults setInteger:index forKey:@"activateTabBar"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    
     // Get views. controllerIndex is passed in as the controller we want to go to. 
     UIView * fromView = self.view.superview;
     UIView * toView = [[self.tabBarController.viewControllers objectAtIndex:index] view];
+    
     
     // Transition using a page curl.
     [UIView transitionFromView:fromView 
@@ -222,31 +229,8 @@
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"] forKey:@"oldTabBar"];  
-
-    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
-    [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
-
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
-    NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
-
+    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
-
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-    if ([[tabBarController viewControllers] objectAtIndex:tabBarController.selectedIndex] == viewController)
-    {
-        return NO;
-    }
-    else
-    {
-        return YES;
-    }   
-}
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
@@ -398,6 +382,8 @@
 	// Set determinate mode
     [self myTask];
     
+    [txtFieldValue resignFirstResponder];
+
     if([nsMutArrayPicsProduct count] != 0) {
         [self uploadPhotos:@""];
     }else {
@@ -437,11 +423,11 @@
 	HUD.labelText = @"Completed";
 	sleep(2);
     
-    [self reloadInputViews];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];  
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    garageAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
-    garageAccVC.isFromParent = YES;
-    [self.navigationController pushViewController:garageAccVC animated:YES];
+    [self reloadInputViews];
 }
 
 -(void)reloadInputViews{
@@ -454,6 +440,8 @@
     [HUD.customView removeFromSuperview];
     [nsMutArrayPicsProduct removeAllObjects];
     nsMutArrayPicsProduct = nil;
+    sleep(2);
+    [self goToTabBarController:2];
 }
 
 -(void)postProduct {

@@ -21,6 +21,7 @@
 @synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
 @synthesize strTextSearch;
+@synthesize labelTitleResults;
 
 - (void)awakeFromNib
 {
@@ -178,7 +179,8 @@
         if ([self.strTextSearch length] != 0)
             searchBarProduct.text = self.strTextSearch;
         
-        self.strTextSearch = @"";
+        labelTitleResults.text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
+        //self.strTextSearch = @"";
     }
 }
 
