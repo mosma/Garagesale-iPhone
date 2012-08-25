@@ -162,7 +162,7 @@
                                                  @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
  
         self.navigationItem.rightBarButtonItem  = [GlobalFunctions getIconNavigationBar:
-                                                 @selector(showSearch:) viewContr:self imageNamed:@"btProdListSearch.jpg"];
+                                                 @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"];
     }else {
         //Load cache thumbs in thumbsDataArray to TableView
         mutArrayDataThumbs = [[NSMutableArray alloc] init];

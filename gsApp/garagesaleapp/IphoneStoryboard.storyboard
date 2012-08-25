@@ -35,7 +35,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wen-uR-S49" userLabel="txtFieldSearch">
-                                        <rect key="frame" x="17" y="40" width="219" height="29"/>
+                                        <rect key="frame" x="17" y="39" width="219" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884459999996" green="0.64705884459999996" blue="0.64705884459999996" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>

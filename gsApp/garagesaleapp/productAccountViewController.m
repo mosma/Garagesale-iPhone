@@ -226,6 +226,10 @@
                             self.tabBarController.selectedIndex = index;
                         }
                     }];
+    
+    
+    
+
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {

@@ -111,8 +111,6 @@
     mutArrayDataThumbs = nil;
     
     [self setupProductMapping];
-    
-    
 }
 
 -(void)initLoadingGuear{

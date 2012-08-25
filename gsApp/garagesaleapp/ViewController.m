@@ -192,9 +192,10 @@
                                                                      viewContr:self]];
 }
 
-- (void) scrollViewDidScroll: (UIScrollView*) scrollView;
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-    [searchBarProduct resignFirstResponder];
+    if (isSearch)
+        [self showSearch:nil];
     [txtFieldSearch resignFirstResponder];
 }
 
@@ -278,26 +279,21 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    // Do the search and show the results in tableview
-    // Deactivate the UISearchBar
-    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    
-    //Search Service
-    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
-    prdTbl.strTextSearch = searchBar.text;
-    [self.navigationController pushViewController:prdTbl animated:YES];
+    [self gotoProductTableViewController:searchBar.text];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
 	[theTextField resignFirstResponder];
-    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    
-    //Search Service
-    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", theTextField.text];
-    prdTbl.strTextSearch = theTextField.text;
-    [self.navigationController pushViewController:prdTbl animated:YES];
-
+    [self gotoProductTableViewController:theTextField.text];
 	return YES;
+}
+
+-(void)gotoProductTableViewController:(id)objetct{
+    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    //Search Service
+    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", objetct];
+    prdTbl.strTextSearch = objetct;
+    [self.navigationController pushViewController:prdTbl animated:YES];
 }
 
 // Check if the network is available
@@ -372,8 +368,11 @@
 }
 
 -(IBAction)showSearchLoged:(id)sender{
-    if ([txtFieldSearch isFirstResponder])
+    if ([txtFieldSearch isFirstResponder]){
         [txtFieldSearch resignFirstResponder];
+        if (![txtFieldSearch.text isEqualToString:@""])
+            [self gotoProductTableViewController:txtFieldSearch.text];
+    }
     else
         [txtFieldSearch becomeFirstResponder];
 }
@@ -404,6 +403,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+    if (isSearch)
+        [self showSearch:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

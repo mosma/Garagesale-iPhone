@@ -69,6 +69,9 @@
      
      
      */
+    
+    [self setupLogOut];
+    
     NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     
     
@@ -79,6 +82,7 @@
         NSLog(@"quantidade : %i", i++);
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     
     
     // self.tabBarController.viewControllers = nil;
@@ -95,6 +99,13 @@
 {
     [super viewDidLoad];
     [self loadAttribsToComponents];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)loadAttribsToComponents{
@@ -367,12 +378,10 @@
     
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
-    
-    
-    
-    
-    
-    
+}
+
+- (void)setupLogOut{
+    [[[RKClient sharedClient] delete:[NSString stringWithFormat:@"/login/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self] send];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -417,6 +426,7 @@
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
+        NSLog(@"DELETE Response : %@", [response bodyAsString]);
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
