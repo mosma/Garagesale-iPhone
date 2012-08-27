@@ -170,47 +170,13 @@
         [self.tableView setRowHeight:377];
         
     }else {
-        
-        
-//        NSOperationQueue *queue = [NSOperationQueue new];
-//        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-//                                            initWithTarget:self
-//                                            selector:@selector(loadButtonsProduct)
-//                                            object:nil];
-//        [queue addOperation:operation];
-        
-        
+            
         if ([self.strTextSearch length] != 0)
             searchBarProduct.text = self.strTextSearch;
+        mutArrayDataThumbs = [[NSMutableArray alloc] init];
         
         labelTitleResults.text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
         //self.strTextSearch = @"";
-    }
-}
-
--(void)loadButtonsProduct{
-    
-    //Load cache thumbs in thumbsDataArray to TableView
-    mutArrayDataThumbs = [[NSMutableArray alloc] init];
-//    for(int i = 0; i < [mutArrayProducts count]; i++)
-//    {
-//        if ([[mutArrayProducts objectAtIndex:i] fotos] != nil) {
-//            NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-//            
-//            [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-//                                   withObject:urlThumb];
-//        }else 
-//            [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
-//    }
-}
-
-- (void)loadImageGalleryThumbs:(NSString *)urlThumb {
-    @try {
-        UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-        [mutArrayDataThumbs addObject:thumbImage];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
     }
 }
 
@@ -260,24 +226,6 @@
     productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
     //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
-    
-    if(segmentControl.selectedSegmentIndex == 0){
-        [customViewCellLine removeFromSuperview];
-        customViewCellBlock.hidden = NO;
-        customViewCellLine.hidden = YES;
-        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [self.tableView setRowHeight:150];
-    }
-    else{
-        // [tableView deleteRowsAtIndexPaths:[self.mutArrayProducts objectAtIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationNone];
-        [customViewCellBlock removeFromSuperview];
-        customViewCellBlock.hidden = YES;
-        customViewCellLine.hidden = NO;
-        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-        [self.tableView setRowHeight:377];
-    }
-    
-    if (!isSegmentedControlChanged) {
 
         [[customViewCellBlock productName]         setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
         [[customViewCellLine productName]         setText:[[customViewCellBlock productName] text]];
@@ -306,16 +254,70 @@
         [[customViewCellBlock garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
                                                                                 [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]]];
         [[customViewCellBlock garageName]          setText:[[customViewCellBlock garageName] text]];
-        
-        customViewCellBlock.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
-        customViewCellLine.imageView.image = customViewCellBlock.imageView.image;
+
+
+    
+    [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
+    [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];
+
+
+
+        NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadButtonsProduct:)
+                                            object:[NSArray arrayWithObjects:customViewCellBlock, customViewCellLine, indexPath, nil]];
+        [queue addOperation:operation];
+    
+    int i = indexPath.row;
+    NSLog(@"%@", indexPath);
+    NSLog(@"%i", i);
+    
+    if (!isSegmentedControlChanged) {
+        if(segmentControl.selectedSegmentIndex == 0){
+            [customViewCellLine removeFromSuperview];
+            customViewCellBlock.hidden = NO;
+            customViewCellLine.hidden = YES;
+            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+            [self.tableView setRowHeight:150];
+            return customViewCellBlock;
+        }
+        else{
+            // [tableView deleteRowsAtIndexPaths:[self.mutArrayProducts objectAtIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationNone];
+            [customViewCellBlock removeFromSuperview];
+            customViewCellBlock.hidden = YES;
+            customViewCellLine.hidden = NO;
+            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+            [self.tableView setRowHeight:377];
+            return customViewCellLine;
+        }
     }
+}
+
+
+-(void)loadButtonsProduct:(NSArray *)array{
     
-    
-    if(segmentControl.selectedSegmentIndex == 0)
-        return customViewCellBlock;
-    else
-        return customViewCellLine;
+    NSIndexPath *index = [array objectAtIndex:2];
+    if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {
+                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:index.row] fotos] caminhoThumb]];
+                
+                [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+                                       withObject:[NSArray arrayWithObjects:[array objectAtIndex:0], [array objectAtIndex:1], urlThumb, nil]];
+
+    }else 
+      [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+}
+
+- (void)loadImageGalleryThumbs:(NSArray *)array {
+    @try {
+        UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:(NSString *)[array objectAtIndex:2]]]];
+        [mutArrayDataThumbs addObject:thumbImage];
+        [(productCustomViewCell *)[array objectAtIndex:0] imageView].image = thumbImage;
+        [(productCustomViewCell *)[array objectAtIndex:1] imageView].image = thumbImage;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -369,6 +371,7 @@
     [self searchBar:searchBar activate:NO];
 	[activityIndicator startAnimating];
     [mutArrayProducts removeAllObjects];
+    [mutArrayDataThumbs removeAllObjects];
     [self.tableView reloadData];
 }
 

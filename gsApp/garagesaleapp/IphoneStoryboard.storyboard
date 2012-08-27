@@ -297,7 +297,7 @@
                             <rect key="frame" x="97" y="7" width="126" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="" image="btProdBlock.png"/>
+                                <segment title="" image="btSerachBlock.png"/>
                                 <segment title="" image="btProdList.png"/>
                             </segments>
                             <connections>
@@ -2164,6 +2164,7 @@
         <image name="btSaveProduct.png" width="300" height="37"/>
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSearchAccount.png" width="38" height="32"/>
+        <image name="btSerachBlock.png" width="17" height="14"/>
         <image name="btSign.png" width="100" height="37"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
