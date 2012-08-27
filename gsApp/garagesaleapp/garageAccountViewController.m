@@ -272,11 +272,11 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 0){
         if (scrollViewMain.contentOffset.y > 130){
-            scrollViewProducts.userInteractionEnabled = YES;
-            tableViewProducts.userInteractionEnabled = YES;
+            scrollViewProducts.scrollEnabled = YES;
+            tableViewProducts.scrollEnabled = YES;
         }else{        
-            scrollViewProducts.userInteractionEnabled = NO;
-            tableViewProducts.userInteractionEnabled = NO;  
+            scrollViewProducts.scrollEnabled = NO;
+            tableViewProducts.scrollEnabled = NO;  
         }
     }
     

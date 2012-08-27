@@ -26,10 +26,14 @@
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     BOOL                    *isSearch;
+    BOOL                    *isSegmentedControlChanged;
     IBOutlet UILabel        *labelTitleResults;
 
     IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *UIAIV_Main;
+    __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+    //__unsafe_unretained IBOutlet productCustomViewCell *customCellViewLine;                                                            
+    //__unsafe_unretained IBOutlet productCustomViewCell *customCellViewBlock;                                                 
 }
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
@@ -41,10 +45,13 @@
 @property (nonatomic, retain) IBOutlet UILabel      *labelTitleResults;
 @property (nonatomic, retain) IBOutlet UISearchBar  *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+//@property (unsafe_unretained, nonatomic) IBOutlet productCustomViewCell *customCellViewLine; 
+//@property (unsafe_unretained, nonatomic) IBOutlet productCustomViewCell *customCellViewBlock; 
 
-- (void)setupProductMapping;
-- (void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
-- (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
-- (IBAction)showSearch:(id)sender;
-
+-(void)setupProductMapping;
+-(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
+-(void)loadAttribsToComponents:(BOOL)isFromLoadObject;
+-(IBAction)showSearch:(id)sender;
+-(IBAction)changeSegControl;
 @end

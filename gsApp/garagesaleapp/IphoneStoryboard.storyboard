@@ -147,8 +147,8 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCx-nV-H4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ProductsTable" title="Products List" id="b5K-VV-Ch4" customClass="productTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="128" sectionHeaderHeight="22" sectionFooterHeight="22" id="oFz-9Y-J0m">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="22" sectionFooterHeight="22" id="oFz-9Y-J0m">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="0Ko-tE-sTy">
@@ -170,7 +170,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="XU5-zS-JaW">
-                            <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="567" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="VBJ-Rd-gcI">
@@ -181,11 +181,11 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="128" id="BHs-JX-J2h" customClass="productCustomViewCell">
-                                <rect key="frame" x="0.0" y="70" width="320" height="128"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="135" id="BHs-JX-J2h" userLabel="customViewCellLine" customClass="productCustomViewCell">
+                                <rect key="frame" x="0.0" y="70" width="320" height="135"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="127"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="134"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="V1n-4S-I47">
@@ -193,7 +193,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.6910366419294991" green="0.69897959183673475" blue="0.69897959183673475" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="czy-wF-ahd">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="czy-wF-ahd" customClass="OHAttributedLabel">
                                             <rect key="frame" x="149" y="73" width="53" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -224,13 +224,64 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.18048469387755106" green="0.042337491428257074" blue="0.15565084282418765" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="currency" destination="6up-Ck-mTz" id="BDW-t0-U5o"/>
                                     <outlet property="garageName" destination="YP2-Qe-a6o" id="Uny-Op-dMp"/>
                                     <outlet property="imageView" destination="V1n-4S-I47" id="iHX-n4-Imy"/>
                                     <outlet property="productName" destination="pdC-tb-Pf1" id="xTy-oh-Rcj"/>
-                                    <outlet property="valorEsperado" destination="czy-wF-ahd" id="V1I-89-JHw"/>
+                                    <outlet property="valorEsperado" destination="czy-wF-ahd" id="pdp-MJ-aGe"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customViewCellBlock" rowHeight="362" id="h9W-nG-2pG" userLabel="customViewCellBlock" customClass="productCustomViewCell">
+                                <rect key="frame" x="0.0" y="205" width="320" height="362"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="361"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="y1b-pd-Jc1" customClass="OHAttributedLabel">
+                                            <rect key="frame" x="50" y="311" width="53" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <color key="textColor" red="0.35294118520000001" green="0.63921570780000003" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="garage" lineBreakMode="tailTruncation" minimumFontSize="10" id="0TF-hX-LXC">
+                                            <rect key="frame" x="95" y="318" width="106" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="uTq-dm-f2Z">
+                                            <rect key="frame" x="19" y="326" width="202" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="e1V-NC-RTa">
+                                            <rect key="frame" x="10" y="9" width="300" height="300"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="lwq-AQ-yjj">
+                                            <rect key="frame" x="10" y="317" width="23" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.85490202900000001" green="0.26666668059999998" blue="0.32941177490000001" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="currency" destination="lwq-AQ-yjj" id="G1d-yD-FTc"/>
+                                    <outlet property="garageName" destination="0TF-hX-LXC" id="GPH-B5-V7r"/>
+                                    <outlet property="imageView" destination="e1V-NC-RTa" id="BkY-jp-lZM"/>
+                                    <outlet property="productName" destination="uTq-dm-f2Z" id="QyE-ZB-P49"/>
+                                    <outlet property="valorEsperado" destination="y1b-pd-Jc1" id="GJY-77-sKB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -249,13 +300,17 @@
                                 <segment title="" image="btProdBlock.png"/>
                                 <segment title="" image="btProdList.png"/>
                             </segments>
+                            <connections>
+                                <action selector="changeSegControl" destination="b5K-VV-Ch4" eventType="valueChanged" id="FrI-y0-Jck"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="VBJ-Rd-gcI" id="hZR-BO-GY8"/>
                         <outlet property="labelTitleResults" destination="sin-Wx-gne" id="kV6-MD-HTd"/>
+                        <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -625,12 +680,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <tableView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
+                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
                                         <rect key="frame" x="0.0" y="143" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="123"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -672,7 +727,7 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="3IH-JW-7oF" userLabel="scrollViewProducts">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="3IH-JW-7oF" userLabel="scrollViewProducts">
                                         <rect key="frame" x="0.0" y="143" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </scrollView>
@@ -1261,7 +1316,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" id="Qxf-rq-Xx8" userLabel="garageDetailView">
-                                                <rect key="frame" x="0.0" y="499" width="320" height="104"/>
+                                                <rect key="frame" x="0.0" y="392" width="320" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KJE-1I-79v">
@@ -1316,13 +1371,13 @@
                                                             <action selector="actionEmailComposer" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7Ps-8m-Z7b"/>
                                                         </connections>
                                                     </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="zbh-RZ-tyW">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon.png" id="zbh-RZ-tyW">
                                                         <rect key="frame" x="10" y="10" width="47" height="47"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.63775510199999996" green="0.63775510199999996" blue="0.63775510199999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Garage Garage Garage" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc">
-                                                        <rect key="frame" x="67" y="9" width="177" height="21"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc">
+                                                        <rect key="frame" x="67" y="10" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="15"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1330,7 +1385,7 @@
                                                         <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Goiânia, Goiás, Brasil" lineBreakMode="tailTruncation" minimumFontSize="10" id="OQy-N1-Cen">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="OQy-N1-Cen">
                                                         <rect key="frame" x="67" y="25" width="177" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="12"/>
@@ -1339,7 +1394,7 @@
                                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="544" lineBreakMode="middleTruncation" minimumFontSize="10" id="r68-i3-jyi">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="middleTruncation" minimumFontSize="10" id="r68-i3-jyi">
                                                         <rect key="frame" x="67" y="41" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="13"/>
@@ -1364,10 +1419,6 @@
                                                             <action selector="gotoUserProductTableVC" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7M7-y3-vH7"/>
                                                         </connections>
                                                     </button>
-                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="KnC-4g-r3w" userLabel="activityIndicatorGarage">
-                                                        <rect key="frame" x="15" y="15" width="37" height="37"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.22745099663734436" green="0.23921570181846619" blue="0.25882354378700256" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
@@ -1385,8 +1436,8 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label asd asd asdfasd fasd asdf asdf asdf asd fasdf asd asdf asdfa sdf asdf asdf asdf asdf asdf asdfasdfasdf" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sqL-iQ-KWX">
-                                                <rect key="frame" x="10" y="405" width="300" height="52"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sqL-iQ-KWX">
+                                                <rect key="frame" x="10" y="405" width="300" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="14"/>
                                                 <color key="textColor" red="0.34765625" green="0.34765625" blue="0.34765625" alpha="1" colorSpace="calibratedRGB"/>
@@ -1399,7 +1450,7 @@
                                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="xxu-NK-18A">
                                                         <rect key="frame" x="151" y="120" width="20" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="color" red="0.22745099660000001" green="0.23921570180000001" blue="0.2588235438" alpha="1" colorSpace="deviceRGB"/>
+                                                        <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </activityIndicatorView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1548,7 +1599,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="xxu-NK-18A" id="dIY-vf-bwr"/>
-                        <outlet property="activityIndicatorGarage" destination="KnC-4g-r3w" id="tMz-V6-goz"/>
                         <outlet property="bidButton" destination="QaR-k2-gdc" id="rFo-Sn-L13"/>
                         <outlet property="cityProfile" destination="OQy-N1-Cen" id="CJg-l0-Pis"/>
                         <outlet property="commentTextView" destination="Roz-bE-ZnX" id="Vuu-G1-X9l"/>
@@ -2113,10 +2163,11 @@
         <image name="btRegister.png" width="300" height="37"/>
         <image name="btSaveProduct.png" width="300" height="37"/>
         <image name="btSearch@2x.png" width="83" height="74"/>
-        <image name="btSearchAccount.png" width="39" height="31"/>
+        <image name="btSearchAccount.png" width="38" height="32"/>
         <image name="btSign.png" width="100" height="37"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
+        <image name="icon.png" width="114" height="114"/>
         <image name="more_pics.png" width="50" height="50"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
@@ -2232,7 +2283,6 @@
                 <relationship kind="action" name="pageControlCliked"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="activityIndicatorGarage" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="bidButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cityProfile" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="commentTextView" candidateClass="UITextView"/>
@@ -2261,10 +2311,12 @@
         <class className="productTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeSegControl"/>
                 <relationship kind="action" name="showSearch:"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="labelTitleResults" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
         <class className="settingsAccountViewController" superclassName="UIViewController">

@@ -237,6 +237,9 @@
     
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[self.nsArrayProducts objectAtIndex:sender.tag];
+
+    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+           
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 

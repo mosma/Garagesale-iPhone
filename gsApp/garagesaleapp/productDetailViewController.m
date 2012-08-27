@@ -116,7 +116,7 @@
         
         
         //self.navigationController.navigationBar.backItem.titleView = imageView;
-        
+
         
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
@@ -137,8 +137,6 @@
         
         [emailTextField   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [commentTextView  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-
-        garageDetailView.userInteractionEnabled = NO;
 
         //Set Labels, titles, TextView...
         nomeLabel.text            = [self.product nome];
@@ -164,14 +162,26 @@
 
         currencyLabel.text        = [self.product currency];
         offerLabel.text           = NSLocalizedString(@"offer", @"");
-
-        //self.navigationItem.hidesBackButton = NO;
-
-        descricaoLabel.text = [NSString stringWithFormat:@"%@...", self.product.descricao];
-
+        
+        CGRect rect;//             = imageView.frame;
+        
+        rect.size.width         = 320;
+        rect.size.height        = 280;
+        rect.origin.x             = 0;
+        imageView.frame         = rect;
+        
+        
         galleryScrollView.frame                 = CGRectMake(0, 115, 320, 320);
         galleryScrollView.clipsToBounds         = YES;
         galleryScrollView.autoresizesSubviews   = YES;
+        [galleryScrollView insertSubview:imageView belowSubview:activityIndicator];
+
+        [secondView addSubview:garageDetailView];
+        self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
+        
+
+
+        
         
     }else {
         [seeAllButton setTitle: NSLocalizedString(@"seeAllProducts", @"") forState:UIControlStateNormal];
@@ -212,23 +222,31 @@
                                                        [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         
-        //set Navigation Title with OHAttributeLabel
-            NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", nameProfile.text];
-            NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-            // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-            [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
-            [attrStr setTextColor:[UIColor whiteColor]];
-            [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
-                            range:[titleNavItem rangeOfString:@"garage"]];
-            CGRect frame = CGRectMake(100, 0, 320, 27);
-            OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
-            [label setBackgroundColor:[UIColor clearColor]];
-            [label setShadowColor:[UIColor redColor]];
-            [label setShadowOffset:CGSizeMake(1, 1)];
-            label.attributedText = attrStr;
-            label.textAlignment = UITextAlignmentCenter;
-            self.navigationItem.titleView = label;
         
+        //set Navigation Title with OHAttributeLabel
+        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", nameProfile.text];
+        NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
+        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
+        [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
+        [attrStr setTextColor:[UIColor whiteColor]];
+        [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
+                        range:[titleNavItem rangeOfString:@"garage"]];
+        CGRect frame = CGRectMake(100, 0, 320, 27);
+        OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [label setShadowColor:[UIColor redColor]];
+        [label setShadowOffset:CGSizeMake(1, 1)];
+        label.attributedText = attrStr;
+        label.textAlignment = UITextAlignmentCenter;
+        self.navigationItem.titleView = label;
+        
+        
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.4];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+
         //Calculate resize DescricaoLabel 
             descricaoLabel.text = self.product.descricao;
             [descricaoLabel sizeToFit];
@@ -265,13 +283,10 @@
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
         
-        [activityIndicatorGarage stopAnimating];
-        garageDetailView.userInteractionEnabled = YES;
-        
+         [UIView commitAnimations];
+
         UIImage *image;
-        CGRect rect;//             = imageView.frame;
-        
-        
+
         if (self.product.fotos == NULL) {
             image                   = [UIImage imageNamed:@"nopicture.png"];
             imageView               = [[UIImageView alloc] initWithImage:image];            
@@ -282,12 +297,7 @@
             
         }
         
-        rect.size.width         = 320;
-        rect.size.height        = 280;
-        rect.origin.x             = 0;
-        imageView.frame         = rect;
-        
-        [galleryScrollView addSubview:imageView];
+
         
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -317,6 +327,11 @@
     rect.size.width         = 320;
     rect.size.height        = 280;
 
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+    
     if (countPhotos == 0) {
         image                   = [UIImage imageNamed:@"nopicture.png"];
         imageView               = [[UIImageView alloc] initWithImage:image];
@@ -326,7 +341,7 @@
     }
     
     for (int i = 0; i < countPhotos; i++){
-        if (i > 1) break;
+        //if (i > 1) break;
         NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
         NSLog(@"url object at index %i is %@",i,url);
         image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
@@ -339,6 +354,10 @@
 
     galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
     galleryScrollView.delegate              = self;
+    
+    
+    [UIView commitAnimations];
+    
     [activityIndicator stopAnimating];
 }
 

@@ -22,6 +22,9 @@
 @synthesize strLocalResourcePath;
 @synthesize strTextSearch;
 @synthesize labelTitleResults;
+@synthesize segmentControl;
+//@synthesize customCellViewLine;
+//@synthesize customCellViewBlock;
 
 - (void)awakeFromNib
 {
@@ -102,7 +105,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     //set Array objects Products
     if([objects count] > 0){
-        self.mutArrayProducts = (NSMutableArray *)objects;
+        mutArrayProducts = (NSMutableArray *)objects;
         [self.tableView reloadData];
     }else{ 
         UIAlertView *alert = [[UIAlertView alloc]
@@ -163,24 +166,51 @@
  
         self.navigationItem.rightBarButtonItem  = [GlobalFunctions getIconNavigationBar:
                                                  @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"];
+        segmentControl.selectedSegmentIndex = 0;
+        [self.tableView setRowHeight:377];
+        
     }else {
-        //Load cache thumbs in thumbsDataArray to TableView
-        mutArrayDataThumbs = [[NSMutableArray alloc] init];
-        for(int i = 0; i < [self.mutArrayProducts count]; i++)
-        {
-            if ([[self.mutArrayProducts objectAtIndex:i] fotos] != nil) {
-                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[self.mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
-                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-                [mutArrayDataThumbs addObject:thumbImage];
-            }else 
-                [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
-        }
+        
+        
+//        NSOperationQueue *queue = [NSOperationQueue new];
+//        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+//                                            initWithTarget:self
+//                                            selector:@selector(loadButtonsProduct)
+//                                            object:nil];
+//        [queue addOperation:operation];
+        
         
         if ([self.strTextSearch length] != 0)
             searchBarProduct.text = self.strTextSearch;
         
         labelTitleResults.text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
         //self.strTextSearch = @"";
+    }
+}
+
+-(void)loadButtonsProduct{
+    
+    //Load cache thumbs in thumbsDataArray to TableView
+    mutArrayDataThumbs = [[NSMutableArray alloc] init];
+//    for(int i = 0; i < [mutArrayProducts count]; i++)
+//    {
+//        if ([[mutArrayProducts objectAtIndex:i] fotos] != nil) {
+//            NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:i] fotos] caminhoThumb]];
+//            
+//            [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+//                                   withObject:urlThumb];
+//        }else 
+//            [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+//    }
+}
+
+- (void)loadImageGalleryThumbs:(NSString *)urlThumb {
+    @try {
+        UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+        [mutArrayDataThumbs addObject:thumbImage];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
     }
 }
 
@@ -225,35 +255,73 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"CellProduct";
     
     // Configure the cell...
-    productCustomViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
+    productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
     //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
-    [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
     
-    if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-        [[cell valorEsperado] setText:@"Vendido"];
-        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                           green:(float)102/255.0 \
-                                                            blue:(float)102/255.0 alpha:1.0]];
-    }else{
-        [[cell valorEsperado] setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ]];
-        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)90/255.0 \
-                                                           green:(float)163/255.0 \
-                                                            blue:(float)65/255.0 alpha:1.0]];
+    if(segmentControl.selectedSegmentIndex == 0){
+        [customViewCellLine removeFromSuperview];
+        customViewCellBlock.hidden = NO;
+        customViewCellLine.hidden = YES;
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [self.tableView setRowHeight:150];
     }
-    [[cell currency]            setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] currency ]];
-    [[cell garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
-                                                                            [[self.mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]] ];
+    else{
+        // [tableView deleteRowsAtIndexPaths:[self.mutArrayProducts objectAtIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationNone];
+        [customViewCellBlock removeFromSuperview];
+        customViewCellBlock.hidden = YES;
+        customViewCellLine.hidden = NO;
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+        [self.tableView setRowHeight:377];
+    }
+    
+    if (!isSegmentedControlChanged) {
 
-    cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
-    return cell;
+        [[customViewCellBlock productName]         setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[customViewCellLine productName]         setText:[[customViewCellBlock productName] text]];
+
+        if ([[[mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
+            [[customViewCellBlock valorEsperado] setText:@"Vendido"];
+            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                               green:(float)102/255.0 \
+                                                                blue:(float)102/255.0 alpha:1.0]];
+            
+            [[customViewCellLine valorEsperado] setText:@"Vendido"];
+            [[customViewCellLine valorEsperado] setTextColor:[[customViewCellLine valorEsperado] textColor]];
+            
+        }else{
+            [[customViewCellBlock valorEsperado] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ]];
+            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)90/255.0 \
+                                                               green:(float)163/255.0 \
+                                                                blue:(float)65/255.0 alpha:1.0]];
+            [[customViewCellLine valorEsperado] setText:[[customViewCellBlock valorEsperado] text]];
+            [[customViewCellLine valorEsperado] setTextColor:[[customViewCellBlock valorEsperado] textColor]];
+            
+        }
+        [[customViewCellBlock currency]            setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] currency ]];
+        [[customViewCellLine currency]              setText:[[customViewCellBlock currency] text]];
+        
+        [[customViewCellBlock garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
+                                                                                [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]]];
+        [[customViewCellBlock garageName]          setText:[[customViewCellBlock garageName] text]];
+        
+        customViewCellBlock.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+        customViewCellLine.imageView.image = customViewCellBlock.imageView.image;
+    }
+    
+    
+    if(segmentControl.selectedSegmentIndex == 0)
+        return customViewCellBlock;
+    else
+        return customViewCellLine;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
+    prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
+    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutArrayDataThumbs objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -300,7 +368,7 @@
     [self setupProductMapping];
     [self searchBar:searchBar activate:NO];
 	[activityIndicator startAnimating];
-    [self.mutArrayProducts removeAllObjects];
+    [mutArrayProducts removeAllObjects];
     [self.tableView reloadData];
 }
 
@@ -336,6 +404,11 @@
         }
     }
     [searchBar setShowsCancelButton:active animated:YES];
+}
+
+-(IBAction)changeSegControl{
+    isSegmentedControlChanged = NO;
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload

@@ -69,7 +69,6 @@
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
 
 }
 
@@ -109,7 +108,6 @@
 @property (retain, nonatomic) UIImageView            *imageView;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorGarage;
 
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;
