@@ -257,8 +257,15 @@
 
 
     
-    [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
-    [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];
+    @try {
+        [customViewCellBlock imageView].image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+        [customViewCellLine imageView].image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+    }
+    @catch (NSException *exception) {
+        [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
+        [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];
+    }
+
 
 
 
