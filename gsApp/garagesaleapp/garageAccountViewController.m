@@ -361,6 +361,7 @@
 - (void)gotoProductDetailVC:(UIButton *)sender{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -419,7 +420,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
+    prdDetailVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
+    prdDetailVC.imageView = [[UIImageView alloc] initWithImage:[mutArrayDataThumbs objectAtIndex:indexPath.row]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 

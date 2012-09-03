@@ -81,7 +81,8 @@
                                             selector:@selector(loadButtonsProduct)
                                             object:nil];
         [queue addOperation:operation];
-        [activityLoadProducts stopAnimating];       
+        [activityLoadProducts stopAnimating];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
 }
 
@@ -168,6 +169,7 @@
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
     scrollView.delegate = self;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
@@ -200,6 +202,7 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollView subviews]) 
         [subview removeFromSuperview];
     //[self loadAttribsToComponents];

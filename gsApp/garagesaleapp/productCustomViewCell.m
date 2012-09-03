@@ -16,6 +16,7 @@
 @synthesize garageName;
 @synthesize imageView;
 @synthesize imageEditButton;
+@synthesize imageGravatar;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

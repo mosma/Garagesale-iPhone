@@ -45,13 +45,15 @@
 @synthesize msgBidSentLabel;
 @synthesize secondView;
 @synthesize garageDetailView;
+@synthesize countView;
+@synthesize countLabel;
 @synthesize keyboardControls;
 @synthesize productPhotos;
 @synthesize imageView;
 @synthesize galleryScrollView;
-@synthesize activityIndicator;
 @synthesize viewBidSend;
 @synthesize viewBidMsg;
+@synthesize PagContGallery;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -137,10 +139,12 @@
         
         [emailTextField   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [commentTextView  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-
+        [descricaoLabel   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        
         //Set Labels, titles, TextView...
         nomeLabel.text            = [self.product nome];
         
+        descricaoLabel.text       = [self.product descricao];
         
         valorEsperadoLabel.text   = [self.product valorEsperado];
         
@@ -174,12 +178,14 @@
         galleryScrollView.frame                 = CGRectMake(0, 115, 320, 320);
         galleryScrollView.clipsToBounds         = YES;
         galleryScrollView.autoresizesSubviews   = YES;
-        [galleryScrollView insertSubview:imageView belowSubview:activityIndicator];
+        [galleryScrollView addSubview:imageView];
 
+        [scrollView insertSubview:countView aboveSubview:galleryScrollView];
+
+        countView.layer.cornerRadius = 4;
+        countView.hidden = YES;
         [secondView addSubview:garageDetailView];
         self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
-        
-
 
         
         
@@ -257,6 +263,9 @@
             // [secondView addSubview:tagsScrollView];
             [secondView addSubview:garageDetailView];
             self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
+                
+        [UIView commitAnimations];
+        
         
         
         //configure addthis -- (this step is optional)
@@ -282,9 +291,14 @@
                                                     description:descricaoLabel.text];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
-        
-         [UIView commitAnimations];
 
+        int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+        
+        PagContGallery = [[UIPageControl alloc] init];
+        PagContGallery.numberOfPages = countPhotos;
+        
+        countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
+        
         UIImage *image;
 
         if (self.product.fotos == NULL) {
@@ -296,8 +310,8 @@
             imageView               = [[UIImageView alloc] initWithImage:image];
             
         }
-        
 
+        countView.hidden = NO;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -306,60 +320,79 @@
                                             object:nil];
         [queue addOperation:operation];
         
-       // [self loadGalleryTop];
     }
+}
 
-    //    [self.imgViewLoading stopAnimating];
-    //    [self.imgViewLoading setHidden:YES];
+-(void)loadGalleryTop{
+
+    int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+        
+    UIImage *image;
+    CGRect rect;//             = imageView.frame;
+    rect.size.width         = 320;
+    rect.size.height        = 280;
     
-    // [GlobalFunctions drawTagsButton:self.tags scrollView:self.scrollview viewController:self];
+    //    [UIView beginAnimations:nil context:nil];
+    //    [UIView setAnimationDuration:0.4];
+    //    [UIView setAnimationDelegate:self];
+    //    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+    
+    for (int i = 0; i < countPhotos; i++){
+
+        
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+        [activityIndicator startAnimating];
+        activityIndicator.color = [UIColor grayColor];
+        
+        activityIndicator.center = CGPointMake(160+(320*i), 140);
+        
+        [galleryScrollView addSubview:activityIndicator];
+        
+        if (countPhotos == 0) {
+            image                   = [UIImage imageNamed:@"nopicture.png"];
+            imageView               = [[UIImageView alloc] initWithImage:image];
+            imageView.frame         = rect;
+            [galleryScrollView addSubview:imageView];
+        }else {
+            NSNumber *index = [NSNumber numberWithInt:i];
+            [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+                                   withObject:index];
+        }
+    }
+    
+    galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
+    galleryScrollView.delegate              = self;
+    //    [UIView commitAnimations];
+}
+
+- (void)loadImageGalleryThumbs:(NSNumber *)index{
+    @try {
+        
+        int i = [index intValue];
+        UIImage *image;
+        CGRect rect;//             = imageView.frame;
+        rect.size.width         = 320;
+        rect.size.height        = 280;
+        
+            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+            NSLog(@"url object at index %i is %@",i,url);
+            image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            imageView               = [[UIImageView alloc] initWithImage:image];
+            rect.origin.x           = i*320;
+            imageView.frame         = rect;
+            // imageView.contentMode   = UIViewContentModeScaleAspectFit;
+            [galleryScrollView addSubview:imageView];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
 }
 
 -(void)backPage{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)loadGalleryTop{
-    int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
-    
-    UIImage *image;
-    CGRect rect;//             = imageView.frame;
-    rect.size.width         = 320;
-    rect.size.height        = 280;
-
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-    
-    if (countPhotos == 0) {
-        image                   = [UIImage imageNamed:@"nopicture.png"];
-        imageView               = [[UIImageView alloc] initWithImage:image];
-        imageView.frame         = rect;
-
-        [galleryScrollView addSubview:imageView];
-    }
-    
-    for (int i = 0; i < countPhotos; i++){
-        //if (i > 1) break;
-        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
-        NSLog(@"url object at index %i is %@",i,url);
-        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        imageView               = [[UIImageView alloc] initWithImage:image];
-        rect.origin.x           = i*320;
-        imageView.frame         = rect;
-       // imageView.contentMode   = UIViewContentModeScaleAspectFit;
-        [galleryScrollView addSubview:imageView];
-    }
-
-    galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
-    galleryScrollView.delegate              = self;
-    
-    
-    [UIView commitAnimations];
-    
-    [activityIndicator stopAnimating];
-}
 
 - (void)setupGarageMapping {
     //Configure Garage Object Mapping
@@ -387,6 +420,8 @@
 }
 
 - (void)setupProfileMapping {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
     //Configure Profile Object Mapping
     RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
     [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
@@ -409,6 +444,7 @@
 }
 
 - (void)setupProductMapping{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     //Configure Product Object Mapping
     RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
     [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
@@ -471,6 +507,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
             self.arrayGarage = objects;
@@ -495,6 +532,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
+   // [self setupProfileMapping];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
@@ -549,7 +587,7 @@
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    imageView.frame = [self centeredFrameForScrollView:scrollView andUIView:imageView];
+    //imageView.frame = [self centeredFrameForScrollView:scrollView andUIView:imageView];
 }
 
 - (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView {
@@ -573,7 +611,8 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+    PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+    countLabel.text = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
 }
 
 -(IBAction)pageControlCliked{
@@ -667,17 +706,18 @@
     if (viewBidSend.hidden && viewBidMsg.hidden) {
         [self.scrollView insertSubview:viewBidMsg belowSubview:viewBidSend];
         [self.scrollView insertSubview:shadowView belowSubview:viewBidSend];
-        
         viewBidSend.hidden = NO;
         viewBidMsg.hidden = NO;
         viewBidSend.alpha = 1.0;
         shadowView.alpha = 0.7;
+        countView.alpha = 0;
         [UIView commitAnimations];
     } else {
         viewBidSend.alpha = 0;
         shadowView.alpha = 0;
         viewBidSend.hidden = YES;
         viewBidMsg.hidden = YES;
+        countView.alpha = 1.0;
         [shadowView removeFromSuperview];
     }
     
@@ -901,11 +941,11 @@
     viewBidMsg = nil;
     [self setViewBidSend:nil];
     [self setViewBidMsg:nil];
+    countView = nil;
+    [self setCountView:nil];
+    countLabel = nil;
+    [self setCountLabel:nil];
     [super viewDidUnload];
-    
-    activityIndicator = nil;
-    [self setActivityIndicator:nil];
-    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

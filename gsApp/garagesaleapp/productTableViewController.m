@@ -7,6 +7,7 @@
 //
 
 #import "productTableViewController.h"
+#import "NSAttributedString+Attributes.h"
 
 @interface productTableViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -227,55 +228,89 @@
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
     //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
 
-        [[customViewCellBlock productName]         setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-        [[customViewCellLine productName]         setText:[[customViewCellBlock productName] text]];
-
-        if ([[[mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-            [[customViewCellBlock valorEsperado] setText:@"Vendido"];
-            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                               green:(float)102/255.0 \
-                                                                blue:(float)102/255.0 alpha:1.0]];
-            
-            [[customViewCellLine valorEsperado] setText:@"Vendido"];
-            [[customViewCellLine valorEsperado] setTextColor:[[customViewCellLine valorEsperado] textColor]];
-            
-        }else{
-            [[customViewCellBlock valorEsperado] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ]];
-            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)90/255.0 \
-                                                               green:(float)163/255.0 \
-                                                                blue:(float)65/255.0 alpha:1.0]];
-            [[customViewCellLine valorEsperado] setText:[[customViewCellBlock valorEsperado] text]];
-            [[customViewCellLine valorEsperado] setTextColor:[[customViewCellBlock valorEsperado] textColor]];
-            
-        }
-        [[customViewCellBlock currency]            setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] currency ]];
-        [[customViewCellLine currency]              setText:[[customViewCellBlock currency] text]];
-        
-        [[customViewCellBlock garageName]          setText:[NSString stringWithFormat:@"%@ %@'s garage", NSLocalizedString(@"by", @""),
-                                                                                [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]]];
-        [[customViewCellBlock garageName]          setText:[[customViewCellBlock garageName] text]];
-
+    
+    
+        NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
+    NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
+                                                   [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
+    NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
+    NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@ by %@", currency, valorEsperado, 
+                                                   [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
+    
+    
+    
+    
+    
+    
+    
 
     
-    @try {
-        [customViewCellBlock imageView].image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
-        [customViewCellLine imageView].image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
+        [[customViewCellLine productName] setText:[[customViewCellBlock productName] text]];
+        [[customViewCellLine currency] setText:[[customViewCellBlock currency] text]];
+        [[customViewCellLine garageName] setText:[NSString stringWithFormat:@"%@ %@'s garage", 
+                                              NSLocalizedString(@"by", @""),
+                                              garageName]];
+        [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
+    
+    
+    
+
+    
+
+    //Set Default Size/Color
+    NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+    
+    
+    //Set Valor Esperado Size/Color
+    [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]    
+                    range:[strFormat rangeOfString:valorEsperado]];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20] range:[strFormat rangeOfString:valorEsperado]];
+    
+    //Set GarageName Size/Color
+    [attrStr setTextColor:[UIColor redColor]  
+                    range:[strFormat rangeOfString:garageName]];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
+                                                                        [NSString stringWithFormat:@"by %@", garageName]]];
+    
+
+    
+    
+    
+    
+    
+    
+    
+    if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
+        [[customViewCellBlock valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+        [[customViewCellBlock valorEsperado] setText:@"Vendido"];
+        [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                           green:(float)102/255.0 \
+                                                            blue:(float)102/255.0 alpha:1.0]];
+    }else{
+        customViewCellBlock.valorEsperado.attributedText = attrStr;
     }
-    @catch (NSException *exception) {
-        [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
-        [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];
-    }
+    
+    [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
 
-
-
-
+    [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+    [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    
+//    NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
+//    UIImage *image      = [[UIImage alloc] initWithData:imageData];
+    customViewCellBlock.imageGravatar.image = [UIImage imageNamed:@"nopicture.png"];
+    
+    
+    
+    
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
                                             selector:@selector(loadButtonsProduct:)
                                             object:[NSArray arrayWithObjects:customViewCellBlock, customViewCellLine, indexPath, nil]];
         [queue addOperation:operation];
-    
+
     int i = indexPath.row;
     NSLog(@"%@", indexPath);
     NSLog(@"%i", i);
@@ -427,6 +462,7 @@
     
     activityIndicator = nil;
     [self setActivityIndicator:nil];
+    
     [super viewDidUnload];
 }
 

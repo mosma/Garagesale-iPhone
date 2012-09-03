@@ -329,20 +329,34 @@
 - (void)didFailLoadWithError:(NSError*)error {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-	if (_cachePolicy & RKRequestCachePolicyLoadOnError &&
-		[self.cache hasResponseForRequest:self]) {
-
-		[self didFinishLoad:[self.cache responseForRequest:self]];
-	} else {
-        if ([_delegate respondsToSelector:@selector(request:didFailLoadWithError:)]) {
-            [_delegate request:self didFailLoadWithError:error];
-        }
-        
-        [(NSObject<RKObjectLoaderDelegate>*)_delegate objectLoader:self didFailWithError:error];
-        
-        [self finalizeLoad:NO error:error];
-    }
     
+    
+    @try {
+        if (_cachePolicy & RKRequestCachePolicyLoadOnError &&
+            [self.cache hasResponseForRequest:self]) {
+            
+            [self didFinishLoad:[self.cache responseForRequest:self]];
+        } else {
+            if ([_delegate respondsToSelector:@selector(request:didFailLoadWithError:)]) {
+                [_delegate request:self didFailLoadWithError:error];
+            }
+            
+            [(NSObject<RKObjectLoaderDelegate>*)_delegate objectLoader:self didFailWithError:error];
+            
+            [self finalizeLoad:NO error:error];
+        }
+
+    }
+    @catch (NSException *exception) {
+
+        NSLog(@"%@", exception);
+        
+        
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server instable!" message:@"Please, check your connection area." delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil];
+        [alert show];
+        
+    }
     [pool release];
 }
 

@@ -63,12 +63,15 @@
     __unsafe_unretained IBOutlet UIView         *viewBidMsg;
     IBOutlet UIView                             *garageDetailView;
     UIButton                                    *addThisButton;
-                                                                
+    __weak IBOutlet UIView *countView;                                                
+    __weak IBOutlet UILabel *countLabel;
+    UIPageControl  *PagContGallery;
+
     //Gallery Images Objects.
     NSMutableArray          *productPhotos;
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
+//    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
 
 }
 
@@ -102,12 +105,15 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidSend;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidMsg;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
+@property (weak, nonatomic) IBOutlet UIView *countView;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 //Gallery Images Objects.
 @property (retain, nonatomic) NSMutableArray         *productPhotos;
 @property (retain, nonatomic) UIImageView            *imageView;
+@property (retain, nonatomic) UIPageControl          *PagContGallery;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+//@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;
