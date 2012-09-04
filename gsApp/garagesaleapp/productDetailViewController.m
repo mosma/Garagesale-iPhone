@@ -660,9 +660,23 @@
 }
 
 - (IBAction)gotoUserProductTableVC{
+    
+    
+    
+    
+    
+    
+    
     productTableViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     prdTabVC.strLocalResourcePath = [NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]];
     [self.navigationController pushViewController:prdTabVC animated:YES];
+    
+    
+    
+    
+    
+    
+    
 }
 
 - (void)gotoProductTableVC:(UIButton *)sender{

@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "GlobalFunctions.h"
 #import "Product.h"
+#import "ProductPhotos.h"
 #import "BSKeyboardControls.h"
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
 #import "MBProgressHUD.h"
-#import "garageAccountViewController.h"
 
 @protocol PhotoScrollingViewDelegate
 -(void)removedImageAtIndex:(int )aImageIndex;
@@ -54,7 +54,8 @@
     UITapGestureRecognizer      *singleTap;
     UIView                      *shadowView;
     MBProgressHUD               *HUD;
-    garageAccountViewController *garageAccVC;
+    Product                     *product;
+
     float imageWidth_;
     float imageHeight_;
                                                                  
@@ -78,7 +79,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
-@property (nonatomic) garageAccountViewController              *garageAccVC;
+@property (retain, nonatomic) Product                          *product;
 
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;

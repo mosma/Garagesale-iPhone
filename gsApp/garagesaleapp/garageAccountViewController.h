@@ -12,6 +12,7 @@
 #import "Category.h"
 #import "GlobalFunctions.h"
 #import "productCustomViewCell.h"
+#import "productAccountViewController.h"
 #import "settingsAccountViewController.h"
 #import "OHAttributedLabel.h"
 #import "MBProgressHUD.h"

@@ -359,10 +359,16 @@
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
-    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
-    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
-    [self.navigationController pushViewController:prdDetailVC animated:YES];
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil) {
+       productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+       prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+       prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+       [self.navigationController pushViewController:prdDetailVC animated:YES];
+    }else {
+        productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
+        prdAccVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+        [self.navigationController pushViewController:prdAccVC animated:YES];
+    }
 }
 
 // Table view data source
@@ -419,10 +425,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:indexPath.row];
-    prdDetailVC.imageView = [[UIImageView alloc] initWithImage:[mutArrayDataThumbs objectAtIndex:indexPath.row]];
-    [self.navigationController pushViewController:prdDetailVC animated:YES];
+    UIButton *button = [[UIButton alloc] init];
+    button.tag = indexPath.row;
+    [self gotoProductDetailVC:button];
 }
 
 - (void)viewDidUnload

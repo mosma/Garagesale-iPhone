@@ -150,17 +150,35 @@
     }
 }
 
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (isSearch)
+        [self showSearch:nil];
+    [searchBarProduct resignFirstResponder];
+    
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+}
+
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
         //set searchBar settings
-        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,0,320,40)];
+        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0,-200,320,40)];
         searchBarProduct.delegate = self;
         searchBarProduct.placeholder = NSLocalizedString(@"searchProduct", @"");
+        
+        self.tableView.delegate = self;
         
         [GlobalFunctions setSearchBarLayout:searchBarProduct];
         
         self.navigationItem.title = NSLocalizedString(@"products", @"");
-        [self.view addSubview:searchBarProduct];
+        [self.tableView addSubview:searchBarProduct];
 
         self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                  @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
@@ -176,8 +194,18 @@
             searchBarProduct.text = self.strTextSearch;
         mutArrayDataThumbs = [[NSMutableArray alloc] init];
         
-        labelTitleResults.text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
-        //self.strTextSearch = @"";
+        
+        NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
+        NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
+
+        
+        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:count]];
+        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
+        
+        labelTitleResults.attributedText = attrStr;
     }
 }
 
@@ -187,16 +215,16 @@
 
 - (IBAction)showSearch:(id)sender{
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDuration:0.6];
     [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
+    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
     
     if (!isSearch) {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(320, 0);
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, self.tableView.contentOffset.y+200);
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(-320, 0);
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, -(self.tableView.contentOffset.y+200));
         [searchBarProduct resignFirstResponder];
     }
     isSearch = !isSearch;
@@ -244,13 +272,7 @@
     
     
 
-    
-        [[customViewCellLine productName] setText:[[customViewCellBlock productName] text]];
-        [[customViewCellLine currency] setText:[[customViewCellBlock currency] text]];
-        [[customViewCellLine garageName] setText:[NSString stringWithFormat:@"%@ %@'s garage", 
-                                              NSLocalizedString(@"by", @""),
-                                              garageName]];
-        [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
+
     
     
     
@@ -288,8 +310,12 @@
         [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
                                                            green:(float)102/255.0 \
                                                             blue:(float)102/255.0 alpha:1.0]];
+        
+        customViewCellLine.valorEsperado = customViewCellBlock.valorEsperado;
+        
     }else{
         customViewCellBlock.valorEsperado.attributedText = attrStr;
+        customViewCellLine.valorEsperado.attributedText = attrStr;
     }
     
     [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
@@ -304,12 +330,20 @@
     
     
     
-        NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadButtonsProduct:)
-                                            object:[NSArray arrayWithObjects:customViewCellBlock, customViewCellLine, indexPath, nil]];
-        [queue addOperation:operation];
+
+    [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+    [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
+    
+    
+    
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                        initWithTarget:self
+                                        selector:@selector(loadButtonsProduct:)
+                                        object:[NSArray arrayWithObjects:customViewCellBlock, customViewCellLine, indexPath, nil]];
+    [queue addOperation:operation];
 
     int i = indexPath.row;
     NSLog(@"%@", indexPath);
@@ -321,7 +355,7 @@
             customViewCellBlock.hidden = NO;
             customViewCellLine.hidden = YES;
             [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-            [self.tableView setRowHeight:150];
+            [self.tableView setRowHeight:122];
             return customViewCellBlock;
         }
         else{
@@ -330,7 +364,7 @@
             customViewCellBlock.hidden = YES;
             customViewCellLine.hidden = NO;
             [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-            [self.tableView setRowHeight:377];
+            [self.tableView setRowHeight:367];
             return customViewCellLine;
         }
     }

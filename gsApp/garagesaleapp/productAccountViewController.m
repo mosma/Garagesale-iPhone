@@ -32,7 +32,7 @@
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
 @synthesize viewPicsControl;
-@synthesize garageAccVC;
+@synthesize product;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -71,6 +71,10 @@
 -(void)loadAttributsToComponents{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+    
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
@@ -155,8 +159,24 @@
     
     self.scrollView.contentSize = CGSizeMake(320,710);
     [self setupKeyboardControls];
-    [self animationPicsControl];
+
+    
+    
+    
+    
+    if (self.product != nil) {
+        [self setupProductPhotosMapping];
+        
+    }else {
+        [self animationPicsControl];
+    }
+    
 }
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 //
 //-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 //    if (textField==txtFieldCurrency){
@@ -251,9 +271,6 @@
                                        [theLocale objectForKey:NSLocaleCurrencyCode],
                                        [theLocale objectForKey:NSLocaleCurrencySymbol]]; 
         txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
-        [garageAccVC reloadInputViews];
-        [garageAccVC.view setNeedsDisplay];
-        garageAccVC = nil;
         [self animationPicsControl];
     }
 }
@@ -491,7 +508,21 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    NSLog(@"");
+    if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
+        
+        
+        self.txtFieldTitle.text = [(ProductPhotos *)[objects objectAtIndex:0] nome];
+        self.txtFieldValue.text = [(ProductPhotos *)[objects objectAtIndex:0] valorEsperado];
+        self.textViewDescription.text = [(ProductPhotos *)[objects objectAtIndex:0] descricao];
+        
+        for (int i=0; i < [[(ProductPhotos *)[objects objectAtIndex:0]fotos] count]; i++) {
+            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[objects objectAtIndex:0]fotos]objectAtIndex:i]caminhoThumb]]];
+
+            UIImage *image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            
+            [self addImageToScrollView:image];
+        }
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -523,6 +554,43 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+
+- (void)setupProductPhotosMapping{
+    //Initializing the Object Manager
+    // RKObjManeger = [RKObjectManager sharedManager];
+    
+    //Configure Photo Object Mapping
+    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
+    [photoMapping mapAttributes:@"caminho",
+     @"caminhoThumb",
+     @"caminhoTiny",
+     @"principal",
+     @"idProduto",
+     @"id",
+     @"id_estado",
+     nil];
+    
+    //Configure Product Object Mapping
+    RKObjectMapping *productPhotoMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];    
+    [productPhotoMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
+    [productPhotoMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
+    [productPhotoMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
+    [productPhotoMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
+    [productPhotoMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
+    [productPhotoMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
+    [productPhotoMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
+    [productPhotoMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
+    [productPhotoMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];
+    //Relationship
+    [productPhotoMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productPhotoMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    
 }
 
 -(void)setPostFlags{

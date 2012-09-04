@@ -19,7 +19,8 @@
 @interface productTableViewController : UITableViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
                                                                 UISearchBarDelegate,
-                                                                RKObjectLoaderDelegate> {
+                                                                RKObjectLoaderDelegate,
+                                                                UIScrollViewDelegate> {
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
     NSMutableArray          *mutArrayDataThumbs;
@@ -27,7 +28,7 @@
     NSString                *strTextSearch;
     BOOL                    *isSearch;
     BOOL                    *isSegmentedControlChanged;
-    IBOutlet UILabel        *labelTitleResults;
+    IBOutlet OHAttributedLabel        *labelTitleResults;
 
     IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *UIAIV_Main;
@@ -42,7 +43,7 @@
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 
-@property (nonatomic, retain) IBOutlet UILabel      *labelTitleResults;
+@property (nonatomic, retain) IBOutlet OHAttributedLabel      *labelTitleResults;
 @property (nonatomic, retain) IBOutlet UISearchBar  *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
