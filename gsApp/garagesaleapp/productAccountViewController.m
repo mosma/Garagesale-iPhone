@@ -400,15 +400,18 @@
 }
 
 -(IBAction)saveProduct{
-	// Set determinate mode
-    [self myTask];
-    
-    [txtFieldValue resignFirstResponder];
+    if (self.product == nil) {
+        // Set determinate mode
+        [self myTask];
+        
+        [txtFieldValue resignFirstResponder];
 
-    if([nsMutArrayPicsProduct count] != 0) {
-        [self uploadPhotos:@""];
-    }else {
-        [self postProduct];
+        if([nsMutArrayPicsProduct count] != 0) {
+            [self uploadPhotos:@""];
+        }else {
+            [self postProduct];
+        }
+        
     }
 }
 
