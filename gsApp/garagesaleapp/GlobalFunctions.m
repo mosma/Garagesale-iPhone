@@ -41,7 +41,7 @@ static NSString *urlImagePath;
     return [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0]; 
 }
 
-- (UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit viewContr:(UIViewController *)viewContr {
+- (UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr {
     
     Product     *product    = (Product  *)[arrayDetailProduct objectAtIndex:0];
     NSString    *urlThumb   = [NSString stringWithFormat:@"%@/%@", 
@@ -95,7 +95,7 @@ static NSString *urlImagePath;
     
     UIGraphicsEndImageContext();
 
-    if (showEdit) {
+    if (showPrice) {
         //Set View Price
         UIView *viewPrice = [[UIView alloc] init];
         
@@ -119,16 +119,15 @@ static NSString *urlImagePath;
         price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
         [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
         [viewPrice addSubview:price];
-        
+        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+15, 35)];   
+    }
+    
+    if (showEdit) {
         //View Edit Pencil
         UIImageView *imageViewEditPencil = [[UIImageView alloc] initWithImage:
                                             [UIImage imageNamed:@"btPencilEditProductThumbs.png"]];
         [imageViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
         [viewThumbs addSubview:imageViewEditPencil];
-        
-        
-        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+15, 35)];        
-        
     }
     
     return viewThumbs;

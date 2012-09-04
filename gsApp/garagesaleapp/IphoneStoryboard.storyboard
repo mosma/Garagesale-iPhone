@@ -698,6 +698,7 @@
                                                 </view>
                                                 <color key="backgroundColor" red="0.18048469389999999" green="0.042337491429999999" blue="0.15565084279999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
+                                                    <outlet property="imageEditButton" destination="OZp-gg-cfP" id="fB0-MK-zY5"/>
                                                     <outlet property="imageView" destination="sJk-A0-owf" id="umR-DP-SE3"/>
                                                     <outlet property="productName" destination="rnS-dq-rgJ" id="Nqm-aT-pjq"/>
                                                     <outlet property="valorEsperado" destination="cHf-lD-giI" id="XkB-Wy-nUR"/>
@@ -1349,11 +1350,6 @@
                                                             <action selector="actionEmailComposer" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7Ps-8m-Z7b"/>
                                                         </connections>
                                                     </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="zbh-RZ-tyW">
-                                                        <rect key="frame" x="10" y="10" width="47" height="47"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" red="0.63775510199999996" green="0.63775510199999996" blue="0.63775510199999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </imageView>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc">
                                                         <rect key="frame" x="67" y="10" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1381,12 +1377,12 @@
                                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9k5-33-1yu">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9k5-33-1yu">
                                                         <rect key="frame" x="10" y="10" width="47" height="47"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                        <state key="normal" backgroundImage="icon.png">
+                                                        <state key="normal">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -1394,7 +1390,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="gotoUserProductTableVC" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7M7-y3-vH7"/>
+                                                            <action selector="gotoGarageDetailVC" destination="Nbe-H5-7nH" eventType="touchUpInside" id="0AN-7S-Vwj"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1595,7 +1591,6 @@
                         <outlet property="galleryScrollView" destination="3sh-IV-iZD" id="9zQ-uV-9SW"/>
                         <outlet property="garageDetailButton" destination="KJE-1I-79v" id="gje-WR-Kk5"/>
                         <outlet property="garageDetailView" destination="Qxf-rq-Xx8" id="jen-76-jJe"/>
-                        <outlet property="imgProfile" destination="zbh-RZ-tyW" id="8ca-sm-358"/>
                         <outlet property="msgBidSentLabel" destination="vUP-8p-twf" id="vbF-s7-A2p"/>
                         <outlet property="nameProfile" destination="0zP-oz-hlc" id="APC-o5-EaX"/>
                         <outlet property="nomeLabel" destination="aKV-ty-jd3" id="3rE-bX-RKi"/>
@@ -2155,7 +2150,6 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
-        <image name="icon.png" width="114" height="114"/>
         <image name="more_pics.png" width="50" height="50"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
@@ -2283,7 +2277,6 @@
                 <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="garageDetailButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="imgProfile" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameProfile" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nomeLabel" candidateClass="UILabel"/>

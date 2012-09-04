@@ -190,7 +190,8 @@
 
 - (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
     [scrollView addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
-                                                                     showEdit:NO 
+                                                                     showEdit:NO
+                                                                     showPrice:NO
                                                                      viewContr:self]];
 }
 

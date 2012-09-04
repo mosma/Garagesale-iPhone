@@ -19,8 +19,9 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
 #import "AddThis.h"
-#import "productTableViewController.h"
-#import "garageDetailViewController.h"
+//#import "productTableViewController.h"
+//#import "garageDetailViewController.h"
+#import "garageAccountViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Category.h"
 #import "Bid.h"
@@ -52,7 +53,6 @@
     __unsafe_unretained IBOutlet UILabel        *nameProfile;
     __unsafe_unretained IBOutlet UILabel        *cityProfile;
     __unsafe_unretained IBOutlet UILabel        *emailProfile;
-    __unsafe_unretained IBOutlet UIImageView    *imgProfile;
     __unsafe_unretained IBOutlet UIButton       *showPicsButton;
     __unsafe_unretained IBOutlet UIButton       *garageDetailButton;
     __unsafe_unretained IBOutlet UIButton       *seeAllButton;
@@ -95,7 +95,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *nameProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *cityProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *emailProfile;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView   *imgProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *showPicsButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *garageDetailButton;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *seeAllButton;

@@ -37,7 +37,6 @@
 @synthesize nameProfile;
 @synthesize cityProfile;
 @synthesize emailProfile;
-@synthesize imgProfile;
 @synthesize showPicsButton;
 @synthesize garageDetailButton;
 @synthesize seeAllButton;
@@ -190,7 +189,6 @@
         
         
     }else {
-        [seeAllButton setTitle: NSLocalizedString(@"seeAllProducts", @"") forState:UIControlStateNormal];
         [bidButton setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
         // Grab the reference to the router from the manager
@@ -224,10 +222,10 @@
         nameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
         cityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
         emailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
-        imgProfile.image    = [UIImage imageWithData: [NSData dataWithContentsOfURL:
-                                                       [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
+         
+        UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
-        
+        [seeAllButton setImage:imgProfile forState:UIControlStateNormal];
         
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", nameProfile.text];
@@ -649,34 +647,30 @@
 }
 
 - (IBAction)gotoGarageDetailVC{
-    garageDetailViewController *garageDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GarageDetail"];
-    garageDetailVC.garage = self.arrayGarage;
-    garageDetailVC.profile = self.arrayProfile;
-    garageDetailVC.gravatarUrl = [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]];
-    [self.navigationController pushViewController:garageDetailVC animated:YES];
     
-    //Custom Title Back Bar Button Item
-    self.navigationController.navigationBar.backItem.title = NSLocalizedString(@"back", @"");
+    garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
+
+    
+    garaAcc.profile = (Profile *)[arrayProfile objectAtIndex:0];
+    garaAcc.garage =  (Garage *)[arrayGarage objectAtIndex:0];
+    
+      
+    [self.navigationController pushViewController:garaAcc animated:YES];
+    
+//    garageDetailViewController *garageDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GarageDetail"];
+//    garageDetailVC.garage = self.arrayGarage;
+//    garageDetailVC.profile = self.arrayProfile;
+//    garageDetailVC.gravatarUrl = [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]];
+//    [self.navigationController pushViewController:garageDetailVC animated:YES];
+//    
+//    //Custom Title Back Bar Button Item
+//    self.navigationController.navigationBar.backItem.title = NSLocalizedString(@"back", @"");
 }
 
 - (IBAction)gotoUserProductTableVC{
-    
-    
-    
-    
-    
-    
-    
     productTableViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     prdTabVC.strLocalResourcePath = [NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]];
     [self.navigationController pushViewController:prdTabVC animated:YES];
-    
-    
-    
-    
-    
-    
-    
 }
 
 - (void)gotoProductTableVC:(UIButton *)sender{
@@ -928,11 +922,9 @@
     nameProfile = nil;
     cityProfile = nil;
     emailProfile = nil;
-    imgProfile = nil;
     [self setNameProfile:nil];
     [self setCityProfile:nil];
     [self setEmailProfile:nil];
-    [self setImgProfile:nil];
     showPicsButton = nil;
     [self setShowPicsButton:nil];
     bidButton = nil;

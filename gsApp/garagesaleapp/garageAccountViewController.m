@@ -24,6 +24,9 @@
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
 @synthesize mutArrayDataThumbs;
+@synthesize profile;
+@synthesize garage;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -93,7 +96,11 @@
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
+    
+    if ((garage  == nil) && (profile == nil))
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
+    else
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
     
@@ -188,23 +195,50 @@
                                                   forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
             
-        gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
-        garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
-        
-        city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
-        description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+
+        garageName.font  = [UIFont fontWithName:@"Droid Sans" size:22 ];
+        city.font        = [UIFont fontWithName:@"Droid Sans" size:12 ];
         description.font = [UIFont fontWithName:@"Droid Sans" size:12];
+        link.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         
-        garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
-        city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+        
+        if ((garage  == nil) && (profile == nil)) {
+
+            description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+            garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
+            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
                             [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
                             [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                             [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
-        link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
-        link.font        = [UIFont fontWithName:@"Droid Sans" size:12];
+            link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
+        
+            gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
+            
+            
+
+            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+
+
+            
+        } else {
+
+            description.text = profile.nome;
+            garageName.text  = profile.garagem;
+            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+                                        garage.city,
+                                        garage.district,
+                                        garage.country];
+            link.text        = garage.link;
+            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+            
+            self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+
+            
+        }
 
         self.scrollViewMain.contentSize         = CGSizeMake(320,560);
         self.scrollViewProducts.contentSize     = CGSizeMake(320,2845);
@@ -222,11 +256,12 @@
         
         self.navigationItem.hidesBackButton = NO;
         
-        self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+
         
         self.tableViewProducts.hidden = YES;
 
-    }else {
+    } else {
+        
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
 
@@ -245,7 +280,6 @@
         [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
-
 
         //Set Display thumbs on Home.
         globalFunctions.countColumnImageThumbs = -1;
@@ -300,9 +334,11 @@
 
 - (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
     @try {
-        [scrollViewProducts addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
-                                                                        showEdit:YES 
-                                                                       viewContr:self]];
+        [scrollViewProducts addSubview:
+         [globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
+                                          showEdit:((garage  == nil) && (profile == nil)) ? YES : NO
+                                          showPrice:YES
+                                          viewContr:self]];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -359,15 +395,15 @@
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil) {
-       productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-       prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
-       prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
-       [self.navigationController pushViewController:prdDetailVC animated:YES];
-    }else {
+    if ((garage  == nil) && (profile == nil))  {
         productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
         prdAccVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
         [self.navigationController pushViewController:prdAccVC animated:YES];
+    }else {
+        productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+        prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+        prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+        [self.navigationController pushViewController:prdDetailVC animated:YES];
     }
 }
 
@@ -420,6 +456,11 @@
     }
     @finally {
     }
+    
+    if ((garage  == nil) && (profile == nil))
+        cell.imageEditButton.hidden = NO;
+    else 
+        cell.imageEditButton.hidden = YES;
     
     return cell;
 }

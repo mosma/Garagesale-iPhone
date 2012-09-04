@@ -29,7 +29,10 @@
     NSMutableArray      *mutArrayDataThumbs;
     GlobalFunctions     *globalFunctions;
     MBProgressHUD       *HUD;
+    Profile             *profile;
+    Garage              *garage;
     BOOL                isLoading;
+                                                            
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;
@@ -48,6 +51,8 @@
 @property (retain, nonatomic) NSMutableArray    *mutArrayProducts;
 @property (retain, nonatomic) NSMutableArray    *mutArrayDataThumbs;
 @property (nonatomic) BOOL                      isFromParent;
+@property (retain, nonatomic) Profile           *profile;
+@property (retain, nonatomic) Garage            *garage;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;
