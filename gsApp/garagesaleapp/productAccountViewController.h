@@ -79,6 +79,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
+@property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
 
 @property (nonatomic) float heightPaddingInImages;

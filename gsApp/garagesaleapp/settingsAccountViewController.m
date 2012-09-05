@@ -83,15 +83,32 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    for (UIViewController *v in self.tabBarController.viewControllers)
+    {
+        UIViewController *vc = v;
+
+             
+        if ([vc isKindOfClass:[ViewController class]])
+             {
+                 [vc.navigationController popToRootViewControllerAnimated:YES];
+             }
+        
+        if ([vc isKindOfClass:[productDetailViewController class]])
+        {
+            [vc.navigationController popToRootViewControllerAnimated:YES];
+        }
+    }
+
+    [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController] 
+      navigationController] popToRootViewControllerAnimated:YES];
+
     
+        self.tabBarController.selectedIndex = 0;
     
-    // self.tabBarController.viewControllers = nil;
-    [(ViewController *)[self.tabBarController.viewControllers objectAtIndex:0] viewWillAppear:NO];
+    [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController] 
+      navigationController] popToRootViewControllerAnimated:NO];
     
-    self.tabBarController.selectedIndex = 0;
-    
-    //ViewController *rootVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-    //   [self.navigationController pushViewController:rootVC animated:YES];
+
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
