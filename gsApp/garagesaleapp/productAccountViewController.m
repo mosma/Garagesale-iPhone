@@ -72,9 +72,6 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
                                                   forBarMetrics:UIBarMetricsDefault];
     
-    self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-    
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
@@ -160,17 +157,17 @@
     self.scrollView.contentSize = CGSizeMake(320,710);
     [self setupKeyboardControls];
 
-    
-    
-    
-    
     if (self.product != nil) {
-        [self setupProductPhotosMapping];
-        
+        [self loadingProduct];
+        self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
     }else {
         [self animationPicsControl];
     }
-    
+}
+
+-(void)loadingProduct{
+    [self setupProductMapping];
 }
 
 -(void)backPage{
@@ -560,7 +557,7 @@
 }
 
 
-- (void)setupProductPhotosMapping{
+- (void)setupProductMapping{
     //Initializing the Object Manager
     // RKObjManeger = [RKObjectManager sharedManager];
     
