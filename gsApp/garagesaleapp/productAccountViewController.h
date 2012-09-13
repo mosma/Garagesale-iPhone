@@ -45,7 +45,12 @@
     __unsafe_unretained IBOutlet UILabel        *labelDescription;
     __unsafe_unretained IBOutlet UILabel        *labelValue;
     __unsafe_unretained IBOutlet UIView         *viewPicsControl;
-                                                             
+    __unsafe_unretained IBOutlet UIButton       *buttonCamera;
+    __unsafe_unretained IBOutlet UIButton       *buttonLibrary;
+    __unsafe_unretained IBOutlet UIButton       *buttonSendPhotoAfter;                                             
+    __unsafe_unretained IBOutlet UIButton       *buttonCancel;
+    __unsafe_unretained IBOutlet UIButton       *buttonAddPics;
+
     //Others
     RKObjectManager             *RKObjManeger;
     NSMutableArray              *nsMutArrayPicsProduct;
@@ -79,13 +84,17 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonCamera;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonLibrary;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonSendPhotoAfter;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonCancel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonAddPics;
+
 @property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
 
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;
-
-
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

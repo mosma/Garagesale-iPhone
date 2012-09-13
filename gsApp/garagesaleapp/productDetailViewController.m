@@ -179,10 +179,7 @@
         galleryScrollView.autoresizesSubviews   = YES;
         [galleryScrollView addSubview:imageView];
 
-        [scrollView insertSubview:countView aboveSubview:galleryScrollView];
-
         countView.layer.cornerRadius = 4;
-        countView.hidden = YES;
         [secondView addSubview:garageDetailView];
         self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
 
@@ -295,8 +292,13 @@
         PagContGallery = [[UIPageControl alloc] init];
         PagContGallery.numberOfPages = countPhotos;
         
-        countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
         
+        if (countPhotos != 0) {
+            [scrollView insertSubview:countView aboveSubview:galleryScrollView];
+            countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
+        } else 
+            countView.hidden = YES;
+
         UIImage *image;
 
         if (self.product.fotos == NULL) {
@@ -309,7 +311,7 @@
             
         }
 
-        countView.hidden = NO;
+
         
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]

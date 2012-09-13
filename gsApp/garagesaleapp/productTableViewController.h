@@ -23,7 +23,7 @@
                                                                 UIScrollViewDelegate> {
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
-    NSMutableArray          *mutArrayDataThumbs;
+    NSMutableDictionary     *mutDictDataThumbs;
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     BOOL                    *isSearch;
@@ -39,7 +39,7 @@
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
 @property (retain, nonatomic) NSMutableArray        *mutArrayProducts;
-@property (retain, nonatomic) NSMutableArray        *mutArrayDataThumbs;
+@property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 

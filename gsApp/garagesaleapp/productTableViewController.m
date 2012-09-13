@@ -16,7 +16,7 @@
 @implementation productTableViewController
 
 @synthesize mutArrayProducts;
-@synthesize mutArrayDataThumbs;
+@synthesize mutDictDataThumbs;
 @synthesize activityIndicator;
 @synthesize RKObjManeger;
 @synthesize searchBarProduct;
@@ -192,7 +192,7 @@
             
         if ([self.strTextSearch length] != 0)
             searchBarProduct.text = self.strTextSearch;
-        mutArrayDataThumbs = [[NSMutableArray alloc] init];
+        mutDictDataThumbs = [[NSMutableDictionary alloc] init];
         
         
         NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
@@ -251,33 +251,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // Configure the cell...
+    //Instacied cells CellBlock and CellLine
     productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
-    //NSString *caminhoThumb      = [[[self.products objectAtIndex:indexPath.row] fotos ] caminhoThumb];
 
+    NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
     
-    
-        NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
+    //Attibuted at strFormat values : Currency, Valor Esperado.
     NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
                                                    [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
     NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
     NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@ by %@", currency, valorEsperado, 
                                                    [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
-    
-    
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-
-    
 
     //Set Default Size/Color
     NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
@@ -296,14 +281,7 @@
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
                                                                         [NSString stringWithFormat:@"by %@", garageName]]];
     
-
-    
-    
-    
-    
-    
-    
-    
+    //Check Flag idEstado (1 - Não Vendido, 2 - Vendido)
     if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
         [[customViewCellBlock valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
         [[customViewCellBlock valorEsperado] setText:@"Vendido"];
@@ -318,36 +296,48 @@
         customViewCellLine.valorEsperado.attributedText = attrStr;
     }
     
-    [customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
-
+    
+    //Set CellBlock Values
     [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
     [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    //[customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
     
-//    NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
-//    UIImage *image      = [[UIImage alloc] initWithData:imageData];
+    
+    //Set Gravatar at CellBlock.
+    //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
+    //UIImage *image      = [[UIImage alloc] initWithData:imageData];
     customViewCellBlock.imageGravatar.image = [UIImage imageNamed:@"nopicture.png"];
     
-    
-    
-    
 
+    //Set CellLine Values
     [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
     [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-    [customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
+    //[customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
     
-    
-    
-    
-    NSOperationQueue *queue = [NSOperationQueue new];
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                        initWithTarget:self
-                                        selector:@selector(loadButtonsProduct:)
-                                        object:[NSArray arrayWithObjects:customViewCellBlock, customViewCellLine, indexPath, nil]];
-    [queue addOperation:operation];
 
-    int i = indexPath.row;
-    NSLog(@"%@", indexPath);
-    NSLog(@"%i", i);
+    NSLog(@"------------------>%i", indexPath.row);
+    
+    
+    customViewCellBlock.imageView.image = [UIImage imageNamed:@"whitePicture.png"];
+    customViewCellLine.imageView.image = [UIImage imageNamed:@"whitePicture.png"]; 
+
+    //if ([mutDictDataThumbs count] > indexPath.row) {
+    if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]]) {
+        customViewCellBlock.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
+        customViewCellLine.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];  
+    }else {
+        if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
+            NSOperationQueue *queue = [NSOperationQueue new];
+            NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                                initWithTarget:self
+                                                selector:@selector(loadImageAtIndexPath:)
+                                                object:[NSArray arrayWithObjects:
+                                                        customViewCellBlock, 
+                                                        customViewCellLine, 
+                                                        indexPath, nil]];
+            [queue addOperation:operation];
+        }
+    }
     
     if (!isSegmentedControlChanged) {
         if(segmentControl.selectedSegmentIndex == 0){
@@ -371,23 +361,35 @@
 }
 
 
--(void)loadButtonsProduct:(NSArray *)array{
+-(void)loadImageAtIndexPath:(NSArray *)array{
     
     NSIndexPath *index = [array objectAtIndex:2];
     if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {
-                NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:index.row] fotos] caminhoThumb]];
-                
-                [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                                       withObject:[NSArray arrayWithObjects:[array objectAtIndex:0], [array objectAtIndex:1], urlThumb, nil]];
 
-    }else 
-      [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
+        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:index.row] fotos] caminhoThumb]];
+                
+        [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+                                       withObject:[NSArray arrayWithObjects:
+                                                   [array objectAtIndex:0], 
+                                                   [array objectAtIndex:1], 
+                                                   urlThumb,
+                                                   index, nil]];
+    }else {
+        [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
+        [(productCustomViewCell *)[array objectAtIndex:0] imageView].image = [UIImage imageNamed:@"nopicture.png"];
+        [(productCustomViewCell *)[array objectAtIndex:1] imageView].image = [UIImage imageNamed:@"nopicture.png"];
+    }
 }
 
 - (void)loadImageGalleryThumbs:(NSArray *)array {
     @try {
         UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:(NSString *)[array objectAtIndex:2]]]];
-        [mutArrayDataThumbs addObject:thumbImage];
+        
+        NSIndexPath *index = [array objectAtIndex:3];
+        
+        [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
+        
+        //[mutArrayDataThumbs addObject:thumbImage];
         [(productCustomViewCell *)[array objectAtIndex:0] imageView].image = thumbImage;
         [(productCustomViewCell *)[array objectAtIndex:1] imageView].image = thumbImage;
     }
@@ -399,7 +401,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
-    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutArrayDataThumbs objectAtIndex:indexPath.row]];
+    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -447,7 +449,7 @@
     [self searchBar:searchBar activate:NO];
 	[activityIndicator startAnimating];
     [mutArrayProducts removeAllObjects];
-    [mutArrayDataThumbs removeAllObjects];
+    [mutDictDataThumbs removeAllObjects];
     [self.tableView reloadData];
 }
 
@@ -487,7 +489,12 @@
 
 -(IBAction)changeSegControl{
     isSegmentedControlChanged = NO;
+    
+    [mutDictDataThumbs removeAllObjects];
     [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointZero animated:NO];
+    [self.tableView reloadInputViews];
+
 }
 
 - (void)viewDidUnload
@@ -496,6 +503,13 @@
     
     activityIndicator = nil;
     [self setActivityIndicator:nil];
+    
+    
+    mutDictDataThumbs = nil;
+    [self setMutDictDataThumbs:nil];
+    
+    mutArrayProducts = nil;
+    [self setMutArrayProducts:nil];
     
     [super viewDidUnload];
 }
