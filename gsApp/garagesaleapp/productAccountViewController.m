@@ -97,9 +97,6 @@
     viewPicsControl.alpha = 0;
     viewPicsControl.layer.cornerRadius = 5;
     
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
-    
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
@@ -128,6 +125,7 @@
     pickerViewState.dataSource = self;
     pickerViewState.showsSelectionIndicator = YES;
     txtFieldState.inputView = pickerViewState;
+    
     txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
     
     //Set Picker View Currency
@@ -199,10 +197,18 @@
 }
 
 - (IBAction)animationPicsControl{
-    
+
+    //Limited Maximum At Pics Add Gallery
     if ([nsMutArrayPicsProduct count] == 10) 
         buttonAddPics.enabled = NO;
 
+//    if (!viewPicsControl.hidden)
+//        [self.navigationController setNavigationBarHidden:YES];
+//    else 
+//        [self.navigationController setNavigationBarHidden:NO];
+    
+    
+    //if Gallery have pics, Hide and reposition objects
     if ([nsMutArrayPicsProduct count] > 0) {
         buttonSendPhotoAfter.hidden = YES;
         [buttonLibrary setBackgroundImage:[UIImage imageNamed:@"btMenuTableBottomB.png"] forState:UIControlStateNormal];
@@ -218,7 +224,7 @@
         buttonLibrary.frame = CGRectMake(8, 87, 285, 44);
         buttonCancel.frame  = CGRectMake(8, 193, 285, 37);
     }
-    
+
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
@@ -228,21 +234,22 @@
         [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
         viewPicsControl.hidden = NO;
         viewPicsControl.alpha = 1.0;
-        shadowView.alpha = 0.7;
-        [UIView commitAnimations];
+        shadowView.alpha = 0.2;
+       // [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     } else {
         viewPicsControl.alpha = 0;
         shadowView.alpha = 0;
         viewPicsControl.hidden = YES;
         [shadowView removeFromSuperview];
+        //[GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     
     [UIView commitAnimations];
-    
 }
 
 -(IBAction)goBack:(id)sender {
-    [self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
+    [self dismissModalViewControllerAnimated:YES];
+    //[self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
 }
 
 -(void)goToTabBarController:(int)index{
@@ -257,7 +264,6 @@
     UIView * fromView = self.view.superview;
     UIView * toView = [[self.tabBarController.viewControllers objectAtIndex:index] view];
     
-    
     // Transition using a page curl.
     [UIView transitionFromView:fromView 
                         toView:toView 
@@ -268,14 +274,14 @@
                             self.tabBarController.selectedIndex = index;
                         }
                     }];
-    
-    
-    
-
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
     [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+ // [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -306,6 +312,9 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{    
     UIImage *imageThumb = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    
     [self addImageToScrollView:imageThumb];
     [picker dismissModalViewControllerAnimated:YES];
 }
@@ -444,6 +453,9 @@
 #pragma mark Execution code
 
 - (void)myTask {
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+    
     HUD.mode = MBProgressHUDModeAnnularDeterminate;
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
@@ -464,13 +476,13 @@
 		progress += 0.01f;
 		HUD.progress = progress;
         if (progress > 1) progress = 0.0f;
-		usleep(50000);
+		usleep(30000);
 	}
     
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.labelText = @"Completed";
-	sleep(2);
+	sleep(1);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];  
@@ -479,8 +491,9 @@
     [self reloadInputViews];
 }
 
--(void)reloadInputViews{
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+-(void)reloadInputViews{    
+    
+    [self goToTabBarController:2];
     
     for (UIView *subview in [scrollViewPicsProduct subviews]){
         if([subview isKindOfClass:[UIImageView class]])
@@ -489,8 +502,9 @@
     [HUD.customView removeFromSuperview];
     [nsMutArrayPicsProduct removeAllObjects];
     nsMutArrayPicsProduct = nil;
-    sleep(2);
-    [self goToTabBarController:2];
+    //sleep(2);
+
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
 }
 
 -(void)postProduct {
@@ -654,9 +668,6 @@
         UIGraphicsEndImageContext();
         NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0); 
         
-        
-        
-        
         RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files[]"];
         attachment.MIMEType = @"image/png";
         attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
@@ -819,7 +830,16 @@
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
+//    
+//    if (textField == txtFieldState) {
+//        for (id subview in txtFieldState.subviews) {
+//            if ([subview.]){
+//                subview.hidden = TRUE;
+//            }
+//        }
+//    }
 }
+
 
 #pragma mark -
 #pragma mark UITextView Delegate

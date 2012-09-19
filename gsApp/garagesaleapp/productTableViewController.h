@@ -21,20 +21,18 @@
                                                                 UISearchBarDelegate,
                                                                 RKObjectLoaderDelegate,
                                                                 UIScrollViewDelegate> {
+
+    BOOL                    *isSearch;
+    BOOL                    *isSegmentedControlChanged;
+
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
     NSMutableDictionary     *mutDictDataThumbs;
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
-    BOOL                    *isSearch;
-    BOOL                    *isSegmentedControlChanged;
-    IBOutlet OHAttributedLabel        *labelTitleResults;
-
-    IBOutlet UISearchBar    *searchBarProduct;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *UIAIV_Main;
+    IBOutlet OHAttributedLabel *OHlabelTitleResults;
+    IBOutlet UISearchBar       *searchBarProduct;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
-    //__unsafe_unretained IBOutlet productCustomViewCell *customCellViewLine;                                                            
-    //__unsafe_unretained IBOutlet productCustomViewCell *customCellViewBlock;                                                 
 }
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
@@ -42,13 +40,11 @@
 @property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
-
-@property (nonatomic, retain) IBOutlet OHAttributedLabel      *labelTitleResults;
-@property (nonatomic, retain) IBOutlet UISearchBar  *searchBarProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) IBOutlet OHAttributedLabel *OHlabelTitleResults;
+@property (nonatomic, retain) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-//@property (unsafe_unretained, nonatomic) IBOutlet productCustomViewCell *customCellViewLine; 
-//@property (unsafe_unretained, nonatomic) IBOutlet productCustomViewCell *customCellViewBlock; 
+
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 -(void)setupProductMapping;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;

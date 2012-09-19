@@ -22,10 +22,8 @@
 @synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
 @synthesize strTextSearch;
-@synthesize labelTitleResults;
+@synthesize OHlabelTitleResults;
 @synthesize segmentControl;
-//@synthesize customCellViewLine;
-//@synthesize customCellViewBlock;
 
 - (void)awakeFromNib
 {
@@ -205,7 +203,7 @@
         [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:count]];
         [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
         
-        labelTitleResults.attributedText = attrStr;
+        OHlabelTitleResults.attributedText = attrStr;
     }
 }
 
@@ -315,7 +313,7 @@
     //[customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
     
 
-    NSLog(@"------------------>%i", indexPath.row);
+    //NSLog(@"------------------>%i", indexPath.row);
     
     
     customViewCellBlock.imageView.image = [UIImage imageNamed:@"whitePicture.png"];

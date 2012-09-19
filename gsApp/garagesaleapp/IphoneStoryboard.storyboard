@@ -132,7 +132,7 @@
                     <connections>
                         <outlet property="activityLoadProducts" destination="yiR-qf-TEA" id="Ipa-rH-N65"/>
                         <outlet property="labelSearch" destination="0MP-fq-dd3" id="iaB-kS-wNV"/>
-                        <outlet property="scrollView" destination="8RG-Ok-f0d" id="6jj-RL-v3e"/>
+                        <outlet property="scrollViewMain" destination="8RG-Ok-f0d" id="DOe-iq-qUE"/>
                         <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
                         <outlet property="txtFieldSearch" destination="wen-uR-S49" id="XjP-Zq-Qp6"/>
                         <outlet property="viewSearch" destination="oAx-vy-ZuX" id="aIx-oH-wP4"/>
@@ -159,7 +159,7 @@
                                     <rect key="frame" x="0.0" y="-13" width="320" height="65"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sin-Wx-gne" userLabel="labelTitleResults" customClass="OHAttributedLabel">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sin-Wx-gne" userLabel="OHlabelTitleResults" customClass="OHAttributedLabel">
                                     <rect key="frame" x="10" y="13" width="302" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -286,8 +286,8 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="OHlabelTitleResults" destination="sin-Wx-gne" id="ClV-Zd-tZB"/>
                         <outlet property="activityIndicator" destination="VBJ-Rd-gcI" id="hZR-BO-GY8"/>
-                        <outlet property="labelTitleResults" destination="sin-Wx-gne" id="kV6-MD-HTd"/>
                         <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
                     </connections>
                 </tableViewController>
@@ -367,14 +367,14 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="2cf-9c-js8"/>
+                                            <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="vZq-v7-pUa"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="sfh-PS-VWG" userLabel="viewTop">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec" userLabel="scrollViewPicsProduct">
                                                 <rect key="frame" x="10" y="0.0" width="244" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </scrollView>
@@ -404,12 +404,12 @@
                                         <rect key="frame" x="11" y="182" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownState.png" id="6iD-7f-dLb" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="106" width="150" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="12" y="391" width="113" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownState.png" id="zdH-QS-alb" userLabel="textField01iphoneTitle.png">
+                                        <rect key="frame" x="11" y="106" width="150" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee" userLabel="textField01iphoneValue.png">
@@ -449,7 +449,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gcC-s1-oMW" userLabel="txtFieldState">
-                                        <rect key="frame" x="20" y="107" width="141" height="31"/>
+                                        <rect key="frame" x="20" y="107" width="105" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.53061224490000003" green="0.53061224490000003" blue="0.53061224490000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
@@ -469,7 +469,7 @@
                                         <color key="textColor" red="0.20000001788139343" green="0.58823531866073608" blue="0.20392158627510071" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7sc-fe-UrJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7sc-fe-UrJ" userLabel="buttonCancel">
                                         <rect key="frame" x="8" y="193" width="285" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -484,7 +484,7 @@
                                             <action selector="goBack:" destination="o08-vM-tNV" eventType="touchUpInside" id="PfQ-fL-GvO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q" userLabel="buttonCamera">
                                         <rect key="frame" x="8" y="42" width="285" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -500,7 +500,7 @@
                                             <action selector="getPicsByCamera:" destination="o08-vM-tNV" eventType="touchUpInside" id="5W4-Xi-D6N"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jNI-vL-QVJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jNI-vL-QVJ" userLabel="buttonLibrary">
                                         <rect key="frame" x="8" y="87" width="285" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
@@ -517,7 +517,7 @@
                                             <action selector="getPicsByPhotosAlbum:" destination="o08-vM-tNV" eventType="touchUpInside" id="R4D-n3-J8p"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwr-kM-2YB">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwr-kM-2YB" userLabel="buttonSendPhotoAfter">
                                         <rect key="frame" x="8" y="130" width="285" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -1236,7 +1236,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="twh-gR-zGE">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="twh-gR-zGE" userLabel="scrollViewMain">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -1244,14 +1244,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="5Ha-Dk-YED">
+                                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="5Ha-Dk-YED" userLabel="labelCurrency">
                                                 <rect key="frame" x="186" y="397" width="20" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.50187340561224492" green="0.50187340561224492" blue="0.50187340561224492" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="valorEsperadoLabel" customClass="OHAttributedLabel">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
                                                 <rect key="frame" x="10" y="72" width="233" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
@@ -1267,7 +1267,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="Better Togeter Cap Pouch v2" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="aKV-ty-jd3" userLabel="nomeLabel">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="Better Togeter Cap Pouch v2" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="aKV-ty-jd3" userLabel="labelNomeProduto">
                                                 <rect key="frame" x="10" y="0.0" width="300" height="55"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
@@ -1275,22 +1275,6 @@
                                                 <nil key="highlightedColor"/>
                                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1TG-YL-hWp">
-                                                <rect key="frame" x="270" y="824" width="50" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                                <state key="normal" backgroundImage="more_pics.png">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="gotoGalleryScrollVC" destination="Nbe-H5-7nH" eventType="touchUpInside" id="3KC-GO-6VB"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" text="Bid Sent" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="vUP-8p-twf">
                                                 <rect key="frame" x="19" y="567" width="278" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1303,22 +1287,6 @@
                                                 <rect key="frame" x="0.0" y="346" width="320" height="70"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KJE-1I-79v">
-                                                        <rect key="frame" x="32" y="2" width="21" height="14"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" red="0.81960791349999995" green="0.81960791349999995" blue="0.81960791349999995" alpha="1" colorSpace="deviceRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <state key="normal">
-                                                            <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="gotoGarageDetailVC" destination="Nbe-H5-7nH" eventType="touchUpInside" id="BAz-pQ-ByJ"/>
-                                                        </connections>
-                                                    </button>
                                                     <view contentMode="scaleToFill" id="sRO-2d-c8g">
                                                         <rect key="frame" x="0.0" y="70" width="320" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1340,7 +1308,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.87450987100601196" green="0.87450987100601196" blue="0.87450987100601196" alpha="1" colorSpace="deviceRGB"/>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D0t-99-3XX">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D0t-99-3XX" userLabel="buttonActionEmailComposer">
                                                         <rect key="frame" x="252" y="15" width="57" height="36"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -1355,7 +1323,7 @@
                                                             <action selector="actionEmailComposer" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7Ps-8m-Z7b"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc" userLabel="labelNameProfile">
                                                         <rect key="frame" x="67" y="10" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="15"/>
@@ -1364,7 +1332,7 @@
                                                         <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="OQy-N1-Cen">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="OQy-N1-Cen" userLabel="labelCityProfile">
                                                         <rect key="frame" x="67" y="25" width="177" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="12"/>
@@ -1373,7 +1341,7 @@
                                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="middleTruncation" minimumFontSize="10" id="r68-i3-jyi">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="middleTruncation" minimumFontSize="10" id="r68-i3-jyi" userLabel="labelEmailProfile">
                                                         <rect key="frame" x="67" y="41" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="13"/>
@@ -1382,7 +1350,7 @@
                                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9k5-33-1yu">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9k5-33-1yu" userLabel="buttonGarageDetail">
                                                         <rect key="frame" x="10" y="10" width="47" height="47"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
@@ -1415,7 +1383,7 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sqL-iQ-KWX">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sqL-iQ-KWX" userLabel="labelDescricao">
                                                 <rect key="frame" x="10" y="403" width="300" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="14"/>
@@ -1462,7 +1430,7 @@
                                                     <action selector="textFieldEditingEnded:" destination="Nbe-H5-7nH" eventType="editingDidEndOnExit" id="r77-68-R6D"/>
                                                 </connections>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaR-k2-gdc" userLabel="BtBidItem">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaR-k2-gdc" userLabel="buttonBid">
                                                 <rect key="frame" x="189" y="240" width="102" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -1521,14 +1489,14 @@
                                                 <rect key="frame" x="9" y="62" width="282" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Fzg-cv-wIL" userLabel="emailtxtField">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Fzg-cv-wIL" userLabel="txtFieldEmail">
                                                 <rect key="frame" x="14" y="62" width="271" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Roz-bE-ZnX" userLabel="textViewDescription">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Roz-bE-ZnX" userLabel="txtViewComment">
                                                 <rect key="frame" x="14" y="139" width="271" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1540,7 +1508,7 @@
                                         <color key="backgroundColor" red="0.92941182851791382" green="0.92941182851791382" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" id="ufa-Jv-wRO" userLabel="ViewBidMsg">
-                                        <rect key="frame" x="10" y="67" width="300" height="160"/>
+                                        <rect key="frame" x="900" y="67" width="300" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rgz-Bx-1Hk" userLabel="BtBack">
@@ -1584,28 +1552,25 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="bidButton" destination="QaR-k2-gdc" id="rFo-Sn-L13"/>
-                        <outlet property="cityProfile" destination="OQy-N1-Cen" id="CJg-l0-Pis"/>
-                        <outlet property="commentTextView" destination="Roz-bE-ZnX" id="Vuu-G1-X9l"/>
+                        <outlet property="OHlabelValorEsperado" destination="fV4-sm-nn9" id="ou1-lq-21E"/>
+                        <outlet property="buttonBid" destination="QaR-k2-gdc" id="Tzq-V7-dqh"/>
+                        <outlet property="buttonGarageDetail" destination="9k5-33-1yu" id="6ND-0i-ogR"/>
                         <outlet property="countLabel" destination="ERP-DW-RRs" id="oV6-BL-fhd"/>
                         <outlet property="countView" destination="5zP-hO-T2F" id="r6K-nD-u6B"/>
-                        <outlet property="currencyLabel" destination="5Ha-Dk-YED" id="UIx-0W-Uh3"/>
-                        <outlet property="descricaoLabel" destination="sqL-iQ-KWX" id="Z1V-Qb-0ev"/>
-                        <outlet property="emailProfile" destination="r68-i3-jyi" id="iZC-ZB-wJI"/>
-                        <outlet property="emailTextField" destination="Fzg-cv-wIL" id="W0o-DD-66c"/>
                         <outlet property="galleryScrollView" destination="3sh-IV-iZD" id="9zQ-uV-9SW"/>
-                        <outlet property="garageDetailButton" destination="KJE-1I-79v" id="gje-WR-Kk5"/>
                         <outlet property="garageDetailView" destination="Qxf-rq-Xx8" id="jen-76-jJe"/>
+                        <outlet property="labelCityProfile" destination="OQy-N1-Cen" id="Dyj-SX-rRD"/>
+                        <outlet property="labelCurrency" destination="5Ha-Dk-YED" id="KcQ-LM-jLb"/>
+                        <outlet property="labelDescricao" destination="sqL-iQ-KWX" id="rvZ-fo-n3E"/>
+                        <outlet property="labelEmailProfile" destination="r68-i3-jyi" id="kIk-La-ELI"/>
+                        <outlet property="labelNameProfile" destination="0zP-oz-hlc" id="bYa-bw-vx9"/>
+                        <outlet property="labelNomeProduto" destination="aKV-ty-jd3" id="xtY-ro-Hdt"/>
                         <outlet property="msgBidSentLabel" destination="vUP-8p-twf" id="vbF-s7-A2p"/>
-                        <outlet property="nameProfile" destination="0zP-oz-hlc" id="APC-o5-EaX"/>
-                        <outlet property="nomeLabel" destination="aKV-ty-jd3" id="3rE-bX-RKi"/>
                         <outlet property="offerLabel" destination="pao-W5-mK5" id="AcN-XA-Wsb"/>
-                        <outlet property="offerTextField" destination="8GZ-xO-7bc" id="NMX-c4-WGF"/>
-                        <outlet property="scrollView" destination="twh-gR-zGE" id="z4M-yH-Xzv"/>
+                        <outlet property="scrollViewMain" destination="twh-gR-zGE" id="NwH-1P-nHj"/>
                         <outlet property="secondView" destination="U9r-cX-unh" id="rtW-Jd-QH4"/>
-                        <outlet property="seeAllButton" destination="9k5-33-1yu" id="huH-YP-Eum"/>
-                        <outlet property="showPicsButton" destination="1TG-YL-hWp" id="QgS-xU-4ZR"/>
-                        <outlet property="valorEsperadoLabel" destination="fV4-sm-nn9" id="i4k-Er-SLa"/>
+                        <outlet property="txtFieldEmail" destination="Fzg-cv-wIL" id="nx2-qz-T4M"/>
+                        <outlet property="txtViewComment" destination="Roz-bE-ZnX" id="ABl-Eg-VFk"/>
                         <outlet property="viewBidMsg" destination="ufa-Jv-wRO" id="NKv-nB-VFn"/>
                         <outlet property="viewBidSend" destination="XW6-ur-9kb" id="VgO-pu-8cE"/>
                     </connections>
@@ -2126,6 +2091,20 @@
             </objects>
             <point key="canvasLocation" x="586" y="-879"/>
         </scene>
+        <!--Add Product Modal View Controller-->
+        <scene sceneID="6uA-6N-vME">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c8j-e0-T87" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="addProductModal" id="rST-uz-u32" customClass="addProductModalViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dHf-gj-byI">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1085" y="-888"/>
+        </scene>
     </scenes>
     <resources>
         <image name="about@2x.png" width="60" height="60"/>
@@ -2155,7 +2134,6 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
-        <image name="more_pics.png" width="50" height="50"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>

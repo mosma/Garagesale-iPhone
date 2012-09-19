@@ -300,7 +300,7 @@ static NSString *urlImagePath;
     [UIView setAnimationDuration:0.5];
     for(UIView *view in tabbarcontroller.view.subviews)
     {
-        NSLog(@"%@", view);
+        //NSLog(@"%@", view);
         if([view isKindOfClass:[UITabBar class]])
         {
             [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
@@ -353,7 +353,7 @@ static NSString *urlImagePath;
 //    [dictLang setObject:@"en_US" forKey:@"GBP"];
 //    [dictLang setObject:@"pt_BR" forKey:@"BRL"];
 
-    NSLog(@"%@",[dictLang valueForKey:[NSString stringWithString:currencyCode]]);
+//    NSLog(@"%@",[dictLang valueForKey:[NSString stringWithString:currencyCode]]);
     
     NSLocale *lcl = [[NSLocale alloc] initWithLocaleIdentifier:
                      [NSString stringWithString:[dictLang valueForKey:[NSString stringWithString:currencyCode]]]];

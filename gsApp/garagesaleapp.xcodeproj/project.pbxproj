@@ -92,6 +92,7 @@
 		CC3AB09B156C892900544D93 /* btSign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB096156C892900544D93 /* btSign@2x.png */; };
 		CC3AB09E156C8D4C00544D93 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB09C156C8D4C00544D93 /* logo.png */; };
 		CC3AB09F156C8D4C00544D93 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB09D156C8D4C00544D93 /* logo@2x.png */; };
+		CC3B0C25160A5C7300F4C0D9 /* addProductModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B0C24160A5C7300F4C0D9 /* addProductModalViewController.m */; };
 		CC3FF7F215F04F560073479D /* dotsDetailProduct.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3FF7EF15F04F560073479D /* dotsDetailProduct.png */; };
 		CC3FF7F315F04F560073479D /* dotsDetailProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3FF7F015F04F560073479D /* dotsDetailProduct@2x.png */; };
 		CC3FF7F415F04F560073479D /* topHeaderProductDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3FF7F115F04F560073479D /* topHeaderProductDetail@2x.png */; };
@@ -358,6 +359,8 @@
 		CC3AB096156C892900544D93 /* btSign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSign@2x.png"; sourceTree = "<group>"; };
 		CC3AB09C156C8D4C00544D93 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		CC3AB09D156C8D4C00544D93 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		CC3B0C23160A5C7300F4C0D9 /* addProductModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addProductModalViewController.h; sourceTree = "<group>"; };
+		CC3B0C24160A5C7300F4C0D9 /* addProductModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addProductModalViewController.m; sourceTree = "<group>"; };
 		CC3FF7EF15F04F560073479D /* dotsDetailProduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dotsDetailProduct.png; sourceTree = "<group>"; };
 		CC3FF7F015F04F560073479D /* dotsDetailProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotsDetailProduct@2x.png"; sourceTree = "<group>"; };
 		CC3FF7F115F04F560073479D /* topHeaderProductDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "topHeaderProductDetail@2x.png"; sourceTree = "<group>"; };
@@ -913,6 +916,8 @@
 				CC964090159195E600D00915 /* garageAccountViewController.m */,
 				CC9640921591A1E200D00915 /* settingsAccountViewController.h */,
 				CC9640931591A1E200D00915 /* settingsAccountViewController.m */,
+				CC3B0C23160A5C7300F4C0D9 /* addProductModalViewController.h */,
+				CC3B0C24160A5C7300F4C0D9 /* addProductModalViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1238,6 +1243,7 @@
 				CC9640941591A1E300D00915 /* settingsAccountViewController.m in Sources */,
 				CC1415431594EA5000B93C16 /* ServicesGSAPI.m in Sources */,
 				CC6B0FDA15D622D200BBB742 /* MBProgressHUD.m in Sources */,
+				CC3B0C25160A5C7300F4C0D9 /* addProductModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

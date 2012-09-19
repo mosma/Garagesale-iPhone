@@ -11,8 +11,8 @@
 @implementation ViewController
 
 @synthesize RKObjManeger;
-@synthesize nsArrayProducts;
-@synthesize scrollView;
+@synthesize mutArrayProducts;
+@synthesize scrollViewMain;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
 @synthesize activityLoadProducts;
@@ -73,8 +73,8 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
-        [nsArrayProducts removeAllObjects];
-        self.nsArrayProducts = (NSMutableArray *)objects;
+        [mutArrayProducts removeAllObjects];
+        mutArrayProducts = (NSMutableArray *)objects;
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
@@ -129,11 +129,11 @@
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     
     //Set Logo Top Button Not Account.
-    logoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    logoButton.frame = CGRectMake(33, 20, 253, 55);
-    [logoButton setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
-    logoButton.adjustsImageWhenHighlighted = NO;
-    [logoButton addTarget:self action:@selector(reloadPage:)
+    buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonLogo.frame = CGRectMake(33, 20, 253, 55);
+    [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
+    buttonLogo.adjustsImageWhenHighlighted = NO;
+    [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
 
     self.tabBarController.delegate = self;
@@ -168,71 +168,119 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
-    scrollView.delegate = self;
+    scrollViewMain.delegate = self;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+
+    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+    
+    productAccountViewController *addProductModal = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
+    
+//    
+//    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
+//
+//    
+//    addProductModal.view.backgroundColor = [UIColor colorWithPatternImage:myImage];
+
+    
+   [self.navigationController.tabBarController presentModalViewController:addProductModal animated:YES];
+    
+    
     [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
    // NSLog(@"Integer  : %i", [self.nsArrayProducts count]);
-    for(int i = 0; i < [self.nsArrayProducts count]; i++)
+    for(int i = 0; i < [mutArrayProducts count]; i++)
     {
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:[self.nsArrayProducts objectAtIndex:i], 
+                               withObject:[NSArray arrayWithObjects:[mutArrayProducts objectAtIndex:i], 
                                                                     [NSNumber numberWithInt:i], 
                                                                      nil]];
     }
 }
 
 - (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
-    [scrollView addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
+    [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
                                                                      showEdit:NO
                                                                      showPrice:NO
                                                                      viewContr:self]];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _lastContentOffset = scrollView.contentOffset.y;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
+        if (!viewSearch.hidden || !viewTopPage.hidden){
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.5];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+            if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+                viewSearch.hidden = YES;
+                [self.navigationController setNavigationBarHidden:YES];
+                [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+            }else
+                viewTopPage.hidden = YES;
+            [UIView commitAnimations];
+            [txtFieldSearch resignFirstResponder];
+        }
+    }else {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+            viewSearch.hidden = NO;
+            [self.navigationController setNavigationBarHidden:NO];
+            [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        }else
+            viewTopPage.hidden = NO;
+        [UIView commitAnimations];
+    }
     if (isSearch)
         [self showSearch:nil];
-    [txtFieldSearch resignFirstResponder];
 }
 
 - (IBAction)reloadPage:(id)sender{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    for (UIButton *subview in [scrollView subviews]) 
+    for (UIButton *subview in [scrollViewMain subviews]) 
         [subview removeFromSuperview];
     //[self loadAttribsToComponents];
-    [scrollView addSubview:logoButton];
+    [scrollViewMain addSubview:buttonLogo];
     [self setupProductMapping];
     
     //Set Display thumbs on Home.
     globalFunctions.countColumnImageThumbs = -1;
     globalFunctions.imageThumbsXorigin_Iphone = 10;
     
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
         viewSearch.hidden = NO;
         viewTopPage.hidden = YES;
-        logoButton.hidden = YES;
+        buttonLogo.hidden = YES;
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:NO];        
+        [self.navigationController setNavigationBarHidden:NO];
         globalFunctions.imageThumbsYorigin_Iphone = 10;
-        self.scrollView.contentSize	= CGSizeMake(320,825);   
+        scrollViewMain.contentSize	= CGSizeMake(320,825);
+        searchBarProduct.hidden=YES;
     }else {
         viewSearch.hidden = YES;
         viewTopPage.hidden = NO;
-        logoButton.hidden = NO;
+        buttonLogo.hidden = NO;
         globalFunctions.imageThumbsYorigin_Iphone = 95;
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         [self.navigationController setNavigationBarHidden:YES];
-        self.scrollView.contentSize	= CGSizeMake(320,817);   
+        scrollViewMain.contentSize	= CGSizeMake(320,817);   
         //[self setHidesBottomBarWhenPushed:NO];
+        searchBarProduct.hidden=NO;
     }
 }
 
@@ -240,7 +288,7 @@
     //NSLog(@"%i", sender.tag);
     
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[self.nsArrayProducts objectAtIndex:sender.tag];
+    prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
 
     prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
            
@@ -248,8 +296,7 @@
 }
 
 // Settings SearchBar
-- (void)searchBar:(UISearchBar *)searchBar
-    textDidChange:(NSString *)searchText {
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // We don't want to do anything until the user clicks 
     // the 'Search' button.
     // If you wanted to display results as the user types 
@@ -387,8 +434,8 @@
 - (void)viewDidUnload
 {
     // Release any retained subviews of the main view.
-    scrollView = nil;
-    [self setScrollView:nil];
+    scrollViewMain = nil;
+    [self setScrollViewMain:nil];
     activityLoadProducts = nil;
     [self setActivityLoadProducts:nil];
     txtFieldSearch = nil;

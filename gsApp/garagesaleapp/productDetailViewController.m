@@ -25,21 +25,19 @@
 @synthesize arrayTags;
 @synthesize isIdPersonNumber;
 @synthesize arrayProfile;
-@synthesize bidButton;
-@synthesize emailTextField;
-@synthesize offerTextField;
-@synthesize commentTextView;
-@synthesize nomeLabel;
-@synthesize descricaoLabel;
-@synthesize currencyLabel;
-@synthesize valorEsperadoLabel;
-@synthesize scrollView;
-@synthesize nameProfile;
-@synthesize cityProfile;
-@synthesize emailProfile;
-@synthesize showPicsButton;
-@synthesize garageDetailButton;
-@synthesize seeAllButton;
+@synthesize buttonBid;
+@synthesize txtFieldEmail;
+@synthesize txtFieldOffer;
+@synthesize txtViewComment;
+@synthesize labelNomeProduto;
+@synthesize labelDescricao;
+@synthesize labelCurrency;
+@synthesize OHlabelValorEsperado;
+@synthesize scrollViewMain;
+@synthesize labelNameProfile;
+@synthesize labelCityProfile;
+@synthesize labelEmailProfile;
+@synthesize buttonGarageDetail;
 @synthesize offerLabel;
 @synthesize msgBidSentLabel;
 @synthesize secondView;
@@ -122,13 +120,12 @@
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
 
-        bidButton.layer.cornerRadius            = 5.0f;
-        garageDetailButton.layer.cornerRadius   = 5.0f;
-        seeAllButton.layer.cornerRadius         = 5.0f;
+        buttonBid.layer.cornerRadius            = 5.0f;
+        buttonGarageDetail.layer.cornerRadius   = 5.0f;
         
-        shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
-        [shadowView setBackgroundColor:[UIColor blackColor]];
-        shadowView.alpha = 0;
+        viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
+        [viewShadow setBackgroundColor:[UIColor blackColor]];
+        viewShadow.alpha = 0;
         
         viewBidSend.alpha = 0;
         viewBidSend.layer.cornerRadius = 5;
@@ -136,16 +133,16 @@
         viewBidMsg.alpha = 0;
         viewBidMsg.layer.cornerRadius = 5;
         
-        [emailTextField   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [commentTextView  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [descricaoLabel   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtFieldEmail   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtViewComment  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelDescricao   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         
         //Set Labels, titles, TextView...
-        nomeLabel.text            = [self.product nome];
+        labelNomeProduto.text            = [self.product nome];
         
-        descricaoLabel.text       = [self.product descricao];
+        labelDescricao.text       = [self.product descricao];
         
-        valorEsperadoLabel.text   = [self.product valorEsperado];
+        OHlabelValorEsperado.text   = [self.product valorEsperado];
         
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", self.product.currency, self.product.valorEsperado];
@@ -156,14 +153,14 @@
         [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
                         range:[titleNavItem rangeOfString:self.product.valorEsperado]];
         [attrStr setFontName:@"Droid Sans" size:28 range:[titleNavItem rangeOfString:self.product.valorEsperado]];
-        [valorEsperadoLabel setBackgroundColor:[UIColor clearColor]];
-        valorEsperadoLabel.attributedText = attrStr;
+        [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
+        OHlabelValorEsperado.attributedText = attrStr;
 
         
         self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                                  @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
-        currencyLabel.text        = [self.product currency];
+        labelCurrency.text        = [self.product currency];
         offerLabel.text           = NSLocalizedString(@"offer", @"");
         
         CGRect rect;//             = imageView.frame;
@@ -181,12 +178,12 @@
 
         countView.layer.cornerRadius = 4;
         [secondView addSubview:garageDetailView];
-        self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
+        scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
 
         
         
     }else {
-        [bidButton setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+        [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
         // Grab the reference to the router from the manager
         RKObjectRouter *router = [RKObjectManager sharedManager].router;
@@ -198,34 +195,16 @@
             NSLog(@"Object Exist...");
         }
         
-        
-        //    //Set Image Main Image Detail to show
-        //    if ([[[self.product fotos] caminho] length] != 0){
-        //        UIImage *imageSet = [UIImage imageWithData: [NSData dataWithContentsOfURL: 
-        //                                                     [NSURL URLWithString:[NSString stringWithFormat:@"http://www.garagesaleapp.me/%@", 
-        //                                                                           [[self.product fotos] caminho]]]]];
-        //        
-        //        imageView.image = imageSet;
-        //        //Set proporcional image, center.
-        //        if (imageSet.size.width < 320 ){
-        //            imageView.frame = CGRectMake(((320-imageSet.size.width)/2), 115, imageSet.size.width, 265);
-        //            imageView.contentMode = UIViewContentModeScaleAspectFit;
-        //        }
-        //        showPicsButton.hidden = NO;
-        //    }
-        //    else
-        //        imageView.image = [UIImage imageNamed:@"nopicture.png"];
-        
-        nameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
-        cityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
-        emailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
+        labelNameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
+        labelCityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
+        labelEmailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
          
         UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
-        [seeAllButton setImage:imgProfile forState:UIControlStateNormal];
+        [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
         
         //set Navigation Title with OHAttributeLabel
-        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", nameProfile.text];
+        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", labelNameProfile.text];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
         // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
         [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
@@ -241,23 +220,21 @@
         label.textAlignment = UITextAlignmentCenter;
         self.navigationItem.titleView = label;
         
-        
-        
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationDelegate:self];
         [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
 
         //Calculate resize DescricaoLabel 
-            descricaoLabel.text = self.product.descricao;
-            [descricaoLabel sizeToFit];
-            secondView.frame = CGRectMake(0,0,320,550+descricaoLabel.frame.size.height);
-            garageDetailView.frame = CGRectMake(0, descricaoLabel.frame.origin.y+descricaoLabel.frame.size.height+10, 320, 70);
+            labelDescricao.text = self.product.descricao;
+            [labelDescricao sizeToFit];
+            secondView.frame = CGRectMake(0,0,320,550+labelDescricao.frame.size.height);
+            garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 70);
             //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
-            [secondView addSubview:descricaoLabel];
+            [secondView addSubview:labelDescricao];
             // [secondView addSubview:tagsScrollView];
             [secondView addSubview:garageDetailView];
-            self.scrollView.contentSize             = CGSizeMake(320,550+descricaoLabel.frame.size.height);
+            scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
                 
         [UIView commitAnimations];
         
@@ -283,7 +260,7 @@
                                                       withFrame:CGRectMake(225, 305, 36, 30)
                                                        forImage:imageView.image
                                                       withTitle:@"Product Send from Garagesaleapp.me"
-                                                    description:descricaoLabel.text];
+                                                    description:labelDescricao.text];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
 
@@ -294,7 +271,7 @@
         
         
         if (countPhotos != 0) {
-            [scrollView insertSubview:countView aboveSubview:galleryScrollView];
+            [scrollViewMain insertSubview:countView aboveSubview:galleryScrollView];
             countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
         } else 
             countView.hidden = YES;
@@ -376,7 +353,7 @@
         rect.size.height        = 280;
         
             NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
-            NSLog(@"url object at index %i is %@",i,url);
+            //NSLog(@"url object at index %i is %@",i,url);
             image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             imageView               = [[UIImageView alloc] initWithImage:image];
             rect.origin.x           = i*320;
@@ -554,22 +531,22 @@
         //Settings to Bid Sent
         [UIView beginAnimations:@"buttonFades" context:nil];
         [UIView setAnimationDuration:0.5];
-        [bidButton setEnabled:YES];
-        [bidButton setAlpha:1.0];
+        [buttonBid setEnabled:YES];
+        [buttonBid setAlpha:1.0];
         [msgBidSentLabel setAlpha:1.0];
         [viewBidSend setAlpha:0];
         viewBidSend.hidden = YES;
         [viewBidMsg setAlpha:1.0f];
-        [self.scrollView insertSubview:shadowView belowSubview:viewBidMsg];
+        [scrollViewMain insertSubview:viewShadow belowSubview:viewBidMsg];
         viewBidMsg.hidden = NO;        
         [UIView commitAnimations];
         
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
         
         msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
-        emailTextField.text  = @"";
-        offerTextField.text  = @"";
-        commentTextView.text  = @"";
+        txtFieldEmail.text  = @"";
+        txtFieldOffer.text  = @"";
+        txtViewComment.text  = @"";
 
         //Set Delay to Hide msgBidSentLabel
         [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideMsgBidSent) userInfo:nil repeats:NO];
@@ -714,21 +691,21 @@
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
     if (viewBidSend.hidden && viewBidMsg.hidden) {
-        [self.scrollView insertSubview:viewBidMsg belowSubview:viewBidSend];
-        [self.scrollView insertSubview:shadowView belowSubview:viewBidSend];
+        [scrollViewMain insertSubview:viewBidMsg belowSubview:viewBidSend];
+        [scrollViewMain insertSubview:viewShadow belowSubview:viewBidSend];
         viewBidSend.hidden = NO;
         viewBidMsg.hidden = NO;
         viewBidSend.alpha = 1.0;
-        shadowView.alpha = 0.7;
+        viewShadow.alpha = 0.7;
         countView.alpha = 0;
         [UIView commitAnimations];
     } else {
         viewBidSend.alpha = 0;
-        shadowView.alpha = 0;
+        viewShadow.alpha = 0;
         viewBidSend.hidden = YES;
         viewBidMsg.hidden = YES;
         countView.alpha = 1.0;
-        [shadowView removeFromSuperview];
+        [viewShadow removeFromSuperview];
     }
     
     [UIView commitAnimations];
@@ -736,11 +713,11 @@
 
 -(IBAction)bidPost:(id)sender{
     //Validate fields
-    if (([self.commentTextView.text length] == 0)) {
+    if (([txtViewComment.text length] == 0)) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterValueProduct", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
-    } else if([self.emailTextField.text length] == 0 || ![GlobalFunctions isValidEmail:self.emailTextField.text]) {
+    } else if([txtFieldEmail.text length] == 0 || ![GlobalFunctions isValidEmail:txtFieldEmail.text]) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterEmail", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return;
@@ -756,9 +733,9 @@
     
     //Setting Bid Entity
     Bid* bid = [[Bid alloc] init];  
-    bid.email = self.emailTextField.text;  
-    bid.value = [[NSNumber alloc] initWithInt:[self.commentTextView.text floatValue]];
-    bid.comment = self.commentTextView.text;
+    bid.email = txtFieldEmail.text;  
+    bid.value = [[NSNumber alloc] initWithInt:[txtViewComment.text floatValue]];
+    bid.comment = txtViewComment.text;
     bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]]; 
     
     // POST bid  
@@ -767,8 +744,8 @@
     //Animate bidButton
     [UIView beginAnimations:@"buttonFades" context:nil];
     [UIView setAnimationDuration:0.5];
-    [bidButton setEnabled:NO];
-    [bidButton setAlpha:0.3];
+    [buttonBid setEnabled:NO];
+    [buttonBid setAlpha:0.3];
     [UIView commitAnimations];
 }
 
@@ -801,8 +778,8 @@
     
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    self.keyboardControls.textFields = [NSArray arrayWithObjects:self.emailTextField,
-                                        self.commentTextView, nil];
+    self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmail,
+                                        txtViewComment, nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
@@ -839,12 +816,12 @@
 /* Scroll the view to the active text field */
 - (void)scrollViewToTextField:(id)textField
 {
-    UIScrollView* v = (UIScrollView*) self.scrollView;
+    UIScrollView* v = (UIScrollView*) scrollViewMain;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     
     rc.size.height = 300;
-    [self.scrollView scrollRectToVisible:rc animated:YES];
+    [scrollViewMain scrollRectToVisible:rc animated:YES];
     
     /* 
      Use this block case use UITableView
@@ -915,26 +892,22 @@
  */
 - (void)viewDidUnload
 {
-    emailTextField = nil;
-    offerTextField = nil;
-    commentTextView = nil;
-    [self setEmailTextField:nil];
-    [self setOfferTextField:nil];
-    [self setCommentTextView:nil];
-    nameProfile = nil;
-    cityProfile = nil;
-    emailProfile = nil;
-    [self setNameProfile:nil];
-    [self setCityProfile:nil];
-    [self setEmailProfile:nil];
-    showPicsButton = nil;
-    [self setShowPicsButton:nil];
-    bidButton = nil;
-    [self setBidButton:nil];
-    [self setGarageDetailButton:nil];
-    garageDetailButton = nil;
-    seeAllButton = nil;
-    [self setSeeAllButton:nil];
+    txtFieldEmail = nil;
+    txtFieldOffer = nil;
+    txtViewComment = nil;
+    [self setTxtFieldEmail:nil];
+    [self setTxtFieldOffer:nil];
+    [self setTxtViewComment:nil];
+    labelNameProfile = nil;
+    labelCityProfile = nil;
+    labelEmailProfile = nil;
+    [self setLabelNameProfile:nil];
+    [self setLabelCityProfile:nil];
+    [self setLabelEmailProfile:nil];
+    buttonBid = nil;
+    [self setButtonBid:nil];
+    [self setButtonGarageDetail:nil];
+    buttonGarageDetail = nil;
 //    imgViewLoading = nil;
 //    [self setImgViewLoading:nil];
     offerLabel = nil;

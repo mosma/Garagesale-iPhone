@@ -34,6 +34,8 @@
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller;
 +(void)showTabBar:(UITabBarController *) tabbarcontroller;
++(void)hideTabBar:(UITabBarController *) tabbarcontroller;
++(void)showTabBar:(UITabBarController *) tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
 +(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width;
 -(UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr;
