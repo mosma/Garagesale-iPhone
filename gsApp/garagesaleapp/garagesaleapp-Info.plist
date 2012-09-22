@@ -53,14 +53,10 @@
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>IpadStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+	<array/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackTranslucent</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>AppFonts</string>
 </dict>
 </plist>

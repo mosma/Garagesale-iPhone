@@ -14,14 +14,12 @@
 #import "QuartzCore/QuartzCore.h"
 #import "Product.h"
 
-
-#import "addProductModalViewController.h"
-
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,
                                               OHAttributedLabelDelegate,
                                               UITabBarControllerDelegate,
-                                              UIScrollViewDelegate>{
+                                              UIScrollViewDelegate,
+                                              UIActionSheetDelegate> {
 
     BOOL                                        *isSearch;
     GlobalFunctions                             *globalFunctions;

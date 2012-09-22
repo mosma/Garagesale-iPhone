@@ -70,6 +70,8 @@
     [textFieldUserName      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textFieldUserPassword  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
+    [GlobalFunctions setNavigationBarBackground:self.navigationController];
+
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    

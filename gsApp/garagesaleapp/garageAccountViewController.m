@@ -191,7 +191,7 @@
         
         self.tabBarController.delegate = self;
         
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
             

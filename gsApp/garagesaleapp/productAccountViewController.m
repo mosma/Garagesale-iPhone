@@ -74,7 +74,7 @@
 }
 
 -(void)loadAttributsToComponents{
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
@@ -201,12 +201,6 @@
     //Limited Maximum At Pics Add Gallery
     if ([nsMutArrayPicsProduct count] == 10) 
         buttonAddPics.enabled = NO;
-
-//    if (!viewPicsControl.hidden)
-//        [self.navigationController setNavigationBarHidden:YES];
-//    else 
-//        [self.navigationController setNavigationBarHidden:NO];
-    
     
     //if Gallery have pics, Hide and reposition objects
     if ([nsMutArrayPicsProduct count] > 0) {
@@ -235,21 +229,20 @@
         viewPicsControl.hidden = NO;
         viewPicsControl.alpha = 1.0;
         shadowView.alpha = 0.2;
-       // [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     } else {
         viewPicsControl.alpha = 0;
         shadowView.alpha = 0;
         viewPicsControl.hidden = YES;
         [shadowView removeFromSuperview];
-        //[GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     
     [UIView commitAnimations];
 }
 
 -(IBAction)goBack:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
-    //[self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
+    [self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
 }
 
 -(void)goToTabBarController:(int)index{
@@ -310,13 +303,21 @@
     [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{    
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *imageThumb = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
-    UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) 
+        UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     
     [self addImageToScrollView:imageThumb];
     [picker dismissModalViewControllerAnimated:YES];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
+    if (error != NULL){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Image was not saved, try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (void)handleLongPress:(UILongPressGestureRecognizer*)sender { 
@@ -656,7 +657,7 @@
         float h = loadedImage.size.height;
         float ratio = w/h;
                 
-        int neww = 700;
+        int neww = 900;
         //get image height proportionally;
         float newh = neww/ratio;
         

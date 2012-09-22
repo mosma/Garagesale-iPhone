@@ -361,6 +361,14 @@ static NSString *urlImagePath;
     return [lcl displayNameForKey:NSLocaleCurrencySymbol value:currencyCode];
 }
 
++(void)setNavigationBarBackground:(UINavigationController *)navController{
+    [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
+    forBarMetrics:UIBarMetricsDefault];
+    [navController.navigationController.navigationBar setTintColor:[self getColorRedNavComponets]];
+    navController.navigationItem.hidesBackButton = YES;
+    navController.navigationItem.titleView = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+}
+
 /*+(void)setProductMapping:(RKObjectMapping *)productMapping{
     //Configure Product Object Mapping
     productMapping = [RKObjectMapping mappingForClass:[Product class]];    
@@ -375,7 +383,5 @@ static NSString *urlImagePath;
     [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
     [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
 }*/
-
-
 
 @end

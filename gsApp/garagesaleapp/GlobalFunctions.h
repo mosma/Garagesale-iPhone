@@ -32,17 +32,16 @@
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
-+(void)hideTabBar:(UITabBarController *) tabbarcontroller;
-+(void)showTabBar:(UITabBarController *) tabbarcontroller;
-+(void)hideTabBar:(UITabBarController *) tabbarcontroller;
-+(void)showTabBar:(UITabBarController *) tabbarcontroller;
++(void)hideTabBar:(UITabBarController *)tabbarcontroller;
++(void)showTabBar:(UITabBarController *)tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
 +(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width;
 -(UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr;
 +(NSURL*) getGravatarURL:(NSString*) emailAddress;
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;
-+(NSString *) getCurrencyByCode:(NSString*)currencyCode;
++(NSString *)getCurrencyByCode:(NSString*)currencyCode;
 +(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController;
++(void)setNavigationBarBackground:(UINavigationController *)navController;
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;

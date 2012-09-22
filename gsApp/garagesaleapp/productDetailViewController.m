@@ -120,6 +120,8 @@
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
 
+        [GlobalFunctions setNavigationBarBackground:self.navigationController];
+        
         buttonBid.layer.cornerRadius            = 5.0f;
         buttonGarageDetail.layer.cornerRadius   = 5.0f;
         

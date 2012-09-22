@@ -28,6 +28,21 @@
 
 - (void)viewDidLoad
 {    
+    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    
+    NSArray *fontNames;
+    NSInteger indFamily, indFont;
+    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    {
+        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+        fontNames = [[NSArray alloc] initWithArray:
+                     [UIFont fontNamesForFamilyName:
+                      [familyNames objectAtIndex:indFamily]]];
+        for (indFont=0; indFont<[fontNames count]; ++indFont)
+        {
+            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+        }
+    }
     [super viewDidLoad];
     [self reachability];
     [self loadAttribsToComponents];
@@ -162,11 +177,7 @@
     searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
     
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.jpg"] 
-                                                  forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     self.navigationItem.hidesBackButton = YES;
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
     
     scrollViewMain.delegate = self;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -175,21 +186,34 @@
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
 
-    NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
+   // NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
     
-    productAccountViewController *addProductModal = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
+    //productAccountViewController *productAccount = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
     
-//    
-//    UIImage *myImage = UIGraphicsGetImageFromCurrentImageContext();
-//
-//    
-//    addProductModal.view.backgroundColor = [UIColor colorWithPatternImage:myImage];
+    
+    
+    //UIActionSheet *prodAdd = [[UIActionSheet alloc] initWithTitle:@"Title" delegate:self 
+                                        //        cancelButtonTitle:@"Cancel Button" 
+                                        //   destructiveButtonTitle:@"Destructive Button" 
+                                        //        otherButtonTitles:@"Add Pics After", @"Camera", @"Library", nil];
+    //prodAdd.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+   // [prodAdd showInView:self.view];
 
-    
-   [self.navigationController.tabBarController presentModalViewController:addProductModal animated:YES];
-    
-    
     [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
+    
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+        switch (buttonIndex) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
 }
 
 -(void)loadButtonsProduct{
@@ -224,7 +248,7 @@
             [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
                 viewSearch.hidden = YES;
-                [self.navigationController setNavigationBarHidden:YES];
+               // [self.navigationController setNavigationBarHidden:YES];
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
             }else
                 viewTopPage.hidden = YES;
@@ -238,7 +262,7 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
             viewSearch.hidden = NO;
-            [self.navigationController setNavigationBarHidden:NO];
+            //[self.navigationController setNavigationBarHidden:NO];
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
             viewTopPage.hidden = NO;
@@ -250,6 +274,7 @@
 
 - (IBAction)reloadPage:(id)sender{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.navigationController setNavigationBarHidden:YES];
     for (UIButton *subview in [scrollViewMain subviews]) 
         [subview removeFromSuperview];
     //[self loadAttribsToComponents];
@@ -267,7 +292,7 @@
         viewTopPage.hidden = YES;
         buttonLogo.hidden = YES;
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:NO];
+       // [self.navigationController setNavigationBarHidden:NO];
         globalFunctions.imageThumbsYorigin_Iphone = 10;
         scrollViewMain.contentSize	= CGSizeMake(320,825);
         searchBarProduct.hidden=YES;
@@ -277,7 +302,7 @@
         buttonLogo.hidden = NO;
         globalFunctions.imageThumbsYorigin_Iphone = 95;
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:YES];
+       // [self.navigationController setNavigationBarHidden:YES];
         scrollViewMain.contentSize	= CGSizeMake(320,817);   
         //[self setHidesBottomBarWhenPushed:NO];
         searchBarProduct.hidden=NO;
@@ -407,11 +432,11 @@
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
     if (!isSearch) {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, 42);
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, 64);
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, -42);
+        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, -64);
         [searchBarProduct resignFirstResponder];
     }
     
