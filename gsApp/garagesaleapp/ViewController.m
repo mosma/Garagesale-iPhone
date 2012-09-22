@@ -243,29 +243,27 @@
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
         if (!viewSearch.hidden || !viewTopPage.hidden){
             [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:0.5];
+            [UIView setAnimationDuration:0.3];
             [UIView setAnimationDelegate:self];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-                viewSearch.hidden = YES;
+                viewSearch.alpha = 0;
                // [self.navigationController setNavigationBarHidden:YES];
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
             }else
-                viewTopPage.hidden = YES;
+                viewTopPage.alpha = 0;
             [UIView commitAnimations];
             [txtFieldSearch resignFirstResponder];
         }
     }else {
         [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDuration:0.3];
         [UIView setAnimationDelegate:self];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-            viewSearch.hidden = NO;
+            viewSearch.alpha = 1.0;
             //[self.navigationController setNavigationBarHidden:NO];
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
-            viewTopPage.hidden = NO;
+            viewTopPage.alpha = 1.0;
         [UIView commitAnimations];
     }
     if (isSearch)
