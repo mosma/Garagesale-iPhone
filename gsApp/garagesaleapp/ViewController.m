@@ -18,7 +18,6 @@
 @synthesize activityLoadProducts;
 @synthesize txtFieldSearch;
 @synthesize viewSearch;
-@synthesize labelSearch;
 
 - (void)didReceiveMemoryWarning
 {
@@ -170,7 +169,16 @@
     
     [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     txtFieldSearch.delegate = self;
-    labelSearch.font = [UIFont fontWithName:@"Corben" size:21];
+    
+    //set done at keyboard
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
+                           nil];
+    [numberToolbar sizeToFit];
+    txtFieldSearch.inputAccessoryView = numberToolbar;
     
     //set searchBar settings
     searchBarProduct.delegate           = self;
@@ -179,10 +187,15 @@
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     self.navigationItem.hidesBackButton = YES;
     
+    [GlobalFunctions setNavigationBarBackground:self.navigationController];
+
     scrollViewMain.delegate = self;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+-(void)cancelSearchPad{
+    [txtFieldSearch resignFirstResponder];
+}
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
 
@@ -288,16 +301,14 @@
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
         viewSearch.hidden = NO;
         viewTopPage.hidden = YES;
-        buttonLogo.hidden = YES;
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
        // [self.navigationController setNavigationBarHidden:NO];
-        globalFunctions.imageThumbsYorigin_Iphone = 10;
+        globalFunctions.imageThumbsYorigin_Iphone = 95;
         scrollViewMain.contentSize	= CGSizeMake(320,825);
         searchBarProduct.hidden=YES;
     }else {
         viewSearch.hidden = YES;
         viewTopPage.hidden = NO;
-        buttonLogo.hidden = NO;
         globalFunctions.imageThumbsYorigin_Iphone = 95;
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
        // [self.navigationController setNavigationBarHidden:YES];
@@ -331,13 +342,13 @@
     // focus is given to the UISearchBar
     // call our activate method so that we can do some 
     // additional things when the UISearchBar shows.
-    //[self.searchBarProduct setShowsCancelButton:YES animated:YES];
-   // UIButton *cancelButton = nil;
-    //for(UIView *subView in searchBarProduct.subviews){
-   //     if([subView isKindOfClass:UIButton.class]){
-    //        cancelButton = (UIButton*)subView;
-   //     }
-   // }
+    [self.searchBarProduct setShowsCancelButton:YES animated:YES];
+    UIButton *cancelButton = nil;
+    for(UIView *subView in searchBarProduct.subviews){
+        if([subView isKindOfClass:UIButton.class]){
+            cancelButton = (UIButton*)subView;
+        }
+    }
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
@@ -350,7 +361,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // Clear the search text
     // Deactivate the UISearchBar
-    [self.searchBarProduct resignFirstResponder];
+    [self showSearch:nil];
     // searchBar.text=@"";
     //[self searchBar:searchBar activate:YES];
 }
@@ -482,6 +493,8 @@
 	[super viewWillDisappear:animated];
     if (isSearch)
         [self showSearch:nil];
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

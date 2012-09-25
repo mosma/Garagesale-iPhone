@@ -21,29 +21,22 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" id="oAx-vy-ZuX" userLabel="viewSearch">
-                                <rect key="frame" x="20" y="120" width="280" height="80"/>
+                                <rect key="frame" x="20" y="143" width="280" height="45"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SEARCH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0MP-fq-dd3">
-                                        <rect key="frame" x="9" y="6" width="204" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="0.24313727021217346" green="0.60784316062927246" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="R82-8s-jjh" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="8" y="38" width="252" height="30"/>
+                                        <rect key="frame" x="8" y="8" width="252" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wen-uR-S49" userLabel="txtFieldSearch">
-                                        <rect key="frame" x="17" y="39" width="219" height="28"/>
+                                        <rect key="frame" x="17" y="9" width="219" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884459999996" green="0.64705884459999996" blue="0.64705884459999996" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JVK-4c-9OI">
-                                        <rect key="frame" x="235" y="37" width="39" height="33"/>
+                                        <rect key="frame" x="235" y="7" width="39" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btSearchAccount.png">
@@ -61,7 +54,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="Rdh-TA-JuY" userLabel="viewTopPage">
-                                <rect key="frame" x="20" y="157" width="280" height="60"/>
+                                <rect key="frame" x="20" y="143" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SdQ-AB-2L5">
@@ -132,7 +125,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityLoadProducts" destination="yiR-qf-TEA" id="Ipa-rH-N65"/>
-                        <outlet property="labelSearch" destination="0MP-fq-dd3" id="iaB-kS-wNV"/>
                         <outlet property="scrollViewMain" destination="8RG-Ok-f0d" id="DOe-iq-qUE"/>
                         <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
                         <outlet property="txtFieldSearch" destination="wen-uR-S49" id="XjP-Zq-Qp6"/>
@@ -460,18 +452,11 @@
                                 <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="Tba-tA-i5u" userLabel="ViewPicsControl">
-                                <rect key="frame" x="10" y="42" width="300" height="239"/>
+                                <rect key="frame" x="10" y="87" width="300" height="163"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="New Product" lineBreakMode="tailTruncation" minimumFontSize="10" id="182-EG-vK5" userLabel="title">
-                                        <rect key="frame" x="9" y="7" width="285" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="16"/>
-                                        <color key="textColor" red="0.20000001788139343" green="0.58823531866073608" blue="0.20392158627510071" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7sc-fe-UrJ" userLabel="buttonCancel">
-                                        <rect key="frame" x="8" y="193" width="285" height="37"/>
+                                        <rect key="frame" x="8" y="114" width="285" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Cancel" backgroundImage="btSaveProduct.png">
@@ -482,11 +467,11 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="goBack:" destination="o08-vM-tNV" eventType="touchUpInside" id="PfQ-fL-GvO"/>
+                                            <action selector="animationPicsControl" destination="o08-vM-tNV" eventType="touchUpInside" id="qE9-2A-xpW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q" userLabel="buttonCamera">
-                                        <rect key="frame" x="8" y="42" width="285" height="45"/>
+                                        <rect key="frame" x="8" y="12" width="285" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -502,12 +487,12 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jNI-vL-QVJ" userLabel="buttonLibrary">
-                                        <rect key="frame" x="8" y="87" width="285" height="44"/>
+                                        <rect key="frame" x="8" y="57" width="285" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Library" backgroundImage="btMenuTableMiddleB.png">
+                                        <state key="normal" title="Library" backgroundImage="btMenuTableBottomB.png">
                                             <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -516,22 +501,6 @@
                                         </state>
                                         <connections>
                                             <action selector="getPicsByPhotosAlbum:" destination="o08-vM-tNV" eventType="touchUpInside" id="R4D-n3-J8p"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cwr-kM-2YB" userLabel="buttonSendPhotoAfter">
-                                        <rect key="frame" x="8" y="130" width="285" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Send photo after" backgroundImage="btMenuTableBottomB.png">
-                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="animationPicsControl" destination="o08-vM-tNV" eventType="touchUpInside" id="6Bg-9v-Ip7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -543,10 +512,6 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
                     <connections>
                         <outlet property="buttonAddPics" destination="dPI-DF-bHS" id="aH9-jb-OOf"/>
-                        <outlet property="buttonCamera" destination="exV-nT-m7q" id="uUP-qJ-xjo"/>
-                        <outlet property="buttonCancel" destination="7sc-fe-UrJ" id="68p-Ae-SWO"/>
-                        <outlet property="buttonLibrary" destination="jNI-vL-QVJ" id="Tl9-c0-L1d"/>
-                        <outlet property="buttonSendPhotoAfter" destination="cwr-kM-2YB" id="zw6-9s-gvL"/>
                         <outlet property="labelDescription" destination="0ft-6A-hn8" id="gUL-DT-aHz"/>
                         <outlet property="labelState" destination="ORq-bA-TH3" id="Fkf-yP-XHn"/>
                         <outlet property="labelTitle" destination="y6I-wT-hoB" id="dys-pV-gev"/>
@@ -868,13 +833,13 @@
             </objects>
             <point key="canvasLocation" x="714" y="866"/>
         </scene>
-        <!--Settings Account View Controller - Account-->
+        <!--Settings Account View Controller-->
         <scene sceneID="TnB-O5-x89">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="li5-dd-Ljh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsAccount" id="5xi-Kh-5i5" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="O4A-WE-qi1" userLabel="scrollView">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <view tag="987" contentMode="scaleToFill" id="yNN-XU-6Qu" userLabel="asfasdfasdfasdf">
@@ -993,7 +958,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" title="Account" id="j6o-sM-GsM"/>
+                    <navigationItem key="navigationItem" id="j6o-sM-GsM"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="labelAbout" destination="eE3-X8-A2U" id="qb9-pk-mp1"/>
                         <outlet property="labelAnyLink" destination="0hP-gn-cRp" id="1Ni-I9-6UR"/>
@@ -1104,13 +1070,13 @@
             </objects>
             <point key="canvasLocation" x="1375" y="553"/>
         </scene>
-        <!--Settings Account View Controller - Password-->
+        <!--Settings Account View Controller-->
         <scene sceneID="4Dy-zL-M3X">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCn-XI-bl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsPassword" id="K7a-eB-FnT" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="rIV-SN-IUS">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="fxt-bb-cAH">
@@ -1196,7 +1162,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.95686280729999995" green="0.95686280729999995" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" title="Password" id="xxE-AZ-jpM"/>
+                    <navigationItem key="navigationItem" id="xxE-AZ-jpM"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="labelCurrentPassword" destination="dAN-a7-PWP" id="CUS-9R-B1R"/>
                         <outlet property="labelNewPassword" destination="g9d-1x-FsY" id="Por-kr-ez1"/>
@@ -1245,25 +1212,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="5Ha-Dk-YED" userLabel="labelCurrency">
-                                                <rect key="frame" x="186" y="397" width="20" height="26"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.50187340561224492" green="0.50187340561224492" blue="0.50187340561224492" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
-                                                <rect key="frame" x="10" y="72" width="233" height="38"/>
+                                                <rect key="frame" x="10" y="70" width="233" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                 <color key="textColor" red="0.35294118523597717" green="0.63921570777893066" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="E2v-5A-CpZ">
-                                                <rect key="frame" x="120" y="73" width="109" height="28"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.98863636363636365" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="4dg-5A-7Kw" userLabel="topHeader">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1284,12 +1239,51 @@
                                                 <color key="textColor" red="0.8214285714285714" green="0.25082264854501191" blue="0.16138571561320644" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" id="Qxf-rq-Xx8" userLabel="garageDetailView">
-                                                <rect key="frame" x="0.0" y="346" width="320" height="70"/>
+                                            <view hidden="YES" contentMode="scaleToFill" id="Qxf-rq-Xx8" userLabel="garageDetailView">
+                                                <rect key="frame" x="0.0" y="435" width="320" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="garaDetailbackgroundAvatar.png" id="D7s-A9-kWd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" id="Ecf-Z8-Y9Y">
+                                                        <rect key="frame" x="0.0" y="102" width="320" height="46"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="garDetailPersonShadowAvatar.png" id="L0Y-OU-oBG">
+                                                                <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WZN-Ek-lty">
+                                                                <rect key="frame" x="10" y="10" width="53" height="26"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                                <state key="normal" title="      Edit" backgroundImage="btPencilEditProductDetail.png">
+                                                                    <color key="titleColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <state key="highlighted">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbb-5W-dSx">
+                                                                <rect key="frame" x="72" y="10" width="66" height="26"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                                <state key="normal" title="      Delete" backgroundImage="btDeleteProductDetail.png">
+                                                                    <color key="titleColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <state key="highlighted">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    </view>
                                                     <view contentMode="scaleToFill" id="sRO-2d-c8g">
-                                                        <rect key="frame" x="0.0" y="70" width="320" height="34"/>
+                                                        <rect key="frame" x="0.0" y="68" width="320" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report this garage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="SWp-W2-Zor">
@@ -1368,10 +1362,10 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.22745099663734436" green="0.23921570181846619" blue="0.25882354378700256" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="0.35294118523597717" green="0.38431376218795776" blue="0.40784317255020142" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VzS-1E-fdJ" userLabel="Offer">
-                                                <rect key="frame" x="251" y="67" width="59" height="38"/>
+                                                <rect key="frame" x="251" y="68" width="59" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" image="btOffer.png">
@@ -1391,7 +1385,7 @@
                                                 <color key="textColor" red="0.34765625" green="0.34765625" blue="0.34765625" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </label>
-                                            <view alpha="0.90000000000000002" contentMode="scaleToFill" id="5zP-hO-T2F" userLabel="countView">
+                                            <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" id="5zP-hO-T2F" userLabel="countView">
                                                 <rect key="frame" x="-10" y="340" width="60" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
@@ -1406,13 +1400,17 @@
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="3sh-IV-iZD" userLabel="galleryScrollView">
-                                                <rect key="frame" x="0.0" y="115" width="320" height="320"/>
+                                                <rect key="frame" x="0.0" y="115" width="320" height="301"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="PYd-8T-aZN" id="1rA-SP-eQs"/>
                                                 </connections>
                                             </scrollView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="FJL-Aj-NrX" userLabel="activityIndicator">
+                                                <rect key="frame" x="148" y="415" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -1548,12 +1546,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="OHlabelValorEsperado" destination="fV4-sm-nn9" id="ou1-lq-21E"/>
+                        <outlet property="activityIndicator" destination="FJL-Aj-NrX" id="nCO-aF-DKN"/>
                         <outlet property="buttonBid" destination="QaR-k2-gdc" id="Tzq-V7-dqh"/>
                         <outlet property="buttonGarageDetail" destination="9k5-33-1yu" id="6ND-0i-ogR"/>
                         <outlet property="countLabel" destination="ERP-DW-RRs" id="oV6-BL-fhd"/>
@@ -1561,7 +1560,6 @@
                         <outlet property="galleryScrollView" destination="3sh-IV-iZD" id="9zQ-uV-9SW"/>
                         <outlet property="garageDetailView" destination="Qxf-rq-Xx8" id="jen-76-jJe"/>
                         <outlet property="labelCityProfile" destination="OQy-N1-Cen" id="Dyj-SX-rRD"/>
-                        <outlet property="labelCurrency" destination="5Ha-Dk-YED" id="KcQ-LM-jLb"/>
                         <outlet property="labelDescricao" destination="sqL-iQ-KWX" id="rvZ-fo-n3E"/>
                         <outlet property="labelEmailProfile" destination="r68-i3-jyi" id="kIk-La-ELI"/>
                         <outlet property="labelNameProfile" destination="0zP-oz-hlc" id="bYa-bw-vx9"/>
@@ -1869,13 +1867,13 @@
             </objects>
             <point key="canvasLocation" x="75" y="-879"/>
         </scene>
-        <!--Settings Account View Controller - Settings-->
+        <!--Settings Account View Controller-->
         <scene sceneID="P2K-Hv-n6v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bP-aq-1Ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsAddress" id="tbg-8m-otZ" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="DcC-rR-Xyk">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="xAZ-PS-R9Y">
@@ -1975,7 +1973,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" title="Settings" id="jZ4-BS-byg"/>
+                    <navigationItem key="navigationItem" id="jZ4-BS-byg"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="labelAddress" destination="Gfc-Gj-YIf" id="caD-7e-RWR"/>
                         <outlet property="labelCity" destination="TbQ-4H-lTz" id="AZ2-Vk-WJe"/>
@@ -2099,16 +2098,17 @@
         <image name="btAddPicsProduct.png" width="56" height="53"/>
         <image name="btBidThisItem.png" width="102" height="35"/>
         <image name="btCancelBidItem.png" width="63" height="35"/>
+        <image name="btDeleteProductDetail.png" width="66" height="26"/>
         <image name="btLogin.png" width="100" height="37"/>
         <image name="btLoginForm.png" width="300" height="37"/>
         <image name="btMail.png" width="41" height="36"/>
         <image name="btMenuTableBottom.png" width="300" height="46"/>
         <image name="btMenuTableBottomB.png" width="285" height="46"/>
         <image name="btMenuTableMiddle.png" width="300" height="44"/>
-        <image name="btMenuTableMiddleB.png" width="285" height="44"/>
         <image name="btMenuTableTop.png" width="300" height="45"/>
         <image name="btMenuTableTopB.png" width="285" height="45"/>
         <image name="btOffer.png" width="59" height="38"/>
+        <image name="btPencilEditProductDetail.png" width="52" height="26"/>
         <image name="btPencilEditProductTable.png" width="53" height="26"/>
         <image name="btProdBlock.png" width="17" height="14"/>
         <image name="btProdList.png" width="17" height="14"/>
@@ -2121,10 +2121,214 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
+        <image name="garDetailPersonShadowAvatar.png" width="320" height="46"/>
+        <image name="garaDetailbackgroundAvatar.png" width="320" height="68"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
+    <classes>
+        <class className="OHAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="action" name="showSearch:"/>
+                <relationship kind="action" name="showSearchLoged:"/>
+                <relationship kind="outlet" name="activityLoadProducts" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="viewSearch" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="galleryScrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="garageAccountViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeSegControl"/>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="outlet" name="buttonGarageLogo" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="garageDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="gotoUserProductTableVC"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="productAccountViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addProduct:"/>
+                <relationship kind="action" name="animationPicsControl"/>
+                <relationship kind="action" name="getPicsByCamera:"/>
+                <relationship kind="action" name="getPicsByPhotosAlbum:"/>
+                <relationship kind="action" name="goBack:"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="saveProduct"/>
+                <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="labelDescription" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelState" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelValue" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="viewPicsControl" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="productCustomViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageEditButton" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageGravatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="valorEsperado" candidateClass="OHAttributedLabel"/>
+            </relationships>
+        </class>
+        <class className="productDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="actionEmailComposer"/>
+                <relationship kind="action" name="animationBidView"/>
+                <relationship kind="action" name="bidPost:"/>
+                <relationship kind="action" name="gotoGalleryScrollVC"/>
+                <relationship kind="action" name="gotoGarageDetailVC"/>
+                <relationship kind="action" name="gotoUserProductTableVC"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
+                <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="buttonBid" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonGarageDetail" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="countLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="countView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="labelCityProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelDescricao" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelEmailProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNameProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNomeProduto" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="offerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldOffer" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtViewComment" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="viewBidMsg" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="productTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeSegControl"/>
+                <relationship kind="action" name="showSearch:"/>
+                <relationship kind="outlet" name="OHlabelTitleResults" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
+                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="settingsAccountViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="logout:"/>
+                <relationship kind="action" name="saveSettings"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelAddress" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelAnyLink" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCity" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCountry" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCurrentPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelDistrict" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNewPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelRepeatPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelYourName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="txtFieldAddress" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldAnyLink" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCity" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCountry" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCurrentPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldDistrict" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldGarageName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldNewPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldRepeatNewPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldYourName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtViewAbout" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="signUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="checkLogin:"/>
+                <relationship kind="outlet" name="activityLogin" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelLogin" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPersonName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelSignup" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldGarageName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldPersonName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldUserName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldUserPassword" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>

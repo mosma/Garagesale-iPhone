@@ -126,6 +126,16 @@
 }
 
 - (void)loadAttribsToComponents{
+    nibId = [[self.navigationController visibleViewController] nibName];
+    
+    if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Account" width:210];
+    else if  
+        ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) //Address ViewController
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Address" width:210];
+    else if  
+        ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) //Password ViewController
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Password" width:210];
     
     //Password ViewController
     labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -190,9 +200,6 @@
     self.scrollView.contentSize = CGSizeMake(320,700);
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-    
-    //[self.navigationItem.titleView addSubview:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter width:300]];
-    
     [self setupKeyboardControls];
 }
 
@@ -482,9 +489,7 @@
     
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    
-    NSString *nibId = [[self.navigationController visibleViewController] nibName];
-    
+        
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldYourName, txtViewAbout, txtFieldAnyLink, nil];
     else if  

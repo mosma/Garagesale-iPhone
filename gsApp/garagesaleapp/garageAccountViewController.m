@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    [self setupProductMapping];
+  //  [self setupProductMapping];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -191,18 +191,15 @@
         
         self.tabBarController.delegate = self;
         
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
-                                                  forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-            
-
+        
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
 
-        garageName.font  = [UIFont fontWithName:@"Droid Sans" size:22 ];
+        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:22 ];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12 ];
-        description.font = [UIFont fontWithName:@"Droid Sans" size:12];
-        link.font        = [UIFont fontWithName:@"Droid Sans" size:12];
+        description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
+        link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         
         
         if ((garage  == nil) && (profile == nil)) {

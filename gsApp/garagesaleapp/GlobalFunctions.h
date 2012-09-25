@@ -35,7 +35,7 @@
 +(void)hideTabBar:(UITabBarController *)tabbarcontroller;
 +(void)showTabBar:(UITabBarController *)tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
-+(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width;
++(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment text:(NSString *)text width:(int)width;
 -(UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr;
 +(NSURL*) getGravatarURL:(NSString*) emailAddress;
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin;

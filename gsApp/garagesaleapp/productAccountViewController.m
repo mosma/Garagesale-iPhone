@@ -32,10 +32,6 @@
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
 @synthesize viewPicsControl;
-@synthesize buttonCamera;
-@synthesize buttonLibrary;
-@synthesize buttonSendPhotoAfter;
-@synthesize buttonCancel;
 @synthesize buttonAddPics;
 @synthesize product;
 
@@ -76,10 +72,7 @@
 -(void)loadAttributsToComponents{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-    
-    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
-    
+
     labelState.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelTitle.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelDescription.font  = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -164,8 +157,11 @@
         [self loadingProduct];
         self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                    @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-    }else
-      [self animationPicsControl];
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:300];
+    }else {
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"New Product" width:300];
+        [self animationPicsControl];
+    }
 }
 
 -(void)loadingProduct{
@@ -201,23 +197,6 @@
     //Limited Maximum At Pics Add Gallery
     if ([nsMutArrayPicsProduct count] == 10) 
         buttonAddPics.enabled = NO;
-    
-    //if Gallery have pics, Hide and reposition objects
-    if ([nsMutArrayPicsProduct count] > 0) {
-        buttonSendPhotoAfter.hidden = YES;
-        [buttonLibrary setBackgroundImage:[UIImage imageNamed:@"btMenuTableBottomB.png"] forState:UIControlStateNormal];
-        [buttonCancel removeTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-        [buttonCancel addTarget:self action:@selector(animationPicsControl) forControlEvents:UIControlEventTouchUpInside];
-        buttonLibrary.frame = CGRectMake(8, 87, 285, 46);
-        buttonCancel.frame  = CGRectMake(8, 155, 285, 37);
-    } else {
-        buttonSendPhotoAfter.hidden = NO;
-        [buttonLibrary setBackgroundImage:[UIImage imageNamed:@"btMenuTableMiddleB.png"] forState:UIControlStateNormal];
-        [buttonCancel removeTarget:self action:@selector(animationPicsControl) forControlEvents:UIControlEventTouchUpInside];
-        [buttonCancel addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-        buttonLibrary.frame = CGRectMake(8, 87, 285, 44);
-        buttonCancel.frame  = CGRectMake(8, 193, 285, 37);
-    }
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
@@ -876,14 +855,6 @@
     labelValue = nil;
     viewPicsControl = nil;
     [self setViewPicsControl:nil];
-    buttonCamera = nil;
-    buttonLibrary = nil;
-    buttonSendPhotoAfter = nil;
-    [self setButtonCamera:nil];
-    [self setButtonLibrary:nil];
-    [self setButtonSendPhotoAfter:nil];
-    buttonCancel = nil;
-    [self setButtonCancel:nil];
     buttonAddPics = nil;
     [self setButtonAddPics:nil];
     [super viewDidUnload];

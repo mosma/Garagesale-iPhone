@@ -65,6 +65,7 @@
     MBProgressHUD                 *HUD;
     RKObjectManager               *RKObjManeger;
 
+    NSString                      *nibId;
                                                                  
 }
 //ViewPassword Labels

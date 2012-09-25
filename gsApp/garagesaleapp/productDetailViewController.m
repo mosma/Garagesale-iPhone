@@ -31,7 +31,6 @@
 @synthesize txtViewComment;
 @synthesize labelNomeProduto;
 @synthesize labelDescricao;
-@synthesize labelCurrency;
 @synthesize OHlabelValorEsperado;
 @synthesize scrollViewMain;
 @synthesize labelNameProfile;
@@ -51,6 +50,7 @@
 @synthesize viewBidSend;
 @synthesize viewBidMsg;
 @synthesize PagContGallery;
+@synthesize activityIndicator;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -119,13 +119,11 @@
         
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
-
-        [GlobalFunctions setNavigationBarBackground:self.navigationController];
         
         buttonBid.layer.cornerRadius            = 5.0f;
         buttonGarageDetail.layer.cornerRadius   = 5.0f;
         
-        viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
+        viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
         [viewShadow setBackgroundColor:[UIColor blackColor]];
         viewShadow.alpha = 0;
         
@@ -135,9 +133,10 @@
         viewBidMsg.alpha = 0;
         viewBidMsg.layer.cornerRadius = 5;
         
-        [txtFieldEmail   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [txtViewComment  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtFieldEmail    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtViewComment   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [labelDescricao   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelNomeProduto setFont:[UIFont fontWithName:@"Droid Sans" size:18]];
         
         //Set Labels, titles, TextView...
         labelNomeProduto.text            = [self.product nome];
@@ -147,7 +146,7 @@
         OHlabelValorEsperado.text   = [self.product valorEsperado];
         
         //set Navigation Title with OHAttributeLabel
-        NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", self.product.currency, self.product.valorEsperado];
+        NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
         // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
@@ -157,12 +156,12 @@
         [attrStr setFontName:@"Droid Sans" size:28 range:[titleNavItem rangeOfString:self.product.valorEsperado]];
         [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
         OHlabelValorEsperado.attributedText = attrStr;
-
+        
+        [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
         
         self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                                  @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
-        labelCurrency.text        = [self.product currency];
         offerLabel.text           = NSLocalizedString(@"offer", @"");
         
         CGRect rect;//             = imageView.frame;
@@ -178,8 +177,7 @@
         galleryScrollView.autoresizesSubviews   = YES;
         [galleryScrollView addSubview:imageView];
 
-        countView.layer.cornerRadius = 4;
-        [secondView addSubview:garageDetailView];
+        //[secondView addSubview:garageDetailView];
         scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
 
         
@@ -200,7 +198,7 @@
         labelNameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
         labelCityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
         labelEmailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
-         
+        
         UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
@@ -216,11 +214,13 @@
         CGRect frame = CGRectMake(100, 0, 320, 27);
         OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
         [label setBackgroundColor:[UIColor clearColor]];
-        [label setShadowColor:[UIColor redColor]];
+        [label setShadowColor:[UIColor blackColor]];
         [label setShadowOffset:CGSizeMake(1, 1)];
         label.attributedText = attrStr;
         label.textAlignment = UITextAlignmentCenter;
         self.navigationItem.titleView = label;
+        
+        garageDetailView.hidden = NO;
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.4];
@@ -231,16 +231,19 @@
             labelDescricao.text = self.product.descricao;
             [labelDescricao sizeToFit];
             secondView.frame = CGRectMake(0,0,320,550+labelDescricao.frame.size.height);
-            garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 70);
+            garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 450);
             //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
             [secondView addSubview:labelDescricao];
             // [secondView addSubview:tagsScrollView];
             [secondView addSubview:garageDetailView];
-            scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
+            scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
                 
         [UIView commitAnimations];
         
-        
+        countView.layer.cornerRadius = 4;
+        [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [countView.layer setShadowOffset:CGSizeMake(1, 1)];
+        [countView.layer setShadowOpacity:0.1];
         
         //configure addthis -- (this step is optional)
             [AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
@@ -275,6 +278,7 @@
         if (countPhotos != 0) {
             [scrollViewMain insertSubview:countView aboveSubview:galleryScrollView];
             countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
+            countView.hidden = NO;
         } else 
             countView.hidden = YES;
 
@@ -290,7 +294,7 @@
             
         }
 
-
+        [activityIndicator stopAnimating];
         
         NSOperationQueue *queue = [NSOperationQueue new];
         NSInvocationOperation *operation = [[NSInvocationOperation alloc]
@@ -320,13 +324,13 @@
 
         
         
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
-        [activityIndicator startAnimating];
-        activityIndicator.color = [UIColor grayColor];
+        UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+        [actInd startAnimating];
+        actInd.color = [UIColor grayColor];
         
-        activityIndicator.center = CGPointMake(160+(320*i), 140);
+        actInd.center = CGPointMake(160+(320*i), 140);
         
-        [galleryScrollView addSubview:activityIndicator];
+        [galleryScrollView addSubview:actInd];
         
         if (countPhotos == 0) {
             image                   = [UIImage imageNamed:@"nopicture.png"];

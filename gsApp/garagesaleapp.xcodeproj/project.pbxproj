@@ -86,6 +86,14 @@
 		CC328CCF1572797F0096180B /* btMail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC328CCD1572797F0096180B /* btMail@2x.png */; };
 		CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7C15924BA7006360E0 /* btSearchAccount.png */; };
 		CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */; };
+		CC3454D01610A7F40020B6BD /* garaDetailbackgroundAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */; };
+		CC3454D51610AD540020B6BD /* garDetailPersonShadowAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */; };
+		CC3454D91610CD910020B6BD /* garaDetailbackgroundAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */; };
+		CC3454DA1610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */; };
+		CC3454DD1610D07F0020B6BD /* btDeleteProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */; };
+		CC3454DE1610D07F0020B6BD /* btDeleteProductDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */; };
+		CC3454E11610D53F0020B6BD /* btPencilEditProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */; };
+		CC3454E21610D53F0020B6BD /* btPencilEditProductDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454E01610D53D0020B6BD /* btPencilEditProductDetail@2x.png */; };
 		CC34BE2D14BFD09D00295BCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34BE2C14BFD09D00295BCE /* MessageUI.framework */; };
 		CC3AB097156C892900544D93 /* btLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB092156C892900544D93 /* btLogin.png */; };
 		CC3AB098156C892900544D93 /* btLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB093156C892900544D93 /* btLogin@2x.png */; };
@@ -354,6 +362,14 @@
 		CC32DB7C1565BA9000FFB88C /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		CC331F7C15924BA7006360E0 /* btSearchAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearchAccount.png; sourceTree = "<group>"; };
 		CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchAccount@2x.png"; sourceTree = "<group>"; };
+		CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garaDetailbackgroundAvatar.png; sourceTree = "<group>"; };
+		CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garDetailPersonShadowAvatar.png; sourceTree = "<group>"; };
+		CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garaDetailbackgroundAvatar@2x.png"; sourceTree = "<group>"; };
+		CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garDetailPersonShadowAvatar@2x.png"; sourceTree = "<group>"; };
+		CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btDeleteProductDetail.png; sourceTree = "<group>"; };
+		CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btDeleteProductDetail@2x.png"; sourceTree = "<group>"; };
+		CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btPencilEditProductDetail.png; sourceTree = "<group>"; };
+		CC3454E01610D53D0020B6BD /* btPencilEditProductDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btPencilEditProductDetail@2x.png"; sourceTree = "<group>"; };
 		CC34BE2C14BFD09D00295BCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CC3AB092156C892900544D93 /* btLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btLogin.png; sourceTree = "<group>"; };
 		CC3AB093156C892900544D93 /* btLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btLogin@2x.png"; sourceTree = "<group>"; };
@@ -658,6 +674,14 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */,
+				CC3454E01610D53D0020B6BD /* btPencilEditProductDetail@2x.png */,
+				CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */,
+				CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */,
+				CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */,
+				CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */,
+				CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */,
+				CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */,
 				CC52437915E1A93200130835 /* icon.png */,
 				CC0846EF14DA351D00AD230B /* Default@2x.png */,
 				CC2AF17714C2CCF3001D9FA0 /* 57x57.png */,
@@ -1158,6 +1182,14 @@
 				CC12E21E16023934006E904D /* whitePicture.png in Resources */,
 				CC297FEE160CEE49003BFA36 /* navBarBackground@2x.png in Resources */,
 				CC297FF1160CEF33003BFA36 /* navBarBackground.png in Resources */,
+				CC3454D01610A7F40020B6BD /* garaDetailbackgroundAvatar.png in Resources */,
+				CC3454D51610AD540020B6BD /* garDetailPersonShadowAvatar.png in Resources */,
+				CC3454D91610CD910020B6BD /* garaDetailbackgroundAvatar@2x.png in Resources */,
+				CC3454DA1610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png in Resources */,
+				CC3454DD1610D07F0020B6BD /* btDeleteProductDetail.png in Resources */,
+				CC3454DE1610D07F0020B6BD /* btDeleteProductDetail@2x.png in Resources */,
+				CC3454E11610D53F0020B6BD /* btPencilEditProductDetail.png in Resources */,
+				CC3454E21610D53F0020B6BD /* btPencilEditProductDetail@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

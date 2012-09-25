@@ -42,7 +42,6 @@
     BOOL                                        isIdPersonNumber;
                                                                                                     
     IBOutlet UILabel                            *labelNomeProduto;
-    IBOutlet UILabel                            *labelCurrency;
     IBOutlet UILabel                            *labelDescricao;
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
     IBOutlet UIScrollView                       *scrollViewMain;
@@ -69,7 +68,7 @@
     NSMutableArray          *productPhotos;
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
-//    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
+    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
 
 }
 
@@ -82,7 +81,6 @@
 @property (nonatomic) BOOL                                      isIdPersonNumber;
 
 @property (retain, nonatomic) IBOutlet UILabel                  *labelNomeProduto;
-@property (retain, nonatomic) IBOutlet UILabel                  *labelCurrency;
 @property (retain, nonatomic) IBOutlet UILabel                  *labelDescricao;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel        *OHlabelValorEsperado;
 @property (retain, nonatomic) IBOutlet UIScrollView             *scrollViewMain;
@@ -108,7 +106,7 @@
 @property (retain, nonatomic) UIImageView            *imageView;
 @property (retain, nonatomic) UIPageControl          *PagContGallery;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
-//@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;

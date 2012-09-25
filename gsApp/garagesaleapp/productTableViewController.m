@@ -175,6 +175,8 @@
         
         [GlobalFunctions setSearchBarLayout:searchBarProduct];
         
+        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+        
         self.navigationItem.title = NSLocalizedString(@"products", @"");
         [self.tableView addSubview:searchBarProduct];
 
@@ -192,13 +194,13 @@
             searchBarProduct.text = self.strTextSearch;
         mutDictDataThumbs = [[NSMutableDictionary alloc] init];
         
-        
         NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
         NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
 
         
         NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+        [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:@"results for"]];
         [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:count]];
         [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];

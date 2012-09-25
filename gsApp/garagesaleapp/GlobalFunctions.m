@@ -20,15 +20,15 @@ static NSString *urlImagePath;
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //urlServicePath = @"http://gsapi.local";
-    urlServicePath = @"http://gsapi.easylikethat.com"; 
+    urlServicePath = @"http://gsapi.local";
+    //urlServicePath = @"http://gsapi.easylikethat.com"; 
     //urlServicePath = @"http://api.garagesaleapp.me";    
-    return urlServicePath; 
+    return urlServicePath;
 }
 
 +(NSString *)getUrlImagePath {
-    //urlImagePath = @"http://garagesale.local/";
-    urlImagePath = @"http://gsapp.easylikethat.com"; 
+    urlImagePath = @"http://garagesale.local/";
+    //urlImagePath = @"http://gsapp.easylikethat.com"; 
     //urlImagePath = @"http://www.garagesaleapp.me"; 
     return urlImagePath; 
 }
@@ -170,10 +170,20 @@ static NSString *urlImagePath;
     return label;
 }
 
-+(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment width:(int)width{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
++(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment text:(NSString *)text width:(int)width{
+
+    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:text];
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:18]];
+    [attrStr setTextColor:[UIColor whiteColor]];
+    
+    CGRect frame = CGRectMake(0, 0, width, 26);
+    OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setShadowColor:[UIColor blackColor]];
+    [label setShadowOffset:CGSizeMake(1, 1)];
+    label.attributedText = attrStr;
     label.textAlignment = textAlignment;
-    label.font = [UIFont fontWithName:@"Droid Sans" size:20];
+
     return label;
 }
 
