@@ -115,7 +115,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadAttribsToComponents];
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+    //Set SerializationMIMEType
+    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
+    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -123,6 +126,7 @@
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
+    [self loadAttribsToComponents];
 }
 
 - (void)loadAttribsToComponents{
@@ -207,185 +211,56 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 -(IBAction)saveSettings{
-    
-    
-    
-    //    
-    //    @"garagem", @"garagem",
-    //    @"senha", @"senha",
-    //    @"nome", @"nome",
-    //    @"email", @"email",
-    //    @"idRole", @"idRole",
-    //    @"idState", @"idState",
-    //    @"id", @"id",
-    //    
-    //    @"link", @"link",
-    //    @"about", @"about",
-    //    @"country", @"country",
-    //    @"district", @"district",
-    //    @"city", @"city",
-    //    @"address", @"address",
-    //    @"localization", @"localization",
-    //    @"idState", @"idState",
-    //    @"idPerson", @"idPerson",
-    //    @"id", @"id",
-    //    
-    
-    
-    
-    
-    
-    //   NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-    //    NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
-    //    NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
-    //    
-    //    NSNumber *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    //    
-    //    [profileParams setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-    //    [profileParams setObject:idPerson               forKey:@"id"];
-    //    [profileParams setObject:txtFieldYourName.text  forKey:@"nome"];
-    //    
-    //    //[garageParams setObject:idPerson               forKey:@"id"];
-    //    //[garageParams setObject:txtFieldAnyLink.text   forKey:@"link"];
-    //    //[garageParams setObject:txtViewAbout.text      forKey:@"about"];
-    //    
-    //
-    //    
-    //    
-    //    Profile* contact2 = [[Profile alloc] init];
-    //    contact2.nome = txtFieldYourName.text;
-    //    contact2.id     = idPerson;
-    //    
-    //    [RKObjManeger putObject:contact2 delegate:self];
-    
-    
-    
-    /*
-     
-     
-     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-     NSMutableDictionary *profileParams = [[NSMutableDictionary alloc] init];
-     
-     //User and password params
-     // NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-     [profileParams setObject:@"9"               forKey:@"id"];
-     [profileParams setObject:@"asdjfaadsfasdfasdf"  forKey:@"token"];
-     
-     //The server ask me for this format, so I set it here:
-     
-     //Parsing prodParams to JSON! 
-     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
-     NSError *error = nil;
-     NSString *json = [parser stringFromObject:profileParams error:&error];    
-     
-     //Add ProductJson in postData for key product
-     [postData setObject:json forKey:@"profile"];
-     
-     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
-     
-     RKObjManeger.serializationMIMEType = RKMIMETypeJSON;  
-     
-     
-     //If no error we send the post, voila!
-     if (!error){
-     //[[[RKClient sharedClient] put:[NSString stringWithFormat:@"/profile/%@", idPerson] params:postData delegate:self] send];
-     [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521" params:postData delegate:self] send];
-     
-     }
-     
-     
-     
-     
-     
-     */
-    
-    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    //Set SerializationMIMEType
-    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
-    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-    
-    
-    //                [self uploadPhotos:[dictProduct valueForKey:@"id"]];
-    //            }else {
+
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
-    //User and password params
     NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    [prodParams setObject:@"turcoloco"            forKey:@"garagem"];
-    [prodParams setObject:@"123123"               forKey:@"oldPassword"];
-    [prodParams setObject:@"123123"               forKey:@"newPassword"];
-    [prodParams setObject:@"123123"               forKey:@"newPassword2"];
-    [prodParams setObject:@"Tarek Abdalaaaaaaa"   forKey:@"nome"];
-    [prodParams setObject:@"jradi3@gmail.com"     forKey:@"email"];
-    [prodParams setObject:@"6"                    forKey:@"id"];
-    
-    //    [prodParams setObject:@"1"                   forKey:@"idEstado"];
-    //    [prodParams setObject:idPerson               forKey:@"idUser"];
-    //    [prodParams setObject:@""                    forKey:@"categorias"];
-    //    [prodParams setObject:@""                    forKey:@"newPhotos"];
-    
+    [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"garagem"]  forKey:@"garagem"];
+    [prodParams setObject:txtFieldCurrentPassword   != nil ? txtFieldCurrentPassword.text :        @""          forKey:@"oldPassword"];
+    [prodParams setObject:txtFieldNewPassword       != nil ? txtFieldNewPassword.text :            @""          forKey:@"newPassword"];
+    [prodParams setObject:txtFieldRepeatNewPassword != nil ? txtFieldRepeatNewPassword.text :      @""          forKey:@"newPassword2"];
+    [prodParams setObject:txtFieldYourName          != nil ? txtFieldYourName.text :[[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"nome"]     forKey:@"nome"];
+    [prodParams setObject:txtFieldEmail             != nil ? txtFieldEmail.placeholder : [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"email"]    forKey:@"email"];
+    [prodParams setObject:txtViewAbout              != nil ? txtViewAbout.text :    [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"about"]    forKey:@"about"];
+    [prodParams setObject:txtFieldAnyLink           != nil ? txtFieldAnyLink.text : [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"link"]     forKey:@"link"];
+    [prodParams setObject:txtFieldAddress           != nil ? txtFieldAddress.text : [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"address"]   forKey:@"address"];
+    [prodParams setObject:txtFieldCity              != nil ? txtFieldCity.text :    [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"city"]     forKey:@"city"];
+    [prodParams setObject:txtFieldCountry           != nil ? txtFieldCountry.text : [[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"country"]   forKey:@"country"];
+    [prodParams setObject:txtFieldDistrict          != nil ? txtFieldDistrict.text :[[GlobalFunctions getUserDefaults] 
+                                                                                      objectForKey:@"district"] forKey:@"district"];
+    [prodParams setObject:@""                               forKey:@"idState"];
+    [prodParams setObject:@""                               forKey:@"lang"];
+    [prodParams setObject:@""                               forKey:@"localization"];
+
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
     [postData setObject:idPerson              forKey:@"idUser"];
     
     //Parsing prodParams to JSON! 
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];    
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
     
     //If no error we send the post, voila!
     if (!error){
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
-        
-        
-        [[[RKClient sharedClient] post:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13449623829585" params:postData delegate:self] send];
+        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
+        [postData setObject:json forKey:@"garage"];     
+        [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
     }
-    
-    
-    
-    /*
-     
-     
-     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-     
-     
-     RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
-     RKObjManeger.serializationMIMEType = RKMIMETypeJSON; 
-     //    
-     //    
-     //    //Post Bid Sent
-     RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Profile class]];
-     [patientSerializationMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-     [patientSerializationMapping mapKeyPath:@"id"      toAttribute:@"id"];
-     
-     //
-     //    
-     [[RKObjManeger router] routeClass:[Profile class] toResourcePath:@"/profile/6/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13448609458521"];
-     
-     [RKObjManeger.mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Profile class]];    
-     //    
-     //    //Setting Bid Entity
-     Profile* bid = [[Profile alloc] init];  
-     bid.nome = txtFieldYourName.text;  
-     bid.id = [NSNumber numberWithInt:9];
-     //    
-     //    
-     //    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-     //
-     //    [postData setObject:bid forKey:@"profile"];
-     //    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-     
-     
-     // POST bid  
-     [RKObjManeger putObject:bid delegate:self];
-     */
-    
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
@@ -613,6 +488,48 @@
  *
  */
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"Cancel" 
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (buttonIndex) {
+        case 0:
+            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 3:
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break; //Cancel
+    }
+    if (buttonIndex != 3)
+        self.tabBarController.selectedIndex = 1;
+}
 
 - (void)viewDidUnload
 {

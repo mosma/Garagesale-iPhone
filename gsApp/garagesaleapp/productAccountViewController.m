@@ -72,7 +72,7 @@
 -(void)loadAttributsToComponents{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-
+        
     labelState.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelTitle.font        = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelDescription.font  = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -160,8 +160,9 @@
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:300];
     }else {
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"New Product" width:300];
-        [self animationPicsControl];
+        //[self animationPicsControl];
     }
+    
 }
 
 -(void)loadingProduct{
@@ -207,14 +208,14 @@
         [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
         viewPicsControl.hidden = NO;
         viewPicsControl.alpha = 1.0;
-        shadowView.alpha = 0.2;
-        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        shadowView.alpha = 0.7;
+        //[GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     } else {
         viewPicsControl.alpha = 0;
         shadowView.alpha = 0;
         viewPicsControl.hidden = YES;
         [shadowView removeFromSuperview];
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        //[GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     
     [UIView commitAnimations];
@@ -272,6 +273,16 @@
                                        [theLocale objectForKey:NSLocaleCurrencySymbol]]; 
         txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
     }
+    if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        int action = [[[GlobalFunctions getUserDefaults] objectForKey:@"controlComponentsAtFirstDisplay"] intValue];        
+        if (action == 0)
+            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
+        else if (action == 1)
+            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    }
 }
 
 -(IBAction)getPicsByCamera:(id)sender {
@@ -302,6 +313,12 @@
 - (void)handleLongPress:(UILongPressGestureRecognizer*)sender { 
     if (sender.state == UIGestureRecognizerStateBegan) {
         UIImageView *imageView      = (UIImageView *)sender.view;
+       
+        //Remove imgViewDelete
+        for (UIView *subview in [imageView subviews]) 
+            if (subview.tag == 455) 
+                [subview removeFromSuperview];
+
         NSArray *imageViews         = [scrollViewPicsProduct subviews];
         int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
         
@@ -351,17 +368,39 @@
     }else{
         [nsMutArrayPicsProduct addObject:aImage];
         
-        UIImageView * imageView = [[UIImageView alloc] initWithImage:aImage];
-        imageView.frame = CGRectMake(scrollViewPicsProduct.contentSize.width , self.heightPaddingInImages, imageWidth_, imageHeight_);
-        [scrollViewPicsProduct addSubview:imageView];
-        [imageView setUserInteractionEnabled:YES];
+        UIImageView * picViewAtGallery      = [[UIImageView alloc] initWithImage:aImage];
+        UIImage *imgDelete                  = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
+        UIImageView *imgViewDelete          = [[UIImageView alloc] initWithImage:imgDelete];
+        [imgViewDelete setUserInteractionEnabled:NO];
+        imgViewDelete.tag = 455;
+        //imgViewDelete.frame                 = CGRectMake(45, -6, 13, 13);
+        imgViewDelete.frame                 = CGRectMake(-7, -7, 17, 17);
+
+        picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
+        [scrollViewPicsProduct addSubview:picViewAtGallery];
+        [picViewAtGallery setUserInteractionEnabled:YES];
+        [picViewAtGallery addSubview:imgViewDelete];
         UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [imageView addGestureRecognizer:longPressGesture];
+        [picViewAtGallery addGestureRecognizer:longPressGesture];
+        
+        
         CGSize size = scrollViewPicsProduct.contentSize;
         size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
         scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
         scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
+        scrollViewPicsProduct.scrollsToTop = YES;
+        
+        
+//        CGRect frame = scrollViewPicsProduct.frame;
+//        frame.origin.x = frame.size.width * [nsMutArrayPicsProduct count];
+//        
+//        [scrollViewPicsProduct scrollRectToVisible:frame animated:YES];
+//
+//        
+//        
+        
+        
         [self animationPicsControl];
     }
 }
@@ -513,11 +552,11 @@
     [postData setObject:idPerson              forKey:@"idUser"];
     
     //Parsing prodParams to JSON! 
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/html"];
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];    
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
     
     //If no error we send the post, voila!
     if (!error){

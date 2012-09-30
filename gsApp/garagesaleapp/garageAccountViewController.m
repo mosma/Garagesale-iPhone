@@ -102,7 +102,7 @@
     else
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
     
     [self initLoadingGuear];
 }
@@ -196,8 +196,8 @@
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
 
-        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:22 ];
-        city.font        = [UIFont fontWithName:@"Droid Sans" size:12 ];
+        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:22];
+        city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         
@@ -466,6 +466,49 @@
     UIButton *button = [[UIButton alloc] init];
     button.tag = indexPath.row;
     [self gotoProductDetailVC:button];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"Cancel" 
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (buttonIndex) {
+        case 0:
+            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 3:
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break; //Cancel
+    }
+    if (buttonIndex != 3)
+        self.tabBarController.selectedIndex = 1;
 }
 
 - (void)viewDidUnload

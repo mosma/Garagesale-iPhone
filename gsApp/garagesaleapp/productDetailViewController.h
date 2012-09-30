@@ -31,7 +31,7 @@
                                                             UITextViewDelegate, 
                                                             BSKeyboardControlsDelegate,
                                                             UIScrollViewDelegate,
-                                                            RKObjectLoaderDelegate> {
+                                                            RKObjectLoaderDelegate,UITabBarDelegate> {
                                                                 
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;

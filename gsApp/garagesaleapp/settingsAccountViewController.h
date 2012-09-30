@@ -21,7 +21,7 @@
                                                              BSKeyboardControlsDelegate,
                                                              UIScrollViewDelegate, 
                                                              RKObjectLoaderDelegate,
-                                                             MBProgressHUDDelegate> {
+                                                             MBProgressHUDDelegate,UITabBarDelegate> {
     
     //ViewNewPassword Labels                                                             
     __weak IBOutlet UILabel     *labelCurrentPassword;

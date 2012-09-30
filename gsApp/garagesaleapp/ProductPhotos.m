@@ -20,6 +20,7 @@
 @synthesize nome;
 @synthesize idEstado;
 @synthesize idPessoa;
+@synthesize link;
 @synthesize id;
 
 + (NSDictionary*) elementToPropertyMappings {
@@ -33,6 +34,7 @@
             @"nome", @"nome",
             @"idEstado", @"idEstado",
             @"idPessoa", @"idPessoa",
+            @"link", @"link",
             @"id", @"id",
             nil];
 }

@@ -19,6 +19,7 @@
     NSString* nome;
     NSNumber* idEstado;
     NSString* idPessoa;
+    NSString* link;
     NSArray* fotos;
     NSNumber* id;
 }
@@ -31,6 +32,7 @@
 @property (nonatomic, retain) NSString* nome;
 @property (nonatomic, retain) NSNumber* idEstado;
 @property (nonatomic, retain) NSString* idPessoa;
+@property (nonatomic, retain) NSString* link;
 @property (nonatomic, retain) NSArray* fotos;
 @property (nonatomic, retain) NSNumber* id;
 

@@ -10,4 +10,20 @@
 
 @implementation Caminho
 
+@synthesize icon;
+@synthesize listing;
+@synthesize listingscaled;
+@synthesize mobile;
+@synthesize original;
+
++ (NSDictionary*)elementToPropertyMappings {
+    return [NSDictionary dictionaryWithKeysAndObjects:
+            @"icon", @"icon",
+            @"listing", @"listing",
+            @"listingscaled", @"listingscaled",
+            @"mobile", @"mobile",
+            @"original", @"original",
+            nil];
+}
+
 @end

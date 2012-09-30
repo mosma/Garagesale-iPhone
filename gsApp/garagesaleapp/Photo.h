@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Photo : NSObject{
-    
-    NSString* caminho;
+    NSArray*  caminho;
     NSString* caminhoThumb;
     NSString* caminhoTiny;
     NSNumber* principal;
@@ -20,7 +19,7 @@
     NSNumber* id_estado;
 }
 
-@property (nonatomic, retain) NSString* caminho;
+@property (nonatomic, retain) NSArray*  caminho;
 @property (nonatomic, retain) NSString* caminhoThumb;
 @property (nonatomic, retain) NSString* caminhoTiny;
 @property (nonatomic, retain) NSNumber* principal;

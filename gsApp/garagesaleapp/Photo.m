@@ -19,9 +19,9 @@
 @synthesize id;
 @synthesize id_estado;
 
+
 + (NSDictionary*)elementToPropertyMappings {
     return [NSDictionary dictionaryWithKeysAndObjects:
-            @"caminho", @"caminho",
             @"caminhoThumb", @"caminhoThumb",
             @"caminhoTiny", @"caminhoTiny",
             @"principal", @"principal",
@@ -29,6 +29,12 @@
             @"idEstado", @"idEstado",
             @"id", @"id",
             @"id_estado", @"id_estado",
+            nil];
+}
+
++ (NSDictionary*) elementToRelationshipMappings {
+    return [NSDictionary dictionaryWithKeysAndObjects:
+            @"caminho", @"caminho",
             nil];
 }
 

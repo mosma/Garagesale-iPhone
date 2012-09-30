@@ -87,7 +87,7 @@
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
                                                   textFieldUserName.text, textFieldUserPassword.text ] objectMapping:loginMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)setGarage:(NSArray *)objects{
@@ -138,7 +138,7 @@
                                   objectMapping:garageMapping delegate:self];
 
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];  
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
 }
 
 - (void)setupProfileMapping {
@@ -158,7 +158,7 @@
 
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];  
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {

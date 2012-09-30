@@ -61,11 +61,12 @@
     [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
     [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
     [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
     [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
     
     //Configure Photo Object Mapping
     RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
+    [photoMapping mapAttributes:
      @"caminhoThumb",
      @"caminhoTiny",
      @"principal",
@@ -74,15 +75,28 @@
      @"id_estado",
      nil];
     
+    //Configure Photo Object Mapping
+    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
+    [caminhoMapping mapAttributes:
+     @"icon",
+     @"listing",
+     @"listingscaled",
+     @"mobile",
+     @"original",
+     nil];
+    
     activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65); 
     
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     
-    //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:@"product" objectMapping:productMapping delegate:self];
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/html"];
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -204,29 +218,59 @@
     //productAccountViewController *productAccount = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
     
     
-    
-    //UIActionSheet *prodAdd = [[UIActionSheet alloc] initWithTitle:@"Title" delegate:self 
-                                        //        cancelButtonTitle:@"Cancel Button" 
-                                        //   destructiveButtonTitle:@"Destructive Button" 
-                                        //        otherButtonTitles:@"Add Pics After", @"Camera", @"Library", nil];
-    //prodAdd.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-   // [prodAdd showInView:self.view];
+//    
+//    UIActionSheet *prodAdd = [[UIActionSheet alloc] initWithTitle:@"Title" delegate:self 
+//                                                cancelButtonTitle:@"Cancel Button" 
+//                                           destructiveButtonTitle:@"Destructive Button" 
+//                                                otherButtonTitles:@"Add Pics After", @"Camera", @"Library", nil];
+//    prodAdd.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+//    [prodAdd showInView:self.view];
 
     [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
     
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                       delegate:nil 
+                                              cancelButtonTitle:@"Cancel" 
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    sheet.delegate = self;
+    [sheet showFromTabBar:self.tabBarController.tabBar];
+    return NO;
+    } else {
+        return YES;
+    }
+}
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-        switch (buttonIndex) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (buttonIndex) {
+        case 0:
+            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 3:
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break; //Cancel
+    }
+    if (buttonIndex != 3)
+        self.tabBarController.selectedIndex = 1;
 }
 
 -(void)loadButtonsProduct{

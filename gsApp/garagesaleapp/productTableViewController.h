@@ -20,7 +20,7 @@
                                                                 UITableViewDataSource,
                                                                 UISearchBarDelegate,
                                                                 RKObjectLoaderDelegate,
-                                                                UIScrollViewDelegate> {
+                                                                UIScrollViewDelegate,UITabBarDelegate> {
 
     BOOL                    *isSearch;
     BOOL                    *isSegmentedControlChanged;

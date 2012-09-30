@@ -13,6 +13,8 @@
 #import "signUpViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Product.h"
+#import "productAccountViewController.h"
+#import "Caminho.h"
 
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,

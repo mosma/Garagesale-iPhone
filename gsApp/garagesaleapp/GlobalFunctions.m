@@ -20,14 +20,14 @@ static NSString *urlImagePath;
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    urlServicePath = @"http://gsapi.local";
-    //urlServicePath = @"http://gsapi.easylikethat.com"; 
-    //urlServicePath = @"http://api.garagesaleapp.me";    
+    //urlServicePath = @"http://gsapi.local";
+    urlServicePath = @"http://gsapi.easylikethat.com";
+    //urlServicePath = @"http://api.garagesaleapp.me";
     return urlServicePath;
 }
 
 +(NSString *)getUrlImagePath {
-    urlImagePath = @"http://garagesale.local/";
+    //urlImagePath = @"http://garagesale.local/";
     //urlImagePath = @"http://gsapp.easylikethat.com"; 
     //urlImagePath = @"http://www.garagesaleapp.me"; 
     return urlImagePath; 
@@ -45,7 +45,7 @@ static NSString *urlImagePath;
     
     Product     *product    = (Product  *)[arrayDetailProduct objectAtIndex:0];
     NSString    *urlThumb   = [NSString stringWithFormat:@"%@/%@", 
-                              [GlobalFunctions getUrlImagePath], [[product fotos] caminhoThumb]];
+                              [GlobalFunctions getUrlImagePath], [[product fotos] caminho] ];
     NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
                                [NSURL URLWithString:urlThumb]];
     UIImage     *image      = ([product fotos] == NULL) ? [UIImage imageNamed:@"nopicture.png"] 
