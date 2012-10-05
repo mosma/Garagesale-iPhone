@@ -12,18 +12,26 @@
 #import "OHAttributedLabel.h"
 #import "Category.h"
 #import "Product.h"
+#import "Caminho.h"
 
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
     NSUserDefaults *getUserDefaults;
-    
     int imageThumbsXorigin_Iphone;
     int imageThumbsYorigin_Iphone;
     int countColumnImageThumbs;
     
 }
+
+typedef enum {
+	imageTypeIcon,
+	imageTypeListing,
+    imageTypeListingScaled,
+    imageTypeMobile,
+    imageTypeOriginal
+} imageType;
+
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
-+(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
@@ -42,6 +50,8 @@
 +(NSString *)getCurrencyByCode:(NSString*)currencyCode;
 +(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController;
 +(void)setNavigationBarBackground:(UINavigationController *)navController;
++(NSString *)getUrlImagesProduct:(NSArray *)product imageType:(imageType)imageType;
+
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;

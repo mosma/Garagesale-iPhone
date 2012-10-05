@@ -40,7 +40,7 @@
     NSArray                                     *arrayTags;
     UIView                                      *viewShadow;
     BOOL                                        isIdPersonNumber;
-                                                                                                    
+    int                                         countPicsAtGallery;
     IBOutlet UILabel                            *labelNomeProduto;
     IBOutlet UILabel                            *labelDescricao;
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;

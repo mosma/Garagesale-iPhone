@@ -64,6 +64,7 @@
     
     MBProgressHUD                 *HUD;
     RKObjectManager               *RKObjManeger;
+    NSUserDefaults                *settingsAccount;
 
     NSString                      *nibId;
                                                                  
@@ -103,6 +104,7 @@
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldAnyLink;
 
 @property (retain, nonatomic) RKObjectManager      *RKObjManeger;
+@property (retain, nonatomic) NSUserDefaults       *settingsAccount;
 
 -(IBAction)logout:(id)sender;
 -(void)loadAttribsToComponents;

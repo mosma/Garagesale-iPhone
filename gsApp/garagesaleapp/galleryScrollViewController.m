@@ -111,12 +111,12 @@
         
         imageView = [UIImageView alloc];
         
-        NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+      //  NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
         
-        NSLog(@"url object at index %i is %@",i,url);
+       // NSLog(@"url object at index %i is %@",i,url);
         
-        UIImage *image          =[UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        imageView               =[[UIImageView alloc] initWithImage:image];
+       // UIImage *image          = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+       // imageView               =[[UIImageView alloc] initWithImage:image];
         CGRect rect             =imageView.frame;
         rect.size.width         = 320;
         rect.origin.x           = i*320;

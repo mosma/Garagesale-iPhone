@@ -61,7 +61,7 @@
 }
 
 - (void)setupProductMapping{
-    //Initializing the Object Manager
+    //Initializing the Object Managers
     RKObjManeger = [RKObjectManager sharedManager];
     
     //Configure Product Object Mapping
@@ -75,11 +75,12 @@
     [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
     [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
     [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
     [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
     
     //Configure Photo Object Mapping
     RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
+    [photoMapping mapAttributes:
      @"caminhoThumb",
      @"caminhoTiny",
      @"principal",
@@ -88,17 +89,71 @@
      @"id_estado",
      nil];
     
+    //Configure Photo Object Mapping
+    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
+    [caminhoMapping mapAttributes:
+     @"icon",
+     @"listing",
+     @"listingscaled",
+     @"mobile",
+     @"original",
+     nil];
+        
     //set Local Resource Defautl
     if ([strLocalResourcePath length] == 0) 
         strLocalResourcePath = @"/product";
+
     
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+    
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:self.strLocalResourcePath objectMapping:productMapping delegate:self];
+    [self.RKObjManeger loadObjectsAtResourcePath:strLocalResourcePath objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    
+    
+//    //Initializing the Object Manager
+//    RKObjManeger = [RKObjectManager sharedManager];
+//    
+//    //Configure Product Object Mapping
+//    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
+//    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
+//    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
+//    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
+//    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
+//    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
+//    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
+//    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
+//    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
+//    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+//    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
+//    
+//    //Configure Photo Object Mapping
+//    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
+//    [photoMapping mapAttributes:@"caminho",
+//     @"caminhoThumb",
+//     @"caminhoTiny",
+//     @"principal",
+//     @"idProduto",
+//     @"id",
+//     @"id_estado",
+//     nil];
+//    
+//    //set Local Resource Defautl
+//    if ([strLocalResourcePath length] == 0) 
+//        strLocalResourcePath = @"/product";
+//    
+//    //Relationship
+//    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+//    
+//    //LoadUrlResourcePath
+//    [self.RKObjManeger loadObjectsAtResourcePath:self.strLocalResourcePath objectMapping:productMapping delegate:self];
+//    
+//    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -366,7 +421,7 @@
     NSIndexPath *index = [array objectAtIndex:2];
     if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {
 
-        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[mutArrayProducts objectAtIndex:index.row] fotos] caminhoThumb]];
+        NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
                 
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                        withObject:[NSArray arrayWithObjects:

@@ -76,5 +76,6 @@
 -(void)loadAttribsToComponents;
 -(void)setLogin:(NSArray *)objects;
 -(IBAction)checkLogin:(id)sender;
-
+-(void)setupGarageMapping;
+-(void)setupProfileMapping;
 @end

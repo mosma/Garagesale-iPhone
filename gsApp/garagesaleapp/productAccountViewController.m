@@ -577,7 +577,7 @@
         self.textViewDescription.text = [(ProductPhotos *)[objects objectAtIndex:0] descricao];
         
         for (int i=0; i < [[(ProductPhotos *)[objects objectAtIndex:0]fotos] count]; i++) {
-            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[objects objectAtIndex:0]fotos]objectAtIndex:i]caminhoThumb]]];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[(ProductPhotos *)[objects objectAtIndex:0]fotos]objectAtIndex:i]caminhoThumb]]];
 
             UIImage *image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             

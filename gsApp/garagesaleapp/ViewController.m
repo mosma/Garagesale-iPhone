@@ -152,6 +152,11 @@
     UITabBarItem *item0  = [tabBar.items objectAtIndex:0];
     UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
     UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
+    
+    [item0 setTitle:@"search"];
+    [item1 setTitle:@"add product"];
+    [item2 setTitle:@"settings"];
+    
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
@@ -369,7 +374,7 @@
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
 
     prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
-           
+    
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 

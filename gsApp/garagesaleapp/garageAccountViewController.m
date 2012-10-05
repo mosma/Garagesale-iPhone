@@ -359,9 +359,9 @@
 
 - (void)loadImageTableThumbs:(NSArray *)arrayDetailProduct {
     if ([[arrayDetailProduct objectAtIndex:0] fotos] != nil) {
-        NSString* urlThumb = [NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[arrayDetailProduct objectAtIndex:0] fotos] caminhoThumb]];
+        NSString* urlThumb = [GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing];
         UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-        
+
         @try {
             [mutArrayDataThumbs addObject:thumbImage];
 

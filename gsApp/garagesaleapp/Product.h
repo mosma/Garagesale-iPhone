@@ -21,7 +21,7 @@
     NSString* idPessoa;
     NSString* link;
     NSNumber* id;
-    Photo* fotos;
+    NSArray* fotos;
 }
 @property (nonatomic) Boolean sold;
 @property (nonatomic) Boolean showPrice;
@@ -34,6 +34,6 @@
 @property (nonatomic, retain) NSString* idPessoa;
 @property (nonatomic, retain) NSString* link;
 @property (nonatomic, retain) NSNumber* id;
-@property (nonatomic, retain) Photo* fotos;
+@property (nonatomic, retain) NSArray* fotos;
 
 @end

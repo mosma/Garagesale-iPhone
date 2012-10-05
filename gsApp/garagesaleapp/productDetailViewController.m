@@ -181,7 +181,6 @@
         scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
 
         
-        
     }else {
         [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
@@ -269,7 +268,10 @@
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
 
-        int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+       // int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+        
+        int countPhotos = (int)[self.product.fotos count];
+
         
         PagContGallery = [[UIPageControl alloc] init];
         PagContGallery.numberOfPages = countPhotos;
@@ -279,6 +281,8 @@
             [scrollViewMain insertSubview:countView aboveSubview:galleryScrollView];
             countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
             countView.hidden = NO;
+            galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
+            galleryScrollView.delegate              = self;
         } else 
             countView.hidden = YES;
 
@@ -288,7 +292,9 @@
             image                   = [UIImage imageNamed:@"nopicture.png"];
             imageView               = [[UIImageView alloc] initWithImage:image];            
         } else {
-            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [self.product.fotos caminho]]];
+            Photo       *photo      = (Photo *)[self.product.fotos objectAtIndex:0];
+            Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
+            NSURL *url = [NSURL URLWithString:[caminho mobile]];
             image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             imageView               = [[UIImageView alloc] initWithImage:image];
             
@@ -296,19 +302,19 @@
 
         [activityIndicator stopAnimating];
         
-        NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadGalleryTop)
-                                            object:nil];
-        [queue addOperation:operation];
+//        NSOperationQueue *queue = [NSOperationQueue new];
+//        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+//                                            initWithTarget:self
+//                                            selector:@selector(loadGalleryTop)
+//                                            object:nil];
+//        [queue addOperation:operation];
         
     }
 }
 
--(void)loadGalleryTop{
+-(void)loadGalleryTop:(UIPageControl *)PagContr{
 
-    int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
+    //int countPhotos = (int)[self.product.fotos count];
         
     UIImage *image;
     CGRect rect;//             = imageView.frame;
@@ -320,49 +326,59 @@
     //    [UIView setAnimationDelegate:self];
     //    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
-    for (int i = 0; i < countPhotos; i++){
+    //for (int i = 0; i < countPhotos; i++){
 
-        
-        
+    
+    
+    
+    
         UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
         [actInd startAnimating];
         actInd.color = [UIColor grayColor];
         
-        actInd.center = CGPointMake(160+(320*i), 140);
+        actInd.center = CGPointMake(160+(320*countPicsAtGallery), 140);
         
         [galleryScrollView addSubview:actInd];
         
-        if (countPhotos == 0) {
-            image                   = [UIImage imageNamed:@"nopicture.png"];
-            imageView               = [[UIImageView alloc] initWithImage:image];
-            imageView.frame         = rect;
-            [galleryScrollView addSubview:imageView];
-        }else {
-            NSNumber *index = [NSNumber numberWithInt:i];
+//        if (countPhotos == 0) {
+//            image                   = [UIImage imageNamed:@"nopicture.png"];
+//            imageView               = [[UIImageView alloc] initWithImage:image];
+//            imageView.frame         = rect;
+//            [galleryScrollView addSubview:imageView];
+//        }else {
+            //NSNumber *index = [NSNumber numberWithInt:PagContr.currentPage];
             [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                                   withObject:index];
-        }
-    }
+                                   withObject:PagContr];
+//        }
+//    }
     
-    galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
-    galleryScrollView.delegate              = self;
+
     //    [UIView commitAnimations];
 }
 
-- (void)loadImageGalleryThumbs:(NSNumber *)index{
+- (void)loadImageGalleryThumbs:(UIPageControl *)index{
     @try {
         
-        int i = [index intValue];
+       // int i = [index.currentPage intValue];
         UIImage *image;
         CGRect rect;//             = imageView.frame;
         rect.size.width         = 320;
         rect.size.height        = 280;
         
-            NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
+        
+        
+       Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:index.currentPage+1] caminho ] objectAtIndex:0];
+        
+        NSURL *url = [NSURL URLWithString:[caminho mobile]];
+        
+        
+        
+        
+//        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
             //NSLog(@"url object at index %i is %@",i,url);
-            image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             imageView               = [[UIImageView alloc] initWithImage:image];
-            rect.origin.x           = i*320;
+            rect.origin.x           = index.currentPage*320;
             imageView.frame         = rect;
             // imageView.contentMode   = UIViewContentModeScaleAspectFit;
             [galleryScrollView addSubview:imageView];
@@ -505,10 +521,12 @@
             self.arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             self.product.descricao = [(Product *)[objects objectAtIndex:0] descricao];
             //[self loadAttribsToComponents];
-            [self setupProductPhotosMapping];
+            //[self setupProductPhotosMapping];
+            [self loadAttribsToComponents:YES];
+
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
             self.productPhotos = (NSMutableArray *)objects;
-            [self loadAttribsToComponents:YES];
+            //[self loadAttribsToComponents:YES];
         }
     }
 }
@@ -593,9 +611,36 @@
     return frameToCenter;
 }
 
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    NSLog(@"%i",PagContGallery.currentPage);
+    
+    //check if countPicsAtGallery+1 is out of bounds
+    if (countPicsAtGallery+1 < [self.product.fotos count]) {
+        //never repeat load image at your respective page.
+        if (countPicsAtGallery <= PagContGallery.currentPage) {
+        
+        
+            NSOperationQueue *queue = [NSOperationQueue new];
+            NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadGalleryTop:)
+                                            object:PagContGallery];
+            [queue addOperation:operation];
+        
+            countPicsAtGallery++;
+        
+        }
+
+    }
+}
+
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+    
+    
     countLabel.text = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
+    
 }
 
 -(IBAction)pageControlCliked{

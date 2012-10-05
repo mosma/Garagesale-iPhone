@@ -13,7 +13,6 @@
 @implementation GlobalFunctions
 
 static NSString *urlServicePath;
-static NSString *urlImagePath;
 
 @synthesize imageThumbsXorigin_Iphone;
 @synthesize imageThumbsYorigin_Iphone;
@@ -26,13 +25,6 @@ static NSString *urlImagePath;
     return urlServicePath;
 }
 
-+(NSString *)getUrlImagePath {
-    //urlImagePath = @"http://garagesale.local/";
-    //urlImagePath = @"http://gsapp.easylikethat.com"; 
-    //urlImagePath = @"http://www.garagesaleapp.me"; 
-    return urlImagePath; 
-}
-
 +(NSUserDefaults *)getUserDefaults {
     return [NSUserDefaults standardUserDefaults];
 }
@@ -43,13 +35,12 @@ static NSString *urlImagePath;
 
 - (UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr {
     
-    Product     *product    = (Product  *)[arrayDetailProduct objectAtIndex:0];
-    NSString    *urlThumb   = [NSString stringWithFormat:@"%@/%@", 
-                              [GlobalFunctions getUrlImagePath], [[product fotos] caminho] ];
+    Product     *product    = (Product *)[arrayDetailProduct objectAtIndex:0];
+    
     NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
-                               [NSURL URLWithString:urlThumb]];
-    UIImage     *image      = ([product fotos] == NULL) ? [UIImage imageNamed:@"nopicture.png"] 
-                                                        : [[UIImage alloc] initWithData:imageData];
+                               [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing]]];
+    UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] 
+    : [[UIImage alloc] initWithData:imageData];
     /*
      Logic Block of count Logic At X,Y Position viewThumbs display on Iphone.
      imageThumbsXorigin_Iphone    Create by Instance Class
@@ -246,6 +237,31 @@ static NSString *urlImagePath;
             sumX = stringSize.width + sumX + 25;
         
         [scrollView addSubview:tagsButton];
+    }
+}
+
++(NSString *)getUrlImagesProduct:(NSArray *)product imageType:(imageType)imageType{
+    Product     *prd        = (Product *)[product objectAtIndex:0];
+    Photo       *photo      = (Photo *)[[prd fotos] objectAtIndex:0];
+    Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
+    switch (imageType) {
+        case imageTypeIcon:
+            return [caminho icon];
+            break;
+        case imageTypeListing:
+            return [caminho listing];
+            break;
+        case imageTypeListingScaled:
+            return [caminho listingscaled];
+            break;
+        case imageTypeMobile:
+            return [caminho mobile];
+            break;
+        case imageTypeOriginal:
+            return [caminho original];
+            break;
+        default:
+            break;
     }
 }
 

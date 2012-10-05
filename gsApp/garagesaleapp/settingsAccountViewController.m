@@ -42,6 +42,7 @@
 @synthesize txtViewAbout;
 @synthesize txtFieldAnyLink;
 @synthesize keyboardControls;
+@synthesize settingsAccount;
 
 @synthesize RKObjManeger;
 
@@ -284,7 +285,12 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    NSLog(@"");
+    if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+        [self setProfile:objects];
+        [self setupGarageMapping];
+    }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+        [self setGarage:objects];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -302,9 +308,9 @@
         
     } else if ([request isPOST]) {
         
-        
+        [self setupProfileMapping];
         NSLog(@"after posting to server, %@", [response bodyAsString]);
-        
+
         //        NSError *error = nil;
         //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new]; 
         //        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
@@ -332,6 +338,73 @@
     }
 }
 
+
+- (void)setGarage:(NSArray *)objects{
+    //Garage
+    [settingsAccount setObject:[[objects objectAtIndex:0] link]           forKey:@"link"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] about]          forKey:@"about"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] country]        forKey:@"country"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] district]       forKey:@"district"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] city]           forKey:@"city"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] address]        forKey:@"address"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
+    [settingsAccount synchronize];
+}
+
+- (void)setProfile:(NSArray *)objects{
+    //Profile
+    settingsAccount = [NSUserDefaults standardUserDefaults];
+    [settingsAccount setObject:[[objects objectAtIndex:0] garagem]  forKey:@"garagem"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] nome]     forKey:@"nome"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] email]    forKey:@"email"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] senha]    forKey:@"senha"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
+    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"]; 
+}
+
+- (void)setupGarageMapping {
+    //Configure Garage Object Mapping
+    RKObjectMapping *garageMapping = [RKObjectMapping mappingForClass:[Garage class]];    
+    [garageMapping mapKeyPath:@"link"           toAttribute:@"link"];
+    [garageMapping mapKeyPath:@"about"          toAttribute:@"about"];
+    [garageMapping mapKeyPath:@"country"        toAttribute:@"country"];
+    [garageMapping mapKeyPath:@"district"       toAttribute:@"district"];
+    [garageMapping mapKeyPath:@"city"           toAttribute:@"city"];
+    [garageMapping mapKeyPath:@"address"        toAttribute:@"address"];
+    [garageMapping mapKeyPath:@"localization"   toAttribute:@"localization"];
+    [garageMapping mapKeyPath:@"idState"        toAttribute:@"idState"];
+    [garageMapping mapKeyPath:@"idPerson"       toAttribute:@"idPerson"];
+    [garageMapping mapKeyPath:@"id"             toAttribute:@"id"];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@",
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]
+                              objectMapping:garageMapping delegate:self];
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
+}
+
+- (void)setupProfileMapping {
+    //Configure Profile Object Mapping
+    RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
+    [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
+    [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
+    [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
+    [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
+    [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];    
+    [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
+    [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", 
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]] 
+                              objectMapping:prolileMapping delegate:self];
+    
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
+}
 
 - (void)myProgressTask {
 	// This just increases the progress indicator in a loop
