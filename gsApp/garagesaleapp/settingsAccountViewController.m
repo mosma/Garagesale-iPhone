@@ -65,10 +65,7 @@
 
 -(void)logout:(id)sender{
     /*
-     
      Reset Token... Colocar isso no globalfuncionts
-     
-     
      */
     
     [self setupLogOut];
@@ -84,7 +81,7 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    for (UIViewController *v in self.tabBarController.viewControllers)
+    for (UIViewController *v in self.navigationController.viewControllers)
     {
         UIViewController *vc = v;
 
@@ -98,13 +95,18 @@
         {
             [vc.navigationController popToRootViewControllerAnimated:YES];
         }
+        
+        if ([vc isKindOfClass:[garageAccountViewController class]])
+        {
+            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
+        }
     }
 
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController] 
       navigationController] popToRootViewControllerAnimated:YES];
 
     
-        self.tabBarController.selectedIndex = 0;
+    self.tabBarController.selectedIndex = 0;
     
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController] 
       navigationController] popToRootViewControllerAnimated:NO];
@@ -410,19 +412,14 @@
 	// This just increases the progress indicator in a loop
 	float progress = 0.0f;
 	while (progress < 1.0f) {
-		progress += 0.01f;
+		progress += 0.004f;
 		HUD.progress = progress;
 		usleep(10000);
 	}
-    
-    
-    
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.labelText = @"Completed";
 	sleep(2);
-    
-    
 }
 
 

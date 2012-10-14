@@ -155,34 +155,23 @@
 
     if (self.product != nil) {
         [self loadingProduct];
-        self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:300];
     }else {
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"New Product" width:300];
-        //[self animationPicsControl];
     }
     
 }
 
 -(void)loadingProduct{
     [self setupProductMapping];
+     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+    self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:[NSString stringWithFormat:@"Edit:%@",product.nome] width:300];
 }
 
 -(void)backPage{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-//
-//-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-//    if (textField==txtFieldCurrency){
-//        textField.hidden = YES;
-//    }
-//    else {
-//        txtFieldCurrency.hidden = NO;
-//    }
-//    return YES;
-//}
 
 - (IBAction)isNumberKey:(UITextField *)textField{
     [GlobalFunctions onlyNumberKey:textField];
@@ -209,13 +198,11 @@
         viewPicsControl.hidden = NO;
         viewPicsControl.alpha = 1.0;
         shadowView.alpha = 0.7;
-        //[GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     } else {
         viewPicsControl.alpha = 0;
         shadowView.alpha = 0;
         viewPicsControl.hidden = YES;
         [shadowView removeFromSuperview];
-        //[GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     
     [UIView commitAnimations];
@@ -253,6 +240,49 @@
     [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"Cancel" 
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (buttonIndex) {
+        case 0:
+            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 3:
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break; //Cancel
+    }
+    if (buttonIndex != 3)
+        self.tabBarController.selectedIndex = 1;
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
  // [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
@@ -273,7 +303,7 @@
                                        [theLocale objectForKey:NSLocaleCurrencySymbol]]; 
         txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
     }
-    if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+    if (self.product == nil && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:YES forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -301,6 +331,7 @@
     
     [self addImageToScrollView:imageThumb];
     [picker dismissModalViewControllerAnimated:YES];
+    [self animationPicsControl];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
@@ -390,18 +421,7 @@
         scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
         scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
         scrollViewPicsProduct.scrollsToTop = YES;
-        
-        
-//        CGRect frame = scrollViewPicsProduct.frame;
-//        frame.origin.x = frame.size.width * [nsMutArrayPicsProduct count];
-//        
-//        [scrollViewPicsProduct scrollRectToVisible:frame animated:YES];
-//
-//        
-//        
-        
-        
-        [self animationPicsControl];
+
     }
 }
 
@@ -449,7 +469,7 @@
         
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
-    }
+    }    
 }
 
 -(IBAction)saveProduct{
@@ -464,7 +484,6 @@
         }else {
             [self postProduct];
         }
-        
     }
 }
 
@@ -504,7 +523,8 @@
 	sleep(1);
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];  
+    [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];
+    [userDefaults setBool:NO forKey:@"isProductDisplayed"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self reloadInputViews];
@@ -550,6 +570,7 @@
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
     [postData setObject:idPerson              forKey:@"idUser"];
+    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"] forKey:@"garage"];
     
     //Parsing prodParams to JSON! 
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
@@ -560,29 +581,30 @@
     
     //If no error we send the post, voila!
     if (!error){
-        
         //Add ProductJson in postData for key product
         [postData setObject:json forKey:@"product"];
-        
         [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
-        
-        
-        self.txtFieldTitle.text = [(ProductPhotos *)[objects objectAtIndex:0] nome];
-        self.txtFieldValue.text = [(ProductPhotos *)[objects objectAtIndex:0] valorEsperado];
-        self.textViewDescription.text = [(ProductPhotos *)[objects objectAtIndex:0] descricao];
-        
-        for (int i=0; i < [[(ProductPhotos *)[objects objectAtIndex:0]fotos] count]; i++) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[(ProductPhotos *)[objects objectAtIndex:0]fotos]objectAtIndex:i]caminhoThumb]]];
+    if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+        self.product = (Product *)[objects objectAtIndex:0];
+        [self loadAttributsToProduct];        
+    }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
 
-            UIImage *image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            
-            [self addImageToScrollView:image];
-        }
+-(void)loadAttributsToProduct{
+    self.txtFieldTitle.text = [product nome];
+    self.txtFieldValue.text = [product valorEsperado];
+    self.textViewDescription.text = [product descricao];
+    
+    for (int i=0; i < [[product fotos] count]; i++) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
+                                           [[[[[product fotos] objectAtIndex:i] caminho] objectAtIndex:0] icon]]];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        [self addImageToScrollView:image];
     }
 }
 
@@ -618,13 +640,24 @@
 }
 
 
-- (void)setupProductMapping{
-    //Initializing the Object Manager
-    // RKObjManeger = [RKObjectManager sharedManager];
+- (void)setupProductMapping{    
+    //Configure Product Object Mapping
+    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
+    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
+    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
+    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
+    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
+    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
+    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
+    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
+    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
+    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
+    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
     
     //Configure Photo Object Mapping
     RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
+    [photoMapping mapAttributes:
      @"caminhoThumb",
      @"caminhoTiny",
      @"principal",
@@ -633,25 +666,29 @@
      @"id_estado",
      nil];
     
-    //Configure Product Object Mapping
-    RKObjectMapping *productPhotoMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];    
-    [productPhotoMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productPhotoMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productPhotoMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productPhotoMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productPhotoMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productPhotoMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productPhotoMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productPhotoMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productPhotoMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];
+    //Configure Photo Object Mapping
+    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
+    [caminhoMapping mapAttributes:
+     @"icon",
+     @"listing",
+     @"listingscaled",
+     @"mobile",
+     @"original",
+     nil];
+        
     //Relationship
-    [productPhotoMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+    
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productPhotoMapping delegate:self];
+   // [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
+    
+    
+     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-    
 }
 
 -(void)setPostFlags{
@@ -664,12 +701,9 @@
 }
 
 -(void)uploadPhotos:(NSString *)idProduct{
-    
     RKParams* params = [RKParams params];
     for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
         NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 1.0);
-        
-        
         UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:i];
         float w = loadedImage.size.width;
         float h = loadedImage.size.height;
@@ -731,19 +765,6 @@
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {    
     return 300;
 }
-
-//-(void)image:(UIImage *)image finishedSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-//    if (error) {
-//        UIAlertView *alert = [[UIAlertView alloc]
-//                              initWithTitle: @"Save failed"
-//                              message: @"Failed to save image/video"
-//                              delegate: nil
-//                              cancelButtonTitle:@"OK"
-//                              otherButtonTitles:nil];
-//        
-//        [alert show];
-//    }
-//}
 
 /* Setup the keyboard controls BSKeyboardControls.h */
 - (void)setupKeyboardControls

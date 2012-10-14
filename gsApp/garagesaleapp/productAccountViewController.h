@@ -96,4 +96,5 @@
 -(IBAction)goBack:(id)sender;
 -(IBAction)getPicsByCamera:(id)sender;
 -(IBAction)getPicsByPhotosAlbum:(id)sender;
+-(IBAction)deleteProduct:(id)sender;
 @end

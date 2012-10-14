@@ -28,7 +28,7 @@
     GlobalFunctions                             *globalFunctions;
     UIButton                                    *buttonLogo;
     CGFloat                                     _lastContentOffset;
-                                                  
+    int                                         countLoads;                     
     RKObjectManager                             *RKObjManeger;
     NSMutableArray                              *mutArrayProducts;
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewMain;

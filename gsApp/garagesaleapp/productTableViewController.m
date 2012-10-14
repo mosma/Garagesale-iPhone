@@ -114,46 +114,6 @@
     [self.RKObjManeger loadObjectsAtResourcePath:strLocalResourcePath objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-    
-    
-//    //Initializing the Object Manager
-//    RKObjManeger = [RKObjectManager sharedManager];
-//    
-//    //Configure Product Object Mapping
-//    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-//    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-//    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-//    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-//    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-//    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-//    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-//    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-//    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-//    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-//    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-//    
-//    //Configure Photo Object Mapping
-//    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-//    [photoMapping mapAttributes:@"caminho",
-//     @"caminhoThumb",
-//     @"caminhoTiny",
-//     @"principal",
-//     @"idProduto",
-//     @"id",
-//     @"id_estado",
-//     nil];
-//    
-//    //set Local Resource Defautl
-//    if ([strLocalResourcePath length] == 0) 
-//        strLocalResourcePath = @"/product";
-//    
-//    //Relationship
-//    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
-//    
-//    //LoadUrlResourcePath
-//    [self.RKObjManeger loadObjectsAtResourcePath:self.strLocalResourcePath objectMapping:productMapping delegate:self];
-//    
-//    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -351,6 +311,12 @@
         customViewCellLine.valorEsperado.attributedText = attrStr;
     }
     
+                
+    
+
+//    NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]];
+//    UIImage *image      = [[UIImage alloc] initWithData:imageData];
+//    customViewCellBlock.imageGravatar.image = image;
     
     //Set CellBlock Values
     [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
@@ -361,7 +327,6 @@
     //Set Gravatar at CellBlock.
     //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
     //UIImage *image      = [[UIImage alloc] initWithData:imageData];
-    customViewCellBlock.imageGravatar.image = [UIImage imageNamed:@"nopicture.png"];
     
 
     //Set CellLine Values
@@ -373,9 +338,34 @@
     //NSLog(@"------------------>%i", indexPath.row);
     
     
-    customViewCellBlock.imageView.image = [UIImage imageNamed:@"whitePicture.png"];
-    customViewCellLine.imageView.image = [UIImage imageNamed:@"whitePicture.png"]; 
+    customViewCellBlock.imageView.image = [UIImage imageNamed:@"nopicture.png"];
+    customViewCellLine.imageView.image = [UIImage imageNamed:@"nopicture.png"]; 
 
+    
+    customViewCellBlock.imageView.layer.cornerRadius = 5.0f;
+
+
+    
+//    UIProgressView *progressProgressView = [[UIProgressView alloc] init];
+//    progressProgressView.frame = CGRectMake(20, 120, 280, 9);
+//    progressProgressView.progress = 0.1;
+//    progressProgressView.progressTintColor = [UIColor grayColor];
+//
+//    
+//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
+//                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    
+//    CGRect frame = spinner.frame;
+//    frame.origin.x = customViewCellLine.imageView.frame.size.width / 2 - frame.size.width / 2;
+//    frame.origin.y = customViewCellLine.imageView.frame.size.height / 2 - frame.size.height / 2;
+//    spinner.frame = frame;
+//    [customViewCellLine insertSubview:spinner aboveSubview:customViewCellLine.imageView];
+//    [customViewCellBlock insertSubview:progressProgressView aboveSubview:customViewCellBlock.imageView];
+//    [spinner startAnimating];
+    
+   
+//    progressProgressView.progress = 0.03;
+    
     //if ([mutDictDataThumbs count] > indexPath.row) {
     if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]]) {
         customViewCellBlock.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
@@ -417,6 +407,7 @@
 
 
 -(void)loadImageAtIndexPath:(NSArray *)array{
+    
     
     NSIndexPath *index = [array objectAtIndex:2];
     if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {

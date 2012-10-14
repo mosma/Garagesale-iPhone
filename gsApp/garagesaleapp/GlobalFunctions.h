@@ -32,6 +32,7 @@ typedef enum {
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
++(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
@@ -50,7 +51,7 @@ typedef enum {
 +(NSString *)getCurrencyByCode:(NSString*)currencyCode;
 +(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController;
 +(void)setNavigationBarBackground:(UINavigationController *)navController;
-+(NSString *)getUrlImagesProduct:(NSArray *)product imageType:(imageType)imageType;
++(NSString *)getUrlImagesProduct:(NSMutableArray *)product imageType:(imageType)imageType;
 
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;

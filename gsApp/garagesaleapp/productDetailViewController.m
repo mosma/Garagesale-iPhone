@@ -18,6 +18,8 @@
 
 @implementation productDetailViewController
 
+@synthesize buttonEditProduct;
+@synthesize buttonDeleteProduct;
 @synthesize detailItem = _detailItem;
 @synthesize RKObjManeger;
 @synthesize product;
@@ -108,14 +110,6 @@
          */
         self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
                                  characterIsMember:[self.product.idPessoa characterAtIndex:0]];
-        
-        //Custom Title Back Bar Button Item
-//        UIImage *image = [UIImage imageNamed: @"nopicture.png"];
-//        UIImageView *imageView = [[UIImageView alloc] initWithImage: image];
-        
-        
-        //self.navigationController.navigationBar.backItem.titleView = imageView;
-
         
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
@@ -268,8 +262,6 @@
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
 
-       // int countPhotos = (int)[[(ProductPhotos *)[productPhotos objectAtIndex:0] fotos ] count];
-        
         int countPhotos = (int)[self.product.fotos count];
 
         
@@ -301,87 +293,43 @@
         }
 
         [activityIndicator stopAnimating];
-        
-//        NSOperationQueue *queue = [NSOperationQueue new];
-//        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-//                                            initWithTarget:self
-//                                            selector:@selector(loadGalleryTop)
-//                                            object:nil];
-//        [queue addOperation:operation];
-        
     }
 }
 
 -(void)loadGalleryTop:(UIPageControl *)PagContr{
-
-    //int countPhotos = (int)[self.product.fotos count];
-        
     UIImage *image;
-    CGRect rect;//             = imageView.frame;
+    CGRect rect;
     rect.size.width         = 320;
     rect.size.height        = 280;
     
-    //    [UIView beginAnimations:nil context:nil];
-    //    [UIView setAnimationDuration:0.4];
-    //    [UIView setAnimationDelegate:self];
-    //    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-    
-    //for (int i = 0; i < countPhotos; i++){
+    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+    [actInd startAnimating];
+    actInd.color = [UIColor grayColor];
+        
+    actInd.center = CGPointMake(160+(320*countPicsAtGallery), 140);
+        
+    [galleryScrollView addSubview:actInd];
 
-    
-    
-    
-    
-        UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
-        [actInd startAnimating];
-        actInd.color = [UIColor grayColor];
-        
-        actInd.center = CGPointMake(160+(320*countPicsAtGallery), 140);
-        
-        [galleryScrollView addSubview:actInd];
-        
-//        if (countPhotos == 0) {
-//            image                   = [UIImage imageNamed:@"nopicture.png"];
-//            imageView               = [[UIImageView alloc] initWithImage:image];
-//            imageView.frame         = rect;
-//            [galleryScrollView addSubview:imageView];
-//        }else {
-            //NSNumber *index = [NSNumber numberWithInt:PagContr.currentPage];
-            [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                    withObject:PagContr];
-//        }
-//    }
-    
-
-    //    [UIView commitAnimations];
 }
 
 - (void)loadImageGalleryThumbs:(UIPageControl *)index{
     @try {
-        
-       // int i = [index.currentPage intValue];
         UIImage *image;
         CGRect rect;//             = imageView.frame;
         rect.size.width         = 320;
         rect.size.height        = 280;
-        
-        
-        
-       Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:index.currentPage+1] caminho ] objectAtIndex:0];
-        
+
+        Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:index.currentPage+1] caminho ] objectAtIndex:0];
         NSURL *url = [NSURL URLWithString:[caminho mobile]];
-        
-        
-        
-        
-//        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", [[[(ProductPhotos *)[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
-            //NSLog(@"url object at index %i is %@",i,url);
+
         image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            imageView               = [[UIImageView alloc] initWithImage:image];
-            rect.origin.x           = index.currentPage*320;
-            imageView.frame         = rect;
-            // imageView.contentMode   = UIViewContentModeScaleAspectFit;
-            [galleryScrollView addSubview:imageView];
+        imageView               = [[UIImageView alloc] initWithImage:image];
+        rect.origin.x           = index.currentPage*320;
+        imageView.frame         = rect;
+        // imageView.contentMode   = UIViewContentModeScaleAspectFit;
+        [galleryScrollView addSubview:imageView];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -520,13 +468,9 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             self.arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             self.product.descricao = [(Product *)[objects objectAtIndex:0] descricao];
-            //[self loadAttribsToComponents];
-            //[self setupProductPhotosMapping];
             [self loadAttribsToComponents:YES];
-
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
             self.productPhotos = (NSMutableArray *)objects;
-            //[self loadAttribsToComponents:YES];
         }
     }
 }
@@ -613,41 +557,31 @@
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     NSLog(@"%i",PagContGallery.currentPage);
-    
     //check if countPicsAtGallery+1 is out of bounds
     if (countPicsAtGallery+1 < [self.product.fotos count]) {
         //never repeat load image at your respective page.
         if (countPicsAtGallery <= PagContGallery.currentPage) {
-        
-        
             NSOperationQueue *queue = [NSOperationQueue new];
             NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                             initWithTarget:self
                                             selector:@selector(loadGalleryTop:)
                                             object:PagContGallery];
             [queue addOperation:operation];
-        
             countPicsAtGallery++;
-        
         }
-
     }
 }
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
-    
-    
     countLabel.text = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
-    
 }
 
 -(IBAction)pageControlCliked{
     //CGPoint offset = CGPointMake(PagContGallery.currentPage * self.view.frame.size.width, 0);
     //[galleryScrollView setContentOffset:offset animated:YES];
 }
-
 
 -(void) hideMsgBidSent {
     [UIView beginAnimations:@"msgFade" context:nil];
@@ -664,9 +598,6 @@
                   [UIImage imageNamed:@"load-frame2.png"],
                   [UIImage imageNamed:@"load-frame3.png"],
                   [UIImage imageNamed:@"load-frame4.png"],nil];
-    
-//    self.imgViewLoading.animationImages = imageArray;
-//    self.imgViewLoading.animationDuration = 0.9;
 }
 
 - (IBAction)gotoGalleryScrollVC{
@@ -677,24 +608,10 @@
 }
 
 - (IBAction)gotoGarageDetailVC{
-    
     garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
-
-    
     garaAcc.profile = (Profile *)[arrayProfile objectAtIndex:0];
     garaAcc.garage =  (Garage *)[arrayGarage objectAtIndex:0];
-    
-      
     [self.navigationController pushViewController:garaAcc animated:YES];
-    
-//    garageDetailViewController *garageDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GarageDetail"];
-//    garageDetailVC.garage = self.arrayGarage;
-//    garageDetailVC.profile = self.arrayProfile;
-//    garageDetailVC.gravatarUrl = [GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]];
-//    [self.navigationController pushViewController:garageDetailVC animated:YES];
-//    
-//    //Custom Title Back Bar Button Item
-//    self.navigationController.navigationBar.backItem.title = NSLocalizedString(@"back", @"");
 }
 
 - (IBAction)gotoUserProductTableVC{
@@ -798,6 +715,35 @@
     [buttonBid setEnabled:NO];
     [buttonBid setAlpha:0.3];
     [UIView commitAnimations];
+}
+
+-(IBAction)deleteProduct:(id)sender {
+
+    RKObjectRouter *router = [[RKObjectManager sharedManager] router];
+    [router routeClass:[Product class] toResourcePath:@"/product/659"];
+    
+    Product *prd = [[Product alloc] init];
+    prd.id = self.product.id;
+    
+    [[RKObjectManager sharedManager] deleteObject:prd delegate:self];
+}
+
+-(IBAction)reportGarage:(id)sender {
+
+
+
+   
+    NSString *urlString = [NSString stringWithFormat:@"http://garagesaleapp.me/%@/reportAbuse", self.product.idPessoa];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    
+    NSData *urlData;
+    NSURLResponse *response;
+    urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
+    
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Abuse" message:@"Recebemos sua reclamação, \n Vamos validar o caso mais rápido possivel" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    [alert show];
 }
 
 
@@ -1021,6 +967,10 @@
     [self setCountView:nil];
     countLabel = nil;
     [self setCountLabel:nil];
+    buttonEditProduct = nil;
+    [self setButtonEditProduct:nil];
+    buttonDeleteProduct = nil;
+    [self setButtonDeleteProduct:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

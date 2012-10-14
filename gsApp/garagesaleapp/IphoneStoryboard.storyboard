@@ -629,7 +629,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
+                                    <tableView hidden="YES" clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
                                         <rect key="frame" x="0.0" y="143" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -646,10 +646,18 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="btPencilEditProductTable.png" id="OZp-gg-cfP">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Bp-Zl-Q99" userLabel="ButtonEditPencil">
                                                             <rect key="frame" x="15" y="15" width="53" height="26"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        </imageView>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                            <state key="normal" image="btPencilEditProductTable.png">
+                                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="rnS-dq-rgJ">
                                                             <rect key="frame" x="118" y="26" width="178" height="39"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -669,7 +677,7 @@
                                                 </view>
                                                 <color key="backgroundColor" red="0.18048469389999999" green="0.042337491429999999" blue="0.15565084279999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
-                                                    <outlet property="imageEditButton" destination="OZp-gg-cfP" id="fB0-MK-zY5"/>
+                                                    <outlet property="imageEditButton" destination="9Bp-Zl-Q99" id="jY4-jl-c3C"/>
                                                     <outlet property="imageView" destination="sJk-A0-owf" id="umR-DP-SE3"/>
                                                     <outlet property="productName" destination="rnS-dq-rgJ" id="Nqm-aT-pjq"/>
                                                     <outlet property="valorEsperado" destination="cHf-lD-giI" id="XkB-Wy-nUR"/>
@@ -1241,7 +1249,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WZN-Ek-lty">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WZN-Ek-lty" userLabel="buttonEditProduct">
                                                                 <rect key="frame" x="10" y="10" width="53" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -1253,7 +1261,7 @@
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbb-5W-dSx">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cbb-5W-dSx" userLabel="buttonDeleteProduct">
                                                                 <rect key="frame" x="72" y="10" width="66" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -1264,6 +1272,9 @@
                                                                 <state key="highlighted">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="deleteProduct:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7lJ-Vq-WJq"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1272,13 +1283,6 @@
                                                         <rect key="frame" x="0.0" y="68" width="320" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Report this garage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="SWp-W2-Zor">
-                                                                <rect key="frame" x="204" y="6" width="106" height="21"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="12"/>
-                                                                <color key="textColor" red="0.88847257653061229" green="0.22089547442119983" blue="0.25948398172318288" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product listed 523 times" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ZiA-lz-mFm">
                                                                 <rect key="frame" x="10" y="6" width="186" height="21"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1286,6 +1290,21 @@
                                                                 <color key="textColor" red="0.46938775510204078" green="0.46938775510204078" blue="0.46938775510204078" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oTU-SU-woM">
+                                                                <rect key="frame" x="191" y="6" width="114" height="26"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                                                <state key="normal" title="Report This Garage">
+                                                                    <color key="titleColor" red="0.80784320831298828" green="0.32156863808631897" blue="0.32156863808631897" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <state key="highlighted">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="reportGarage:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Kj5-HN-FJd"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.87450987100601196" green="0.87450987100601196" blue="0.87450987100601196" alpha="1" colorSpace="deviceRGB"/>
                                                     </view>
@@ -1401,7 +1420,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" id="XW6-ur-9kb" userLabel="ViewBidSend">
-                                        <rect key="frame" x="10" y="68" width="300" height="283"/>
+                                        <rect key="frame" x="10000" y="68" width="300" height="283"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00" minimumFontSize="17" id="8GZ-xO-7bc" userLabel="offerTextField">
@@ -1540,6 +1559,8 @@
                         <outlet property="OHlabelValorEsperado" destination="fV4-sm-nn9" id="ou1-lq-21E"/>
                         <outlet property="activityIndicator" destination="FJL-Aj-NrX" id="nCO-aF-DKN"/>
                         <outlet property="buttonBid" destination="QaR-k2-gdc" id="Tzq-V7-dqh"/>
+                        <outlet property="buttonDeleteProduct" destination="cbb-5W-dSx" id="Nkp-ar-QPX"/>
+                        <outlet property="buttonEditProduct" destination="WZN-Ek-lty" id="ELo-yF-bLl"/>
                         <outlet property="buttonGarageDetail" destination="9k5-33-1yu" id="6ND-0i-ogR"/>
                         <outlet property="countLabel" destination="ERP-DW-RRs" id="oV6-BL-fhd"/>
                         <outlet property="countView" destination="5zP-hO-T2F" id="r6K-nD-u6B"/>
@@ -2179,6 +2200,7 @@
             <relationships>
                 <relationship kind="action" name="addProduct:"/>
                 <relationship kind="action" name="animationPicsControl"/>
+                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="getPicsByCamera:"/>
                 <relationship kind="action" name="getPicsByPhotosAlbum:"/>
                 <relationship kind="action" name="goBack:"/>
@@ -2204,7 +2226,7 @@
             <relationships>
                 <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageEditButton" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageEditButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="imageGravatar" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
@@ -2226,6 +2248,8 @@
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="buttonBid" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonEditProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonGarageDetail" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="countLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="countView" candidateClass="UIView"/>

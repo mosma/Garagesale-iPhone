@@ -111,6 +111,7 @@
         [queue addOperation:operation];
         [activityLoadProducts stopAnimating];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        countLoads++;
     }
 }
 
@@ -209,6 +210,7 @@
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
 
     scrollViewMain.delegate = self;
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
@@ -301,6 +303,38 @@
     _lastContentOffset = scrollView.contentOffset.y;
 }
 
+
+- (BOOL)detectEndofScroll{
+    
+    BOOL scrollResult;
+    CGPoint offset = self.scrollViewMain.contentOffset;
+    CGRect bounds = self.scrollViewMain.bounds;
+    CGSize size = self.scrollViewMain.contentSize;
+    UIEdgeInsets inset = self.scrollViewMain.contentInset;
+    float yaxis = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    if(yaxis > h) {
+        scrollResult = YES;
+    }else{
+        scrollResult = NO;
+    }
+    
+    return scrollResult;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if ([self detectEndofScroll]){
+        //UIAlertView *displayMessage = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Reached end of table scroll" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        //[displayMessage show];
+        
+        if(countLoads < 6){
+            [self setupProductMapping];
+            scrollViewMain.contentSize	= CGSizeMake(320,scrollViewMain.contentSize.height+420);
+        }
+    }
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
         if (!viewSearch.hidden || !viewTopPage.hidden){
@@ -346,14 +380,13 @@
     globalFunctions.imageThumbsXorigin_Iphone = 10;
     
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
-    
+    countLoads = 0;
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
         viewSearch.hidden = NO;
         viewTopPage.hidden = YES;
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
        // [self.navigationController setNavigationBarHidden:NO];
         globalFunctions.imageThumbsYorigin_Iphone = 95;
-        scrollViewMain.contentSize	= CGSizeMake(320,825);
         searchBarProduct.hidden=YES;
     }else {
         viewSearch.hidden = YES;
@@ -361,10 +394,16 @@
         globalFunctions.imageThumbsYorigin_Iphone = 95;
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
        // [self.navigationController setNavigationBarHidden:YES];
-        scrollViewMain.contentSize	= CGSizeMake(320,817);   
         //[self setHidesBottomBarWhenPushed:NO];
         searchBarProduct.hidden=NO;
     }
+    
+    if ([mutArrayProducts count] == 0) {
+        scrollViewMain.contentSize	= CGSizeMake(320,480);
+    }else {
+        scrollViewMain.contentSize	= CGSizeMake(320,([mutArrayProducts count]*35)+130);
+    }
+    
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
@@ -374,7 +413,7 @@
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
 
     prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
-    
+
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 

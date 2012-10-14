@@ -33,6 +33,7 @@
                                                             UIScrollViewDelegate,
                                                             RKObjectLoaderDelegate,UITabBarDelegate> {
                                                                 
+    
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;
     NSArray                                     *arrayGarage;
@@ -63,14 +64,17 @@
     __weak IBOutlet UIView *countView;                                                
     __weak IBOutlet UILabel *countLabel;
     UIPageControl  *PagContGallery;
-
+    __unsafe_unretained IBOutlet UIButton *buttonEditProduct;
+    __unsafe_unretained IBOutlet UIButton *buttonDeleteProduct;
+                                                                
     //Gallery Images Objects.
     NSMutableArray          *productPhotos;
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
-
+    
 }
+
 
 @property (strong, nonatomic) id detailItem;
 @property (retain, nonatomic) RKObjectManager                   *RKObjManeger;
@@ -100,6 +104,8 @@
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 @property (weak, nonatomic) IBOutlet UIView *countView;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonEditProduct;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
 
 //Gallery Images Objects.
 @property (retain, nonatomic) NSMutableArray         *productPhotos;

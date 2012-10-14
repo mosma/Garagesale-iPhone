@@ -23,7 +23,7 @@
 @synthesize scrollViewMain;
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
-@synthesize mutArrayDataThumbs;
+@synthesize mutDictDataThumbs;
 @synthesize profile;
 @synthesize garage;
 
@@ -50,12 +50,16 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-  //  [self setupProductMapping];
+    //[self setupProductMapping];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self loadAttribsToComponents:NO];    
+    [self loadAttribsToComponents:NO];
+    
+    if ([mutArrayProducts count] == 0)
+        [self reloadPage:nil];
+
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -79,11 +83,12 @@
     [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
     [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
     [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
+    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
     [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
     
     //Configure Photo Object Mapping
     RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
+    [photoMapping mapAttributes:
      @"caminhoThumb",
      @"caminhoTiny",
      @"principal",
@@ -92,11 +97,23 @@
      @"id_estado",
      nil];
     
+    //Configure Photo Object Mapping
+    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
+    [caminhoMapping mapAttributes:
+     @"icon",
+     @"listing",
+     @"listingscaled",
+     @"mobile",
+     @"original",
+     nil];
+    
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+
     //LoadUrlResourcePath
-    
     if ((garage  == nil) && (profile == nil))
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
     else
@@ -104,20 +121,25 @@
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
     
-    [self initLoadingGuear];
+    //[self initLoadingGuear];
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
     
     [mutArrayProducts removeAllObjects];
-    [mutArrayDataThumbs removeAllObjects];
-    
+        
     mutArrayProducts = nil;
-    mutArrayDataThumbs = nil;
-    
     [self setupProductMapping];
+    
+    //Set Display thumbs on Home.
+    globalFunctions.countColumnImageThumbs = -1;
+    globalFunctions.imageThumbsXorigin_Iphone = 10;
+    globalFunctions.imageThumbsYorigin_Iphone = 10;
+    
+    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 -(void)initLoadingGuear{
@@ -148,9 +170,12 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if([objects count] > 0){
         self.mutArrayProducts = (NSMutableArray *)objects;
+        [self.tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
         isLoading = !isLoading;
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
 }
 
 - (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
@@ -188,22 +213,18 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
-        
         self.tabBarController.delegate = self;
         
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-        
 
         garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:22];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         
-        
         if ((garage  == nil) && (profile == nil)) {
-
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
             city.text        = [NSString stringWithFormat:@"%@, %@, %@",
@@ -213,15 +234,9 @@
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
         
             gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
-            
-            
 
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
-
-
-            
         } else {
-
             description.text = profile.nome;
             garageName.text  = profile.garagem;
             city.text        = [NSString stringWithFormat:@"%@, %@, %@",
@@ -233,12 +248,9 @@
             
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-
-            
         }
 
         self.scrollViewMain.contentSize         = CGSizeMake(320,560);
-        self.scrollViewProducts.contentSize     = CGSizeMake(320,2845);
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
         
@@ -253,15 +265,12 @@
         
         self.navigationItem.hidesBackButton = NO;
         
-
-        
-        self.tableViewProducts.hidden = YES;
-
-    } else {
-        
+       // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-
+    } else {
+        mutDictDataThumbs = [[NSMutableDictionary alloc] init];
+        
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -287,16 +296,10 @@
         
         NSInvocationOperation *opThumbsProd = [[NSInvocationOperation alloc]
                                             initWithTarget:self
-                                            selector:@selector(loadButtonsProduct)
-                                            object:nil];
-        
-        NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadTableProduct)
+                                            selector:@selector(loadButtonsThumbsProduct)
                                             object:nil];
         [queue addOperation:opThumbsProd];
-        [queue addOperation:opTableProd];
-        
+
     }  
 }
 
@@ -318,7 +321,7 @@
     } 
 }
 
--(void)loadButtonsProduct{
+-(void)loadButtonsThumbsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
     for(int i = 0; i < [self.mutArrayProducts count]; i++)
     {
@@ -342,37 +345,35 @@
     }
 }
 
--(void)loadTableProduct{
-    //Load cache thumbs in thumbsDataArray to TableView
-    mutArrayDataThumbs = [[NSMutableArray alloc] init];
-
-    for(int i = 0; i < [self.mutArrayProducts count]; i++)
-    {
-        [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i], 
-                                           [NSNumber numberWithInt:i], 
-                                           nil]];
-    }
-    [self.tableViewProducts reloadData];
-
+-(void)loadTableProduct:(NSArray *)array{
+    [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
+                               withObject:array];
 }
 
-- (void)loadImageTableThumbs:(NSArray *)arrayDetailProduct {
-    if ([[arrayDetailProduct objectAtIndex:0] fotos] != nil) {
-        NSString* urlThumb = [GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing];
-        UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+- (void)loadImageTableThumbs:(NSArray *)array {
+    /*
+     array WithObjects:
+     0 cell, 
+     1 indexPath, 
+     */
+    NSIndexPath *index = [array objectAtIndex:1];
+    NSString* urlThumb;
 
         @try {
-            [mutArrayDataThumbs addObject:thumbImage];
-
+          urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
         }
         @catch (NSException *exception) {
+            [(productCustomViewCell *)[array objectAtIndex:0] imageView].image  = [UIImage imageNamed:@"nopicture.png"];
+            [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
             NSLog(@"%@", exception);
         }
         @finally {
+            if (urlThumb != NULL) {
+                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
+                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
+            }
         }
-    }else 
-        [mutArrayDataThumbs addObject:[UIImage imageNamed:@"nopicture.png"]];
 }
 
 -(IBAction)changeSegControl{
@@ -392,16 +393,16 @@
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
-    if ((garage  == nil) && (profile == nil))  {
-        productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
-        prdAccVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
-        [self.navigationController pushViewController:prdAccVC animated:YES];
-    }else {
-        productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-        prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
-        prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
-        [self.navigationController pushViewController:prdDetailVC animated:YES];
-    }
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    prdDetailVC.product = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+    prdDetailVC.imageView = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
+}
+
+- (void)gotoProductAccountVC:(UIButton *)sender{
+    productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
+    prdAccVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
+    [self.navigationController pushViewController:prdAccVC animated:YES];
 }
 
 // Table view data source
@@ -414,58 +415,71 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     static NSString             *CellIdentifier = @"CellProduct";
     productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];    
-    
-    [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-    [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        
+    if ([mutArrayProducts count] > 0) {
 
-    NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
-                                                   [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
-    
-    NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
+        [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
 
-    NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@", currency, valorEsperado];
-    
-    NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:24]];
-    [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]];
-    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]   
-                    range:[strFormat rangeOfString:currency]];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];
+        NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
+                                                       [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
+        
+        NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
 
-    if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-        [[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
-        [[cell valorEsperado] setText:@"Vendido"];
-        [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                           green:(float)102/255.0 \
-                                                            blue:(float)102/255.0 alpha:1.0]];
-    }else{
-        cell.valorEsperado.attributedText = attrStr;
+        NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@", currency, valorEsperado];
+        
+        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:24]];
+        [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]   
+                        range:[strFormat rangeOfString:currency]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];
+
+        if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
+            [[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+            [[cell valorEsperado] setText:@"Vendido"];
+            [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                               green:(float)102/255.0 \
+                                                                blue:(float)102/255.0 alpha:1.0]];
+        }else cell.valorEsperado.attributedText = attrStr;
+        
+        if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]])
+            cell.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]; 
+        else {
+             if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
+                NSOperationQueue *queue = [NSOperationQueue new];
+
+                NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
+                                                       initWithTarget:self
+                                                       selector:@selector(loadTableProduct:)
+                                                       object:[NSArray arrayWithObjects:
+                                                               cell,
+                                                               indexPath, nil]];
+                [queue addOperation:opTableProd];
+             }
+        }
+                
+        if ((garage  == nil) && (profile == nil))
+            cell.imageEditButton.hidden = NO;
+        else 
+            cell.imageEditButton.hidden = YES;
+        
+        [cell.imageEditButton setTag:indexPath.row];
+        [cell.imageEditButton addTarget:self action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
+
     }
-    
-    @try {
-        cell.imageView.image = [mutArrayDataThumbs objectAtIndex:indexPath.row];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
-    }
-    @finally {
-    }
-    
-    if ((garage  == nil) && (profile == nil))
-        cell.imageEditButton.hidden = NO;
-    else 
-        cell.imageEditButton.hidden = YES;
-    
+
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIButton *button = [[UIButton alloc] init];
-    button.tag = indexPath.row;
-    [self gotoProductDetailVC:button];
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
+    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
@@ -532,7 +546,8 @@
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
     [super viewDidUnload];
-    
+    mutDictDataThumbs = nil;
+    [self setMutDictDataThumbs:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

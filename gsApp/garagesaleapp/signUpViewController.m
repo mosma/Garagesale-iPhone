@@ -220,7 +220,6 @@
 }
 
 -(void)setLogin:(NSArray *)objects{
-    
     settingsAccount = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
     [settingsAccount setObject:[[objects objectAtIndex:0] token] forKey:@"token"];

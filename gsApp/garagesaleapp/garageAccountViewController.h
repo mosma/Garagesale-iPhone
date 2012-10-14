@@ -26,9 +26,10 @@
     RKObjectManager     *RKObjManeger;
     NSURL               *gravatarUrl;
     NSMutableArray      *mutArrayProducts;
-    NSMutableArray      *mutArrayDataThumbs;
+    NSMutableDictionary *mutDictDataThumbs;
     GlobalFunctions     *globalFunctions;
     MBProgressHUD       *HUD;
+    //Instacied for Parent. Using in productDetailViewController, productTableViewController.
     Profile             *profile;
     Garage              *garage;
     BOOL                isLoading;
@@ -49,7 +50,7 @@
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
 @property (retain, nonatomic) NSURL             *gravatarUrl;
 @property (retain, nonatomic) NSMutableArray    *mutArrayProducts;
-@property (retain, nonatomic) NSMutableArray    *mutArrayDataThumbs;
+@property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (nonatomic) BOOL                      isFromParent;
 @property (retain, nonatomic) Profile           *profile;
 @property (retain, nonatomic) Garage            *garage;

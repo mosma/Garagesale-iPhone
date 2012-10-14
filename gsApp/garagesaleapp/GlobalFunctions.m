@@ -115,10 +115,15 @@ static NSString *urlServicePath;
     
     if (showEdit) {
         //View Edit Pencil
-        UIImageView *imageViewEditPencil = [[UIImageView alloc] initWithImage:
-                                            [UIImage imageNamed:@"btPencilEditProductThumbs.png"]];
-        [imageViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
-        [viewThumbs addSubview:imageViewEditPencil];
+        
+        UIButton *buttonViewEditPencil = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttonViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
+        
+        [buttonViewEditPencil setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
+        [buttonViewEditPencil addTarget:viewContr action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
+        [buttonViewEditPencil setImage:[UIImage imageNamed:@"btPencilEditProductThumbs.png"] forState:UIControlStateNormal];
+
+        [viewThumbs addSubview:buttonViewEditPencil];
     }
     
     return viewThumbs;
@@ -241,28 +246,33 @@ static NSString *urlServicePath;
 }
 
 +(NSString *)getUrlImagesProduct:(NSArray *)product imageType:(imageType)imageType{
-    Product     *prd        = (Product *)[product objectAtIndex:0];
-    Photo       *photo      = (Photo *)[[prd fotos] objectAtIndex:0];
-    Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
-    switch (imageType) {
-        case imageTypeIcon:
-            return [caminho icon];
-            break;
-        case imageTypeListing:
-            return [caminho listing];
-            break;
-        case imageTypeListingScaled:
-            return [caminho listingscaled];
-            break;
-        case imageTypeMobile:
-            return [caminho mobile];
-            break;
-        case imageTypeOriginal:
-            return [caminho original];
-            break;
-        default:
-            break;
+    @try {
+        Product     *prd        = (Product *)[product objectAtIndex:0];
+        Photo       *photo      = (Photo *)[[prd fotos] objectAtIndex:0];
+        Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
+        switch (imageType) {
+            case imageTypeIcon:
+                return [caminho icon];
+                break;
+            case imageTypeListing:
+                return [caminho listing];
+                break;
+            case imageTypeListingScaled:
+                return [caminho listingscaled];
+                break;
+            case imageTypeMobile:
+                return [caminho mobile];
+                break;
+            case imageTypeOriginal:
+                return [caminho original];
+                break;
+            default:
+                break;
+        }
     }
+    @catch (NSException *exception) {
+    }
+    return NULL;
 }
 
 +(BOOL)isValidEmail:(NSString*) emailString {
