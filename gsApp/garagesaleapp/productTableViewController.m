@@ -412,7 +412,7 @@
     NSIndexPath *index = [array objectAtIndex:2];
     if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {
 
-        NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
+        NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
                 
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                        withObject:[NSArray arrayWithObjects:
@@ -447,7 +447,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
-    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
+    prdDetailVC.imageView = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 

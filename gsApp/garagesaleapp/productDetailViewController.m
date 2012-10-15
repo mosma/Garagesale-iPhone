@@ -163,6 +163,7 @@
         rect.size.width         = 320;
         rect.size.height        = 280;
         rect.origin.x             = 0;
+        rect.origin.y             = 0;
         imageView.frame         = rect;
         
         

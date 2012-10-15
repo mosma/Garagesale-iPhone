@@ -154,13 +154,27 @@
     UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
     UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
     
+
+    [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
+    [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
+    
     [item0 setTitle:@"search"];
     [item1 setTitle:@"add product"];
-    [item2 setTitle:@"settings"];
+    [item2 setTitle:@"my garage"];
     
+    item0.titlePositionAdjustment = UIOffsetMake(0, -5);
+    item1.titlePositionAdjustment = UIOffsetMake(0, -5);
+    item2.titlePositionAdjustment = UIOffsetMake(0, -5);
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
+
+    
+    
+    
+    
+    
+    
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -594,7 +608,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-
 }
 
 @end

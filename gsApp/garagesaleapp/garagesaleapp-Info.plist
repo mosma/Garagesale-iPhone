@@ -56,6 +56,12 @@
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>IphoneStoryboard</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>IpadStoryboard</string>
 	<key>UIPrerenderedIcon</key>

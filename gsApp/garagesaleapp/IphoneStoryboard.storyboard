@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Rln-Es-cQ8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Rln-Es-cQ8">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="ViewController" id="2" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleAspectFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -132,13 +130,13 @@
                         <outlet property="viewTopPage" destination="Rdh-TA-JuY" id="flw-3m-xgC"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-244"/>
         </scene>
         <!--Product Table View Controller - Products List-->
         <scene sceneID="veE-UN-N3z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jCx-nV-H4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ProductsTable" title="Products List" id="b5K-VV-Ch4" customClass="productTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="22" sectionFooterHeight="22" id="oFz-9Y-J0m">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -284,13 +282,13 @@
                         <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jCx-nV-H4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="594" y="-244"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3hX-w2-jJz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nR0-DB-Xo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="MainTabBarController" definesPresentationContext="YES" id="Rln-Es-cQ8" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="CVi-6j-4nK">
@@ -304,13 +302,13 @@
                         <segue destination="2mx-I3-m95" kind="relationship" relationship="viewControllers" id="QSI-y6-4cf"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nR0-DB-Xo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1103" y="-244"/>
         </scene>
         <!--Product Account View Controller - Root View Controller-->
         <scene sceneID="2Zf-CR-3Md">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iJ9-BR-tHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="productAccount" id="o08-vM-tNV" customClass="productAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="Ghd-rh-LIi">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -526,17 +524,15 @@
                         <outlet property="viewPicsControl" destination="Tba-tA-i5u" id="5QD-vt-IDQ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iJ9-BR-tHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="574" y="-1525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RP4-Zh-jOg">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dle-bs-lN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="1qE-fR-jdU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="1yY-9c-uoS">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" id="1yY-9c-uoS"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="WEu-Pu-Zjl">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -544,13 +540,13 @@
                         <segue destination="o08-vM-tNV" kind="relationship" relationship="rootViewController" id="HT2-1n-Ylj"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dle-bs-lN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="83" y="-1525"/>
         </scene>
         <!--Garage Account View Controller-->
         <scene sceneID="2b7-mf-Lcw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Sx4-es-tzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="garageAccount" id="E1Z-FY-4Gx" customClass="garageAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QGh-vt-7Z6">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -721,13 +717,13 @@
                         <outlet property="tableViewProducts" destination="qdi-Kb-uR5" id="wKO-68-n7j"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sx4-es-tzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="510"/>
         </scene>
         <!--Settings Account View Controller-->
         <scene sceneID="xR5-hG-geb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qgv-at-yLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="Settings" id="mXU-mi-vjO" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CW0-uN-NZW">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -824,13 +820,13 @@
                         <outlet property="imageView" destination="qRe-Sm-Xzi" id="AxA-Gm-7Cr"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qgv-at-yLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="714" y="866"/>
         </scene>
         <!--Settings Account View Controller-->
         <scene sceneID="TnB-O5-x89">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="li5-dd-Ljh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsAccount" id="5xi-Kh-5i5" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="O4A-WE-qi1" userLabel="scrollView">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -968,6 +964,7 @@
                         <outlet property="txtViewAbout" destination="Ned-Qc-c2a" id="uZ9-Qn-4yy"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="li5-dd-Ljh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="tNg-ey-HuJ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1067,7 +1064,6 @@
         <!--Settings Account View Controller-->
         <scene sceneID="4Dy-zL-M3X">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pCn-XI-bl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsPassword" id="K7a-eB-FnT" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="rIV-SN-IUS">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -1168,17 +1164,15 @@
                         <outlet property="txtFieldRepeatNewPassword" destination="x01-ce-t3R" id="yql-64-l5c"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pCn-XI-bl6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1375" y="1817"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="onA-jy-WRo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yyh-77-LAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="2mx-I3-m95" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="OG9-oC-wbc">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" id="OG9-oC-wbc"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ihs-Ox-iK0">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1186,13 +1180,13 @@
                         <segue destination="E1Z-FY-4Gx" kind="relationship" relationship="rootViewController" id="4EM-YA-a5N"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yyh-77-LAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-457" y="510"/>
         </scene>
         <!--Product Detail View Controller-->
         <scene sceneID="Wdk-y8-t01">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FSt-Eu-Xmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DetailProduct" id="Nbe-H5-7nH" customClass="productDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Gj-Mv-Hjm">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -1581,13 +1575,13 @@
                         <outlet property="viewBidSend" destination="XW6-ur-9kb" id="VgO-pu-8cE"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FSt-Eu-Xmu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1064" y="-244"/>
         </scene>
         <!--Gallery Scroll View Controller-->
         <scene sceneID="Pfd-go-ppt">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PYd-8T-aZN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="GalleryProduct" id="zGB-qa-kJc" customClass="galleryScrollViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MTy-lq-y5E">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1623,13 +1617,13 @@
                         <outlet property="galleryScrollView" destination="2Oc-qr-Cc4" id="ofe-Uu-mW3"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PYd-8T-aZN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1496" y="-236"/>
         </scene>
         <!--Garage Detail View Controller - Garage-->
         <scene sceneID="g5c-4n-nkB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cQp-D0-adS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="GarageDetail" id="kSZ-Qj-3RS" customClass="garageDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="odl-GH-Ucd">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -1714,17 +1708,15 @@
                         <outlet property="seeAllButton" destination="vX5-85-UTr" id="gcL-Wz-1ZU"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cQp-D0-adS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="98" y="1146"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZAW-VF-gBi">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mOD-nY-CFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="nav1" definesPresentationContext="YES" navigationBarHidden="YES" id="7nw-DL-odb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="Dxf-gj-zzz">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="" id="Dxf-gj-zzz"/>
                     <navigationItem key="navigationItem" id="DBP-xI-ZK1"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dlg-FM-iAf">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1733,13 +1725,13 @@
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="6SN-H6-f3u"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mOD-nY-CFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-457" y="-244"/>
         </scene>
         <!--Sign Up View Controller - SignUp-->
         <scene sceneID="oDh-UQ-qVn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Owd-vq-Bti" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SignUp" title="SignUp" id="fgR-qs-ekZ" customClass="signUpViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="U4r-OM-IqI">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -1871,13 +1863,13 @@
                         <outlet property="textFieldPersonName" destination="DEm-Yc-MmF" id="f6y-se-xSI"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Owd-vq-Bti" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-879"/>
         </scene>
         <!--Settings Account View Controller-->
         <scene sceneID="P2K-Hv-n6v">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0bP-aq-1Ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SettingsAddress" id="tbg-8m-otZ" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="DcC-rR-Xyk">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -1994,13 +1986,13 @@
                         <outlet property="txtFieldDistrict" destination="cAR-dh-Kix" id="y33-6D-dFk"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0bP-aq-1Ke" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1375" y="1189"/>
         </scene>
         <!--Sign Up View Controller - SigIn-->
         <scene sceneID="F9h-yu-4A8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8km-1w-0vE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="SigIn" title="SigIn" id="L0X-YO-oem" customClass="signUpViewController" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="eE7-aM-oJW">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
@@ -2095,6 +2087,7 @@
                         <outlet property="textFieldUserPassword" destination="bAX-Hx-ohc" id="XSb-At-KjQ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8km-1w-0vE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="586" y="-879"/>
         </scene>
@@ -2239,11 +2232,13 @@
                 <relationship kind="action" name="actionEmailComposer"/>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
+                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="gotoGalleryScrollVC"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
