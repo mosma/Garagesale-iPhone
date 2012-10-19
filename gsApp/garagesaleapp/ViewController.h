@@ -25,6 +25,7 @@
 
     BOOL                                        *isSearch;
     BOOL                                        *isUserLoged;
+    BOOL                                        *isAnimationLogo;
     GlobalFunctions                             *globalFunctions;
     UIButton                                    *buttonLogo;
     CGFloat                                     _lastContentOffset;
@@ -36,7 +37,7 @@
     __unsafe_unretained IBOutlet UIView         *viewSearch;
     __unsafe_unretained IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityLoadProducts;
+    //__unsafe_unretained IBOutlet UIActivityIndicatorView *activityLoadProducts;
 
 }
 
@@ -47,7 +48,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityLoadProducts;
+//@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityLoadProducts;
 
 - (void)setupProductMapping;
 - (void)reachability;

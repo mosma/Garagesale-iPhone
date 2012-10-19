@@ -341,8 +341,6 @@
     customViewCellBlock.imageView.image = [UIImage imageNamed:@"nopicture.png"];
     customViewCellLine.imageView.image = [UIImage imageNamed:@"nopicture.png"]; 
 
-    
-    customViewCellBlock.imageView.layer.cornerRadius = 5.0f;
 
 
     
@@ -369,7 +367,7 @@
     //if ([mutDictDataThumbs count] > indexPath.row) {
     if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]]) {
         customViewCellBlock.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
-        customViewCellLine.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];  
+        customViewCellLine.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
     }else {
         if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
             NSOperationQueue *queue = [NSOperationQueue new];
@@ -383,7 +381,7 @@
             [queue addOperation:operation];
         }
     }
-    
+
     if (!isSegmentedControlChanged) {
         if(segmentControl.selectedSegmentIndex == 0){
             [customViewCellLine removeFromSuperview];

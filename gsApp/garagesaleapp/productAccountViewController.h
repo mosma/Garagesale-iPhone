@@ -56,13 +56,14 @@
     UIView                      *shadowView;
     MBProgressHUD               *HUD;
     Product                     *product;
-
+                                                                 
     float imageWidth_;
     float imageHeight_;
                                                                  
     //Flags at Post
     bool isImagesProductPosted;
     BOOL isLoading;
+    int countPicsPost;
 }
 
 @property (retain, nonatomic) id <PhotoScrollingViewDelegate>  delegate;

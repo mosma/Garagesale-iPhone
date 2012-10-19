@@ -15,7 +15,7 @@
 @synthesize scrollViewMain;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
-@synthesize activityLoadProducts;
+//@synthesize activityLoadProducts;
 @synthesize txtFieldSearch;
 @synthesize viewSearch;
 
@@ -85,7 +85,7 @@
      @"original",
      nil];
     
-    activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65); 
+//    activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65);
     
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
@@ -109,7 +109,7 @@
                                             selector:@selector(loadButtonsProduct)
                                             object:nil];
         [queue addOperation:operation];
-        [activityLoadProducts stopAnimating];
+//        [activityLoadProducts stopAnimating];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         countLoads++;
     }
@@ -154,36 +154,38 @@
     UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
     UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
     
-
     [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
     [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
     
-    [item0 setTitle:@"search"];
-    [item1 setTitle:@"add product"];
-    [item2 setTitle:@"my garage"];
+    [item0 setTitle:@"Search"];
+    [item1 setTitle:@"Add product"];
+    [item2 setTitle:@"My garage"];
     
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:10.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+
     item0.titlePositionAdjustment = UIOffsetMake(0, -5);
     item1.titlePositionAdjustment = UIOffsetMake(0, -5);
     item2.titlePositionAdjustment = UIOffsetMake(0, -5);
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
-
-    
-    
-    
-    
-    
+    //End Custom TabBarItems
     
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonLogo.frame = CGRectMake(33, 20, 253, 55);
+    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
     buttonLogo.adjustsImageWhenHighlighted = NO;
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
 
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0f];
+    buttonLogo.center = CGPointMake(160, 50);
+    [UIView commitAnimations];
+    
     self.tabBarController.delegate = self;
     
     //init Global Functions
@@ -226,6 +228,11 @@
     scrollViewMain.delegate = self;
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+-(void)setFlagFirstLoad{
+    isAnimationLogo = YES;
+    [self reloadPage:nil];
 }
 
 -(void)cancelSearchPad{
@@ -417,7 +424,12 @@
     }else {
         scrollViewMain.contentSize	= CGSizeMake(320,([mutArrayProducts count]*35)+130);
     }
-    
+
+    if (!isAnimationLogo) {
+        viewTopPage.hidden = YES;
+        viewSearch.hidden = YES;
+        [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
+    }
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
@@ -572,8 +584,8 @@
     // Release any retained subviews of the main view.
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
-    activityLoadProducts = nil;
-    [self setActivityLoadProducts:nil];
+//    activityLoadProducts = nil;
+//    [self setActivityLoadProducts:nil];
     txtFieldSearch = nil;
     [self setTxtFieldSearch:nil];
     [super viewDidUnload];

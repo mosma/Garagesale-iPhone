@@ -108,11 +108,6 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="yiR-qf-TEA">
-                                <rect key="frame" x="141" y="238" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="0.78501674109999997" green="0.78501674109999997" blue="0.78501674109999997" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -122,7 +117,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityLoadProducts" destination="yiR-qf-TEA" id="Ipa-rH-N65"/>
                         <outlet property="scrollViewMain" destination="8RG-Ok-f0d" id="DOe-iq-qUE"/>
                         <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
                         <outlet property="txtFieldSearch" destination="wen-uR-S49" id="XjP-Zq-Qp6"/>
@@ -2140,7 +2134,6 @@
                 <relationship kind="action" name="reloadPage:"/>
                 <relationship kind="action" name="showSearch:"/>
                 <relationship kind="action" name="showSearchLoged:"/>
-                <relationship kind="outlet" name="activityLoadProducts" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
@@ -2232,13 +2225,11 @@
                 <relationship kind="action" name="actionEmailComposer"/>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="gotoGalleryScrollVC"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>

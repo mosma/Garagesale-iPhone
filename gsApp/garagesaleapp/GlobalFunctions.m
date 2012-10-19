@@ -80,8 +80,10 @@ static NSString *urlServicePath;
     [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
     [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
     [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
-    [viewThumbs addSubview:buttonThumbsProduct];
+    buttonThumbsProduct.imageView.layer.cornerRadius = 3;
     
+    [viewThumbs addSubview:buttonThumbsProduct];
+
     //if (image) [spinner stopAnimating];
     
     UIGraphicsEndImageContext();

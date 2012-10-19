@@ -480,7 +480,7 @@
         [txtFieldValue resignFirstResponder];
 
         if([nsMutArrayPicsProduct count] != 0) {
-            [self uploadPhotos:@""];
+            [self uploadPhotos:0];
         }else {
             [self postProduct];
         }
@@ -624,7 +624,14 @@
     } else if ([request isPOST]) {
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
-        [self setPostFlags];
+        countPicsPost++;
+        if(countPicsPost == [nsMutArrayPicsProduct count])
+          [self setPostFlags];
+        else if (countPicsPost < [nsMutArrayPicsProduct count])
+            [self uploadPhotos:countPicsPost];
+
+            
+        
         
         // Handling POST /other.json        
         if ([response isJSON]) {
@@ -700,11 +707,11 @@
     }
 }
 
--(void)uploadPhotos:(NSString *)idProduct{
+-(void)uploadPhotos:(int)index{
     RKParams* params = [RKParams params];
-    for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-        NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:i], 1.0);
-        UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:i];
+    //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
+        NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:index], 1.0);
+        UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:index];
         float w = loadedImage.size.width;
         float h = loadedImage.size.height;
         float ratio = w/h;
@@ -721,16 +728,27 @@
         UIGraphicsEndImageContext();
         NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0); 
         
-        RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files[]"];
-        attachment.MIMEType = @"image/png";
-        attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
-    }
+        
+        [params setData:imgdata1 forParam:[NSString stringWithFormat:@"foto%i.jpg", (index)]];
+        
+        
+       // RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files[]"];
+        //attachment.MIMEType = @"image/png";
+       // attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
     
-    if ([idProduct isEqualToString:@""]) {
-        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    } else {
-        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    }
+
+    [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+
+    
+    //}
+
+    
+    
+//    if ([idProduct isEqualToString:@""]) {
+//    } else {
+//        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+//    }
+    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {

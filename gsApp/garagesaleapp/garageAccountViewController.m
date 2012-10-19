@@ -360,7 +360,12 @@
     NSString* urlThumb;
 
         @try {
-          urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
+            urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
+            if (urlThumb != NULL) {
+                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
+                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
+            }
         }
         @catch (NSException *exception) {
             [(productCustomViewCell *)[array objectAtIndex:0] imageView].image  = [UIImage imageNamed:@"nopicture.png"];
@@ -368,11 +373,6 @@
             NSLog(@"%@", exception);
         }
         @finally {
-            if (urlThumb != NULL) {
-                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
-                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
-            }
         }
 }
 

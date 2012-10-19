@@ -90,6 +90,43 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
+
+-(void)postNewGarage {
+    
+//    
+//    NSString* link;
+//    NSString* about;
+//    NSString* country;
+//    NSString* district;
+//    NSString* city;
+//    NSString* address;
+//    NSString* localization;
+//    NSNumber* idState;
+//    NSNumber* idPerson;
+//    
+//    
+//    //Post Bid Sent
+//    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Garage class]];
+//    [patientSerializationMapping mapKeyPath:@"email"      toAttribute:@"email"];
+//    [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
+//    [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
+//    [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
+//    
+//    [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];
+//    
+//    //Setting Bid Entity
+//    Bid* bid = [[Bid alloc] init];
+//    bid.email = txtFieldEmail.text;
+//    bid.value = [[NSNumber alloc] initWithInt:[txtViewComment.text floatValue]];
+//    bid.comment = txtViewComment.text;
+//    bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]];
+//    
+//    // POST bid
+//    [[RKObjectManager sharedManager] postObject:bid delegate:self];
+}
+
+
+
 - (void)setGarage:(NSArray *)objects{
     //Garage
     //NSUserDefaults *garageDefaults = [NSUserDefaults standardUserDefaults];
