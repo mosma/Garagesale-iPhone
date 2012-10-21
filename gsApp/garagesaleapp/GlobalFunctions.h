@@ -32,7 +32,7 @@ typedef enum {
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
-+(NSString *)getUrlImagePath;
+//+(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;

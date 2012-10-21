@@ -15,7 +15,6 @@
 @synthesize scrollViewMain;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
-//@synthesize activityLoadProducts;
 @synthesize txtFieldSearch;
 @synthesize viewSearch;
 
@@ -49,98 +48,6 @@
    //[self setupProductMapping];
 }
 
-- (void)setupProductMapping{
-    //Configure Product Object Mapping
-    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:
-     @"caminhoThumb",
-     @"caminhoTiny",
-     @"principal",
-     @"idProduto",
-     @"id",
-     @"id_estado",
-     nil];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
-    [caminhoMapping mapAttributes:
-     @"icon",
-     @"listing",
-     @"listingscaled",
-     @"mobile",
-     @"original",
-     nil];
-    
-//    activityLoadProducts.transform = CGAffineTransformMakeScale(0.65, 0.65);
-    
-    //Relationship
-    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
-    
-    //Relationship
-    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
-    
-    //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
-    
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if ([objects count] > 0) {
-        [mutArrayProducts removeAllObjects];
-        mutArrayProducts = (NSMutableArray *)objects;
-        NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadButtonsProduct)
-                                            object:nil];
-        [queue addOperation:operation];
-//        [activityLoadProducts stopAnimating];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        countLoads++;
-    }
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
-    if ([request isGET]) {
-        // Handling GET /foo.xml
-        if ([response isOK]) {
-            // Success! Let's take a look at the data
-            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-        }
-    } else if ([request isPOST]) {
-        
-        // Handling POST /other.json        
-        if ([response isJSON]) {
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-    } else if ([request isDELETE]) {
-        
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
-        }
-    }
-}
-
 - (void)loadAttribsToComponents{
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
@@ -172,6 +79,18 @@
     //End Custom TabBarItems
     
     
+    UIImage *statusImage = [UIImage imageNamed:@"animeHome1.png"];
+    activityImageView = [[UIImageView alloc] initWithImage:statusImage];
+    
+    activityImageView.animationImages = [NSArray arrayWithObjects:
+                                         [UIImage imageNamed:@"animeHome1.png"],
+                                         [UIImage imageNamed:@"animeHome2.png"],
+                                         [UIImage imageNamed:@"animeHome3.png"],
+                                         [UIImage imageNamed:@"animeHome4.png"],
+                                         nil];
+    activityImageView.animationDuration = 0.7;
+    
+    
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonLogo.frame = CGRectMake(34, 149, 253, 55);
@@ -191,34 +110,34 @@
     //init Global Functions
     globalFunctions = [[GlobalFunctions alloc] init];
     
-    viewTopPage.layer.cornerRadius = 6;
+    [viewTopPage.layer setCornerRadius:6];
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewTopPage.layer setShadowOpacity:0.5];
     viewTopPage.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
-    viewSearch.layer.cornerRadius = 6;
+    [viewSearch.layer setCornerRadius:6];
     [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewSearch.layer setShadowOpacity:0.5];
     viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
-    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-    txtFieldSearch.delegate = self;
+    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:12.9]];
+    [txtFieldSearch setDelegate:self];
     
     //set done at keyboard
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
     numberToolbar.items = [NSArray arrayWithObjects:
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                            [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
                            nil];
     [numberToolbar sizeToFit];
-    txtFieldSearch.inputAccessoryView = numberToolbar;
+    [txtFieldSearch setInputAccessoryView:numberToolbar];
     
     //set searchBar settings
     searchBarProduct.delegate           = self;
-    searchBarProduct.placeholder        = NSLocalizedString(@"searchProduct", @"");
+    [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     self.navigationItem.hidesBackButton = YES;
@@ -230,9 +149,75 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+- (void)setupProductMapping{
+    RKObjectMapping *productMapping = [Mappings getProductMapping];
+    RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
+    RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
+    
+    //Relationship
+    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+    
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    if ([objects count] > 0) {
+        [mutArrayProducts removeAllObjects];
+        mutArrayProducts = (NSMutableArray *)objects;
+        NSOperationQueue *queue = [NSOperationQueue new];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadButtonsProduct)
+                                            object:nil];
+        [queue addOperation:operation];
+        //        [activityLoadProducts stopAnimating];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [activityImageView stopAnimating];
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
+        [activityImageView setAlpha:0];
+        [UIView commitAnimations];
+    }
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    NSLog(@"Encountered an error: %@", error);
+}
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    if ([request isGET]) {
+        // Handling GET /foo.xml
+        if ([response isOK]) {
+            // Success! Let's take a look at the data
+            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+        }
+    } else if ([request isPOST]) {
+        
+        // Handling POST /other.json
+        if ([response isJSON]) {
+            NSLog(@"Got a JSON response back from our POST!");
+        }
+    } else if ([request isDELETE]) {
+        
+        // Handling DELETE /missing_resource.txt
+        if ([response isNotFound]) {
+            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
+        }
+    }
+}
+
 -(void)setFlagFirstLoad{
     isAnimationLogo = YES;
-    [self reloadPage:nil];
+    [self controlSearchArea];
 }
 
 -(void)cancelSearchPad{
@@ -324,7 +309,6 @@
     _lastContentOffset = scrollView.contentOffset.y;
 }
 
-
 - (BOOL)detectEndofScroll{
     
     BOOL scrollResult;
@@ -339,7 +323,6 @@
     }else{
         scrollResult = NO;
     }
-    
     return scrollResult;
 }
 
@@ -350,9 +333,33 @@
         //[displayMessage show];
         
         if(countLoads < 6){
+            
+
+//            UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nopicture.png"]];
+//            [imgV setFrame:CGRectMake(0, scrollViewMain.contentSize.height+150, 320, 50)];
+            
+
+            //Position the activity image view somewhere in
+            //the middle of your current view
+            activityImageView.frame = CGRectMake(0, scrollViewMain.contentSize.height+20, 320, 130);
+            
+            //Start the animation
+            [activityImageView startAnimating];
+            [activityImageView setAlpha:1.0];
+            [scrollViewMain addSubview:activityImageView];
+            
             [self setupProductMapping];
-            scrollViewMain.contentSize	= CGSizeMake(320,scrollViewMain.contentSize.height+420);
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+425)];
+
+            
+            
+            
+            
+
+            countLoads++;
+           
         }
+        
     }
 }
 
@@ -363,11 +370,11 @@
             [UIView setAnimationDuration:0.3];
             [UIView setAnimationDelegate:self];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-                viewSearch.alpha = 0;
+                [viewSearch setAlpha:0];
                // [self.navigationController setNavigationBarHidden:YES];
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
             }else
-                viewTopPage.alpha = 0;
+                [viewTopPage setAlpha:0];
             [UIView commitAnimations];
             [txtFieldSearch resignFirstResponder];
         }
@@ -376,11 +383,11 @@
         [UIView setAnimationDuration:0.3];
         [UIView setAnimationDelegate:self];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-            viewSearch.alpha = 1.0;
+            [viewSearch setAlpha:1.0];
             //[self.navigationController setNavigationBarHidden:NO];
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
-            viewTopPage.alpha = 1.0;
+            [viewTopPage setAlpha:1.0];
         [UIView commitAnimations];
     }
     if (isSearch)
@@ -390,46 +397,53 @@
 - (IBAction)reloadPage:(id)sender{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationController setNavigationBarHidden:YES];
-    for (UIButton *subview in [scrollViewMain subviews]) 
+    for (UIButton *subview in [scrollViewMain subviews])
         [subview removeFromSuperview];
     //[self loadAttribsToComponents];
     [scrollViewMain addSubview:buttonLogo];
     [self setupProductMapping];
     
     //Set Display thumbs on Home.
-    globalFunctions.countColumnImageThumbs = -1;
-    globalFunctions.imageThumbsXorigin_Iphone = 10;
+    [globalFunctions setCountColumnImageThumbs:-1];
+    [globalFunctions setImageThumbsXorigin_Iphone:10];
     
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     countLoads = 0;
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-        viewSearch.hidden = NO;
-        viewTopPage.hidden = YES;
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-       // [self.navigationController setNavigationBarHidden:NO];
-        globalFunctions.imageThumbsYorigin_Iphone = 95;
-        searchBarProduct.hidden=YES;
-    }else {
-        viewSearch.hidden = YES;
-        viewTopPage.hidden = NO;
-        globalFunctions.imageThumbsYorigin_Iphone = 95;
-        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-       // [self.navigationController setNavigationBarHidden:YES];
-        //[self setHidesBottomBarWhenPushed:NO];
-        searchBarProduct.hidden=NO;
-    }
+
+    [self controlSearchArea];
     
     if ([mutArrayProducts count] == 0) {
-        scrollViewMain.contentSize	= CGSizeMake(320,480);
+        [scrollViewMain setContentSize:CGSizeMake(320,480)];
     }else {
-        scrollViewMain.contentSize	= CGSizeMake(320,([mutArrayProducts count]*35)+130);
+        [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
 
     if (!isAnimationLogo) {
-        viewTopPage.hidden = YES;
-        viewSearch.hidden = YES;
+        [viewTopPage setHidden:YES];
+        [viewSearch setHidden:YES];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
     }
+}
+
+
+-(void)controlSearchArea{
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+        [viewSearch setHidden:NO];
+        [viewTopPage setHidden:YES];
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        // [self.navigationController setNavigationBarHidden:NO];
+        globalFunctions.imageThumbsYorigin_Iphone = 95;
+        searchBarProduct.hidden=YES;
+    }else {
+        [viewSearch setHidden:YES];
+        [viewTopPage setHidden:NO];
+        [globalFunctions setImageThumbsYorigin_Iphone:95];
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        // [self.navigationController setNavigationBarHidden:YES];
+        //[self setHidesBottomBarWhenPushed:NO];
+        searchBarProduct.hidden=NO;
+    }
+
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
@@ -438,12 +452,11 @@
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
 
-    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+    [prdDetailVC setImageView:[[UIImageView alloc] initWithImage:[[sender imageView] image]]];
 
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
-// Settings SearchBar
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // We don't want to do anything until the user clicks 
     // the 'Search' button.
@@ -493,13 +506,12 @@
 -(void)gotoProductTableViewController:(id)objetct{
     productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //Search Service
-    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", objetct];
-    prdTbl.strTextSearch = objetct;
+    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@", objetct]];
+    [prdTbl setStrTextSearch:objetct];
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
 
-// Check if the network is available
-- (void)reachability {
+- (void)reachability {// Check if the network is available
     [[RKClient sharedClient] isNetworkAvailable];
     // Register for changes in network availability
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
@@ -555,11 +567,11 @@
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
     if (!isSearch) {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, 64);
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, 64)];
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, -64);
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, -64)];
         [searchBarProduct resignFirstResponder];
     }
     
@@ -577,18 +589,6 @@
     }
     else
         [txtFieldSearch becomeFirstResponder];
-}
-
-- (void)viewDidUnload
-{
-    // Release any retained subviews of the main view.
-    scrollViewMain = nil;
-    [self setScrollViewMain:nil];
-//    activityLoadProducts = nil;
-//    [self setActivityLoadProducts:nil];
-    txtFieldSearch = nil;
-    [self setTxtFieldSearch:nil];
-    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -614,6 +614,18 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+}
+
+- (void)viewDidUnload
+{
+    // Release any retained subviews of the main view.
+    scrollViewMain = nil;
+    [self setScrollViewMain:nil];
+    //    activityLoadProducts = nil;
+    //    [self setActivityLoadProducts:nil];
+    txtFieldSearch = nil;
+    [self setTxtFieldSearch:nil];
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

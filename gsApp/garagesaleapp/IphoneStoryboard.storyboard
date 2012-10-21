@@ -19,7 +19,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" id="oAx-vy-ZuX" userLabel="viewSearch">
-                                <rect key="frame" x="20" y="143" width="280" height="45"/>
+                                <rect key="frame" x="20" y="120" width="280" height="45"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="R82-8s-jjh" userLabel="textField01iphoneTitle.png">
@@ -52,7 +52,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="Rdh-TA-JuY" userLabel="viewTopPage">
-                                <rect key="frame" x="20" y="143" width="280" height="60"/>
+                                <rect key="frame" x="20" y="112" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SdQ-AB-2L5">
@@ -1408,7 +1408,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" id="XW6-ur-9kb" userLabel="ViewBidSend">
-                                        <rect key="frame" x="10000" y="68" width="300" height="283"/>
+                                        <rect key="frame" x="10" y="68" width="300" height="283"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0,00" minimumFontSize="17" id="8GZ-xO-7bc" userLabel="offerTextField">
@@ -1500,7 +1500,7 @@
                                         <color key="backgroundColor" red="0.92941182851791382" green="0.92941182851791382" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" id="ufa-Jv-wRO" userLabel="ViewBidMsg">
-                                        <rect key="frame" x="900" y="67" width="300" height="160"/>
+                                        <rect key="frame" x="10" y="67" width="300" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rgz-Bx-1Hk" userLabel="BtBack">

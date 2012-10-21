@@ -11,7 +11,6 @@
 #import "BSKeyboardControls.h"
 #import "QuartzCore/QuartzCore.h"
 #import "GlobalFunctions.h"
-#import "Login.h"
 #import "ViewController.h"
 #import "settingsAccountViewController.h"
 
@@ -40,8 +39,6 @@
     __weak IBOutlet UITextField     *textFieldUserPassword;
     
     //Others
-    NSArray                         *arrayGarage;
-    NSArray                         *arrayProfile;
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
     __weak IBOutlet UIActivityIndicatorView *activityLogin;
@@ -66,8 +63,6 @@
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldUserPassword;
 
 //Others
-@property (retain, nonatomic) NSArray               *arrayGarage;
-@property (retain, nonatomic) NSArray               *arrayProfile;
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSUserDefaults        *settingsAccount;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;

@@ -119,13 +119,13 @@
         
         viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
         [viewShadow setBackgroundColor:[UIColor blackColor]];
-        viewShadow.alpha = 0;
+        [viewShadow setAlpha:0];
         
-        viewBidSend.alpha = 0;
-        viewBidSend.layer.cornerRadius = 5;
+        [viewBidSend setAlpha:0];
+        [viewBidSend.layer setCornerRadius:5];
         
-        viewBidMsg.alpha = 0;
-        viewBidMsg.layer.cornerRadius = 5;
+        [viewBidMsg setAlpha:0];
+        [viewBidMsg.layer setCornerRadius:5];
         
         [txtFieldEmail    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [txtViewComment   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -133,11 +133,9 @@
         [labelNomeProduto setFont:[UIFont fontWithName:@"Droid Sans" size:18]];
         
         //Set Labels, titles, TextView...
-        labelNomeProduto.text            = [self.product nome];
-        
-        labelDescricao.text       = [self.product descricao];
-        
-        OHlabelValorEsperado.text   = [self.product valorEsperado];
+        [labelNomeProduto       setText:[self.product nome]];
+        [labelDescricao         setText:[self.product descricao]];
+        [OHlabelValorEsperado   setText:[self.product valorEsperado]];
         
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
@@ -153,10 +151,10 @@
         
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
         
-        self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+        [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
+                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
 
-        offerLabel.text           = NSLocalizedString(@"offer", @"");
+        [offerLabel setText:NSLocalizedString(@"offer", @"")];
         
         CGRect rect;//             = imageView.frame;
         
@@ -167,14 +165,15 @@
         imageView.frame         = rect;
         
         
-        galleryScrollView.frame                 = CGRectMake(0, 115, 320, 320);
-        galleryScrollView.clipsToBounds         = YES;
-        galleryScrollView.autoresizesSubviews   = YES;
-        [galleryScrollView addSubview:imageView];
+        [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 320)];
+        [galleryScrollView  setClipsToBounds:YES];
+        [galleryScrollView  setAutoresizesSubviews:YES];
+        [galleryScrollView  addSubview:imageView];
 
         //[secondView addSubview:garageDetailView];
-        scrollViewMain.contentSize             = CGSizeMake(320,550+labelDescricao.frame.size.height);
+        [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
+        nextPageGallery=1;
         
     }else {
         [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
@@ -189,9 +188,9 @@
             NSLog(@"Object Exist...");
         }
         
-        labelNameProfile.text    = [[self.arrayProfile objectAtIndex:0] nome];
-        labelCityProfile.text    = [[self.arrayGarage objectAtIndex:0] city];
-        labelEmailProfile.text   = [[self.arrayProfile objectAtIndex:0] email];
+        [labelNameProfile   setText:[[self.arrayProfile objectAtIndex:0] nome]];
+        [labelCityProfile   setText:[[self.arrayGarage objectAtIndex:0] city]];
+        [labelEmailProfile  setText:[[self.arrayProfile objectAtIndex:0] email]];
         
         UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
@@ -210,11 +209,11 @@
         [label setBackgroundColor:[UIColor clearColor]];
         [label setShadowColor:[UIColor blackColor]];
         [label setShadowOffset:CGSizeMake(1, 1)];
-        label.attributedText = attrStr;
-        label.textAlignment = UITextAlignmentCenter;
-        self.navigationItem.titleView = label;
+        [label setAttributedText:attrStr];
+        [label setTextAlignment:UITextAlignmentCenter];
+        [self.navigationItem setTitleView:label];
         
-        garageDetailView.hidden = NO;
+        [garageDetailView setHidden:NO];
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.4];
@@ -222,9 +221,9 @@
         [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
 
         //Calculate resize DescricaoLabel 
-            labelDescricao.text = self.product.descricao;
+            [labelDescricao setText:self.product.descricao];
             [labelDescricao sizeToFit];
-            secondView.frame = CGRectMake(0,0,320,550+labelDescricao.frame.size.height);
+            [secondView setFrame:CGRectMake(0,0,320,550+labelDescricao.frame.size.height)];
             garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 450);
             //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
             [secondView addSubview:labelDescricao];
@@ -261,23 +260,23 @@
                                                       withTitle:@"Product Send from Garagesaleapp.me"
                                                     description:labelDescricao.text];
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addThisButton];
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:addThisButton]];
 
         int countPhotos = (int)[self.product.fotos count];
 
         
         PagContGallery = [[UIPageControl alloc] init];
-        PagContGallery.numberOfPages = countPhotos;
+        [PagContGallery setNumberOfPages:countPhotos];
         
         
         if (countPhotos != 0) {
             [scrollViewMain insertSubview:countView aboveSubview:galleryScrollView];
-            countLabel.text = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
-            countView.hidden = NO;
-            galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, 320);
-            galleryScrollView.delegate              = self;
+            [countLabel setText:[NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages]];
+            [countView setHidden:NO];
+            [galleryScrollView setContentSize:CGSizeMake(self.view.frame.size.width * countPhotos, 320)];
+            [galleryScrollView setDelegate:self];
         } else 
-            countView.hidden = YES;
+            [countView setHidden:YES];
 
         UIImage *image;
 
@@ -297,191 +296,169 @@
     }
 }
 
--(void)loadGalleryTop:(UIPageControl *)PagContr{
-    UIImage *image;
-    CGRect rect;
-    rect.size.width         = 320;
-    rect.size.height        = 280;
-    
-    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
-    [actInd startAnimating];
-    actInd.color = [UIColor grayColor];
-        
-    actInd.center = CGPointMake(160+(320*countPicsAtGallery), 140);
-        
-    [galleryScrollView addSubview:actInd];
-
-    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                                   withObject:PagContr];
-}
-
-- (void)loadImageGalleryThumbs:(UIPageControl *)index{
-    @try {
-        UIImage *image;
-        CGRect rect;//             = imageView.frame;
-        rect.size.width         = 320;
-        rect.size.height        = 280;
-
-        Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:index.currentPage+1] caminho ] objectAtIndex:0];
-        NSURL *url = [NSURL URLWithString:[caminho mobile]];
-
-        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        imageView               = [[UIImageView alloc] initWithImage:image];
-        rect.origin.x           = index.currentPage*320;
-        imageView.frame         = rect;
-        // imageView.contentMode   = UIViewContentModeScaleAspectFit;
-        [galleryScrollView addSubview:imageView];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
-    }
-}
-
--(void)backPage{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
 - (void)setupGarageMapping {
-    //Configure Garage Object Mapping
-    RKObjectMapping *garageMapping = [RKObjectMapping mappingForClass:[Garage class]];    
-    [garageMapping mapKeyPath:@"link"           toAttribute:@"link"];
-    [garageMapping mapKeyPath:@"about"          toAttribute:@"about"];
-    [garageMapping mapKeyPath:@"country"        toAttribute:@"country"];
-    [garageMapping mapKeyPath:@"district"       toAttribute:@"district"];
-    [garageMapping mapKeyPath:@"city"           toAttribute:@"city"];
-    [garageMapping mapKeyPath:@"address"        toAttribute:@"address"];
-    [garageMapping mapKeyPath:@"localization"   toAttribute:@"localization"];
-    [garageMapping mapKeyPath:@"idState"        toAttribute:@"idState"];
-    [garageMapping mapKeyPath:@"idPerson"       toAttribute:@"idPerson"];
-    [garageMapping mapKeyPath:@"id"             toAttribute:@"id"];
+    RKObjectMapping *garageMapping = [Mappings getGarageMapping];
     
     if (self.isIdPersonNumber)
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[self.arrayProfile objectAtIndex:0] garagem]] 
-                             objectMapping:garageMapping delegate:self];
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[self.arrayProfile objectAtIndex:0] garagem]]
+                                  objectMapping:garageMapping delegate:self];
     else
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", self.product.idPessoa] 
-                             objectMapping:garageMapping delegate:self];
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", self.product.idPessoa]
+                                  objectMapping:garageMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)setupProfileMapping {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //Configure Profile Object Mapping
-    RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
-    [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
-    [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
-    [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-    [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
-    [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];    
-    [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
-    [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];
+    RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
     
     if (self.isIdPersonNumber)
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", self.product.idPessoa] 
-                             objectMapping:prolileMapping delegate:self];
-    else 
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[self.arrayGarage objectAtIndex:0] idPerson]] 
-                             objectMapping:prolileMapping delegate:self];
-
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", self.product.idPessoa]
+                                  objectMapping:prolileMapping delegate:self];
+    else
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[self.arrayGarage objectAtIndex:0] idPerson]]
+                                  objectMapping:prolileMapping delegate:self];
+    
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
 - (void)setupProductMapping{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    //Configure Product Object Mapping
-    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
+    RKObjectMapping *productMapping = [Mappings getProductMapping];
     
     //LoadUrlResourcePath
     if (self.isIdPersonNumber)
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@", 
-                                                 [[self.arrayGarage objectAtIndex:0] idPerson], self.product.id ] objectMapping:productMapping delegate:self];
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
+                                                      [[self.arrayGarage objectAtIndex:0] idPerson], self.product.id ] objectMapping:productMapping delegate:self];
     else
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@", 
-                                                 self.product.idPessoa, self.product.id ] objectMapping:productMapping delegate:self];
-
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
+                                                      self.product.idPessoa, self.product.id ] objectMapping:productMapping delegate:self];
+    
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
-
 - (void)setupProductPhotosMapping{
-    //Initializing the Object Manager
-   // RKObjManeger = [RKObjectManager sharedManager];
+    RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
+    RKObjectMapping *productPhotoMapping = [Mappings getProductPhotoMapping];
     
-    //Configure Photo Object Mapping
-    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
-     @"caminhoThumb",
-     @"caminhoTiny",
-     @"principal",
-     @"idProduto",
-     @"id",
-     @"id_estado",
-     nil];
-    
-    //Configure Product Object Mapping
-    RKObjectMapping *productPhotoMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];    
-    [productPhotoMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productPhotoMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productPhotoMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productPhotoMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productPhotoMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productPhotoMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productPhotoMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productPhotoMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productPhotoMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];
     //Relationship
     [productPhotoMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-
+    
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            self.arrayGarage = objects;
+            arrayGarage = objects;
             if (!self.isIdPersonNumber)
                 [self setupProfileMapping];
         }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
-            self.arrayProfile = objects;
+            arrayProfile = objects;
             if (self.isIdPersonNumber)
                 [self setupGarageMapping];
             [self setupProductMapping];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
-            self.arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
-            self.product.descricao = [(Product *)[objects objectAtIndex:0] descricao];
+            arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
+            [product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
             [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
-            self.productPhotos = (NSMutableArray *)objects;
+            productPhotos = (NSMutableArray *)objects;
         }
     }
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
-   // [self setupProfileMapping];
+-(IBAction)bidPost:(id)sender{
+    //Validate fields
+    if (([txtViewComment.text length] == 0)) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterValueProduct", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    } else if([txtFieldEmail.text length] == 0 || ![GlobalFunctions isValidEmail:txtFieldEmail.text]) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterEmail", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    //Post Bid Sent
+    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Bid class]];
+    [patientSerializationMapping mapKeyPath:@"email"      toAttribute:@"email"];
+    [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
+    [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
+    [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
+    
+    [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];
+    
+    //Setting Bid Entity
+    Bid* bid = [[Bid alloc] init];
+    [bid setEmail:txtFieldEmail.text];
+    [bid setValue:[[NSNumber alloc] initWithInt:[txtViewComment.text floatValue]]];
+    [bid setComment:txtViewComment.text];
+    [bid setIdProduct:[[NSNumber alloc] initWithInt:[self.product.id intValue]]];
+    
+    // POST bid
+    [[RKObjectManager sharedManager] postObject:bid delegate:self];
+    
+    //Animate bidButton
+    [UIView beginAnimations:@"buttonFades" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [buttonBid setEnabled:NO];
+    [buttonBid setAlpha:0.3];
+    [UIView commitAnimations];
 }
 
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
+-(IBAction)deleteProduct:(id)sender {
+    RKObjectRouter *router = [[RKObjectManager sharedManager] router];
+    [router routeClass:[Product class] toResourcePath:@"/product/659"];
+    
+    Product *prd = [[Product alloc] init];
+    [prd setId:self.product.id];
+    
+    [[RKObjectManager sharedManager] deleteObject:prd delegate:self];
+}
+
+-(IBAction)reportGarage:(id)sender {
+    
+    
+    
+    
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://garagesaleapp.me/%@/reportAbuse", self.product.idPessoa];
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    
+    NSData *urlData;
+    NSURLResponse *response;
+    urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Abuse" message:@"Recebemos sua reclamação, \n Vamos validar o caso mais rápido possivel" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    [alert show];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    NSLog(@"Encountered an error: %@", error);
+    // [self setupProfileMapping];
+}
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     if ([request isGET]) {
         // Handling GET /foo.xml
         
@@ -492,7 +469,7 @@
         
     } else if ([request isPOST]) {
         
-        // Handling POST /other.json        
+        // Handling POST /other.json
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
@@ -504,19 +481,19 @@
         [buttonBid setAlpha:1.0];
         [msgBidSentLabel setAlpha:1.0];
         [viewBidSend setAlpha:0];
-        viewBidSend.hidden = YES;
+        [viewBidSend setHidden:YES];
         [viewBidMsg setAlpha:1.0f];
         [scrollViewMain insertSubview:viewShadow belowSubview:viewBidMsg];
-        viewBidMsg.hidden = NO;        
+        [viewBidMsg setHidden:NO];
         [UIView commitAnimations];
         
         [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
         
         msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
-        txtFieldEmail.text  = @"";
-        txtFieldOffer.text  = @"";
-        txtViewComment.text  = @"";
-
+        [txtFieldEmail  setText:@""];
+        [txtFieldOffer  setText:@""];
+        [txtViewComment setText:@""];
+        
         //Set Delay to Hide msgBidSentLabel
         [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideMsgBidSent) userInfo:nil repeats:NO];
         
@@ -526,6 +503,54 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)loadGalleryTop:(UIPageControl *)pagContr{
+    UIImage *image;
+    CGRect rect;
+    rect.size.width         = 320;
+    rect.size.height        = 280;
+    
+    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+    [actInd startAnimating];
+    [actInd setColor:[UIColor grayColor]];
+        
+    [actInd setCenter:CGPointMake(160+(320*pagContr.currentPage), 140)];
+        
+    [galleryScrollView addSubview:actInd];
+    
+    /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll
+     at Paginable. in this case, we copy the real index to use in drawing rect area at gallerySrollView.*/
+    NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
+    
+    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
+                                   withObject:pageCCopy];
+}
+
+- (void)loadImageGalleryThumbs:(NSString *)pagContr{
+    @try {
+        UIImage *image;
+        CGRect rect;//             = imageView.frame;
+        rect.size.width         = 320;
+        rect.size.height        = 280;
+
+        Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:[pagContr intValue]] caminho ] objectAtIndex:0];
+        NSURL *url = [NSURL URLWithString:[caminho mobile]];
+
+        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        imageView               = [[UIImageView alloc] initWithImage:image];
+        rect.origin.x           = [pagContr intValue]*320;
+        [imageView setFrame:rect];
+        // imageView.contentMode   = UIViewContentModeScaleAspectFit;
+        [galleryScrollView addSubview:imageView];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
+}
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -557,26 +582,35 @@
 }
 
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"%i",PagContGallery.currentPage);
     //check if countPicsAtGallery+1 is out of bounds
-    if (countPicsAtGallery+1 < [self.product.fotos count]) {
-        //never repeat load image at your respective page.
-        if (countPicsAtGallery <= PagContGallery.currentPage) {
-            NSOperationQueue *queue = [NSOperationQueue new];
-            NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadGalleryTop:)
-                                            object:PagContGallery];
-            [queue addOperation:operation];
-            countPicsAtGallery++;
-        }
-    }
 }
 
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
-    countLabel.text = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
+    [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];
+    [countLabel setText:[NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages]];
+    
+    
+    
+    NSLog(@"Current Page %i",PagContGallery.currentPage);
+    
+    
+    NSLog(@"nextPageGallery %i",nextPageGallery);
+    
+
+        //never repeat load image at your respective page.
+        if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {
+            NSOperationQueue *queue = [NSOperationQueue new];
+            NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                                initWithTarget:self
+                                                selector:@selector(loadGalleryTop:)
+                                                object:PagContGallery];
+            [queue addOperation:operation];
+            nextPageGallery++;
+        }
+    
+
+
+
 }
 
 -(IBAction)pageControlCliked{
@@ -603,28 +637,28 @@
 
 - (IBAction)gotoGalleryScrollVC{
     galleryScrollViewController *galleryScrollVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GalleryProduct"];
-    galleryScrollVC.idPessoa = [[self.arrayProfile objectAtIndex:0] garagem];
-    galleryScrollVC.idProduto = self.product.id;
+    [galleryScrollVC setIdPessoa:[[self.arrayProfile objectAtIndex:0] garagem]];
+    [galleryScrollVC setIdProduto:self.product.id];
     [self.navigationController pushViewController:galleryScrollVC animated:YES];
 }
 
 - (IBAction)gotoGarageDetailVC{
     garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
-    garaAcc.profile = (Profile *)[arrayProfile objectAtIndex:0];
-    garaAcc.garage =  (Garage *)[arrayGarage objectAtIndex:0];
+    [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
+    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
     [self.navigationController pushViewController:garaAcc animated:YES];
 }
 
 - (IBAction)gotoUserProductTableVC{
     productTableViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    prdTabVC.strLocalResourcePath = [NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]];
+    [prdTabVC setStrLocalResourcePath:[NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]]];
     [self.navigationController pushViewController:prdTabVC animated:YES];
 }
 
 - (void)gotoProductTableVC:(UIButton *)sender{
     productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //filter by Category
-    prdTbl.strLocalResourcePath = [NSString stringWithFormat:@"/product?category=%@", [[sender titleLabel] text] ];
+    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/product?category=%@", [[sender titleLabel] text] ]];
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
 
@@ -662,91 +696,23 @@
     if (viewBidSend.hidden && viewBidMsg.hidden) {
         [scrollViewMain insertSubview:viewBidMsg belowSubview:viewBidSend];
         [scrollViewMain insertSubview:viewShadow belowSubview:viewBidSend];
-        viewBidSend.hidden = NO;
-        viewBidMsg.hidden = NO;
-        viewBidSend.alpha = 1.0;
-        viewShadow.alpha = 0.7;
-        countView.alpha = 0;
+        [viewBidSend setHidden:NO];
+        [viewBidMsg setHidden:NO];
+        [viewBidSend setAlpha:1.0];
+        [viewShadow setAlpha:0.7];
+        [countView setAlpha:0];
         [UIView commitAnimations];
     } else {
-        viewBidSend.alpha = 0;
-        viewShadow.alpha = 0;
-        viewBidSend.hidden = YES;
-        viewBidMsg.hidden = YES;
-        countView.alpha = 1.0;
+        [viewBidSend setAlpha:0];
+        [viewShadow setAlpha:0];
+        [viewBidSend setHidden:YES];
+        [viewBidMsg setHidden:YES];
+        [countView setAlpha:1.0];
         [viewShadow removeFromSuperview];
     }
     
     [UIView commitAnimations];
 }
-
--(IBAction)bidPost:(id)sender{
-    //Validate fields
-    if (([txtViewComment.text length] == 0)) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterValueProduct", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        return;
-    } else if([txtFieldEmail.text length] == 0 || ![GlobalFunctions isValidEmail:txtFieldEmail.text]) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterEmail", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    //Post Bid Sent
-    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Bid class]];
-    [patientSerializationMapping mapKeyPath:@"email"      toAttribute:@"email"];
-    [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
-    [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
-    [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
-    
-    [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];    
-    
-    //Setting Bid Entity
-    Bid* bid = [[Bid alloc] init];  
-    bid.email = txtFieldEmail.text;  
-    bid.value = [[NSNumber alloc] initWithInt:[txtViewComment.text floatValue]];
-    bid.comment = txtViewComment.text;
-    bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]]; 
-    
-    // POST bid  
-    [[RKObjectManager sharedManager] postObject:bid delegate:self];
-     
-    //Animate bidButton
-    [UIView beginAnimations:@"buttonFades" context:nil];
-    [UIView setAnimationDuration:0.5];
-    [buttonBid setEnabled:NO];
-    [buttonBid setAlpha:0.3];
-    [UIView commitAnimations];
-}
-
--(IBAction)deleteProduct:(id)sender {
-
-    RKObjectRouter *router = [[RKObjectManager sharedManager] router];
-    [router routeClass:[Product class] toResourcePath:@"/product/659"];
-    
-    Product *prd = [[Product alloc] init];
-    prd.id = self.product.id;
-    
-    [[RKObjectManager sharedManager] deleteObject:prd delegate:self];
-}
-
--(IBAction)reportGarage:(id)sender {
-
-
-
-   
-    NSString *urlString = [NSString stringWithFormat:@"http://garagesaleapp.me/%@/reportAbuse", self.product.idPessoa];
-    NSURL *url = [[NSURL alloc] initWithString:urlString];    
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    
-    NSData *urlData;
-    NSURLResponse *response;
-    urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
-    
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Abuse" message:@"Recebemos sua reclamação, \n Vamos validar o caso mais rápido possivel" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-    [alert show];
-}
-
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
@@ -765,7 +731,6 @@
     [GlobalFunctions onlyNumberKey:textField];
 }
 
-/* Setup the keyboard controls BSKeyboardControls.h */
 - (void)setupKeyboardControls
 {
     // Initialize the keyboard controls
@@ -811,7 +776,6 @@
     }
 }
 
-/* Scroll the view to the active text field */
 - (void)scrollViewToTextField:(id)textField
 {
     UIScrollView* v = (UIScrollView*) scrollViewMain;
@@ -834,9 +798,6 @@
     */
 }
 
-#pragma mark -
-#pragma mark BSKeyboardControls Delegate
-
 /* 
  * The "Done" button was pressed
  * We want to close the keyboard
@@ -858,10 +819,6 @@
     [self scrollViewToTextField:textField];
 }
 
-#pragma mark -
-#pragma mark UITextField Delegate
-
-/* Editing began */
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([self.keyboardControls.textFields containsObject:textField])
@@ -869,10 +826,6 @@
     [self scrollViewToTextField:textField];
 }
 
-#pragma mark -
-#pragma mark UITextView Delegate
-
-/* Editing began */
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if ([self.keyboardControls.textFields containsObject:textView])
@@ -883,11 +836,6 @@
 -(IBAction)textFieldEditingEnded:(id)sender{
     [sender resignFirstResponder];
 }
-/* 
- *
- End Setup the keyboard controls 
- *
- */
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];

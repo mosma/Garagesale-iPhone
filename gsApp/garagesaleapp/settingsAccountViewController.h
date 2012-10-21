@@ -11,10 +11,7 @@
 #import "AppDelegate.h"
 #import "BSKeyboardControls.h"
 #import "MBProgressHUD.h"
-#import "RestKit/RestKit.h"
 #import "RestKit/RKJSONParserJSONKit.h"
-#import "Garage.h"
-#import "Profile.h"
 
 @interface settingsAccountViewController : UIViewController <UITextFieldDelegate, 
                                                              UITextViewDelegate, 

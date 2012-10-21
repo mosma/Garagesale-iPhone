@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RestKit/RestKit.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "productTableViewController.h"
 #import "signUpViewController.h"
 #import "QuartzCore/QuartzCore.h"
-#import "Product.h"
 #import "productAccountViewController.h"
-#import "Caminho.h"
 
 @interface ViewController : UIViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,
@@ -37,8 +34,9 @@
     __unsafe_unretained IBOutlet UIView         *viewSearch;
     __unsafe_unretained IBOutlet UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
-    //__unsafe_unretained IBOutlet UIActivityIndicatorView *activityLoadProducts;
-
+    UIImageView *activityImageView;
+                                                  
+                                                  
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -48,7 +46,8 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
-//@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityLoadProducts;
+
+@property (unsafe_unretained, nonatomic) UIImageView *activityImageView;
 
 - (void)setupProductMapping;
 - (void)reachability;

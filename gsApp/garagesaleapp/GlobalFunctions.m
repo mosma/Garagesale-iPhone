@@ -160,8 +160,8 @@ static NSString *urlServicePath;
     CGRect frame = CGRectMake(0, 0, width, 36);
     OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setShadowColor:[UIColor redColor]];
-    [label setShadowOffset:CGSizeMake(1, 1)];
+    [label setShadowColor:[UIColor colorWithRed:226/255.0 green:202/255.0 blue:202/255.0 alpha:1.0]];
+    [label setShadowOffset:CGSizeMake(0, 0)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
     
@@ -177,8 +177,8 @@ static NSString *urlServicePath;
     CGRect frame = CGRectMake(0, 0, width, 26);
     OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setShadowColor:[UIColor blackColor]];
-    [label setShadowOffset:CGSizeMake(1, 1)];
+    [label setShadowColor:[UIColor colorWithRed:226/255.0 green:202/255.0 blue:202/255.0 alpha:1.0]];
+    [label setShadowOffset:CGSizeMake(0, 0)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
 
@@ -406,20 +406,5 @@ static NSString *urlServicePath;
     navController.navigationItem.hidesBackButton = YES;
     navController.navigationItem.titleView = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
 }
-
-/*+(void)setProductMapping:(RKObjectMapping *)productMapping{
-    //Configure Product Object Mapping
-    productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-}*/
 
 @end

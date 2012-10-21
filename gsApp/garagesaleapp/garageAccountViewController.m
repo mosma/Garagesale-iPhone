@@ -53,77 +53,6 @@
     //[self setupProductMapping];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    [self loadAttribsToComponents:NO];
-    
-    if ([mutArrayProducts count] == 0)
-        [self reloadPage:nil];
-
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
-        [self reloadPage:nil];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"NO" forKey:@"isProductRecorded"];  
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-- (void)setupProductMapping{
-    //Initializing the Object Manager
-    RKObjManeger = [RKObjectManager sharedManager];
-    
-    //Configure Product Object Mapping
-    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:
-     @"caminhoThumb",
-     @"caminhoTiny",
-     @"principal",
-     @"idProduto",
-     @"id",
-     @"id_estado",
-     nil];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
-    [caminhoMapping mapAttributes:
-     @"icon",
-     @"listing",
-     @"listingscaled",
-     @"mobile",
-     @"original",
-     nil];
-    
-    //Relationship
-    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
-    
-    //Relationship
-    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
-
-    //LoadUrlResourcePath
-    if ((garage  == nil) && (profile == nil))
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
-    else
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
-    
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-    
-    //[self initLoadingGuear];
-}
-
 - (IBAction)reloadPage:(id)sender{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
@@ -140,75 +69,6 @@
     globalFunctions.imageThumbsYorigin_Iphone = 10;
     
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
-}
-
--(void)initLoadingGuear{
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.scrollViewMain addSubview:HUD];
-	
-	// Regiser for HUD callbacks so we can remove it from the window at the right time
-    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
-	HUD.delegate = self;
-    HUD.labelText = @"Loading Products";
-    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
-    
-    // Show the HUD while the provided method executes in a new thread
-	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-}
-
--(void)backPage{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)myTask {
-	// Do something usefull in here instead of sleeping ...
-	while (!isLoading) {
-		sleep(1);
-	}
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if([objects count] > 0){
-        self.mutArrayProducts = (NSMutableArray *)objects;
-        [self.tableViewProducts reloadData];
-        [self loadAttribsToComponents:YES];
-        isLoading = !isLoading;
-    }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
-}
-
-- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
-    if ([request isGET]) {
-        // Handling GET /foo.xml
-        
-        if ([response isOK]) {
-            // Success! Let's take a look at the data
-            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-        }
-        
-    } else if ([request isPOST]) {
-        
-        // Handling POST /other.json        
-        if ([response isJSON]) {
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-        
-    } else if ([request isDELETE]) {
-        
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
-        }
-    }
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
@@ -301,6 +161,100 @@
         [queue addOperation:opThumbsProd];
 
     }  
+}
+
+- (void)setupProductMapping{
+    //Initializing the Object Manager
+    RKObjManeger = [RKObjectManager sharedManager];
+    
+    RKObjectMapping *productMapping = [Mappings getProductMapping];
+    RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
+    RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
+    
+    //Relationship
+    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+    
+    //LoadUrlResourcePath
+    if ((garage  == nil) && (profile == nil))
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
+    else
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    
+    //[self initLoadingGuear];
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    if([objects count] > 0){
+        self.mutArrayProducts = (NSMutableArray *)objects;
+        [self.tableViewProducts reloadData];
+        [self loadAttribsToComponents:YES];
+        isLoading = !isLoading;
+    }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    NSLog(@"Encountered an error: %@", error);
+}
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    if ([request isGET]) {
+        // Handling GET /foo.xml
+        
+        if ([response isOK]) {
+            // Success! Let's take a look at the data
+            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+        }
+        
+    } else if ([request isPOST]) {
+        
+        // Handling POST /other.json
+        if ([response isJSON]) {
+            NSLog(@"Got a JSON response back from our POST!");
+        }
+        
+    } else if ([request isDELETE]) {
+        
+        // Handling DELETE /missing_resource.txt
+        if ([response isNotFound]) {
+            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
+        }
+    }
+}
+
+-(void)initLoadingGuear{
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.scrollViewMain addSubview:HUD];
+	
+	// Regiser for HUD callbacks so we can remove it from the window at the right time
+    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
+	HUD.delegate = self;
+    HUD.labelText = @"Loading Products";
+    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+    
+    // Show the HUD while the provided method executes in a new thread
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+}
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)myTask {
+	// Do something usefull in here instead of sleeping ...
+	while (!isLoading) {
+		sleep(1);
+	}
+}
+
+- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -523,6 +477,21 @@
     }
     if (buttonIndex != 3)
         self.tabBarController.selectedIndex = 1;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self loadAttribsToComponents:NO];
+    
+    if ([mutArrayProducts count] == 0)
+        [self reloadPage:nil];
+    
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+        [self reloadPage:nil];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"NO" forKey:@"isProductRecorded"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)viewDidUnload

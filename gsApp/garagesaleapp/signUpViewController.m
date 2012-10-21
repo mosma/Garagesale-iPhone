@@ -33,8 +33,6 @@
 @synthesize textFieldUserPassword;
 @synthesize RKObjManeger;
 @synthesize activityLogin;
-@synthesize arrayGarage;
-@synthesize arrayProfile;
 @synthesize settingsAccount;
 
 - (void)viewDidLoad
@@ -56,12 +54,12 @@
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
-    labelSignup.font        = [UIFont fontWithName:@"Droid Sans" size:16 ];
-    labelLogin.font         = [UIFont fontWithName:@"Droid Sans" size:16 ];
-    labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelPersonName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelPassword.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+    [labelLogin         setFont:[UIFont fontWithName:@"Droid Sans" size:16 ]];
+    [labelGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    [labelPersonName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    [labelEmail         setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    [labelPassword      setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
 
     [textFieldGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textFieldPersonName    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -78,10 +76,7 @@
 }
 
 - (void)setupLogin{
-    //Configure Product Object Mapping
-    RKObjectMapping *loginMapping = [RKObjectMapping mappingForClass:[Login class]];    
-    [loginMapping mapKeyPath:@"idPerson"     toAttribute:@"idPerson"];
-    [loginMapping mapKeyPath:@"token"        toAttribute:@"token"];
+    RKObjectMapping *loginMapping = [Mappings getLoginMapping];
     
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
@@ -90,10 +85,77 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
 }
 
+- (void)setupGarageMapping {
+    RKObjectMapping *garageMapping = [Mappings getGarageMapping];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:garageMapping delegate:self];
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+}
+
+- (void)setupProfileMapping {
+    RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]
+                              objectMapping:prolileMapping delegate:self];
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    if ([objects count] > 0) {
+        if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
+            [self setLogin:objects];
+        }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+            [self setProfile:objects];
+            [self setupGarageMapping];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            [self setGarage:objects];
+        }
+    }
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    NSLog(@"Encountered an error: %@", error);
+    
+    //if ([objectLoader isKindOfClass:[Login class]]){
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
+                                                      message:@"check your values."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+    [activityLogin stopAnimating];
+    //}
+}
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    if ([request isGET]) {
+        // Handling GET /foo.xml
+        if ([response isOK]) {
+            // Success! Let's take a look at the data
+            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+        }
+    } else if ([request isPOST]) {
+        
+        // Handling POST /other.json
+        if ([response isJSON]) {
+            NSLog(@"Got a JSON response back from our POST!");
+        }
+    } else if ([request isDELETE]) {
+        
+        // Handling DELETE /missing_resource.txt
+        if ([response isNotFound]) {
+            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
+        }
+    }
+}
 
 -(void)postNewGarage {
-    
-//    
+//
 //    NSString* link;
 //    NSString* about;
 //    NSString* country;
@@ -125,11 +187,8 @@
 //    [[RKObjectManager sharedManager] postObject:bid delegate:self];
 }
 
-
-
 - (void)setGarage:(NSArray *)objects{
     //Garage
-    //NSUserDefaults *garageDefaults = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[[objects objectAtIndex:0] link]           forKey:@"link"];
     [settingsAccount setObject:[[objects objectAtIndex:0] about]          forKey:@"about"];
     [settingsAccount setObject:[[objects objectAtIndex:0] country]        forKey:@"country"];
@@ -146,107 +205,14 @@
 
 - (void)setProfile:(NSArray *)objects{
     //Profile
-   //NSUserDefaults *profileDefaults = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[[objects objectAtIndex:0] garagem]  forKey:@"garagem"];
     [settingsAccount setObject:[[objects objectAtIndex:0] nome]     forKey:@"nome"];
     [settingsAccount setObject:[[objects objectAtIndex:0] email]    forKey:@"email"];
     [settingsAccount setObject:[[objects objectAtIndex:0] senha]    forKey:@"senha"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
-    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"]; 
-    //[settingsAccount synchronize];
-}
-
-- (void)setupGarageMapping {
-    //Configure Garage Object Mapping
-    RKObjectMapping *garageMapping = [RKObjectMapping mappingForClass:[Garage class]];    
-    [garageMapping mapKeyPath:@"link"           toAttribute:@"link"];
-    [garageMapping mapKeyPath:@"about"          toAttribute:@"about"];
-    [garageMapping mapKeyPath:@"country"        toAttribute:@"country"];
-    [garageMapping mapKeyPath:@"district"       toAttribute:@"district"];
-    [garageMapping mapKeyPath:@"city"           toAttribute:@"city"];
-    [garageMapping mapKeyPath:@"address"        toAttribute:@"address"];
-    [garageMapping mapKeyPath:@"localization"   toAttribute:@"localization"];
-    [garageMapping mapKeyPath:@"idState"        toAttribute:@"idState"];
-    [garageMapping mapKeyPath:@"idPerson"       toAttribute:@"idPerson"];
-    [garageMapping mapKeyPath:@"id"             toAttribute:@"id"];
-    
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[self.arrayProfile objectAtIndex:0] garagem]] 
-                                  objectMapping:garageMapping delegate:self];
-
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
-}
-
-- (void)setupProfileMapping {
-    //Configure Profile Object Mapping
-    RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
-    [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
-    [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
-    [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-    [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
-    [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];    
-    [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
-    [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];
-
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", 
-                                            [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]] 
-                                  objectMapping:prolileMapping delegate:self];
-
-    
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if ([objects count] > 0) {
-        if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
-            [self setLogin:objects];
-        }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
-            self.arrayProfile = objects;
-            [self setProfile:objects];
-            [self setupGarageMapping];
-        }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            self.arrayGarage = objects;
-            [self setGarage:objects];
-        }
-    }
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
-    
-   //if ([objectLoader isKindOfClass:[Login class]]){
-      UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
-                                                      message:@"check your values."
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-      [message show];
-      [activityLogin stopAnimating];
-    //}
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
-    if ([request isGET]) {
-        // Handling GET /foo.xml
-        if ([response isOK]) {
-            // Success! Let's take a look at the data
-            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-        }
-    } else if ([request isPOST]) {
-        
-        // Handling POST /other.json        
-        if ([response isJSON]) {
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-    } else if ([request isDELETE]) {
-        
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
-        }
-    }
+    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
+    [settingsAccount synchronize];
 }
 
 -(IBAction)checkLogin:(id)sender{
@@ -260,10 +226,9 @@
     settingsAccount = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
     [settingsAccount setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
-    //[settingsAccount synchronize];
     [self setupProfileMapping];
     
-    self.tabBarController.selectedIndex = 0;
+    [self.tabBarController setSelectedIndex:0];
 }
 
 -(void)backPage{
@@ -399,11 +364,6 @@
 -(IBAction)textFieldEditingEnded:(id)sender{
     [sender resignFirstResponder];
 }
-/* 
- *
- End Setup the keyboard controls 
- *
- */
 
 - (void)viewDidUnload
 {

@@ -57,52 +57,64 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self loadAttribsToComponents:NO];
     [self.navigationController setNavigationBarHidden:NO];
+    //Initializing the Object Managers
+    RKObjManeger = [RKObjectManager sharedManager];
     [self setupProductMapping];
 }
 
-- (void)setupProductMapping{
-    //Initializing the Object Managers
-    RKObjManeger = [RKObjectManager sharedManager];
-    
-    //Configure Product Object Mapping
-    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[Product class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"link"          toAttribute:@"link"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:
-     @"caminhoThumb",
-     @"caminhoTiny",
-     @"principal",
-     @"idProduto",
-     @"id",
-     @"id_estado",
-     nil];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *caminhoMapping = [RKObjectMapping mappingForClass:[Caminho class]];
-    [caminhoMapping mapAttributes:
-     @"icon",
-     @"listing",
-     @"listingscaled",
-     @"mobile",
-     @"original",
-     nil];
+- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+    if (!isFromLoadObject) {
+        //set searchBar settings
+        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0,-200,320,40)];
+        searchBarProduct.delegate = self;
+        [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
         
-    //set Local Resource Defautl
-    if ([strLocalResourcePath length] == 0) 
-        strLocalResourcePath = @"/product";
+        self.tableView.delegate = self;
+        
+        [GlobalFunctions setSearchBarLayout:searchBarProduct];
+        
+        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+        
+        [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
+        [self.tableView addSubview:searchBarProduct];
 
+        [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
+                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
+ 
+        [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:
+                                                    @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"]];
+        [segmentControl setSelectedSegmentIndex:0];
+        [self.tableView setRowHeight:377];
+        
+    }else {
+            
+        if ([strTextSearch length] != 0)
+            [searchBarProduct setText:strTextSearch];
+        mutDictDataThumbs = [[NSMutableDictionary alloc] init];
+        
+        NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
+        NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
+
+        
+        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
+        [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:@"results for"]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:count]];
+        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
+        
+        OHlabelTitleResults.attributedText = attrStr;
+    }
+}
+
+- (void)setupProductMapping{
+    RKObjectMapping *productMapping = [Mappings getProductMapping];
+    RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
+    RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
+    
+    //set Local Resource Defautl
+    if ([strLocalResourcePath length] == 0)
+        strLocalResourcePath = @"/product";
     
     //Relationship
     [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
@@ -121,7 +133,7 @@
     if([objects count] > 0){
         mutArrayProducts = (NSMutableArray *)objects;
         [self.tableView reloadData];
-    }else{ 
+    }else{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: @"Search not found!"
                               message: @"No itens found for this search."
@@ -149,7 +161,7 @@
         
     } else if ([request isPOST]) {
         
-        // Handling POST /other.json        
+        // Handling POST /other.json
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
@@ -172,56 +184,11 @@
         [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
     
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self.navigationItem.rightBarButtonItem setEnabled:NO];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
-- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-    if (!isFromLoadObject) {
-        //set searchBar settings
-        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0,-200,320,40)];
-        searchBarProduct.delegate = self;
-        searchBarProduct.placeholder = NSLocalizedString(@"searchProduct", @"");
-        
-        self.tableView.delegate = self;
-        
-        [GlobalFunctions setSearchBarLayout:searchBarProduct];
-        
-        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-        
-        self.navigationItem.title = NSLocalizedString(@"products", @"");
-        [self.tableView addSubview:searchBarProduct];
-
-        self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                                 @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
- 
-        self.navigationItem.rightBarButtonItem  = [GlobalFunctions getIconNavigationBar:
-                                                 @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"];
-        segmentControl.selectedSegmentIndex = 0;
-        [self.tableView setRowHeight:377];
-        
-    }else {
-            
-        if ([self.strTextSearch length] != 0)
-            searchBarProduct.text = self.strTextSearch;
-        mutDictDataThumbs = [[NSMutableDictionary alloc] init];
-        
-        NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
-        NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
-
-        
-        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
-        [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:@"results for"]];
-        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:count]];
-        [attrStr setTextColor:[UIColor redColor] range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
-        
-        OHlabelTitleResults.attributedText = attrStr;
-    }
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
 }
 
 -(void)backPage{
@@ -235,11 +202,11 @@
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
     
     if (!isSearch) {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, self.tableView.contentOffset.y+200);
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, self.tableView.contentOffset.y+200)];
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        searchBarProduct.transform = CGAffineTransformMakeTranslation(0, -(self.tableView.contentOffset.y+200));
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, -(self.tableView.contentOffset.y+200))];
         [searchBarProduct resignFirstResponder];
     }
     isSearch = !isSearch;
@@ -261,11 +228,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.mutArrayProducts count];
+    return [mutArrayProducts count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     //Instacied cells CellBlock and CellLine
     productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
@@ -274,8 +240,8 @@
     
     //Attibuted at strFormat values : Currency, Valor Esperado.
     NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
-                                                   [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
-    NSString                   *valorEsperado   = [[self.mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
+                                                   [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
+    NSString                   *valorEsperado   = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
     NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@ by %@", currency, valorEsperado, 
                                                    [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
 
@@ -297,22 +263,19 @@
                                                                         [NSString stringWithFormat:@"by %@", garageName]]];
     
     //Check Flag idEstado (1 - Não Vendido, 2 - Vendido)
-    if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
+    if ([[[mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
         [[customViewCellBlock valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
         [[customViewCellBlock valorEsperado] setText:@"Vendido"];
         [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
                                                            green:(float)102/255.0 \
                                                             blue:(float)102/255.0 alpha:1.0]];
         
-        customViewCellLine.valorEsperado = customViewCellBlock.valorEsperado;
+        [customViewCellLine setValorEsperado:customViewCellBlock.valorEsperado];
         
     }else{
-        customViewCellBlock.valorEsperado.attributedText = attrStr;
-        customViewCellLine.valorEsperado.attributedText = attrStr;
+        [customViewCellBlock.valorEsperado setAttributedText:attrStr];
+        [customViewCellLine.valorEsperado setAttributedText:attrStr];
     }
-    
-                
-    
 
 //    NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]];
 //    UIImage *image      = [[UIImage alloc] initWithData:imageData];
@@ -338,8 +301,8 @@
     //NSLog(@"------------------>%i", indexPath.row);
     
     
-    customViewCellBlock.imageView.image = [UIImage imageNamed:@"nopicture.png"];
-    customViewCellLine.imageView.image = [UIImage imageNamed:@"nopicture.png"]; 
+    [customViewCellBlock.imageView setImage:[UIImage imageNamed:@"nopicture.png"]];
+    [customViewCellLine.imageView setImage:[UIImage imageNamed:@"nopicture.png"]];
 
 
 
@@ -366,8 +329,8 @@
     
     //if ([mutDictDataThumbs count] > indexPath.row) {
     if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]]) {
-        customViewCellBlock.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
-        customViewCellLine.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]];
+        [customViewCellBlock.imageView setImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
+        [customViewCellLine.imageView setImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
     }else {
         if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
             NSOperationQueue *queue = [NSOperationQueue new];
@@ -385,8 +348,8 @@
     if (!isSegmentedControlChanged) {
         if(segmentControl.selectedSegmentIndex == 0){
             [customViewCellLine removeFromSuperview];
-            customViewCellBlock.hidden = NO;
-            customViewCellLine.hidden = YES;
+            [customViewCellBlock setHidden:NO];
+            [customViewCellLine setHidden:YES];
             [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
             [self.tableView setRowHeight:122];
             return customViewCellBlock;
@@ -394,8 +357,8 @@
         else{
             // [tableView deleteRowsAtIndexPaths:[self.mutArrayProducts objectAtIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationNone];
             [customViewCellBlock removeFromSuperview];
-            customViewCellBlock.hidden = YES;
-            customViewCellLine.hidden = NO;
+            [customViewCellBlock setHidden:YES];
+            [customViewCellLine setHidden:NO];
             [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
             [self.tableView setRowHeight:367];
             return customViewCellLine;
@@ -403,25 +366,27 @@
     }
 }
 
-
 -(void)loadImageAtIndexPath:(NSArray *)array{
     
-    
     NSIndexPath *index = [array objectAtIndex:2];
-    if ([[mutArrayProducts objectAtIndex:index.row] fotos] != nil) {
+    /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll
+     at Paginable. in this case, we copy the real index to use in drawing rect area at gallerySrollView.*/
+    NSString *pageCCopy = [NSString stringWithFormat:@"%i" , index.row];
+    
+    if ([[mutArrayProducts objectAtIndex:[pageCCopy intValue]] fotos] != nil) {
 
-        NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+        NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:[pageCCopy intValue]] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
                 
         [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                        withObject:[NSArray arrayWithObjects:
                                                    [array objectAtIndex:0], 
                                                    [array objectAtIndex:1], 
                                                    urlThumb,
-                                                   index, nil]];
+                                                   pageCCopy, nil]];
     }else {
-        [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
-        [(productCustomViewCell *)[array objectAtIndex:0] imageView].image = [UIImage imageNamed:@"nopicture.png"];
-        [(productCustomViewCell *)[array objectAtIndex:1] imageView].image = [UIImage imageNamed:@"nopicture.png"];
+        [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", [pageCCopy intValue]]];
+        [[(productCustomViewCell *)[array objectAtIndex:0] imageView] setImage:[UIImage imageNamed:@"nopicture.png"]];
+        [[(productCustomViewCell *)[array objectAtIndex:1] imageView] setImage:[UIImage imageNamed:@"nopicture.png"]];
     }
 }
 
@@ -429,13 +394,13 @@
     @try {
         UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:(NSString *)[array objectAtIndex:2]]]];
         
-        NSIndexPath *index = [array objectAtIndex:3];
+        //NSIndexPath *index = [array objectAtIndex:3];
         
-        [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
+        [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", [[array objectAtIndex:3] intValue] ]];
         
         //[mutArrayDataThumbs addObject:thumbImage];
-        [(productCustomViewCell *)[array objectAtIndex:0] imageView].image = thumbImage;
-        [(productCustomViewCell *)[array objectAtIndex:1] imageView].image = thumbImage;
+        [[(productCustomViewCell *)[array objectAtIndex:0] imageView] setImage:thumbImage];
+        [[(productCustomViewCell *)[array objectAtIndex:1] imageView] setImage:thumbImage];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -444,8 +409,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
-    prdDetailVC.imageView = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
+    [prdDetailVC setProduct:(Product *)[mutArrayProducts objectAtIndex:indexPath.row]];
+    [prdDetailVC setImageView:[[UIImageView alloc] initWithImage:
+                               [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -463,7 +429,7 @@
     // focus is given to the UISearchBar
     // call our activate method so that we can do some 
     // additional things when the UISearchBar shows.
-    [self.searchBarProduct setShowsCancelButton:YES animated:YES];
+    [searchBarProduct setShowsCancelButton:YES animated:YES];
     [self searchBar:searchBar activate:YES];
 }
 
@@ -471,14 +437,14 @@
     // searchBarTextDidEndEditing is fired whenever the 
     // UISearchBar loses focus
     // We don't need to do anything here.
-    [self.searchBarProduct setShowsCancelButton:NO animated:YES];
+    [searchBarProduct setShowsCancelButton:NO animated:YES];
     
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // Clear the search text
     // Deactivate the UISearchBar
-    [self.searchBarProduct resignFirstResponder];
+    [searchBarProduct resignFirstResponder];
     // searchBar.text=@"";
     //[self searchBar:searchBar activate:YES];
 }
@@ -488,7 +454,7 @@
     // Deactivate the UISearchBar
     
     //Search Service
-    self.strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
+    strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
     [self setupProductMapping];
     [self searchBar:searchBar activate:NO];
 	[activityIndicator startAnimating];
@@ -496,7 +462,6 @@
     [mutDictDataThumbs removeAllObjects];
     [self.tableView reloadData];
 }
-
 
 // We call this when we want to activate/deactivate the UISearchBar
 // Depending on active (YES/NO) we disable/enable selection and 
@@ -549,7 +514,7 @@
                                                   cancelButtonTitle:@"Cancel" 
                                              destructiveButtonTitle:nil
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
         sheet.delegate = self;
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
@@ -581,24 +546,7 @@
             break; //Cancel
     }
     if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
-}
-
-- (void)viewDidUnload
-{
-    // Release any retained subviews of the main view.
-    
-    activityIndicator = nil;
-    [self setActivityIndicator:nil];
-    
-    
-    mutDictDataThumbs = nil;
-    [self setMutDictDataThumbs:nil];
-    
-    mutArrayProducts = nil;
-    [self setMutArrayProducts:nil];
-    
-    [super viewDidUnload];
+        [self.tabBarController setSelectedIndex:1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -619,6 +567,21 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+}
+
+- (void)viewDidUnload
+{
+    // Release any retained subviews of the main view.
+    activityIndicator = nil;
+    [self setActivityIndicator:nil];
+
+    mutDictDataThumbs = nil;
+    [self setMutDictDataThumbs:nil];
+    
+    mutArrayProducts = nil;
+    [self setMutArrayProducts:nil];
+    
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -7,6 +7,7 @@
 //
 
 #import "settingsAccountViewController.h"
+#import "Profile.h"
 
 @interface settingsAccountViewController ()
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
@@ -63,57 +64,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)logout:(id)sender{
-    /*
-     Reset Token... Colocar isso no globalfuncionts
-     */
-    
-    [self setupLogOut];
-    
-    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    
-    
-    NSInteger i;
-    for (NSString *key in [defaultsDictionary allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-        
-        NSLog(@"quantidade : %i", i++);
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    for (UIViewController *v in self.navigationController.viewControllers)
-    {
-        UIViewController *vc = v;
-
-             
-        if ([vc isKindOfClass:[ViewController class]])
-             {
-                 [vc.navigationController popToRootViewControllerAnimated:YES];
-             }
-        
-        if ([vc isKindOfClass:[productDetailViewController class]])
-        {
-            [vc.navigationController popToRootViewControllerAnimated:YES];
-        }
-        
-        if ([vc isKindOfClass:[garageAccountViewController class]])
-        {
-            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
-        }
-    }
-
-    [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController] 
-      navigationController] popToRootViewControllerAnimated:YES];
-
-    
-    self.tabBarController.selectedIndex = 0;
-    
-    [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController] 
-      navigationController] popToRootViewControllerAnimated:NO];
-    
-
-}
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -122,14 +72,6 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    [self loadAttribsToComponents];
 }
 
 - (void)loadAttribsToComponents{
@@ -210,59 +152,103 @@
     [self setupKeyboardControls];
 }
 
--(void)backPage{
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)setupGarageMapping {
+    RKObjectMapping *garageMapping = [Mappings getGarageMapping];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@",
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]
+                              objectMapping:garageMapping delegate:self];
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+}
+
+- (void)setupProfileMapping {
+    RKObjectMapping *profileMapping = [Mappings getProfileMapping];
+    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]
+                              objectMapping:profileMapping delegate:self];
+    
+    
+    //Set JSon Type
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+        [self setProfile:objects];
+        [self setupGarageMapping];
+    }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+        [self setGarage:objects];
+    }
 }
 
 -(IBAction)saveSettings{
-
+    
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
     NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"garagem"]  forKey:@"garagem"];
+    [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults]
+                                                                                        objectForKey:@"garagem"]  forKey:@"garagem"];
     [prodParams setObject:txtFieldCurrentPassword   != nil ? txtFieldCurrentPassword.text :        @""          forKey:@"oldPassword"];
     [prodParams setObject:txtFieldNewPassword       != nil ? txtFieldNewPassword.text :            @""          forKey:@"newPassword"];
     [prodParams setObject:txtFieldRepeatNewPassword != nil ? txtFieldRepeatNewPassword.text :      @""          forKey:@"newPassword2"];
-    [prodParams setObject:txtFieldYourName          != nil ? txtFieldYourName.text :[[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"nome"]     forKey:@"nome"];
-    [prodParams setObject:txtFieldEmail             != nil ? txtFieldEmail.placeholder : [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"email"]    forKey:@"email"];
-    [prodParams setObject:txtViewAbout              != nil ? txtViewAbout.text :    [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"about"]    forKey:@"about"];
-    [prodParams setObject:txtFieldAnyLink           != nil ? txtFieldAnyLink.text : [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"link"]     forKey:@"link"];
-    [prodParams setObject:txtFieldAddress           != nil ? txtFieldAddress.text : [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"address"]   forKey:@"address"];
-    [prodParams setObject:txtFieldCity              != nil ? txtFieldCity.text :    [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"city"]     forKey:@"city"];
-    [prodParams setObject:txtFieldCountry           != nil ? txtFieldCountry.text : [[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"country"]   forKey:@"country"];
-    [prodParams setObject:txtFieldDistrict          != nil ? txtFieldDistrict.text :[[GlobalFunctions getUserDefaults] 
-                                                                                      objectForKey:@"district"] forKey:@"district"];
+    [prodParams setObject:txtFieldYourName          != nil ? txtFieldYourName.text :[[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"nome"]     forKey:@"nome"];
+    [prodParams setObject:txtFieldEmail             != nil ? txtFieldEmail.placeholder : [[GlobalFunctions getUserDefaults]
+                                                                                          objectForKey:@"email"]    forKey:@"email"];
+    [prodParams setObject:txtViewAbout              != nil ? txtViewAbout.text :    [[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"about"]    forKey:@"about"];
+    [prodParams setObject:txtFieldAnyLink           != nil ? txtFieldAnyLink.text : [[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"link"]     forKey:@"link"];
+    [prodParams setObject:txtFieldAddress           != nil ? txtFieldAddress.text : [[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"address"]   forKey:@"address"];
+    [prodParams setObject:txtFieldCity              != nil ? txtFieldCity.text :    [[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"city"]     forKey:@"city"];
+    [prodParams setObject:txtFieldCountry           != nil ? txtFieldCountry.text : [[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"country"]   forKey:@"country"];
+    [prodParams setObject:txtFieldDistrict          != nil ? txtFieldDistrict.text :[[GlobalFunctions getUserDefaults]
+                                                                                     objectForKey:@"district"] forKey:@"district"];
     [prodParams setObject:@""                               forKey:@"idState"];
     [prodParams setObject:@""                               forKey:@"lang"];
     [prodParams setObject:@""                               forKey:@"localization"];
-
+    
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
     [postData setObject:idPerson              forKey:@"idUser"];
     
-    //Parsing prodParams to JSON! 
+    //Parsing prodParams to JSON!
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
     NSError *error = nil;
-    NSString *json = [parser stringFromObject:prodParams error:&error];    
+    NSString *json = [parser stringFromObject:prodParams error:&error];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
     
     //If no error we send the post, voila!
     if (!error){
+        
+        
+        
+        
+        
+        
+        
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
-        [postData setObject:json forKey:@"garage"];     
+        [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -286,20 +272,11 @@
     [[[RKClient sharedClient] delete:[NSString stringWithFormat:@"/login/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self] send];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
-        [self setProfile:objects];
-        [self setupGarageMapping];
-    }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-        [self setGarage:objects];
-    }
-}
-
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
 }
 
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {  
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     if ([request isGET]) {
         // Handling GET /foo.xml
         
@@ -312,18 +289,18 @@
         
         [self setupProfileMapping];
         NSLog(@"after posting to server, %@", [response bodyAsString]);
-
+        
         //        NSError *error = nil;
-        //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new]; 
+        //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new];
         //        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
         
         //        if (!isPostProduct) {
         //            [self postProduct];
         //            isPostProduct = !isPostProduct;
-        //        }else 
+        //        }else
         //            isPostProduct = !isPostProduct;
         
-        // Handling POST /other.json        
+        // Handling POST /other.json
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
@@ -340,6 +317,121 @@
     }
 }
 
+-(void)logout:(id)sender{
+    /*
+     Reset Token... Colocar isso no globalfuncionts
+     */
+    
+    [self setupLogOut];
+    
+    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    
+    
+    NSInteger i;
+    for (NSString *key in [defaultsDictionary allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        
+        NSLog(@"quantidade : %i", i++);
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    for (UIViewController *v in self.navigationController.viewControllers)
+    {
+        UIViewController *vc = v;
+        
+        
+        if ([vc isKindOfClass:[ViewController class]])
+        {
+            [vc.navigationController popToRootViewControllerAnimated:YES];
+        }
+        
+        if ([vc isKindOfClass:[productDetailViewController class]])
+        {
+            [vc.navigationController popToRootViewControllerAnimated:YES];
+        }
+        
+        if ([vc isKindOfClass:[garageAccountViewController class]])
+        {
+            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
+        }
+    }
+    
+    [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
+      navigationController] popToRootViewControllerAnimated:YES];
+    
+    
+    self.tabBarController.selectedIndex = 0;
+    
+    [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
+      navigationController] popToRootViewControllerAnimated:NO];
+    
+    
+}
+
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.keyboardControls.textFields containsObject:textField])
+        self.keyboardControls.activeTextField = textField;
+    [self scrollViewToTextField:textField];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([self.keyboardControls.textFields containsObject:textView])
+        self.keyboardControls.activeTextField = textView;
+    [self scrollViewToTextField:textView];
+}
+
+-(IBAction)textFieldEditingEnded:(id)sender{
+    [sender resignFirstResponder];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Cancel"
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    switch (buttonIndex) {
+        case 0:
+            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 1:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 2:
+            self.tabBarController.selectedIndex = 1;
+            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break;
+        case 3:
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            break; //Cancel
+    }
+    if (buttonIndex != 3)
+        self.tabBarController.selectedIndex = 1;
+}
 
 - (void)setGarage:(NSArray *)objects{
     //Garage
@@ -363,56 +455,14 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] senha]    forKey:@"senha"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
-    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"]; 
-}
-
-- (void)setupGarageMapping {
-    //Configure Garage Object Mapping
-    RKObjectMapping *garageMapping = [RKObjectMapping mappingForClass:[Garage class]];    
-    [garageMapping mapKeyPath:@"link"           toAttribute:@"link"];
-    [garageMapping mapKeyPath:@"about"          toAttribute:@"about"];
-    [garageMapping mapKeyPath:@"country"        toAttribute:@"country"];
-    [garageMapping mapKeyPath:@"district"       toAttribute:@"district"];
-    [garageMapping mapKeyPath:@"city"           toAttribute:@"city"];
-    [garageMapping mapKeyPath:@"address"        toAttribute:@"address"];
-    [garageMapping mapKeyPath:@"localization"   toAttribute:@"localization"];
-    [garageMapping mapKeyPath:@"idState"        toAttribute:@"idState"];
-    [garageMapping mapKeyPath:@"idPerson"       toAttribute:@"idPerson"];
-    [garageMapping mapKeyPath:@"id"             toAttribute:@"id"];
-    
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@",
-                                             [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]
-                              objectMapping:garageMapping delegate:self];
-    
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
-}
-
-- (void)setupProfileMapping {
-    //Configure Profile Object Mapping
-    RKObjectMapping *prolileMapping = [RKObjectMapping mappingForClass:[Profile class]];    
-    [prolileMapping mapKeyPath:@"garagem"   toAttribute:@"garagem"];
-    [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
-    [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
-    [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
-    [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];    
-    [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
-    [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];
-    
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", 
-                                             [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]] 
-                              objectMapping:prolileMapping delegate:self];
-    
-    
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];  
+    [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
 }
 
 - (void)myProgressTask {
 	// This just increases the progress indicator in a loop
 	float progress = 0.0f;
 	while (progress < 1.0f) {
-		progress += 0.004f;
+		progress += 0.01f;
 		HUD.progress = progress;
 		usleep(10000);
 	}
@@ -421,7 +471,6 @@
 	HUD.labelText = @"Completed";
 	sleep(2);
 }
-
 
 /* Setup the keyboard controls BSKeyboardControls.h */
 - (void)setupKeyboardControls
@@ -526,79 +575,12 @@
     [self scrollViewToTextField:textField];
 }
 
-
-#pragma mark -
-#pragma mark UITextField Delegate
-
-/* Editing began */
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    if ([self.keyboardControls.textFields containsObject:textField])
-        self.keyboardControls.activeTextField = textField;
-    [self scrollViewToTextField:textField];
-}
-
-#pragma mark -
-#pragma mark UITextView Delegate
-
-/* Editing began */
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([self.keyboardControls.textFields containsObject:textView])
-        self.keyboardControls.activeTextField = textView;
-    [self scrollViewToTextField:textView];
-}
-
--(IBAction)textFieldEditingEnded:(id)sender{
-    [sender resignFirstResponder];
-}
-/* 
- *
- End Setup the keyboard controls 
- *
- */
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                           delegate:nil 
-                                                  cancelButtonTitle:@"Cancel" 
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
+    [self loadAttribsToComponents];
 }
 
 - (void)viewDidUnload

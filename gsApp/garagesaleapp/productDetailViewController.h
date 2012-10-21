@@ -10,17 +10,9 @@
 #import <MessageUI/MessageUI.h>
 #import "galleryScrollViewController.h"
 #import "garageDetailViewController.h"
-#import "Photo.h"
-#import "Product.h"
-#import "ProductPhotos.h"
-#import "Garage.h"
-#import "Profile.h"
-#import "RestKit/RestKit.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
 #import "AddThis.h"
-//#import "productTableViewController.h"
-//#import "garageDetailViewController.h"
 #import "garageAccountViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "Category.h"
@@ -41,7 +33,7 @@
     NSArray                                     *arrayTags;
     UIView                                      *viewShadow;
     BOOL                                        isIdPersonNumber;
-    int                                         countPicsAtGallery;
+    int                                         nextPageGallery;
     IBOutlet UILabel                            *labelNomeProduto;
     IBOutlet UILabel                            *labelDescricao;
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
