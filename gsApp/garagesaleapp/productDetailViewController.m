@@ -53,6 +53,7 @@
 @synthesize viewBidMsg;
 @synthesize PagContGallery;
 @synthesize activityIndicator;
+@synthesize buttonReportThisGarage;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -137,18 +138,60 @@
         [labelDescricao         setText:[self.product descricao]];
         [OHlabelValorEsperado   setText:[self.product valorEsperado]];
         
+        
         //set Navigation Title with OHAttributeLabel
-        NSString *titleNavItem = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
+        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", product.idPessoa];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
         // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-        [attrStr setTextColor:[UIColor grayColor]];
-        [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
-                        range:[titleNavItem rangeOfString:self.product.valorEsperado]];
-        [attrStr setFontName:@"Droid Sans" size:28 range:[titleNavItem rangeOfString:self.product.valorEsperado]];
-        [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
-        OHlabelValorEsperado.attributedText = attrStr;
+        [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
+        [attrStr setTextColor:[UIColor whiteColor]];
+        [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
+                        range:[titleNavItem rangeOfString:@"garage"]];
+        CGRect frame = CGRectMake(100, 0, 320, 27);
+        OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
+        [label setBackgroundColor:[UIColor clearColor]];
+        //        [label setShadowColor:[UIColor blackColor]];
+        //        [label setShadowOffset:CGSizeMake(1, 1)];
+        [label setAttributedText:attrStr];
+        [label setTextAlignment:UITextAlignmentCenter];
+        [self.navigationItem setTitleView:label];
         
+        NSString *titleValorEsperado = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
+        NSMutableAttributedString* attrStrVE = [NSMutableAttributedString attributedStringWithString:titleValorEsperado];
+        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
+        [attrStrVE setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+        [attrStrVE setTextColor:[UIColor grayColor]];
+        [attrStrVE setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
+                        range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
+        [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
+        [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
+        OHlabelValorEsperado.attributedText = attrStrVE;
+
+        //configure addthis -- (this step is optional)
+        [AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
+        [AddThisSDK setToolBarColor:[UIColor whiteColor]];
+        [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
+        
+        //Facebook connect settings
+        //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
+        [AddThisSDK setFacebookAPIKey:@"280819525292258"];
+        [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
+        
+        [AddThisSDK shouldAutoRotate:NO];
+        [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
+        
+        [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
+        //[AddThisSDK setAddThisApplicationId:@""];
+        
+        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
+                                                  withFrame:CGRectMake(225, 305, 36, 30)
+                                                   forImage:imageView.image
+                                                  withTitle:@"Product Send from Garagesaleapp.me"
+                                                description:labelDescricao.text];
+        
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:addThisButton]];
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
         
         [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
@@ -164,6 +207,9 @@
         rect.origin.y             = 0;
         imageView.frame         = rect;
         
+        [buttonReportThisGarage setTitle:@"Report this garage" forState:UIControlStateNormal];
+        [buttonReportThisGarage setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
+        buttonReportThisGarage.titleLabel.textColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
         
         [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 320)];
         [galleryScrollView  setClipsToBounds:YES];
@@ -192,29 +238,21 @@
         [labelCityProfile   setText:[[self.arrayGarage objectAtIndex:0] city]];
         [labelEmailProfile  setText:[[self.arrayProfile objectAtIndex:0] email]];
         
+        [labelNameProfile setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
+        [labelCityProfile setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+        
+        
+        labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
+        labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
+        
+        
         UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
         
-        //set Navigation Title with OHAttributeLabel
-        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", labelNameProfile.text];
-        NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
-        [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
-        [attrStr setTextColor:[UIColor whiteColor]];
-        [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
-                        range:[titleNavItem rangeOfString:@"garage"]];
-        CGRect frame = CGRectMake(100, 0, 320, 27);
-        OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setShadowColor:[UIColor blackColor]];
-        [label setShadowOffset:CGSizeMake(1, 1)];
-        [label setAttributedText:attrStr];
-        [label setTextAlignment:UITextAlignmentCenter];
-        [self.navigationItem setTitleView:label];
-        
         [garageDetailView setHidden:NO];
-        
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationDelegate:self];
@@ -238,41 +276,22 @@
         [countView.layer setShadowOffset:CGSizeMake(1, 1)];
         [countView.layer setShadowOpacity:0.1];
         
-        //configure addthis -- (this step is optional)
-            [AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
-            [AddThisSDK setToolBarColor:[UIColor whiteColor]];
-            [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
-            
-            //Facebook connect settings
-            //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-            [AddThisSDK setFacebookAPIKey:@"280819525292258"];
-            [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-            
-            [AddThisSDK shouldAutoRotate:NO];
-            [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-            
-            [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
-            //[AddThisSDK setAddThisApplicationId:@""];
-            
-            addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
-                                                      withFrame:CGRectMake(225, 305, 36, 30)
-                                                       forImage:imageView.image
-                                                      withTitle:@"Product Send from Garagesaleapp.me"
-                                                    description:labelDescricao.text];
-        
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:addThisButton]];
-
         int countPhotos = (int)[self.product.fotos count];
 
         
         PagContGallery = [[UIPageControl alloc] init];
         [PagContGallery setNumberOfPages:countPhotos];
         
-        
         if (countPhotos != 0) {
             [scrollViewMain insertSubview:countView aboveSubview:galleryScrollView];
-            [countLabel setText:[NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages]];
-            [countView setHidden:NO];
+            NSString *titleCount = [NSString stringWithFormat:@"1/%i", PagContGallery.numberOfPages];
+            NSMutableAttributedString* attrStrCount = [NSMutableAttributedString attributedStringWithString:titleCount];
+            [attrStrCount setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
+            [attrStrCount setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+            [attrStrCount setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
+                                 range:[titleCount rangeOfString:[NSString stringWithFormat:@"/%i", PagContGallery.numberOfPages]]];
+            [countLabel setBackgroundColor:[UIColor clearColor]];
+            countLabel.attributedText = attrStrCount;            [countView setHidden:NO];
             [galleryScrollView setContentSize:CGSizeMake(self.view.frame.size.width * countPhotos, 320)];
             [galleryScrollView setDelegate:self];
         } else 
@@ -519,8 +538,7 @@
         
     [galleryScrollView addSubview:actInd];
     
-    /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll
-     at Paginable. in this case, we copy the real index to use in drawing rect area at gallerySrollView.*/
+    /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll*/
     NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
     
     [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
@@ -587,15 +605,19 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];
-    [countLabel setText:[NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages]];
+    //[countLabel setText:[NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages]];
     
-    
-    
+    NSString *titleCount = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
+    NSMutableAttributedString* attrStrCount = [NSMutableAttributedString attributedStringWithString:titleCount];
+    [attrStrCount setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
+    [attrStrCount setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+    [attrStrCount setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
+                         range:[titleCount rangeOfString:[NSString stringWithFormat:@"/%i", PagContGallery.numberOfPages]]];
+    [countLabel setBackgroundColor:[UIColor clearColor]];
+    countLabel.attributedText = attrStrCount;
+
     NSLog(@"Current Page %i",PagContGallery.currentPage);
-    
-    
     NSLog(@"nextPageGallery %i",nextPageGallery);
-    
 
         //never repeat load image at your respective page.
         if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {

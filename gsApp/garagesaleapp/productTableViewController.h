@@ -41,8 +41,6 @@
 @property (nonatomic, retain) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
 -(void)setupProductMapping;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
 -(void)loadAttribsToComponents:(BOOL)isFromLoadObject;

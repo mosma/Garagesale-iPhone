@@ -46,6 +46,7 @@
     __unsafe_unretained IBOutlet UILabel        *labelValue;
     __unsafe_unretained IBOutlet UIView         *viewPicsControl;
     __unsafe_unretained IBOutlet UIButton       *buttonAddPics;
+                                                                 __weak IBOutlet UIButton *buttonSaveProduct;
 
     //Others
     RKObjectManager             *RKObjManeger;
@@ -82,6 +83,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel      *labelValue;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonAddPics;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 
 @property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
@@ -98,4 +100,5 @@
 -(IBAction)getPicsByCamera:(id)sender;
 -(IBAction)getPicsByPhotosAlbum:(id)sender;
 -(IBAction)deleteProduct:(id)sender;
+-(IBAction)validateForm:(id)sender;
 @end

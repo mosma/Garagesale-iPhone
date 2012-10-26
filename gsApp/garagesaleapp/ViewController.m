@@ -26,29 +26,29 @@
 
 - (void)viewDidLoad
 {    
-    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-    
-    NSArray *fontNames;
-    NSInteger indFamily, indFont;
-    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
-    {
-        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
-        fontNames = [[NSArray alloc] initWithArray:
-                     [UIFont fontNamesForFamilyName:
-                      [familyNames objectAtIndex:indFamily]]];
-        for (indFont=0; indFont<[fontNames count]; ++indFont)
-        {
-            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
-        }
-    }
     [super viewDidLoad];
     [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-   //[self setupProductMapping];
 }
 
 - (void)loadAttribsToComponents{
+//    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+//    NSArray *fontNames;
+//    NSInteger indFamily, indFont;
+//    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+//    {
+//        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+//        fontNames = [[NSArray alloc] initWithArray:
+//                     [UIFont fontNamesForFamilyName:
+//                      [familyNames objectAtIndex:indFamily]]];
+//        for (indFont=0; indFont<[fontNames count]; ++indFont)
+//        {
+//            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+//        }
+//    }
+
+    
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -78,18 +78,21 @@
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     //End Custom TabBarItems
     
-    
-    UIImage *statusImage = [UIImage imageNamed:@"animeHome1.png"];
+    UIImage *statusImage = [UIImage imageNamed:@"ActivityHome00.png"];
     activityImageView = [[UIImageView alloc] initWithImage:statusImage];
     
     activityImageView.animationImages = [NSArray arrayWithObjects:
-                                         [UIImage imageNamed:@"animeHome1.png"],
-                                         [UIImage imageNamed:@"animeHome2.png"],
-                                         [UIImage imageNamed:@"animeHome3.png"],
-                                         [UIImage imageNamed:@"animeHome4.png"],
+                                         [UIImage imageNamed:@"ActivityHome00.png"],
+                                         [UIImage imageNamed:@"ActivityHome01.png"],
+                                         [UIImage imageNamed:@"ActivityHome02.png"],
+                                         [UIImage imageNamed:@"ActivityHome03.png"],
+                                         [UIImage imageNamed:@"ActivityHome04.png"],
+                                         [UIImage imageNamed:@"ActivityHome05.png"],
+                                         [UIImage imageNamed:@"ActivityHome06.png"],
+                                         [UIImage imageNamed:@"ActivityHome07.png"],
+                                         [UIImage imageNamed:@"ActivityHome00.png"],                                        
                                          nil];
-    activityImageView.animationDuration = 0.7;
-    
+    activityImageView.animationDuration = 1.0;
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,7 +193,19 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
+    
+    
+    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
+                     cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+
+    [alV show];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+    NSLog(@"Encountered error: %@",                      error);
+    NSLog(@"Encountered error.domain: %@",               error.domain);
+    NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
+
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -248,7 +263,7 @@
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
                                                        delegate:nil 
-                                              cancelButtonTitle:@"Cancel" 
+                                              cancelButtonTitle:@"Cancel"
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
     sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
@@ -341,7 +356,7 @@
 
             //Position the activity image view somewhere in
             //the middle of your current view
-            activityImageView.frame = CGRectMake(0, scrollViewMain.contentSize.height+20, 320, 130);
+            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+30-(countLoads*7), 46, 45);
             
             //Start the animation
             [activityImageView startAnimating];
@@ -401,12 +416,12 @@
         [subview removeFromSuperview];
     //[self loadAttribsToComponents];
     [scrollViewMain addSubview:buttonLogo];
-    [self setupProductMapping];
     
     //Set Display thumbs on Home.
     [globalFunctions setCountColumnImageThumbs:-1];
     [globalFunctions setImageThumbsXorigin_Iphone:10];
-    
+    [globalFunctions setImageThumbsYorigin_Iphone:95];
+
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     countLoads = 0;
 
@@ -418,11 +433,15 @@
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
 
+    [self setupProductMapping];
+    
     if (!isAnimationLogo) {
         [viewTopPage setHidden:YES];
         [viewSearch setHidden:YES];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
     }
+    
+    
 }
 
 
@@ -432,12 +451,10 @@
         [viewTopPage setHidden:YES];
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         // [self.navigationController setNavigationBarHidden:NO];
-        globalFunctions.imageThumbsYorigin_Iphone = 95;
         searchBarProduct.hidden=YES;
     }else {
         [viewSearch setHidden:YES];
         [viewTopPage setHidden:NO];
-        [globalFunctions setImageThumbsYorigin_Iphone:95];
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         // [self.navigationController setNavigationBarHidden:YES];
         //[self setHidesBottomBarWhenPushed:NO];

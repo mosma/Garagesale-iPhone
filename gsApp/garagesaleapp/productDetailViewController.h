@@ -54,11 +54,11 @@
     IBOutlet UIView                             *garageDetailView;
     UIButton                                    *addThisButton;
     __weak IBOutlet UIView *countView;                                                
-    __weak IBOutlet UILabel *countLabel;
+    __weak IBOutlet OHAttributedLabel *countLabel;
     UIPageControl  *PagContGallery;
     __unsafe_unretained IBOutlet UIButton *buttonEditProduct;
     __unsafe_unretained IBOutlet UIButton *buttonDeleteProduct;
-                                                                
+    __unsafe_unretained IBOutlet UIButton *buttonReportThisGarage;
     //Gallery Images Objects.
     NSMutableArray          *productPhotos;
     UIImageView             *imageView;
@@ -95,9 +95,10 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidMsg;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 @property (weak, nonatomic) IBOutlet UIView *countView;
-@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel *countLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonEditProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonReportThisGarage;
 
 //Gallery Images Objects.
 @property (retain, nonatomic) NSMutableArray         *productPhotos;

@@ -17,7 +17,6 @@
 
 @synthesize mutArrayProducts;
 @synthesize mutDictDataThumbs;
-@synthesize activityIndicator;
 @synthesize RKObjManeger;
 @synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
@@ -70,7 +69,6 @@
         [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
         
         self.tableView.delegate = self;
-        
         [GlobalFunctions setSearchBarLayout:searchBarProduct];
         
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
@@ -94,7 +92,8 @@
         
         NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
         NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
-
+        
+        [self.tableView setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.f]];
         
         NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
         [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
@@ -143,7 +142,6 @@
         [alert show];
     }
     [self loadAttribsToComponents:YES];
-    [activityIndicator stopAnimating];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -184,11 +182,11 @@
         [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
     
-    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    //[self.navigationItem.rightBarButtonItem setEnabled:NO];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    //[self.navigationItem.rightBarButtonItem setEnabled:YES];
 }
 
 -(void)backPage{
@@ -231,6 +229,11 @@
     return [mutArrayProducts count];
 }
 
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell setBackgroundColor:[UIColor whiteColor]];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //Instacied cells CellBlock and CellLine
     productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
@@ -252,9 +255,9 @@
     
     
     //Set Valor Esperado Size/Color
-    [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]    
+    [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
                     range:[strFormat rangeOfString:valorEsperado]];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20] range:[strFormat rangeOfString:valorEsperado]];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
     
     //Set GarageName Size/Color
     [attrStr setTextColor:[UIColor redColor]  
@@ -346,6 +349,7 @@
     }
 
     if (!isSegmentedControlChanged) {
+        
         if(segmentControl.selectedSegmentIndex == 0){
             [customViewCellLine removeFromSuperview];
             [customViewCellBlock setHidden:NO];
@@ -457,7 +461,6 @@
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
     [self setupProductMapping];
     [self searchBar:searchBar activate:NO];
-	[activityIndicator startAnimating];
     [mutArrayProducts removeAllObjects];
     [mutDictDataThumbs removeAllObjects];
     [self.tableView reloadData];
@@ -572,9 +575,6 @@
 - (void)viewDidUnload
 {
     // Release any retained subviews of the main view.
-    activityIndicator = nil;
-    [self setActivityIndicator:nil];
-
     mutDictDataThumbs = nil;
     [self setMutDictDataThumbs:nil];
     

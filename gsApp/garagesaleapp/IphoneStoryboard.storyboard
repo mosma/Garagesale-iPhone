@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="11G56" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Rln-Es-cQ8">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
@@ -34,7 +33,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JVK-4c-9OI">
-                                        <rect key="frame" x="235" y="6" width="39" height="33"/>
+                                        <rect key="frame" x="235" y="7" width="39" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btSearchAccount.png">
@@ -154,17 +153,6 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="XU5-zS-JaW">
-                            <rect key="frame" x="0.0" y="551" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="VBJ-Rd-gcI">
-                                    <rect key="frame" x="150" y="11" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="121" id="BHs-JX-J2h" userLabel="customViewCellLine" customClass="productCustomViewCell">
                                 <rect key="frame" x="0.0" y="70" width="320" height="121"/>
@@ -209,7 +197,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uTq-dm-f2Z">
-                                            <rect key="frame" x="49" y="319" width="257" height="12"/>
+                                            <rect key="frame" x="49" y="318" width="257" height="12"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -239,7 +227,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" red="0.85490202900000001" green="0.26666668059999998" blue="0.32941177490000001" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="imageGravatar" destination="GEY-zg-Yjm" id="qug-ol-Hru"/>
                                     <outlet property="imageView" destination="e1V-NC-RTa" id="XEr-Zt-t2D"/>
@@ -272,7 +259,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="OHlabelTitleResults" destination="sin-Wx-gne" id="ClV-Zd-tZB"/>
-                        <outlet property="activityIndicator" destination="VBJ-Rd-gcI" id="hZR-BO-GY8"/>
                         <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
                     </connections>
                 </tableViewController>
@@ -309,43 +295,15 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Caq-1e-Cu3">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ORq-bA-TH3">
-                                        <rect key="frame" x="12" y="80" width="295" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                        <color key="textColor" red="0.70047455683267623" green="0.70852598852040816" blue="0.70852598852040816" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="y6I-wT-hoB">
-                                        <rect key="frame" x="12" y="153" width="295" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sfm-yC-Kbv">
-                                        <rect key="frame" x="12" y="363" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0ft-6A-hn8">
-                                        <rect key="frame" x="12" y="233" width="295" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="13"/>
-                                        <color key="textColor" red="0.70047455680000004" green="0.70852598850000004" blue="0.70852598850000004" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HiQ-Y2-wLZ">
-                                        <rect key="frame" x="9" y="445" width="300" height="37"/>
+                                        <rect key="frame" x="9" y="305" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <state key="normal" title="Save" backgroundImage="btSaveProduct.png">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -356,22 +314,23 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="sfh-PS-VWG" userLabel="viewTop">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec" userLabel="scrollViewPicsProduct">
-                                                <rect key="frame" x="10" y="0.0" width="244" height="70"/>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" id="hxN-Mo-vec" userLabel="scrollViewPicsProduct">
+                                                <rect key="frame" x="0.0" y="0.0" width="262" height="90"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </scrollView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dPI-DF-bHS">
-                                        <rect key="frame" x="260" y="9" width="54" height="51"/>
+                                        <rect key="frame" x="270" y="10" width="40" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btAddPicsProduct.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.41176470588235292" green="0.67450980392156867" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -382,34 +341,33 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="inn-22-zk8" userLabel="uitextViewBackgroundDescription.png">
-                                        <rect key="frame" x="12" y="262" width="295" height="91"/>
+                                        <rect key="frame" x="12" y="206" width="295" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="831-yZ-49S" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="182" width="296" height="40"/>
+                                        <rect key="frame" x="11" y="158" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="391" width="113" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownState.png" id="zdH-QS-alb" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="106" width="150" height="32"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneCurrency.png">
+                                        <rect key="frame" x="12" y="112" width="113" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee" userLabel="textField01iphoneValue.png">
-                                        <rect key="frame" x="136" y="387" width="171" height="40"/>
+                                        <rect key="frame" x="136" y="108" width="171" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="KcX-L5-2OX" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="20" y="182" width="280" height="40"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" clearButtonMode="whileEditing" id="KcX-L5-2OX" userLabel="txtFieldTitle">
+                                        <rect key="frame" x="20" y="158" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <connections>
+                                            <action selector="validateForm:" destination="o08-vM-tNV" eventType="valueChanged" id="lA6-T9-BfL"/>
+                                        </connections>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UWq-Q7-Mfp" userLabel="textViewDescription">
-                                        <rect key="frame" x="16" y="268" width="287" height="80"/>
+                                        <rect key="frame" x="16" y="212" width="287" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
@@ -417,31 +375,25 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0,00" minimumFontSize="17" clearButtonMode="whileEditing" id="oNN-KV-k3j" userLabel="txtFieldValue">
-                                        <rect key="frame" x="142" y="388" width="156" height="36"/>
+                                        <rect key="frame" x="142" y="109" width="156" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                                         <connections>
                                             <action selector="isNumberKey:" destination="o08-vM-tNV" eventType="editingChanged" id="RME-y7-xt8"/>
+                                            <action selector="validateForm:" destination="o08-vM-tNV" eventType="valueChanged" id="91a-9Y-yWS"/>
                                         </connections>
                                     </textField>
                                     <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
-                                        <rect key="frame" x="18" y="391" width="107" height="31"/>
+                                        <rect key="frame" x="18" y="112" width="107" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gcC-s1-oMW" userLabel="txtFieldState">
-                                        <rect key="frame" x="20" y="107" width="105" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" red="0.53061224490000003" green="0.53061224490000003" blue="0.53061224490000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="Tba-tA-i5u" userLabel="ViewPicsControl">
                                 <rect key="frame" x="10" y="87" width="300" height="163"/>
@@ -499,20 +451,16 @@
                                 <color key="backgroundColor" red="0.92941182850000004" green="0.92941182850000004" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
                     <connections>
                         <outlet property="buttonAddPics" destination="dPI-DF-bHS" id="aH9-jb-OOf"/>
-                        <outlet property="labelDescription" destination="0ft-6A-hn8" id="gUL-DT-aHz"/>
-                        <outlet property="labelState" destination="ORq-bA-TH3" id="Fkf-yP-XHn"/>
-                        <outlet property="labelTitle" destination="y6I-wT-hoB" id="dys-pV-gev"/>
-                        <outlet property="labelValue" destination="sfm-yC-Kbv" id="HGP-xn-8CT"/>
+                        <outlet property="buttonSaveProduct" destination="HiQ-Y2-wLZ" id="veU-ps-wyl"/>
                         <outlet property="scrollView" destination="Ghd-rh-LIi" id="HWu-5z-SZL"/>
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
                         <outlet property="txtFieldCurrency" destination="Ex6-UX-kFX" id="ZGM-U1-YWW"/>
-                        <outlet property="txtFieldState" destination="gcC-s1-oMW" id="Z1X-Q4-Qfw"/>
                         <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
                         <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
                         <outlet property="viewPicsControl" destination="Tba-tA-i5u" id="5QD-vt-IDQ"/>
@@ -554,28 +502,23 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="cVx-0i-ETY">
-                                                <rect key="frame" x="87" y="12" width="222" height="31"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="cVx-0i-ETY" userLabel="garageName">
+                                                <rect key="frame" x="93" y="12" width="217" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="tqH-Cc-SCS">
-                                                <rect key="frame" x="89" y="37" width="220" height="20"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="tqH-Cc-SCS" userLabel="city">
+                                                <rect key="frame" x="93" y="39" width="220" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" baselineAdjustment="none" minimumFontSize="10" adjustsFontSizeToFit="NO" id="O6W-Ta-EBh" userLabel="labelTotalProducts" customClass="OHAttributedLabel">
-                                                <rect key="frame" x="89" y="54" width="220" height="25"/>
+                                                <rect key="frame" x="93" y="56" width="215" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="E1Z-FY-4Gx" id="7zu-FV-Xbp"/>
                                                 </connections>
@@ -596,7 +539,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.22352942824363708" green="0.23529413342475891" blue="0.25490197539329529" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="nJk-L9-atK" userLabel="viewTitle">
                                         <rect key="frame" x="0.0" y="97" width="320" height="44"/>
@@ -709,6 +652,7 @@
                         <outlet property="scrollViewProducts" destination="3IH-JW-7oF" id="Gv9-Mx-HXS"/>
                         <outlet property="segmentControl" destination="JLi-yi-yQG" id="5sJ-pT-ET2"/>
                         <outlet property="tableViewProducts" destination="qdi-Kb-uR5" id="wKO-68-n7j"/>
+                        <outlet property="viewTop" destination="lt7-LU-cfI" id="B0t-gv-SEu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx4-es-tzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -727,8 +671,8 @@
                                 <rect key="frame" x="10" y="217" width="300" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Logout" backgroundImage="btSaveProduct.png">
-                                    <color key="titleColor" red="0.43529415130615234" green="0.43529415130615234" blue="0.43529415130615234" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Logout" backgroundImage="btBackgroundForms.png">
+                                    <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -744,7 +688,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Account" backgroundImage="btMenuTableTop.png">
-                                    <color key="titleColor" red="0.40000003576278687" green="0.40000003576278687" blue="0.40000003576278687" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -760,7 +704,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Password" backgroundImage="btMenuTableMiddle.png">
-                                    <color key="titleColor" red="0.40000003576278687" green="0.40000003576278687" blue="0.40000003576278687" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -776,7 +720,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Address" backgroundImage="btMenuTableBottom.png">
-                                    <color key="titleColor" red="0.40000003576278687" green="0.40000003576278687" blue="0.40000003576278687" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -805,7 +749,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Xkh-Q5-MxU"/>
                     <connections>
@@ -826,51 +770,51 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <view tag="987" contentMode="scaleToFill" id="yNN-XU-6Qu" userLabel="asfasdfasdfasdf">
+                            <view tag="987" contentMode="scaleToFill" id="yNN-XU-6Qu" userLabel="view">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Garage name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="9wu-Hr-f5T">
-                                        <rect key="frame" x="10" y="9" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="9" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.61290258289999999" green="0.61290258289999999" blue="0.61290258289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="pj5-Ge-HPD">
-                                        <rect key="frame" x="10" y="93" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="93" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62199059310000004" green="0.62199059310000004" blue="0.62199059310000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="EDJ-TF-cjw">
-                                        <rect key="frame" x="10" y="163" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="163" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62199059310000004" green="0.62199059310000004" blue="0.62199059310000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="About" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="eE3-X8-A2U">
-                                        <rect key="frame" x="10" y="232" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="232" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62739158159999997" green="0.62739158159999997" blue="0.62739158159999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Any Link ?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0hP-gn-cRp">
-                                        <rect key="frame" x="12" y="359" width="300" height="21"/>
+                                        <rect key="frame" x="13" y="359" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60778061220000001" green="0.60778061220000001" blue="0.60778061220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rJn-zz-IfY">
                                         <rect key="frame" x="10" y="444" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btSaveProduct.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -881,55 +825,55 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="hMk-g3-17t" userLabel="uitextViewBackgroundDescription.png">
-                                        <rect key="frame" x="12" y="258" width="295" height="91"/>
+                                        <rect key="frame" x="13" y="258" width="295" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="KAc-dD-H6B" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="10" y="38" width="296" height="40"/>
+                                        <rect key="frame" x="11" y="38" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="awO-RX-ywE" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="38" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="38" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="or3-hO-K7L" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="10" y="117" width="296" height="40"/>
+                                        <rect key="frame" x="11" y="117" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="xPO-7k-Slx" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="117" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="117" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="E8s-nE-2fg" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="187" width="296" height="40"/>
+                                        <rect key="frame" x="13" y="187" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="JLL-lq-QF0" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="20" y="187" width="280" height="40"/>
+                                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="JLL-lq-QF0" userLabel="txtFieldTitle">
+                                        <rect key="frame" x="21" y="187" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="deT-x8-LYm" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="385" width="296" height="40"/>
+                                        <rect key="frame" x="13" y="385" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="8Pa-ic-Wnf" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="20" y="385" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="385" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.61176472902297974" green="0.61176472902297974" blue="0.61176472902297974" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ned-Qc-c2a" userLabel="textViewDescription">
-                                        <rect key="frame" x="16" y="264" width="287" height="80"/>
+                                        <rect key="frame" x="17" y="264" width="287" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
@@ -937,10 +881,10 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="j6o-sM-GsM"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1064,29 +1008,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="fxt-bb-cAH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Current Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dAN-a7-PWP">
-                                        <rect key="frame" x="10" y="14" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="14" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.64076450890000003" green="0.64076450890000003" blue="0.64076450890000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="New password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g9d-1x-FsY">
-                                        <rect key="frame" x="10" y="95" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="95" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60640545280000002" green="0.60640545280000002" blue="0.60640545280000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cES-zG-0fg">
                                         <rect key="frame" x="10" y="266" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btSaveProduct.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -1101,50 +1045,50 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Repeat new password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Nj7-C2-jJo">
-                                        <rect key="frame" x="10" y="174" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="174" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60640545280000002" green="0.60640545280000002" blue="0.60640545280000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="eWb-CG-mU5" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="208" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="208" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="x01-ce-t3R" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="208" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="208" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="jlZ-BH-tX8" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="123" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="123" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="A0J-4A-y4W" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="123" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="123" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="2mD-pj-oab" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="43" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="43" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ybw-wj-kWz" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="43" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="43" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686280729999995" green="0.95686280729999995" blue="0.95686280729999995" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="xxE-AZ-jpM"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1194,6 +1138,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VzS-1E-fdJ" userLabel="ButtonOffer">
+                                                <rect key="frame" x="241" y="66" width="59" height="38"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" image="btOffer.png">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
                                                 <rect key="frame" x="10" y="70" width="233" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1225,8 +1183,8 @@
                                                 <rect key="frame" x="0.0" y="435" width="320" height="250"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="garaDetailbackgroundAvatar.png" id="D7s-A9-kWd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="backgroundGarageDetail.png" id="D7s-A9-kWd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" id="Ecf-Z8-Y9Y">
@@ -1271,53 +1229,31 @@
                                                         <rect key="frame" x="0.0" y="68" width="320" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product listed 523 times" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ZiA-lz-mFm">
-                                                                <rect key="frame" x="10" y="6" width="186" height="21"/>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="backgroundDetailReportGarage.png" id="UOq-dS-h4a" userLabel="background">
+                                                                <rect key="frame" x="0.0" y="1" width="320" height="32"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="12"/>
-                                                                <color key="textColor" red="0.46938775510204078" green="0.46938775510204078" blue="0.46938775510204078" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oTU-SU-woM">
-                                                                <rect key="frame" x="191" y="6" width="114" height="26"/>
+                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UCB-qV-Ox0" userLabel="buttonReportThisGarage">
+                                                                <rect key="frame" x="187" y="4" width="120" height="26"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                                                                <state key="normal" title="Report This Garage">
-                                                                    <color key="titleColor" red="0.80784320831298828" green="0.32156863808631897" blue="0.32156863808631897" alpha="1" colorSpace="deviceRGB"/>
+                                                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="11"/>
+                                                                <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <state key="highlighted">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="reportGarage:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Kj5-HN-FJd"/>
+                                                                    <action selector="reportGarage:" destination="Nbe-H5-7nH" eventType="touchUpInside" id="yCC-i0-X6x"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.87450987100601196" green="0.87450987100601196" blue="0.87450987100601196" alpha="1" colorSpace="deviceRGB"/>
                                                     </view>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="D0t-99-3XX" userLabel="buttonActionEmailComposer">
-                                                        <rect key="frame" x="252" y="15" width="57" height="36"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="btMail.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="actionEmailComposer" destination="Nbe-H5-7nH" eventType="touchUpInside" id="7Ps-8m-Z7b"/>
-                                                        </connections>
-                                                    </button>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="0zP-oz-hlc" userLabel="labelNameProfile">
-                                                        <rect key="frame" x="67" y="10" width="177" height="21"/>
+                                                        <rect key="frame" x="67" y="6" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="15"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="OQy-N1-Cen" userLabel="labelCityProfile">
@@ -1326,16 +1262,14 @@
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="12"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
-                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="middleTruncation" minimumFontSize="10" id="r68-i3-jyi" userLabel="labelEmailProfile">
-                                                        <rect key="frame" x="67" y="41" width="177" height="21"/>
+                                                        <rect key="frame" x="67" y="40" width="177" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" name="EuphemiaUCAS-Bold" family="Euphemia UCAS" pointSize="13"/>
                                                         <color key="textColor" red="1" green="0.46578821483894728" blue="0.47664050675974912" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
-                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         <size key="shadowOffset" width="1" height="0.0"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9k5-33-1yu" userLabel="buttonGarageDetail">
@@ -1357,20 +1291,6 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.35294118523597717" green="0.38431376218795776" blue="0.40784317255020142" alpha="1" colorSpace="deviceRGB"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VzS-1E-fdJ" userLabel="Offer">
-                                                <rect key="frame" x="251" y="68" width="59" height="38"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="btOffer.png">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sqL-iQ-KWX" userLabel="labelDescricao">
                                                 <rect key="frame" x="10" y="403" width="300" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1382,8 +1302,8 @@
                                                 <rect key="frame" x="-10" y="340" width="60" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ERP-DW-RRs">
-                                                        <rect key="frame" x="18" y="13" width="42" height="21"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ERP-DW-RRs" customClass="OHAttributedLabel">
+                                                        <rect key="frame" x="17" y="11" width="42" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                         <color key="textColor" red="0.61960786580000005" green="0.61960786580000005" blue="0.61960786580000005" alpha="1" colorSpace="deviceRGB"/>
@@ -1550,6 +1470,7 @@
                         <outlet property="buttonDeleteProduct" destination="cbb-5W-dSx" id="Nkp-ar-QPX"/>
                         <outlet property="buttonEditProduct" destination="WZN-Ek-lty" id="ELo-yF-bLl"/>
                         <outlet property="buttonGarageDetail" destination="9k5-33-1yu" id="6ND-0i-ogR"/>
+                        <outlet property="buttonReportThisGarage" destination="UCB-qV-Ox0" id="cu6-yd-hIo"/>
                         <outlet property="countLabel" destination="ERP-DW-RRs" id="oV6-BL-fhd"/>
                         <outlet property="countView" destination="5zP-hO-T2F" id="r6K-nD-u6B"/>
                         <outlet property="galleryScrollView" destination="3sh-IV-iZD" id="9zQ-uV-9SW"/>
@@ -1732,43 +1653,43 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="bap-ee-6xV">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="900"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Garage name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ym7-3r-K6v">
-                                        <rect key="frame" x="10" y="69" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="69" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                        <color key="textColor" red="0.61290258290816324" green="0.61290258290816324" blue="0.61290258290816324" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="du8-T1-P0j">
-                                        <rect key="frame" x="10" y="153" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="153" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62199059311224492" green="0.62199059311224492" blue="0.62199059311224492" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FAx-bV-VIa">
-                                        <rect key="frame" x="10" y="232" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="232" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62739158163265307" green="0.62739158163265307" blue="0.62739158163265307" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cfI-ZK-hdk">
-                                        <rect key="frame" x="10" y="314" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="314" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60778061224489788" green="0.60778061224489788" blue="0.60778061224489788" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x3a-Ur-UaV">
-                                        <rect key="frame" x="10" y="461" width="300" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x3a-Ur-UaV" userLabel="buttonRegister">
+                                        <rect key="frame" x="10" y="397" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="btRegister.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Register" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -1786,56 +1707,52 @@
                                         <color key="textColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="y90-2o-bAg">
-                                        <rect key="frame" x="10" y="408" width="79" height="27"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </switch>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="m0M-v0-TFH" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="95" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="95" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="ROM-tG-AcU" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="20" y="95" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="95" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.67450982332229614" green="0.67450982332229614" blue="0.67450982332229614" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="IbB-4C-H00" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="180" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="180" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="DEm-Yc-MmF" userLabel="txtFieldYourName">
-                                        <rect key="frame" x="20" y="180" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="180" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="4P2-85-1eL" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="260" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="260" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="txG-35-NKy" userLabel="txtFieldEmail">
-                                        <rect key="frame" x="20" y="260" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="260" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="PZK-ya-bSY" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="340" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="340" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="zJq-dg-DCt" userLabel="txtFieldPassword">
-                                        <rect key="frame" x="20" y="340" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="340" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
@@ -1870,43 +1787,43 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="xAZ-PS-R9Y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="560"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Gfc-Gj-YIf">
-                                        <rect key="frame" x="10" y="9" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="9" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.61290258289999999" green="0.61290258289999999" blue="0.61290258289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="TbQ-4H-lTz">
-                                        <rect key="frame" x="10" y="89" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="89" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62199059310000004" green="0.62199059310000004" blue="0.62199059310000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="District" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="wSC-Pi-UTO">
-                                        <rect key="frame" x="10" y="168" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="168" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.62739158159999997" green="0.62739158159999997" blue="0.62739158159999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FVk-lj-Ujb">
-                                        <rect key="frame" x="10" y="247" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="247" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60778061220000001" green="0.60778061220000001" blue="0.60778061220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YwS-hj-Hpq">
                                         <rect key="frame" x="10" y="329" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btSaveProduct.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -1917,54 +1834,54 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="Hbq-Ts-K3u" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="113" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="113" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Agz-PU-108" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="113" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="113" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="sAq-d9-9iL" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="193" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="193" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="cAR-dh-Kix" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="193" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="193" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="ePV-OE-MeW" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="271" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="271" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="5dw-zU-DSg" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="271" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="271" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="3CN-Cq-w3v" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="34" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="34" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="URr-vu-9yn" userLabel="txtFieldTitle">
-                                        <rect key="frame" x="19" y="34" width="280" height="40"/>
+                                        <rect key="frame" x="20" y="34" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.95686274509803915" blue="0.94901960784313721" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="jZ4-BS-byg"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -1993,29 +1910,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="pqQ-3y-Td7">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="415"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="670"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="FVp-Qr-trl">
-                                        <rect key="frame" x="10" y="70" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="70" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.6407645089285714" green="0.6407645089285714" blue="0.6407645089285714" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="412-Hd-HPj">
-                                        <rect key="frame" x="10" y="151" width="300" height="21"/>
+                                        <rect key="frame" x="11" y="151" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.60640545280612246" green="0.60640545280612246" blue="0.60640545280612246" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UtY-p1-8kY">
-                                        <rect key="frame" x="10" y="227" width="300" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UtY-p1-8kY" userLabel="buttonLogin">
+                                        <rect key="frame" x="10" y="230" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" backgroundImage="btLoginForm.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Login" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -2036,43 +1953,38 @@
                                         <color key="textColor" red="0.40000003576278687" green="0.40000003576278687" blue="0.40000003576278687" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="QKl-Ef-jO9">
-                                        <rect key="frame" x="33" y="236" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="uFG-Ra-uhz" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="95" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="95" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jradi3@gmail.com" minimumFontSize="17" clearButtonMode="whileEditing" id="Pgb-b6-fCE" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="20" y="95" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="95" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="KS5-U4-UsC" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="11" y="176" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="176" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123123" minimumFontSize="17" clearButtonMode="whileEditing" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="20" y="176" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="176" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.61960786581039429" green="0.61960786581039429" blue="0.61960786581039429" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470594409999999" green="0.96470594409999999" blue="0.96470594409999999" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686280727386475" green="0.95686280727386475" blue="0.95686280727386475" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
                     <navigationItem key="navigationItem" id="tNj-g7-bXI"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityLogin" destination="QKl-Ef-jO9" id="IDj-dI-QH6"/>
                         <outlet property="labelEmail" destination="FVp-Qr-trl" id="hMi-jz-hug"/>
                         <outlet property="labelLogin" destination="Wsl-Fa-rw8" id="Mui-B7-NIA"/>
                         <outlet property="labelPassword" destination="412-Hd-HPj" id="sne-eR-xCB"/>
@@ -2088,14 +2000,14 @@
     </scenes>
     <resources>
         <image name="about@2x.png" width="60" height="60"/>
+        <image name="backgroundDetailReportGarage.png" width="320" height="32"/>
+        <image name="backgroundGarageDetail.png" width="320" height="69"/>
         <image name="boxGarageDetail.png" width="284" height="440"/>
-        <image name="btAddPicsProduct.png" width="56" height="53"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
         <image name="btBidThisItem.png" width="102" height="35"/>
         <image name="btCancelBidItem.png" width="63" height="35"/>
         <image name="btDeleteProductDetail.png" width="66" height="26"/>
         <image name="btLogin.png" width="100" height="37"/>
-        <image name="btLoginForm.png" width="300" height="37"/>
-        <image name="btMail.png" width="41" height="36"/>
         <image name="btMenuTableBottom.png" width="300" height="46"/>
         <image name="btMenuTableBottomB.png" width="285" height="46"/>
         <image name="btMenuTableMiddle.png" width="300" height="44"/>
@@ -2107,224 +2019,18 @@
         <image name="btProdBlock.png" width="17" height="14"/>
         <image name="btProdList.png" width="17" height="14"/>
         <image name="btRegister.png" width="300" height="37"/>
-        <image name="btSaveProduct.png" width="300" height="37"/>
+        <image name="btSaveProduct.png" width="16" height="16"/>
         <image name="btSearch@2x.png" width="83" height="74"/>
-        <image name="btSearchAccount.png" width="38" height="32"/>
+        <image name="btSearchAccount.png" width="37" height="30"/>
         <image name="btSerachBlock.png" width="17" height="14"/>
         <image name="btSign.png" width="100" height="37"/>
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
-        <image name="dropDownState.png" width="150" height="32"/>
         <image name="garDetailPersonShadowAvatar.png" width="320" height="46"/>
-        <image name="garaDetailbackgroundAvatar.png" width="320" height="68"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
-    <classes>
-        <class className="OHAttributedLabel" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="action" name="showSearchLoged:"/>
-                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="viewSearch" candidateClass="UIView"/>
-                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="galleryScrollViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="garageAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeSegControl"/>
-                <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="outlet" name="buttonGarageLogo" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="garageDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="seeAllButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="productAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addProduct:"/>
-                <relationship kind="action" name="animationPicsControl"/>
-                <relationship kind="action" name="deleteProduct:"/>
-                <relationship kind="action" name="getPicsByCamera:"/>
-                <relationship kind="action" name="getPicsByPhotosAlbum:"/>
-                <relationship kind="action" name="goBack:"/>
-                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="saveProduct"/>
-                <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="labelDescription" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelState" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelValue" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="viewPicsControl" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="productCustomViewCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageEditButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imageGravatar" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="valorEsperado" candidateClass="OHAttributedLabel"/>
-            </relationships>
-        </class>
-        <class className="productDetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="actionEmailComposer"/>
-                <relationship kind="action" name="animationBidView"/>
-                <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="gotoGalleryScrollVC"/>
-                <relationship kind="action" name="gotoGarageDetailVC"/>
-                <relationship kind="action" name="gotoUserProductTableVC"/>
-                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="pageControlCliked"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
-                <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="buttonBid" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonEditProduct" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonGarageDetail" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="countLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="countView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="labelCityProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelDescricao" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelEmailProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelNameProfile" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelNomeProduto" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="offerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldOffer" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtViewComment" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="viewBidMsg" candidateClass="UIView"/>
-                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="productTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeSegControl"/>
-                <relationship kind="action" name="showSearch:"/>
-                <relationship kind="outlet" name="OHlabelTitleResults" candidateClass="OHAttributedLabel"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
-                <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="settingsAccountViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="logout:"/>
-                <relationship kind="action" name="saveSettings"/>
-                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelAddress" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelAnyLink" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCountry" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelCurrentPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelDistrict" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelNewPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelRepeatPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelYourName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="txtFieldAddress" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldAnyLink" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCity" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCountry" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldCurrentPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldDistrict" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldGarageName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldNewPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldRepeatNewPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldYourName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtViewAbout" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="signUpViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="checkLogin:"/>
-                <relationship kind="outlet" name="activityLogin" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelLogin" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPassword" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelPersonName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="labelSignup" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldGarageName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldPersonName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserName" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="textFieldUserPassword" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>

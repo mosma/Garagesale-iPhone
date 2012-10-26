@@ -7,22 +7,59 @@
 */
 
 //Localizable.Strings file for the English version.
-"offer"                         = "Offer (ask something)";
-"description"                   = "Description"; 
-"bid"                           = "Bid This Item";
-"bidSent"                       = "Bid Sent";
-"seeAllProducts"                = "See all products";
-"products"                      = "Products";
-"detailProduct"                 = "Product details"; 
-"searchProduct"                 = "Search for Products";
+"offerAsk"                      = "offer (ask something)";
+"description"                   = "description";
+"bid"                           = "bid this item";
+"bidSent"                       = "bid Sent";
+"seeAllProducts"                = "see all products";
+"products"                      = "products";
+"detailProduct"                 = "product details";
+"searchProduct"                 = "search for products";
 "by"                            = "by";
-"garage"                        = "Garage";
+"garage"                        = "garage";
 "fieldsRequired"                = "Validate fields";
 "enterEmail"                    = "Oops! It doesn't look like a valid email.";
-"enterValueProduct"             = "Hey, you must not give a empty bid.";
-"home"                          = "Home";
-"search"                        = "Search";
-"about"                         = "About";
-"back"                          = "Back";
-"Avaliable"                     = "Avaliable";
-"Sold"                          = "Sold";
+"enterValueProduct"             = "hey, you must not give a empty bid.";
+"home"                          = "home";
+"search"                        = "search";
+"about"                         = "about";
+"back"                          = "back";
+"Avaliable"                     = "avaliable";
+"Sold"                          = "sold";
+
+"homeSearchField"               = "products categories and garages";
+"reportGarege"                  = "Report this garage";
+"offer"                         = "offer";
+"sold"                          = "sold";
+
+"addProduct"                    = "add droduct";
+"myGarage"                      = "my garage";
+"title"                         = "title";
+"description"                   = "description";
+"save"                          = "save";
+"garageName"                    = "garage name";
+"yourName"                      = "name";
+
+"only"                          = "only";
+"edit"                          = "edit";
+"delete"                        = "delete";
+"resultsFor"                    = "results for";
+
+/*Using in : settingsViewController. */
+"account"                       = "account";
+"password"                      = "password";
+"currentPassw"                  = "senha atual";
+
+/*Using in : settingsViewController. */
+"aboutYou"                      = "about you";
+"anyLink?"                      = "any link ?";
+"newPassw"                      = "new password";
+"repeatPassw"                   = "repeat new password";
+"address"                       = "address";
+"logout"                        = "logout";
+
+/*Using in : settingsViewController. */
+"currentAddress"                = "current address";
+"currentCity"                   = "current city";
+"currentDistrict"               = "current district";
+"currentCoutry"                 = "current country";

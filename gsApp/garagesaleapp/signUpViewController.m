@@ -32,7 +32,6 @@
 @synthesize textFieldUserName;
 @synthesize textFieldUserPassword;
 @synthesize RKObjManeger;
-@synthesize activityLogin;
 @synthesize settingsAccount;
 
 - (void)viewDidLoad
@@ -49,11 +48,16 @@
 
     [self setupKeyboardControls];
     
-    self.scrollView.contentSize             = CGSizeMake(320,650);
-
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
+    NSString *nibId = [[self.navigationController visibleViewController] nibName];
+    if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //Signup ViewController
+        self.scrollView.contentSize = CGSizeMake(320,700);
+    else if
+        ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
+        self.scrollView.contentSize = CGSizeMake(320,540);
+    
     [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
     [labelLogin         setFont:[UIFont fontWithName:@"Droid Sans" size:16 ]];
     [labelGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
@@ -69,7 +73,7 @@
     [textFieldUserPassword  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
-
+    
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    
@@ -128,7 +132,7 @@
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
     [message show];
-    [activityLogin stopAnimating];
+    isLoading = YES;
     //}
 }
 
@@ -199,8 +203,8 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
 
     [settingsAccount synchronize];
-    [activityLogin stopAnimating];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    isLoading = YES;
 }
 
 - (void)setProfile:(NSArray *)objects{
@@ -218,8 +222,30 @@
 -(IBAction)checkLogin:(id)sender{
     [self.textFieldUserPassword resignFirstResponder];
     [self.textFieldUserName resignFirstResponder];
-    [activityLogin startAnimating];
+
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.dimBackground = YES;
+	
+	// Regiser for HUD callbacks so we can remove it from the window at the right time
+	HUD.delegate = self;
+	isLoading = NO;
+    
+	// Show the HUD while the provided method executes in a new thread
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+    
     [self setupLogin];
+}
+
+-(void)myTask{
+    while (!isLoading)
+        NSLog(@"isLoading");
+//    
+//    ViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)setLogin:(NSArray *)objects{
@@ -246,9 +272,7 @@
     
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    
-    
-    
+
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
         
     if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //Signup ViewController
@@ -298,7 +322,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 360;
+    rc.size.height = 383;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
@@ -324,6 +348,7 @@
  */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
 }
 
@@ -362,6 +387,7 @@
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
 }
 
@@ -388,8 +414,6 @@
     [self setLabelLogin:nil];
     scrollView = nil;
     [self setScrollView:nil];
-    activityLogin = nil;
-    [self setActivityLogin:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

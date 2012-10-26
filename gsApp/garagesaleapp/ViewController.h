@@ -58,4 +58,5 @@
 - (IBAction)showSearch:(id)sender;
 //Control searchBarProduct at session user.
 - (IBAction)showSearchLoged:(id)sender;
+-(void)controlSearchArea;
 @end

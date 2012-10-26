@@ -64,15 +64,9 @@ static NSString *urlServicePath;
     UIView *viewThumbs = [[UIView alloc] initWithFrame:
                             CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
     
-    //ActivityIndicator
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
-                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    CGRect frame = spinner.frame;
-    frame.origin.x = viewThumbs.frame.size.width / 2 - frame.size.width / 2;
-    frame.origin.y = viewThumbs.frame.size.height / 2 - frame.size.height / 2;
-    spinner.frame = frame;
-    [viewThumbs addSubview:spinner];
-    [spinner startAnimating];
+    [viewThumbs.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [viewThumbs.layer setShadowOffset:CGSizeMake(2, 2)];
+    [viewThumbs.layer setShadowOpacity:0.1];
 
     //Button Product
     UIButton *buttonThumbsProduct  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -367,7 +361,7 @@ static NSString *urlServicePath;
                           result[8], result[9], result[10], result[11],
                           result[12], result[13], result[14], result[15]
                           ];
-	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=512", md5email];
+	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=160&d=http://gsapp.me/images/no-profileimg.jpg", md5email];
     
 	return [NSURL URLWithString:gravatarEndPoint];
 }
@@ -402,9 +396,25 @@ static NSString *urlServicePath;
 +(void)setNavigationBarBackground:(UINavigationController *)navController{
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
     forBarMetrics:UIBarMetricsDefault];
-    [navController.navigationController.navigationBar setTintColor:[self getColorRedNavComponets]];
+    //[navController.navigationController.navigationBar setTintColor:[self getColorRedNavComponets]];
     navController.navigationItem.hidesBackButton = YES;
     navController.navigationItem.titleView = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+}
+
++(void)setEnableButtonForm:(UIButton *)button enable:(BOOL)enable{
+    if (enable) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.5];
+        [button setEnabled:YES];
+        [button setAlpha:1.0];
+        [UIView commitAnimations];
+    }else{
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.5];
+        [button setEnabled:NO];
+        [button setAlpha:0.3];
+        [UIView commitAnimations];
+    }
 }
 
 @end

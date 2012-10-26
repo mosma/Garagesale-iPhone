@@ -13,12 +13,14 @@
 #import "GlobalFunctions.h"
 #import "ViewController.h"
 #import "settingsAccountViewController.h"
+#import "MBProgressHUD.h"
 
 @interface signUpViewController : UIViewController <UITextFieldDelegate, 
                                                     UITextViewDelegate, 
                                                     BSKeyboardControlsDelegate,
                                                     UIScrollViewDelegate, 
-                                                    RKObjectLoaderDelegate>{
+                                                    RKObjectLoaderDelegate,
+                                                    MBProgressHUDDelegate>{
                                       
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
@@ -41,7 +43,8 @@
     //Others
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
-    __weak IBOutlet UIActivityIndicatorView *activityLogin;
+    MBProgressHUD                   *HUD;
+    BOOL                            isLoading;
 }
 
 //Sigup outlets
@@ -65,7 +68,6 @@
 //Others
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSUserDefaults        *settingsAccount;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityLogin;
 
 //Actions and functions
 -(void)loadAttribsToComponents;

@@ -7,7 +7,7 @@
 */
 
 //Localizable.Strings file for the Portuguese version.
-"offer"                         = "Valor (pergunte algo)";
+"offerAsk"                      = "Valor (pergunte algo)";
 "description"                   = "Descrição"; 
 "bid"                           = "Ofertar";
 "bidSent"                       = "Oferta feita";
@@ -26,3 +26,40 @@
 "back"                          = "Voltar";
 "Avaliable"                     = "Disponivel";
 "Sold"                          = "Vendido";
+
+"homeSearchField"               = "produtos categorias e garagens";
+"reportGarege"                  = "reportar Abuso";
+"offer"                         = "oferte";
+"sold"                          = "vendido";
+
+"addProduct"                    = "novo produto";
+"myGarage"                      = "minha garagem";
+"title"                         = "titulo";
+"description"                   = "descricao";
+"save"                          = "salvar";
+"garageName"                    = "nome da sua garagem";
+"yourName"                      = "seu nome";
+
+"only"                          = "só";
+"edit"                          = "edite";
+"delete"                        = "deletar";
+"resultsFor"                    = "resultados para";
+
+/*Using in : settingsViewController. */
+"account"                       = "conta";
+"password"                      = "senha";
+"currentPassw"                  = "senha atual";
+
+/*Using in : settingsViewController. */
+"aboutYou"                      = "sobre você";
+"anyLink?"                       = "algum link ?";
+"newPassw"                      = "nova senha";
+"repeatPassw"                   = "repita a sua nova senha";
+"address"                       = "endereço";
+"logout"                        = "deslogar";
+
+/*Using in : settingsViewController. */
+"currentAddress"                = "seu endereço";
+"currentCity"                   = "sua cidade";
+"currentDistrict"               = "seu estado atual";
+"currentCoutry"                 = "seu pais atual";

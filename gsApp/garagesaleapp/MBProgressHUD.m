@@ -163,7 +163,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		self.labelFont = [UIFont boldSystemFontOfSize:kLabelFontSize];
 		self.detailsLabelFont = [UIFont boldSystemFontOfSize:kDetailsLabelFontSize];
 		self.xOffset = 0.0f;
-		self.yOffset = 0.0f;
+		self.yOffset = -60.0f;
 		self.dimBackground = NO;
 		self.margin = 20.0f;
 		self.graceTime = 0.0f;
@@ -599,7 +599,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	// Center HUD
 	CGRect allRect = self.bounds;
 	// Draw rounded HUD backgroud rect
-	CGRect boxRect = CGRectMake(roundf((allRect.size.width - size.width) / 2) + self.xOffset,
+	CGRect boxRect = CGRectMake((roundf(allRect.size.width - size.width) / 2) + self.xOffset,
 								roundf((allRect.size.height - size.height) / 2) + self.yOffset, size.width, size.height);
 	float radius = 10.0f;
 	CGContextBeginPath(context);

@@ -44,6 +44,7 @@
     __unsafe_unretained IBOutlet UIScrollView       *scrollViewProducts;
     __unsafe_unretained IBOutlet UITableView        *tableViewProducts;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+    __unsafe_unretained IBOutlet UIView *viewTop;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -64,6 +65,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *viewTop;
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)changeSegControl;

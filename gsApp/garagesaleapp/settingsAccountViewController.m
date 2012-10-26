@@ -77,15 +77,21 @@
 - (void)loadAttribsToComponents{
     nibId = [[self.navigationController visibleViewController] nibName];
     
-    if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Account" width:210];
-    else if  
-        ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) //Address ViewController
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Address" width:210];
-    else if  
-        ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) //Password ViewController
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Password" width:210];
-    
+    if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
+                                         UITextAlignmentCenter text:@"Account" width:210];
+        self.scrollView.contentSize = CGSizeMake(320,700);
+    } else if
+        ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) { //Address ViewController
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
+                                         UITextAlignmentCenter text:@"Address" width:210];
+        self.scrollView.contentSize = CGSizeMake(320,585);
+    }else if
+        ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) { //Password ViewController
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
+                                         UITextAlignmentCenter text:@"Password" width:210];
+        self.scrollView.contentSize = CGSizeMake(320,525);
+    }
     //Password ViewController
     labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelNewPassword.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -146,7 +152,7 @@
     imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
     
-    self.scrollView.contentSize = CGSizeMake(320,700);
+
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
     [self setupKeyboardControls];
@@ -185,6 +191,7 @@
 }
 
 -(IBAction)saveSettings{
+    
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
@@ -257,6 +264,7 @@
 	// Set determinate mode
 	HUD.mode = MBProgressHUDModeAnnularDeterminate;
 	
+    HUD. center = CGPointMake(0, 0);
     
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
@@ -387,6 +395,7 @@
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
 }
 
@@ -535,7 +544,7 @@
     //rc.origin.x = 0 ;
     //rc.origin.y = 0;
     
-    rc.size.height = 350;
+    rc.size.height = 340;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
     /* 
@@ -560,6 +569,7 @@
  */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
 }
 

@@ -34,6 +34,8 @@
 @synthesize viewPicsControl;
 @synthesize buttonAddPics;
 @synthesize product;
+@synthesize buttonSaveProduct;
+
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -105,6 +107,8 @@
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
     
+    [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
+    
     nsArrayCurrency = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@",code,symbol],
                        @"BRL - R$",
                        @"GBP - £",
@@ -145,14 +149,14 @@
     [txtFieldState setInputAccessoryView:picViewStateToolbar];
     [txtFieldCurrency setInputAccessoryView:picViewStateToolbar];
     
-    imageWidth_ = 50.0f;
-    imageHeight_ = 50.0f;
+    imageWidth_ = 70.0f;
+    imageHeight_ = 70.0f;
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
-    [self.scrollView setContentSize:CGSizeMake(320,710)];
+    [self.scrollView setContentSize:CGSizeMake(320,730)];
     [self setupKeyboardControls];
-
+    
     if (self.product != nil) {
         [self loadingProduct];
     }else {
@@ -446,7 +450,10 @@
     
     [self addImageToScrollView:imageThumb];
     [picker dismissModalViewControllerAnimated:YES];
-    [self animationPicsControl];
+    
+    
+    if(!viewPicsControl.hidden) [self animationPicsControl];
+    
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
@@ -533,9 +540,9 @@
         CGSize size = scrollViewPicsProduct.contentSize;
         size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
-        scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
-        scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-        scrollViewPicsProduct.scrollsToTop = YES;
+        //scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
+        //scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
+        //scrollViewPicsProduct.scrollsToTop = YES;
 
     }
 }
@@ -588,9 +595,13 @@
 }
 
 -(IBAction)saveProduct{
+    
+    [buttonSaveProduct setEnabled:NO];
+    [self initProgressHUDSaveProduct];
+    
     if (self.product == nil) {
         // Set determinate mode
-        [self myTask];
+
         
         [txtFieldValue resignFirstResponder];
 
@@ -602,7 +613,7 @@
     }
 }
 
-- (void)myTask {
+- (void)initProgressHUDSaveProduct {
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
     
@@ -629,6 +640,8 @@
 		usleep(30000);
 	}
     
+    [buttonSaveProduct setEnabled:YES];
+    
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
 	HUD.labelText = @"Completed";
@@ -642,7 +655,16 @@
     [self reloadInputViews];
 }
 
--(void)reloadInputViews{    
+-(IBAction)validateForm:(id)sender{
+    if ([textViewDescription.text isEqualToString:@""] ||
+        [txtFieldValue.text isEqualToString:@""] ||
+        [txtFieldTitle.text isEqualToString:@""])
+        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
+    else
+        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
+}
+
+-(void)reloadInputViews{
     
     [self goToTabBarController:2];
     
@@ -726,7 +748,7 @@
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
     self.keyboardControls.textFields = [NSArray arrayWithObjects:
-                                        txtFieldState,txtFieldTitle,textViewDescription,txtFieldCurrency, txtFieldValue,nil];
+                                        txtFieldCurrency, txtFieldValue, txtFieldTitle,textViewDescription, nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
@@ -766,12 +788,12 @@
     UIScrollView* v = (UIScrollView*) self.scrollView;
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
-    
-    rc.size.height = 350;
+
+    rc.size.height = 356;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
-    /* 
+    /*
      Use this block case use UITableView
      
      UITableViewCell *cell = nil;
@@ -793,6 +815,7 @@
  */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
 }
 
@@ -809,7 +832,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
-{
+{    
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
@@ -830,7 +853,18 @@
     [self scrollViewToTextField:textView];
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    if ([textViewDescription.text isEqualToString:@""] ||
+        [txtFieldValue.text isEqualToString:@""] ||
+        [txtFieldTitle.text isEqualToString:@""])
+        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
+    else
+        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
+    return TRUE;
+}
+
 -(IBAction)textFieldEditingEnded:(id)sender{
+    [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
 }
 
@@ -846,8 +880,8 @@
         txtFieldValue.text          = @"";
         isImagesProductPosted       = !isImagesProductPosted;
         isLoading                   = !isLoading;
-        imageWidth_                 = 50.0f;
-        imageHeight_                = 50.0f;
+        imageWidth_                 = 70.0f;
+        imageHeight_                = 70.0f;
         NSLocale *theLocale         = [NSLocale currentLocale];
         txtFieldCurrency.text       = [NSString stringWithFormat:@"%@ - %@",
                                        [theLocale objectForKey:NSLocaleCurrencyCode],
@@ -855,10 +889,13 @@
         txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
     }
     if (self.product == nil && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:YES forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
         int action = [[[GlobalFunctions getUserDefaults] objectForKey:@"controlComponentsAtFirstDisplay"] intValue];
+        
         if (action == 0)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (action == 1)

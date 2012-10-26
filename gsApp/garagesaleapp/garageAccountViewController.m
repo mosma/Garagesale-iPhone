@@ -26,7 +26,8 @@
 @synthesize mutDictDataThumbs;
 @synthesize profile;
 @synthesize garage;
-
+@synthesize viewTop;
+@synthesize segmentControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,14 +76,19 @@
     if (!isFromLoadObject) {
         self.tabBarController.delegate = self;
         
+        [GlobalFunctions setNavigationBarBackground:self.navigationController];
+
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
+        [garageName setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
 
-        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:22];
+        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:20];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
+        
+        [segmentControl setSelectedSegmentIndex:0];
         
         if ((garage  == nil) && (profile == nil)) {
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
@@ -128,22 +134,26 @@
        // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
+        
+        [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
+        
     } else {
         mutDictDataThumbs = [[NSMutableDictionary alloc] init];
         
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
-        [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                        range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
         [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]
                         range:[total rangeOfString:@"products"]];
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12] range:[total rangeOfString:@"products"]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[total rangeOfString:@"products"]];
         [attrStr setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
         labelTotalProducts.attributedText   = attrStr;
         
-        [labelTotalProducts setBackgroundColor:[UIColor clearColor]];
-        [labelTotalProducts setShadowColor:[UIColor blackColor]];
-        [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
+//        [labelTotalProducts setBackgroundColor:[UIColor clearColor]];
+//        [labelTotalProducts setShadowColor:[UIColor blackColor]];
+//        [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
 
@@ -425,7 +435,7 @@
         [cell.imageEditButton addTarget:self action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
 
     }
-
+    
     return cell;
 }
 
