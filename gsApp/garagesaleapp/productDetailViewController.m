@@ -326,7 +326,7 @@
                                   objectMapping:garageMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupProfileMapping {
@@ -342,7 +342,7 @@
                                   objectMapping:prolileMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupProductMapping{
@@ -357,7 +357,7 @@
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
                                                       self.product.idPessoa, self.product.id ] objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupProductPhotosMapping{
@@ -369,7 +369,7 @@
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     
 }
 
@@ -877,29 +877,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)viewDidUnload

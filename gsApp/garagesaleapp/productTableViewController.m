@@ -124,7 +124,7 @@
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:strLocalResourcePath objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -307,28 +307,6 @@
     [customViewCellBlock.imageView setImage:[UIImage imageNamed:@"nopicture.png"]];
     [customViewCellLine.imageView setImage:[UIImage imageNamed:@"nopicture.png"]];
 
-
-
-    
-//    UIProgressView *progressProgressView = [[UIProgressView alloc] init];
-//    progressProgressView.frame = CGRectMake(20, 120, 280, 9);
-//    progressProgressView.progress = 0.1;
-//    progressProgressView.progressTintColor = [UIColor grayColor];
-//
-//    
-//    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] 
-//                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//    
-//    CGRect frame = spinner.frame;
-//    frame.origin.x = customViewCellLine.imageView.frame.size.width / 2 - frame.size.width / 2;
-//    frame.origin.y = customViewCellLine.imageView.frame.size.height / 2 - frame.size.height / 2;
-//    spinner.frame = frame;
-//    [customViewCellLine insertSubview:spinner aboveSubview:customViewCellLine.imageView];
-//    [customViewCellBlock insertSubview:progressProgressView aboveSubview:customViewCellBlock.imageView];
-//    [spinner startAnimating];
-    
-   
-//    progressProgressView.progress = 0.03;
     
     //if ([mutDictDataThumbs count] > indexPath.row) {
     if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]]) {
@@ -336,6 +314,9 @@
         [customViewCellLine.imageView setImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
     }else {
         if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
+           
+            
+            
             NSOperationQueue *queue = [NSOperationQueue new];
             NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                                 initWithTarget:self
@@ -345,6 +326,22 @@
                                                         customViewCellLine, 
                                                         indexPath, nil]];
             [queue addOperation:operation];
+
+//            dispatch_queue_t minhaQueue = dispatch_queue_create("br.com.caelum", NULL);
+//            
+//            dispatch_async(minhaQueue, ^{
+//                
+//                NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:indexPath.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+//                
+//                
+//                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlThumb]];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [mutDictDataThumbs setValue:[UIImage imageWithData:imageData] forKey:[NSString stringWithFormat:@"%i", indexPath.row ]];
+//                    [[customViewCellBlock imageView] setImage:[mutDictDataThumbs valueForKey:[NSString stringWithFormat:@"%i", indexPath.row ]]];
+//                    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//                });
+//            });
+//            
         }
     }
 
@@ -527,29 +524,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        [self.tabBarController setSelectedIndex:1];
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)viewWillAppear:(BOOL)animated

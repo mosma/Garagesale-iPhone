@@ -86,7 +86,7 @@
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
                                                   textFieldUserName.text, textFieldUserPassword.text ] objectMapping:loginMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupGarageMapping {
@@ -95,7 +95,7 @@
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:garageMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupProfileMapping {
@@ -106,7 +106,7 @@
                               objectMapping:prolileMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -132,11 +132,14 @@
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
     [message show];
-    isLoading = YES;
+    isLoadingDone = YES;
     //}
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    isLoadingDone = YES;
+    NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+
     if ([request isGET]) {
         // Handling GET /foo.xml
         if ([response isOK]) {
@@ -158,37 +161,47 @@
     }
 }
 
--(void)postNewGarage {
-//
-//    NSString* link;
-//    NSString* about;
-//    NSString* country;
-//    NSString* district;
-//    NSString* city;
-//    NSString* address;
-//    NSString* localization;
-//    NSNumber* idState;
-//    NSNumber* idPerson;
-//    
-//    
-//    //Post Bid Sent
-//    RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Garage class]];
-//    [patientSerializationMapping mapKeyPath:@"email"      toAttribute:@"email"];
-//    [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
-//    [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
-//    [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
-//    
-//    [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];
-//    
-//    //Setting Bid Entity
-//    Bid* bid = [[Bid alloc] init];
-//    bid.email = txtFieldEmail.text;
-//    bid.value = [[NSNumber alloc] initWithInt:[txtViewComment.text floatValue]];
-//    bid.comment = txtViewComment.text;
-//    bid.idProduct =  [[NSNumber alloc] initWithInt:[self.product.id intValue]];
-//    
-//    // POST bid
-//    [[RKObjectManager sharedManager] postObject:bid delegate:self];
+-(IBAction)postNewGarage:(id)sender {
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.navigationController.view addSubview:HUD];
+	
+	HUD.dimBackground = YES;
+	
+	// Regiser for HUD callbacks so we can remove it from the window at the right time
+	HUD.delegate = self;
+	isLoadingDone = NO;
+    
+	// Show the HUD while the provided method executes in a new thread
+	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+
+    NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+
+    //User and password params
+    [garageParams setObject:@"1"    forKey:@"idState"];
+    [garageParams setObject:@"pt"    forKey:@"lang"];
+    [garageParams setObject:textFieldGarageName.text    forKey:@"garagem"];
+    [garageParams setObject:textFieldPersonName.text    forKey:@"nome"];
+    [garageParams setObject:textFieldEmail.text         forKey:@"email"];
+    [garageParams setObject:textFieldPassword.text       forKey:@"senha"];
+    [garageParams setObject:@"true"       forKey:@"agree"];
+
+        
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
+    NSError *error = nil;
+    NSString *json = [parser stringFromObject:garageParams error:&error];
+        
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    
+    //If no error we send the post, voila!
+    if (!error){
+        //Add ProductJson in postData for key profile
+        [postData setObject:json forKey:@"garage"];
+    }
+    
+    [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
+    
+
 }
 
 - (void)setGarage:(NSArray *)objects{
@@ -204,7 +217,7 @@
 
     [settingsAccount synchronize];
     
-    isLoading = YES;
+    isLoadingDone = YES;
 }
 
 - (void)setProfile:(NSArray *)objects{
@@ -230,7 +243,7 @@
 	
 	// Regiser for HUD callbacks so we can remove it from the window at the right time
 	HUD.delegate = self;
-	isLoading = NO;
+	isLoadingDone = NO;
     
 	// Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
@@ -239,7 +252,7 @@
 }
 
 -(void)myTask{
-    while (!isLoading)
+    while (!isLoadingDone)
         NSLog(@"isLoading");
 //    
 //    ViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];

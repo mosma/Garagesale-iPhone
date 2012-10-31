@@ -166,7 +166,7 @@
                               objectMapping:garageMapping delegate:self];
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)setupProfileMapping {
@@ -178,7 +178,7 @@
     
     
     //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -227,11 +227,11 @@
     [postData setObject:idPerson              forKey:@"idUser"];
     
     //Parsing prodParams to JSON!
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     
     //If no error we send the post, voila!
     if (!error){
@@ -416,31 +416,9 @@
     }
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
-}
+//-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
+//}
 
 - (void)setGarage:(NSArray *)objects{
     //Garage

@@ -48,7 +48,7 @@
 /*Using in : settingsViewController. */
 "account"                       = "account";
 "password"                      = "password";
-"currentPassw"                  = "senha atual";
+"currentPassw"                  = "current password";
 
 /*Using in : settingsViewController. */
 "aboutYou"                      = "about you";

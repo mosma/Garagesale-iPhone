@@ -69,12 +69,15 @@
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
     [self loadAttributsToComponents];
+    
+    
+    
 }
 
 -(void)loadAttributsToComponents{
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-        
+    
     [labelState             setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [labelTitle             setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [labelDescription       setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
@@ -154,13 +157,13 @@
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
-    [self.scrollView setContentSize:CGSizeMake(320,730)];
+    [self.scrollView setContentSize:CGSizeMake(320,570)];
     [self setupKeyboardControls];
     
     if (self.product != nil) {
         [self loadingProduct];
     }else {
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"New Product" width:300];
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
 }
 
@@ -181,7 +184,7 @@
     
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -219,11 +222,11 @@
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"] forKey:@"garage"];
     
     //Parsing prodParams to JSON!
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:@"text/plain"];
+    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
     NSError *error = nil;
     NSString *json = [parser stringFromObject:prodParams error:&error];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     
     //If no error we send the post, voila!
     if (!error){
@@ -233,52 +236,25 @@
     }
 }
 
--(void)uploadPhotos:(int)index{
-    RKParams* params = [RKParams params];
-    //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-    NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:index], 1.0);
-    UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:index];
-    float w = loadedImage.size.width;
-    float h = loadedImage.size.height;
-    float ratio = w/h;
-    
-    int neww = 900;
-    //get image height proportionally;
-    float newh = neww/ratio;
-    
-    UIImage *image = [UIImage imageWithData:dataImage];
-    CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
-    UIGraphicsBeginImageContext(rect.size);
-    [image drawInRect:rect];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0);
-    
-    
-    [params setData:imgdata1 forParam:[NSString stringWithFormat:@"foto%i.jpg", (index)]];
-    
-    
-    // RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files[]"];
-    //attachment.MIMEType = @"image/png";
-    // attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", (i+1)];
-    
-    
-    [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    
-    
-    //}
-    
-    
-    
-    //    if ([idProduct isEqualToString:@""]) {
-    //    } else {
-    //        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    //    }
-    
-}
-
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
+    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
+                                        cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+    
+    [alV show];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    isLoadingDone = YES;
+    
+    
+   // [self handleLongPress:nil];
+    
+    [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
+
+    
+    NSLog(@"Encountered error: %@",                      error);
+    NSLog(@"Encountered error.domain: %@",               error.domain);
+    NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -293,11 +269,38 @@
     } else if ([request isPOST]) {
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
-        countPicsPost++;
-        if(countPicsPost == [nsMutArrayPicsProduct count])
-            [self setPostFlags];
-        else if (countPicsPost < [nsMutArrayPicsProduct count])
-            [self uploadPhotos:countPicsPost];
+        
+        
+        
+        
+        isLoadingDone = YES;
+        [self validateForm:nil];
+        
+        @try {
+            NSArray *jsonArray = (NSArray *)[[response bodyAsString] JSONValue];
+            
+            NSDictionary *jsonDict = [jsonArray objectAtIndex:0];
+            
+            
+            
+            
+            NSString *q = [jsonDict objectForKey:@"url"];
+            
+            
+            NSLog(@"%@", q);
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Not is A JSON PhotoDelete");
+        }
+
+
+        
+        
+//        countPicsPost++;
+//        if(countPicsPost == [nsMutArrayPicsProduct count])
+//            [self setPostFlags];
+//        else if (countPicsPost < [nsMutArrayPicsProduct count])
+//            [self uploadPhotos:countPicsPost];
         
         // Handling POST /other.json
         if ([response isJSON]) {
@@ -387,9 +390,9 @@
                     }];
 }
 
-- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-}
+//- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
+//}
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
@@ -409,29 +412,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(IBAction)getPicsByCamera:(id)sender {
@@ -463,7 +444,7 @@
     }
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer*)sender { 
+- (void)handleLongPress:(UILongPressGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         UIImageView *imageView      = (UIImageView *)sender.view;
        
@@ -529,14 +510,28 @@
         //imgViewDelete.frame                 = CGRectMake(45, -6, 13, 13);
         imgViewDelete.frame                 = CGRectMake(-7, -7, 17, 17);
 
+        
+        
+        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        [picViewAtGallery addGestureRecognizer:longPressGesture];
+
+        
         picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
         [scrollViewPicsProduct addSubview:picViewAtGallery];
         [picViewAtGallery setUserInteractionEnabled:YES];
-        [picViewAtGallery addSubview:imgViewDelete];
-        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [picViewAtGallery addGestureRecognizer:longPressGesture];
+
         
         
+        
+        UploadImageHelper *uplImageHelper = [UploadImageHelper new];
+        
+        
+        
+        [uplImageHelper setImageView:picViewAtGallery];
+        
+        
+        
+                
         CGSize size = scrollViewPicsProduct.contentSize;
         size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
@@ -544,8 +539,58 @@
         //scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
         //scrollViewPicsProduct.scrollsToTop = YES;
 
+        
+       // [self uploadPhotos:([nsMutArrayPicsProduct count]-1)];
+        
+        [uplImageHelper uploadPhotos:([nsMutArrayPicsProduct count]-1) mutArrayPicsProduct:nsMutArrayPicsProduct];
+
+                
+
+        [buttonSaveProduct setEnabled:NO];
     }
 }
+
+
+-(void)uploadPhotos:(int)index {
+    RKParams* params = [RKParams params];
+    //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
+    NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:index], 1.0);
+    UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:index];
+    float w = loadedImage.size.width;
+    float h = loadedImage.size.height;
+    float ratio = w/h;
+    
+    int neww = 900;
+    //get image height proportionally;
+    float newh = neww/ratio;
+    
+    UIImage *image = [UIImage imageWithData:dataImage];
+    CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0);
+    
+    
+    //[params setData:imgdata1 forParam:[NSString stringWithFormat:@"foto%i.jpg", index]];
+    
+    
+    RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files"];
+    attachment.MIMEType = @"image/png";
+    attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", index];
+    
+    
+    [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    
+    
+    //    if ([idProduct isEqualToString:@""]) {
+    //    } else {
+    //        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    //    }
+    
+}
+
 
 -(void)displayImages:(NSArray *)aImageList{
     nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
@@ -605,11 +650,11 @@
         
         [txtFieldValue resignFirstResponder];
 
-        if([nsMutArrayPicsProduct count] != 0) {
-            [self uploadPhotos:0];
-        }else {
+//        if([nsMutArrayPicsProduct count] != 0) {
+//            [self uploadPhotos:0];
+//        }else {
             [self postProduct];
-        }
+//        }
     }
 }
 
@@ -633,7 +678,7 @@
 	
     float progress = 0.0f;
     
-    while (!isLoading) {
+    while (!isLoadingDone) {
 		progress += 0.01f;
 		HUD.progress = progress;
         if (progress > 1) progress = 0.0f;
@@ -665,7 +710,6 @@
 }
 
 -(void)reloadInputViews{
-    
     [self goToTabBarController:2];
     
     for (UIView *subview in [scrollViewPicsProduct subviews]){
@@ -673,6 +717,8 @@
             [subview removeFromSuperview];
     }
     [HUD.customView removeFromSuperview];
+    
+    
     [nsMutArrayPicsProduct removeAllObjects];
     nsMutArrayPicsProduct = nil;
     //sleep(2);
@@ -693,14 +739,14 @@
     }
 }
 
--(void)setPostFlags{
-    if (!isImagesProductPosted) {
-        [self postProduct];
-        isImagesProductPosted = !isImagesProductPosted;
-    }else {
-        isLoading = !isLoading;
-    }
-}
+//-(void)setPostFlags{
+//    if (!isImagesProductPosted) {
+//        [self postProduct];
+//        isImagesProductPosted = !isImagesProductPosted;
+//    }else {
+//        isLoading = !isLoading;
+//    }
+//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if(pickerView.tag == PICKERSTATE)
@@ -832,7 +878,7 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
-{    
+{
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
@@ -853,13 +899,8 @@
     [self scrollViewToTextField:textView];
 }
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    if ([textViewDescription.text isEqualToString:@""] ||
-        [txtFieldValue.text isEqualToString:@""] ||
-        [txtFieldTitle.text isEqualToString:@""])
-        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
-    else
-        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{    
+    [self validateForm:nil];
     return TRUE;
 }
 
@@ -874,12 +915,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
-    if (isImagesProductPosted) {
+    isLoadingDone = NO;
+    //if (isImagesProductPosted) {
         txtFieldTitle.text          = @"";
         textViewDescription.text    = @"";
         txtFieldValue.text          = @"";
         isImagesProductPosted       = !isImagesProductPosted;
-        isLoading                   = !isLoading;
         imageWidth_                 = 70.0f;
         imageHeight_                = 70.0f;
         NSLocale *theLocale         = [NSLocale currentLocale];
@@ -887,9 +928,10 @@
                                        [theLocale objectForKey:NSLocaleCurrencyCode],
                                        [theLocale objectForKey:NSLocaleCurrencySymbol]];
         txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
-    }
-    if (self.product == nil && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        
+    //}
+   // if (self.product == nil && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+   if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+   
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:YES forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];

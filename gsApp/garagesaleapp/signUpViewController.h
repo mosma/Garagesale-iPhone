@@ -44,7 +44,7 @@
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
     MBProgressHUD                   *HUD;
-    BOOL                            isLoading;
+    BOOL                            isLoadingDone;
 }
 
 //Sigup outlets
@@ -75,4 +75,5 @@
 -(IBAction)checkLogin:(id)sender;
 -(void)setupGarageMapping;
 -(void)setupProfileMapping;
+-(IBAction)postNewGarage:(id)sender;
 @end

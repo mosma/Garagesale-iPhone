@@ -12,17 +12,19 @@
 
 @implementation GlobalFunctions
 
-static NSString *urlServicePath;
-
 @synthesize imageThumbsXorigin_Iphone;
 @synthesize imageThumbsYorigin_Iphone;
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //urlServicePath = @"http://gsapi.local";
-    urlServicePath = @"http://gsapi.easylikethat.com";
-    //urlServicePath = @"http://api.garagesaleapp.me";
-    return urlServicePath;
+    //return @"http://192.168.1.3";
+    return @"http://gsapi.easylikethat.com";
+    //return @"http://api.garagesaleapp.me";
+}
+
++(NSString *)getMIMEType {
+    return @"text/html";
+    //return @"text/plain";
 }
 
 +(NSUserDefaults *)getUserDefaults {
@@ -64,9 +66,9 @@ static NSString *urlServicePath;
     UIView *viewThumbs = [[UIView alloc] initWithFrame:
                             CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
     
-    [viewThumbs.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [viewThumbs.layer setShadowOffset:CGSizeMake(2, 2)];
-    [viewThumbs.layer setShadowOpacity:0.1];
+//    [viewThumbs.layer setShadowColor:[[UIColor blackColor] CGColor]];
+//    [viewThumbs.layer setShadowOffset:CGSizeMake(2, 2)];
+//    [viewThumbs.layer setShadowOpacity:0.1];
 
     //Button Product
     UIButton *buttonThumbsProduct  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,8 +77,34 @@ static NSString *urlServicePath;
     [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
     [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
     buttonThumbsProduct.imageView.layer.cornerRadius = 3;
-    
+    [buttonThumbsProduct setAlpha:0];
     [viewThumbs addSubview:buttonThumbsProduct];
+
+    
+    // CGAffineTransform flipAndRotateTransform = CGAffineTransformMake(0.0, -1.0, -1.0, 0.0, 0, 0);
+    
+//    [UIView animateWithDuration:0.3 delay:0.0 options: UIViewAnimationOptionCurveEaseIn animations:^{
+//        CGAffineTransform transform = flipAndRotateTransform;
+//        buttonThumbsProduct.transform = transform;
+//    } completion:NULL];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationCurve:UIViewAnimationTransitionCurlUp];
+    [buttonThumbsProduct setAlpha:1.0];
+    [UIView commitAnimations];
+    
+    //    [UIView animateWithDuration:0.5
+    //                          delay:1.0
+    //                        options: UIViewAnimationTransitionCurlDown
+    //                     animations:^{
+    //                             buttonThumbsProduct.frame = CGRectMake(0, 0, 94, 94);
+    //                     }
+    //                     completion:^(BOOL finished){
+    //                     }];
+    //    
+    //    
 
     //if (image) [spinner stopAnimating];
     
@@ -415,6 +443,23 @@ static NSString *urlServicePath;
         [button setAlpha:0.3];
         [UIView commitAnimations];
     }
+}
+
++(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    // (0)@"Camera", (1)@"Library", (2)@"Product without pics" 
+    [userDefaults setInteger:buttonIndex forKey:@"controlComponentsAtFirstDisplay"];
+
+    if (buttonIndex == 3){
+        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+    }else{
+        [tabBarController setSelectedIndex:1];
+        productAccountViewController *prdtAcc = [[productAccountViewController alloc] init];
+        [tabBarController addChildViewController:prdtAcc];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

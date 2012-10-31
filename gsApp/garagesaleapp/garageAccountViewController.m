@@ -51,7 +51,7 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    //[self setupProductMapping];
+    [self reloadPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -121,10 +121,6 @@
         self.scrollViewProducts.delegate = self;
         
         self.navigationItem.title = NSLocalizedString(@"garage", @"");
-    
-        NSData  *imageData  = [NSData dataWithContentsOfURL:self.gravatarUrl];
-        UIImage *image      = [[UIImage alloc] initWithData:imageData];
-        [buttonGarageLogo setImage:image forState:UIControlStateNormal];
         
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
@@ -136,6 +132,9 @@
         [self.tableViewProducts setDelegate:self];
         
         [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
+        
+        [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
+                               withObject:gravatarUrl];
         
     } else {
         mutDictDataThumbs = [[NSMutableDictionary alloc] init];
@@ -169,8 +168,13 @@
                                             selector:@selector(loadButtonsThumbsProduct)
                                             object:nil];
         [queue addOperation:opThumbsProd];
-
     }  
+}
+
+-(void)loadGravatarImage:(NSURL *)gravatar{
+    NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
+    UIImage *image      = [[UIImage alloc] initWithData:imageData];
+    [buttonGarageLogo setImage:image forState:UIControlStateNormal];
 }
 
 - (void)setupProductMapping{
@@ -193,7 +197,7 @@
     else
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     
     //[self initLoadingGuear];
 }
@@ -203,7 +207,7 @@
         self.mutArrayProducts = (NSMutableArray *)objects;
         [self.tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
-        isLoading = !isLoading;
+        isLoadingDone = !isLoadingDone;
     }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
@@ -258,14 +262,14 @@
 
 - (void)myTask {
 	// Do something usefull in here instead of sleeping ...
-	while (!isLoading) {
+	while (!isLoadingDone) {
 		sleep(1);
 	}
 }
 
-- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-}
+//- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 0){
@@ -464,37 +468,15 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self loadAttribsToComponents:NO];
     
-    if ([mutArrayProducts count] == 0)
-        [self reloadPage:nil];
+    //if ([mutArrayProducts count] == 0)
+        //[self reloadPage:nil];
     
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
         [self reloadPage:nil];

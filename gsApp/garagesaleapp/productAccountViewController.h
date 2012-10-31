@@ -15,6 +15,8 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
 #import "MBProgressHUD.h"
+#import "JSON.h"
+#import "UploadImageHelper.h"
 
 @protocol PhotoScrollingViewDelegate
 -(void)removedImageAtIndex:(int )aImageIndex;
@@ -63,7 +65,7 @@
                                                                  
     //Flags at Post
     bool isImagesProductPosted;
-    BOOL isLoading;
+    BOOL isLoadingDone;
     int countPicsPost;
 }
 

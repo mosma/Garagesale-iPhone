@@ -13,6 +13,7 @@
 #import "Category.h"
 #import "Product.h"
 #import "Caminho.h"
+#import "productAccountViewController.h"
 
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
     NSUserDefaults *getUserDefaults;
@@ -32,6 +33,7 @@ typedef enum {
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
++(NSString *)getMIMEType;
 //+(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
@@ -53,7 +55,7 @@ typedef enum {
 +(void)setNavigationBarBackground:(UINavigationController *)navController;
 +(NSString *)getUrlImagesProduct:(NSMutableArray *)product imageType:(imageType)imageType;
 +(void)setEnableButtonForm:(UIButton *)button enable:(BOOL)enable;
-
++(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonInder;
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int countColumnImageThumbs;

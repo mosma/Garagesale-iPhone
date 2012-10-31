@@ -96,13 +96,12 @@
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
+    buttonLogo.frame = CGRectMake(33, 149, 253, 55);
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
     buttonLogo.adjustsImageWhenHighlighted = NO;
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
 
-    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:1.0f];
     buttonLogo.center = CGPointMake(160, 50);
@@ -166,7 +165,7 @@
     //LoadUrlResourcePath
     [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -195,11 +194,11 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     
     
-    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
-                     cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
-
-    [alV show];
-    
+//    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:@"Opz!" message:@"Houve um erro de comunicação com o servidor" delegate:self
+//                     cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+//
+//    [alV show];
+//    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
     NSLog(@"Encountered error: %@",                      error);
@@ -239,24 +238,9 @@
     [txtFieldSearch resignFirstResponder];
 }
 
-- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-
-   // NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
-    
-    //productAccountViewController *productAccount = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
-    
-    
-//    
-//    UIActionSheet *prodAdd = [[UIActionSheet alloc] initWithTitle:@"Title" delegate:self 
-//                                                cancelButtonTitle:@"Cancel Button" 
-//                                           destructiveButtonTitle:@"Destructive Button" 
-//                                                otherButtonTitles:@"Add Pics After", @"Camera", @"Library", nil];
-//    prodAdd.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-//    [prodAdd showInView:self.view];
-
-    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-    
-}
+//- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
+//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];   
+//}
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
      NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
@@ -276,29 +260,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    switch (buttonIndex) {
-        case 0:
-            [userDefaults setInteger:0 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 1:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:1 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 2:
-            self.tabBarController.selectedIndex = 1;
-            [userDefaults setInteger:2 forKey:@"controlComponentsAtFirstDisplay"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break;
-        case 3:
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            break; //Cancel
-    }
-    if (buttonIndex != 3)
-        self.tabBarController.selectedIndex = 1;
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(void)loadButtonsProduct{
@@ -393,7 +355,7 @@
             [UIView commitAnimations];
             [txtFieldSearch resignFirstResponder];
         }
-    }else {
+    }else{
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.3];
         [UIView setAnimationDelegate:self];
@@ -428,7 +390,7 @@
     [self controlSearchArea];
     
     if ([mutArrayProducts count] == 0) {
-        [scrollViewMain setContentSize:CGSizeMake(320,480)];
+        [scrollViewMain setContentSize:CGSizeMake(320,530)];
     }else {
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
@@ -460,7 +422,6 @@
         //[self setHidesBottomBarWhenPushed:NO];
         searchBarProduct.hidden=NO;
     }
-
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
