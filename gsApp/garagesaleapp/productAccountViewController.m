@@ -6,8 +6,14 @@
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 #import "productAccountViewController.h"
+#import "PostProductDelegate.h"
+
+@class PostProductDelegate;
 
 @interface productAccountViewController ()
+
+@property (nonatomic, strong) PostProductDelegate *postProdDelegate;
+
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 - (void)setupKeyboardControls;
 - (void)scrollViewToTextField:(id)textField;
@@ -24,10 +30,6 @@
 @synthesize delegate;
 @synthesize scrollView;
 @synthesize keyboardControls;
-@synthesize labelTitle;
-@synthesize labelDescription;
-@synthesize labelValue;
-@synthesize labelState;
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 @synthesize textViewDescription;
@@ -35,7 +37,6 @@
 @synthesize buttonAddPics;
 @synthesize product;
 @synthesize buttonSaveProduct;
-
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -69,19 +70,16 @@
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
     [self loadAttributsToComponents];
-    
-    
-    
 }
 
 -(void)loadAttributsToComponents{
+    
+    _postProdDelegate = [[PostProductDelegate alloc] init];
+    
+    nsMutArrayPhotosDelegate = [[NSMutableArray alloc] init];
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
-    
-    [labelState             setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-    [labelTitle             setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-    [labelDescription       setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-    [labelValue             setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     
     [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldTitle       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -94,7 +92,7 @@
     [shadowView setAlpha:0];
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
-    
+        
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
@@ -104,14 +102,12 @@
     
     nsMutArrayPicsProduct   = [[NSMutableArray alloc] init];
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
-                       NSLocalizedString(@"Sold", @""), nil];
+                       NSLocalizedString(@"Sold", @""), NSLocalizedString(@"notAvailable", @""), NSLocalizedString(@"invisible", @""), nil];
     
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
-    
-    [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
-    
+        
     nsArrayCurrency = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@",code,symbol],
                        @"BRL - R$",
                        @"GBP - £",
@@ -157,7 +153,7 @@
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
     
-    [self.scrollView setContentSize:CGSizeMake(320,570)];
+    [self.scrollView setContentSize:CGSizeMake(320,587)];
     [self setupKeyboardControls];
     
     if (self.product != nil) {
@@ -178,11 +174,8 @@
     //Relationship
     [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
-    //LoadUrlResourcePath
-    // [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
-    
-    
-    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productMapping delegate:self];
+    //LoadUrlResourcePath    
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.product.idPessoa, self.product.id] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -195,124 +188,11 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
--(void)postProduct {
-    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
-    
-    //get idEstado indice
-    int idEstado = [nsArrayState indexOfObject:txtFieldState.text] + 1;
-    
-    //User and password params
-    NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    [prodParams setObject:idPerson                      forKey:@"idPessoa"];
-    [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
-    [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
-    [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
-    [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
-                   forKey:@"idEstado"];
-    [prodParams setObject:idPerson                      forKey:@"idUser"];
-    [prodParams setObject:@""                           forKey:@"categorias"];
-    [prodParams setObject:@""                           forKey:@"newPhotos"];
-    [prodParams setObject:[txtFieldCurrency.text
-                           substringToIndex:3]          forKey:@"currency"];
-    
-    //The server ask me for this format, so I set it here:
-    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
-    [postData setObject:idPerson              forKey:@"idUser"];
-    [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"] forKey:@"garage"];
-    
-    //Parsing prodParams to JSON!
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
-    NSError *error = nil;
-    NSString *json = [parser stringFromObject:prodParams error:&error];
-    
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-    
-    //If no error we send the post, voila!
-    if (!error){
-        //Add ProductJson in postData for key product
-        [postData setObject:json forKey:@"product"];
-        [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
-    }
-}
-
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
                                         cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
-    
     [alV show];
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    isLoadingDone = YES;
-    
-    
-   // [self handleLongPress:nil];
-    
-    [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
-
-    
-    NSLog(@"Encountered error: %@",                      error);
-    NSLog(@"Encountered error.domain: %@",               error.domain);
-    NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    if ([request isGET]) {
-        // Handling GET /foo.xml
-        
-        if ([response isOK]) {
-            // Success! Let's take a look at the data
-            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-        }
-        
-    } else if ([request isPOST]) {
-        NSLog(@"after posting to server, %@", [response bodyAsString]);
-        
-        
-        
-        
-        
-        isLoadingDone = YES;
-        [self validateForm:nil];
-        
-        @try {
-            NSArray *jsonArray = (NSArray *)[[response bodyAsString] JSONValue];
-            
-            NSDictionary *jsonDict = [jsonArray objectAtIndex:0];
-            
-            
-            
-            
-            NSString *q = [jsonDict objectForKey:@"url"];
-            
-            
-            NSLog(@"%@", q);
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Not is A JSON PhotoDelete");
-        }
-
-
-        
-        
-//        countPicsPost++;
-//        if(countPicsPost == [nsMutArrayPicsProduct count])
-//            [self setPostFlags];
-//        else if (countPicsPost < [nsMutArrayPicsProduct count])
-//            [self uploadPhotos:countPicsPost];
-        
-        // Handling POST /other.json
-        if ([response isJSON]) {
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-        
-    } else if ([request isDELETE]) {
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
-        }
-    }
 }
 
 -(void)loadingProduct{
@@ -337,7 +217,6 @@
 }
 
 - (IBAction)animationPicsControl{
-
     //Limited Maximum At Pics Add Gallery
     if ([nsMutArrayPicsProduct count] == 10) 
         buttonAddPics.enabled = NO;
@@ -429,12 +308,11 @@
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) 
         UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     
-    [self addImageToScrollView:imageThumb];
+    [self addImageToScrollView:imageThumb isNew:YES];
     [picker dismissModalViewControllerAnimated:YES];
     
-    
-    if(!viewPicsControl.hidden) [self animationPicsControl];
-    
+    if(!viewPicsControl.hidden)
+        [self animationPicsControl];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
@@ -444,8 +322,8 @@
     }
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer*)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
+- (void)deletePicsAtGallery:(UITapGestureRecognizer*)sender {
+    //if (sender.state == UIGestureRecognizerStateBegan) {
         UIImageView *imageView      = (UIImageView *)sender.view;
        
         //Remove imgViewDelete
@@ -469,7 +347,7 @@
         
         if ([nsMutArrayPicsProduct count] < 11) 
             buttonAddPics.enabled = YES;
-    }
+    //}
 }
 
 -(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{
@@ -495,43 +373,41 @@
     scrollViewPicsProduct.contentSize = size;
 }
 
--(void)addImageToScrollView:(UIImage *)aImage{
+-(void)addImageToScrollView:(UIImage *)aImage isNew:(BOOL)isNew{
     // [self removeNoPhotoAdded];
-    if (nsMutArrayPicsProduct == nil) {
-        [self displayImages:[NSArray arrayWithObject:aImage]];
-    }else{
+//    if (nsMutArrayPicsProduct == nil) {
+        //[self displayImages:[NSArray arrayWithObject:aImage]];
+//    }else{
         [nsMutArrayPicsProduct addObject:aImage];
         
-        UIImageView * picViewAtGallery      = [[UIImageView alloc] initWithImage:aImage];
-        UIImage *imgDelete                  = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
-        UIImageView *imgViewDelete          = [[UIImageView alloc] initWithImage:imgDelete];
-        [imgViewDelete setUserInteractionEnabled:NO];
-        imgViewDelete.tag = 455;
-        //imgViewDelete.frame                 = CGRectMake(45, -6, 13, 13);
-        imgViewDelete.frame                 = CGRectMake(-7, -7, 17, 17);
-
-        
-        
-        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [picViewAtGallery addGestureRecognizer:longPressGesture];
-
-        
+        UIImageView *picViewAtGallery       = [[UIImageView alloc] initWithImage:aImage];
         picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
         [scrollViewPicsProduct addSubview:picViewAtGallery];
-        [picViewAtGallery setUserInteractionEnabled:YES];
+        [picViewAtGallery setUserInteractionEnabled:NO];
+        
+        UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
+        [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
+        [uplImageDelegate setImageView:picViewAtGallery];
+        [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
+    
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deletePicsAtGallery:)];
+        [tapGesture setNumberOfTapsRequired:2];
+        
+        UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:uplImageDelegate action:@selector(deletePhoto)];
+        [tapGesture setNumberOfTapsRequired:2];
+        
+        UILongPressGestureRecognizer * longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(animePicsGallery:)];
+        
+        
+        [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
+        [uplImageDelegate.imageView addGestureRecognizer:tapGesture2];
+        [uplImageDelegate.imageView addGestureRecognizer:longGesture];
 
         
         
         
-        UploadImageHelper *uplImageHelper = [UploadImageHelper new];
+        [uplImageDelegate setScrollViewPicsProduct:scrollViewPicsProduct];
         
-        
-        
-        [uplImageHelper setImageView:picViewAtGallery];
-        
-        
-        
-                
         CGSize size = scrollViewPicsProduct.contentSize;
         size.width = size.width + imageWidth_ + self.widthPaddingInImages;
         scrollViewPicsProduct.contentSize = size;
@@ -539,83 +415,79 @@
         //scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
         //scrollViewPicsProduct.scrollsToTop = YES;
 
-        
-       // [self uploadPhotos:([nsMutArrayPicsProduct count]-1)];
-        
-        [uplImageHelper uploadPhotos:([nsMutArrayPicsProduct count]-1) mutArrayPicsProduct:nsMutArrayPicsProduct];
+        if(isNew)
+            [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct];
 
-                
+}
 
-        [buttonSaveProduct setEnabled:NO];
+
+-(void)animePicsGallery:(UILongPressGestureRecognizer *)sender{
+    //if (sender.state == UIGestureRecognizerStateBegan) {
+
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        for (UIImageView * imgV in scrollViewPicsProduct.subviews) {
+            //if (imgV.)
+                [imgV setAlpha:0.2];
+        }
     }
-}
+    
+    else if (sender.state == UIGestureRecognizerStateEnded){
 
-
--(void)uploadPhotos:(int)index {
-    RKParams* params = [RKParams params];
-    //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-    NSData              *dataImage  = UIImageJPEGRepresentation([nsMutArrayPicsProduct objectAtIndex:index], 1.0);
-    UIImage *loadedImage = (UIImage *)[nsMutArrayPicsProduct objectAtIndex:index];
-    float w = loadedImage.size.width;
-    float h = loadedImage.size.height;
-    float ratio = w/h;
-    
-    int neww = 900;
-    //get image height proportionally;
-    float newh = neww/ratio;
-    
-    UIImage *image = [UIImage imageWithData:dataImage];
-    CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
-    UIGraphicsBeginImageContext(rect.size);
-    [image drawInRect:rect];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0);
-    
-    
-    //[params setData:imgdata1 forParam:[NSString stringWithFormat:@"foto%i.jpg", index]];
-    
-    
-    RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files"];
-    attachment.MIMEType = @"image/png";
-    attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", index];
-    
-    
-    [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?token=%@",[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    
-    
-    //    if ([idProduct isEqualToString:@""]) {
-    //    } else {
-    //        [[[RKObjectManager sharedManager] client] post:[NSString stringWithFormat:@"/photo?idProduct=%@&token=%@",idProduct,[[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
-    //    }
-    
-}
-
-
--(void)displayImages:(NSArray *)aImageList{
-    nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
-    [self placeImages:nsMutArrayPicsProduct];
-}
-
--(void)placeImages:(NSArray *)aImageList{
-    scrollViewPicsProduct.contentSize =CGSizeZero;
-    if ([aImageList count] > 0) {
-        //[self removeNoPhotoAdded];
+        for (UIImageView *imgV in scrollViewPicsProduct.subviews) {
+            [imgV setAlpha:1.0];
+        }
     }
-    for (int imageNumber =0 ; imageNumber < [aImageList count]; imageNumber ++) {
-        UIImageView * imageView = [[UIImageView alloc] initWithImage:[aImageList objectAtIndex:imageNumber]];
-        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widthPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
-        [scrollViewPicsProduct addSubview:imageView];
-        [imageView setUserInteractionEnabled:YES];
-        UILongPressGestureRecognizer * longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [imageView addGestureRecognizer:longPressGesture];
-        CGSize size = scrollViewPicsProduct.contentSize;
-        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
-        scrollViewPicsProduct.contentSize = size;
-        scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
-        scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-    }
+    //}
+
 }
+
+
+//-(void)displayImages:(NSArray *)aImageList{
+//    nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
+//    [self placeImages:nsMutArrayPicsProduct];
+//}
+
+
+
+
+
+//-(void)placeImages:(NSArray *)aImageList{
+//    scrollViewPicsProduct.contentSize =CGSizeZero;
+//    if ([aImageList count] > 0) {
+//        //[self removeNoPhotoAdded];
+//    }
+//    for (int imageNumber =0 ; imageNumber < [aImageList count]; imageNumber ++) {
+//        UIImageView * imageView = [[UIImageView alloc] initWithImage:[aImageList objectAtIndex:imageNumber]];
+//        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widthPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
+//        [scrollViewPicsProduct addSubview:imageView];
+//        [imageView setUserInteractionEnabled:YES];
+//        
+//        
+//        //Esse Metodo vai entrar quando for atualizacão do produto, neste caso eu vou pegar os caminhos de deletes do objeto produto que vier.
+//        
+//        
+//        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+//        [tapGesture setNumberOfTapsRequired:2];
+//        
+////        UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:uplImageDelegate action:@selector(deletePhoto)];
+////        [tapGesture setNumberOfTapsRequired:2];
+//        
+//        UILongPressGestureRecognizer * longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(animePicsGallery:)];
+//        
+//        [imageView addGestureRecognizer:tapGesture];
+//       // [imageView addGestureRecognizer:tapGesture2];
+//        [imageView addGestureRecognizer:longGesture];
+//
+//        
+//        
+//        
+//        CGSize size = scrollViewPicsProduct.contentSize;
+//        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
+//        scrollViewPicsProduct.contentSize = size;
+//        scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
+//        scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
+//    }
+//}
 
 - (void)getTypeCameraOrPhotosAlbum:(UIImagePickerControllerSourceType)type{
     
@@ -640,21 +512,31 @@
 }
 
 -(IBAction)saveProduct{
-    
-    [buttonSaveProduct setEnabled:NO];
-    [self initProgressHUDSaveProduct];
-    
-    if (self.product == nil) {
-        // Set determinate mode
-
-        
+    if ([self validateForm]) {
         [txtFieldValue resignFirstResponder];
+        if (self.product == nil) {
+            NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
+            
+            //get idEstado indice
+            int idEstado = [nsArrayState indexOfObject:txtFieldState.text] + 1;
+            
+            //User and password params
+            NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+            [prodParams setObject:idPerson                      forKey:@"idPessoa"];
+            [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
+            [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
+            [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
+            [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
+                           forKey:@"idEstado"];
+            [prodParams setObject:idPerson                      forKey:@"idUser"];
+            [prodParams setObject:@""                           forKey:@"categorias"];
+            [prodParams setObject:@""                           forKey:@"newPhotos"];
+            [prodParams setObject:[txtFieldCurrency.text
+                                   substringToIndex:3]          forKey:@"currency"];
 
-//        if([nsMutArrayPicsProduct count] != 0) {
-//            [self uploadPhotos:0];
-//        }else {
-            [self postProduct];
-//        }
+            [_postProdDelegate postProduct:prodParams];
+            [self initProgressHUDSaveProduct];
+        }
     }
 }
 
@@ -675,55 +557,61 @@
 
 - (void)myProgressTask {
 	// This just increases the progress indicator in a loop
-	
     float progress = 0.0f;
     
-    while (!isLoadingDone) {
+    int count = 0;
+    while (!_postProdDelegate.isLoadingDone) {
 		progress += 0.01f;
 		HUD.progress = progress;
         if (progress > 1) progress = 0.0f;
 		usleep(30000);
+        count++;
+        if (count > 200){
+            HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
+            HUD.mode = MBProgressHUDModeCustomView;
+            HUD.labelText = @"Fail! Check your connection.";
+            sleep(2);
+            break;
+        }
 	}
     
-    [buttonSaveProduct setEnabled:YES];
-    
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-	HUD.mode = MBProgressHUDModeCustomView;
-	HUD.labelText = @"Completed";
-	sleep(1);
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];
-    [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self reloadInputViews];
-}
-
--(IBAction)validateForm:(id)sender{
-    if ([textViewDescription.text isEqualToString:@""] ||
-        [txtFieldValue.text isEqualToString:@""] ||
-        [txtFieldTitle.text isEqualToString:@""])
-        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:NO];
-    else
-        [GlobalFunctions setEnableButtonForm:buttonSaveProduct enable:YES];
-}
-
--(void)reloadInputViews{
-    [self goToTabBarController:2];
-    
-    for (UIView *subview in [scrollViewPicsProduct subviews]){
-        if([subview isKindOfClass:[UIImageView class]])
-            [subview removeFromSuperview];
+    if (_postProdDelegate.isLoadingDone) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.labelText = @"Completed";
+        sleep(1);
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];
+        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self newProductFinished];
     }
-    [HUD.customView removeFromSuperview];
-    
-    
-    [nsMutArrayPicsProduct removeAllObjects];
-    nsMutArrayPicsProduct = nil;
-    //sleep(2);
+}
 
-    [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+-(BOOL)validateForm{
+    BOOL isValid = YES;
+
+    if ([txtFieldTitle.text length] <= 2) {
+        [txtFieldTitle setValue:[UIColor redColor]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldTitle setPlaceholder:@"Hey, your product must have a name!"];
+        isValid = NO;
+    } 
+    
+    if ([txtFieldValue.text length] == 0) {
+        [txtFieldValue setValue:[UIColor redColor]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        isValid = NO;
+    } 
+    
+    return isValid;
+}
+
+-(void)newProductFinished{
+    [self goToTabBarController:2];
+    self.view = nil;
+    [self viewDidLoad];
+    [scrollView setContentOffset:CGPointZero animated:NO];
 }
 
 -(void)loadAttributsToProduct{
@@ -731,22 +619,19 @@
     self.txtFieldValue.text = [product valorEsperado];
     self.textViewDescription.text = [product descricao];
     
-    for (int i=0; i < [[product fotos] count]; i++) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
-                                           [[[[[product fotos] objectAtIndex:i] caminho] objectAtIndex:0] icon]]];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        [self addImageToScrollView:image];
+    @try {
+        for (int i=0; i < [[product fotos] count]; i++) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
+                                               [[[[[product fotos] objectAtIndex:i] caminho] objectAtIndex:0] icon]]];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            [self addImageToScrollView:image isNew:NO];
+        }
     }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
+    
 }
-
-//-(void)setPostFlags{
-//    if (!isImagesProductPosted) {
-//        [self postProduct];
-//        isImagesProductPosted = !isImagesProductPosted;
-//    }else {
-//        isLoading = !isLoading;
-//    }
-//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if(pickerView.tag == PICKERSTATE)
@@ -794,7 +679,7 @@
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
     self.keyboardControls.textFields = [NSArray arrayWithObjects:
-                                        txtFieldCurrency, txtFieldValue, txtFieldTitle,textViewDescription, nil];
+                                        txtFieldState, txtFieldTitle,textViewDescription, txtFieldCurrency, txtFieldValue, nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
@@ -835,21 +720,9 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 356;
+    rc.size.height = 360;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
-    
-    /*
-     Use this block case use UITableView
-     
-     UITableViewCell *cell = nil;
-     if ([textField isKindOfClass:[UITextField class]])
-     cell = (UITableViewCell *) ((UITextField *) textField).superview.superview;
-     else if ([textField isKindOfClass:[UITextView class]])
-     cell = (UITableViewCell *) ((UITextView *) textField).superview.superview;
-     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-     */
 }
 
 #pragma mark -
@@ -882,14 +755,6 @@
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
-//    
-//    if (textField == txtFieldState) {
-//        for (id subview in txtFieldState.subviews) {
-//            if ([subview.]){
-//                subview.hidden = TRUE;
-//            }
-//        }
-//    }
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -899,39 +764,17 @@
     [self scrollViewToTextField:textView];
 }
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{    
-    [self validateForm:nil];
-    return TRUE;
-}
-
 -(IBAction)textFieldEditingEnded:(id)sender{
     [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    // [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
-    isLoadingDone = NO;
-    //if (isImagesProductPosted) {
-        txtFieldTitle.text          = @"";
-        textViewDescription.text    = @"";
-        txtFieldValue.text          = @"";
-        isImagesProductPosted       = !isImagesProductPosted;
-        imageWidth_                 = 70.0f;
-        imageHeight_                = 70.0f;
-        NSLocale *theLocale         = [NSLocale currentLocale];
-        txtFieldCurrency.text       = [NSString stringWithFormat:@"%@ - %@",
-                                       [theLocale objectForKey:NSLocaleCurrencyCode],
-                                       [theLocale objectForKey:NSLocaleCurrencySymbol]];
-        txtFieldState.text          = NSLocalizedString(@"Avaliable", @"");
-    //}
-   // if (self.product == nil && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
    if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-   
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:YES forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -949,14 +792,6 @@
 {
     textViewDescription = nil;
     [self setTextViewDescription:nil];
-    labelState = nil;
-    labelTitle = nil;
-    labelDescription = nil;
-    [self setLabelState:nil];
-    [self setLabelTitle:nil];
-    [self setLabelDescription:nil];
-    [self setLabelValue:nil];
-    labelValue = nil;
     viewPicsControl = nil;
     [self setViewPicsControl:nil];
     buttonAddPics = nil;

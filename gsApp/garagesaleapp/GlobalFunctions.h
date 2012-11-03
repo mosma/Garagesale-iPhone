@@ -20,7 +20,6 @@
     int imageThumbsXorigin_Iphone;
     int imageThumbsYorigin_Iphone;
     int countColumnImageThumbs;
-    
 }
 
 typedef enum {
@@ -54,8 +53,8 @@ typedef enum {
 +(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController;
 +(void)setNavigationBarBackground:(UINavigationController *)navController;
 +(NSString *)getUrlImagesProduct:(NSMutableArray *)product imageType:(imageType)imageType;
-+(void)setEnableButtonForm:(UIButton *)button enable:(BOOL)enable;
 +(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonInder;
+
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int countColumnImageThumbs;

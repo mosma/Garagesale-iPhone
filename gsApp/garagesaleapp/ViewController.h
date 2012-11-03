@@ -13,8 +13,7 @@
 #import "QuartzCore/QuartzCore.h"
 #import "productAccountViewController.h"
 
-
-@interface ViewController : UIViewController <RKObjectLoaderDelegate,
+@interface ViewController : MasterViewController <RKObjectLoaderDelegate,
                                               UISearchBarDelegate,
                                               OHAttributedLabelDelegate,
                                               UITabBarControllerDelegate,

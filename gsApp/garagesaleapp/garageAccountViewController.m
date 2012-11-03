@@ -51,7 +51,7 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    [self reloadPage:nil];
+    //[self reloadPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -475,8 +475,8 @@
     [super viewWillAppear:YES];
     [self loadAttribsToComponents:NO];
     
-    //if ([mutArrayProducts count] == 0)
-        //[self reloadPage:nil];
+    if ([mutArrayProducts count] == 0)
+        [self reloadPage:nil];
     
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
         [self reloadPage:nil];

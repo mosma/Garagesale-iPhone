@@ -19,7 +19,7 @@
 #import "Bid.h"
 #import "OHAttributedLabel.h"
 
-@interface productDetailViewController : UIViewController <UITextFieldDelegate, 
+@interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 
                                                             BSKeyboardControlsDelegate,
                                                             UIScrollViewDelegate,

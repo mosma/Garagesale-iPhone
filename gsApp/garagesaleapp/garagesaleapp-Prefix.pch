@@ -22,6 +22,7 @@
 #import <CoreData/CoreData.h>
 #import <RestKit/RestKit.h>
 #import "Mappings.h"
+#import "MasterViewController.h"
 #import <MessageUI/MessageUI.h>
 //if using Core Data...
 

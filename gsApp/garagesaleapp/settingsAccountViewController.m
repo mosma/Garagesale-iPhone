@@ -75,6 +75,7 @@
 }
 
 - (void)loadAttribsToComponents{
+
     nibId = [[self.navigationController visibleViewController] nibName];
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
@@ -236,25 +237,11 @@
     //If no error we send the post, voila!
     if (!error){
         
-        
-        
-        
-        
-        
-        
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
-        
-        
-        
-        
-        
-        
-        
-        
         
     }
     
@@ -272,8 +259,7 @@
 	HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
     HUD.dimBackground = YES;
     
-	// myProgressTask uses the HUD instance to update progress
-	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
+	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
 }
 
 - (void)setupLogOut{
@@ -296,19 +282,9 @@
     } else if ([request isPOST]) {
         
         [self setupProfileMapping];
+        isSaved = YES;
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
-        //        NSError *error = nil;
-        //        RKJSONParserJSONKit *parser = [RKJSONParserJSONKit new];
-        //        NSDictionary *dictProduct = [parser objectFromString:[response bodyAsString] error:&error];
-        
-        //        if (!isPostProduct) {
-        //            [self postProduct];
-        //            isPostProduct = !isPostProduct;
-        //        }else
-        //            isPostProduct = !isPostProduct;
-        
-        // Handling POST /other.json
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
@@ -324,6 +300,15 @@
         }
     }
 }
+
+
+/**
+ * Sent when a request has failed due to an error
+ */
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error{
+    isSaved = NO;
+}
+
 
 -(void)logout:(id)sender{
     /*
@@ -343,37 +328,41 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    for (UIViewController *v in self.navigationController.viewControllers)
+    
+    
+    for (UIViewController *vc in self.tabBarController.viewControllers)
     {
-        UIViewController *vc = v;
-        
-        
-        if ([vc isKindOfClass:[ViewController class]])
-        {
-            [vc.navigationController popToRootViewControllerAnimated:YES];
-        }
-        
-        if ([vc isKindOfClass:[productDetailViewController class]])
-        {
-            [vc.navigationController popToRootViewControllerAnimated:YES];
-        }
-        
-        if ([vc isKindOfClass:[garageAccountViewController class]])
-        {
-            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
-        }
+//        UIViewController *vc = v;
+//        if ([vc isKindOfClass:[ViewController class]])
+//        {
+//            [vc.navigationController popToRootViewControllerAnimated:YES];
+//        }
+//        
+//        if ([vc isKindOfClass:[productDetailViewController class]])
+//        {
+//            [vc.navigationController popToRootViewControllerAnimated:YES];
+//        }
+//        
+//        if ([vc isKindOfClass:[garageAccountViewController class]])
+//        {
+//            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
+//        }
+      //  vc.view = nil;
+       // [vc viewDidLoad];
+    
     }
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
       navigationController] popToRootViewControllerAnimated:YES];
-    
     
     self.tabBarController.selectedIndex = 0;
     
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
       navigationController] popToRootViewControllerAnimated:NO];
     
+    [[[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController] viewDidLoad];
     
+    [[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController].view = nil;
 }
 
 -(void)backPage{
@@ -445,7 +434,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
 }
 
-- (void)myProgressTask {
+- (void)resultProgress{
 	// This just increases the progress indicator in a loop
 	float progress = 0.0f;
 	while (progress < 1.0f) {
@@ -453,10 +442,15 @@
 		HUD.progress = progress;
 		usleep(10000);
 	}
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-	HUD.mode = MBProgressHUDModeCustomView;
-	HUD.labelText = @"Completed";
-	sleep(2);
+    HUD.mode = MBProgressHUDModeCustomView;
+    if (isSaved) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        HUD.labelText = @"Completed";
+    }else{
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
+        HUD.labelText = @"Fail! Check your connection.";
+    }
+    sleep(2);
 }
 
 /* Setup the keyboard controls BSKeyboardControls.h */

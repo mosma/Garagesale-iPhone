@@ -45,6 +45,11 @@
 "delete"                        = "delete";
 "resultsFor"                    = "results for";
 
+"notAvailable"                  = "Not available";
+"invisible"                     = "Invisible";
+
+
+
 /*Using in : settingsViewController. */
 "account"                       = "account";
 "password"                      = "password";

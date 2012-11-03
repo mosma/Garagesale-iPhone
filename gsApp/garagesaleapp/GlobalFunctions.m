@@ -17,14 +17,14 @@
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //return @"http://192.168.1.3";
+    //return @"http://169.254.119.188";
     return @"http://gsapi.easylikethat.com";
     //return @"http://api.garagesaleapp.me";
 }
 
 +(NSString *)getMIMEType {
-    return @"text/html";
-    //return @"text/plain";
+    //return @"text/html";
+    return @"text/plain";
 }
 
 +(NSUserDefaults *)getUserDefaults {
@@ -429,22 +429,6 @@
     navController.navigationItem.titleView = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
 }
 
-+(void)setEnableButtonForm:(UIButton *)button enable:(BOOL)enable{
-    if (enable) {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.5];
-        [button setEnabled:YES];
-        [button setAlpha:1.0];
-        [UIView commitAnimations];
-    }else{
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.5];
-        [button setEnabled:NO];
-        [button setAlpha:0.3];
-        [UIView commitAnimations];
-    }
-}
-
 +(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
@@ -455,8 +439,8 @@
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
     }else{
         [tabBarController setSelectedIndex:1];
-        productAccountViewController *prdtAcc = [[productAccountViewController alloc] init];
-        [tabBarController addChildViewController:prdtAcc];
+       // productAccountViewController *prdtAcc = [[productAccountViewController alloc] init];
+       // [tabBarController addChildViewController:prdtAcc];
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];

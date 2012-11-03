@@ -299,17 +299,18 @@
 
         UIImage *image;
 
-        if (self.product.fotos == NULL) {
-            image                   = [UIImage imageNamed:@"nopicture.png"];
-            imageView               = [[UIImageView alloc] initWithImage:image];            
-        } else {
+        @try {
             Photo       *photo      = (Photo *)[self.product.fotos objectAtIndex:0];
             Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
             NSURL *url = [NSURL URLWithString:[caminho mobile]];
             image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             imageView               = [[UIImageView alloc] initWithImage:image];
-            
         }
+        @catch (NSException *exception) {
+            image                   = [UIImage imageNamed:@"nopicture.png"];
+            imageView               = [[UIImageView alloc] initWithImage:image];
+        }
+
 
         [activityIndicator stopAnimating];
     }
@@ -448,7 +449,9 @@
     
     
     
-    
+    //garage/nomegarage?absuse=true
+    //fazer get
+    // nao precisa tratar o retorno.
     
     NSString *urlString = [NSString stringWithFormat:@"http://garagesaleapp.me/%@/reportAbuse", self.product.idPessoa];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -493,25 +496,7 @@
             NSLog(@"Got a JSON response back from our POST!");
         }
         
-        //Settings to Bid Sent
-        [UIView beginAnimations:@"buttonFades" context:nil];
-        [UIView setAnimationDuration:0.5];
-        [buttonBid setEnabled:YES];
-        [buttonBid setAlpha:1.0];
-        [msgBidSentLabel setAlpha:1.0];
-        [viewBidSend setAlpha:0];
-        [viewBidSend setHidden:YES];
-        [viewBidMsg setAlpha:1.0f];
-        [scrollViewMain insertSubview:viewShadow belowSubview:viewBidMsg];
-        [viewBidMsg setHidden:NO];
-        [UIView commitAnimations];
-        
-        [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
-        
-        msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
-        [txtFieldEmail  setText:@""];
-        [txtFieldOffer  setText:@""];
-        [txtViewComment setText:@""];
+        [self bidSend];
         
         //Set Delay to Hide msgBidSentLabel
         [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideMsgBidSent) userInfo:nil repeats:NO];
@@ -522,6 +507,28 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)bidSend{
+    //Settings to Bid Sent
+    [UIView beginAnimations:@"buttonFades" context:nil];
+    [UIView setAnimationDuration:0.5];
+    [buttonBid setEnabled:YES];
+    [buttonBid setAlpha:1.0];
+    [msgBidSentLabel setAlpha:1.0];
+    [viewBidSend setAlpha:0];
+    [viewBidSend setHidden:YES];
+    [viewBidMsg setAlpha:1.0f];
+    [scrollViewMain insertSubview:viewShadow belowSubview:viewBidMsg];
+    [viewBidMsg setHidden:NO];
+    [UIView commitAnimations];
+    
+    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
+    [txtFieldEmail  setText:@""];
+    [txtFieldOffer  setText:@""];
+    [txtViewComment setText:@""];
 }
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{

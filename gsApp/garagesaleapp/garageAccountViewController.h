@@ -16,7 +16,7 @@
 #import "OHAttributedLabel.h"
 #import "MBProgressHUD.h"
 
-@interface garageAccountViewController : UIViewController <RKObjectLoaderDelegate, 
+@interface garageAccountViewController : MasterViewController <RKObjectLoaderDelegate, 
                                                         UITableViewDelegate,
                                                         UITableViewDataSource,
                                                         UIScrollViewDelegate,

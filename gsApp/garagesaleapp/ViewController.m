@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
-    [self reachability];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
@@ -244,6 +243,7 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
      NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+        
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
                                                        delegate:nil 
@@ -489,31 +489,6 @@
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
 
-- (void)reachability {// Check if the network is available
-    [[RKClient sharedClient] isNetworkAvailable];
-    // Register for changes in network availability
-    NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reachabilityDidChange:)
-                   name:RKReachabilityDidChangeNotification object:nil];
-}
-
-- (void)reachabilityDidChange:(NSNotification *)notification {
-    RKReachabilityObserver* observer = (RKReachabilityObserver *) [notification
-                                                                   object];
-    RKReachabilityNetworkStatus status = [observer networkStatus];
-    if (RKReachabilityNotReachable == status) {
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"No network access!"
-                                                          message:@"check your connection."
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-    } else if (RKReachabilityReachableViaWiFi == status) {
-        RKLogInfo(@"Online via WiFi!");
-    } else if (RKReachabilityReachableViaWWAN == status) {
-        RKLogInfo(@"Online via Edge or 3G!");
-    }
-}
 
 //- (IBAction)signSearchTransform:(id)sender{
 //    [UIView beginAnimations:nil context:nil];

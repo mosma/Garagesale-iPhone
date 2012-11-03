@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 
-@interface settingsAccountViewController : UIViewController <UITextFieldDelegate, 
+@interface settingsAccountViewController : MasterViewController <UITextFieldDelegate, 
                                                              UITextViewDelegate, 
                                                              BSKeyboardControlsDelegate,
                                                              UIScrollViewDelegate, 
@@ -64,6 +64,7 @@
     NSUserDefaults                *settingsAccount;
 
     NSString                      *nibId;
+    BOOL isSaved;
                                                                  
 }
 //ViewPassword Labels
