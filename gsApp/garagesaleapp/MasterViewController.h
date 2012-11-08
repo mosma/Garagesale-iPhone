@@ -11,7 +11,7 @@
 @interface MasterViewController : UIViewController {
 
     UIView *viewMessageNet;
-    UILabel *lab;
+    UILabel *labelNotification;
 
 }
 

@@ -131,12 +131,13 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
     if (validatorFlag == 0){
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
-                                                      message:@"check your values."
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-        [message show];
+        [textFieldUserPassword setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldUserPassword setPlaceholder:@"Invalid Password or Email"];
+        textFieldUserPassword.text = @"";
+
+       // [(MasterViewController *)[self parentViewController] showNotification:@"asdfasdfasdf"];
+        
     } else if (validatorFlag == 1){
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
@@ -250,7 +251,7 @@
     [self setEnableRegisterButton:NO];
     validatorFlag = 1;
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
+    [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 

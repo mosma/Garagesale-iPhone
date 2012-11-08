@@ -192,23 +192,6 @@
 }
 
 -(IBAction)saveSettings{
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
@@ -267,13 +250,6 @@
         
     }
     
-    
-    
-    
-    
-    
-    
-    
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -292,7 +268,7 @@
 }
 
 - (void)getResourcePathLogOut{
-    [[[RKClient sharedClient] delete:[NSString stringWithFormat:@"/login/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self] send];
+    [[RKClient sharedClient] get:[NSString stringWithFormat:@"/login/%@?invalidate=true", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -302,12 +278,10 @@
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     if ([request isGET]) {
         // Handling GET /foo.xml
-        
         if ([response isOK]) {
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
         }
-        
     } else if ([request isPOST]) {
         
         [self getResourcePathProfile];
@@ -346,17 +320,6 @@
     
     [self getResourcePathLogOut];
     
-    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
-    
-    
-    NSInteger i;
-    for (NSString *key in [defaultsDictionary allKeys]) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
-        
-        NSLog(@"quantidade : %i", i++);
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     
     
     for (UIViewController *vc in self.tabBarController.viewControllers)
@@ -380,6 +343,14 @@
        // [vc viewDidLoad];
     
     }
+    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    
+    
+    NSInteger i;
+    for (NSString *key in [defaultsDictionary allKeys]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
       navigationController] popToRootViewControllerAnimated:YES];

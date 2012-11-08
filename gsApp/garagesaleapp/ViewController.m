@@ -327,11 +327,6 @@
             [self getResourcePathProduct];
             [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+425)];
 
-            
-            
-            
-            
-
             countLoads++;
            
         }
