@@ -253,24 +253,19 @@
     if (!error){
         
         //Add ProductJson in postData for key profile
+//        [postData setObject:json forKey:@"profile"];
+//        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
+//        [postData setObject:json forKey:@"garage"];
+//        [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
+        
+        
+        //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
-        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
+        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i", [[[GlobalFunctions getUserDefaults] objectForKey:@"id"] intValue]]  params:postData delegate:self] send];
         [postData setObject:json forKey:@"garage"];
-        [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
+        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

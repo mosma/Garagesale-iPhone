@@ -86,7 +86,7 @@
     [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-    
+
     txtFieldValue.keyboardType = UIKeyboardTypeDecimalPad;
     
     shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
