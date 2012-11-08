@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QuartzCore/QuartzCore.h"
+//#import "QuartzCore/QuartzCore.h"
 #import "RestKit/RestKit.h"
 #import "OHAttributedLabel.h"
 #import "Category.h"
@@ -38,7 +38,7 @@ typedef enum {
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
 +(BOOL)isValidEmail:(NSString*) emailString;
-+(void)onlyNumberKey:(UITextField *)textField;
++(BOOL)onlyNumberKey:(NSString *)string;
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;

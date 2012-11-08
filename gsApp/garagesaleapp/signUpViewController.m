@@ -79,7 +79,8 @@
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    
 }
 
-- (void)setupLogin{
+- (void)getResourcePathLogin{
+    validatorFlag = 0;
     RKObjectMapping *loginMapping = [Mappings getLoginMapping];
     
     //LoadUrlResourcePath
@@ -89,7 +90,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupGarageMapping {
+- (void)getResourcePathGarage {
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
     
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:garageMapping delegate:self];
@@ -98,7 +99,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupProfileMapping {
+- (void)getResourcePathProfile {
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
     
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
@@ -115,29 +116,58 @@
             [self setLogin:objects];
         }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
             [self setProfile:objects];
-            [self setupGarageMapping];
+            [self getResourcePathGarage];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            [self.navigationController popToRootViewControllerAnimated:YES];
             [self setGarage:objects];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
+            //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
+            //if ([(EmailValidate *)[objects objectAtIndex:0] message] == @"valid")
         }
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
-    
-    //if ([objectLoader isKindOfClass:[Login class]]){
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
+    if (validatorFlag == 0){
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error Login"
                                                       message:@"check your values."
                                                      delegate:nil
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
-    [message show];
+        [message show];
+    } else if (validatorFlag == 1){
+        [textFieldGarageName setValue:[UIColor redColor]
+                      forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldGarageName setPlaceholder:[NSString stringWithFormat:@"Hey, %@ already exist!", textFieldGarageName.text]];
+        textFieldGarageName.text = @"";
+    } else if (validatorFlag == 2) {
+        [textFieldEmail setValue:[UIColor redColor]
+                      forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldEmail setPlaceholder:@"Hey, Email already exist or not is valid!"];
+        textFieldEmail.text = @"";
+    }
     isLoadingDone = YES;
-    //}
+}
+
+-(void)setValuesResponseToVC:(NSString *)response{
+    //transform in json
+//    NSArray *jsonArray = (NSArray *)[response JSONValue];
+//    newGarageReturn = [jsonArray objectAtIndex:0];
+    NSDictionary *newGarageReturn = [response JSONValue];
+
+    
+    settingsAccount = [NSUserDefaults standardUserDefaults];
+    [settingsAccount setObject:[newGarageReturn valueForKeyPath:@"session.idPerson"] forKey:@"idPerson"];
+    [settingsAccount setObject:[newGarageReturn valueForKeyPath:@"session.token"] forKey:@"token"];
+    [self getResourcePathProfile];
+    
+    [self.tabBarController setSelectedIndex:0];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    isLoadingDone = YES;
+    [self setEnableRegisterButton:YES];
     NSLog(@"Retrieved XML: %@", [response bodyAsString]);
 
     if ([request isGET]) {
@@ -147,6 +177,14 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
         }
     } else if ([request isPOST]) {
+        isLoadingDone = YES;
+        
+        @try {
+            [self setValuesResponseToVC:[response bodyAsString]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Response Not is A JSON : %@", response);
+        }
         
         // Handling POST /other.json
         if ([response isJSON]) {
@@ -162,47 +200,110 @@
 }
 
 -(IBAction)postNewGarage:(id)sender {
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.navigationController.view addSubview:HUD];
-	
-	HUD.dimBackground = YES;
-	
-	// Regiser for HUD callbacks so we can remove it from the window at the right time
-	HUD.delegate = self;
-	isLoadingDone = NO;
-    
-	// Show the HUD while the provided method executes in a new thread
-	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-
-    NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-
-    //User and password params
-    [garageParams setObject:@"1"    forKey:@"idState"];
-    [garageParams setObject:@"pt"    forKey:@"lang"];
-    [garageParams setObject:textFieldGarageName.text    forKey:@"garagem"];
-    [garageParams setObject:textFieldPersonName.text    forKey:@"nome"];
-    [garageParams setObject:textFieldEmail.text         forKey:@"email"];
-    [garageParams setObject:textFieldPassword.text       forKey:@"senha"];
-    [garageParams setObject:@"true"       forKey:@"agree"];
-
+    if ([self validateFormNewGarage]) {
+        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:HUD];
         
-    id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
-    NSError *error = nil;
-    NSString *json = [parser stringFromObject:garageParams error:&error];
+        HUD.dimBackground = YES;
         
+        // Regiser for HUD callbacks so we can remove it from the window at the right time
+        HUD.delegate = self;
+        isLoadingDone = NO;
+        
+        // Show the HUD while the provided method executes in a new thread
+        [HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
+
+        NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
+
+        //User and password params
+        [garageParams setObject:@"1"                        forKey:@"idState"];
+        [garageParams setObject:@"pt"                       forKey:@"lang"];
+        [garageParams setObject:textFieldGarageName.text    forKey:@"garagem"];
+        [garageParams setObject:textFieldPersonName.text    forKey:@"nome"];
+        [garageParams setObject:textFieldEmail.text         forKey:@"email"];
+        [garageParams setObject:textFieldPassword.text      forKey:@"senha"];
+        [garageParams setObject:@"true"                     forKey:@"agree"];
+
+        id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
+        NSError *error = nil;
+        NSString *json = [parser stringFromObject:garageParams error:&error];
+            
+        [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+        
+        //If no error we send the post, voila!
+        if (!error){
+            //Add ProductJson in postData for key profile
+            [postData setObject:json forKey:@"garage"];
+        }
+        
+        [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
+    }
+}
+
+-(void)setEnableRegisterButton:(BOOL)enable{
+    [buttonRegister setEnabled:enable];
+    if (enable) [buttonRegister setAlpha:1.0]; else [buttonRegister setAlpha:0.3];
+}
+
+-(IBAction)getValidGarageName:(id)sender {
+    [self setEnableRegisterButton:NO];
+    validatorFlag = 1;
+    RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+}
+
+-(IBAction)getValidEmail:(id)sender {
+    [self setEnableRegisterButton:NO];
+    validatorFlag = 2;
+    if (![GlobalFunctions isValidEmail:textFieldEmail.text]){
+        [textFieldEmail setValue:[UIColor redColor]
+                       forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldEmail setPlaceholder:@"Hey, this is not a valid email!"];
+        textFieldEmail.text = @"";
+    } else {
+        RKObjectMapping *mapping = [Mappings getValidEmailMapping];
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?validate=true", textFieldEmail.text] objectMapping:mapping delegate:self];
+        [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    }
+}
+
+-(BOOL)validateFormNewGarage{
+    BOOL isValid = YES;
     
-    //If no error we send the post, voila!
-    if (!error){
-        //Add ProductJson in postData for key profile
-        [postData setObject:json forKey:@"garage"];
+    if ([textFieldGarageName.text length] < 3) {
+        [textFieldGarageName setValue:[UIColor redColor]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldGarageName setPlaceholder:@"Hey, this is not a valid Garage Name!"];
+        isValid = NO;
     }
     
-    [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
+    if ([textFieldPersonName.text length] < 3) {
+        [textFieldPersonName setValue:[UIColor redColor]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldPersonName setPlaceholder:@"Hey, this is not a valid Name!"];
+        isValid = NO;
+    }
     
-
+    if ([textFieldEmail.text length] == 0) {
+        [textFieldEmail setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldEmail setPlaceholder:@"Hey, Email can not be empty!"];
+        isValid = NO;
+    }
+    
+    if ([textFieldPassword.text length] < 5) {
+        [textFieldPassword setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [textFieldPassword setPlaceholder:@"Hey, this is not a valid Password!"];
+        isValid = NO;
+    }
+    
+    return isValid;
 }
+
+
 
 - (void)setGarage:(NSArray *)objects{
     //Garage
@@ -246,26 +347,21 @@
 	isLoadingDone = NO;
     
 	// Show the HUD while the provided method executes in a new thread
-	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
     
-    [self setupLogin];
+    [self getResourcePathLogin];
 }
 
--(void)myTask{
+-(void)waitingTask{
     while (!isLoadingDone)
         NSLog(@"isLoading");
-//    
-//    ViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)setLogin:(NSArray *)objects{
     settingsAccount = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[[objects objectAtIndex:0] idPerson] forKey:@"idPerson"];
     [settingsAccount setObject:[[objects objectAtIndex:0] token] forKey:@"token"];
-    [self setupProfileMapping];
+    [self getResourcePathProfile];
     
     [self.tabBarController setSelectedIndex:0];
 }
@@ -386,17 +482,6 @@
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
-}
-
-#pragma mark -
-#pragma mark UITextView Delegate
-
-/* Editing began */
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    if ([self.keyboardControls.textFields containsObject:textView])
-        self.keyboardControls.activeTextField = textView;
-    [self scrollViewToTextField:textView];
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{

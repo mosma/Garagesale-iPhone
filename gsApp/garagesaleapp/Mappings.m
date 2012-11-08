@@ -103,8 +103,22 @@
     [productPhotoMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
     [productPhotoMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
     [productPhotoMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];;
+    [productPhotoMapping mapKeyPath:@"id"            toAttribute:@"id"];
     return productPhotoMapping;
+}
+
++ (RKObjectMapping *)getValidGarageNameMapping{
+    //Configure Profile Object Mapping
+    RKObjectMapping *validGarageNameMapping = [RKObjectMapping mappingForClass:[GarageNameValidate class]];
+    [validGarageNameMapping mapKeyPath:@"message"    toAttribute:@"message"];
+    return validGarageNameMapping;
+}
+
++ (RKObjectMapping *)getValidEmailMapping{
+    //Configure Profile Object Mapping
+    RKObjectMapping *validEmailMapping = [RKObjectMapping mappingForClass:[GarageNameValidate class]];
+    [validEmailMapping mapKeyPath:@"message"    toAttribute:@"message"];
+    return validEmailMapping;
 }
 
 @end

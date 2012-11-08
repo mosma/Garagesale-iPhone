@@ -63,6 +63,9 @@
      End Block
      */
 
+    
+    
+    
     UIView *viewThumbs = [[UIView alloc] initWithFrame:
                             CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
     
@@ -310,20 +313,23 @@
         return YES;
 }
 
-+(void)onlyNumberKey:(UITextField *)textField{
-	if ([textField.text length] > 0) {
-		int length = [textField.text length];
-		int Char01 = [textField.text characterAtIndex:length-1];
++(BOOL)onlyNumberKey:(NSString *)string{
+	if ([string length] > 0) {
+		int length = [string length];
+		int Char01 = [string characterAtIndex:length-1];
 		//reference characters www.theasciicode.com.ar/ascii-printable-characters/dot-full-stop-ascii-code-46.html
 		if ((Char01 < 44) || (Char01 > 57) || (Char01 == 47)) {
 			if (length == 1) {
-				textField.text = nil;
+				string = nil;
+                return NO;
 			}
 			else {
-				textField.text = [textField.text substringWithRange:NSMakeRange(0, length-1)];
+				string = [string substringWithRange:NSMakeRange(0, length-1)];
+                return NO;
 			}
-		}
+		} else return YES;
 	}
+    return YES;
 }
 
 +(void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController{

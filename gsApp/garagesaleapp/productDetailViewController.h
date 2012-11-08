@@ -14,7 +14,7 @@
 #import "BSKeyboardControls.h"
 #import "AddThis.h"
 #import "garageAccountViewController.h"
-#import "QuartzCore/QuartzCore.h"
+//#import "QuartzCore/QuartzCore.h"
 #import "Category.h"
 #import "Bid.h"
 #import "OHAttributedLabel.h"
@@ -110,9 +110,9 @@
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;
 - (IBAction)textFieldEditingEnded:(id)sender;
-- (void)setupGarageMapping;
-- (void)setupProfileMapping;
-- (void)setupProductMapping;
+- (void)getResourcePathGarage;
+- (void)getResourcePathProfile;
+- (void)getResourcePathProduct;
 - (IBAction)gotoGalleryScrollVC;
 - (IBAction)gotoGarageDetailVC;
 - (IBAction)gotoUserProductTableVC;
@@ -123,7 +123,7 @@
 - (IBAction)bidPost:(id)sender;
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)pageControlCliked;
-- (void)setupProductMapping:(NSString *)localResource;
+- (void)getResourcePathProduct:(NSString *)localResource;
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
 - (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView;
 

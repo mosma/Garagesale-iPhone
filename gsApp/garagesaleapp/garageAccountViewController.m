@@ -62,7 +62,7 @@
     [mutArrayProducts removeAllObjects];
         
     mutArrayProducts = nil;
-    [self setupProductMapping];
+    [self getResourcePathProduct];
     
     //Set Display thumbs on Home.
     globalFunctions.countColumnImageThumbs = -1;
@@ -177,7 +177,7 @@
     [buttonGarageLogo setImage:image forState:UIControlStateNormal];
 }
 
-- (void)setupProductMapping{
+- (void)getResourcePathProduct{
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager sharedManager];
     

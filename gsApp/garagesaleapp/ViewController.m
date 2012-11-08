@@ -47,7 +47,6 @@
 //        }
 //    }
 
-    
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -150,7 +149,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)setupProductMapping{
+- (void)getResourcePathProduct{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
@@ -325,7 +324,7 @@
             [activityImageView setAlpha:1.0];
             [scrollViewMain addSubview:activityImageView];
             
-            [self setupProductMapping];
+            [self getResourcePathProduct];
             [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+425)];
 
             
@@ -395,7 +394,7 @@
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
 
-    [self setupProductMapping];
+    [self getResourcePathProduct];
     
     if (!isAnimationLogo) {
         [viewTopPage setHidden:YES];

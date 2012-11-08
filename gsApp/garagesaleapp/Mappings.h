@@ -14,6 +14,8 @@
 #import "Profile.h"
 #import "Login.h"
 #import "ProductPhotos.h"
+#import "GarageNameValidate.h"
+#import "EmailValidate.h"
 
 @interface Mappings : NSObject {
 }
@@ -25,5 +27,6 @@
 + (RKObjectMapping *)getProfileMapping;
 + (RKObjectMapping *)getLoginMapping;
 + (RKObjectMapping *)getProductPhotoMapping;
-
++ (RKObjectMapping *)getValidGarageNameMapping;
++ (RKObjectMapping *)getValidEmailMapping;
 @end

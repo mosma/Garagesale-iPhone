@@ -38,8 +38,7 @@
     
     [scrollViewPicsProduct addSubview:activityIndicator];
     
-    [buttonSaveProduct setEnabled:NO];
-    [buttonSaveProduct setAlpha:0.3];
+    [self setEnableSaveButton:NO];
     
     [imageView setAlpha:0];
     
@@ -63,9 +62,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
-    [buttonSaveProduct setEnabled:YES];
-    [buttonSaveProduct setAlpha:1.0];
-    
+    [self setEnableSaveButton:YES];
     
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
@@ -85,9 +82,7 @@
         [imageView setUserInteractionEnabled:YES];
         [activityIndicator stopAnimating];
         
-        [buttonSaveProduct setEnabled:YES];
-        [buttonSaveProduct setAlpha:1.0];
-        
+        [self setEnableSaveButton:YES];
         
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
@@ -110,6 +105,11 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)setEnableSaveButton:(BOOL)enable{
+    [buttonSaveProduct setEnabled:enable];
+    enable ? [buttonSaveProduct setAlpha:1.0] : [buttonSaveProduct setAlpha:0.3];
 }
 
 -(void)setValuesResponseToVC:(NSString *)response{

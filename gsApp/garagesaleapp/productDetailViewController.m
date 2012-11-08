@@ -87,9 +87,9 @@
 
     //Check if Flag isIdPersonNumber is name or number
     if (isIdPersonNumber) {
-        [self setupProfileMapping];
+        [self getResourcePathProfile];
     } else{
-        [self setupGarageMapping];
+        [self getResourcePathGarage];
     }
 
 }
@@ -316,7 +316,7 @@
     }
 }
 
-- (void)setupGarageMapping {
+- (void)getResourcePathGarage {
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
     
     if (self.isIdPersonNumber)
@@ -330,7 +330,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupProfileMapping {
+- (void)getResourcePathProfile {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
@@ -346,7 +346,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupProductMapping{
+- (void)getResourcePathProduct{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     
@@ -361,7 +361,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupProductPhotosMapping{
+- (void)getResourcePathProductPhotos{
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *productPhotoMapping = [Mappings getProductPhotoMapping];
     
@@ -380,12 +380,12 @@
         if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
             arrayGarage = objects;
             if (!self.isIdPersonNumber)
-                [self setupProfileMapping];
+                [self getResourcePathProfile];
         }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
             arrayProfile = objects;
             if (self.isIdPersonNumber)
-                [self setupGarageMapping];
-            [self setupProductMapping];
+                [self getResourcePathGarage];
+            [self getResourcePathProduct];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             [product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
@@ -477,7 +477,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
-    // [self setupProfileMapping];
+    // [self getResourcePathProfile];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {

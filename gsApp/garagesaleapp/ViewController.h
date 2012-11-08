@@ -10,7 +10,7 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "productTableViewController.h"
 #import "signUpViewController.h"
-#import "QuartzCore/QuartzCore.h"
+//#import "QuartzCore/QuartzCore.h"
 #import "productAccountViewController.h"
 
 @interface ViewController : MasterViewController <RKObjectLoaderDelegate,
@@ -49,7 +49,7 @@
 
 @property (unsafe_unretained, nonatomic) UIImageView *activityImageView;
 
-- (void)setupProductMapping;
+- (void)getResourcePathProduct;
 - (void)reachability;
 - (void)loadAttribsToComponents;
 - (IBAction)reloadPage:(id)sender;

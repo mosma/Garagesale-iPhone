@@ -15,8 +15,7 @@
 #import "settingsAccountViewController.h"
 #import "MBProgressHUD.h"
 
-@interface signUpViewController : UIViewController <UITextFieldDelegate, 
-                                                    UITextViewDelegate, 
+@interface signUpViewController : UIViewController <UITextFieldDelegate,
                                                     BSKeyboardControlsDelegate,
                                                     UIScrollViewDelegate, 
                                                     RKObjectLoaderDelegate,
@@ -45,6 +44,8 @@
     NSUserDefaults                  *settingsAccount;
     MBProgressHUD                   *HUD;
     BOOL                            isLoadingDone;
+    int validatorFlag;
+    
 }
 
 //Sigup outlets
@@ -69,11 +70,10 @@
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSUserDefaults        *settingsAccount;
 
+
 //Actions and functions
 -(void)loadAttribsToComponents;
 -(void)setLogin:(NSArray *)objects;
--(IBAction)checkLogin:(id)sender;
--(void)setupGarageMapping;
--(void)setupProfileMapping;
--(IBAction)postNewGarage:(id)sender;
+-(void)getResourcePathGarage;
+-(void)getResourcePathProfile;
 @end

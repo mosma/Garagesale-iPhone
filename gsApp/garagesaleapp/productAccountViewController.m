@@ -87,6 +87,8 @@
     [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
+    txtFieldValue.keyboardType = UIKeyboardTypeDecimalPad;
+    
     shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
     [shadowView setBackgroundColor:[UIColor blackColor]];
     [shadowView setAlpha:0];
@@ -163,7 +165,7 @@
     }
 }
 
-- (void)setupProductMapping{
+- (void)getResourcePathProduct{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
@@ -196,7 +198,7 @@
 }
 
 -(void)loadingProduct{
-    [self setupProductMapping];
+    [self getResourcePathProduct];
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
@@ -748,6 +750,13 @@
 {
     [textField becomeFirstResponder];
     [self scrollViewToTextField:textField];
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([GlobalFunctions onlyNumberKey:string])
+        return YES;
+    else
+        return NO;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

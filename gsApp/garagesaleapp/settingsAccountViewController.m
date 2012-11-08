@@ -139,7 +139,7 @@
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
     
-    garageName.font        = [UIFont fontWithName:@"Droid Sans" size:22 ];
+    garageName.font        = [UIFont fontWithName:@"DroidSans-Bold" size:22 ];
     
     city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
     [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
@@ -159,7 +159,7 @@
     [self setupKeyboardControls];
 }
 
-- (void)setupGarageMapping {
+- (void)getResourcePathGarage {
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
     
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@",
@@ -170,7 +170,7 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)setupProfileMapping {
+- (void)getResourcePathProfile {
     RKObjectMapping *profileMapping = [Mappings getProfileMapping];
     
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
@@ -185,13 +185,28 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
         [self setProfile:objects];
-        [self setupGarageMapping];
+        [self getResourcePathGarage];
     }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
         [self setGarage:objects];
     }
 }
 
 -(IBAction)saveSettings{
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
@@ -245,6 +260,25 @@
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -262,7 +296,7 @@
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
 }
 
-- (void)setupLogOut{
+- (void)getResourcePathLogOut{
     [[[RKClient sharedClient] delete:[NSString stringWithFormat:@"/login/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self] send];
 }
 
@@ -281,7 +315,7 @@
         
     } else if ([request isPOST]) {
         
-        [self setupProfileMapping];
+        [self getResourcePathProfile];
         isSaved = YES;
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
@@ -315,7 +349,7 @@
      Reset Token... Colocar isso no globalfuncionts
      */
     
-    [self setupLogOut];
+    [self getResourcePathLogOut];
     
     NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     

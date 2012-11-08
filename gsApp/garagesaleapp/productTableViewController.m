@@ -58,7 +58,7 @@
     [self.navigationController setNavigationBarHidden:NO];
     //Initializing the Object Managers
     RKObjManeger = [RKObjectManager sharedManager];
-    [self setupProductMapping];
+    [self getResourcePathProduct];
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
@@ -106,7 +106,7 @@
     }
 }
 
-- (void)setupProductMapping{
+- (void)getResourcePathProduct{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
@@ -217,7 +217,7 @@
 //    self.strLocalResourcePath = @"/product";
 //    [self.mutArrayProducts removeAllObjects];
 //    [self.tableView reloadData];
-//    [self setupProductMapping];
+//    [self getResourcePathProduct];
 }
 
 // Table view data source
@@ -456,7 +456,7 @@
     
     //Search Service
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
-    [self setupProductMapping];
+    [self getResourcePathProduct];
     [self searchBar:searchBar activate:NO];
     [mutArrayProducts removeAllObjects];
     [mutDictDataThumbs removeAllObjects];

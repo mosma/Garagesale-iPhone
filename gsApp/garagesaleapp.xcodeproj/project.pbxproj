@@ -213,6 +213,8 @@
 		CCB1B3C314BA119A0002723D /* productCustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB1B3C214BA119A0002723D /* productCustomViewCell.m */; };
 		CCBAD3BF14BE042B00FEDC76 /* galleryScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */; };
 		CCC02D8B14D2FF180076BE31 /* Bid.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC02D8A14D2FF180076BE31 /* Bid.m */; };
+		CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */; };
+		CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */; };
 		CCCC056315B7AFE300C45DDC /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056015B7AFE300C45DDC /* add.png */; };
 		CCCC056415B7AFE300C45DDC /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056115B7AFE300C45DDC /* add@2x.png */; };
 		CCCC056515B7AFE300C45DDC /* person@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056215B7AFE300C45DDC /* person@2x.png */; };
@@ -547,6 +549,10 @@
 		CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = galleryScrollViewController.m; sourceTree = "<group>"; };
 		CCC02D8914D2FF180076BE31 /* Bid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bid.h; sourceTree = "<group>"; };
 		CCC02D8A14D2FF180076BE31 /* Bid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bid.m; sourceTree = "<group>"; };
+		CCC7B07E164AEB4400BB3EC6 /* GarageNameValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GarageNameValidate.h; sourceTree = "<group>"; };
+		CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GarageNameValidate.m; sourceTree = "<group>"; };
+		CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailValidate.h; sourceTree = "<group>"; };
+		CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailValidate.m; sourceTree = "<group>"; };
 		CCCC056015B7AFE300C45DDC /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		CCCC056115B7AFE300C45DDC /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		CCCC056215B7AFE300C45DDC /* person@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person@2x.png"; sourceTree = "<group>"; };
@@ -1062,6 +1068,10 @@
 				CCC02D8A14D2FF180076BE31 /* Bid.m */,
 				CC7228C9158F39BA00FB1E75 /* Login.h */,
 				CC7228CA158F39BA00FB1E75 /* Login.m */,
+				CCC7B07E164AEB4400BB3EC6 /* GarageNameValidate.h */,
+				CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */,
+				CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */,
+				CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */,
 			);
 			name = EntityClass;
 			sourceTree = "<group>";
@@ -1464,6 +1474,8 @@
 				CC6085F4164217E5007CF930 /* PostProductDelegate.m in Sources */,
 				CC48488F1642D72C00A6A75F /* PhotoReturn.m in Sources */,
 				CC2EA31A1644A38700F13C62 /* MasterViewController.m in Sources */,
+				CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */,
+				CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

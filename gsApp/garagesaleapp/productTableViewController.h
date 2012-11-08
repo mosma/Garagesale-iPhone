@@ -11,7 +11,7 @@
 #import "productDetailViewController.h"
 #import "productCustomViewCell.h"
 #import "OHAttributedLabel.h"
-#import "QuartzCore/QuartzCore.h"
+//#import "QuartzCore/QuartzCore.h"
 
 @interface productTableViewController : UITableViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
@@ -37,11 +37,11 @@
 @property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
-@property (nonatomic, retain) IBOutlet OHAttributedLabel *OHlabelTitleResults;
-@property (nonatomic, retain) IBOutlet UISearchBar       *searchBarProduct;
+@property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
+@property (retain, nonatomic) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
--(void)setupProductMapping;
+-(void)getResourcePathProduct;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
 -(void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 -(IBAction)showSearch:(id)sender;

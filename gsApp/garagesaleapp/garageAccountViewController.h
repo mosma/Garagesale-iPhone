@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "productTableViewController.h"
-#import "QuartzCore/QuartzCore.h"
+//#import "QuartzCore/QuartzCore.h"
 #import "GlobalFunctions.h"
 #import "productCustomViewCell.h"
 #import "productAccountViewController.h"
