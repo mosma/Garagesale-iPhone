@@ -753,10 +753,13 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([GlobalFunctions onlyNumberKey:string])
-        return YES;
-    else
-        return NO;
+    if (textField.tag == 9) {
+        if ([GlobalFunctions onlyNumberKey:string])
+            return YES;
+        else
+            return NO;
+    }
+    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

@@ -103,7 +103,7 @@
 
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
         } else {
-            description.text = profile.nome;
+            description.text = garage.about;
             garageName.text  = profile.garagem;
             city.text        = [NSString stringWithFormat:@"%@, %@, %@",
                                         garage.city,

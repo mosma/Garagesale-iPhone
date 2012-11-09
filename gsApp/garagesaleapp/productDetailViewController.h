@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import "galleryScrollViewController.h"
-#import "garageDetailViewController.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
 #import "AddThis.h"
