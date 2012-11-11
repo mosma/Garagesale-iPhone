@@ -183,13 +183,16 @@
         [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
         //[AddThisSDK setAddThisApplicationId:@""];
         
-        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
-                                                  withFrame:CGRectMake(225, 305, 36, 30)
-                                                   forImage:imageView.image
-                                                  withTitle:@"Product Send from Garagesaleapp.me"
-                                                description:labelDescricao.text];
+//        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
+//                                                  withFrame:CGRectMake(225, 305, 36, 30)
+//                                                   forImage:imageView.image
+//                                                  withTitle:@"Product Send from Garagesaleapp.me"
+//                                                description:labelDescricao.text];
+
         
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:addThisButton]];
+        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(topRight:)];
+        
+        [self.navigationItem setRightBarButtonItem:btnCancel];
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
 
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
@@ -310,8 +313,27 @@
             image                   = [UIImage imageNamed:@"nopicture.png"];
             imageView               = [[UIImageView alloc] initWithImage:image];
         }
+        
+//        if ([product.idPessoa intValue] == [[[GlobalFunctions getUserDefaults] valueForKey:@"idPerson"] intValue]) {
+//            [buttonDeleteProduct setHidden:NO];
+//            [buttonEditProduct setHidden:NO];
+//            [buttonDeleteProduct setUserInteractionEnabled:YES];
+//            [buttonEditProduct setUserInteractionEnabled:YES];
+//        }
 
+        
+        NSLog(@"%@", product.idPessoa);
+        
+         NSLog(@"%@", [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]);
+        
+        if ([product.idPessoa isEqualToString:(NSString *)[[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]]) {
+            [buttonDeleteProduct setHidden:NO];
+            [buttonEditProduct setHidden:NO];
+            [buttonDeleteProduct setUserInteractionEnabled:YES];
+            [buttonEditProduct setUserInteractionEnabled:YES];
+        }
 
+        
         [activityIndicator stopAnimating];
     }
 }
@@ -328,6 +350,39 @@
     
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+}
+
+-(void)popover:(id)sender
+{
+    
+    popOverViewController = [[UIViewController alloc] init];
+    
+    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:popOverViewController];
+    
+    //popover.arrowDirection = FPPopoverArrowDirectionAny;
+    popover.tint = FPPopoverDefaultTint;
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        popover.contentSize = CGSizeMake(300, 500);
+    }
+    else {
+        popover.contentSize = CGSizeMake(150, 150);
+    }
+    
+    popover.arrowDirection = FPPopoverArrowDirectionUp;
+    
+    popover.tint = FPPopoverGreenTint;
+    
+    UIView* btnView = [sender valueForKey:@"view"];
+    
+    //sender is the UIButton view
+    [popover presentPopoverFromView:btnView];
+}
+
+-(void)topRight:(id)sender
+{
+    [self popover:sender];
 }
 
 - (void)getResourcePathProfile {
@@ -389,11 +444,19 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             [product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
+            //[product setIdPessoa:[(Product *)[objects objectAtIndex:0] idPessoa]];
+            //self.product = (Product *)[objects objectAtIndex:0];
             [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
             productPhotos = (NSMutableArray *)objects;
         }
     }
+}
+
+- (IBAction)gotoProductAccountVC:(id)sender{
+    productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
+    prdAccVC.product   = self.product;
+    [self.navigationController pushViewController:prdAccVC animated:YES];
 }
 
 -(IBAction)bidPost:(id)sender{

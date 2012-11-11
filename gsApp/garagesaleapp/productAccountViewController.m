@@ -562,22 +562,20 @@
     float progress = 0.0f;
     
     int count = 0;
-    while (!_postProdDelegate.isLoadingDone) {
+    while (!_postProdDelegate.isSaveProductDone) {
 		progress += 0.01f;
 		HUD.progress = progress;
         if (progress > 1) progress = 0.0f;
 		usleep(30000);
         count++;
-        if (count > 200){
-            HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
-            HUD.mode = MBProgressHUDModeCustomView;
-            HUD.labelText = @"Fail! Check your connection.";
-            sleep(2);
-            break;
-        }
+        if (_postProdDelegate.isSaveProductFail) break;
 	}
-    
-    if (_postProdDelegate.isLoadingDone) {
+    if (_postProdDelegate.isSaveProductFail){
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.labelText = @"Fail! Check your connection.";
+        sleep(2);
+    }else if (_postProdDelegate.isSaveProductDone && !_postProdDelegate.isSaveProductFail) {
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.labelText = @"Completed";

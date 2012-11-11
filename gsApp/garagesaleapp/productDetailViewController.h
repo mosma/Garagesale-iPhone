@@ -17,12 +17,13 @@
 #import "Category.h"
 #import "Bid.h"
 #import "OHAttributedLabel.h"
+#import "FPPopoverController.h"
 
 @interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 
                                                             BSKeyboardControlsDelegate,
                                                             UIScrollViewDelegate,
-                                                            RKObjectLoaderDelegate,UITabBarDelegate> {
+                                                            RKObjectLoaderDelegate,UITabBarDelegate,UIPopoverControllerDelegate> {
                                                                 
     
     RKObjectManager                             *RKObjManeger;
@@ -37,6 +38,8 @@
     IBOutlet UILabel                            *labelDescricao;
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
     IBOutlet UIScrollView                       *scrollViewMain;
+    UIViewController                   *popOverViewController;
+                                                                UIPopoverController *popOver;
     __unsafe_unretained IBOutlet UIButton       *buttonBid;
     __unsafe_unretained IBOutlet UITextField    *txtFieldEmail;
     __unsafe_unretained IBOutlet UITextField    *txtFieldOffer;

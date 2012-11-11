@@ -17,9 +17,9 @@
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //return @"http://169.254.119.188";
-    return @"http://gsapi.easylikethat.com";
-    //return @"http://api.garagesaleapp.me";
+    //return @"http://192.168.0.150";//text/html
+    return @"http://gsapi.easylikethat.com";//text/plain
+    //return @"http://api.garagesaleapp.me";//text/plain
 }
 
 +(NSString *)getMIMEType {
@@ -63,9 +63,6 @@
      End Block
      */
 
-    
-    
-    
     UIView *viewThumbs = [[UIView alloc] initWithFrame:
                             CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
     
@@ -116,9 +113,11 @@
     if (showPrice) {
         //Set View Price
         UIView *viewPrice = [[UIView alloc] init];
-        
         viewPrice.layer.cornerRadius = 4;
         viewPrice.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
+        
+        [viewPrice setUserInteractionEnabled:NO];
+        
         [viewThumbs addSubview:viewPrice];
         
         //Set Label Only

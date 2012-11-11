@@ -215,6 +215,9 @@
 		CCC02D8B14D2FF180076BE31 /* Bid.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC02D8A14D2FF180076BE31 /* Bid.m */; };
 		CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */; };
 		CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */; };
+		CCC7B09D164F03E900BB3EC6 /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B098164F03E900BB3EC6 /* FPPopoverController.m */; };
+		CCC7B09E164F03E900BB3EC6 /* FPPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B09A164F03E900BB3EC6 /* FPPopoverView.m */; };
+		CCC7B09F164F03E900BB3EC6 /* FPTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B09C164F03E900BB3EC6 /* FPTouchView.m */; };
 		CCCC056315B7AFE300C45DDC /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056015B7AFE300C45DDC /* add.png */; };
 		CCCC056415B7AFE300C45DDC /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056115B7AFE300C45DDC /* add@2x.png */; };
 		CCCC056515B7AFE300C45DDC /* person@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCC056215B7AFE300C45DDC /* person@2x.png */; };
@@ -234,7 +237,6 @@
 		CCEB606F14BB45AC0078BA72 /* Corben-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606C14BB45AC0078BA72 /* Corben-Bold.ttf */; };
 		CCEB607014BB45AC0078BA72 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606D14BB45AC0078BA72 /* DroidSans-Bold.ttf */; };
 		CCEB607114BB45AC0078BA72 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */; };
-		CCEB607914BB522B0078BA72 /* garageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEB607814BB522B0078BA72 /* garageDetailViewController.m */; };
 		CCEFD7B814BC49D4001DD143 /* Garage.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEFD7B714BC49D4001DD143 /* Garage.m */; };
 		CCFB4D1114B80F4000F777C5 /* productTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB4D1014B80F4000F777C5 /* productTableViewController.m */; };
 /* End PBXBuildFile section */
@@ -553,6 +555,12 @@
 		CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GarageNameValidate.m; sourceTree = "<group>"; };
 		CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailValidate.h; sourceTree = "<group>"; };
 		CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailValidate.m; sourceTree = "<group>"; };
+		CCC7B097164F03E900BB3EC6 /* FPPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverController.h; sourceTree = "<group>"; };
+		CCC7B098164F03E900BB3EC6 /* FPPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverController.m; sourceTree = "<group>"; };
+		CCC7B099164F03E900BB3EC6 /* FPPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPopoverView.h; sourceTree = "<group>"; };
+		CCC7B09A164F03E900BB3EC6 /* FPPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPopoverView.m; sourceTree = "<group>"; };
+		CCC7B09B164F03E900BB3EC6 /* FPTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTouchView.h; sourceTree = "<group>"; };
+		CCC7B09C164F03E900BB3EC6 /* FPTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTouchView.m; sourceTree = "<group>"; };
 		CCCC056015B7AFE300C45DDC /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		CCCC056115B7AFE300C45DDC /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		CCCC056215B7AFE300C45DDC /* person@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person@2x.png"; sourceTree = "<group>"; };
@@ -574,8 +582,6 @@
 		CCEB606C14BB45AC0078BA72 /* Corben-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Corben-Bold.ttf"; sourceTree = "<group>"; };
 		CCEB606D14BB45AC0078BA72 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
 		CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
-		CCEB607714BB522B0078BA72 /* garageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = garageDetailViewController.h; sourceTree = "<group>"; };
-		CCEB607814BB522B0078BA72 /* garageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = garageDetailViewController.m; sourceTree = "<group>"; };
 		CCEFD7B614BC49D4001DD143 /* Garage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Garage.h; sourceTree = "<group>"; };
 		CCEFD7B714BC49D4001DD143 /* Garage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Garage.m; sourceTree = "<group>"; };
 		CCFB4D0F14B80F3F00F777C5 /* productTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = productTableViewController.h; sourceTree = "<group>"; };
@@ -754,6 +760,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CCC7B096164F03BE00BB3EC6 /* PopOver */,
 				CC6B0FD715D622AE00BBB742 /* MBProgressHUD */,
 				CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */,
 				CC16B4121545BD6A00A4487B /* AddThis */,
@@ -1076,6 +1083,19 @@
 			name = EntityClass;
 			sourceTree = "<group>";
 		};
+		CCC7B096164F03BE00BB3EC6 /* PopOver */ = {
+			isa = PBXGroup;
+			children = (
+				CCC7B097164F03E900BB3EC6 /* FPPopoverController.h */,
+				CCC7B098164F03E900BB3EC6 /* FPPopoverController.m */,
+				CCC7B099164F03E900BB3EC6 /* FPPopoverView.h */,
+				CCC7B09A164F03E900BB3EC6 /* FPPopoverView.m */,
+				CCC7B09B164F03E900BB3EC6 /* FPTouchView.h */,
+				CCC7B09C164F03E900BB3EC6 /* FPTouchView.m */,
+			);
+			name = PopOver;
+			sourceTree = "<group>";
+		};
 		CCD722D31566A61B00FA3965 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1087,8 +1107,6 @@
 				CC2D1651157D489A000B8BD3 /* productDetailViewController.m */,
 				CCB1B3C114BA119A0002723D /* productCustomViewCell.h */,
 				CCB1B3C214BA119A0002723D /* productCustomViewCell.m */,
-				CCEB607714BB522B0078BA72 /* garageDetailViewController.h */,
-				CCEB607814BB522B0078BA72 /* garageDetailViewController.m */,
 				CCBAD3BD14BE042B00FEDC76 /* galleryScrollViewController.h */,
 				CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */,
 				CC8ED71A157E9F6700FEB780 /* signUpViewController.h */,
@@ -1423,7 +1441,6 @@
 				CC1ED9C714B7AFC1006F50C8 /* Photo.m in Sources */,
 				CCFB4D1114B80F4000F777C5 /* productTableViewController.m in Sources */,
 				CCB1B3C314BA119A0002723D /* productCustomViewCell.m in Sources */,
-				CCEB607914BB522B0078BA72 /* garageDetailViewController.m in Sources */,
 				CCEFD7B814BC49D4001DD143 /* Garage.m in Sources */,
 				CC13C8CC14BC767E00045502 /* Profile.m in Sources */,
 				CCBAD3BF14BE042B00FEDC76 /* galleryScrollViewController.m in Sources */,
@@ -1476,6 +1493,9 @@
 				CC2EA31A1644A38700F13C62 /* MasterViewController.m in Sources */,
 				CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */,
 				CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */,
+				CCC7B09D164F03E900BB3EC6 /* FPPopoverController.m in Sources */,
+				CCC7B09E164F03E900BB3EC6 /* FPPopoverView.m in Sources */,
+				CCC7B09F164F03E900BB3EC6 /* FPTouchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

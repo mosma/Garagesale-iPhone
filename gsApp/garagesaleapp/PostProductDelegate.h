@@ -14,10 +14,12 @@
 #import <Foundation/Foundation.h>
 
 @interface PostProductDelegate : NSObject <RKObjectLoaderDelegate, RKRequestDelegate> {
-    BOOL isLoadingDone;
+    BOOL isSaveProductDone;
+    BOOL isSaveProductFail;
 }
 
-@property(unsafe_unretained, nonatomic) BOOL isLoadingDone;
+@property(unsafe_unretained, nonatomic) BOOL isSaveProductDone;
+@property(unsafe_unretained, nonatomic) BOOL isSaveProductFail;
 
 -(void)postProduct:(NSMutableDictionary *)productParams;
 

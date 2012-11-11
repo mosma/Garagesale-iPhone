@@ -126,6 +126,7 @@
 }
 
 - (void)deletePhoto {
+    NSLog(@"%@", [photoReturn valueForKey:@"delete_url"]);
     [[RKClient sharedClient] delete:[photoReturn valueForKey:@"delete_url"] delegate:self];
 }
 

@@ -11,7 +11,8 @@
 
 @implementation PostProductDelegate
 
-@synthesize isLoadingDone;
+@synthesize isSaveProductDone;
+@synthesize isSaveProductFail;
 
 -(void)postProduct:(NSMutableDictionary *)productParams {
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
@@ -37,7 +38,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    isLoadingDone = YES;
+    isSaveProductFail = YES;
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
@@ -54,10 +55,8 @@
         
     } else if ([request isPOST]) {
         NSLog(@"after posting to server, %@", [response bodyAsString]);
-        
-        isLoadingDone = YES;
-        
         // Handling POST /other.json
+        isSaveProductDone = YES;
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
