@@ -51,17 +51,19 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    //[self reloadPage:nil];
+    
+    if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
+        [self loadAttribsToComponents:NO];
+        [self reloadPage:nil];
+    }
 }
 
 - (IBAction)reloadPage:(id)sender{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
-    
-    [mutArrayProducts removeAllObjects];
-        
-    mutArrayProducts = nil;
+
+    //mutArrayProducts = nil;
     [self getResourcePathProduct];
     
     //Set Display thumbs on Home.
@@ -69,6 +71,9 @@
     globalFunctions.imageThumbsXorigin_Iphone = 10;
     globalFunctions.imageThumbsYorigin_Iphone = 10;
     
+    
+    [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
+    [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
@@ -122,10 +127,10 @@
         
         self.navigationItem.title = NSLocalizedString(@"garage", @"");
         
+        self.navigationItem.hidesBackButton = NO;
+        
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
-        
-        self.navigationItem.hidesBackButton = NO;
         
        // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
@@ -136,8 +141,13 @@
         [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
                                withObject:gravatarUrl];
         
-    } else {
+        
         mutDictDataThumbs = [[NSMutableDictionary alloc] init];
+        
+        
+        
+    } else {
+        
         
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
@@ -157,15 +167,15 @@
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
 
         //Set Display thumbs on Home.
-        globalFunctions.countColumnImageThumbs = -1;
-        globalFunctions.imageThumbsXorigin_Iphone = 10;
-        globalFunctions.imageThumbsYorigin_Iphone = 10;
+//        globalFunctions.countColumnImageThumbs = -1;
+//        globalFunctions.imageThumbsXorigin_Iphone = 10;
+//        globalFunctions.imageThumbsYorigin_Iphone = 10;
 
         NSOperationQueue *queue = [NSOperationQueue new];
         
         NSInvocationOperation *opThumbsProd = [[NSInvocationOperation alloc]
                                             initWithTarget:self
-                                            selector:@selector(loadButtonsThumbsProduct)
+                                            selector:@selector(loadButtonsProduct)
                                             object:nil];
         [queue addOperation:opThumbsProd];
     }  
@@ -204,8 +214,10 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if([objects count] > 0){
-        self.mutArrayProducts = (NSMutableArray *)objects;
-        [self.tableViewProducts reloadData];
+        [mutDictDataThumbs removeAllObjects];
+        [mutArrayProducts removeAllObjects];
+        mutArrayProducts = (NSMutableArray *)objects;
+        [tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
         isLoadingDone = !isLoadingDone;
     }
@@ -284,12 +296,14 @@
     
     if (scrollView.tag == 1 || scrollView.tag == 2) {
         if (scrollView.contentOffset.y == 0){
-            [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];  
+            [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
+            [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
+            [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
         }
     } 
 }
 
--(void)loadButtonsThumbsProduct{
+-(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
     for(int i = 0; i < [self.mutArrayProducts count]; i++)
     {
@@ -473,15 +487,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self loadAttribsToComponents:NO];
-    
-    if ([mutArrayProducts count] == 0)
-        [self reloadPage:nil];
-    
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
+        [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"NO" forKey:@"isProductRecorded"];
+        [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }

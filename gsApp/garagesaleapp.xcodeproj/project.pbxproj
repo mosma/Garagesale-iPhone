@@ -225,6 +225,8 @@
 		CCCE58891577FC0500F51ACA /* btBidThisItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE58871577FC0500F51ACA /* btBidThisItem@2x.png */; };
 		CCCE588C1577FD4600F51ACA /* btCancelBidItem.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */; };
 		CCCE588D1577FD4600F51ACA /* btCancelBidItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */; };
+		CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD07459165420E100156DAC /* sharePopOverViewController.m */; };
+		CCD0745C165424EB00156DAC /* addThisButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD0745B165424EA00156DAC /* addThisButton.png */; };
 		CCD7958415C3118900F0B4D3 /* uitextViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */; };
 		CCD7958515C3118900F0B4D3 /* uitextViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */; };
 		CCD7958B15C3A1D000F0B4D3 /* dropDownCurrency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */; };
@@ -568,6 +570,9 @@
 		CCCE58871577FC0500F51ACA /* btBidThisItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btBidThisItem@2x.png"; sourceTree = "<group>"; };
 		CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btCancelBidItem.png; sourceTree = "<group>"; };
 		CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btCancelBidItem@2x.png"; sourceTree = "<group>"; };
+		CCD07458165420E100156DAC /* sharePopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharePopOverViewController.h; sourceTree = "<group>"; };
+		CCD07459165420E100156DAC /* sharePopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharePopOverViewController.m; sourceTree = "<group>"; };
+		CCD0745B165424EA00156DAC /* addThisButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addThisButton.png; sourceTree = "<group>"; };
 		CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uitextViewBackground.png; sourceTree = "<group>"; };
 		CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uitextViewBackground@2x.png"; sourceTree = "<group>"; };
 		CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownCurrency@2x.png"; sourceTree = "<group>"; };
@@ -772,6 +777,7 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CCD0745B165424EA00156DAC /* addThisButton.png */,
 				CC51E0BA16330ED7006B0D35 /* icon@2x.png */,
 				CC51E0B816330ED2006B0D35 /* icon.png */,
 				CC4FF986163083BF00F30458 /* ICONE@2x.png */,
@@ -1117,6 +1123,8 @@
 				CC964090159195E600D00915 /* garageAccountViewController.m */,
 				CC9640921591A1E200D00915 /* settingsAccountViewController.h */,
 				CC9640931591A1E200D00915 /* settingsAccountViewController.m */,
+				CCD07458165420E100156DAC /* sharePopOverViewController.h */,
+				CCD07459165420E100156DAC /* sharePopOverViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1399,6 +1407,7 @@
 				CC21C74516374B160083D29D /* backgroundDetailReportGarage@2x.png in Resources */,
 				CC5265BA1639A36C00F6EADD /* btBackgroundForms.png in Resources */,
 				CC5265BB1639A36C00F6EADD /* btBackgroundForms@2x.png in Resources */,
+				CCD0745C165424EB00156DAC /* addThisButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1496,6 +1505,7 @@
 				CCC7B09D164F03E900BB3EC6 /* FPPopoverController.m in Sources */,
 				CCC7B09E164F03E900BB3EC6 /* FPPopoverView.m in Sources */,
 				CCC7B09F164F03E900BB3EC6 /* FPTouchView.m in Sources */,
+				CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

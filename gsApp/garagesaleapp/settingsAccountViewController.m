@@ -559,7 +559,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isProductRecorded"] isEqual:@"YES"]) {
+    //Return to Root viewController to display garge Case User Add A new Product.
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
     [self loadAttribsToComponents];

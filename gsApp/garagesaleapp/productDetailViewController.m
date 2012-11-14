@@ -166,33 +166,10 @@
         [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
         [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
         OHlabelValorEsperado.attributedText = attrStrVE;
-
-        //configure addthis -- (this step is optional)
-        [AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
-        [AddThisSDK setToolBarColor:[UIColor whiteColor]];
-        [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
+         
+        UIBarButtonItem *btnAddThis = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addThisButton.png"] landscapeImagePhone:[UIImage imageNamed:@"addThisButton.png"] style:UIBarButtonSystemItemEdit target:self action:@selector(topRight:)];
         
-        //Facebook connect settings
-        //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-        [AddThisSDK setFacebookAPIKey:@"280819525292258"];
-        [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-        
-        [AddThisSDK shouldAutoRotate:NO];
-        [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-        
-        [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
-        //[AddThisSDK setAddThisApplicationId:@""];
-        
-//        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
-//                                                  withFrame:CGRectMake(225, 305, 36, 30)
-//                                                   forImage:imageView.image
-//                                                  withTitle:@"Product Send from Garagesaleapp.me"
-//                                                description:labelDescricao.text];
-
-        
-        UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(topRight:)];
-        
-        [self.navigationItem setRightBarButtonItem:btnCancel];
+        [self.navigationItem setRightBarButtonItem:btnAddThis];
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
 
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
@@ -271,7 +248,7 @@
             // [secondView addSubview:tagsScrollView];
             [secondView addSubview:garageDetailView];
             scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
-                
+        
         [UIView commitAnimations];
         
         countView.layer.cornerRadius = 4;
@@ -354,10 +331,12 @@
 
 -(void)popover:(id)sender
 {
+    sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
-    popOverViewController = [[UIViewController alloc] init];
+    sharePopOverVC.description = labelDescricao.text;
+    sharePopOverVC.imgProduct = imageView.image;
     
-    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:popOverViewController];
+    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
     
     //popover.arrowDirection = FPPopoverArrowDirectionAny;
     popover.tint = FPPopoverDefaultTint;
@@ -367,12 +346,12 @@
         popover.contentSize = CGSizeMake(300, 500);
     }
     else {
-        popover.contentSize = CGSizeMake(150, 150);
+        popover.contentSize = CGSizeMake(150, 173);
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
     
-    popover.tint = FPPopoverGreenTint;
+    popover.tint = FPPopoverLightGrayTint;
     
     UIView* btnView = [sender valueForKey:@"view"];
     
@@ -498,16 +477,39 @@
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    RKObjectRouter *router = [[RKObjectManager sharedManager] router];
-    [router routeClass:[Product class] toResourcePath:@"/product/659"];
     
-    Product *prd = [[Product alloc] init];
-    [prd setId:self.product.id];
     
-    [[RKObjectManager sharedManager] deleteObject:prd delegate:self];
+    
+    
+    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"Atenção!" message:@"Deseja Realmente excluir ?" delegate:self cancelButtonTitle:@"cancelar" otherButtonTitles:@"Deletar", nil];
+    
+    
+    [alertV show];
+    
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"0");
+            break;
+        case 1:
+            [[RKClient sharedClient] delete:
+             [NSString stringWithFormat:@"/product/%i?token=%@&garage=%@",
+              [self.product.id intValue] ,
+              [[GlobalFunctions getUserDefaults] valueForKey:@"token"],
+              [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]] delegate:self];
+            break;
+        default:
+            break;
+    }
 }
 
 -(IBAction)reportGarage:(id)sender {
+
+    
+    
     
     
     
@@ -566,6 +568,12 @@
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
@@ -596,17 +604,11 @@
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{
     UIImage *image;
-    CGRect rect;
-    rect.size.width         = 320;
-    rect.size.height        = 280;
+//    CGRect rect;
+//    rect.size.width         = 320;
+//    rect.size.height        = 280;
     
-    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
-    [actInd startAnimating];
-    [actInd setColor:[UIColor grayColor]];
-        
-    [actInd setCenter:CGPointMake(160+(320*pagContr.currentPage), 140)];
-        
-    [galleryScrollView addSubview:actInd];
+
     
     /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll*/
     NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
@@ -692,6 +694,11 @@
         //never repeat load image at your respective page.
         if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {
             NSOperationQueue *queue = [NSOperationQueue new];
+            UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+            [actInd startAnimating];
+            [actInd setColor:[UIColor grayColor]];
+            [actInd setCenter:CGPointMake(160+(320*PagContGallery.currentPage), 140)];
+            [galleryScrollView addSubview:actInd];
             NSInvocationOperation *operation = [[NSInvocationOperation alloc]
                                                 initWithTarget:self
                                                 selector:@selector(loadGalleryTop:)
@@ -699,10 +706,6 @@
             [queue addOperation:operation];
             nextPageGallery++;
         }
-    
-
-
-
 }
 
 -(IBAction)pageControlCliked{
@@ -977,7 +980,6 @@
     secondView = nil;
     [self setSecondView:nil];
     garageDetailView = nil;
-    addThisButton = nil;
     viewBidSend = nil;
     viewBidMsg = nil;
     [self setViewBidSend:nil];

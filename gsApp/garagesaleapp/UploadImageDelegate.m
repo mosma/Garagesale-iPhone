@@ -116,11 +116,6 @@
     //transform in json
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
-    
-    //UIImage *imgDelete                  = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
-    //imgViewDelete          = [[UIImageView alloc] initWithImage:imgDelete];
-    //[imgViewDelete setFrame:CGRectMake(-7, -7, 17, 17)];
-    [imageView setUserInteractionEnabled:YES];
     //imgViewDelete.tag = 455;
     // [self.imageView addSubview:imgViewDelete];
 }

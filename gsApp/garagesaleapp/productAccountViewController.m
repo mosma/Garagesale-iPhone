@@ -159,6 +159,7 @@
     [self setupKeyboardControls];
     
     if (self.product != nil) {
+        [self.view setAlpha:0.7];
         [self loadingProduct];
     }else {
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
@@ -202,7 +203,7 @@
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
-    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:[NSString stringWithFormat:@"Edit:%@",product.nome] width:300]];
+    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Edit product" width:200]];
 }
 
 -(void)backPage{
@@ -380,34 +381,45 @@
 //    if (nsMutArrayPicsProduct == nil) {
         //[self displayImages:[NSArray arrayWithObject:aImage]];
 //    }else{
+    
+    //        UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
+    //        UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
+    //        [imgViewDelete setFrame:CGRectMake(-7, -7, 25, 25)];
+    //        [uplImageDelegate.imageView setUserInteractionEnabled:YES];
+    //        //[uplImageDelegate.imageView setExclusiveTouch:YES];
+    //        [imgViewDelete setUserInteractionEnabled:YES];
+    //        [imgViewDelete setMultipleTouchEnabled:YES];
+    
+    
         [nsMutArrayPicsProduct addObject:aImage];
         
-        UIImageView *picViewAtGallery       = [[UIImageView alloc] initWithImage:aImage];
-        picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
+        UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+        picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 ,
+                                            self.heightPaddingInImages, imageWidth_, imageHeight_);
         [scrollViewPicsProduct addSubview:picViewAtGallery];
+    if (!isNew)
+        [picViewAtGallery setUserInteractionEnabled:YES];
+    else
         [picViewAtGallery setUserInteractionEnabled:NO];
-        
+    
         UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
         [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
         [uplImageDelegate setImageView:picViewAtGallery];
         [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
     
-        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deletePicsAtGallery:)];
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+                                               initWithTarget:self action:@selector(deletePicsAtGallery:)];
         [tapGesture setNumberOfTapsRequired:2];
-        
-        UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:uplImageDelegate action:@selector(deletePhoto)];
-        [tapGesture setNumberOfTapsRequired:2];
-        
-        UILongPressGestureRecognizer * longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(animePicsGallery:)];
-        
-        
-        [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
-        [uplImageDelegate.imageView addGestureRecognizer:tapGesture2];
-        [uplImageDelegate.imageView addGestureRecognizer:longGesture];
+        [tapGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
 
-        
-        
-        
+        UIGestureRecognizer *panGesture = [[UILongPressGestureRecognizer alloc]
+                                                      initWithTarget:self action:@selector(animePicsGallery:)];
+    
+        [panGesture setDelaysTouchesBegan:YES];
+    
+        [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
+        [uplImageDelegate.imageView addGestureRecognizer:panGesture];
+
         [uplImageDelegate setScrollViewPicsProduct:scrollViewPicsProduct];
         
         CGSize size = scrollViewPicsProduct.contentSize;
@@ -419,28 +431,39 @@
 
         if(isNew)
             [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct];
-
 }
 
-
--(void)animePicsGallery:(UILongPressGestureRecognizer *)sender{
+-(void)animePicsGallery:(UILongPressGestureRecognizer *)panGesture{
     //if (sender.state == UIGestureRecognizerStateBegan) {
 
-    if (sender.state == UIGestureRecognizerStateBegan) {
+    if (panGesture.state == UIGestureRecognizerStateBegan) {
         for (UIImageView * imgV in scrollViewPicsProduct.subviews) {
-            //if (imgV.)
+            if (![imgV isEqual:panGesture.view])
                 [imgV setAlpha:0.2];
         }
     }
     
-    else if (sender.state == UIGestureRecognizerStateEnded){
+    else if (panGesture.state == UIGestureRecognizerStateEnded){
 
         for (UIImageView *imgV in scrollViewPicsProduct.subviews) {
             [imgV setAlpha:1.0];
         }
     }
     //}
+    
+    CGPoint location = [panGesture locationInView:[self.scrollViewPicsProduct superview]];
+    
+    location.y = +45;
+    
+    [panGesture.view setCenter:location];
+    
+    NSArray *imageViews         = [scrollViewPicsProduct subviews];
+    int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
 
+    
+   // [(UIImageView *)[nsMutArrayPicsProduct objectAtIndex:indexOfRemovedImageView+1] setCenter:panGesture.view.center];
+    
+    
 }
 
 
@@ -516,29 +539,30 @@
 -(IBAction)saveProduct{
     if ([self validateForm]) {
         [txtFieldValue resignFirstResponder];
-        if (self.product == nil) {
-            NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
-            
-            //get idEstado indice
-            int idEstado = [nsArrayState indexOfObject:txtFieldState.text] + 1;
-            
-            //User and password params
-            NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-            [prodParams setObject:idPerson                      forKey:@"idPessoa"];
-            [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
-            [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
-            [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
-            [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
-                           forKey:@"idEstado"];
-            [prodParams setObject:idPerson                      forKey:@"idUser"];
-            [prodParams setObject:@""                           forKey:@"categorias"];
-            [prodParams setObject:@""                           forKey:@"newPhotos"];
-            [prodParams setObject:[txtFieldCurrency.text
-                                   substringToIndex:3]          forKey:@"currency"];
-
-            [_postProdDelegate postProduct:prodParams];
-            [self initProgressHUDSaveProduct];
-        }
+        NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
+        
+        //get idEstado indice
+        int idEstado = [nsArrayState indexOfObject:txtFieldState.text] + 1;
+        
+        //User and password params
+        NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+        [prodParams setObject:idPerson                      forKey:@"idPessoa"];
+        [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
+        [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
+        [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
+        [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
+                       forKey:@"idEstado"];
+        [prodParams setObject:idPerson                      forKey:@"idUser"];
+        [prodParams setObject:@""                           forKey:@"categorias"];
+        [prodParams setObject:@""                           forKey:@"newPhotos"];
+        [prodParams setObject:[txtFieldCurrency.text
+                               substringToIndex:3]          forKey:@"currency"];
+        if (self.product == nil)
+            [_postProdDelegate postProduct:prodParams idProduct:-1];
+        else 
+            [_postProdDelegate postProduct:prodParams idProduct:[self.product.id intValue]];
+        
+        [self initProgressHUDSaveProduct];
     }
 }
 
@@ -580,11 +604,13 @@
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.labelText = @"Completed";
         sleep(1);
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"isProductRecorded"];
-        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self newProductFinished];
+        if (self.product == nil) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self newProductFinished];
+        }
     }
 }
 
@@ -630,6 +656,8 @@
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
+    
+    [self.view setAlpha:1.0];
     
 }
 
@@ -784,7 +812,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
-   if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+   if (![[[GlobalFunctions getUserDefaults]
+          objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:YES forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];

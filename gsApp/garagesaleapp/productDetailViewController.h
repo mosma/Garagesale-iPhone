@@ -11,19 +11,22 @@
 #import "galleryScrollViewController.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
-#import "AddThis.h"
 #import "garageAccountViewController.h"
 //#import "QuartzCore/QuartzCore.h"
 #import "Category.h"
 #import "Bid.h"
 #import "OHAttributedLabel.h"
 #import "FPPopoverController.h"
+#import "sharePopOverViewController.h"
 
 @interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 
                                                             BSKeyboardControlsDelegate,
                                                             UIScrollViewDelegate,
-                                                            RKObjectLoaderDelegate,UITabBarDelegate,UIPopoverControllerDelegate> {
+                                                            RKObjectLoaderDelegate,
+                                                            UITabBarDelegate,
+                                                            UIPopoverControllerDelegate,
+                                                            UIAlertViewDelegate> {
                                                                 
     
     RKObjectManager                             *RKObjManeger;
@@ -38,8 +41,6 @@
     IBOutlet UILabel                            *labelDescricao;
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
     IBOutlet UIScrollView                       *scrollViewMain;
-    UIViewController                   *popOverViewController;
-                                                                UIPopoverController *popOver;
     __unsafe_unretained IBOutlet UIButton       *buttonBid;
     __unsafe_unretained IBOutlet UITextField    *txtFieldEmail;
     __unsafe_unretained IBOutlet UITextField    *txtFieldOffer;
@@ -54,7 +55,6 @@
     __unsafe_unretained IBOutlet UIView         *viewBidSend;
     __unsafe_unretained IBOutlet UIView         *viewBidMsg;
     IBOutlet UIView                             *garageDetailView;
-    UIButton                                    *addThisButton;
     __weak IBOutlet UIView *countView;                                                
     __weak IBOutlet OHAttributedLabel *countLabel;
     UIPageControl  *PagContGallery;

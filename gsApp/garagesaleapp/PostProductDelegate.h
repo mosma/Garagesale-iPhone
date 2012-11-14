@@ -21,6 +21,5 @@
 @property(unsafe_unretained, nonatomic) BOOL isSaveProductDone;
 @property(unsafe_unretained, nonatomic) BOOL isSaveProductFail;
 
--(void)postProduct:(NSMutableDictionary *)productParams;
-
+-(void)postProduct:(NSMutableDictionary *)productParams idProduct:(int)idProduct;
 @end

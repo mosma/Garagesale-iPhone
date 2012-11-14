@@ -14,7 +14,7 @@
 @synthesize isSaveProductDone;
 @synthesize isSaveProductFail;
 
--(void)postProduct:(NSMutableDictionary *)productParams {
+-(void)postProduct:(NSMutableDictionary *)productParams idProduct:(int)idProduct{
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
@@ -32,7 +32,11 @@
     if (!error){
         //Add ProductJson in postData for key product
         [postData setObject:json forKey:@"product"];
-        [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
+        
+        if (idProduct == -1)
+            [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
+        else
+            [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/product?idProduct=%i", idProduct] params:postData delegate:self] send];
     }
 }
 
