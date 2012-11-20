@@ -1854,7 +1854,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UtY-p1-8kY" userLabel="buttonLogin">
-                                        <rect key="frame" x="10" y="186" width="300" height="37"/>
+                                        <rect key="frame" x="10" y="186" width="166" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Login" backgroundImage="btBackgroundForms.png">
@@ -1866,6 +1866,21 @@
                                         </state>
                                         <connections>
                                             <action selector="checkLogin:" destination="L0X-YO-oem" eventType="touchUpInside" id="LzJ-HL-TZq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qnv-pc-Zfw" userLabel="buttonLogin">
+                                        <rect key="frame" x="200" y="186" width="108" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Register" backgroundImage="btBackgroundForms.png">
+                                            <color key="titleColor" red="0.43529411759999997" green="0.43529411759999997" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="fgR-qs-ekZ" kind="push" id="Wok-pH-dlx"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="v3H-S2-rUR">
@@ -2216,4 +2231,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Wok-pH-dlx"/>
+    </inferredMetricsTieBreakers>
 </document>

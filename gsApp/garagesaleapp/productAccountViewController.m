@@ -69,11 +69,12 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+        
     [self loadAttributsToComponents];
 }
 
 -(void)loadAttributsToComponents{
-    
+
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
     nsMutArrayPhotosDelegate = [[NSMutableArray alloc] init];
@@ -159,7 +160,6 @@
     [self setupKeyboardControls];
     
     if (self.product != nil) {
-        [self.view setAlpha:0.7];
         [self loadingProduct];
     }else {
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
@@ -183,12 +183,35 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
+- (void)getResourcePathPhotoReturnEdit{
+    RKObjectMapping *photoReturnEdit = [Mappings getPhotosByIdProduct];
+
+    //LoadUrlResourcePath
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/photo/?idProduct=%i&token=%@",
+                                             [self.product.id intValue], [[GlobalFunctions getUserDefaults] objectForKey:@"token"] ]
+                              objectMapping:photoReturnEdit delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+}
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
-        self.product = (Product *)[objects objectAtIndex:0];
-        [self loadAttributsToProduct];
+    @try {
+        if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+            self.product = (Product *)[objects objectAtIndex:0];
+            [self loadAttributsToProduct];
+            if ([self.product.fotos count] > 0)
+                [self getResourcePathPhotoReturnEdit];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
+            self.product.fotos = objects;
+            [self loadAttributsToPhotos];
+        }
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.name);
+    }
+    @finally {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -302,7 +325,8 @@
 }
 
 -(IBAction)getPicsByPhotosAlbum:(id)sender {
-    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
+    //[self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -310,8 +334,10 @@
     
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) 
         UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+
+    [scrollViewPicsProduct setFrame:CGRectMake(0, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
     
-    [self addImageToScrollView:imageThumb isNew:YES];
+    [self addImageToScrollView:imageThumb photoReturn:nil];
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -330,9 +356,9 @@
         UIImageView *imageView      = (UIImageView *)sender.view;
        
         //Remove imgViewDelete
-        for (UIView *subview in [imageView subviews]) 
-            if (subview.tag == 455) 
-                [subview removeFromSuperview];
+//        for (UIView *subview in [imageView subviews]) 
+//            if (subview.tag == 455) 
+//                [subview removeFromSuperview];
 
         NSArray *imageViews         = [scrollViewPicsProduct subviews];
         int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
@@ -358,7 +384,7 @@
     int indexOfRemovedImageView = [imageViews indexOfObject:aImageView];
     
     for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
-        if (viewNumber == indexOfRemovedImageView ) {  
+        if (viewNumber == indexOfRemovedImageView ) {
             UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
             [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollViewPicsProduct.frame.size.height/2, 0, 0)];                    
         }else if (viewNumber >= indexOfRemovedImageView ){
@@ -371,17 +397,23 @@
         }
     }
     
+    
+    
+    
+    //Reposition scrollViewPicsProduct to right
+    if ([nsMutArrayPicsProduct count] < 4)
+        [scrollViewPicsProduct setFrame:CGRectMake((173/([nsMutArrayPicsProduct count]-1)) + self.widthPaddingInImages, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
+
+    
+    
+    
     CGSize size = scrollViewPicsProduct.contentSize;
     size.width = size.width - imageWidth_ -self.widthPaddingInImages;
     scrollViewPicsProduct.contentSize = size;
 }
 
--(void)addImageToScrollView:(UIImage *)aImage isNew:(BOOL)isNew{
-    // [self removeNoPhotoAdded];
-//    if (nsMutArrayPicsProduct == nil) {
-        //[self displayImages:[NSArray arrayWithObject:aImage]];
-//    }else{
-    
+-(void)addImageToScrollView:(UIImage *)aImage photoReturn:(PhotoReturn *)photoReturn{
+
     //        UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
     //        UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
     //        [imgViewDelete setFrame:CGRectMake(-7, -7, 25, 25)];
@@ -391,74 +423,136 @@
     //        [imgViewDelete setMultipleTouchEnabled:YES];
     
     
-        [nsMutArrayPicsProduct addObject:aImage];
-        
-        UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+    
+    UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+    
+    
+    [nsMutArrayPicsProduct addObject:aImage];
+    
+    
+//    if (photoReturn == nil) {
+//        picViewAtGallery.frame = CGRectMake(7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
+//        
+//        
+//        NSArray *imageViews         = [scrollViewPicsProduct subviews];
+//        
+//        for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
+//        
+//            UIImageView *img = [imageViews objectAtIndex:viewNumber];
+//            CGPoint point = img.center;
+//            
+//            point.x = point.x + imageWidth_ + self.widthPaddingInImages;
+//            
+//            img.center = point;
+//        
+//        }
+//        
+//        
+//    } else {
+//    
         picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 ,
-                                            self.heightPaddingInImages, imageWidth_, imageHeight_);
-        [scrollViewPicsProduct addSubview:picViewAtGallery];
-    if (!isNew)
+                                            self.heightPaddingInImages, imageWidth_, imageHeight_);  
+//    }
+
+
+    
+    
+    
+    
+    [scrollViewPicsProduct addSubview:picViewAtGallery];
+    
+    if (photoReturn != nil)
         [picViewAtGallery setUserInteractionEnabled:YES];
     else
         [picViewAtGallery setUserInteractionEnabled:NO];
     
-        UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
-        [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
-        [uplImageDelegate setImageView:picViewAtGallery];
-        [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
+    UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
+    [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
+    [uplImageDelegate setImageView:picViewAtGallery];
+    [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
     
-        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
-                                               initWithTarget:self action:@selector(deletePicsAtGallery:)];
-        [tapGesture setNumberOfTapsRequired:2];
-        [tapGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
+    if (photoReturn != nil)
+        [uplImageDelegate setPhotoReturn:photoReturn];
 
-        UIGestureRecognizer *panGesture = [[UILongPressGestureRecognizer alloc]
-                                                      initWithTarget:self action:@selector(animePicsGallery:)];
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(deletePicsAtGallery:)];
+    [tapGesture setNumberOfTapsRequired:2];
+    [tapGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
+
+    UIGestureRecognizer *panGesture = [[UILongPressGestureRecognizer alloc]
+                                                  initWithTarget:self action:@selector(animePicsGallery:)];
+
+    [panGesture setDelaysTouchesBegan:YES];
+ 
+    [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
+    [uplImageDelegate.imageView addGestureRecognizer:panGesture];
+
+    CGSize size = scrollViewPicsProduct.contentSize;
+    size.width = size.width + imageWidth_ + self.widthPaddingInImages;
+    scrollViewPicsProduct.contentSize = size;
     
-        [panGesture setDelaysTouchesBegan:YES];
+    //Scrolling to show last ImageView add in scrollViewPicsProduct
+    [scrollViewPicsProduct setContentOffset:CGPointMake(picViewAtGallery.frame.origin.x-190, scrollViewPicsProduct.contentOffset.y) animated:YES];
     
-        [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
-        [uplImageDelegate.imageView addGestureRecognizer:panGesture];
+    //[scrollViewPicsProduct setContentOffset:CGPointMake(0, scrollViewPicsProduct.contentOffset.y) animated:YES];
+    
+    
+    
+    
+    
+    
 
-        [uplImageDelegate setScrollViewPicsProduct:scrollViewPicsProduct];
-        
-        CGSize size = scrollViewPicsProduct.contentSize;
-        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
-        scrollViewPicsProduct.contentSize = size;
-        //scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
-        //scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-        //scrollViewPicsProduct.scrollsToTop = YES;
-
-        if(isNew)
-            [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct];
+    if(photoReturn == nil && self.product != nil)
+        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:[self.product.id intValue]];
+    else if (self.product == nil)
+        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:-1];
 }
 
 -(void)animePicsGallery:(UILongPressGestureRecognizer *)panGesture{
     //if (sender.state == UIGestureRecognizerStateBegan) {
 
-    if (panGesture.state == UIGestureRecognizerStateBegan) {
-        for (UIImageView * imgV in scrollViewPicsProduct.subviews) {
-            if (![imgV isEqual:panGesture.view])
-                [imgV setAlpha:0.2];
-        }
-    }
+    CGPoint coords = [panGesture locationInView:self.view];
     
-    else if (panGesture.state == UIGestureRecognizerStateEnded){
-
-        for (UIImageView *imgV in scrollViewPicsProduct.subviews) {
-            [imgV setAlpha:1.0];
-        }
-    }
-    //}
+    NSLog(@"coords.x %f", coords.x);
     
-    CGPoint location = [panGesture locationInView:[self.scrollViewPicsProduct superview]];
     
-    location.y = +45;
-    
-    [panGesture.view setCenter:location];
     
     NSArray *imageViews         = [scrollViewPicsProduct subviews];
     int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
+    
+    //if (panGesture.state == UIGestureRecognizerStateBegan) {
+        for (UIImageView * imgV in scrollViewPicsProduct.subviews) {
+            
+            NSArray *imageViews         = [scrollViewPicsProduct subviews];
+            int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
+            
+            if ([imgV isEqual:panGesture.view]){
+                NSLog(@"imgV.x %f", imgV.frame.origin.x);
+                CGPoint location = [panGesture locationInView:scrollViewPicsProduct.superview];
+                
+                location.y = +45;
+                
+                [imgV setCenter:location];
+                
+               // [[imageViews objectAtIndex:indexOfRemovedImageView+1] convertPoint:imgV.center fromView:[scrollViewPicsProduct]];
+            }
+            //if (![imgV isEqual:panGesture.view])
+               // [imgV setAlpha:0.2];
+        }
+    //}
+    
+    if (panGesture.state == UIGestureRecognizerStateEnded){
+
+        for (UIImageView *imgV in scrollViewPicsProduct.subviews) {
+            //[imgV setAlpha:1.0];
+        }
+    }
+
+    
+
+    
+//    NSArray *imageViews         = [scrollViewPicsProduct subviews];
+//    int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
 
     
    // [(UIImageView *)[nsMutArrayPicsProduct objectAtIndex:indexOfRemovedImageView+1] setCenter:panGesture.view.center];
@@ -466,6 +560,12 @@
     
 }
 
+- (void)receivedLongPress:(UIGestureRecognizer *)gestureRecognizer {
+    CGPoint coords = [gestureRecognizer locationInView:gestureRecognizer.view];
+    
+    NSLog(@"%f", coords.x);
+    
+}
 
 //-(void)displayImages:(NSArray *)aImageList{
 //    nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
@@ -486,26 +586,7 @@
 //        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widthPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
 //        [scrollViewPicsProduct addSubview:imageView];
 //        [imageView setUserInteractionEnabled:YES];
-//        
-//        
-//        //Esse Metodo vai entrar quando for atualizacão do produto, neste caso eu vou pegar os caminhos de deletes do objeto produto que vier.
-//        
-//        
-//        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-//        [tapGesture setNumberOfTapsRequired:2];
-//        
-////        UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:uplImageDelegate action:@selector(deletePhoto)];
-////        [tapGesture setNumberOfTapsRequired:2];
-//        
-//        UILongPressGestureRecognizer * longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(animePicsGallery:)];
-//        
-//        [imageView addGestureRecognizer:tapGesture];
-//       // [imageView addGestureRecognizer:tapGesture2];
-//        [imageView addGestureRecognizer:longGesture];
-//
-//        
-//        
-//        
+
 //        CGSize size = scrollViewPicsProduct.contentSize;
 //        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
 //        scrollViewPicsProduct.contentSize = size;
@@ -557,10 +638,12 @@
         [prodParams setObject:@""                           forKey:@"newPhotos"];
         [prodParams setObject:[txtFieldCurrency.text
                                substringToIndex:3]          forKey:@"currency"];
-        if (self.product == nil)
-            [_postProdDelegate postProduct:prodParams idProduct:-1];
-        else 
-            [_postProdDelegate postProduct:prodParams idProduct:[self.product.id intValue]];
+
+        if (self.product != nil)
+            [prodParams setObject:[self.product.id stringValue] forKey:@"id"];
+        
+        [_postProdDelegate postProduct:prodParams];
+
         
         [self initProgressHUDSaveProduct];
     }
@@ -604,13 +687,13 @@
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.labelText = @"Completed";
         sleep(1);
-        if (self.product == nil) {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
-            [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (self.product == nil)
             [self newProductFinished];
-        }
     }
 }
 
@@ -644,22 +727,24 @@
     self.txtFieldTitle.text = [product nome];
     self.txtFieldValue.text = [product valorEsperado];
     self.textViewDescription.text = [product descricao];
-    
+}
+
+-(void)loadAttributsToPhotos{
     @try {
+
         for (int i=0; i < [[product fotos] count]; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
-                                               [[[[[product fotos] objectAtIndex:i] caminho] objectAtIndex:0] icon]]];
+                                           [(PhotoReturn *)[[product fotos] objectAtIndex:i] icon_url]]];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [self addImageToScrollView:image isNew:NO];
+            [self addImageToScrollView:image photoReturn:(PhotoReturn *)[[product fotos] objectAtIndex:i]];
         }
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
     
-    [self.view setAlpha:1.0];
-    
 }
+
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if(pickerView.tag == PICKERSTATE)
@@ -814,16 +899,16 @@
     [super viewWillAppear:NO];
    if (![[[GlobalFunctions getUserDefaults]
           objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
         int action = [[[GlobalFunctions getUserDefaults] objectForKey:@"controlComponentsAtFirstDisplay"] intValue];
         
         if (action == 0)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (action == 1)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+       
+       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+       [userDefaults setBool:YES forKey:@"isProductDisplayed"];
+       [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 

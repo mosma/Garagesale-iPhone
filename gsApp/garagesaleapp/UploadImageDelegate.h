@@ -16,24 +16,20 @@
 
 @interface UploadImageDelegate : NSObject <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
     UIImageView     *imageView;
-    UIScrollView    *scrollViewPicsProduct;
-    UIActivityIndicatorView *activityIndicator;
-    UIButton     *buttonSaveProduct;
-    NSDictionary *photoReturn;
-    
+    UIProgressView  *progressView;
+    UIButton        *buttonSaveProduct;
+    PhotoReturn     *photoReturn;
 }
 
 
 @property (nonatomic, retain)   UIImageView     *imageView;
-@property (nonatomic, retain)   UIScrollView    *scrollViewPicsProduct;
-@property (nonatomic, retain)   UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain)   UIButton     *buttonSaveProduct;
-
-@property (nonatomic, retain)    NSDictionary *photoReturn;
+@property (nonatomic, retain)   UIProgressView  *progressView;
+@property (nonatomic, retain)   UIButton        *buttonSaveProduct;
+@property (nonatomic, retain)   PhotoReturn     *photoReturn;
 
 
 
--(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct;
+-(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct;
 -(void)deletePhoto;
 
 @end

@@ -17,8 +17,8 @@
     NSString* listing_url;
     NSString* listing_scaled_url;
     NSString* icon_url;
-    NSNumber* delete_url;
-    NSNumber* delete_type;
+    NSString* delete_url;
+    NSString* delete_type;
 }
 
 @property (nonatomic, retain) NSString* name;
@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSString* listing_url;
 @property (nonatomic, retain) NSString* listing_scaled_url;
 @property (nonatomic, retain) NSString* icon_url;
-@property (nonatomic, retain) NSNumber* delete_url;
-@property (nonatomic, retain) NSNumber* delete_type;
+@property (nonatomic, retain) NSString* delete_url;
+@property (nonatomic, retain) NSString* delete_type;
 
 @end

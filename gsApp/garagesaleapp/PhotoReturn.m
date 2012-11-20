@@ -30,6 +30,7 @@
             @"mobile_url", @"mobile_url",
             @"listing_url", @"listing_url",
             @"listing_scaled_url", @"listing_scaled_url",
+            @"icon_url", @"icon_url",
             @"delete_url", @"delete_url",
             @"delete_type", @"delete_type",
             nil];

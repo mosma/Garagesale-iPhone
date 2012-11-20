@@ -84,7 +84,7 @@
 }
 
 + (RKObjectMapping *)getLoginMapping{
-    //Configure Profile Object Mapping
+    //Configure Login Object Mapping
     RKObjectMapping *loginMapping = [RKObjectMapping mappingForClass:[Login class]];
     [loginMapping mapKeyPath:@"idPerson"     toAttribute:@"idPerson"];
     [loginMapping mapKeyPath:@"token"        toAttribute:@"token"];
@@ -92,7 +92,7 @@
 }
 
 + (RKObjectMapping *)getProductPhotoMapping{
-    //Configure Profile Object Mapping
+    //Configure Product Photo Object Mapping
     RKObjectMapping *productPhotoMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];
     [productPhotoMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
     [productPhotoMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
@@ -107,15 +107,31 @@
     return productPhotoMapping;
 }
 
++ (RKObjectMapping *)getPhotosByIdProduct{
+    //Configure Photo By IdProduct Object Mapping
+    RKObjectMapping *photoByIdProdutcMapping = [RKObjectMapping mappingForClass:[PhotoReturn class]];
+    [photoByIdProdutcMapping mapKeyPath:@"name"                 toAttribute:@"name"];
+    [photoByIdProdutcMapping mapKeyPath:@"size"                 toAttribute:@"size"];
+    [photoByIdProdutcMapping mapKeyPath:@"type"                 toAttribute:@"type"];
+    [photoByIdProdutcMapping mapKeyPath:@"url"                  toAttribute:@"url"];
+    [photoByIdProdutcMapping mapKeyPath:@"mobile_url"           toAttribute:@"mobile_url"];
+    [photoByIdProdutcMapping mapKeyPath:@"listing_url"          toAttribute:@"listing_url"];
+    [photoByIdProdutcMapping mapKeyPath:@"listing_scaled_url"   toAttribute:@"listing_scaled_url"];
+    [photoByIdProdutcMapping mapKeyPath:@"icon_url"             toAttribute:@"icon_url"];
+    [photoByIdProdutcMapping mapKeyPath:@"delete_url"           toAttribute:@"delete_url"];
+    [photoByIdProdutcMapping mapKeyPath:@"delete_type"          toAttribute:@"delete_type"];
+    return photoByIdProdutcMapping;
+}
+
 + (RKObjectMapping *)getValidGarageNameMapping{
-    //Configure Profile Object Mapping
+    //Configure Valid Garage Name Object Mapping
     RKObjectMapping *validGarageNameMapping = [RKObjectMapping mappingForClass:[GarageNameValidate class]];
     [validGarageNameMapping mapKeyPath:@"message"    toAttribute:@"message"];
     return validGarageNameMapping;
 }
 
 + (RKObjectMapping *)getValidEmailMapping{
-    //Configure Profile Object Mapping
+    //Configure Valid Email Object Mapping
     RKObjectMapping *validEmailMapping = [RKObjectMapping mappingForClass:[GarageNameValidate class]];
     [validEmailMapping mapKeyPath:@"message"    toAttribute:@"message"];
     return validEmailMapping;

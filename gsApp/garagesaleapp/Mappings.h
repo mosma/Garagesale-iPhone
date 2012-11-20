@@ -14,6 +14,7 @@
 #import "Profile.h"
 #import "Login.h"
 #import "ProductPhotos.h"
+#import "PhotoReturn.h"
 #import "GarageNameValidate.h"
 #import "EmailValidate.h"
 
@@ -27,6 +28,7 @@
 + (RKObjectMapping *)getProfileMapping;
 + (RKObjectMapping *)getLoginMapping;
 + (RKObjectMapping *)getProductPhotoMapping;
++ (RKObjectMapping *)getPhotosByIdProduct;
 + (RKObjectMapping *)getValidGarageNameMapping;
 + (RKObjectMapping *)getValidEmailMapping;
 @end

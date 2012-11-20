@@ -320,10 +320,8 @@
     
     [self getResourcePathLogOut];
     
-    
-    
-    for (UIViewController *vc in self.tabBarController.viewControllers)
-    {
+//    for (UIViewController *vc in self.navigationController.viewControllers)
+//    {
 //        UIViewController *vc = v;
 //        if ([vc isKindOfClass:[ViewController class]])
 //        {
@@ -342,15 +340,16 @@
       //  vc.view = nil;
        // [vc viewDidLoad];
     
-    }
+//    }
+    
+    
     NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     
-    
-    NSInteger i;
     for (NSString *key in [defaultsDictionary allKeys]) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
       navigationController] popToRootViewControllerAnimated:YES];
@@ -360,9 +359,9 @@
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
       navigationController] popToRootViewControllerAnimated:NO];
     
-    [[[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController] viewDidLoad];
-    
-    [[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController].view = nil;
+//    [[[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController] viewDidLoad];
+//    
+//    [[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController].view = nil;
 }
 
 -(void)backPage{

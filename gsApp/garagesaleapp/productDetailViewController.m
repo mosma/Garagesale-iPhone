@@ -150,8 +150,8 @@
         CGRect frame = CGRectMake(100, 0, 320, 27);
         OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
         [label setBackgroundColor:[UIColor clearColor]];
-        //        [label setShadowColor:[UIColor blackColor]];
-        //        [label setShadowOffset:CGSizeMake(1, 1)];
+        [label setShadowColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3]];
+        [label setShadowOffset:CGSizeMake(0, -1)];
         [label setAttributedText:attrStr];
         [label setTextAlignment:UITextAlignmentCenter];
         [self.navigationItem setTitleView:label];

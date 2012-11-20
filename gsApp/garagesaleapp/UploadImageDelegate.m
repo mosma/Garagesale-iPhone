@@ -11,11 +11,10 @@
 @implementation UploadImageDelegate
 
 @synthesize imageView;
-@synthesize scrollViewPicsProduct;
 @synthesize photoReturn;
 @synthesize buttonSaveProduct;
 
--(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct{
+-(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct{
     int index = ([mutArrayPicsProduct count]-1);
     
     RKParams* params = [RKParams params];
@@ -29,18 +28,11 @@
     int neww = 900;
     //get image height proportionally;
     float newh = neww/ratio;
-    
-    
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(scrollViewPicsProduct.contentSize.width-50, scrollViewPicsProduct.contentSize.height+32, 25, 25)];
-    [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator startAnimating];
-    [activityIndicator setHidesWhenStopped:YES];
-    
-    [scrollViewPicsProduct addSubview:activityIndicator];
-    
-    [self setEnableSaveButton:NO];
-    
-    [imageView setAlpha:0];
+
+    progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [progressView setFrame:CGRectMake(5, 50, 60, 5)];
+    progressView.progress = 0;
+    [imageView addSubview: progressView];
     
     UIImage *image = [UIImage imageWithData:dataImage];
     CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
@@ -54,7 +46,11 @@
     attachment.MIMEType = @"image/png";
     attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", index];
     
-    [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    if (idProduct == -1)
+        [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
+    else
+        [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@&idProduct=%i", [[GlobalFunctions getUserDefaults] objectForKey:@"token"], idProduct ] params:params delegate:self];
+    
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -78,11 +74,8 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
         }
     } else if ([request isPOST]) {
-        [imageView setAlpha:1.0];
+        [progressView setHidden:YES];
         [imageView setUserInteractionEnabled:YES];
-        [activityIndicator stopAnimating];
-        
-        [self setEnableSaveButton:YES];
         
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
@@ -130,13 +123,16 @@
     NSLog(@"%i - bytesWritten", bytesWritten);
     NSLog(@"%i - totalBytesWritten", totalBytesWritten);
     NSLog(@"%i - totalBytesExpectedToWrite", totalBytesExpectedToWrite);
+
+    double uu = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
+    NSLog(@"%f", uu);
+
+    [progressView setProgress:uu];
     
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
-    [imageView setAlpha:(totalBytesWritten/totalBytesExpectedToWrite)];
-    [UIView commitAnimations];
+    if (totalBytesExpectedToWrite != totalBytesWritten)
+        [self setEnableSaveButton:NO];
+    else
+        [self setEnableSaveButton:YES];
 }
 
 @end
