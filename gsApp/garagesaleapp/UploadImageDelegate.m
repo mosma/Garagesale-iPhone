@@ -14,13 +14,20 @@
 @synthesize photoReturn;
 @synthesize buttonSaveProduct;
 
+-(id)init{
+    photoReturn = [[PhotoReturn alloc] init];
+    [photoReturn setValue:@"" forKey:@"name"];
+    
+    return self;
+}
+
 -(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct{
     int index = ([mutArrayPicsProduct count]-1);
     
     RKParams* params = [RKParams params];
     //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-    NSData              *dataImage  = UIImageJPEGRepresentation([mutArrayPicsProduct objectAtIndex:index], 1.0);
-    UIImage *loadedImage = (UIImage *)[mutArrayPicsProduct objectAtIndex:index];
+    NSData              *dataImage  = UIImageJPEGRepresentation([(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image], 1.0);
+    UIImage *loadedImage = [(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image];
     float w = loadedImage.size.width;
     float h = loadedImage.size.height;
     float ratio = w/h;
@@ -93,6 +100,11 @@
         }
         
     } else if ([request isDELETE]) {
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         // Handling DELETE /missing_resource.txt
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);

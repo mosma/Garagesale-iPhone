@@ -16,11 +16,6 @@
 #import "QuartzCore/QuartzCore.h"
 #import "MBProgressHUD.h"
 #import "JSON.h"
-#import "UploadImageDelegate.h"
-
-@protocol PhotoScrollingViewDelegate
--(void)removedImageAtIndex:(int )aImageIndex;
-@end
 
 @interface productAccountViewController : MasterViewController <UIActionSheetDelegate, 
                                                              UINavigationControllerDelegate, 
@@ -48,8 +43,6 @@
 
     //Others
     RKObjectManager             *RKObjManeger;
-    NSMutableArray              *nsMutArrayPicsProduct;
-    NSMutableArray              *nsMutArrayPhotosDelegate;
                                                                  
     NSArray                     *nsArrayState;
     NSArray                     *nsArrayCurrency;
@@ -57,16 +50,11 @@
     UIView                      *shadowView;
     MBProgressHUD               *HUD;
     Product                     *product;
-                              
-    float imageWidth_;
-    float imageHeight_;
-                                                                 
+                                   
     //Flags at Post
     bool isImagesProductPosted;
     int countPicsPost;
 }
-
-@property (retain, nonatomic) id <PhotoScrollingViewDelegate>  delegate;
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
@@ -82,10 +70,6 @@
 
 @property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
-
-@property (nonatomic) float heightPaddingInImages;
-@property (nonatomic) float widthPaddingInImages;
-
 
 
 -(void)loadAttributsToComponents;

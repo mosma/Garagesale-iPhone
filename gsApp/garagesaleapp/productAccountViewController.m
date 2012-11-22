@@ -7,12 +7,15 @@
 //
 #import "productAccountViewController.h"
 #import "PostProductDelegate.h"
+#import "photosGallery.h"
 
 @class PostProductDelegate;
 
 @interface productAccountViewController ()
 
 @property (nonatomic, strong) PostProductDelegate *postProdDelegate;
+
+@property (nonatomic, strong) photosGallery *gallery;
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 - (void)setupKeyboardControls;
@@ -27,22 +30,17 @@
 @synthesize txtFieldState;
 @synthesize txtFieldCurrency;
 @synthesize scrollViewPicsProduct;
-@synthesize delegate;
 @synthesize scrollView;
 @synthesize keyboardControls;
-@synthesize widthPaddingInImages;
-@synthesize heightPaddingInImages;
 @synthesize textViewDescription;
 @synthesize viewPicsControl;
 @synthesize buttonAddPics;
 @synthesize product;
 @synthesize buttonSaveProduct;
+@synthesize gallery;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
-
-#define kWidthPaddingInImages 10
-#define kHeightPaddingInImages 10
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -77,7 +75,6 @@
 
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
-    nsMutArrayPhotosDelegate = [[NSMutableArray alloc] init];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -103,7 +100,12 @@
     
     self.tabBarController.delegate = self;
     
-    nsMutArrayPicsProduct   = [[NSMutableArray alloc] init];
+    gallery = [[photosGallery alloc] init];
+    [gallery setButtonAddPics:buttonAddPics];
+    [gallery setButtonSaveProduct:buttonSaveProduct];
+    [gallery setScrollView:self.scrollViewPicsProduct];
+    
+
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
                        NSLocalizedString(@"Sold", @""), NSLocalizedString(@"notAvailable", @""), NSLocalizedString(@"invisible", @""), nil];
     
@@ -151,10 +153,7 @@
     [txtFieldState setInputAccessoryView:picViewStateToolbar];
     [txtFieldCurrency setInputAccessoryView:picViewStateToolbar];
     
-    imageWidth_ = 70.0f;
-    imageHeight_ = 70.0f;
-    widthPaddingInImages = kWidthPaddingInImages;
-    heightPaddingInImages = kHeightPaddingInImages;
+
     
     [self.scrollView setContentSize:CGSizeMake(320,587)];
     [self setupKeyboardControls];
@@ -244,7 +243,7 @@
 
 - (IBAction)animationPicsControl{
     //Limited Maximum At Pics Add Gallery
-    if ([nsMutArrayPicsProduct count] == 10) 
+    if ([gallery.nsMutArrayPicsProduct count] == 10)
         buttonAddPics.enabled = NO;
 
     [UIView beginAnimations:nil context:nil];
@@ -337,7 +336,7 @@
 
     [scrollViewPicsProduct setFrame:CGRectMake(0, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
     
-    [self addImageToScrollView:imageThumb photoReturn:nil];
+    [gallery addImageToScrollView:imageThumb photoReturn:nil product:self.product];
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -351,221 +350,12 @@
     }
 }
 
-- (void)deletePicsAtGallery:(UITapGestureRecognizer*)sender {
-    //if (sender.state == UIGestureRecognizerStateBegan) {
-        UIImageView *imageView      = (UIImageView *)sender.view;
-       
-        //Remove imgViewDelete
-//        for (UIView *subview in [imageView subviews]) 
-//            if (subview.tag == 455) 
-//                [subview removeFromSuperview];
-
-        NSArray *imageViews         = [scrollViewPicsProduct subviews];
-        int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
-        
-        [UIView animateWithDuration:0.75 animations: ^{
-            [self reconfigureImagesAfterRemoving:imageView];
-        } completion:^(BOOL finished){
-            [imageView removeFromSuperview];
-            [nsMutArrayPicsProduct removeObject:imageView.image];	
-            [self.delegate removedImageAtIndex:indexOfRemovedImageView];
-            //            if ([nsMutArrayPicsProduct count]==0) {
-            //                [self showNoPhotoAdded];
-            //            }
-        }];
-        
-        if ([nsMutArrayPicsProduct count] < 11) 
-            buttonAddPics.enabled = YES;
-    //}
-}
-
--(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{
-    NSArray *imageViews         = [scrollViewPicsProduct subviews];
-    int indexOfRemovedImageView = [imageViews indexOfObject:aImageView];
-    
-    for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
-        if (viewNumber == indexOfRemovedImageView ) {
-            UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
-            [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollViewPicsProduct.frame.size.height/2, 0, 0)];                    
-        }else if (viewNumber >= indexOfRemovedImageView ){
-            CGPoint origin = ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame.origin;
-            origin.x = origin.x - self.widthPaddingInImages - imageWidth_;
-            origin.y = self.heightPaddingInImages;
-            ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame = CGRectMake(origin.x, origin.y, imageWidth_, imageHeight_);
-            scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
-            scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-        }
-    }
-    
-    
-    
-    
-    //Reposition scrollViewPicsProduct to right
-    if ([nsMutArrayPicsProduct count] < 4)
-        [scrollViewPicsProduct setFrame:CGRectMake((173/([nsMutArrayPicsProduct count]-1)) + self.widthPaddingInImages, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
-
-    
-    
-    
-    CGSize size = scrollViewPicsProduct.contentSize;
-    size.width = size.width - imageWidth_ -self.widthPaddingInImages;
-    scrollViewPicsProduct.contentSize = size;
-}
-
--(void)addImageToScrollView:(UIImage *)aImage photoReturn:(PhotoReturn *)photoReturn{
-
-    //        UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
-    //        UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
-    //        [imgViewDelete setFrame:CGRectMake(-7, -7, 25, 25)];
-    //        [uplImageDelegate.imageView setUserInteractionEnabled:YES];
-    //        //[uplImageDelegate.imageView setExclusiveTouch:YES];
-    //        [imgViewDelete setUserInteractionEnabled:YES];
-    //        [imgViewDelete setMultipleTouchEnabled:YES];
-    
-    
-    
-    UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
-    
-    
-    [nsMutArrayPicsProduct addObject:aImage];
-    
-    
-//    if (photoReturn == nil) {
-//        picViewAtGallery.frame = CGRectMake(7 , self.heightPaddingInImages, imageWidth_, imageHeight_);
-//        
-//        
-//        NSArray *imageViews         = [scrollViewPicsProduct subviews];
-//        
-//        for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
-//        
-//            UIImageView *img = [imageViews objectAtIndex:viewNumber];
-//            CGPoint point = img.center;
-//            
-//            point.x = point.x + imageWidth_ + self.widthPaddingInImages;
-//            
-//            img.center = point;
-//        
-//        }
-//        
-//        
-//    } else {
+//- (void)receivedLongPress:(UIGestureRecognizer *)gestureRecognizer {
+//    CGPoint coords = [gestureRecognizer locationInView:gestureRecognizer.view];
 //    
-        picViewAtGallery.frame = CGRectMake(scrollViewPicsProduct.contentSize.width+7 ,
-                                            self.heightPaddingInImages, imageWidth_, imageHeight_);  
-//    }
-
-
-    
-    
-    
-    
-    [scrollViewPicsProduct addSubview:picViewAtGallery];
-    
-    if (photoReturn != nil)
-        [picViewAtGallery setUserInteractionEnabled:YES];
-    else
-        [picViewAtGallery setUserInteractionEnabled:NO];
-    
-    UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
-    [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
-    [uplImageDelegate setImageView:picViewAtGallery];
-    [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
-    
-    if (photoReturn != nil)
-        [uplImageDelegate setPhotoReturn:photoReturn];
-
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self action:@selector(deletePicsAtGallery:)];
-    [tapGesture setNumberOfTapsRequired:2];
-    [tapGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
-
-    UIGestureRecognizer *panGesture = [[UILongPressGestureRecognizer alloc]
-                                                  initWithTarget:self action:@selector(animePicsGallery:)];
-
-    [panGesture setDelaysTouchesBegan:YES];
- 
-    [uplImageDelegate.imageView addGestureRecognizer:tapGesture];
-    [uplImageDelegate.imageView addGestureRecognizer:panGesture];
-
-    CGSize size = scrollViewPicsProduct.contentSize;
-    size.width = size.width + imageWidth_ + self.widthPaddingInImages;
-    scrollViewPicsProduct.contentSize = size;
-    
-    //Scrolling to show last ImageView add in scrollViewPicsProduct
-    [scrollViewPicsProduct setContentOffset:CGPointMake(picViewAtGallery.frame.origin.x-190, scrollViewPicsProduct.contentOffset.y) animated:YES];
-    
-    //[scrollViewPicsProduct setContentOffset:CGPointMake(0, scrollViewPicsProduct.contentOffset.y) animated:YES];
-    
-    
-    
-    
-    
-    
-
-    if(photoReturn == nil && self.product != nil)
-        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:[self.product.id intValue]];
-    else if (self.product == nil)
-        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:-1];
-}
-
--(void)animePicsGallery:(UILongPressGestureRecognizer *)panGesture{
-    //if (sender.state == UIGestureRecognizerStateBegan) {
-
-    CGPoint coords = [panGesture locationInView:self.view];
-    
-    NSLog(@"coords.x %f", coords.x);
-    
-    
-    
-    NSArray *imageViews         = [scrollViewPicsProduct subviews];
-    int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
-    
-    //if (panGesture.state == UIGestureRecognizerStateBegan) {
-        for (UIImageView * imgV in scrollViewPicsProduct.subviews) {
-            
-            NSArray *imageViews         = [scrollViewPicsProduct subviews];
-            int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
-            
-            if ([imgV isEqual:panGesture.view]){
-                NSLog(@"imgV.x %f", imgV.frame.origin.x);
-                CGPoint location = [panGesture locationInView:scrollViewPicsProduct.superview];
-                
-                location.y = +45;
-                
-                [imgV setCenter:location];
-                
-               // [[imageViews objectAtIndex:indexOfRemovedImageView+1] convertPoint:imgV.center fromView:[scrollViewPicsProduct]];
-            }
-            //if (![imgV isEqual:panGesture.view])
-               // [imgV setAlpha:0.2];
-        }
-    //}
-    
-    if (panGesture.state == UIGestureRecognizerStateEnded){
-
-        for (UIImageView *imgV in scrollViewPicsProduct.subviews) {
-            //[imgV setAlpha:1.0];
-        }
-    }
-
-    
-
-    
-//    NSArray *imageViews         = [scrollViewPicsProduct subviews];
-//    int indexOfRemovedImageView = [imageViews indexOfObject:panGesture.view];
-
-    
-   // [(UIImageView *)[nsMutArrayPicsProduct objectAtIndex:indexOfRemovedImageView+1] setCenter:panGesture.view.center];
-    
-    
-}
-
-- (void)receivedLongPress:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint coords = [gestureRecognizer locationInView:gestureRecognizer.view];
-    
-    NSLog(@"%f", coords.x);
-    
-}
+//    NSLog(@"%f", coords.x);
+//    
+//}
 
 //-(void)displayImages:(NSArray *)aImageList{
 //    nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
@@ -619,6 +409,12 @@
 
 -(IBAction)saveProduct{
     if ([self validateForm]) {
+        
+        
+        
+        
+
+        
         [txtFieldValue resignFirstResponder];
         NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
         
@@ -635,7 +431,25 @@
                        forKey:@"idEstado"];
         [prodParams setObject:idPerson                      forKey:@"idUser"];
         [prodParams setObject:@""                           forKey:@"categorias"];
-        [prodParams setObject:@""                           forKey:@"newPhotos"];
+        
+        if ([gallery.nsMutArrayPicsProduct count] > 0){
+            
+
+            
+            
+            NSString *dictPhot = [gallery.nsMutArrayNames JSONRepresentation];
+            
+            
+//            for (NSString *phR in gallery.nsMutArrayNames)
+//                [dictPhot appendFormat:@"'%@',", phR];
+//            [dictPhot deleteCharactersInRange:NSMakeRange([dictPhot length]-1, 1)];
+//
+//            [dictPhot appendFormat:@"]"];
+            
+            [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
+
+        }
+        
         [prodParams setObject:[txtFieldCurrency.text
                                substringToIndex:3]          forKey:@"currency"];
 
@@ -736,7 +550,7 @@
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
                                            [(PhotoReturn *)[[product fotos] objectAtIndex:i] icon_url]]];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [self addImageToScrollView:image photoReturn:(PhotoReturn *)[[product fotos] objectAtIndex:i]];
+            [gallery addImageToScrollView:image photoReturn:(PhotoReturn *)[[product fotos] objectAtIndex:i] product:self.product];
         }
     }
     @catch (NSException *exception) {
@@ -921,6 +735,9 @@
     buttonAddPics = nil;
     [self setButtonAddPics:nil];
     [super viewDidUnload];
+    
+    gallery = nil;
+    [self setGallery:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
