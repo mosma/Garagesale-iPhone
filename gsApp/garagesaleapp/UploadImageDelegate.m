@@ -16,8 +16,6 @@
 
 -(id)init{
     photoReturn = [[PhotoReturn alloc] init];
-    [photoReturn setValue:@"" forKey:@"name"];
-    
     return self;
 }
 
@@ -121,6 +119,7 @@
     //transform in json
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
+    
     //imgViewDelete.tag = 455;
     // [self.imageView addSubview:imgViewDelete];
 }
@@ -128,6 +127,7 @@
 - (void)deletePhoto {
     NSLog(@"%@", [photoReturn valueForKey:@"delete_url"]);
     [[RKClient sharedClient] delete:[photoReturn valueForKey:@"delete_url"] delegate:self];
+    [photoReturn setValue:@"" forKey:@"name"];
 }
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite{

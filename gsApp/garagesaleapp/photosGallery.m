@@ -41,7 +41,7 @@
 }
 
 
-- (void)deletePicsAtGallery:(UITapGestureRecognizer*)sender {
+- (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [scrollView setUserInteractionEnabled:NO];
  
@@ -61,8 +61,13 @@
             int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
             
             [imageView removeFromSuperview];
+            
+            if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
+                [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
+            
+            
             [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
-            [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
+
 
             
     //        [self.delegate removedImageAtIndex:indexOfRemovedImageView];
@@ -75,7 +80,9 @@
             buttonAddPics.enabled = YES;
     }
 
-    if (sender.state == UIGestureRecognizerStateCancelled) 
+    if (sender.state == UIGestureRecognizerStateEnded ||
+        sender.state == UIGestureRecognizerStateCancelled ||
+        sender.state == UIGestureRecognizerStateFailed)
         [scrollView setUserInteractionEnabled:YES];
 
 }
@@ -154,20 +161,22 @@
 
     if (photoReturn != nil)
         [picViewAtGallery setUserInteractionEnabled:YES];
-    else
-        [picViewAtGallery setUserInteractionEnabled:NO];
+    //else
+    //    [picViewAtGallery setUserInteractionEnabled:NO];
     
     UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
     [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
     [uplImageDelegate setImageView:picViewAtGallery];
     [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
     
-    if (photoReturn != nil)
+    if (photoReturn != nil){
         [uplImageDelegate setPhotoReturn:photoReturn];
+    
+        [nsMutArrayNames insertObject:[uplImageDelegate.photoReturn valueForKey:@"name"] atIndex:newIndex];
 
-    [nsMutArrayNames insertObject:[uplImageDelegate.photoReturn valueForKey:@"name"] atIndex:newIndex];
-
-        
+    }
+    
+    
     UILongPressGestureRecognizer * deleteGesture = [[UILongPressGestureRecognizer alloc]
                                            initWithTarget:self action:@selector(deletePicsAtGallery:)];
     [deleteGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
@@ -209,12 +218,10 @@
         [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:-1];
 }
 
--(void)animePicsGallery:(UILongPressGestureRecognizer *)panGesture{
+-(void)animePicsGallery:(UITapGestureRecognizer *)panGesture{
 
     
     @try {
-
-    
 
      //if (sender.state == UIGestureRecognizerStateBegan) {
      UIImageView *imageView      = (UIImageView *)panGesture.view;
@@ -228,7 +235,22 @@
      int indexOfImageAtScroll_right = [imageViews indexOfObject:imageView];
      int indexOfImageAtScroll_left = [imageViews indexOfObject:imageView]-1;
 
+
+        
+    if ([nsMutArrayPicsProduct count] < [nsMutArrayPhotosDelegate count])
+        for (int x = 0; x < [nsMutArrayPhotosDelegate count]; x++)// {
+            if ([[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] == @"")
+                [nsMutArrayPhotosDelegate removeObjectAtIndex:x];
+            
     
+    
+    
+    if ([nsMutArrayNames count] < [nsMutArrayPicsProduct count])
+        for (int x = 0; x <= [nsMutArrayPicsProduct count]; x++)
+            if (x >= [nsMutArrayNames count] && [nsMutArrayNames count] != [nsMutArrayPicsProduct count])
+                [nsMutArrayNames insertObject:[[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] atIndex:x];
+
+
 
      UIImageView *leftImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_left];
      UIImageView *rightImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_right];
@@ -246,12 +268,6 @@
         [nsMutArrayNames replaceObjectAtIndex:indexOfImageAtScroll_left withObject:rightS];
         [nsMutArrayNames replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftS];
 
-
-        
-        
-         
-         NSLog(@"Right %i ", indexOfImageAtScroll_right);
-         NSLog(@"Left %i", indexOfImageAtScroll_left);
          
          [UIView beginAnimations:nil context:nil];
          [UIView setAnimationDuration:0.3];

@@ -13,6 +13,7 @@
 #import "RestKit/RestKit.h"
 #import <Foundation/Foundation.h>
 #import "PhotoReturn.h"
+#import "photosGallery.h"
 
 @interface UploadImageDelegate : NSObject <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
     UIImageView     *imageView;
@@ -21,13 +22,10 @@
     PhotoReturn     *photoReturn;
 }
 
-
 @property (nonatomic, retain)   UIImageView     *imageView;
 @property (nonatomic, retain)   UIProgressView  *progressView;
 @property (nonatomic, retain)   UIButton        *buttonSaveProduct;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
-
-
 
 -(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct;
 -(void)deletePhoto;

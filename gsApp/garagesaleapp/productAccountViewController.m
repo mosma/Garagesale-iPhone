@@ -432,7 +432,7 @@
         [prodParams setObject:idPerson                      forKey:@"idUser"];
         [prodParams setObject:@""                           forKey:@"categorias"];
         
-        if ([gallery.nsMutArrayPicsProduct count] > 0){
+     //   if ([gallery.nsMutArrayPicsProduct count] > 0){
             
 
             
@@ -448,7 +448,7 @@
             
             [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
 
-        }
+    //    }
         
         [prodParams setObject:[txtFieldCurrency.text
                                substringToIndex:3]          forKey:@"currency"];
