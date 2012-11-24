@@ -440,6 +440,7 @@
     // (0)@"Camera", (1)@"Library", (2)@"Product without pics" 
     [userDefaults setInteger:buttonIndex forKey:@"controlComponentsAtFirstDisplay"];
 
+    //buttonIndex == 3 is Cancel Button on ActionSheet
     if (buttonIndex == 3){
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
     }else{

@@ -170,19 +170,11 @@
     [uplImageDelegate.imageView addGestureRecognizer:deleteGesture];
     [uplImageDelegate.imageView addGestureRecognizer:moveLeftGesture];
     
-    
-    
-    
     //[self createTiles:uplImageDelegate.imageView index:([nsMutArrayPicsProduct count]-1)];
 
-    
-    
     CGSize size = scrollView.contentSize;
     size.width = size.width + imageWidth_ + self.widthPaddingInImages;
     scrollView.contentSize = size;
-    
-
-    
     
     //Scrolling to show last ImageView add in scrollViewPicsProduct at right side of gallery
     [scrollView setContentOffset:CGPointMake(picViewAtGallery.frame.origin.x-190, scrollView.contentOffset.y) animated:YES];
@@ -190,22 +182,15 @@
     //Scrolling to show last ImageView add in scrollViewPicsProduct at Left side of gallery
     //[scrollViewPicsProduct setContentOffset:CGPointMake(0, scrollViewPicsProduct.contentOffset.y) animated:YES];
     
-    
-
-    
     if(photoReturn == nil && product != nil)
         [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:[product.id intValue]];
     else if (product == nil)
         [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:-1];
 }
 
--(void)animePicsGallery:(UITapGestureRecognizer *)panGesture{
-
-    
+-(void)animePicsGallery:(UITapGestureRecognizer *)sender{
     @try {
-
-     //if (sender.state == UIGestureRecognizerStateBegan) {
-     UIImageView *imageView      = (UIImageView *)panGesture.view;
+     UIImageView *imageView      = (UIImageView *)sender.view;
      
      //Remove imgViewDelete
      //        for (UIView *subview in [imageView subviews])
@@ -215,8 +200,6 @@
      NSArray *imageViews         = [scrollView subviews];
      int indexOfImageAtScroll_right = [imageViews indexOfObject:imageView];
      int indexOfImageAtScroll_left = [imageViews indexOfObject:imageView]-1;
-
-
         
     for (int x = 0; x < [nsMutArrayPhotosDelegate count]; x++)// {
         if ([[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] == @"")

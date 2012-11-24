@@ -485,10 +485,7 @@
         [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        if (self.product == nil)
-            [self newProductFinished:NO];
-        else
-            [self newProductFinished:YES];
+        [self newProductFinished:(self.product == nil)];
     }
 }
 
@@ -511,15 +508,18 @@
     return isValid;
 }
 
--(void)newProductFinished:(BOOL)isEdit{
-    if (isEdit){
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    else{
+-(void)newProductFinished:(BOOL)isNew{
+    if (isNew){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToTabBarController:2];
         self.view = nil;
         [self viewDidLoad];
         [scrollView setContentOffset:CGPointZero animated:NO];
+    }
+    else{
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
@@ -544,7 +544,6 @@
     }
     
 }
-
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if(pickerView.tag == PICKERSTATE)
