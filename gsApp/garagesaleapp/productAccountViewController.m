@@ -409,12 +409,6 @@
 
 -(IBAction)saveProduct{
     if ([self validateForm]) {
-        
-        
-        
-        
-
-        
         [txtFieldValue resignFirstResponder];
         NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
         
@@ -431,25 +425,11 @@
                        forKey:@"idEstado"];
         [prodParams setObject:idPerson                      forKey:@"idUser"];
         [prodParams setObject:@""                           forKey:@"categorias"];
-        
-     //   if ([gallery.nsMutArrayPicsProduct count] > 0){
-            
 
-            
-            
-            NSString *dictPhot = [gallery.nsMutArrayNames JSONRepresentation];
-            
-            
-//            for (NSString *phR in gallery.nsMutArrayNames)
-//                [dictPhot appendFormat:@"'%@',", phR];
-//            [dictPhot deleteCharactersInRange:NSMakeRange([dictPhot length]-1, 1)];
-//
-//            [dictPhot appendFormat:@"]"];
-            
-            [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
+        NSString *dictPhot = [gallery.nsMutArrayNames JSONRepresentation];
 
-    //    }
-        
+        [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
+
         [prodParams setObject:[txtFieldCurrency.text
                                substringToIndex:3]          forKey:@"currency"];
 
@@ -458,7 +438,6 @@
         
         [_postProdDelegate postProduct:prodParams];
 
-        
         [self initProgressHUDSaveProduct];
     }
 }
@@ -507,7 +486,9 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         if (self.product == nil)
-            [self newProductFinished];
+            [self newProductFinished:NO];
+        else
+            [self newProductFinished:YES];
     }
 }
 
@@ -530,11 +511,16 @@
     return isValid;
 }
 
--(void)newProductFinished{
-    [self goToTabBarController:2];
-    self.view = nil;
-    [self viewDidLoad];
-    [scrollView setContentOffset:CGPointZero animated:NO];
+-(void)newProductFinished:(BOOL)isEdit{
+    if (isEdit){
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else{
+        [self goToTabBarController:2];
+        self.view = nil;
+        [self viewDidLoad];
+        [scrollView setContentOffset:CGPointZero animated:NO];
+    }
 }
 
 -(void)loadAttributsToProduct{
