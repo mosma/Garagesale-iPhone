@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
+    self.trackedViewName = @"HomeViewController";
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
@@ -46,7 +47,7 @@
 //            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
 //        }
 //    }
-
+    
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -150,6 +151,12 @@
 }
 
 - (void)getResourcePathProduct{
+    
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"HomeView"
+                                                         withAction:@"LoadProduct"
+                                                          withLabel:@"Load Home Product"
+                                                          withValue:nil];
+    
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];

@@ -15,7 +15,7 @@
 #import "settingsAccountViewController.h"
 #import "MBProgressHUD.h"
 
-@interface signUpViewController : UIViewController <UITextFieldDelegate,
+@interface signUpViewController : MasterViewController <UITextFieldDelegate,
                                                     BSKeyboardControlsDelegate,
                                                     UIScrollViewDelegate, 
                                                     RKObjectLoaderDelegate,

@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
+#import "GAI.h"
 
-@interface MasterViewController : UIViewController {
+@interface MasterViewController : GAITrackedViewController {
 
     UIView *viewMessageNet;
     UILabel *labelNotification;
-
+    BOOL isReachability;
 }
+
+@property (nonatomic) BOOL isReachability;
 
 @end

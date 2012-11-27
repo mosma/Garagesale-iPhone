@@ -14,6 +14,8 @@
 
 @implementation MasterViewController
 
+@synthesize isReachability;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,10 +46,14 @@
                                                                    object];
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
+        isReachability = NO;
         [self showNotification:@"check your connection."];
     } else if (RKReachabilityReachableViaWiFi == status) {
         RKLogInfo(@"Online via WiFi!");
+        isReachability = YES;
     } else if (RKReachabilityReachableViaWWAN == status) {
+        isReachability = YES;
+        [self showNotification:@"Online via Edge or 3G!"];
         RKLogInfo(@"Online via Edge or 3G!");
     }
 }

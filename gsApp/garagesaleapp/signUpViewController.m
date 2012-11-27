@@ -42,6 +42,7 @@
 }
 
 - (void)loadAttribsToComponents{
+    
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
     NSLog(@"Available Font Families: %@", [UIFont familyNames]);
@@ -52,12 +53,15 @@
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
 
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
-    if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //Signup ViewController
+    if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) {//Signup ViewController
         self.scrollView.contentSize = CGSizeMake(320,700);
-    else if
-        ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
+        self.trackedViewName = @"SignUpViewController";
+    }else if
+        ([nibId rangeOfString:@"L0X-YO-oem"].length != 0){ //Login ViewController
         self.scrollView.contentSize = CGSizeMake(320,540);
-    
+        self.trackedViewName = @"LoginViewController";
+    }
+
     [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
     [labelLogin         setFont:[UIFont fontWithName:@"Droid Sans" size:16 ]];
     [labelGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
@@ -202,6 +206,12 @@
 
 -(IBAction)postNewGarage:(id)sender {
     if ([self validateFormNewGarage]) {
+        
+        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
+                                                         withAction:@"Register"
+                                                          withLabel:@"Register new Garage"
+                                                          withValue:nil];
+        
         HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:HUD];
         
@@ -331,7 +341,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
-    [settingsAccount synchronize];
+    [settingsAccount synchronize];    
 }
 
 -(IBAction)checkLogin:(id)sender{

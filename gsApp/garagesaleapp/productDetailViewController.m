@@ -67,7 +67,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
-{
+{    
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
@@ -81,6 +81,9 @@
     [self setLoadAnimation];
    // [self.imgViewLoading startAnimating];
 
+   self.trackedViewName = @"ProductDetailViewController";
+
+    
    [self loadAttribsToComponents:NO];
     
     [super viewDidLoad];
@@ -105,6 +108,10 @@
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
    
     if (!isFromLoadObject) {
+        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                         withAction:@"Load"
+                                                          withLabel:@"Load Product Detail"
+                                                          withValue:nil];
         /*
          Esta verificaçao esta errada... bbbba garagem pode
          ter so numeros ?
@@ -220,7 +227,6 @@
         
         [labelNameProfile setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
         [labelCityProfile setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-        
         
         labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
         labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
@@ -455,6 +461,11 @@
     [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
     [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
     [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
+    
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                     withAction:@"Bid"
+                                                      withLabel:@"Product Bid"
+                                                      withValue:nil];
     
     [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];
     

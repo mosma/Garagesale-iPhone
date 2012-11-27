@@ -51,7 +51,9 @@
 {
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    
+
+    self.trackedViewName = @"garageAccountViewController";
+
     if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
@@ -59,6 +61,12 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
+                                                     withAction:@"Reload"
+                                                      withLabel:@"Reload Products Screen"
+                                                      withValue:nil];
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
@@ -148,7 +156,6 @@
         
     } else {
         
-        
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -187,7 +194,7 @@
     [buttonGarageLogo setImage:image forState:UIControlStateNormal];
 }
 
-- (void)getResourcePathProduct{
+- (void)getResourcePathProduct{    
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager sharedManager];
     

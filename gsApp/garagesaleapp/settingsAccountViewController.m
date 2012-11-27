@@ -72,6 +72,8 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+    
+    self.trackedViewName = @"settingsViewController";
 }
 
 - (void)loadAttribsToComponents{
@@ -192,6 +194,12 @@
 }
 
 -(IBAction)saveSettings{
+    
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Profile"
+                                                     withAction:@"Save"
+                                                      withLabel:@"Profile Saved"
+                                                      withValue:nil];
+    
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
     
@@ -248,6 +256,8 @@
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
         
+        
+        self.trackedViewName = [NSString stringWithFormat:@"Profile Saved Garage : %@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
     }
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];

@@ -67,14 +67,15 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-        
+    
+    self.trackedViewName = @"ProductAccountViewController";
+    
     [self loadAttributsToComponents];
 }
 
 -(void)loadAttributsToComponents{
 
     _postProdDelegate = [[PostProductDelegate alloc] init];
-    
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
@@ -433,10 +434,22 @@
         [prodParams setObject:[txtFieldCurrency.text
                                substringToIndex:3]          forKey:@"currency"];
 
-        if (self.product != nil)
+        if (self.product != nil){
             [prodParams setObject:[self.product.id stringValue] forKey:@"id"];
-        
-        [_postProdDelegate postProduct:prodParams];
+            [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                             withAction:@"Register"
+                                                              withLabel:@"New Product Registered"
+                                                              withValue:nil];
+        }else
+            [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                             withAction:@"Edit"
+                                                              withLabel:@"Product Modified"
+                                                              withValue:nil];
+
+        if (![super isReachability])
+            _postProdDelegate.isSaveProductFail = YES;
+        else
+            [_postProdDelegate postProduct:prodParams];
 
         [self initProgressHUDSaveProduct];
     }
@@ -468,8 +481,10 @@
         if (progress > 1) progress = 0.0f;
 		usleep(30000);
         count++;
-        if (_postProdDelegate.isSaveProductFail) break;
+        if (_postProdDelegate.isSaveProductFail)
+            break;
 	}
+    
     if (_postProdDelegate.isSaveProductFail){
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
@@ -487,6 +502,8 @@
         
         [self newProductFinished:(self.product == nil)];
     }
+    
+    _postProdDelegate.isSaveProductFail = NO;
 }
 
 -(BOOL)validateForm{

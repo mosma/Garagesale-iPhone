@@ -195,6 +195,7 @@
 		CC9DCAA1165BC0AA004C4F54 /* photosGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9DCAA0165BC0AA004C4F54 /* photosGallery.m */; };
 		CC9DCAA7165BEC78004C4F54 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = CC9DCAA6165BEC78004C4F54 /* Tile.m */; };
 		CC9DCAA9165BED87004C4F54 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9DCAA8165BED87004C4F54 /* QuartzCore.framework */; };
+		CCACED9D1663D14C00E00519 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCACED9C1663D14C00E00519 /* libGoogleAnalytics.a */; };
 		CCB0643614B2A5D20022BA5D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643514B2A5D20022BA5D /* UIKit.framework */; };
 		CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643714B2A5D20022BA5D /* Foundation.framework */; };
 		CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643914B2A5D20022BA5D /* CoreGraphics.framework */; };
@@ -531,6 +532,12 @@
 		CC9DCAA5165BEC78004C4F54 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		CC9DCAA6165BEC78004C4F54 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		CC9DCAA8165BED87004C4F54 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CCACED971663D14C00E00519 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		CCACED981663D14C00E00519 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		CCACED991663D14C00E00519 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		CCACED9A1663D14C00E00519 /* GAITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransaction.h; sourceTree = "<group>"; };
+		CCACED9B1663D14C00E00519 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
+		CCACED9C1663D14C00E00519 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		CCB0643114B2A5D20022BA5D /* garagesaleapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = garagesaleapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB0643514B2A5D20022BA5D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CCB0643714B2A5D20022BA5D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -621,6 +628,7 @@
 				CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */,
 				CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */,
 				CC16B4551545BD6A00A4487B /* libAddThis.a in Frameworks */,
+				CCACED9D1663D14C00E00519 /* libGoogleAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,6 +782,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CCACED961663D12100E00519 /* GoogleAnalitics */,
 				CCC7B096164F03BE00BB3EC6 /* PopOver */,
 				CC6B0FD715D622AE00BBB742 /* MBProgressHUD */,
 				CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */,
@@ -1017,6 +1026,19 @@
 				CC9DCAA6165BEC78004C4F54 /* Tile.m */,
 			);
 			name = ProductAccount;
+			sourceTree = "<group>";
+		};
+		CCACED961663D12100E00519 /* GoogleAnalitics */ = {
+			isa = PBXGroup;
+			children = (
+				CCACED971663D14C00E00519 /* GAI.h */,
+				CCACED981663D14C00E00519 /* GAITrackedViewController.h */,
+				CCACED991663D14C00E00519 /* GAITracker.h */,
+				CCACED9A1663D14C00E00519 /* GAITransaction.h */,
+				CCACED9B1663D14C00E00519 /* GAITransactionItem.h */,
+				CCACED9C1663D14C00E00519 /* libGoogleAnalytics.a */,
+			);
+			name = GoogleAnalitics;
 			sourceTree = "<group>";
 		};
 		CCB0642614B2A5CE0022BA5D = {
@@ -1660,6 +1682,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
+					"\"$(SRCROOT)/garagesaleapp\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1763,6 +1786,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
+					"\"$(SRCROOT)/garagesaleapp\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1787,6 +1811,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
+					"\"$(SRCROOT)/garagesaleapp\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
