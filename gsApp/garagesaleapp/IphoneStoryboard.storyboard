@@ -207,7 +207,6 @@
                                         <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="e1V-NC-RTa">
                                             <rect key="frame" x="10" y="8" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dotsDetailProduct.png" id="ppG-RO-qJp">
                                             <rect key="frame" x="10" y="359" width="300" height="6"/>
@@ -2031,7 +2030,10 @@
         <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
     <classes>
-        <class className="MasterViewController" superclassName="UIViewController">
+        <class className="GAITrackedViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GAITrackedViewController.h"/>
+        </class>
+        <class className="MasterViewController" superclassName="GAITrackedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
         </class>
         <class className="OHAttributedLabel" superclassName="UILabel">
@@ -2106,6 +2108,7 @@
         <class className="productCustomViewCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productCustomViewCell.h"/>
             <relationships>
+                <relationship kind="outlet" name="activityImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageEditButton" candidateClass="UIButton"/>
@@ -2206,7 +2209,7 @@
                 <relationship kind="action" name="twitter:"/>
             </relationships>
         </class>
-        <class className="signUpViewController" superclassName="UIViewController">
+        <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>

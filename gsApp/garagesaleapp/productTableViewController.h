@@ -17,14 +17,14 @@
                                                                 UITableViewDataSource,
                                                                 UISearchBarDelegate,
                                                                 RKObjectLoaderDelegate,
-                                                                UIScrollViewDelegate,UITabBarDelegate> {
+                                                                UIScrollViewDelegate,
+                                                                UITabBarDelegate, NSURLConnectionDataDelegate> {
 
     BOOL                    *isSearch;
     BOOL                    *isSegmentedControlChanged;
 
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
-    NSMutableDictionary     *mutDictDataThumbs;
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
@@ -40,6 +40,9 @@
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
 @property (retain, nonatomic) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+
+@property (nonatomic, retain) NSArray *imageURLs;
+
 
 -(void)getResourcePathProduct;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;

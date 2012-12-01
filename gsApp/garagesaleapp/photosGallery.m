@@ -25,6 +25,7 @@
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 
+
 -(id)init{
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
@@ -37,8 +38,14 @@
     [self setNsMutArrayPicsProduct:[[NSMutableArray alloc] init]];
     [self setNsMutArrayNames:[[NSMutableArray alloc] init]];
 
+
+    
+    
+    
+    
     return self;
 }
+
 
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
@@ -46,10 +53,18 @@
     if (buttonSaveProduct.enabled) {
 
     
-    if (sender.state == UIGestureRecognizerStateBegan) {
+   // if (sender.state == UIGestureRecognizerStateBegan) {
         [scrollView setUserInteractionEnabled:NO];
  
-        UIImageView *imageView      = (UIImageView *)sender.view;
+        UIImageView *imageViewDelete      = (UIImageView *)sender.view;
+        
+        
+        [imageViewDelete setHidden:YES];
+        
+        
+        UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
+
+        
         
         //Remove imgViewDelete
         //        for (UIView *subview in [imageView subviews])
@@ -57,7 +72,34 @@
         //                [subview removeFromSuperview];
 
         
+        imageView.image = nil;
+        
+        UIImageView * animation = [[UIImageView alloc] init];
+        
+        [animation setFrame:CGRectMake(10,10, 40, 40)];
+        
+        
+        
+        
+        animation.animationImages = [NSArray arrayWithObjects:
+                                     [UIImage imageNamed: @"iconEliminateItem1.png"],
+                                     [UIImage imageNamed: @"iconEliminateItem2.png"],
+                                     [UIImage imageNamed: @"iconEliminateItem3.png"],
+                                     [UIImage imageNamed: @"iconEliminateItem4.png"]
+                                     ,nil];
+        [animation setAnimationRepeatCount:1];
+        [animation setAnimationDuration:0.35];
+        [animation startAnimating];
+        [imageView addSubview:animation];
+        [animation bringSubviewToFront:imageView];
+        
         [UIView animateWithDuration:0.75 animations: ^{
+            
+            
+
+
+            
+            
             [self reconfigureImagesAfterRemoving:imageView];
         } completion:^(BOOL finished){
             
@@ -91,7 +133,7 @@
 
         
         
-    }
+  //  }
     
 }
 
@@ -101,8 +143,19 @@
     
     for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
         if (viewNumber == indexOfRemovedImageView ) {
-            UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
-            [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollView.frame.size.height/2, 0, 0)];
+          
+            
+            
+            
+            
+           // UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
+           // [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollView.frame.size.height/2, 0, 0)];
+            
+            
+            
+            
+            
+            
         }else if (viewNumber >= indexOfRemovedImageView ){
             CGPoint origin = ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame.origin;
             origin.x = origin.x - self.widthPaddingInImages - imageWidth_;
@@ -126,16 +179,20 @@
 
 -(void)addImageToScrollView:(UIImage *)aImage photoReturn:(PhotoReturn *)photoReturn product:(Product *)product{
     
-    //        UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
-    //        UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
-    //        [imgViewDelete setFrame:CGRectMake(-7, -7, 25, 25)];
-    //        [uplImageDelegate.imageView setUserInteractionEnabled:YES];
-    //        //[uplImageDelegate.imageView setExclusiveTouch:YES];
-    //        [imgViewDelete setUserInteractionEnabled:YES];
-    //        [imgViewDelete setMultipleTouchEnabled:YES];
+            UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
+            UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
+            [imgViewDelete setFrame:CGRectMake(-5, -5, 25, 25)];
+            //[uplImageDelegate.imageView setUserInteractionEnabled:YES];
+            //[uplImageDelegate.imageView setExclusiveTouch:YES];
+            [imgViewDelete setUserInteractionEnabled:YES];
+    [imgViewDelete setMultipleTouchEnabled:YES];
     
-
+    
+    
    UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+    
+    
+    [picViewAtGallery addSubview:imgViewDelete];
     
     int newIndex = [nsMutArrayPicsProduct count];
     [nsMutArrayPicsProduct insertObject:picViewAtGallery atIndex:newIndex];
@@ -159,15 +216,17 @@
 
     }
     
-    UILongPressGestureRecognizer * deleteGesture = [[UILongPressGestureRecognizer alloc]
+    UITapGestureRecognizer * deleteGesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self action:@selector(deletePicsAtGallery:)];
     [deleteGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
+    [deleteGesture setNumberOfTapsRequired:1];
+
 
     UITapGestureRecognizer *moveLeftGesture = [[UITapGestureRecognizer alloc]
                                        initWithTarget:self action:@selector(animePicsGallery:)];
     [moveLeftGesture setNumberOfTapsRequired:1];
-    
-    [uplImageDelegate.imageView addGestureRecognizer:deleteGesture];
+
+    [imgViewDelete addGestureRecognizer:deleteGesture];
     [uplImageDelegate.imageView addGestureRecognizer:moveLeftGesture];
     
     //[self createTiles:uplImageDelegate.imageView index:([nsMutArrayPicsProduct count]-1)];
@@ -210,14 +269,14 @@
             if (x >= [nsMutArrayNames count] && [nsMutArrayNames count] != [nsMutArrayPicsProduct count])
                 [nsMutArrayNames insertObject:[[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] atIndex:x];
 
-     UIImageView *leftImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_left];
-     UIImageView *rightImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_right];
+        UIImageView *leftImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_left];
+        UIImageView *rightImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_right];
     
-     CGRect right = rightImgV.frame;
-     CGRect left = leftImgV.frame;
+        CGRect right = rightImgV.frame;
+        CGRect left = leftImgV.frame;
 
-     [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_left withObject:rightImgV];
-     [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftImgV];
+        [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_left withObject:rightImgV];
+        [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftImgV];
 
         
         NSString *rightS = [nsMutArrayNames objectAtIndex:indexOfImageAtScroll_right];
@@ -233,6 +292,21 @@
          [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
          [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] setFrame:left];
          [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] setFrame:right];
+        
+//        if (indexOfImageAtScroll_left == 0){
+//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderColor:[[UIColor grayColor] CGColor] ];
+//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] layer] setBorderWidth:5.0 ];
+//               
+//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderColor:[[UIColor clearColor] CGColor] ];
+//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderWidth:0 ];
+//        
+//        }
+    
+       
+            
+            
+        
+        
          [UIView commitAnimations];
 
 
@@ -246,6 +320,9 @@
     @finally {
         ;
     }
+    
+   
+
     
 }
 

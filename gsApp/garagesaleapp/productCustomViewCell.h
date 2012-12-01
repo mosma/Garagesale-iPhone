@@ -17,6 +17,7 @@
     IBOutlet UIImageView              *imageView;
     IBOutlet UIButton                 *imageEditButton;
     IBOutlet UIImageView              *imageGravatar;
+    UIImageView *activityImageView;
 }
 
 @property (retain, nonatomic) IBOutlet UILabel                *productName;
@@ -26,5 +27,8 @@
 @property (retain, nonatomic) IBOutlet UIImageView            *imageView;
 @property (retain, nonatomic) IBOutlet UIButton               *imageEditButton;
 @property (retain, nonatomic) IBOutlet UIImageView            *imageGravatar;
+@property (retain, nonatomic) IBOutlet UIImageView *activityImageView;
+
+-(void)carregaAnimate;
 
 @end

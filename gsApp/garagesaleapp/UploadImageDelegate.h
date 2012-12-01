@@ -15,7 +15,7 @@
 #import "PhotoReturn.h"
 #import "photosGallery.h"
 
-@interface UploadImageDelegate : NSObject <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
+@interface UploadImageDelegate : UIView <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
     UIImageView     *imageView;
     UIProgressView  *progressView;
     UIButton        *buttonSaveProduct;

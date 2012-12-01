@@ -85,7 +85,7 @@
     [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-
+    
     txtFieldValue.keyboardType = UIKeyboardTypeDecimalPad;
     
     shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
@@ -351,6 +351,7 @@
     }
 }
 
+
 //- (void)receivedLongPress:(UIGestureRecognizer *)gestureRecognizer {
 //    CGPoint coords = [gestureRecognizer locationInView:gestureRecognizer.view];
 //    
@@ -531,8 +532,17 @@
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToTabBarController:2];
+        
+//        for (UIView *view in self.scrollView.subviews)
+//            for (UITextField *txtField in view.subviews) 
+//                if ([txtField isKindOfClass:[UITextField class]])
+//                    txtField.text = @"";
+//
+//        for (UIView *v in [scrollViewPicsProduct subviews])
+//            [v removeFromSuperview];
+        
         self.view = nil;
-        [self viewDidLoad];
+       [self viewDidLoad];
         [scrollView setContentOffset:CGPointZero animated:NO];
     }
     else{
@@ -713,6 +723,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
+    
+    
+    
+    
+    //Bloco de verificação Temporario parametro para ajustar as 3 imagens para direita...
+    if ([gallery.nsMutArrayPicsProduct count] == 1)
+        [gallery.scrollView setContentOffset:CGPointMake(-180, scrollView.contentOffset.y) animated:YES];
+    if ([gallery.nsMutArrayPicsProduct count] == 2)
+        [gallery.scrollView setContentOffset:CGPointMake(-105, scrollView.contentOffset.y) animated:YES];
+    if ([gallery.nsMutArrayPicsProduct count] == 3)
+        [gallery.scrollView setContentOffset:CGPointMake(-25, scrollView.contentOffset.y) animated:YES];
+    
    if (![[[GlobalFunctions getUserDefaults]
           objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {
         int action = [[[GlobalFunctions getUserDefaults] objectForKey:@"controlComponentsAtFirstDisplay"] intValue];
@@ -722,16 +744,17 @@
         else if (action == 1)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
        
+       //textViewDescription.text = @"";
+       
        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
        [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
 }
 
 - (void)viewDidUnload
 {
-    textViewDescription = nil;
-    [self setTextViewDescription:nil];
     viewPicsControl = nil;
     [self setViewPicsControl:nil];
     buttonAddPics = nil;

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UploadImageDelegate.h"
 
-
 @interface photosGallery : NSObject {
     NSMutableArray              *nsMutArrayPicsProduct;
     NSMutableArray              *nsMutArrayNames;

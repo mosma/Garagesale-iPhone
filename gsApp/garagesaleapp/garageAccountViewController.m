@@ -465,10 +465,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
-    prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:indexPath.row];
-    prdDetailVC.imageView               = [[UIImageView alloc] initWithImage:[mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]];
-    [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

@@ -108,10 +108,6 @@
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
    
     if (!isFromLoadObject) {
-        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
-                                                         withAction:@"Load"
-                                                          withLabel:@"Load Product Detail"
-                                                          withValue:nil];
         /*
          Esta verificaçao esta errada... bbbba garagem pode
          ter so numeros ?
