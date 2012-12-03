@@ -341,6 +341,20 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
+
+
+    
+    NSURL *gravatar = [GlobalFunctions getGravatarURL:[[objects objectAtIndex:0] email]];
+    NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
+    UIImage *image      = [[UIImage alloc] initWithData:imageData];
+    
+    NSData *imageData2 = [NSKeyedArchiver archivedDataWithRootObject:image];
+    [settingsAccount setObject:imageData2 forKey:@"imageGravatar"];
+
+    
+    [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
+
+    
     [settingsAccount synchronize];    
 }
 

@@ -791,7 +791,7 @@
 
 - (IBAction)animationBidView{
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
+    [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     
@@ -949,6 +949,7 @@
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
+        [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
     } else {

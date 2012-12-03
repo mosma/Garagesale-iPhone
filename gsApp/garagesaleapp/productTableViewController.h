@@ -30,11 +30,13 @@
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
     IBOutlet UISearchBar       *searchBarProduct;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+                                                                    
+    CGFloat _lastContentOffset;
 }
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
 @property (retain, nonatomic) NSMutableArray        *mutArrayProducts;
-@property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
+//@property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;

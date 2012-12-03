@@ -8,6 +8,7 @@
 
 #import "garageAccountViewController.h"
 #import "NSAttributedString+Attributes.h"
+#import "AsyncImageView.h"
 
 @implementation garageAccountViewController
 
@@ -23,11 +24,49 @@
 @synthesize scrollViewMain;
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
-@synthesize mutDictDataThumbs;
+//@synthesize mutDictDataThumbs;
 @synthesize profile;
 @synthesize garage;
 @synthesize viewTop;
 @synthesize segmentControl;
+@synthesize imageURLs;
+
+- (void)awakeFromNib
+{
+    NSMutableArray *URLs = [NSMutableArray array];
+    if ([mutArrayProducts count ] > 0) {
+            for (int x=0; x<[mutArrayProducts count]; x++) {
+                
+                
+                NSString* urlThumb;
+                @try {
+                     urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+                }
+                @catch (NSException *exception) {
+                    urlThumb = @"http://s3-sa-east-1.amazonaws.com/garagesale-static-content/images/nopicture.png";
+                    NSLog(@"%@", exception.description);
+                }
+                @finally {
+                }
+                
+                NSURL *URL = [NSURL URLWithString:urlThumb];
+                if (URL)
+                {
+                    [URLs addObject:URL];
+                }
+                else
+                {
+                    NSLog(@"'%@' is not a valid URL", urlThumb);
+                }
+                NSLog(@"xxx : %i",x);
+            }
+            self.imageURLs = URLs;
+        
+
+    }
+    [super awakeFromNib];
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,7 +140,7 @@
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         
-        [segmentControl setSelectedSegmentIndex:0];
+       // [segmentControl setSelectedSegmentIndex:0];
         
         if ((garage  == nil) && (profile == nil)) {
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
@@ -112,8 +151,23 @@
                             [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
         
-            gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
+            //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
 
+            
+
+            
+            //Retrieving
+            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:@"imageGravatar"]];
+
+            
+            
+            
+            
+            
+            [buttonGarageLogo setImage:image forState:UIControlStateNormal];
+
+            
+            
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
         } else {
             description.text = garage.about;
@@ -124,6 +178,9 @@
                                         garage.country];
             link.text        = garage.link;
             gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+            
+              [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
+                withObject:gravatarUrl];
             
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
@@ -146,11 +203,10 @@
         
         [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
         
-        [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
-                               withObject:gravatarUrl];
+
+  
         
-        
-        mutDictDataThumbs = [[NSMutableDictionary alloc] init];
+      //  mutDictDataThumbs = [[NSMutableDictionary alloc] init];
         
         
         
@@ -221,9 +277,10 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if([objects count] > 0){
-        [mutDictDataThumbs removeAllObjects];
+    //    [mutDictDataThumbs removeAllObjects];
         [mutArrayProducts removeAllObjects];
         mutArrayProducts = (NSMutableArray *)objects;
+        [self awakeFromNib];
         [tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
         isLoadingDone = !isLoadingDone;
@@ -307,8 +364,29 @@
             [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
             [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
         }
-    } 
+    }
+    
+    if (_lastContentOffset < (int)tableViewProducts.contentOffset.y ||
+        _lastContentOffset < (int)scrollViewProducts.contentOffset.y) {
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        
+    }else{
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    }
 }
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _lastContentOffset = scrollView.contentOffset.y;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+}
+
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
@@ -334,36 +412,36 @@
     }
 }
 
--(void)loadTableProduct:(NSArray *)array{
-    [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
-                               withObject:array];
-}
-
-- (void)loadImageTableThumbs:(NSArray *)array {
-    /*
-     array WithObjects:
-     0 cell, 
-     1 indexPath, 
-     */
-    NSIndexPath *index = [array objectAtIndex:1];
-    NSString* urlThumb;
-
-        @try {
-            urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
-            if (urlThumb != NULL) {
-                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
-                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
-            }
-        }
-        @catch (NSException *exception) {
-            [(productCustomViewCell *)[array objectAtIndex:0] imageView].image  = [UIImage imageNamed:@"nopicture.png"];
-            [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
-            NSLog(@"%@", exception);
-        }
-        @finally {
-        }
-}
+//-(void)loadTableProduct:(NSArray *)array{
+//    [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
+//                               withObject:array];
+//}
+//
+//- (void)loadImageTableThumbs:(NSArray *)array {
+//    /*
+//     array WithObjects:
+//     0 cell, 
+//     1 indexPath, 
+//     */
+//    NSIndexPath *index = [array objectAtIndex:1];
+//    NSString* urlThumb;
+//
+//        @try {
+//            urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
+//            if (urlThumb != NULL) {
+//                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
+//                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
+//                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
+//            }
+//        }
+//        @catch (NSException *exception) {
+//            [(productCustomViewCell *)[array objectAtIndex:0] imageView].image  = [UIImage imageNamed:@"nopicture.png"];
+//            [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
+//            NSLog(@"%@", exception);
+//        }
+//        @finally {
+//        }
+//}
 
 -(IBAction)changeSegControl{
     if(segmentControl.selectedSegmentIndex == 0){
@@ -406,10 +484,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     static NSString             *CellIdentifier = @"CellProduct";
-    productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];    
+    productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
     if ([mutArrayProducts count] > 0) {
 
+        
+        
+        
+
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imageView];
+        //set placeholder image or cell won't update when image is loader
+        cell.imageView.image = [UIImage imageNamed:@"placeholder2.png"];
+        //load the image
+        cell.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
+        
+        cell.imageView.layer.masksToBounds = YES;
+        
+        cell.imageView.layer.cornerRadius = 3;
+        
         [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
 
@@ -435,22 +528,22 @@
                                                                 blue:(float)102/255.0 alpha:1.0]];
         }else cell.valorEsperado.attributedText = attrStr;
         
-        if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]])
-            cell.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]; 
-        else {
-             if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
-                NSOperationQueue *queue = [NSOperationQueue new];
-
-                NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
-                                                       initWithTarget:self
-                                                       selector:@selector(loadTableProduct:)
-                                                       object:[NSArray arrayWithObjects:
-                                                               cell,
-                                                               indexPath, nil]];
-                [queue addOperation:opTableProd];
-             }
-        }
-                
+//        if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]])
+//            cell.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]; 
+//        else {
+//             if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
+//                NSOperationQueue *queue = [NSOperationQueue new];
+//
+//                NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
+//                                                       initWithTarget:self
+//                                                       selector:@selector(loadTableProduct:)
+//                                                       object:[NSArray arrayWithObjects:
+//                                                               cell,
+//                                                               indexPath, nil]];
+//                [queue addOperation:opTableProd];
+//             }
+//        }
+        
         if ((garage  == nil) && (profile == nil))
             cell.imageEditButton.hidden = NO;
         else 
@@ -465,18 +558,27 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
+    [prdDetailVC setProduct:(Product *)[mutArrayProducts objectAtIndex:indexPath.row]];
+    
+    
+    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(productCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
+    
+    [prdDetailVC setImageView:imageV];
+    [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                            delegate:nil 
                                                   cancelButtonTitle:@"Cancel" 
                                              destructiveButtonTitle:nil
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
+        [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
     } else {
@@ -490,6 +592,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
@@ -520,8 +623,8 @@
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
     [super viewDidUnload];
-    mutDictDataThumbs = nil;
-    [self setMutDictDataThumbs:nil];
+ //   mutDictDataThumbs = nil;
+  //  [self setMutDictDataThumbs:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

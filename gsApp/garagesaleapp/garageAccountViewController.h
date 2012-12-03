@@ -32,7 +32,8 @@
     Profile             *profile;
     Garage              *garage;
     BOOL                isLoadingDone;
-                                                            
+    CGFloat                                     _lastContentOffset;
+                      
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;
@@ -66,6 +67,9 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *viewTop;
+
+@property (nonatomic, retain) NSArray *imageURLs;
+
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)changeSegControl;

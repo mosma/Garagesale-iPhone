@@ -106,6 +106,8 @@
     [gallery setButtonSaveProduct:buttonSaveProduct];
     [gallery setScrollView:self.scrollViewPicsProduct];
     
+    
+    
 
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
                        NSLocalizedString(@"Sold", @""), NSLocalizedString(@"notAvailable", @""), NSLocalizedString(@"invisible", @""), nil];
@@ -127,6 +129,8 @@
     [pickerViewState setDataSource:self];
     [pickerViewState setShowsSelectionIndicator:YES];
     [txtFieldState setInputView:pickerViewState];
+    [txtFieldState setTag:PICKERSTATE];
+    txtFieldState.delegate = self;
     
     txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
     
@@ -137,6 +141,21 @@
     [pickerViewCurrency setDataSource:self];
     [pickerViewCurrency setShowsSelectionIndicator:YES];
     [txtFieldCurrency setInputView:pickerViewCurrency];
+    [txtFieldCurrency setTag:PICKERCURRENCY];
+    txtFieldCurrency.delegate = self;
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
     
@@ -164,6 +183,22 @@
     }else {
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
+}
+//
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField.tag == PICKERSTATE || textField.tag == PICKERCURRENCY) {
+      for (UIView *v in textField.subviews)
+          if ([[[v class] description] rangeOfString:@"UITextSelectionView"].location != NSNotFound)
+            v.hidden = YES;
+      [textField setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [textField setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    return YES;
 }
 
 - (void)getResourcePathProduct{
@@ -309,6 +344,7 @@
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
+        [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
     } else {
@@ -696,11 +732,26 @@
         else
             return NO;
     }
+    
+    if ( [string length] > 1) {
+        return NO;
+    }
+    return YES;
+    
+    
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    
+    
+    if (textField.tag == PICKERSTATE || textField.tag == PICKERCURRENCY) {
+        for (UIView *v in textField.subviews)
+            if ([[[v class] description] rangeOfString:@"UITextSelectionView"].location != NSNotFound)
+                v.hidden = YES;
+    }
+    
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];

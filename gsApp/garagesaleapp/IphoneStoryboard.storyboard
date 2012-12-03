@@ -495,7 +495,7 @@
             <objects>
                 <viewController storyboardIdentifier="garageAccount" id="E1Z-FY-4Gx" customClass="garageAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QGh-vt-7Z6">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="gzi-hc-7y8" userLabel="scrollViewMain">
@@ -625,8 +625,10 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="3IH-JW-7oF" userLabel="scrollViewProducts">
                                         <rect key="frame" x="0.0" y="143" width="320" height="416"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </scrollView>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -645,6 +647,7 @@
                             </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buttonGarageLogo" destination="kiP-7d-erC" id="MOI-FY-zQF"/>
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>

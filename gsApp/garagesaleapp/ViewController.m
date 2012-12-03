@@ -258,6 +258,7 @@
                                               otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
     sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     sheet.delegate = self;
+    [sheet showInView:self.view];
     [sheet showFromTabBar:self.tabBarController.tabBar];
     return NO;
     } else {
@@ -311,7 +312,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if ([self detectEndofScroll]){
+    if ([self detectEndofScroll] && !activityImageView.isAnimating){
         //UIAlertView *displayMessage = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Reached end of table scroll" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil];
         //[displayMessage show];
         

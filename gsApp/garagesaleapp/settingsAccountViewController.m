@@ -407,6 +407,7 @@
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
+        [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
     } else {

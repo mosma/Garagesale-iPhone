@@ -31,8 +31,16 @@
     if ([mutArrayProducts count ] > 0) {
         @try {
             for (int x=0; x<[mutArrayProducts count]; x++) {
-                
-                NSString* urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+                NSString* urlThumb;
+                @try {
+                    urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+                }
+                @catch (NSException *exception) {
+                    urlThumb = @"http://s3-sa-east-1.amazonaws.com/garagesale-static-content/images/nopicture.png";
+                    NSLog(@"%@", exception.description);
+                }
+                @finally {
+                }
                 
                 NSURL *URL = [NSURL URLWithString:urlThumb];
                 if (URL)
@@ -250,8 +258,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
-        //create new cell
-         productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
+    //create new cell
+    productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
 
         //common settings
@@ -262,8 +270,8 @@
        // cell.imageView.clipsToBounds = YES;
         
 
-        //cancel loading previous image for cell
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
+    //cancel loading previous image for cell
+    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
             [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellLine.imageView];
     
     //set placeholder image or cell won't update when image is loaded
@@ -278,6 +286,12 @@
     //load the image
     customViewCellLine.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
     
+    customViewCellBlock.imageView.layer.masksToBounds = YES;
+    customViewCellLine.imageView.layer.masksToBounds = YES;
+
+    customViewCellBlock.imageView.layer.cornerRadius = 3;
+    customViewCellLine.imageView.layer.cornerRadius = 3;
+
     //display image path
    // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
 
@@ -488,6 +502,7 @@
                                                   otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
         [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
         sheet.delegate = self;
+        [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
     } else {
@@ -504,8 +519,20 @@
         [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
     
+    if (_lastContentOffset < (int)self.tableView.contentOffset.y) {
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        
+    }else{
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    }
+    
     //[self.navigationItem.rightBarButtonItem setEnabled:NO];
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    _lastContentOffset = scrollView.contentOffset.y;
+}
+
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     //[self.navigationItem.rightBarButtonItem setEnabled:YES];
