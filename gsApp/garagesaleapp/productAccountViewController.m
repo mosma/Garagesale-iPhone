@@ -462,12 +462,12 @@
                                                              withAction:@"Register"
                                                               withLabel:@"New Product Registered"
                                                               withValue:nil];
-        }else
+        }else{
             [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
                                                              withAction:@"Edit"
                                                               withLabel:@"Product Modified"
                                                               withValue:nil];
-
+        }
         if (![super isReachability])
             _postProdDelegate.isSaveProductFail = YES;
         else
