@@ -91,8 +91,6 @@
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
-    self.trackedViewName = @"garageAccountViewController";
-
     if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
@@ -100,12 +98,6 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
-    
-    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
-                                                     withAction:@"Reload"
-                                                      withLabel:@"Reload Products Screen"
-                                                      withValue:nil];
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
@@ -159,15 +151,12 @@
             //Retrieving
             UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:@"imageGravatar"]];
 
+            self.trackedViewName = [NSString stringWithFormat:@"/%@",
+                                    [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             
-            
-            
-            
-            
+
             [buttonGarageLogo setImage:image forState:UIControlStateNormal];
 
-            
-            
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
         } else {
             description.text = garage.about;
@@ -178,6 +167,9 @@
                                         garage.country];
             link.text        = garage.link;
             gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+            
+            
+            self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
             
               [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
                 withObject:gravatarUrl];
@@ -212,6 +204,11 @@
         
     } else {
         
+        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
+                                                         withAction:@"Reload"
+                                                          withLabel:@"Reload Products Screen"
+                                                          withValue:nil];
+        
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -241,6 +238,7 @@
                                             selector:@selector(loadButtonsProduct)
                                             object:nil];
         [queue addOperation:opThumbsProd];
+        
     }  
 }
 

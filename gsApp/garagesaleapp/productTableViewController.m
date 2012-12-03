@@ -24,6 +24,7 @@
 @synthesize OHlabelTitleResults;
 @synthesize segmentControl;
 @synthesize imageURLs;
+@synthesize tableView;
 
 - (void)awakeFromNib
 {
@@ -66,14 +67,14 @@
     [super awakeFromNib];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -120,7 +121,9 @@
                                                     @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"]];
         [segmentControl setSelectedSegmentIndex:0];
         [self.tableView setRowHeight:377];
-        
+    
+        self.trackedViewName = [NSString stringWithFormat: @"/search/%@", strLocalResourcePath];
+
      if (isFromLoadObject) {
             
         if ([strTextSearch length] != 0)
@@ -433,20 +436,18 @@
     //Search Service
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
     [mutArrayProducts removeAllObjects];
-    
-    
+
+    self.trackedViewName = [NSString stringWithFormat: @"/search/%@", searchBar.text];
+
     [segmentControl setSelectedSegmentIndex:0];
     [self.tableView setRowHeight:377];
     
     [self getResourcePathProduct];
     
-    
-    
     [self searchBar:searchBar activate:NO];
     [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
    // [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-
 
 }
 

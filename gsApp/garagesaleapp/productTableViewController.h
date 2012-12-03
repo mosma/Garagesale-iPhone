@@ -13,7 +13,7 @@
 #import "OHAttributedLabel.h"
 //#import "QuartzCore/QuartzCore.h"
 
-@interface productTableViewController : UITableViewController < UITableViewDelegate, 
+@interface productTableViewController : MasterViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
                                                                 UISearchBarDelegate,
                                                                 RKObjectLoaderDelegate,
@@ -30,7 +30,7 @@
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
     IBOutlet UISearchBar       *searchBarProduct;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
-                                                                    
+    __unsafe_unretained IBOutlet UITableView        *tableView;                                                          
     CGFloat _lastContentOffset;
 }
 
@@ -42,6 +42,7 @@
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
 @property (retain, nonatomic) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableView;
 
 @property (nonatomic, retain) NSArray *imageURLs;
 

@@ -67,9 +67,7 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-    
-    self.trackedViewName = @"ProductAccountViewController";
-    
+        
     [self loadAttributsToComponents];
 }
 
@@ -143,19 +141,6 @@
     [txtFieldCurrency setInputView:pickerViewCurrency];
     [txtFieldCurrency setTag:PICKERCURRENCY];
     txtFieldCurrency.delegate = self;
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
     
@@ -172,15 +157,15 @@
     
     [txtFieldState setInputAccessoryView:picViewStateToolbar];
     [txtFieldCurrency setInputAccessoryView:picViewStateToolbar];
-    
-
-    
+   
     [self.scrollView setContentSize:CGSizeMake(320,587)];
     [self setupKeyboardControls];
     
     if (self.product != nil) {
+        self.trackedViewName = [NSString stringWithFormat:@"%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
         [self loadingProduct];
     }else {
+        self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
 }

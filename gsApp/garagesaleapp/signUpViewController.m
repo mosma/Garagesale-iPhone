@@ -55,11 +55,11 @@
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
     if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) {//Signup ViewController
         self.scrollView.contentSize = CGSizeMake(320,700);
-        self.trackedViewName = @"SignUpViewController";
+        self.trackedViewName = @"/newGarage";
     }else if
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0){ //Login ViewController
         self.scrollView.contentSize = CGSizeMake(320,540);
-        self.trackedViewName = @"LoginViewController";
+        self.trackedViewName = @"/login";
     }
 
     [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];

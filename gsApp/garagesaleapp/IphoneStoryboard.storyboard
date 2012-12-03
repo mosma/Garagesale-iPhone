@@ -259,6 +259,7 @@
                     <connections>
                         <outlet property="OHlabelTitleResults" destination="sin-Wx-gne" id="ClV-Zd-tZB"/>
                         <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
+                        <outlet property="tableView" destination="oFz-9Y-J0m" id="A9w-kj-cYF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCx-nV-H4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2160,7 +2161,7 @@
                 <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
             </relationships>
         </class>
-        <class className="productTableViewController" superclassName="UITableViewController">
+        <class className="productTableViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/productTableViewController.h"/>
             <relationships>
                 <relationship kind="action" name="changeSegControl"/>
@@ -2168,6 +2169,7 @@
                 <relationship kind="outlet" name="OHlabelTitleResults" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="settingsAccountViewController" superclassName="MasterViewController">

@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
-    self.trackedViewName = @"HomeViewController";
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
@@ -151,11 +150,7 @@
 }
 
 - (void)getResourcePathProduct{
-    
-    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"HomeView"
-                                                         withAction:@"LoadProduct"
-                                                          withLabel:@"Load Home Product"
-                                                          withValue:nil];
+    self.trackedViewName = @"/";
     
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
