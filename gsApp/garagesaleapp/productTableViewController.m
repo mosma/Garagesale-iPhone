@@ -166,37 +166,6 @@
     }
 }
 
--(void)cancelSearchPad{
-    [txtFieldSearch resignFirstResponder];
-}
-
--(IBAction)showSearch:(id)sender{
-    if ([txtFieldSearch isFirstResponder]){
-        [txtFieldSearch resignFirstResponder];
-        if (![txtFieldSearch.text isEqualToString:@""]){
-
-            
-            //Search Service
-            strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", txtFieldSearch.text];
-            [mutArrayProducts removeAllObjects];
-            
-            self.trackedViewName = [NSString stringWithFormat: @"/search%@", txtFieldSearch.text];
-            
-            [segmentControl setSelectedSegmentIndex:0];
-            [self.tableView setRowHeight:377];
-            
-            [self getResourcePathProduct];
-            
-        //    [self showSearch:nil];
-            [txtFieldSearch resignFirstResponder];
-        
-        
-        }
-    }
-    else
-        [txtFieldSearch becomeFirstResponder];
-}
-
 
 - (void)getResourcePathProduct{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
@@ -519,6 +488,43 @@
     _lastContentOffset = scrollView.contentOffset.y;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [self showSearch:nil];
+	return YES;
+}
+
+-(void)cancelSearchPad{
+    [txtFieldSearch resignFirstResponder];
+}
+
+-(IBAction)showSearch:(id)sender{
+    if ([txtFieldSearch isFirstResponder]){
+        [txtFieldSearch resignFirstResponder];
+        if (![txtFieldSearch.text isEqualToString:@""]){
+            
+            strTextSearch = txtFieldSearch.text;
+            
+            NSString *replaceSpace = [txtFieldSearch.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            
+            //Search Service
+            strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", replaceSpace];
+            [mutArrayProducts removeAllObjects];
+            
+            self.trackedViewName = [NSString stringWithFormat: @"/search%@", replaceSpace];
+            
+            [segmentControl setSelectedSegmentIndex:0];
+            [self.tableView setRowHeight:377];
+            
+            [self getResourcePathProduct];
+            
+            //    [self showSearch:nil];
+            [txtFieldSearch resignFirstResponder];
+
+        }
+    }
+    else
+        [txtFieldSearch becomeFirstResponder];
+}
 
 //- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 //    [self.navigationItem.rightBarButtonItem setEnabled:YES];
