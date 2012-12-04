@@ -1904,14 +1904,14 @@
                                                     <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="KvH-sJ-Zfr" userLabel="valorEsperado" customClass="OHAttributedLabel">
-                                                    <rect key="frame" x="120" y="71" width="177" height="29"/>
+                                                    <rect key="frame" x="120" y="60" width="177" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <color key="textColor" red="0.24313727020000001" green="0.60784316059999999" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="ZXM-tS-dSb">
-                                                    <rect key="frame" x="119" y="34" width="178" height="39"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ZXM-tS-dSb">
+                                                    <rect key="frame" x="119" y="23" width="178" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.20000001789999999" green="0.20000001789999999" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>

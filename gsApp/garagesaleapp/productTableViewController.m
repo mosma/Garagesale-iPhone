@@ -349,9 +349,16 @@
     NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
                                                    [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
     NSString                   *valorEsperado   = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
-    NSString                   *strFormat       = [NSString stringWithFormat:@"%@%@ by %@", currency, valorEsperado, 
+    
+    
+    NSString *valorEsperadoFormat;
+    if (segmentControl.selectedSegmentIndex != 0)
+        valorEsperadoFormat = @"%@%@ \r\nby %@"; //break line.
+    else valorEsperadoFormat = @"%@%@ by %@"; 
+    
+    NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
                                                    [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
-
+    
     //Set Default Size/Color
     NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
