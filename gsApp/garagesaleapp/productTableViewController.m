@@ -551,6 +551,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -46,6 +46,7 @@
     __unsafe_unretained IBOutlet UITableView        *tableViewProducts;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
     __unsafe_unretained IBOutlet UIView *viewTop;
+    __weak IBOutlet UIView *viewNoProducts;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -69,6 +70,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *viewTop;
 
 @property (nonatomic, retain) NSArray *imageURLs;
+@property (weak, nonatomic) IBOutlet UIView *viewNoProducts;
 
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;

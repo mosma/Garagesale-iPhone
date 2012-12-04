@@ -227,6 +227,9 @@
         NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
         NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
 
+        if (textFieldGarageName.text.length > 20)
+            textFieldGarageName.text = [textFieldGarageName.text substringWithRange:NSMakeRange(0, 20)];
+        
         //User and password params
         [garageParams setObject:@"1"                        forKey:@"idState"];
         [garageParams setObject:@"pt"                       forKey:@"lang"];
@@ -341,9 +344,10 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
-
-
     
+    [settingsAccount setObject:@"YES"       forKey:@"isSettingsChange"];
+    [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
+
     NSURL *gravatar = [GlobalFunctions getGravatarURL:[[objects objectAtIndex:0] email]];
     NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
     UIImage *image      = [[UIImage alloc] initWithData:imageData];
@@ -351,10 +355,6 @@
     NSData *imageData2 = [NSKeyedArchiver archivedDataWithRootObject:image];
     [settingsAccount setObject:imageData2 forKey:@"imageGravatar"];
 
-    
-    [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
-
-    
     [settingsAccount synchronize];    
 }
 
@@ -471,6 +471,16 @@
      NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
      [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
      */
+}
+
+
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([textField isEqual:textFieldGarageName]){
+        int limit = 20;
+        return !([textField.text length]>limit && [string length] > range.length);
+    }
+    return YES;
 }
 
 #pragma mark -

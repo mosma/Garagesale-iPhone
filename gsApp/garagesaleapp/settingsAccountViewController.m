@@ -201,6 +201,17 @@
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
+
+    if (txtFieldCity.text.length > 100)
+        txtFieldCity.text = [txtFieldCity.text substringWithRange:NSMakeRange(0, 100)];
+    if (txtFieldDistrict.text.length > 11)
+        txtFieldDistrict.text = [txtFieldDistrict.text substringWithRange:NSMakeRange(0, 11)];
+    if (txtFieldCountry.text.length > 200)
+        txtFieldCountry.text = [txtFieldCountry.text substringWithRange:NSMakeRange(0, 200)];
+    if (txtFieldAddress.text.length > 200)
+        txtFieldAddress.text = [txtFieldAddress.text substringWithRange:NSMakeRange(0, 200)];
+    if (txtFieldAnyLink.text.length > 200)
+        txtFieldAnyLink.text = [txtFieldAnyLink.text substringWithRange:NSMakeRange(0, 200)];
     
     NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
     [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults]
@@ -228,6 +239,7 @@
     [prodParams setObject:@""                               forKey:@"lang"];
     [prodParams setObject:@""                               forKey:@"localization"];
     
+
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
     [postData setObject:idPerson              forKey:@"idUser"];
@@ -274,6 +286,10 @@
     HUD.dimBackground = YES;
     
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"YES" forKey:@"isSettingsChange"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)getResourcePathLogOut{
@@ -541,10 +557,27 @@
      */
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([textField isEqual:txtFieldCity]){
+        int limit = 100;
+        return !([textField.text length]>limit && [string length] > range.length);
+    }else if ([textField isEqual:txtFieldDistrict]){
+        int limit = 11;
+        return !([textField.text length]>limit && [string length] > range.length);
+    }
+    else if ([textField isEqual:txtFieldCountry]
+             || [textField isEqual:txtFieldAddress]
+             || [textField isEqual:txtFieldAnyLink]){
+        int limit = 200;
+        return !([textField.text length]>limit && [string length] > range.length);
+    }
+    return YES;
+}
+
 #pragma mark -
 #pragma mark BSKeyboardControls Delegate
 
-/* 
+/*
  * The "Done" button was pressed
  * We want to close the keyboard
  */

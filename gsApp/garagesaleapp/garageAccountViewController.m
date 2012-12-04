@@ -30,6 +30,7 @@
 @synthesize viewTop;
 @synthesize segmentControl;
 @synthesize imageURLs;
+@synthesize viewNoProducts;
 
 - (void)awakeFromNib
 {
@@ -91,10 +92,10 @@
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
-    if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
+  //  if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
-    }
+   // }
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -118,6 +119,49 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
+        if ((garage  == nil) && (profile == nil)) {
+            description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+            garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
+            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+                                [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
+                                [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
+                                [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
+            link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
+            
+            //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
+            
+            //Retrieving
+            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:@"imageGravatar"]];
+            
+            self.trackedViewName = [NSString stringWithFormat:@"/%@",
+                                    [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+            
+            
+            [buttonGarageLogo setImage:image forState:UIControlStateNormal];
+            
+            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+        } else {
+            description.text = garage.about;
+            garageName.text  = profile.garagem;
+            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+                                garage.city,
+                                garage.district,
+                                garage.country];
+            link.text        = garage.link;
+            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+            
+            
+            self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
+            
+            [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
+                                   withObject:gravatarUrl];
+            
+            self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+        }
+
+        [viewNoProducts setHidden:YES];
+        
         self.tabBarController.delegate = self;
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
@@ -134,50 +178,6 @@
         
        // [segmentControl setSelectedSegmentIndex:0];
         
-        if ((garage  == nil) && (profile == nil)) {
-            description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-            garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
-            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                            [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
-                            [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
-                            [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
-            link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
-        
-            //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
-
-            
-
-            
-            //Retrieving
-            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:@"imageGravatar"]];
-
-            self.trackedViewName = [NSString stringWithFormat:@"/%@",
-                                    [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
-            
-
-            [buttonGarageLogo setImage:image forState:UIControlStateNormal];
-
-            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
-        } else {
-            description.text = garage.about;
-            garageName.text  = profile.garagem;
-            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                                        garage.city,
-                                        garage.district,
-                                        garage.country];
-            link.text        = garage.link;
-            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
-            
-            
-            self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
-            
-              [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
-                withObject:gravatarUrl];
-            
-            self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
-        }
-
         self.scrollViewMain.contentSize         = CGSizeMake(320,560);
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
@@ -203,7 +203,7 @@
         
         
     } else {
-        
+
         [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
                                                          withAction:@"Reload"
                                                           withLabel:@"Reload Products Screen"
@@ -274,17 +274,26 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    [mutArrayProducts removeAllObjects];
     if([objects count] > 0){
     //    [mutDictDataThumbs removeAllObjects];
-        [mutArrayProducts removeAllObjects];
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
         [tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
         isLoadingDone = !isLoadingDone;
+        self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
+        [scrollViewMain setUserInteractionEnabled:YES];
+        [viewNoProducts setHidden:YES];
+    } else {
+        [scrollViewMain setUserInteractionEnabled:NO];
+        if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+            [viewNoProducts setHidden:NO];
+        labelTotalProducts.text = @"";
+        self.scrollViewProducts.contentSize = CGSizeMake(320,400);
     }
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -590,7 +599,14 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    
+
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
+        [self loadAttribsToComponents:NO];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];

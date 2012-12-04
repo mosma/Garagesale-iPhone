@@ -492,6 +492,24 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" id="vM6-H6-GIK" userLabel="viewNoProducts">
+                                <rect key="frame" x="0.0" y="82" width="320" height="339"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="garageNoProducts.png" id="azb-WW-9Y7">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="339"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hello, you dont have any product yet." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36H-0T-KMr">
+                                        <rect key="frame" x="20" y="151" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.3238002232142857" green="0.3238002232142857" blue="0.3238002232142857" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -521,6 +539,7 @@
                         <outlet property="scrollViewProducts" destination="3IH-JW-7oF" id="Gv9-Mx-HXS"/>
                         <outlet property="segmentControl" destination="JLi-yi-yQG" id="5sJ-pT-ET2"/>
                         <outlet property="tableViewProducts" destination="qdi-Kb-uR5" id="wKO-68-n7j"/>
+                        <outlet property="viewNoProducts" destination="vM6-H6-GIK" id="FUK-cg-Y8b"/>
                         <outlet property="viewTop" destination="lt7-LU-cfI" id="B0t-gv-SEu"/>
                     </connections>
                 </viewController>
@@ -2069,6 +2088,7 @@
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
         <image name="garDetailPersonShadowAvatar.png" width="320" height="46"/>
+        <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>
@@ -2123,6 +2143,7 @@
                 <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="viewNoProducts" candidateClass="UIView"/>
                 <relationship kind="outlet" name="viewTop" candidateClass="UIView"/>
             </relationships>
         </class>

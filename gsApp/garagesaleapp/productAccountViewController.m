@@ -440,7 +440,15 @@
         
         //User and password params
         NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
+
         [prodParams setObject:idPerson                      forKey:@"idPessoa"];
+        
+
+        if (txtFieldValue.text.length > 6)
+            txtFieldValue.text = [txtFieldValue.text substringWithRange:NSMakeRange(0, 6)];
+        if (txtFieldTitle.text.length > 80)
+            txtFieldTitle.text = [txtFieldTitle.text substringWithRange:NSMakeRange(0, 80)];
+        
         [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
         [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
         [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
@@ -450,7 +458,6 @@
         [prodParams setObject:@""                           forKey:@"categorias"];
 
         NSString *dictPhot = [gallery.nsMutArrayNames JSONRepresentation];
-
         [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
 
         [prodParams setObject:[txtFieldCurrency.text
@@ -711,19 +718,22 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if (textField.tag == 9) {
-        if ([GlobalFunctions onlyNumberKey:string])
-            return YES;
-        else
+    if ([textField isEqual:txtFieldValue])
+        if (![GlobalFunctions onlyNumberKey:string])
             return NO;
+    
+    if ([textField isEqual:txtFieldTitle]){
+        int limit = 80;
+        return !([textField.text length]>limit && [string length] > range.length);
     }
-    
-    if ( [string length] > 1) {
-        return NO;
+    else if ([textField isEqual:txtFieldValue]){
+        int limit = 6;
+        return !([textField.text length]>limit && [string length] > range.length);
     }
-    return YES;
-    
-    
+
+//    if ( [string length] > 1) {
+//        return NO;
+//    }
     return YES;
 }
 
