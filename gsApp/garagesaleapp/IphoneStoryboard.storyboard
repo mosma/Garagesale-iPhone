@@ -127,145 +127,6 @@
             </objects>
             <point key="canvasLocation" x="75" y="-244"/>
         </scene>
-        <!--Product Table View Controller - Products List-->
-        <scene sceneID="veE-UN-N3z">
-            <objects>
-                <tableViewController storyboardIdentifier="ProductsTable" title="Products List" id="b5K-VV-Ch4" customClass="productTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="22" sectionFooterHeight="22" id="oFz-9Y-J0m">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="0Ko-tE-sTy">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="f3o-CG-tG4" userLabel="topHeader">
-                                    <rect key="frame" x="0.0" y="-13" width="320" height="65"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="sin-Wx-gne" userLabel="OHlabelTitleResults" customClass="OHAttributedLabel">
-                                    <rect key="frame" x="10" y="13" width="302" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" red="0.46938775510000003" green="0.46938775510000003" blue="0.46938775510000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="121" id="BHs-JX-J2h" userLabel="customViewCellLine" customClass="productCustomViewCell">
-                                <rect key="frame" x="0.0" y="70" width="320" height="121"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="V1n-4S-I47">
-                                            <rect key="frame" x="10" y="10" width="100" height="100"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.6910366419294991" green="0.69897959183673475" blue="0.69897959183673475" alpha="1" colorSpace="calibratedRGB"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="Tqs-8j-CkN" userLabel="valorEsperado" customClass="OHAttributedLabel">
-                                            <rect key="frame" x="120" y="71" width="177" height="29"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <color key="textColor" red="0.24313727020000001" green="0.60784316059999999" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="ZY8-Y3-h0k">
-                                            <rect key="frame" x="119" y="34" width="178" height="39"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.20000001789999999" green="0.20000001789999999" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <connections>
-                                    <outlet property="imageView" destination="V1n-4S-I47" id="iHX-n4-Imy"/>
-                                    <outlet property="productName" destination="ZY8-Y3-h0k" id="Ycw-yl-H09"/>
-                                    <outlet property="valorEsperado" destination="Tqs-8j-CkN" id="Zv3-xN-xnV"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customViewCellBlock" rowHeight="360" id="h9W-nG-2pG" userLabel="customViewCellBlock" customClass="productCustomViewCell">
-                                <rect key="frame" x="0.0" y="191" width="320" height="360"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="359"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uTq-dm-f2Z">
-                                            <rect key="frame" x="49" y="318" width="257" height="12"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <size key="shadowOffset" width="0.0" height="0.0"/>
-                                        </label>
-                                        <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="e1V-NC-RTa">
-                                            <rect key="frame" x="10" y="8" width="300" height="300"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dotsDetailProduct.png" id="ppG-RO-qJp">
-                                            <rect key="frame" x="10" y="359" width="300" height="6"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="GEY-zg-Yjm">
-                                            <rect key="frame" x="10" y="318" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Valor Esperado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="lwq-AQ-yjj" customClass="OHAttributedLabel">
-                                            <rect key="frame" x="49" y="329" width="261" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <connections>
-                                    <outlet property="imageGravatar" destination="GEY-zg-Yjm" id="qug-ol-Hru"/>
-                                    <outlet property="imageView" destination="e1V-NC-RTa" id="XEr-Zt-t2D"/>
-                                    <outlet property="productName" destination="uTq-dm-f2Z" id="QyE-ZB-P49"/>
-                                    <outlet property="valorEsperado" destination="lwq-AQ-yjj" id="xvw-Su-ZJT"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="b5K-VV-Ch4" id="Ktl-JA-afe"/>
-                            <outlet property="delegate" destination="b5K-VV-Ch4" id="WaX-d2-jIC"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Xfo-LA-sge">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="IPz-Ma-lIv">
-                            <rect key="frame" x="97" y="7" width="126" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="" image="btSerachBlock.png"/>
-                                <segment title="" image="btProdList.png"/>
-                            </segments>
-                            <connections>
-                                <action selector="changeSegControl" destination="b5K-VV-Ch4" eventType="valueChanged" id="FrI-y0-Jck"/>
-                            </connections>
-                        </segmentedControl>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="OHlabelTitleResults" destination="sin-Wx-gne" id="ClV-Zd-tZB"/>
-                        <outlet property="segmentControl" destination="IPz-Ma-lIv" id="1UH-js-5Jn"/>
-                        <outlet property="tableView" destination="oFz-9Y-J0m" id="A9w-kj-cYF"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jCx-nV-H4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="594" y="-244"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3hX-w2-jJz">
             <objects>
@@ -1999,6 +1860,185 @@
             </objects>
             <point key="canvasLocation" x="1088" y="-892"/>
         </scene>
+        <!--Product Table View Controller-->
+        <scene sceneID="03F-iW-Zdo">
+            <objects>
+                <viewController storyboardIdentifier="ProductsTable" id="9QO-x3-2I2" customClass="productTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z2q-Lz-2Le">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="128" sectionHeaderHeight="22" sectionFooterHeight="22" id="tDt-Jw-ucQ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="a0g-K3-91t">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="Iyx-zY-A33" userLabel="topHeader">
+                                            <rect key="frame" x="0.0" y="-13" width="320" height="65"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ENx-NK-he6" userLabel="OHlabelTitleResults" customClass="OHAttributedLabel">
+                                            <rect key="frame" x="10" y="13" width="302" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.46938775510000003" green="0.46938775510000003" blue="0.46938775510000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="121" id="RS6-BV-FAW" userLabel="customViewCellLine" customClass="productCustomViewCell">
+                                        <rect key="frame" x="0.0" y="70" width="320" height="121"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="F9F-9T-Jgx">
+                                                    <rect key="frame" x="10" y="10" width="100" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="KvH-sJ-Zfr" userLabel="valorEsperado" customClass="OHAttributedLabel">
+                                                    <rect key="frame" x="120" y="71" width="177" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <color key="textColor" red="0.24313727020000001" green="0.60784316059999999" blue="0.23921570180000001" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moto Honda Biz 100cc R$ 2.000,00" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="ZXM-tS-dSb">
+                                                    <rect key="frame" x="119" y="34" width="178" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.20000001789999999" green="0.20000001789999999" blue="0.20000001789999999" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="F9F-9T-Jgx" id="jwT-If-U1d"/>
+                                            <outlet property="productName" destination="ZXM-tS-dSb" id="hDy-tX-GFA"/>
+                                            <outlet property="valorEsperado" destination="KvH-sJ-Zfr" id="w6b-AB-BV2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customViewCellBlock" rowHeight="360" id="eIK-pQ-UFS" userLabel="customViewCellBlock" customClass="productCustomViewCell">
+                                        <rect key="frame" x="0.0" y="191" width="320" height="360"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="359"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="MPn-hF-f9V">
+                                                    <rect key="frame" x="49" y="318" width="257" height="12"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                                <imageView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="bfR-x4-w5F">
+                                                    <rect key="frame" x="10" y="8" width="300" height="300"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dotsDetailProduct.png" id="Uif-ZW-FwU">
+                                                    <rect key="frame" x="10" y="359" width="300" height="6"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sKx-4N-M8L">
+                                                    <rect key="frame" x="10" y="318" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Valor Esperado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uvu-Wb-69i" customClass="OHAttributedLabel">
+                                                    <rect key="frame" x="49" y="329" width="261" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.59183673469999998" green="0.59183673469999998" blue="0.59183673469999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageGravatar" destination="sKx-4N-M8L" id="9iw-j7-GzD"/>
+                                            <outlet property="imageView" destination="bfR-x4-w5F" id="Lu9-B5-Up6"/>
+                                            <outlet property="productName" destination="MPn-hF-f9V" id="XfH-mH-542"/>
+                                            <outlet property="valorEsperado" destination="uvu-Wb-69i" id="2tP-D7-1zF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9QO-x3-2I2" id="eDr-dm-nRS"/>
+                                    <outlet property="delegate" destination="9QO-x3-2I2" id="ZDb-Tx-4Pn"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="r9E-a9-GeJ" userLabel="viewSearch">
+                                <rect key="frame" x="20" y="95" width="280" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="wFd-gA-FTa" userLabel="textField01iphoneTitle.png">
+                                        <rect key="frame" x="8" y="8" width="252" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BYc-tu-DLe">
+                                        <rect key="frame" x="235" y="7" width="39" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btSearchAccount.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showSearch:" destination="9QO-x3-2I2" eventType="touchUpInside" id="5oD-eW-bKG"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wQf-3K-CJt" userLabel="txtFieldSearch">
+                                        <rect key="frame" x="17" y="9" width="219" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.64705884459999996" green="0.64705884459999996" blue="0.64705884459999996" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ia8-jt-iuk">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="DKg-sD-d7O">
+                            <rect key="frame" x="97" y="7" width="126" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="" image="btSerachBlock.png"/>
+                                <segment title="" image="btProdList.png"/>
+                            </segments>
+                            <connections>
+                                <action selector="changeSegControl" destination="9QO-x3-2I2" eventType="valueChanged" id="7mx-ZU-kEY"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="OHlabelTitleResults" destination="ENx-NK-he6" id="SzO-Q6-evD"/>
+                        <outlet property="segmentControl" destination="DKg-sD-d7O" id="spV-LP-yHc"/>
+                        <outlet property="tableView" destination="tDt-Jw-ucQ" id="YxP-jg-EpV"/>
+                        <outlet property="txtFieldSearch" destination="wQf-3K-CJt" id="dLT-9h-uNC"/>
+                        <outlet property="viewSearch" destination="r9E-a9-GeJ" id="PhE-hk-TlP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9CO-pt-rng" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="607" y="22"/>
+        </scene>
     </scenes>
     <resources>
         <image name="about@2x.png" width="60" height="60"/>
@@ -2167,9 +2207,10 @@
                 <relationship kind="action" name="changeSegControl"/>
                 <relationship kind="action" name="showSearch:"/>
                 <relationship kind="outlet" name="OHlabelTitleResults" candidateClass="OHAttributedLabel"/>
-                <relationship kind="outlet" name="searchBarProduct" candidateClass="UISearchBar"/>
                 <relationship kind="outlet" name="segmentControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="viewSearch" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="settingsAccountViewController" superclassName="MasterViewController">

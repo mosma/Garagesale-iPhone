@@ -481,7 +481,9 @@
 -(void)gotoProductTableViewController:(id)objetct{
     productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //Search Service
-    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@", objetct]];
+        
+    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
+                                     [objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     [prdTbl setStrTextSearch:objetct];
     [self.navigationController pushViewController:prdTbl animated:YES];
 }

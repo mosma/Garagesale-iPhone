@@ -15,12 +15,11 @@
 
 @interface productTableViewController : MasterViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
-                                                                UISearchBarDelegate,
+                                                                
                                                                 RKObjectLoaderDelegate,
                                                                 UIScrollViewDelegate,
                                                                 UITabBarDelegate, NSURLConnectionDataDelegate> {
 
-    BOOL                    *isSearch;
     BOOL                    *isSegmentedControlChanged;
 
     RKObjectManager         *RKObjManeger;
@@ -28,10 +27,12 @@
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
-    IBOutlet UISearchBar       *searchBarProduct;
     __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
     __unsafe_unretained IBOutlet UITableView        *tableView;                                                          
     CGFloat _lastContentOffset;
+    __unsafe_unretained IBOutlet UIView         *viewSearch;
+    __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
+
 }
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
@@ -40,9 +41,10 @@
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
-@property (retain, nonatomic) IBOutlet UISearchBar       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableView;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
+@property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 
 @property (nonatomic, retain) NSArray *imageURLs;
 
@@ -50,6 +52,6 @@
 -(void)getResourcePathProduct;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
 -(void)loadAttribsToComponents:(BOOL)isFromLoadObject;
--(IBAction)showSearch:(id)sender;
 -(IBAction)changeSegControl;
+-(IBAction)showSearch:(id)sender;
 @end
