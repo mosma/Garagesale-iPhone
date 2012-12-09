@@ -90,6 +90,7 @@ NSString *RKPathAppendQueryParams(NSString *resourcePath, NSDictionary *queryPar
 @synthesize requestCache = _requestCache;
 @synthesize cachePolicy = _cachePolicy;
 @synthesize requestQueue = _requestQueue;
+@synthesize timeoutInterval = _timeoutInterval;
 
 + (RKClient *)sharedClient {
 	return sharedClient;
@@ -228,6 +229,10 @@ NSString *RKPathAppendQueryParams(NSString *resourcePath, NSDictionary *queryPar
     request.OAuth1ConsumerKey = self.OAuth1ConsumerKey;
     request.OAuth1ConsumerSecret = self.OAuth1ConsumerSecret;
 
+    if (self.timeoutInterval) {
+     request.timeoutInterval = self.timeoutInterval;
+    }
+    
     // OAuth2 Parameters
     request.OAuth2AccessToken = self.OAuth2AccessToken;
     request.OAuth2RefreshToken = self.OAuth2RefreshToken;

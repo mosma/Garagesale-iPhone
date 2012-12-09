@@ -390,8 +390,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 
@@ -407,16 +406,13 @@
 }
 
 - (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
-    @try {
+
         [scrollViewProducts addSubview:
          [globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
                                           showEdit:((garage  == nil) && (profile == nil)) ? YES : NO
                                           showPrice:YES
                                           viewContr:self]];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
-    }
+    
 }
 
 //-(void)loadTableProduct:(NSArray *)array{

@@ -153,8 +153,6 @@
     
     imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
-    
-
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
     [self setupKeyboardControls];
@@ -177,7 +175,6 @@
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
                                              [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]
                               objectMapping:profileMapping delegate:self];
-    
     
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];

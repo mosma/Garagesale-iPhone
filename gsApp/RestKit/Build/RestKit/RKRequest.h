@@ -121,6 +121,7 @@ typedef enum {
     NSTimeInterval _cacheTimeoutInterval;
     RKRequestQueue *_queue;
     RKReachabilityObserver *_reachabilityObserver;
+    NSTimer *_timeoutTimer;
     
     #if TARGET_OS_IPHONE
     RKRequestBackgroundPolicy _backgroundPolicy;
@@ -182,6 +183,14 @@ typedef enum {
  The request queue that this request belongs to
  */
 @property (nonatomic, assign) RKRequestQueue *queue;
+
+/**
+ * The timeout interval within which the request should be cancelled
+ * if no data has been received
+ *
+ * @default 120.0
+ */
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 /**
  * The policy to take on transition to the background (iOS 4.x and higher only)
@@ -381,6 +390,18 @@ typedef enum {
 - (void)cancel;
 
 /**
+  * Cancels request due to connection timeout exceeded.
+  * This will return an RKRequestConnectionTimeoutError via didFailLoadWithError:
+  */
+- (void)timeout;
+
+  /**
+  * Invalidates the timeout timer.
+  * Called by RKResponse when the NSURLConnection begins receiving data.
+  */
+- (void)invalidateTimeoutTimer;
+
+/**
  * Returns YES when this is a GET request
  */
 - (BOOL)isGET;
@@ -468,10 +489,5 @@ typedef enum {
  * backgrounded request expired before completion.
  */
 - (void)requestDidTimeout:(RKRequest *)request;
-
-/**
- * Sent when a request fails authentication
- */
-- (void)request:(RKRequest *)request didFailAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 
 @end

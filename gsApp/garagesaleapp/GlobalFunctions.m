@@ -37,6 +37,10 @@
 
 - (UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr {
     
+    
+    @try {
+
+    
     Product     *product    = (Product *)[arrayDetailProduct objectAtIndex:0];
     
     NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
@@ -90,7 +94,7 @@
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.2];
-    [UIView setAnimationDelegate:self];
+    //[UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationTransitionCurlUp];
     [buttonThumbsProduct setAlpha:1.0];
     [UIView commitAnimations];
@@ -152,7 +156,20 @@
         [viewThumbs addSubview:buttonViewEditPencil];
     }
     
+        
     return viewThumbs;
+        
+        
+        
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+        return [[UIView alloc] init];
+    }
+    
+    
+
 }
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
@@ -361,21 +378,23 @@
 }
 
 +(void)showTabBar:(UITabBarController *) tabbarcontroller {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
-    for(UIView *view in tabbarcontroller.view.subviews)
-    {
-        //NSLog(@"%@", view);
-        if([view isKindOfClass:[UITabBar class]])
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil){
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.5];
+        for(UIView *view in tabbarcontroller.view.subviews)
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
-        } 
-        else 
-        {
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+            //NSLog(@"%@", view);
+            if([view isKindOfClass:[UITabBar class]])
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
+            } 
+            else 
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+            }
         }
+        [UIView commitAnimations];
     }
-    [UIView commitAnimations]; 
 }
 
 + (NSURL*) getGravatarURL:(NSString*) emailAddress {

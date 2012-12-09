@@ -165,6 +165,7 @@
         self.trackedViewName = [NSString stringWithFormat:@"%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
         [self loadingProduct];
     }else {
+        [self getResourcePathPhotoReturnNotSaved];
         self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
@@ -214,6 +215,18 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
+- (void)getResourcePathPhotoReturnNotSaved{
+    RKObjectMapping *photoReturnEdit = [Mappings getPhotosByIdProduct];
+    
+    //LoadUrlResourcePath
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/photo/?token=%@",
+                                             [[GlobalFunctions getUserDefaults] objectForKey:@"token"] ]
+                              objectMapping:photoReturnEdit delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+}
+
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     @try {
         if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
@@ -222,8 +235,7 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            self.product.fotos = objects;
-            [self loadAttributsToPhotos];
+            [self loadAttributsToPhotos:objects];
         }
     }
     @catch (NSException *exception) {
@@ -246,7 +258,7 @@
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
-    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Edit product" width:200]];
+    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:200]];
 }
 
 -(void)backPage{
@@ -264,8 +276,6 @@
 
 - (IBAction)animationPicsControl{
     //Limited Maximum At Pics Add Gallery
-    if ([gallery.nsMutArrayPicsProduct count] == 10)
-        buttonAddPics.enabled = NO;
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
@@ -338,7 +348,7 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
+       [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(IBAction)getPicsByCamera:(id)sender {
@@ -358,7 +368,11 @@
 
     [scrollViewPicsProduct setFrame:CGRectMake(0, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
     
-    [gallery addImageToScrollView:imageThumb photoReturn:nil product:self.product];
+    [gallery addImageToScrollView:imageThumb
+                      photoReturn:nil
+                          product:self.product
+                        isPosting:YES];
+    
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -457,6 +471,11 @@
         [prodParams setObject:idPerson                      forKey:@"idUser"];
         [prodParams setObject:@""                           forKey:@"categorias"];
 
+        
+        for (int x=0;  x < [gallery.nsMutArrayNames count]; x++)
+            if ([(NSString *)[gallery.nsMutArrayNames objectAtIndex:x] isEqualToString:@""])
+                [gallery.nsMutArrayNames removeObjectAtIndex:x];
+        
         NSString *dictPhot = [gallery.nsMutArrayNames JSONRepresentation];
         [prodParams setObject:dictPhot                           forKey:@"newPhotos"];
 
@@ -584,14 +603,17 @@
     self.textViewDescription.text = [product descricao];
 }
 
--(void)loadAttributsToPhotos{
+-(void)loadAttributsToPhotos:(NSArray *)fotos{
     @try {
 
-        for (int i=0; i < [[product fotos] count]; i++) {
+        for (int i=0; i < [fotos count]; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
-                                           [(PhotoReturn *)[[product fotos] objectAtIndex:i] icon_url]]];
+                                           [(PhotoReturn *)[fotos objectAtIndex:i] icon_url]]];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [gallery addImageToScrollView:image photoReturn:(PhotoReturn *)[[product fotos] objectAtIndex:i] product:self.product];
+            [gallery addImageToScrollView:image
+                              photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
+                                  product:self.product
+                                isPosting:NO];
         }
     }
     @catch (NSException *exception) {

@@ -559,8 +559,7 @@
 	[super viewWillDisappear:animated];
     if (isSearch)
         [self showSearch:nil];
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

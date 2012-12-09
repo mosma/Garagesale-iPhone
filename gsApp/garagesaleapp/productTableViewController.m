@@ -460,17 +460,14 @@
         [txtFieldSearch resignFirstResponder];
         [viewSearch setAlpha:0];
 
-        
-
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
             [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     }else{
 
-            [viewSearch setAlpha:1.0];
+        [viewSearch setAlpha:1.0];
 
         
-        if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) 
-            [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     [UIView commitAnimations];
 
@@ -551,9 +548,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

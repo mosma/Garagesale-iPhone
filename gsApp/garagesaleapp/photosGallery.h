@@ -36,6 +36,9 @@
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;
 
--(void)addImageToScrollView:(UIImage *)aImage photoReturn:(PhotoReturn *)photoReturn product:(Product *)product;
+-(void)addImageToScrollView:(UIImage *)aImage
+                photoReturn:(PhotoReturn *)photoReturn
+                    product:(Product *)product
+                  isPosting:(BOOL)isPosting;
 
 @end

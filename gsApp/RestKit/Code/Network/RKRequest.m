@@ -61,6 +61,7 @@
 @synthesize OAuth2AccessToken = _OAuth2AccessToken;
 @synthesize OAuth2RefreshToken = _OAuth2RefreshToken;
 @synthesize queue = _queue;
+@synthesize timeoutInterval = _timeoutInterval;
 @synthesize reachabilityObserver = _reachabilityObserver;
 
 #if TARGET_OS_IPHONE
@@ -79,6 +80,7 @@
         _authenticationType = RKRequestAuthenticationTypeNone;
 		_cachePolicy = RKRequestCachePolicyDefault;
         _cacheTimeoutInterval = 0;
+        _timeoutInterval = 120.0;
 	}
 	return self;
 }
@@ -171,6 +173,9 @@
     _OAuth2AccessToken = nil;
     [_OAuth2RefreshToken release];
     _OAuth2RefreshToken = nil;
+    [self invalidateTimeoutTimer];
+    [_timeoutTimer release];
+    _timeoutTimer = nil;
     
     // Cleanup a background task if there is any
     [self cleanupBackgroundTask];
@@ -232,14 +237,17 @@
     }
     
     // Add authentication headers so we don't have to deal with an extra cycle for each message requiring basic auth.
-    if (self.authenticationType == RKRequestAuthenticationTypeHTTPBasic) {        
+    if (self.authenticationType == RKRequestAuthenticationTypeHTTPBasic && _username && _password) {
         CFHTTPMessageRef dummyRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault, (CFStringRef)[self HTTPMethod], (CFURLRef)[self URL], kCFHTTPVersion1_1);
-        
-        CFHTTPMessageAddAuthentication(dummyRequest, nil, (CFStringRef)_username, (CFStringRef)_password,kCFHTTPAuthenticationSchemeBasic, FALSE);
-        CFStringRef authorizationString = CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
-        [_URLRequest setValue:(NSString *)authorizationString forHTTPHeaderField:@"Authorization"];
-        CFRelease(dummyRequest);
-        CFRelease(authorizationString);
+        if (dummyRequest) {
+         CFHTTPMessageAddAuthentication(dummyRequest, nil, (CFStringRef)_username, (CFStringRef)_password,kCFHTTPAuthenticationSchemeBasic, FALSE);
+         CFStringRef authorizationString = CFHTTPMessageCopyHeaderFieldValue(dummyRequest, CFSTR("Authorization"));
+         if (authorizationString) {
+            [_URLRequest setValue:(NSString *)authorizationString forHTTPHeaderField:@"Authorization"];
+            CFRelease(authorizationString);
+         }
+         CFRelease(dummyRequest);
+       }
     }
     
     // Add OAuth headers if is need it
@@ -317,6 +325,7 @@
 	[_connection cancel];
 	[_connection release];
 	_connection = nil;
+    [self invalidateTimeoutTimer];
 	_isLoading = NO;
     
     if (informDelegate && [_delegate respondsToSelector:@selector(requestDidCancelLoad:)]) {
@@ -374,6 +383,7 @@
     RKResponse* response = [[[RKResponse alloc] initWithRequest:self] autorelease];
     
     _connection = [[NSURLConnection connectionWithRequest:_URLRequest delegate:response] retain];
+    _timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeoutInterval target:self selector:@selector(timeout) userInfo:nil repeats:NO];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RKRequestSentNotification object:self userInfo:nil];
 }
@@ -483,6 +493,8 @@
         [self didFinishLoad:response];
     } else if ([self shouldDispatchRequest]) {
         RKLogDebug(@"Sending synchronous %@ request to URL %@.", [self HTTPMethod], [[self URL] absoluteString]);
+        _timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeoutInterval target:self selector:@selector(timeout) userInfo:nil repeats:NO];
+        
         if (![self prepareURLRequest]) {
             // TODO: Logging
             return nil;
@@ -528,6 +540,24 @@
 
 - (void)cancel {
     [self cancelAndInformDelegate:YES];
+}
+
+- (void)timeout {
+   [self cancelAndInformDelegate:NO];
+   RKLogError(@"Failed to send request to %@ due to connection timeout. Timeout interval = %f", [[self URL] absoluteString], self.timeoutInterval);
+   NSString* errorMessage = [NSString stringWithFormat:@"The client timed out connecting to the resource at %@", [[self URL] absoluteString]];
+   NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                              errorMessage,
+                              NSLocalizedDescriptionKey,
+                              nil];
+
+   NSError* error = [NSError errorWithDomain:RKRestKitErrorDomain code:RKRequestConnectionTimeoutError userInfo:userInfo];
+   [self didFailLoadWithError:error];
+}
+
+- (void)invalidateTimeoutTimer {
+  [_timeoutTimer invalidate];
+  _timeoutTimer = nil;
 }
 
 - (void)didFailLoadWithError:(NSError*)error {

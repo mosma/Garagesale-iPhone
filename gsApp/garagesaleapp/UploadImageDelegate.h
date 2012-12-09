@@ -16,18 +16,45 @@
 #import "photosGallery.h"
 
 @interface UploadImageDelegate : UIView <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
+    
+    /*
+     Parameters instancied control
+     from photosGallery at path ProductAccount
+     */
+    int idProduct;
+    UIScrollView    *scrollView;
     UIImageView     *imageView;
-    UIProgressView  *progressView;
+    UIImage         *imagePic;
     UIButton        *buttonSaveProduct;
+    NSMutableArray  *nsMutArrayPicsProduct;
+    UITapGestureRecognizer *moveLeftGesture;
+    UITapGestureRecognizer *refreshGesture;
+    
+    /*
+     Total Bytes received from ResKit request Delegate.
+     */
+    int totalBytesWritten;
+    int totalBytesExpectedToWrite;
+
+    UIProgressView  *progressView;
     PhotoReturn     *photoReturn;
+    NSTimer         *timerUpload;
 }
 
+@property (readwrite,assign)    int idProduct;
 @property (nonatomic, retain)   UIImageView     *imageView;
+@property (nonatomic, retain)   UIImage         *imagePic;
 @property (nonatomic, retain)   UIProgressView  *progressView;
 @property (nonatomic, retain)   UIButton        *buttonSaveProduct;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
+@property (nonatomic, retain)   NSMutableArray  *nsMutArrayPicsProduct;
+@property (nonatomic, retain)   UIScrollView    *scrollView;
+@property (nonatomic, retain)   UITapGestureRecognizer *moveLeftGesture;
 
--(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct;
+@property (readwrite,assign)    int totalBytesWritten;
+@property (readwrite,assign)    int totalBytesExpectedToWrite;
+
+-(void)uploadPhotos;
 -(void)deletePhoto;
 
 @end

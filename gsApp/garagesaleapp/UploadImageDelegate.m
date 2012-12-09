@@ -13,31 +13,78 @@
 @synthesize imageView;
 @synthesize photoReturn;
 @synthesize buttonSaveProduct;
+//@synthesize nsMutArrayNames;
+@synthesize nsMutArrayPicsProduct;
+@synthesize scrollView;
+@synthesize idProduct;
+@synthesize totalBytesWritten;
+@synthesize totalBytesExpectedToWrite;
+@synthesize moveLeftGesture;
+@synthesize imagePic;
+@synthesize progressView;
 
 -(id)init{
     photoReturn = [[PhotoReturn alloc] init];
+    refreshGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(uploadPhotos)];
+
+    progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [progressView setFrame:CGRectMake(5, 50, 60, 5)];
+    
+    
     return self;
 }
 
--(void)uploadPhotos:(NSMutableArray *)mutArrayPicsProduct idProduct:(int)idProduct{
-    int index = ([mutArrayPicsProduct count]-1);
+-(void)uploadPhotos{
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        
+        [imageView setImage:self.imagePic];
+    }];
+    
+    int picNumber = [nsMutArrayPicsProduct count] -1;
     
     RKParams* params = [RKParams params];
     //for(int i = 0; i < [nsMutArrayPicsProduct count]; i++){
-    NSData              *dataImage  = UIImageJPEGRepresentation([(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image], 1.0);
-    UIImage *loadedImage = [(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image];
+
+    
+    [self setEnableSaveButton:NO];
+    
+    [self.imageView setUserInteractionEnabled:NO];
+
+    
+    NSData              *dataImage  = UIImageJPEGRepresentation(imageView.image, 1.0);
+    
+    
+//    NSData              *dataImage  = UIImageJPEGRepresentation([(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image], 1.0);
+
+    
+   // UIImage *loadedImage = [(UIImageView *)[mutArrayPicsProduct objectAtIndex:index] image];
+    
+    UIImage *loadedImage = imageView.image;
+
+    
+    
     float w = loadedImage.size.width;
     float h = loadedImage.size.height;
     float ratio = w/h;
+    
+    if (self.totalBytesWritten == 0 && totalBytesWritten == 0)
+        [imageView addSubview:progressView];
+    
+    
+    [progressView setHidden:NO];
+    progressView.progress = 0;
+    
+    
+    
     
     int neww = 900;
     //get image height proportionally;
     float newh = neww/ratio;
 
-    progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [progressView setFrame:CGRectMake(5, 50, 60, 5)];
-    progressView.progress = 0;
-    [imageView addSubview: progressView];
+    
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+
     
     UIImage *image = [UIImage imageWithData:dataImage];
     CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
@@ -47,10 +94,14 @@
     UIGraphicsEndImageContext();
     NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0);
     
+    
+    
+    
+    
     RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files"];
     attachment.MIMEType = @"image/png";
-    attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", index];
-    
+    attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", picNumber];
+        
     if (idProduct == -1)
         [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
     else
@@ -59,11 +110,12 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [imageView removeFromSuperview];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [self setEnableSaveButton:YES];
+    
+
     
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
@@ -71,6 +123,8 @@
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    
+    
     if ([request isGET]) {
         // Handling GET /foo.xml
         
@@ -110,7 +164,59 @@
     }
 }
 
+
+-(void)cancelUpload{
+    
+    if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0) {
+        NSLog(@"ok");
+    }else{
+        [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+
+    
+    
+
+//    int indexPic = [nsMutArrayPicsProduct count]-1;
+//    if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
+//        [nsMutArrayNames removeObjectAtIndex:indexPic];
+//    [nsMutArrayPicsProduct removeObjectAtIndex:indexPic];
+
+        
+        [self setEnableSaveButton:YES];
+
+        
+
+
+        
+        [imageView removeGestureRecognizer:self.moveLeftGesture];
+        [imageView addGestureRecognizer:refreshGesture];
+        
+        
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            [imageView setImage:[UIImage imageNamed:@"refresh"]];
+
+        }];
+        
+        
+        
+        
+        
+        [self.scrollView setUserInteractionEnabled:YES];
+        [self.imageView setUserInteractionEnabled:YES];
+        
+    }
+    
+    
+    
+    
+    
+}
+
 -(void)setEnableSaveButton:(BOOL)enable{
+    [imageView removeGestureRecognizer:refreshGesture];
+    [imageView addGestureRecognizer:moveLeftGesture];
+    
     [buttonSaveProduct setEnabled:enable];
     enable ? [buttonSaveProduct setAlpha:1.0] : [buttonSaveProduct setAlpha:0.3];
 }
@@ -119,18 +225,19 @@
     //transform in json
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
-    
-    //imgViewDelete.tag = 455;
-    // [self.imageView addSubview:imgViewDelete];
 }
 
 - (void)deletePhoto {
+    [progressView setHidden:YES];
     NSLog(@"%@", [photoReturn valueForKey:@"delete_url"]);
     [[RKClient sharedClient] delete:[photoReturn valueForKey:@"delete_url"] delegate:self];
     [photoReturn setValue:@"" forKey:@"name"];
 }
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite{
+    
+    self.totalBytesWritten = totalBytesWritten;
+    self.totalBytesExpectedToWrite = totalBytesExpectedToWrite;
     
     NSLog(@"%i - bytesWritten", bytesWritten);
     NSLog(@"%i - totalBytesWritten", totalBytesWritten);
@@ -141,10 +248,55 @@
 
     [progressView setProgress:uu];
     
+    [timerUpload invalidate];
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+    
+    
+    
     if (totalBytesExpectedToWrite != totalBytesWritten)
         [self setEnableSaveButton:NO];
-    else
+    else{
+        [self.imageView setUserInteractionEnabled:YES];
+        [progressView setHidden:YES];
         [self setEnableSaveButton:YES];
+    }
 }
+
+/**
+ * Sent to the delegate when a request was cancelled
+ */
+- (void)requestDidCancelLoad:(RKRequest *)request{
+    NSLog(@"requestDidCancelLoad");
+}
+
+/**
+ * Sent to the delegate when a request has timed out. This is sent when a
+ * backgrounded request expired before completion.
+ */
+//- (void)requestDidTimeout:(RKRequest *)request{
+//    UIAlertView *alertttt = [[UIAlertView alloc] initWithTitle:@"requestDidTimeout" message:request.description delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+//    
+//    [alertttt show];
+//}
+//
+//- (void)cancelAfterTimeout {
+//    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+//    NSError *myError = [[NSError alloc] initWithDomain:NSPOSIXErrorDomain
+//                                                   code:12345 userInfo:nil];
+//    //feel free to customize the error code, domain and add userInfo when needed.
+//    [self handleRestKitError:myError];
+//}
+//
+//- (void)handleRestKitError:(NSError*)error {
+//    UIAlertView *alertttt = [[UIAlertView alloc] initWithTitle:@"handleRestKitError" message:error.description delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+//    
+//    [alertttt show];}
+//
+//
+//- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object  {
+//    UIAlertView *alertttt = [[UIAlertView alloc] initWithTitle:@"didLoadObject" message:@"" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+//    
+//    [alertttt show];}
+
 
 @end

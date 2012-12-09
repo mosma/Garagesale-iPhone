@@ -25,7 +25,6 @@
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 
-
 -(id)init{
     widthPaddingInImages = kWidthPaddingInImages;
     heightPaddingInImages = kHeightPaddingInImages;
@@ -38,15 +37,8 @@
     [self setNsMutArrayPicsProduct:[[NSMutableArray alloc] init]];
     [self setNsMutArrayNames:[[NSMutableArray alloc] init]];
 
-
-    
-    
-    
-    
     return self;
 }
-
-
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
     
@@ -122,8 +114,10 @@
             //            }
         }];
         
-        if ([nsMutArrayPicsProduct count] < 11)
+        if ([nsMutArrayPicsProduct count] < 11){
             buttonAddPics.enabled = YES;
+            [buttonAddPics setAlpha:1.0];
+        }
     }
 
     if (sender.state == UIGestureRecognizerStateEnded ||
@@ -177,74 +171,88 @@
 }
 
 
--(void)addImageToScrollView:(UIImage *)aImage photoReturn:(PhotoReturn *)photoReturn product:(Product *)product{
+-(void)addImageToScrollView:(UIImage *)aImage
+                photoReturn:(PhotoReturn *)photoReturn
+                    product:(Product *)product
+                  isPosting:(BOOL)isPosting{
     
-            UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
-            UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
-            [imgViewDelete setFrame:CGRectMake(-5, -5, 25, 25)];
-            //[uplImageDelegate.imageView setUserInteractionEnabled:YES];
-            //[uplImageDelegate.imageView setExclusiveTouch:YES];
-            [imgViewDelete setUserInteractionEnabled:YES];
+    /* Configure Image Delete settings. */
+    UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
+    UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
+    [imgViewDelete setFrame:CGRectMake(-5, -5, 25, 25)];
+    //[uplImageDelegate.imageView setUserInteractionEnabled:YES];
+    //[uplImageDelegate.imageView setExclusiveTouch:YES];
+    [imgViewDelete setUserInteractionEnabled:YES];
     [imgViewDelete setMultipleTouchEnabled:YES];
     
     
-    
-   UIImageView *picViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
-    
-    
-    [picViewAtGallery addSubview:imgViewDelete];
-    
+    /* Configure ImageView in gallery */
+    UIImageView *imgViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+    [imgViewAtGallery addSubview:imgViewDelete];
     int newIndex = [nsMutArrayPicsProduct count];
-    [nsMutArrayPicsProduct insertObject:picViewAtGallery atIndex:newIndex];
-    [scrollView insertSubview:picViewAtGallery atIndex:newIndex];
-
-    picViewAtGallery.frame = CGRectMake(scrollView.contentSize.width+7 ,
+    [nsMutArrayPicsProduct insertObject:imgViewAtGallery atIndex:newIndex];
+    [scrollView insertSubview:imgViewAtGallery atIndex:newIndex];
+    imgViewAtGallery.frame = CGRectMake(scrollView.contentSize.width+7 ,
                                         self.heightPaddingInImages, imageWidth_, imageHeight_);
-
     if (photoReturn != nil)
-        [picViewAtGallery setUserInteractionEnabled:YES];
+        [imgViewAtGallery setUserInteractionEnabled:YES];
     
-    UploadImageDelegate *uplImageDelegate = [[UploadImageDelegate alloc] init];
-    [nsMutArrayPhotosDelegate addObject:uplImageDelegate];
-    [uplImageDelegate setImageView:picViewAtGallery];
-    [uplImageDelegate setButtonSaveProduct:buttonSaveProduct];
-    
-    if (photoReturn != nil){
-        [uplImageDelegate setPhotoReturn:photoReturn];
-    
-        [nsMutArrayNames insertObject:[uplImageDelegate.photoReturn valueForKey:@"name"] atIndex:newIndex];
-
+    if ([nsMutArrayPicsProduct count] == 10){
+        buttonAddPics.enabled = NO;
+        [buttonAddPics setAlpha:0.6];
     }
     
-    UITapGestureRecognizer * deleteGesture = [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self action:@selector(deletePicsAtGallery:)];
-    [deleteGesture addTarget:uplImageDelegate action:@selector(deletePhoto)];
-    [deleteGesture setNumberOfTapsRequired:1];
-
-
-    UITapGestureRecognizer *moveLeftGesture = [[UITapGestureRecognizer alloc]
-                                       initWithTarget:self action:@selector(animePicsGallery:)];
-    [moveLeftGesture setNumberOfTapsRequired:1];
-
-    [imgViewDelete addGestureRecognizer:deleteGesture];
-    [uplImageDelegate.imageView addGestureRecognizer:moveLeftGesture];
+    //Init Upload Delegate
+    UploadImageDelegate *uploadDelegate = [[UploadImageDelegate alloc] init];
+    [nsMutArrayPhotosDelegate addObject:uploadDelegate];
+ 
+    /*
+     * Upload Delegate set Attributs;
+     */
+    [uploadDelegate setImageView:imgViewAtGallery];
+    [uploadDelegate setButtonSaveProduct:buttonSaveProduct];
+    if (photoReturn != nil){
+        [uploadDelegate setPhotoReturn:photoReturn];
+        [nsMutArrayNames insertObject:[uploadDelegate.photoReturn valueForKey:@"name"] atIndex:newIndex];
+    }
+    //[uplImageDelegate setNsMutArrayNames:nsMutArrayNames];
+    [uploadDelegate setNsMutArrayPicsProduct:nsMutArrayPicsProduct];
+    [uploadDelegate setScrollView:self.scrollView];
+    [uploadDelegate setImagePic:aImage];
     
-    //[self createTiles:uplImageDelegate.imageView index:([nsMutArrayPicsProduct count]-1)];
+    //Set Gestures
+    UITapGestureRecognizer * deleteGesture = [[UITapGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(deletePicsAtGallery:)];
+    [deleteGesture addTarget:uploadDelegate action:@selector(deletePhoto)];
+    [deleteGesture setNumberOfTapsRequired:1];
+    
+    UITapGestureRecognizer *moveLeftGesture = [[UITapGestureRecognizer alloc]
+                                               initWithTarget:self action:@selector(animePicsGallery:)];
+    [moveLeftGesture setNumberOfTapsRequired:1];
+    
+    [imgViewDelete addGestureRecognizer:deleteGesture];
+    [uploadDelegate.imageView addGestureRecognizer:moveLeftGesture];
 
+    [uploadDelegate setMoveLeftGesture:moveLeftGesture];
+    
+    /* Set scrollView Size */
     CGSize size = scrollView.contentSize;
     size.width = size.width + imageWidth_ + self.widthPaddingInImages;
     scrollView.contentSize = size;
     
-    //Scrolling to show last ImageView add in scrollViewPicsProduct at right side of gallery
-    [scrollView setContentOffset:CGPointMake(picViewAtGallery.frame.origin.x-190, scrollView.contentOffset.y) animated:YES];
+    /* Scrolling to show last ImageView add in scrollViewPicsProduct at right side of gallery */
+    [scrollView setContentOffset:CGPointMake(imgViewAtGallery.frame.origin.x-190, scrollView.contentOffset.y) animated:YES];
     
-    //Scrolling to show last ImageView add in scrollViewPicsProduct at Left side of gallery
+    /* Scrolling to show last ImageView add in scrollViewPicsProduct at Left side of gallery */
     //[scrollViewPicsProduct setContentOffset:CGPointMake(0, scrollViewPicsProduct.contentOffset.y) animated:YES];
     
-    if(photoReturn == nil && product != nil)
-        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:[product.id intValue]];
-    else if (product == nil)
-        [uplImageDelegate uploadPhotos:nsMutArrayPicsProduct idProduct:-1];
+    if (isPosting){
+       if(product != nil)
+           [uploadDelegate setIdProduct:[product.id intValue]];
+       else if (product == nil)
+           uploadDelegate.idProduct = -1;
+       [uploadDelegate uploadPhotos];
+    }
 }
 
 -(void)animePicsGallery:(UITapGestureRecognizer *)sender{
