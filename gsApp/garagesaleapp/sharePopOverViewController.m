@@ -45,27 +45,6 @@
     [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
     
     [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
-    
-    
-    
-//    addThisButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-//	[AddThisSDK canUserEditServiceMenu:YES];
-//	[AddThisSDK canUserReOrderServiceMenu:YES];
-//	[AddThisSDK setDelegate:self];
-    
-    //[AddThisSDK setAddThisApplicationId:@""];
-    
-    //        addThisButton = [AddThisSDK showAddThisButtonInView: self.navigationItem.rightBarButtonItem
-    //                                                  withFrame:CGRectMake(225, 305, 36, 30)
-    //                                                   forImage:imageView.image
-    //                                                  withTitle:@"Product Send from Garagesaleapp.me"
-    //                                                description:labelDescricao.text];
-    
-    
-    
-    
-    
-	// Do any additional setup after loading the view.
 }
 
 -(IBAction)twitter:(id)sender

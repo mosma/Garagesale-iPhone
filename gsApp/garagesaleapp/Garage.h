@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Garage : NSObject{
-    
     NSString* link;
     NSString* about;
     NSString* country;

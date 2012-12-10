@@ -7,12 +7,10 @@
 //
 
 #import "photosGallery.h"
-#import "Tile.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kWidthPaddingInImages 10
 #define kHeightPaddingInImages 10
-
 
 @implementation photosGallery
 
@@ -21,7 +19,6 @@
 @synthesize scrollView;
 @synthesize buttonAddPics;
 @synthesize buttonSaveProduct;
-
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 
@@ -44,35 +41,15 @@
     
     if (buttonSaveProduct.enabled) {
 
-    
-   // if (sender.state == UIGestureRecognizerStateBegan) {
         [scrollView setUserInteractionEnabled:NO];
  
         UIImageView *imageViewDelete      = (UIImageView *)sender.view;
-        
-        
         [imageViewDelete setHidden:YES];
-        
-        
         UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
-
-        
-        
-        //Remove imgViewDelete
-        //        for (UIView *subview in [imageView subviews])
-        //            if (subview.tag == 455)
-        //                [subview removeFromSuperview];
-
-        
         imageView.image = nil;
         
         UIImageView * animation = [[UIImageView alloc] init];
-        
         [animation setFrame:CGRectMake(10,10, 40, 40)];
-        
-        
-        
-        
         animation.animationImages = [NSArray arrayWithObjects:
                                      [UIImage imageNamed: @"iconEliminateItem1.png"],
                                      [UIImage imageNamed: @"iconEliminateItem2.png"],
@@ -86,12 +63,6 @@
         [animation bringSubviewToFront:imageView];
         
         [UIView animateWithDuration:0.75 animations: ^{
-            
-            
-
-
-            
-            
             [self reconfigureImagesAfterRemoving:imageView];
         } completion:^(BOOL finished){
             
@@ -103,15 +74,7 @@
             if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
                 [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
             
-            
             [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
-
-
-            
-    //        [self.delegate removedImageAtIndex:indexOfRemovedImageView];
-            //            if ([nsMutArrayPicsProduct count]==0) {
-            //                [self showNoPhotoAdded];
-            //            }
         }];
         
         if ([nsMutArrayPicsProduct count] < 11){
@@ -124,11 +87,6 @@
         sender.state == UIGestureRecognizerStateCancelled ||
         sender.state == UIGestureRecognizerStateFailed)
         [scrollView setUserInteractionEnabled:YES];
-
-        
-        
-  //  }
-    
 }
 
 -(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{
@@ -137,19 +95,8 @@
     
     for (int viewNumber = 0; viewNumber < [imageViews count]; viewNumber ++) {
         if (viewNumber == indexOfRemovedImageView ) {
-          
-            
-            
-            
-            
            // UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
            // [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollView.frame.size.height/2, 0, 0)];
-            
-            
-            
-            
-            
-            
         }else if (viewNumber >= indexOfRemovedImageView ){
             CGPoint origin = ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame.origin;
             origin.x = origin.x - self.widthPaddingInImages - imageWidth_;
@@ -160,7 +107,6 @@
         }
     }
 
-    
     //Reposition scrollViewPicsProduct to right
     if ([nsMutArrayPicsProduct count] < 4)
         [scrollView setFrame:CGRectMake((173/([nsMutArrayPicsProduct count]-1)) + self.widthPaddingInImages, scrollView.frame.origin.y, scrollView.frame.size.width, scrollView.frame.size.height)];
@@ -258,7 +204,7 @@
 -(void)animePicsGallery:(UITapGestureRecognizer *)sender{
     @try {
      UIImageView *imageView      = (UIImageView *)sender.view;
-     
+
      //Remove imgViewDelete
      //        for (UIView *subview in [imageView subviews])
      //            if (subview.tag == 455)
@@ -292,7 +238,6 @@
         
         [nsMutArrayNames replaceObjectAtIndex:indexOfImageAtScroll_left withObject:rightS];
         [nsMutArrayNames replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftS];
-
          
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.3];
@@ -300,27 +245,10 @@
         [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
         [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] setFrame:left];
         [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] setFrame:right];
-        
-//        if (indexOfImageAtScroll_left == 0){
-//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderColor:[[UIColor grayColor] CGColor] ];
-//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] layer] setBorderWidth:5.0 ];
-//               
-//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderColor:[[UIColor clearColor] CGColor] ];
-//            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderWidth:0 ];
-//        
-//        }
-    
-       
-            
-            
-        
-        
-         [UIView commitAnimations];
+        [UIView commitAnimations];
 
-
-         [scrollView insertSubview:leftImgV atIndex:indexOfImageAtScroll_right];
-         [scrollView insertSubview:rightImgV atIndex:indexOfImageAtScroll_left];
-
+        [scrollView insertSubview:leftImgV atIndex:indexOfImageAtScroll_right];
+        [scrollView insertSubview:rightImgV atIndex:indexOfImageAtScroll_left];
     }
     @catch (NSException *exception) {
         ;
@@ -328,11 +256,6 @@
     @finally {
         ;
     }
-    
-   
-
-    
 }
-
 
 @end

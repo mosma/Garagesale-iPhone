@@ -138,10 +138,7 @@
         [textFieldUserPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder:@"Invalid Password or Email"];
-        textFieldUserPassword.text = @"";
-
-       // [(MasterViewController *)[self parentViewController] showNotification:@"asdfasdfasdf"];
-        
+        textFieldUserPassword.text = @"";        
     } else if (validatorFlag == 1){
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
@@ -157,12 +154,8 @@
 }
 
 -(void)setValuesResponseToVC:(NSString *)response{
-    //transform in json
-//    NSArray *jsonArray = (NSArray *)[response JSONValue];
-//    newGarageReturn = [jsonArray objectAtIndex:0];
     NSDictionary *newGarageReturn = [response JSONValue];
 
-    
     settingsAccount = [NSUserDefaults standardUserDefaults];
     [settingsAccount setObject:[newGarageReturn valueForKeyPath:@"session.idPerson"] forKey:@"idPerson"];
     [settingsAccount setObject:[newGarageReturn valueForKeyPath:@"session.token"] forKey:@"token"];
@@ -316,8 +309,6 @@
     
     return isValid;
 }
-
-
 
 - (void)setGarage:(NSArray *)objects{
     //Garage

@@ -10,7 +10,6 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "productTableViewController.h"
 #import "signUpViewController.h"
-//#import "QuartzCore/QuartzCore.h"
 #import "productAccountViewController.h"
 
 @interface ViewController : MasterViewController <RKObjectLoaderDelegate,

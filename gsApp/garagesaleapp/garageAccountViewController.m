@@ -45,34 +45,31 @@
             }
     
     if ([mutArrayProducts count ] > 0) {
-            for (int x=0; x<[mutArrayProducts count]; x++) {
-                
-                
-                NSString* urlThumb;
-                @try {
-                     urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
-                }
-                @catch (NSException *exception) {
-                    urlThumb = @"http://s3-sa-east-1.amazonaws.com/garagesale-static-content/images/nopicture.png";
-                    NSLog(@"%@", exception.description);
-                }
-                @finally {
-                }
-                
-                NSURL *URL = [NSURL URLWithString:urlThumb];
-                if (URL)
-                {
-                    [URLs addObject:URL];
-                }
-                else
-                {
-                    NSLog(@"'%@' is not a valid URL", urlThumb);
-                }
-                NSLog(@"xxx : %i",x);
-            }
-            self.imageURLs = URLs;
-        
+        for (int x=0; x<[mutArrayProducts count]; x++) {
 
+            NSString* urlThumb;
+            @try {
+                 urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
+            }
+            @catch (NSException *exception) {
+                urlThumb = @"http://s3-sa-east-1.amazonaws.com/garagesale-static-content/images/nopicture.png";
+                NSLog(@"%@", exception.description);
+            }
+            @finally {
+            }
+            
+            NSURL *URL = [NSURL URLWithString:urlThumb];
+            if (URL)
+            {
+                [URLs addObject:URL];
+            }
+            else
+            {
+                NSLog(@"'%@' is not a valid URL", urlThumb);
+            }
+            NSLog(@"xxx : %i",x);
+        }
+        self.imageURLs = URLs;
     }
     [super awakeFromNib];
 }
@@ -120,7 +117,6 @@
     globalFunctions.imageThumbsXorigin_Iphone = 10;
     globalFunctions.imageThumbsYorigin_Iphone = 10;
     
-    
     [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
@@ -159,7 +155,6 @@
             link.text        = garage.link;
             gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
             
-            
             self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
             
             [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
@@ -168,7 +163,6 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
-
         [viewNoProducts setHidden:YES];
         
         self.tabBarController.delegate = self;
@@ -184,9 +178,7 @@
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
-        
-       // [segmentControl setSelectedSegmentIndex:0];
-        
+                
         self.scrollViewMain.contentSize         = CGSizeMake(320,560);
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
@@ -203,13 +195,6 @@
         [self.tableViewProducts setDelegate:self];
         
         [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
-        
-
-  
-        
-      //  mutDictDataThumbs = [[NSMutableDictionary alloc] init];
-        
-        
         
     } else {
 
@@ -228,18 +213,8 @@
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[total rangeOfString:@"products"]];
         [attrStr setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
         labelTotalProducts.attributedText   = attrStr;
-        
-//        [labelTotalProducts setBackgroundColor:[UIColor clearColor]];
-//        [labelTotalProducts setShadowColor:[UIColor blackColor]];
-//        [labelTotalProducts setShadowOffset:CGSizeMake(1, 1)];
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
-
-        //Set Display thumbs on Home.
-//        globalFunctions.countColumnImageThumbs = -1;
-//        globalFunctions.imageThumbsXorigin_Iphone = 10;
-//        globalFunctions.imageThumbsYorigin_Iphone = 10;
-
         [self loadButtonsProduct];
     }  
 }
@@ -271,14 +246,11 @@
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-    
-    //[self initLoadingGuear];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     [mutArrayProducts removeAllObjects];
     if([objects count] > 0){
-    //    [mutDictDataThumbs removeAllObjects];
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
         [tableViewProducts reloadData];
@@ -294,7 +266,6 @@
         labelTotalProducts.text = @"";
         self.scrollViewProducts.contentSize = CGSizeMake(320,400);
     }
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
@@ -352,10 +323,6 @@
 	}
 }
 
-//- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-//}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 0){
         if (scrollViewMain.contentOffset.y > 130){
@@ -410,39 +377,6 @@
     }
 }
 
-
-
-//-(void)loadTableProduct:(NSArray *)array{
-//    [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
-//                               withObject:array];
-//}
-//
-//- (void)loadImageTableThumbs:(NSArray *)array {
-//    /*
-//     array WithObjects:
-//     0 cell, 
-//     1 indexPath, 
-//     */
-//    NSIndexPath *index = [array objectAtIndex:1];
-//    NSString* urlThumb;
-//
-//        @try {
-//            urlThumb  = [[[[[[mutArrayProducts objectAtIndex:index.row] fotos] objectAtIndex:0] caminho] objectAtIndex:0] listing];
-//            if (urlThumb != NULL) {
-//                UIImage *thumbImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:urlThumb]]];
-//                [(productCustomViewCell *)[array objectAtIndex:0] imageView].image =  thumbImage;
-//                [mutDictDataThumbs setObject:thumbImage forKey:[NSString stringWithFormat:@"%i", index.row]];
-//            }
-//        }
-//        @catch (NSException *exception) {
-//            [(productCustomViewCell *)[array objectAtIndex:0] imageView].image  = [UIImage imageNamed:@"nopicture.png"];
-//            [mutDictDataThumbs setObject:[UIImage imageNamed:@"nopicture.png"] forKey:[NSString stringWithFormat:@"%i", index.row]];
-//            NSLog(@"%@", exception);
-//        }
-//        @finally {
-//        }
-//}
-
 -(IBAction)changeSegControl{
     if(segmentControl.selectedSegmentIndex == 0){
         tableViewProducts.hidden = YES;
@@ -488,20 +422,13 @@
     productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
     if ([mutArrayProducts count] > 0) {
-
-        
-        
-        
-
         //cancel loading previous image for cell
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imageView];
         //set placeholder image or cell won't update when image is loader
         cell.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
         //load the image
         cell.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
-        
         cell.imageView.layer.masksToBounds = YES;
-        
         cell.imageView.layer.cornerRadius = 3;
         
         [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -521,9 +448,6 @@
                         range:[strFormat rangeOfString:currency]];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];
 
-        
-
-        
         int state = [[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue];
         
         if (state > 1) {
@@ -546,23 +470,7 @@
                 cell.valorEsperado.attributedText = attrStr;
                 break;
         }
-        
-//        if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]])
-//            cell.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]; 
-//        else {
-//             if ([mutArrayProducts count] != [mutDictDataThumbs count]) {
-//                NSOperationQueue *queue = [NSOperationQueue new];
-//
-//                NSInvocationOperation *opTableProd  = [[NSInvocationOperation alloc]
-//                                                       initWithTarget:self
-//                                                       selector:@selector(loadTableProduct:)
-//                                                       object:[NSArray arrayWithObjects:
-//                                                               cell,
-//                                                               indexPath, nil]];
-//                [queue addOperation:opTableProd];
-//             }
-//        }
-        
+                
         if ((garage  == nil) && (profile == nil))
             cell.imageEditButton.hidden = NO;
         else 
@@ -570,7 +478,6 @@
         
         [cell.imageEditButton setTag:indexPath.row];
         [cell.imageEditButton addTarget:self action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
-
     }
     
     return cell;
@@ -650,8 +557,6 @@
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
     [super viewDidUnload];
- //   mutDictDataThumbs = nil;
-  //  [self setMutDictDataThumbs:nil];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

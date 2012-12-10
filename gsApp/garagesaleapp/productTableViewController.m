@@ -68,15 +68,6 @@
     [super awakeFromNib];
 }
 
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -101,38 +92,25 @@
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-   
+    self.tableView.delegate = self;
+    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+    [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
+    [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
 
-        
-        self.tableView.delegate = self;
+    [segmentControl setSelectedSegmentIndex:0];
+    [self.tableView setRowHeight:377];
 
+    self.trackedViewName = [NSString stringWithFormat: @"/search/%@", strLocalResourcePath];
 
-    
-    
-        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-        
-        [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
+    [viewSearch.layer setCornerRadius:6];
+    [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
+    [viewSearch.layer setShadowOpacity:0.5];
+    viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
 
-        [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
- 
-//        [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:
-//                                                    @selector(showSearch:) viewContr:self imageNamed:@"btSearchAccount.png"]];
-        [segmentControl setSelectedSegmentIndex:0];
-        [self.tableView setRowHeight:377];
-    
-        self.trackedViewName = [NSString stringWithFormat: @"/search/%@", strLocalResourcePath];
-
-    
-        [viewSearch.layer setCornerRadius:6];
-        [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
-        [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
-        [viewSearch.layer setShadowOpacity:0.5];
-        viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
-    
-    
-        [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:12.9]];
-        [txtFieldSearch setDelegate:self];
+    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:12.9]];
+    [txtFieldSearch setDelegate:self];
 
     //set done at keyboard
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
@@ -144,12 +122,7 @@
     [numberToolbar sizeToFit];
     [txtFieldSearch setInputAccessoryView:numberToolbar];
     
-    
      if (isFromLoadObject) {
-            
-        //if ([strTextSearch length] != 0)
-            //[searchBarProduct setText:strTextSearch];
-
         NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
         NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
         
@@ -243,21 +216,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//- (IBAction)showSearch:(id)sender{
-//
-////            [viewSearch setHidden:NO];
-////            searchBarProduct.hidden=YES;
-////        }else {
-////            [viewSearch setHidden:YES];
-////            [viewTopPage setHidden:NO];
-////            [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-////            // [self.navigationController setNavigationBarHidden:YES];
-////            //[self setHidesBottomBarWhenPushed:NO];
-////            searchBarProduct.hidden=NO;
-////        }
-//    
-//}
-
 // Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -273,19 +231,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
     //create new cell
     productCustomViewCell *customViewCellBlock = [tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
     productCustomViewCell *customViewCellLine = [tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
-
-        //common settings
-        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-      //  cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-      //  cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-       // cell.imageView.frame = CGRectMake(0.0f, 0.0f, 250, 250);
-       // cell.imageView.clipsToBounds = YES;
-        
 
     //cancel loading previous image for cell
     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
@@ -366,41 +314,32 @@
     
     //Set CellBlock Values
     [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-    [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-    //[customViewCellBlock imageView].image = [UIImage imageNamed:@"nopicture.png"];
-    
+    [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];    
     
     //Set Gravatar at CellBlock.
     //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
     //UIImage *image      = [[UIImage alloc] initWithData:imageData];
     
-
     //Set CellLine Values
     [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
     [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-    //[customViewCellLine imageView].image = [UIImage imageNamed:@"nopicture.png"];    
-    
-
-    //NSLog(@"------------------>%i", indexPath.row);
-    
         
-        if(segmentControl.selectedSegmentIndex == 0){
-            [customViewCellLine removeFromSuperview];
-            [customViewCellBlock setHidden:NO];
-            [customViewCellLine setHidden:YES];
-            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-            [self.tableView setRowHeight:122];
-            return customViewCellBlock;
-        }
-        else{
-            // [tableView deleteRowsAtIndexPaths:[self.mutArrayProducts objectAtIndex:indexPath.row] withRowAnimation:UITableViewRowAnimationNone];
-            [customViewCellBlock removeFromSuperview];
-            [customViewCellBlock setHidden:YES];
-            [customViewCellLine setHidden:NO];
-            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-            [self.tableView setRowHeight:367];
-            return customViewCellLine;
-        }
+    if(segmentControl.selectedSegmentIndex == 0){
+        [customViewCellLine removeFromSuperview];
+        [customViewCellBlock setHidden:NO];
+        [customViewCellLine setHidden:YES];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [self.tableView setRowHeight:122];
+        return customViewCellBlock;
+    }
+    else{
+        [customViewCellBlock removeFromSuperview];
+        [customViewCellBlock setHidden:YES];
+        [customViewCellLine setHidden:NO];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+        [self.tableView setRowHeight:367];
+        return customViewCellLine;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -413,15 +352,6 @@
     [prdDetailVC setImageView:imageV];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
-//
-//// Settings to SearchBar
-//- (void)searchBar:(UISearchBar *)searchBar
-//    textDidChange:(NSString *)searchText {
-//    // We don't want to do anything until the user clicks 
-//    // the 'Search' button.
-//    // If you wanted to display results as the user types 
-//    // you would do that here.
-//}
 
 -(IBAction)changeSegControl{
     [self.tableView reloadData];
@@ -447,11 +377,7 @@
     }
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
@@ -470,15 +396,6 @@
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
     }
     [UIView commitAnimations];
-
-    
-//    if (_lastContentOffset < (int)self.tableView.contentOffset.y) {
-//        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-//    }else{
-//        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-//    }
-//    
-   // [self.navigationItem.rightBarButtonItem setEnabled:NO];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -500,7 +417,6 @@
         if (![txtFieldSearch.text isEqualToString:@""]){
             
             strTextSearch = txtFieldSearch.text;
-            
             NSString *replaceSpace = [txtFieldSearch.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
             
             //Search Service
@@ -516,20 +432,11 @@
             
             //    [self showSearch:nil];
             [txtFieldSearch resignFirstResponder];
-
         }
     }
     else
         [txtFieldSearch becomeFirstResponder];
 }
-
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [self.navigationItem.rightBarButtonItem setEnabled:YES];
-//}
-//
-//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-//    [self.navigationItem.rightBarButtonItem setEnabled:YES];
-//}
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];

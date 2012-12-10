@@ -12,7 +12,6 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
 #import "garageAccountViewController.h"
-//#import "QuartzCore/QuartzCore.h"
 #import "Category.h"
 #import "Bid.h"
 #import "OHAttributedLabel.h"
@@ -27,8 +26,7 @@
                                                             UITabBarDelegate,
                                                             UIPopoverControllerDelegate,
                                                             UIAlertViewDelegate> {
-                                                                
-    
+
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;
     NSArray                                     *arrayGarage;

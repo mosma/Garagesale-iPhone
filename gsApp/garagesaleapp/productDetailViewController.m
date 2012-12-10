@@ -91,7 +91,6 @@
     } else{
         [self getResourcePathGarage];
     }
-
 }
 
 - (void)configureView
@@ -137,7 +136,6 @@
         [labelNomeProduto       setText:[self.product nome]];
         [labelDescricao         setText:[self.product descricao]];
         [OHlabelValorEsperado   setText:[self.product valorEsperado]];
-        
         
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", product.idPessoa];
@@ -200,7 +198,6 @@
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
-        
     }else {
         [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
@@ -294,25 +291,12 @@
             imageView               = [[UIImageView alloc] initWithImage:image];
         }
         
-//        if ([product.idPessoa intValue] == [[[GlobalFunctions getUserDefaults] valueForKey:@"idPerson"] intValue]) {
-//            [buttonDeleteProduct setHidden:NO];
-//            [buttonEditProduct setHidden:NO];
-//            [buttonDeleteProduct setUserInteractionEnabled:YES];
-//            [buttonEditProduct setUserInteractionEnabled:YES];
-//        }
-
-        
-        NSLog(@"%@", product.idPessoa);
-        
-         NSLog(@"%@", [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]);
-        
         if ([product.idPessoa isEqualToString:(NSString *)[[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]]) {
             [buttonDeleteProduct setHidden:NO];
             [buttonEditProduct setHidden:NO];
             [buttonDeleteProduct setUserInteractionEnabled:YES];
             [buttonEditProduct setUserInteractionEnabled:YES];
         }
-
         
         [activityIndicator stopAnimating];
     }
@@ -426,8 +410,6 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             [product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
-            //[product setIdPessoa:[(Product *)[objects objectAtIndex:0] idPessoa]];
-            //self.product = (Product *)[objects objectAtIndex:0];
             [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
             productPhotos = (NSMutableArray *)objects;
@@ -485,17 +467,9 @@
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    
-    
-    
-    
     UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"Atenção!" message:@"Deseja Realmente excluir ?" delegate:self cancelButtonTitle:@"cancelar" otherButtonTitles:@"Deletar", nil];
-    
-    
     [alertV show];
-    
 }
-
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
@@ -515,13 +489,6 @@
 }
 
 -(IBAction)reportGarage:(id)sender {
-
-    
-    
-    
-    
-    
-    
     //garage/nomegarage?absuse=true
     //fazer get
     // nao precisa tratar o retorno.
@@ -536,16 +503,6 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Abuse" message:@"Recebemos sua reclamação, \n Vamos validar o caso mais rápido possivel" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
     [alert show];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -612,15 +569,8 @@
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{
     UIImage *image;
-//    CGRect rect;
-//    rect.size.width         = 320;
-//    rect.size.height        = 280;
-    
-
-    
     /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll*/
     NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
-    
     [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                    withObject:pageCCopy];
 }
@@ -980,8 +930,6 @@
     [self setButtonBid:nil];
     [self setButtonGarageDetail:nil];
     buttonGarageDetail = nil;
-//    imgViewLoading = nil;
-//    [self setImgViewLoading:nil];
     offerLabel = nil;
     [self setOfferLabel:nil];
     msgBidSentLabel = nil;

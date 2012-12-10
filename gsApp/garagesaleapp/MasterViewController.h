@@ -11,7 +11,6 @@
 #import "GAI.h"
 
 @interface MasterViewController : GAITrackedViewController {
-
     UIView *viewMessageNet;
     UILabel *labelNotification;
     BOOL isReachability;

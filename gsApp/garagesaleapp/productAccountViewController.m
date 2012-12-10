@@ -72,7 +72,6 @@
 }
 
 -(void)loadAttributsToComponents{
-
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
@@ -150,8 +149,6 @@
     [txtFieldCurrency setTag:PICKERCURRENCY];
     txtFieldCurrency.delegate = self;
     
-    
-    
     if (self.product != nil)
         [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
                                    [GlobalFunctions getCurrencyByCode:product.currency]]];
@@ -187,7 +184,6 @@
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
 }
-//
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField.tag == PICKERSTATE || textField.tag == PICKERCURRENCY) {
@@ -345,10 +341,6 @@
                     }];
 }
 
-//- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
-//}
-
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
@@ -377,7 +369,6 @@
 
 -(IBAction)getPicsByPhotosAlbum:(id)sender {
     [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
-    //[self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -405,42 +396,6 @@
         [alert show];
     }
 }
-
-
-//- (void)receivedLongPress:(UIGestureRecognizer *)gestureRecognizer {
-//    CGPoint coords = [gestureRecognizer locationInView:gestureRecognizer.view];
-//    
-//    NSLog(@"%f", coords.x);
-//    
-//}
-
-//-(void)displayImages:(NSArray *)aImageList{
-//    nsMutArrayPicsProduct = [NSMutableArray arrayWithArray:aImageList];
-//    [self placeImages:nsMutArrayPicsProduct];
-//}
-
-
-
-
-
-//-(void)placeImages:(NSArray *)aImageList{
-//    scrollViewPicsProduct.contentSize =CGSizeZero;
-//    if ([aImageList count] > 0) {
-//        //[self removeNoPhotoAdded];
-//    }
-//    for (int imageNumber =0 ; imageNumber < [aImageList count]; imageNumber ++) {
-//        UIImageView * imageView = [[UIImageView alloc] initWithImage:[aImageList objectAtIndex:imageNumber]];
-//        imageView.frame = CGRectMake(imageNumber * (imageWidth_ + self.widthPaddingInImages), self.heightPaddingInImages, imageWidth_, imageHeight_);
-//        [scrollViewPicsProduct addSubview:imageView];
-//        [imageView setUserInteractionEnabled:YES];
-
-//        CGSize size = scrollViewPicsProduct.contentSize;
-//        size.width = size.width + imageWidth_ + self.widthPaddingInImages;
-//        scrollViewPicsProduct.contentSize = size;
-//        scrollViewPicsProduct.showsVerticalScrollIndicator = NO;
-//        scrollViewPicsProduct.showsHorizontalScrollIndicator = NO;
-//    }
-//}
 
 - (void)getTypeCameraOrPhotosAlbum:(UIImagePickerControllerSourceType)type{
     
@@ -599,15 +554,7 @@
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToTabBarController:2];
-        
-//        for (UIView *view in self.scrollView.subviews)
-//            for (UITextField *txtField in view.subviews) 
-//                if ([txtField isKindOfClass:[UITextField class]])
-//                    txtField.text = @"";
-//
-//        for (UIView *v in [scrollViewPicsProduct subviews])
-//            [v removeFromSuperview];
-        
+
         self.view = nil;
        [self viewDidLoad];
         [scrollView setContentOffset:CGPointZero animated:NO];
@@ -811,10 +758,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
-    
-    
-    
-    
     //Bloco de verificação Temporario parametro para ajustar as 3 imagens para direita...
     if ([gallery.nsMutArrayPicsProduct count] == 1)
         [gallery.scrollView setContentOffset:CGPointMake(-180, scrollView.contentOffset.y) animated:YES];
@@ -823,7 +766,7 @@
     if ([gallery.nsMutArrayPicsProduct count] == 3)
         [gallery.scrollView setContentOffset:CGPointMake(-25, scrollView.contentOffset.y) animated:YES];
     
-   if (![[[GlobalFunctions getUserDefaults]
+    if (![[[GlobalFunctions getUserDefaults]
           objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {
         int action = [[[GlobalFunctions getUserDefaults] objectForKey:@"controlComponentsAtFirstDisplay"] intValue];
         
@@ -838,7 +781,6 @@
        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
 }
 
 - (void)viewDidUnload

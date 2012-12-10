@@ -11,7 +11,6 @@
 #import "productDetailViewController.h"
 #import "productCustomViewCell.h"
 #import "OHAttributedLabel.h"
-//#import "QuartzCore/QuartzCore.h"
 
 @interface productTableViewController : MasterViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
@@ -37,7 +36,6 @@
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
 @property (retain, nonatomic) NSMutableArray        *mutArrayProducts;
-//@property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
@@ -47,7 +45,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 
 @property (nonatomic, retain) NSArray *imageURLs;
-
 
 -(void)getResourcePathProduct;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
