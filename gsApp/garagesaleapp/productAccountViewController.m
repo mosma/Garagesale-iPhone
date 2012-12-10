@@ -119,7 +119,7 @@
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
         
-    nsArrayCurrency = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@ - %@",code,symbol],
+    nsArrayCurrency = [NSArray arrayWithObjects:
                        @"BRL - R$",
                        @"GBP - £",
                        @"EUR - €",
