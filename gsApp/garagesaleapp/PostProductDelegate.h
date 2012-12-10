@@ -16,6 +16,7 @@
 @interface PostProductDelegate : NSObject <RKObjectLoaderDelegate, RKRequestDelegate> {
     BOOL isSaveProductDone;
     BOOL isSaveProductFail;
+    NSTimer         *timerSave;
 }
 
 @property(unsafe_unretained, nonatomic) BOOL isSaveProductDone;

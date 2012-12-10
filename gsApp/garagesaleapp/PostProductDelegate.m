@@ -15,6 +15,8 @@
 @synthesize isSaveProductFail;
 
 -(void)postProduct:(NSMutableDictionary *)productParams {
+    timerSave = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(setSaveProductFail) userInfo:nil repeats:NO];
+    
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
@@ -34,6 +36,11 @@
         [postData setObject:json forKey:@"product"];
         [[[RKClient sharedClient] post:@"/product" params:postData delegate:self] send];
     }
+}
+
+-(void)setSaveProductFail{
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+    isSaveProductFail = YES;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -57,6 +64,7 @@
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         // Handling POST /other.json
         isSaveProductDone = YES;
+        [timerSave invalidate];
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }

@@ -284,7 +284,7 @@
             Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
             NSURL *url = [NSURL URLWithString:[caminho mobile]];
             image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            imageView               = [[UIImageView alloc] initWithImage:image];
+            [imageView setImage:image];
         }
         @catch (NSException *exception) {
             image                   = [UIImage imageNamed:@"nopicture.png"];
