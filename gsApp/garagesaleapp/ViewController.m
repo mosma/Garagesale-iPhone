@@ -25,27 +25,27 @@
 }
 
 - (void)viewDidLoad
-{    
+{
     [super viewDidLoad];
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
 
 - (void)loadAttribsToComponents{
-//    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-//    NSArray *fontNames;
-//    NSInteger indFamily, indFont;
-//    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
-//    {
-//        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
-//        fontNames = [[NSArray alloc] initWithArray:
-//                     [UIFont fontNamesForFamilyName:
-//                      [familyNames objectAtIndex:indFamily]]];
-//        for (indFont=0; indFont<[fontNames count]; ++indFont)
-//        {
-//            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
-//        }
-//    }
+    //    NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+    //    NSArray *fontNames;
+    //    NSInteger indFamily, indFont;
+    //    for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+    //    {
+    //        NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+    //        fontNames = [[NSArray alloc] initWithArray:
+    //                     [UIFont fontNamesForFamilyName:
+    //                      [familyNames objectAtIndex:indFamily]]];
+    //        for (indFont=0; indFont<[fontNames count]; ++indFont)
+    //        {
+    //            NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+    //        }
+    //    }
     
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
@@ -67,7 +67,7 @@
     [item2 setTitle:@"My garage"];
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:10.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
-
+    
     item0.titlePositionAdjustment = UIOffsetMake(0, -5);
     item1.titlePositionAdjustment = UIOffsetMake(0, -5);
     item2.titlePositionAdjustment = UIOffsetMake(0, -5);
@@ -88,7 +88,7 @@
                                          [UIImage imageNamed:@"ActivityHome05.png"],
                                          [UIImage imageNamed:@"ActivityHome06.png"],
                                          [UIImage imageNamed:@"ActivityHome07.png"],
-                                         [UIImage imageNamed:@"ActivityHome00.png"],                                        
+                                         [UIImage imageNamed:@"ActivityHome00.png"],
                                          nil];
     activityImageView.animationDuration = 1.0;
     
@@ -99,7 +99,7 @@
     buttonLogo.adjustsImageWhenHighlighted = NO;
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
-
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:1.0f];
     buttonLogo.center = CGPointMake(160, 50);
@@ -143,9 +143,9 @@
     self.navigationItem.hidesBackButton = YES;
     
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
-
+    
     scrollViewMain.delegate = self;
-
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
@@ -172,13 +172,7 @@
     if ([objects count] > 0) {
         [mutArrayProducts removeAllObjects];
         mutArrayProducts = (NSMutableArray *)objects;
-        NSOperationQueue *queue = [NSOperationQueue new];
-        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadButtonsProduct)
-                                            object:nil];
-        [queue addOperation:operation];
-        //        [activityLoadProducts stopAnimating];
+        [self loadButtonsProduct];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [activityImageView stopAnimating];
         
@@ -194,17 +188,17 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     
     
-//    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:@"Opz!" message:@"Houve um erro de comunicação com o servidor" delegate:self
-//                     cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
-//
-//    [alV show];
-//    
+    //    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:@"Opz!" message:@"Houve um erro de comunicação com o servidor" delegate:self
+    //                     cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+    //
+    //    [alV show];
+    //
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
+    
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
-
+    
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -239,23 +233,23 @@
 }
 
 //- (void)tabBarController:(UITabBarController *)theTabBarController didSelectViewController:(UIViewController *)viewController {
-//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];   
+//    [GlobalFunctions tabBarController:theTabBarController didSelectViewController:viewController];
 //}
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-        
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                       delegate:nil 
-                                              cancelButtonTitle:@"Cancel"
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    sheet.delegate = self;
-    [sheet showInView:self.view];
-    [sheet showFromTabBar:self.tabBarController.tabBar];
-    return NO;
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Cancel"
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showInView:self.view];
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
     } else {
         return YES;
     }
@@ -267,21 +261,15 @@
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-   // NSLog(@"Integer  : %i", [self.nsArrayProducts count]);
     for(int i = 0; i < [mutArrayProducts count]; i++)
     {
-        [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:[mutArrayProducts objectAtIndex:i], 
-                                                                    [NSNumber numberWithInt:i], 
-                                                                     nil]];
+        [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:
+                                                                              [mutArrayProducts objectAtIndex:i],
+                                                                              [NSNumber numberWithInt:i], nil]
+                                                                    showEdit:NO
+                                                                   showPrice:NO
+                                                                   viewContr:self]];
     }
-}
-
-- (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
-    [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
-                                                                     showEdit:NO
-                                                                     showPrice:NO
-                                                                     viewContr:self]];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -313,11 +301,11 @@
         
         if(countLoads < 6){
             
-
-//            UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nopicture.png"]];
-//            [imgV setFrame:CGRectMake(0, scrollViewMain.contentSize.height+150, 320, 50)];
             
-
+            //            UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nopicture.png"]];
+            //            [imgV setFrame:CGRectMake(0, scrollViewMain.contentSize.height+150, 320, 50)];
+            
+            
             //Position the activity image view somewhere in
             //the middle of your current view
             activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+30-(countLoads*7), 46, 45);
@@ -329,9 +317,9 @@
             
             [self getResourcePathProduct];
             [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+425)];
-
+            
             countLoads++;
-           
+            
         }
         
     }
@@ -345,7 +333,7 @@
             [UIView setAnimationDelegate:self];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
                 [viewSearch setAlpha:0];
-               // [self.navigationController setNavigationBarHidden:YES];
+                // [self.navigationController setNavigationBarHidden:YES];
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
             }else
                 [viewTopPage setAlpha:0];
@@ -380,10 +368,10 @@
     [globalFunctions setCountColumnImageThumbs:-1];
     [globalFunctions setImageThumbsXorigin_Iphone:10];
     [globalFunctions setImageThumbsYorigin_Iphone:95];
-
+    
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     countLoads = 0;
-
+    
     [self controlSearchArea];
     
     if ([mutArrayProducts count] == 0) {
@@ -391,7 +379,7 @@
     }else {
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
-
+    
     [self getResourcePathProduct];
     
     if (!isAnimationLogo) {
@@ -426,23 +414,23 @@
     
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
-
+    
     [prdDetailVC setImageView:[[UIImageView alloc] initWithImage:[[sender imageView] image]]];
-
+    
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    // We don't want to do anything until the user clicks 
+    // We don't want to do anything until the user clicks
     // the 'Search' button.
-    // If you wanted to display results as the user types 
+    // If you wanted to display results as the user types
     // you would do that here.
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    // searchBarTextDidBeginEditing is called whenever 
+    // searchBarTextDidBeginEditing is called whenever
     // focus is given to the UISearchBar
-    // call our activate method so that we can do some 
+    // call our activate method so that we can do some
     // additional things when the UISearchBar shows.
     [self.searchBarProduct setShowsCancelButton:YES animated:YES];
     UIButton *cancelButton = nil;
@@ -454,10 +442,10 @@
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    // searchBarTextDidEndEditing is fired whenever the 
+    // searchBarTextDidEndEditing is fired whenever the
     // UISearchBar loses focus
     // We don't need to do anything here.
-   // [self.searchBarProduct setShowsCancelButton:NO animated:YES];
+    // [self.searchBarProduct setShowsCancelButton:NO animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -481,7 +469,7 @@
 -(void)gotoProductTableViewController:(id)objetct{
     productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //Search Service
-        
+    
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
                                      [objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     [prdTbl setStrTextSearch:objetct];
@@ -505,9 +493,9 @@
 //        viewSignup.transform = CGAffineTransformMakeTranslation(0, 0);
 //        [textFieldSearch resignFirstResponder];
 //    }
-//    
+//
 //   isSearch = !isSearch;
-//    
+//
 //  //  viewSignup.transform = CGAffineTransformMakeRotation(0);
 //    [UIView commitAnimations];
 //}

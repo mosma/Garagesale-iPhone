@@ -294,12 +294,12 @@
         [nsMutArrayNames replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftS];
 
          
-         [UIView beginAnimations:nil context:nil];
-         [UIView setAnimationDuration:0.3];
-         [UIView setAnimationDelegate:self];
-         [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-         [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] setFrame:left];
-         [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] setFrame:right];
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+        [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_right] setFrame:left];
+        [(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] setFrame:right];
         
 //        if (indexOfImageAtScroll_left == 0){
 //            [[(UIImageView *)[scrollView.subviews objectAtIndex:indexOfImageAtScroll_left] layer] setBorderColor:[[UIColor grayColor] CGColor] ];

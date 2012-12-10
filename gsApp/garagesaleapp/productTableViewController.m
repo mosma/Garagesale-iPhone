@@ -294,12 +294,12 @@
     //set placeholder image or cell won't update when image is loaded
     
     
-    customViewCellBlock.imageView.image = [UIImage imageNamed:@"placeholder2.png"];
+    customViewCellBlock.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
     //load the image
     customViewCellBlock.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
     
     //set placeholder image or cell won't update when image is loaded
-    customViewCellLine.imageView.image = [UIImage imageNamed:@"Placeholder.png"];
+    customViewCellLine.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
     //load the image
     customViewCellLine.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
     

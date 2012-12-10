@@ -50,7 +50,8 @@
     UIView                      *shadowView;
     MBProgressHUD               *HUD;
     Product                     *product;
-                                   
+    UILabel                     *waiting;
+                                                                 
     //Flags at Post
     bool isImagesProductPosted;
     int countPicsPost;

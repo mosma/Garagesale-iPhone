@@ -35,6 +35,15 @@
 - (void)awakeFromNib
 {
     NSMutableArray *URLs = [NSMutableArray array];
+    
+    //Hide Products with idEstados == 4 "Invisible."
+    for(int i = 0; i < [mutArrayProducts count]; i++)
+        if (!((garage  == nil) && (profile == nil)))
+            if ([[(Product *)[mutArrayProducts objectAtIndex:i] idEstado] intValue] == 4){
+              [mutArrayProducts removeObjectAtIndex:i];
+              i--;
+            }
+    
     if ([mutArrayProducts count ] > 0) {
             for (int x=0; x<[mutArrayProducts count]; x++) {
                 
@@ -231,14 +240,7 @@
 //        globalFunctions.imageThumbsXorigin_Iphone = 10;
 //        globalFunctions.imageThumbsYorigin_Iphone = 10;
 
-        NSOperationQueue *queue = [NSOperationQueue new];
-        
-        NSInvocationOperation *opThumbsProd = [[NSInvocationOperation alloc]
-                                            initWithTarget:self
-                                            selector:@selector(loadButtonsProduct)
-                                            object:nil];
-        [queue addOperation:opThumbsProd];
-        
+        [self loadButtonsProduct];
     }  
 }
 
@@ -396,24 +398,19 @@
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = 0; i < [self.mutArrayProducts count]; i++)
+    for(int i = 0; i < [mutArrayProducts count]; i++)
     {
-        [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                               withObject:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i], 
-                                           [NSNumber numberWithInt:i], 
-                                           nil]];
+        
+        [scrollViewProducts addSubview:
+            [globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i],
+                                                        [NSNumber numberWithInt:i], nil]
+                                              showEdit:((garage  == nil) && (profile == nil)) ? YES : NO
+                                             showPrice:YES
+                                             viewContr:self]];
     }
 }
 
-- (void)loadImageGalleryThumbs:(NSArray *)arrayDetailProduct {
 
-        [scrollViewProducts addSubview:
-         [globalFunctions loadButtonsThumbsProduct:arrayDetailProduct
-                                          showEdit:((garage  == nil) && (profile == nil)) ? YES : NO
-                                          showPrice:YES
-                                          viewContr:self]];
-    
-}
 
 //-(void)loadTableProduct:(NSArray *)array{
 //    [NSThread detachNewThreadSelector:@selector(loadImageTableThumbs:) toTarget:self 
@@ -486,6 +483,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+
     static NSString             *CellIdentifier = @"CellProduct";
     productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -498,7 +496,7 @@
         //cancel loading previous image for cell
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imageView];
         //set placeholder image or cell won't update when image is loader
-        cell.imageView.image = [UIImage imageNamed:@"placeholder2.png"];
+        cell.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
         //load the image
         cell.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
         
@@ -523,13 +521,31 @@
                         range:[strFormat rangeOfString:currency]];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];
 
-        if ([[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-            [[cell valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
-            [[cell valorEsperado] setText:@"Vendido"];
-            [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                               green:(float)102/255.0 \
-                                                                blue:(float)102/255.0 alpha:1.0]];
-        }else cell.valorEsperado.attributedText = attrStr;
+        
+
+        
+        int state = [[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue];
+        
+        if (state > 1) {
+          [[cell valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+          [[cell valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                           green:(float)102/255.0 \
+                                                            blue:(float)102/255.0 alpha:1.0]];
+        }
+        switch (state) {
+            case 2:
+                [[cell valorEsperado] setText:@"Vendido"];
+                break;
+            case 3:
+                [[cell valorEsperado] setText:@"N/D"];
+                break;
+            case 4:
+                [[cell valorEsperado] setText:@"Invisible"];
+                break;
+            default:
+                cell.valorEsperado.attributedText = attrStr;
+                break;
+        }
         
 //        if ([[mutDictDataThumbs allKeys] containsObject:[NSString stringWithFormat:@"%i", indexPath.row]])
 //            cell.imageView.image = [mutDictDataThumbs objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]; 

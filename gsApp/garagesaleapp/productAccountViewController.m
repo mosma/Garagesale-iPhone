@@ -104,8 +104,13 @@
     [gallery setButtonSaveProduct:buttonSaveProduct];
     [gallery setScrollView:self.scrollViewPicsProduct];
     
+    [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
-    
+    waiting = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 200, 40)];
+    [waiting setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
+    [waiting setBackgroundColor:[UIColor clearColor]];
+    [waiting setTextColor:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f]];
+    [waiting setText:@"waiting..."];    
 
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
                        NSLocalizedString(@"Sold", @""), NSLocalizedString(@"notAvailable", @""), NSLocalizedString(@"invisible", @""), nil];
@@ -130,8 +135,11 @@
     [txtFieldState setTag:PICKERSTATE];
     txtFieldState.delegate = self;
     
-    txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
-    
+    if (self.product != nil)
+        txtFieldState.text = [nsArrayState objectAtIndex:[product.idEstado intValue]-1];
+    else
+        txtFieldState.text = NSLocalizedString(@"Avaliable", @"");
+        
     //Set Picker View Currency
     UIPickerView *pickerViewCurrency = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
     [pickerViewCurrency setDelegate:self];
@@ -142,7 +150,14 @@
     [txtFieldCurrency setTag:PICKERCURRENCY];
     txtFieldCurrency.delegate = self;
     
-    [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
+    
+    
+    if (self.product != nil)
+        [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
+                                   [GlobalFunctions getCurrencyByCode:product.currency]]];
+    else
+        [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
+    
     
     //Create done button in UIPickerView
     UIToolbar       *picViewStateToolbar    = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
@@ -163,6 +178,8 @@
     
     if (self.product != nil) {
         self.trackedViewName = [NSString stringWithFormat:@"%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
+        if ([self.product.fotos count] > 0)
+            [scrollViewPicsProduct addSubview:waiting];
         [self loadingProduct];
     }else {
         [self getResourcePathPhotoReturnNotSaved];
@@ -235,6 +252,7 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
+            [waiting removeFromSuperview];
             [self loadAttributsToPhotos:objects];
         }
     }
@@ -249,6 +267,8 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
                                         cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+    [waiting removeFromSuperview];
+    
     [alV show];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

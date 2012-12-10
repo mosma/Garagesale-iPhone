@@ -199,10 +199,6 @@
         }];
         
         
-        
-        
-        
-        [self.scrollView setUserInteractionEnabled:YES];
         [self.imageView setUserInteractionEnabled:YES];
         
     }
@@ -214,9 +210,6 @@
 }
 
 -(void)setEnableSaveButton:(BOOL)enable{
-    [imageView removeGestureRecognizer:refreshGesture];
-    [imageView addGestureRecognizer:moveLeftGesture];
-    
     [buttonSaveProduct setEnabled:enable];
     enable ? [buttonSaveProduct setAlpha:1.0] : [buttonSaveProduct setAlpha:0.3];
 }
@@ -259,6 +252,8 @@
         [self.imageView setUserInteractionEnabled:YES];
         [progressView setHidden:YES];
         [self setEnableSaveButton:YES];
+        [imageView removeGestureRecognizer:refreshGesture];
+        [imageView addGestureRecognizer:moveLeftGesture];
     }
 }
 

@@ -40,13 +40,8 @@
     
     @try {
 
-    
     Product     *product    = (Product *)[arrayDetailProduct objectAtIndex:0];
-    
-    NSData      *imageData  = [[NSData alloc] initWithContentsOfURL:
-                               [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing]]];
-    UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] 
-    : [[UIImage alloc] initWithData:imageData];
+
     /*
      Logic Block of count Logic At X,Y Position viewThumbs display on Iphone.
      imageThumbsXorigin_Iphone    Create by Instance Class
@@ -79,7 +74,19 @@
     buttonThumbsProduct.frame      = CGRectMake(0, 0, 94, 94);
     [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
     [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
+    [buttonThumbsProduct setImage:[UIImage imageNamed:@"placeHolder"] forState:UIControlStateNormal];
+
+        
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
+        NSData      * imageData   = [[NSData alloc] initWithContentsOfURL:
+                                     [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing]]];
+        UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"]
+        : [[UIImage alloc] initWithData:imageData];
+        
+        [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
+        
+    });
+    
     buttonThumbsProduct.imageView.layer.cornerRadius = 3;
     [buttonThumbsProduct setAlpha:0];
     [viewThumbs addSubview:buttonThumbsProduct];
@@ -115,6 +122,9 @@
     UIGraphicsEndImageContext();
 
     if (showPrice) {
+        
+        
+        
         //Set View Price
         UIView *viewPrice = [[UIView alloc] init];
         viewPrice.layer.cornerRadius = 4;
@@ -124,23 +134,58 @@
         
         [viewThumbs addSubview:viewPrice];
         
-        //Set Label Only
-        UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
-        [only setText:@"ONLY"];
-        only.backgroundColor = [UIColor clearColor];
-        [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
-        [viewPrice addSubview:only];
+
         
-        //Set Label Price
+        
         UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(13, 12, 50, 20)];
-        [price setText:[NSString stringWithFormat:@"R$%@", product.valorEsperado]];
-        //[price setAdjustsFontSizeToFitWidth:YES];
+        
+        
+        if ([product.idEstado intValue] == 1) {
+            //Set Label Only
+            UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
+            [only setText:@"ONLY"];
+            only.backgroundColor = [UIColor clearColor];
+            [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
+        
+            [viewPrice addSubview:only];
+            
+            //Set Label Price
+
+            NSString                   *currency        = [GlobalFunctions getCurrencyByCode:product.currency];
+            [price setText:[NSString stringWithFormat:@"%@%@", currency, product.valorEsperado]];
+            //[price setAdjustsFontSizeToFitWidth:YES];
+            price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
+            [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+        } else {
+        
+            [price setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+            [price setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                               green:(float)102/255.0 \
+                                                                blue:(float)102/255.0 alpha:1.0]];
+        
+        }
+        
+        
+        
+        switch ([product.idEstado intValue]) {
+            case 2:
+                [price setText:@"Vendido"];
+                break;
+            case 3:
+                [price setText:@"N/D"];
+                break;
+            case 4:
+                [price setText:@"Invisible"];
+                break;
+        }
         [price sizeToFit];
         price.backgroundColor = [UIColor clearColor];
-        price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
-        [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
         [viewPrice addSubview:price];
-        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+15, 35)];   
+        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+20, 35)];
+
+        
+        
+ 
     }
     
     if (showEdit) {
