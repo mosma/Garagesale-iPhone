@@ -614,6 +614,7 @@
 
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
+        if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
