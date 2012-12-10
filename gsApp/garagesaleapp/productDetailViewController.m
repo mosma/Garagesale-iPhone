@@ -191,7 +191,7 @@
         [buttonReportThisGarage setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
         buttonReportThisGarage.titleLabel.textColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
         
-        [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 320)];
+        [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 370)];
         [galleryScrollView  setClipsToBounds:YES];
         [galleryScrollView  setAutoresizesSubviews:YES];
         [galleryScrollView  addSubview:imageView];
@@ -273,7 +273,8 @@
             [attrStrCount setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
                                  range:[titleCount rangeOfString:[NSString stringWithFormat:@"/%i", PagContGallery.numberOfPages]]];
             [countLabel setBackgroundColor:[UIColor clearColor]];
-            countLabel.attributedText = attrStrCount;            [countView setHidden:NO];
+            countLabel.attributedText = attrStrCount;
+            [countView setHidden:NO];
             [galleryScrollView setContentSize:CGSizeMake(self.view.frame.size.width * countPhotos, 320)];
             [galleryScrollView setDelegate:self];
         } else 
