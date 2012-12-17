@@ -59,13 +59,18 @@
     __weak IBOutlet UILabel       *garageName;
     __weak IBOutlet UILabel       *city;
     
+                                                                 
+    __weak IBOutlet UIButton      *buttonRightAbout;
     MBProgressHUD                 *HUD;
     RKObjectManager               *RKObjManeger;
     NSUserDefaults                *settingsAccount;
 
+    __unsafe_unretained IBOutlet OHAttributedLabel  *labelTotalProducts;                             
+    __unsafe_unretained IBOutlet OHAttributedLabel  *labelAboutAPP;
+    __unsafe_unretained IBOutlet UILabel  *labelAboutEMAIL;
+
     NSString                      *nibId;
     BOOL isSaved;
-                                                                 
 }
 //ViewPassword Labels
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrentPassword;
@@ -101,10 +106,16 @@
 @property (weak, nonatomic) IBOutlet UITextView    *txtViewAbout;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldAnyLink;
 
+@property (weak, nonatomic) IBOutlet UIButton      *buttonRightAbout;
+
+@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
+@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelAboutAPP;
+
 @property (retain, nonatomic) RKObjectManager      *RKObjManeger;
 @property (retain, nonatomic) NSUserDefaults       *settingsAccount;
 
 -(IBAction)logout:(id)sender;
+-(IBAction)dimissModal:(id)sender;
 -(void)loadAttribsToComponents;
 -(IBAction)saveSettings;
 

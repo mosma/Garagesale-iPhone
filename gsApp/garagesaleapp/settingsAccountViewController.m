@@ -7,6 +7,7 @@
 //
 
 #import "settingsAccountViewController.h"
+#import "NSAttributedString+Attributes.h"
 #import "Profile.h"
 
 @interface settingsAccountViewController ()
@@ -44,6 +45,10 @@
 @synthesize txtFieldAnyLink;
 @synthesize keyboardControls;
 @synthesize settingsAccount;
+
+@synthesize buttonRightAbout;
+
+@synthesize labelAboutAPP;
 
 @synthesize RKObjManeger;
 
@@ -94,6 +99,24 @@
                                          UITextAlignmentCenter text:@"Password" width:210];
         self.scrollView.contentSize = CGSizeMake(320,525);
     }
+    
+    //set Navigation Title with OHAttributeLabel
+    NSString *titleAbout = @"This app is developed and created by MoSMA. \r\n\ Want to talk? \n contact@mosma.us";
+    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleAbout];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [attrStr setTextColor:[UIColor grayColor]];
+    [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
+                    range:[titleAbout rangeOfString:@"MoSMA"]];
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"MoSMA"]];
+    
+    [labelAboutEMAIL setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    
+    [buttonRightAbout setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    
+    [labelAboutAPP setAttributedText:attrStr];
+    [labelAboutAPP setTextAlignment:UITextAlignmentCenter];
+    
+    
     //Password ViewController
     labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
     labelNewPassword.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -569,6 +592,10 @@
         return !([textField.text length]>limit && [string length] > range.length);
     }
     return YES;
+}
+
+-(IBAction)dimissModal:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -

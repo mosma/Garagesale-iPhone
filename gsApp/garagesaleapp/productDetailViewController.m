@@ -589,7 +589,7 @@
         imageView               = [[UIImageView alloc] initWithImage:image];
         rect.origin.x           = [pagContr intValue]*320;
         [imageView setFrame:rect];
-        // imageView.contentMode   = UIViewContentModeScaleAspectFit;
+         imageView.contentMode   = UIViewContentModeScaleAspectFill;
         [galleryScrollView addSubview:imageView];
     }
     @catch (NSException *exception) {

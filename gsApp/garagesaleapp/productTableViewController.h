@@ -11,6 +11,7 @@
 #import "productDetailViewController.h"
 #import "productCustomViewCell.h"
 #import "OHAttributedLabel.h"
+#import "STSegmentedControl.h"
 
 @interface productTableViewController : MasterViewController < UITableViewDelegate, 
                                                                 UITableViewDataSource,
@@ -26,7 +27,8 @@
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
-    __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+    STSegmentedControl *segmentControl;
+    __unsafe_unretained IBOutlet UIView *viewSegmentArea;
     __unsafe_unretained IBOutlet UITableView        *tableView;                                                          
     CGFloat _lastContentOffset;
     __unsafe_unretained IBOutlet UIView         *viewSearch;
@@ -39,7 +41,8 @@
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;
-@property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (retain, nonatomic) STSegmentedControl *segmentControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *viewSegmentArea;
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;

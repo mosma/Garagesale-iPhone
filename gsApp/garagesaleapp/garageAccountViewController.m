@@ -29,6 +29,7 @@
 @synthesize garage;
 @synthesize viewTop;
 @synthesize segmentControl;
+@synthesize viewSegmentArea;
 @synthesize imageURLs;
 @synthesize viewNoProducts;
 
@@ -145,6 +146,16 @@
             [buttonGarageLogo setImage:image forState:UIControlStateNormal];
             
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+            
+            NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
+            
+            segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+            segmentControl.frame = CGRectMake(0, 0, 92, 31);
+            [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+            segmentControl.selectedSegmentIndex = 0;
+            segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            [viewSegmentArea addSubview:segmentControl];
+            
         } else {
             description.text = garage.about;
             garageName.text  = profile.garagem;
@@ -194,7 +205,7 @@
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
         
-        [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
+//        [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
         
     } else {
 
@@ -377,7 +388,7 @@
     }
 }
 
--(IBAction)changeSegControl{
+-(void)changeSegControl:(id)sender{
     if(segmentControl.selectedSegmentIndex == 0){
         tableViewProducts.hidden = YES;
         scrollViewProducts.hidden = NO;
@@ -390,6 +401,7 @@
 
 -(void)gotoSettingsVC{
     settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
+    [settingsVC setLabelTotalProducts:labelTotalProducts];
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
 

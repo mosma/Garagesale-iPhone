@@ -47,7 +47,7 @@
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
         isReachability = NO;
-        [self showNotification:@"check your connection."];
+        [self showNotification:@"no connection."];
     } else if (RKReachabilityReachableViaWiFi == status) {
         RKLogInfo(@"Online via WiFi!");
         isReachability = YES;
@@ -61,12 +61,12 @@
 -(void)setNotification{
     viewMessageNet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
     [viewMessageNet setAlpha:0];
-    [viewMessageNet setBackgroundColor:[UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0]];
-    labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
-    [labelNotification setTextAlignment:NSTextAlignmentCenter];
+    [viewMessageNet setBackgroundColor:[UIColor colorWithRed:191.0/255.0 green:191.0/255.0 blue:191.0/255.0 alpha:0.9]];
+    labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(13, 11, 307, 22)];
+    [labelNotification setTextAlignment:NSTextAlignmentLeft];
     [labelNotification setBackgroundColor:[UIColor clearColor]];
-    [labelNotification setTextColor:[UIColor whiteColor]];
-    [labelNotification setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
+    [labelNotification setTextColor:[UIColor blackColor]];
+    [labelNotification setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
     [labelNotification setAlpha:12.0];
 }
 
@@ -78,7 +78,7 @@
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     [self.view addSubview:viewMessageNet];
     [viewMessageNet setAlpha:1.0];
-    [viewMessageNet setFrame:CGRectMake(0, 0, 320, 22)];
+    [viewMessageNet setFrame:CGRectMake(0, 0, 320, 47)];
     [viewMessageNet addSubview:labelNotification];
     [UIView commitAnimations];
     [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(hideViewMessageNet) userInfo:viewMessageNet repeats:NO];

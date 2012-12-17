@@ -43,19 +43,24 @@
     UITabBarItem *item0  = [tabBar.items objectAtIndex:0];
     UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
     UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
-    
+
     [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
     [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
     
-    [item0 setTitle:@"Search"];
+    [item0 setTitle:@"Explore"];
     [item1 setTitle:@"Add product"];
     [item2 setTitle:@"My garage"];
     
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:10.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+
+        
+    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0], UITextAttributeTextColor,nil] forState:UIControlStateSelected];
+
     
-    item0.titlePositionAdjustment = UIOffsetMake(0, -5);
-    item1.titlePositionAdjustment = UIOffsetMake(0, -5);
-    item2.titlePositionAdjustment = UIOffsetMake(0, -5);
+    item0.titlePositionAdjustment = UIOffsetMake(0, -2);
+    item1.titlePositionAdjustment = UIOffsetMake(0, -2);
+    item2.titlePositionAdjustment = UIOffsetMake(0, -2);
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];

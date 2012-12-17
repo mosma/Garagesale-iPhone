@@ -22,6 +22,7 @@
 @synthesize strTextSearch;
 @synthesize OHlabelTitleResults;
 @synthesize segmentControl;
+@synthesize viewSegmentArea;
 @synthesize imageURLs;
 @synthesize tableView;
 @synthesize viewSearch;
@@ -63,7 +64,7 @@
         @finally {
             ;
         }
-        [self changeSegControl];
+        [self changeSegControl:nil];
     }
     [super awakeFromNib];
 }
@@ -97,11 +98,20 @@
     [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
+    
+    NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
+    
+	segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+	segmentControl.frame = CGRectMake(0, 0, 92, 31);
+	[segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+	segmentControl.selectedSegmentIndex = 0;
+	segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	[viewSegmentArea addSubview:segmentControl];
 
-    [segmentControl setSelectedSegmentIndex:0];
+    
     [self.tableView setRowHeight:377];
 
-    self.trackedViewName = [NSString stringWithFormat: @"/search/%@", strLocalResourcePath];
+    self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 
     [viewSearch.layer setCornerRadius:6];
     [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -353,7 +363,7 @@
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
--(IBAction)changeSegControl{
+-(void)changeSegControl:(id)sender{
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointZero animated:NO];
     [self.tableView reloadInputViews];

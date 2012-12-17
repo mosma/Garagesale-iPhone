@@ -15,6 +15,7 @@
 #import "settingsAccountViewController.h"
 #import "OHAttributedLabel.h"
 #import "MBProgressHUD.h"
+#import "STSegmentedControl.h"
 
 @interface garageAccountViewController : MasterViewController <RKObjectLoaderDelegate, 
                                                         UITableViewDelegate,
@@ -44,7 +45,8 @@
     __unsafe_unretained IBOutlet UIScrollView       *scrollViewMain;
     __unsafe_unretained IBOutlet UIScrollView       *scrollViewProducts;
     __unsafe_unretained IBOutlet UITableView        *tableViewProducts;
-    __unsafe_unretained IBOutlet UISegmentedControl *segmentControl;
+    STSegmentedControl *segmentControl;
+    __unsafe_unretained IBOutlet UIView *viewSegmentArea;
     __unsafe_unretained IBOutlet UIView *viewTop;
     __weak IBOutlet UIView *viewNoProducts;
 }
@@ -66,7 +68,8 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewMain;
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView       *scrollViewProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UITableView        *tableViewProducts;
-@property (unsafe_unretained, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (retain, nonatomic) STSegmentedControl *segmentControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *viewSegmentArea;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView *viewTop;
 
 @property (nonatomic, retain) NSArray *imageURLs;
@@ -74,7 +77,6 @@
 
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
-- (IBAction)changeSegControl;
 - (IBAction)reloadPage:(id)sender;
 
 @end
