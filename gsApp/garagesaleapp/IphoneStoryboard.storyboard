@@ -408,7 +408,7 @@
                                         <color key="backgroundColor" red="0.96950301204819278" green="0.97052663780120485" blue="0.97652720256024095" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="nJk-L9-atK" userLabel="viewTitle">
-                                        <rect key="frame" x="0.0" y="97" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="96" width="320" height="47"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="cR2-WC-ife">
@@ -571,10 +571,13 @@
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Account" backgroundImage="btMenuTableTop.png">
                                     <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="selected">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="btMenuTableTopOver.png">
+                                    <color key="titleColor" red="0.43659403237951805" green="0.43482916039156549" blue="0.43700583584337344" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="5xi-Kh-5i5" kind="push" id="xel-JQ-tbf"/>
@@ -589,8 +592,8 @@
                                     <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="highlighted" backgroundImage="btMenuTableMiddleOver.png">
+                                    <color key="titleColor" red="0.43334666792168675" green="0.43565276731927632" blue="0.43475856551204817" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="K7a-eB-FnT" kind="push" id="yUF-La-Jrd"/>
@@ -605,8 +608,8 @@
                                     <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="highlighted" backgroundImage="btMenuTableBottomOver.png">
+                                    <color key="titleColor" red="0.43460560993975861" green="0.43473503388554219" blue="0.43397025602409639" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="tbg-8m-otZ" kind="push" id="zlY-6Y-Vyb"/>
@@ -616,6 +619,7 @@
                                 <rect key="frame" x="93" y="12" width="217" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.20046592620481929" green="0.20103068524096385" blue="0.20013648343373491" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="L8i-VA-kv4" userLabel="city">
@@ -668,9 +672,10 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="buttonAccount" destination="dSJ-oX-MCg" id="YNK-yB-iL1"/>
                         <outlet property="buttonRightAbout" destination="mne-J7-Yvn" id="VdF-5e-9Ed"/>
                         <outlet property="city" destination="L8i-VA-kv4" id="aSy-jj-HDs"/>
-                        <outlet property="garageName" destination="upz-0g-RqH" id="lUo-14-O18"/>
+                        <outlet property="garageName" destination="upz-0g-RqH" id="49z-a7-KH4"/>
                         <outlet property="imageView" destination="ueK-Bq-kSH" id="0Ue-c0-FhO"/>
                         <outlet property="labelTotalProducts" destination="9sQ-A9-CX9" id="liL-UQ-mGO"/>
                     </connections>
@@ -1023,29 +1028,29 @@
                                         <rect key="frame" x="12" y="208" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="x01-ce-t3R" userLabel="txtFieldTitle">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="**********" minimumFontSize="17" id="x01-ce-t3R" userLabel="txtFieldTitle">
                                         <rect key="frame" x="20" y="208" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="jlZ-BH-tX8" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="12" y="123" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="A0J-4A-y4W" userLabel="txtFieldTitle">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="**********" minimumFontSize="17" id="A0J-4A-y4W" userLabel="txtFieldTitle">
                                         <rect key="frame" x="20" y="123" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="2mD-pj-oab" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="12" y="43" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ybw-wj-kWz" userLabel="txtFieldTitle">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="**********" minimumFontSize="17" id="Ybw-wj-kWz" userLabel="txtFieldTitle">
                                         <rect key="frame" x="20" y="43" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
@@ -1638,7 +1643,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
@@ -1909,11 +1914,11 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="A3t-B6-wWv">
-                                <rect key="frame" x="0.0" y="1" width="130" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="A3t-B6-wWv">
+                                <rect key="frame" x="0.0" y="0.0" width="105" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="FaceBook">
+                                <state key="normal" image="btFacebookShare.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1924,11 +1929,11 @@
                                     <action selector="facebook:" destination="raF-UX-BFu" eventType="touchUpInside" id="i9Q-so-uTt"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Lbi-WE-OLM">
-                                <rect key="frame" x="0.0" y="45" width="130" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="Lbi-WE-OLM">
+                                <rect key="frame" x="0.0" y="29" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Twitter">
+                                <state key="normal" image="btTwitterShare.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1939,20 +1944,23 @@
                                     <action selector="twitter:" destination="raF-UX-BFu" eventType="touchUpInside" id="i03-2h-EPO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VIX-Nm-HCJ">
-                                <rect key="frame" x="0.0" y="89" width="130" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="VIX-Nm-HCJ">
+                                <rect key="frame" x="0.0" y="58" width="105" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Email">
+                                <state key="normal" image="btEmailShare.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="twitter:" destination="raF-UX-BFu" eventType="touchUpInside" id="ofu-M6-MaC"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VKQ-8g-pN9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2141,12 +2149,17 @@
         <image name="btBidThisItem.png" width="102" height="35"/>
         <image name="btCancelBidItem.png" width="63" height="35"/>
         <image name="btDeleteProductDetail.png" width="66" height="26"/>
+        <image name="btEmailShare.png" width="105" height="26"/>
+        <image name="btFacebookShare.png" width="105" height="29"/>
         <image name="btLogin.png" width="100" height="37"/>
         <image name="btMenuTableBottom.png" width="300" height="46"/>
         <image name="btMenuTableBottomB.png" width="285" height="46"/>
+        <image name="btMenuTableBottomOver.png" width="301" height="46"/>
         <image name="btMenuTableMiddle.png" width="300" height="44"/>
+        <image name="btMenuTableMiddleOver.png" width="301" height="44"/>
         <image name="btMenuTableTop.png" width="300" height="45"/>
         <image name="btMenuTableTopB.png" width="285" height="45"/>
+        <image name="btMenuTableTopOver.png" width="301" height="45"/>
         <image name="btOffer.png" width="59" height="38"/>
         <image name="btPencilEditProductDetail.png" width="52" height="26"/>
         <image name="btPencilEditProductTable.png" width="53" height="26"/>
@@ -2154,6 +2167,7 @@
         <image name="btSearch@2x.png" width="83" height="74"/>
         <image name="btSearchAccount.png" width="37" height="30"/>
         <image name="btSign.png" width="100" height="37"/>
+        <image name="btTwitterShare.png" width="105" height="30"/>
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="110" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
@@ -2309,6 +2323,9 @@
                 <relationship kind="action" name="dimissModal:"/>
                 <relationship kind="action" name="logout:"/>
                 <relationship kind="action" name="saveSettings"/>
+                <relationship kind="outlet" name="buttonAccount" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonAddress" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRightAbout" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
@@ -2375,6 +2392,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4gr-vC-Jdq"/>
+        <segue reference="Wok-pH-dlx"/>
     </inferredMetricsTieBreakers>
 </document>

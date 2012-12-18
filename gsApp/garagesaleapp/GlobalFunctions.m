@@ -17,14 +17,14 @@
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //return @"http://192.168.0.150";//text/html
+    //return @"http://gsapi.local";//text/html
     return @"http://gsapi.easylikethat.com";//text/plain
     //return @"http://api.garagesaleapp.me";//text/plain
 }
 
 +(NSString *)getMIMEType {
-    //return @"text/html";
-    return @"text/plain";
+    return @"text/html";
+    //return @"text/plain";
 }
 
 +(NSUserDefaults *)getUserDefaults {

@@ -174,6 +174,14 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
+        //Shadow Top below navigationBar
+        CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
+        CGColorRef lightColor = [UIColor clearColor].CGColor;
+        CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
+        newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 10);
+        newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
+        [self.view.layer addSublayer:newShadow];
+        
         [viewNoProducts setHidden:YES];
         
         self.tabBarController.delegate = self;
@@ -182,7 +190,7 @@
 
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
-        [garageName setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
+        [garageName setTextColor:[UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.f]];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
 
         garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:20];
@@ -401,7 +409,7 @@
 
 -(void)gotoSettingsVC{
     settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-    [settingsVC setLabelTotalProducts:labelTotalProducts];
+    settingsVC.totalProducts = [mutArrayProducts count];
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
 

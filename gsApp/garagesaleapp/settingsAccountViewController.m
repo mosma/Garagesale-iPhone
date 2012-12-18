@@ -49,6 +49,9 @@
 @synthesize buttonRightAbout;
 
 @synthesize labelAboutAPP;
+@synthesize labelTotalProducts;
+
+@synthesize totalProducts;
 
 @synthesize RKObjManeger;
 
@@ -80,8 +83,7 @@
     
 }
 
-- (void)loadAttribsToComponents{
-
+- (void)loadAttribsToComponents{    
     nibId = [[self.navigationController visibleViewController] nibName];
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
@@ -111,11 +113,27 @@
     
     [labelAboutEMAIL setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     
-    [buttonRightAbout setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    [buttonRightAbout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
     
     [labelAboutAPP setAttributedText:attrStr];
     [labelAboutAPP setTextAlignment:UITextAlignmentCenter];
     
+    //Total Products from garageAccount.
+    NSString *total = [NSString stringWithFormat:@"%i products", totalProducts];
+    NSMutableAttributedString *attrStrTotalProd = [NSMutableAttributedString attributedStringWithString:total];
+    [attrStrTotalProd setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
+    [attrStrTotalProd setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                             range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
+    [attrStrTotalProd setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]
+                             range:[total rangeOfString:@"products"]];
+    [attrStrTotalProd setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[total rangeOfString:@"products"]];
+    [attrStrTotalProd setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
+    labelTotalProducts.attributedText   = attrStrTotalProd;
+    labelTotalProducts.textAlignment = UITextAlignmentLeft;
+    
+    [buttonAccount.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
+    [buttonAddress.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
+    [buttonPassword.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
     
     //Password ViewController
     labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
@@ -163,7 +181,7 @@
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
     
-    garageName.font        = [UIFont fontWithName:@"DroidSans-Bold" size:22 ];
+    garageName.font        = [UIFont fontWithName:@"DroidSans-Bold" size:20 ];
     
     city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
     [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];

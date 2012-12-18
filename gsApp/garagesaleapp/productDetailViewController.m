@@ -164,12 +164,16 @@
         [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
         [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
         OHlabelValorEsperado.attributedText = attrStrVE;
-         
-        UIBarButtonItem *btnAddThis = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addThisButton.png"] landscapeImagePhone:[UIImage imageNamed:@"addThisButton.png"] style:UIBarButtonSystemItemEdit target:self action:@selector(topRight:)];
-        
-        [self.navigationItem setRightBarButtonItem:btnAddThis];
+
+        UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttonShare setFrame:CGRectMake(0.0f, 0.0f, 38.0f, 32.0f)];
+        [buttonShare setImage:[UIImage imageNamed:@"addThisButton.png"] forState:UIControlStateNormal];
+        UIBarButtonItem *random = [[UIBarButtonItem alloc] initWithCustomView:buttonShare];
+        [buttonShare addTarget:self action:@selector(topRight:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = random;
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
 
+        
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
         
         [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
@@ -326,21 +330,20 @@
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
     
     //popover.arrowDirection = FPPopoverArrowDirectionAny;
-    popover.tint = FPPopoverDefaultTint;
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         popover.contentSize = CGSizeMake(300, 500);
     }
     else {
-        popover.contentSize = CGSizeMake(150, 173);
+        popover.contentSize = CGSizeMake(118, 108);
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
     
-    popover.tint = FPPopoverLightGrayTint;
+   // popover.tint = FPPopoverLightGrayTint;
     
-    UIView* btnView = [sender valueForKey:@"view"];
+    UIView* btnView = sender;
     
     //sender is the UIButton view
     [popover presentPopoverFromView:btnView];
@@ -348,7 +351,7 @@
 
 -(void)topRight:(id)sender
 {
-    [self popover:sender];
+    [self popover:self.navigationItem.rightBarButtonItem.customView];
 }
 
 - (void)getResourcePathProfile {
