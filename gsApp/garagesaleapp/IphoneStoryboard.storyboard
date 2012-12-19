@@ -102,11 +102,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <searchBar contentMode="redraw" barStyle="blackTranslucent" id="jEN-aj-m3q">
-                                <rect key="frame" x="0.0" y="-64" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -117,7 +112,6 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollViewMain" destination="8RG-Ok-f0d" id="DOe-iq-qUE"/>
-                        <outlet property="searchBarProduct" destination="jEN-aj-m3q" id="92J-f3-yhq"/>
                         <outlet property="txtFieldSearch" destination="wen-uR-S49" id="XjP-Zq-Qp6"/>
                         <outlet property="viewSearch" destination="oAx-vy-ZuX" id="aIx-oH-wP4"/>
                         <outlet property="viewTopPage" destination="Rdh-TA-JuY" id="flw-3m-xgC"/>
@@ -225,7 +219,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UWq-Q7-Mfp" userLabel="textViewDescription">
-                                        <rect key="frame" x="16" y="192" width="287" height="80"/>
+                                        <rect key="frame" x="13" y="192" width="293" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
@@ -2149,6 +2143,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wok-pH-dlx"/>
+        <segue reference="4gr-vC-Jdq"/>
     </inferredMetricsTieBreakers>
 </document>

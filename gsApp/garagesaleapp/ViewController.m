@@ -27,6 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //set searchBar settings
+    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,self.scrollViewMain.contentOffset.y,320,40)];
+    searchBarProduct.delegate = self;
+    [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
+    [GlobalFunctions setSearchBarLayout:searchBarProduct];
+    [self.view addSubview:searchBarProduct];
+    
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
@@ -126,10 +134,8 @@
     [txtFieldSearch setInputAccessoryView:numberToolbar];
     
     //set searchBar settings
-    searchBarProduct.delegate           = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     
-    [GlobalFunctions setSearchBarLayout:searchBarProduct];
     self.navigationItem.hidesBackButton = YES;
     
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
@@ -317,7 +323,7 @@
             [viewTopPage setAlpha:1.0];
         [UIView commitAnimations];
     }
-    if (isSearch)
+    if (isSearchDisplayed)
         [self showSearch:nil];
 }
 
@@ -436,20 +442,20 @@
 
 - (IBAction)showSearch:(id)sender{
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDuration:0.6];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
-    if (!isSearch) {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, 64)];
+    if (!isSearchDisplayed) {
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(320, 0)];
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, -64)];
+        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320,  0)];
         [searchBarProduct resignFirstResponder];
     }
     
-    isSearch = !isSearch;
+    isSearchDisplayed = !isSearchDisplayed;
     
     [UIView commitAnimations];
 }
@@ -478,7 +484,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-    if (isSearch)
+    if (isSearchDisplayed)
         [self showSearch:nil];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }

@@ -19,7 +19,7 @@
                                               UIScrollViewDelegate,
                                               UIActionSheetDelegate> {
 
-    BOOL                                        *isSearch;
+    BOOL                                        *isSearchDisplayed;
     BOOL                                        *isUserLoged;
     BOOL                                        *isAnimationLogo;
     GlobalFunctions                             *globalFunctions;
@@ -31,7 +31,7 @@
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewMain;
     __unsafe_unretained IBOutlet UIView         *viewTopPage;
     __unsafe_unretained IBOutlet UIView         *viewSearch;
-    __unsafe_unretained IBOutlet UISearchBar    *searchBarProduct;
+    UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
     UIImageView *activityImageView;
                                                   
@@ -43,7 +43,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewMain;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewTopPage;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
-@property (unsafe_unretained, nonatomic) IBOutlet UISearchBar   *searchBarProduct;
+@property (retain, nonatomic) UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 
 @property (unsafe_unretained, nonatomic) UIImageView *activityImageView;

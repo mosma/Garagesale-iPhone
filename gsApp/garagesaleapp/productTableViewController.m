@@ -86,23 +86,27 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self loadAttribsToComponents:NO];
     [self.navigationController setNavigationBarHidden:NO];
+    
+    //set searchBar settings
+    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,self.tableView.contentOffset.y,320,40)];
+    searchBarProduct.delegate = self;
+    [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
+    [GlobalFunctions setSearchBarLayout:searchBarProduct];
+    [self.tableView addSubview:searchBarProduct];
+    
     //Initializing the Object Managers
     RKObjManeger = [RKObjectManager sharedManager];
     [self getResourcePathProduct];
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-    //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,self.tableView.contentOffset.y,320,40)];
-    searchBarProduct.delegate = self;
-    [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
+    
+    if (!isFromLoadObject) {
     
     self.tableView.delegate = self;
-    [GlobalFunctions setSearchBarLayout:searchBarProduct];
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
-    [self.tableView addSubview:searchBarProduct];
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
     
@@ -120,10 +124,9 @@
     
     [self.tableView setRowHeight:377];
 
-    self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 
     
-     if (isFromLoadObject) {
+    } else {
          if ([strTextSearch length] != 0)
             [searchBarProduct setText:strTextSearch];
          
@@ -143,6 +146,9 @@
         
         OHlabelTitleResults.attributedText = attrStr;
     }
+    
+    self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
+
 }
 
 
@@ -227,7 +233,7 @@
     [UIView setAnimationDuration:0.6];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
-    if (!isSearch) {
+    if (!isSearchDisplayed) {
         [searchBarProduct setTransform:CGAffineTransformMakeTranslation(320, self.tableView.contentOffset.y)];
         [searchBarProduct becomeFirstResponder];
         }
@@ -235,7 +241,7 @@
         [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];
         [searchBarProduct resignFirstResponder];
     }
-    isSearch = !isSearch;
+    isSearchDisplayed = !isSearchDisplayed;
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);
     [UIView commitAnimations];
     //- (IBAction)reloadProducts:(id)sender{
@@ -423,14 +429,18 @@
     // Deactivate the UISearchBar
     strTextSearch = searchBar.text;
     //Search Service
-    strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", searchBar.text];
+
+    strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+
     [mutArrayProducts removeAllObjects];
-    self.trackedViewName = [NSString stringWithFormat: @"/search/%@", searchBar.text];
+    self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+    
+    
+    
     [segmentControl setSelectedSegmentIndex:0];
     [self.tableView setRowHeight:377];
     [self getResourcePathProduct];
     [self searchBar:searchBar activate:NO];
-    [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
     // [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
 }
@@ -490,20 +500,21 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (isSearch)
-        [self showSearch:nil];
+   // if (isSearchHidden)
+    //    [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
     if (_lastContentOffset < (int)self.tableView.contentOffset.y)
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
     else
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+   // [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
     [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];
+    isSearchDisplayed = NO;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+  //  [self.navigationItem.rightBarButtonItem setEnabled:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

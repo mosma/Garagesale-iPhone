@@ -20,7 +20,7 @@
                                                                 UIScrollViewDelegate,
                                                                 UITabBarDelegate, NSURLConnectionDataDelegate> {
 
-    BOOL                    *isSearch;
+    BOOL                    *isSearchDisplayed;
     BOOL                    *isSegmentedControlChanged;
 
     RKObjectManager         *RKObjManeger;
