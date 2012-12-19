@@ -8,19 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "AddThis.h"
+#import <MessageUI/MessageUI.h>
 
 @interface sharePopOverViewController : UIViewController {
         NSString *strUrlImg;
         UIImage  *imgProduct;
         NSString *description;
+        UIViewController *parent;
 }
 
 @property  (nonatomic, retain) NSString *strUrlImg;
 @property  (nonatomic, retain) UIImage  *imgProduct;
 @property  (nonatomic, retain) NSString *description;
+@property  (nonatomic, retain) UIViewController *parent;
 
-
--(IBAction)twitter:(id)sender;
 -(IBAction)facebook:(id)sender;
+-(IBAction)twitter:(id)sender;
+-(IBAction)actionEmailComposer;
 
 @end

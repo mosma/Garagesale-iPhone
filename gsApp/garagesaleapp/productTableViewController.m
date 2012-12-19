@@ -230,7 +230,7 @@
 
 - (IBAction)showSearch:(id)sender{
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.6];
+    [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
     if (!isSearchDisplayed) {

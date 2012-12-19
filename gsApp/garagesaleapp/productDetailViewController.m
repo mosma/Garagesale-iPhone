@@ -352,6 +352,7 @@
     
     sharePopOverVC.description = labelDescricao.text;
     sharePopOverVC.imgProduct = imageView.image;
+    sharePopOverVC.parent = self;
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
     
@@ -362,7 +363,7 @@
         popover.contentSize = CGSizeMake(300, 500);
     }
     else {
-        popover.contentSize = CGSizeMake(118, 108);
+        popover.contentSize = CGSizeMake(118, 115);
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
@@ -763,14 +764,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (IBAction)actionEmailComposer {    
-    MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
-    mail.mailComposeDelegate = self;
-    [mail setToRecipients:[NSArray arrayWithObject:[[self.arrayProfile objectAtIndex:0] email]]];
-    [mail setSubject:@"Contato Garagem."];    
-    [self presentModalViewController:mail animated:YES];
-}
-
 - (IBAction)animationBidView{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
@@ -796,19 +789,6 @@
     }
     
     [UIView commitAnimations];
-}
-
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-{
-    [self dismissModalViewControllerAnimated:YES];
-    
-    if (result == MFMailComposeResultSent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Sent!" message:@"Your message has been sent! \n Thank you for your feedback" delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil];
-        [alert show];
-    } if (result == MFMailComposeResultFailed) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Failed" message:@"Your email has failed to send \n Please try again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [alert show];
-    }
 }
 
 - (IBAction)isNumberKey:(UITextField *)textField{

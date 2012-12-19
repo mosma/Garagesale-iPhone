@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MessageUI.h>
 #import "galleryScrollViewController.h"
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "BSKeyboardControls.h"
@@ -17,6 +16,7 @@
 #import "OHAttributedLabel.h"
 #import "FPPopoverController.h"
 #import "sharePopOverViewController.h"
+#import <MessageUI/MessageUI.h>
 
 @interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 
@@ -120,7 +120,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelCongrats;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelBidSent;
 
-- (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;
 - (IBAction)textFieldEditingEnded:(id)sender;
 - (void)getResourcePathGarage;
