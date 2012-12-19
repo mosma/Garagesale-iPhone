@@ -39,7 +39,6 @@
 @synthesize labelCityProfile;
 @synthesize labelEmailProfile;
 @synthesize buttonGarageDetail;
-@synthesize offerLabel;
 @synthesize msgBidSentLabel;
 @synthesize secondView;
 @synthesize garageDetailView;
@@ -51,9 +50,12 @@
 @synthesize galleryScrollView;
 @synthesize viewBidSend;
 @synthesize viewBidMsg;
+@synthesize viewControl;
+@synthesize viewReport;
 @synthesize PagContGallery;
 @synthesize activityIndicator;
 @synthesize buttonReportThisGarage;
+@synthesize labelAskSomething, labelBidSent, labelCongrats, labelEmail, labelOffer;
 
 - (void)setDetailItem:(id)newDetailItem
 {
@@ -132,6 +134,12 @@
         [labelDescricao   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [labelNomeProduto setFont:[UIFont fontWithName:@"Droid Sans" size:18]];
         
+        [labelEmail setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelOffer setFont:[UIFont fontWithName:@"DroidSans-Bold" size:17]];
+        [labelAskSomething setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelCongrats setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelBidSent setFont:[UIFont fontWithName:@"DroidSans-Bold" size:17]];
+        
         //Set Labels, titles, TextView...
         [labelNomeProduto       setText:[self.product nome]];
         [labelDescricao         setText:[self.product descricao]];
@@ -179,7 +187,7 @@
         [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                    @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
 
-        [offerLabel setText:NSLocalizedString(@"offer", @"")];
+        [labelAskSomething setText:NSLocalizedString(@"offer", @"")];
         
         CGRect rect;//             = imageView.frame;
         
@@ -188,6 +196,9 @@
         rect.origin.x             = 0;
         rect.origin.y             = 0;
         imageView.frame         = rect;
+        
+        imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         
         [buttonReportThisGarage setTitle:@"Report this garage" forState:UIControlStateNormal];
         [buttonReportThisGarage setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
@@ -202,6 +213,9 @@
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
+        
+        
+
     }else {
         [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
@@ -295,12 +309,24 @@
             imageView               = [[UIImageView alloc] initWithImage:image];
         }
         
+        
+        
+        //Shadow Top below navigationBar
+        CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
+        CGColorRef lightColor = [UIColor clearColor].CGColor;
+        CAGradientLayer *newShadow = [[CAGradientLayer alloc] init];
+        newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 10);
+        newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
+        
         if ([product.idPessoa isEqualToString:(NSString *)[[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]]) {
             [buttonDeleteProduct setHidden:NO];
             [buttonEditProduct setHidden:NO];
+            [viewControl setBackgroundColor:[UIColor whiteColor]];
             [buttonDeleteProduct setUserInteractionEnabled:YES];
             [buttonEditProduct setUserInteractionEnabled:YES];
-        }
+        } else
+            [viewControl.layer addSublayer:newShadow];
+
         
         [activityIndicator stopAnimating];
     }
@@ -592,7 +618,9 @@
         imageView               = [[UIImageView alloc] initWithImage:image];
         rect.origin.x           = [pagContr intValue]*320;
         [imageView setFrame:rect];
-         imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        
         [galleryScrollView addSubview:imageView];
     }
     @catch (NSException *exception) {
@@ -933,8 +961,6 @@
     [self setButtonBid:nil];
     [self setButtonGarageDetail:nil];
     buttonGarageDetail = nil;
-    offerLabel = nil;
-    [self setOfferLabel:nil];
     msgBidSentLabel = nil;
     [self setMsgBidSentLabel:nil];
     secondView = nil;
@@ -950,9 +976,26 @@
     [self setCountLabel:nil];
     buttonEditProduct = nil;
     [self setButtonEditProduct:nil];
+    viewControl = nil;
+    [self setViewControl:nil];
+    viewReport = nil;
+    [self setViewReport:nil];
     buttonDeleteProduct = nil;
     [self setButtonDeleteProduct:nil];
     [super viewDidUnload];
+    
+    labelEmail = nil;
+    labelOffer = nil;
+    labelAskSomething = nil;
+    labelCongrats = nil;
+    labelBidSent= nil;
+    
+    [self setLabelEmail:nil];
+    [self setLabelOffer:nil];
+    [self setLabelAskSomething:nil];
+    [self setLabelCongrats:nil];
+    [self setLabelBidSent:nil];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

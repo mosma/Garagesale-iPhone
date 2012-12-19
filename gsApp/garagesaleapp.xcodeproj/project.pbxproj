@@ -129,9 +129,7 @@
 		CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7C15924BA7006360E0 /* btSearchAccount.png */; };
 		CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */; };
 		CC3454D01610A7F40020B6BD /* garaDetailbackgroundAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */; };
-		CC3454D51610AD540020B6BD /* garDetailPersonShadowAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */; };
 		CC3454D91610CD910020B6BD /* garaDetailbackgroundAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */; };
-		CC3454DA1610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */; };
 		CC3454DD1610D07F0020B6BD /* btDeleteProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */; };
 		CC3454DE1610D07F0020B6BD /* btDeleteProductDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */; };
 		CC3454E11610D53F0020B6BD /* btPencilEditProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */; };
@@ -216,6 +214,8 @@
 		CC83744B1680D23C002754B8 /* btEmailShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374471680D23C002754B8 /* btEmailShare@2x.png */; };
 		CC83744C1680D23C002754B8 /* btTwitterShare.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374481680D23C002754B8 /* btTwitterShare.png */; };
 		CC83744D1680D23C002754B8 /* btTwitterShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374491680D23C002754B8 /* btTwitterShare@2x.png */; };
+		CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374501681607F002754B8 /* PDColoredProgressView.m */; };
+		CC8374531681616B002754B8 /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374521681616B002754B8 /* drawing.m */; };
 		CC8B2F8615EBADE400E25FBA /* btSearchBlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */; };
 		CC8BF4A615B878580048AE70 /* addOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A015B878580048AE70 /* addOver.png */; };
 		CC8BF4A715B878580048AE70 /* addOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A115B878580048AE70 /* addOver@2x.png */; };
@@ -493,9 +493,7 @@
 		CC331F7C15924BA7006360E0 /* btSearchAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearchAccount.png; sourceTree = "<group>"; };
 		CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchAccount@2x.png"; sourceTree = "<group>"; };
 		CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garaDetailbackgroundAvatar.png; sourceTree = "<group>"; };
-		CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garDetailPersonShadowAvatar.png; sourceTree = "<group>"; };
 		CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garaDetailbackgroundAvatar@2x.png"; sourceTree = "<group>"; };
-		CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garDetailPersonShadowAvatar@2x.png"; sourceTree = "<group>"; };
 		CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btDeleteProductDetail.png; sourceTree = "<group>"; };
 		CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btDeleteProductDetail@2x.png"; sourceTree = "<group>"; };
 		CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btPencilEditProductDetail.png; sourceTree = "<group>"; };
@@ -583,6 +581,9 @@
 		CC8374471680D23C002754B8 /* btEmailShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btEmailShare@2x.png"; sourceTree = "<group>"; };
 		CC8374481680D23C002754B8 /* btTwitterShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btTwitterShare.png; sourceTree = "<group>"; };
 		CC8374491680D23C002754B8 /* btTwitterShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btTwitterShare@2x.png"; sourceTree = "<group>"; };
+		CC83744F1681607F002754B8 /* PDColoredProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDColoredProgressView.h; sourceTree = "<group>"; };
+		CC8374501681607F002754B8 /* PDColoredProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDColoredProgressView.m; sourceTree = "<group>"; };
+		CC8374521681616B002754B8 /* drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawing.m; sourceTree = "<group>"; };
 		CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchBlock@2x.png"; sourceTree = "<group>"; };
 		CC8BF4A015B878580048AE70 /* addOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addOver.png; sourceTree = "<group>"; };
 		CC8BF4A115B878580048AE70 /* addOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addOver@2x.png"; sourceTree = "<group>"; };
@@ -861,6 +862,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CC83744E16816042002754B8 /*  PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
 				CC6F46041667B195004E5D17 /* AsyncImageView */,
 				CCACED961663D12100E00519 /* GoogleAnalitics */,
@@ -958,8 +960,6 @@
 				CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */,
 				CC3454DC1610D07D0020B6BD /* btDeleteProductDetail@2x.png */,
 				CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */,
-				CC3454D81610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png */,
-				CC3454D31610AD540020B6BD /* garDetailPersonShadowAvatar.png */,
 				CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */,
 				CC0846EF14DA351D00AD230B /* Default@2x.png */,
 				CC2AF17714C2CCF3001D9FA0 /* 57x57.png */,
@@ -1090,6 +1090,16 @@
 				CC6F46021667B182004E5D17 /* AsyncImageView.m */,
 			);
 			name = AsyncImageView;
+			sourceTree = "<group>";
+		};
+		CC83744E16816042002754B8 /*  PDColoredProgressview */ = {
+			isa = PBXGroup;
+			children = (
+				CC8374521681616B002754B8 /* drawing.m */,
+				CC83744F1681607F002754B8 /* PDColoredProgressView.h */,
+				CC8374501681607F002754B8 /* PDColoredProgressView.m */,
+			);
+			name = " PDColoredProgressview";
 			sourceTree = "<group>";
 		};
 		CC9DCA99165BBED6004C4F54 /* Main */ = {
@@ -1553,9 +1563,7 @@
 				CC297FEE160CEE49003BFA36 /* navBarBackground@2x.png in Resources */,
 				CC297FF1160CEF33003BFA36 /* navBarBackground.png in Resources */,
 				CC3454D01610A7F40020B6BD /* garaDetailbackgroundAvatar.png in Resources */,
-				CC3454D51610AD540020B6BD /* garDetailPersonShadowAvatar.png in Resources */,
 				CC3454D91610CD910020B6BD /* garaDetailbackgroundAvatar@2x.png in Resources */,
-				CC3454DA1610CD910020B6BD /* garDetailPersonShadowAvatar@2x.png in Resources */,
 				CC3454DD1610D07F0020B6BD /* btDeleteProductDetail.png in Resources */,
 				CC3454DE1610D07F0020B6BD /* btDeleteProductDetail@2x.png in Resources */,
 				CC3454E11610D53F0020B6BD /* btPencilEditProductDetail.png in Resources */,
@@ -1739,6 +1747,8 @@
 				CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */,
 				CC9DCAA1165BC0AA004C4F54 /* photosGallery.m in Sources */,
 				CC001DB2167E8C0C00C9F217 /* STSegmentedControl.m in Sources */,
+				CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */,
+				CC8374531681616B002754B8 /* drawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

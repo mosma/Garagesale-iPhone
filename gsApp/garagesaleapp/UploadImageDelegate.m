@@ -26,9 +26,9 @@
     photoReturn = [[PhotoReturn alloc] init];
     refreshGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(uploadPhotos)];
 
-    progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [progressView setFrame:CGRectMake(5, 50, 60, 5)];
-    
+    progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [progressView setFrame:CGRectMake(5, 50, 60, 7)];
+    [progressView setTintColor:[UIColor greenColor]];
     
     return self;
 }

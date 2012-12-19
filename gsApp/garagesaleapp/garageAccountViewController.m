@@ -99,6 +99,14 @@
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
+    //Shadow Top below navigationBar
+    CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
+    CGColorRef lightColor = [UIColor clearColor].CGColor;
+    CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
+    newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
+    newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
+    [self.view.layer addSublayer:newShadow];
+    
   //  if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
@@ -174,13 +182,6 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
-        //Shadow Top below navigationBar
-        CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
-        CGColorRef lightColor = [UIColor clearColor].CGColor;
-        CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
-        newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 10);
-        newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
-        [self.view.layer addSublayer:newShadow];
         
         [viewNoProducts setHidden:YES];
         

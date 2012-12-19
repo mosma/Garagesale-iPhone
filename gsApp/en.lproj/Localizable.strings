@@ -22,27 +22,27 @@
 "enterValueProduct"             = "hey, you must not give a empty bid.";
 "home"                          = "home";
 "search"                        = "search";
-"about"                         = "about";
+"about"                         = "About";
 "back"                          = "back";
-"Avaliable"                     = "avaliable";
-"Sold"                          = "sold";
+"Avaliable"                     = "Avaliable";
+"Sold"                          = "Sold";
 
 "homeSearchField"               = "products categories and garages";
 "reportGarege"                  = "Report this garage";
-"offer"                         = "offer";
-"sold"                          = "sold";
+"offer"                         = "Offer";
+"sold"                          = "Sold";
 
-"addProduct"                    = "add droduct";
-"myGarage"                      = "my garage";
-"title"                         = "title";
-"description"                   = "description";
-"save"                          = "save";
-"garageName"                    = "garage name";
-"yourName"                      = "name";
+"addProduct"                    = "Add droduct";
+"myGarage"                      = "My garage";
+"title"                         = "Title";
+"description"                   = "Description";
+"save"                          = "Save";
+"garageName"                    = "Garage name";
+"yourName"                      = "Name";
 
-"only"                          = "only";
-"edit"                          = "edit";
-"delete"                        = "delete";
+"only"                          = "Only";
+"edit"                          = "Edit";
+"delete"                        = "Delete";
 "resultsFor"                    = "results for";
 
 "notAvailable"                  = "Not available";
@@ -51,20 +51,20 @@
 
 
 /*Using in : settingsViewController. */
-"account"                       = "account";
-"password"                      = "password";
-"currentPassw"                  = "current password";
+"account"                       = "Account";
+"password"                      = "Password";
+"currentPassw"                  = "Current password";
 
 /*Using in : settingsViewController. */
-"aboutYou"                      = "about you";
-"anyLink?"                      = "any link ?";
-"newPassw"                      = "new password";
-"repeatPassw"                   = "repeat new password";
-"address"                       = "address";
-"logout"                        = "logout";
+"aboutYou"                      = "About you";
+"anyLink?"                      = "Any link ?";
+"newPassw"                      = "New password";
+"repeatPassw"                   = "Repeat new password";
+"address"                       = "Address";
+"logout"                        = "Logout";
 
 /*Using in : settingsViewController. */
-"currentAddress"                = "current address";
-"currentCity"                   = "current city";
-"currentDistrict"               = "current district";
-"currentCoutry"                 = "current country";
+"currentAddress"                = "Current address";
+"currentCity"                   = "Current city";
+"currentDistrict"               = "Current district";
+"currentCoutry"                 = "Current country";

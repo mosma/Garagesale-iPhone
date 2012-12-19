@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "PhotoReturn.h"
 #import "photosGallery.h"
+#import "PDColoredProgressView.h"
 
 @interface UploadImageDelegate : UIView <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
     
@@ -36,7 +37,7 @@
     int totalBytesWritten;
     int totalBytesExpectedToWrite;
 
-    UIProgressView  *progressView;
+    PDColoredProgressView  *progressView;
     PhotoReturn     *photoReturn;
     NSTimer         *timerUpload;
 }
@@ -44,7 +45,7 @@
 @property (readwrite,assign)    int idProduct;
 @property (nonatomic, retain)   UIImageView     *imageView;
 @property (nonatomic, retain)   UIImage         *imagePic;
-@property (nonatomic, retain)   UIProgressView  *progressView;
+@property (nonatomic, retain)   PDColoredProgressView  *progressView;
 @property (nonatomic, retain)   UIButton        *buttonSaveProduct;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
 @property (nonatomic, retain)   NSMutableArray  *nsMutArrayPicsProduct;

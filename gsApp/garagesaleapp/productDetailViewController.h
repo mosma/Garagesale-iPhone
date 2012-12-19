@@ -47,11 +47,12 @@
     __unsafe_unretained IBOutlet UILabel        *labelCityProfile;
     __unsafe_unretained IBOutlet UILabel        *labelEmailProfile;
     __unsafe_unretained IBOutlet UIButton       *buttonGarageDetail;
-    __unsafe_unretained IBOutlet UILabel        *offerLabel;
     __unsafe_unretained IBOutlet UILabel        *msgBidSentLabel;
     __unsafe_unretained IBOutlet UIView         *secondView;
     __unsafe_unretained IBOutlet UIView         *viewBidSend;
     __unsafe_unretained IBOutlet UIView         *viewBidMsg;
+    __unsafe_unretained IBOutlet UIView         *viewControl;
+    __unsafe_unretained IBOutlet UIView         *viewReport;
     IBOutlet UIView                             *garageDetailView;
     __weak IBOutlet UIView *countView;                                                
     __weak IBOutlet OHAttributedLabel *countLabel;
@@ -64,7 +65,12 @@
     UIImageView             *imageView;
     IBOutlet UIScrollView   *galleryScrollView;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
-    
+                                                                
+    __unsafe_unretained IBOutlet UILabel        *labelEmail;
+    __unsafe_unretained IBOutlet UILabel        *labelOffer;
+    __unsafe_unretained IBOutlet UILabel        *labelAskSomething;    
+    __unsafe_unretained IBOutlet UILabel        *labelCongrats;
+    __unsafe_unretained IBOutlet UILabel        *labelBidSent;
 }
 
 
@@ -88,11 +94,12 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelCityProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelEmailProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonGarageDetail;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *offerLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel       *msgBidSentLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *secondView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidSend;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidMsg;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewControl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewReport;
 @property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
 @property (weak, nonatomic) IBOutlet UIView *countView;
 @property (weak, nonatomic) IBOutlet OHAttributedLabel *countLabel;
@@ -106,6 +113,12 @@
 @property (retain, nonatomic) UIPageControl          *PagContGallery;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 @property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelEmail;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelOffer;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelAskSomething; 
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelCongrats;
+@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelBidSent;
 
 - (IBAction)actionEmailComposer;
 - (IBAction)animationBidView;

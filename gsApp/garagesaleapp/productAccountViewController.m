@@ -293,24 +293,34 @@
 - (IBAction)animationPicsControl{
     //Limited Maximum At Pics Add Gallery
 
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.3];
+//    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+//    
+//    if (viewPicsControl.hidden) {
+//        [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
+//        viewPicsControl.hidden = NO;
+//        viewPicsControl.alpha = 1.0;
+//        shadowView.alpha = 0.7;
+//    } else {
+//        viewPicsControl.alpha = 0;
+//        shadowView.alpha = 0;
+//        viewPicsControl.hidden = YES;
+//        [shadowView removeFromSuperview];
+//    }
+//    
+//    [UIView commitAnimations];
     
-    if (viewPicsControl.hidden) {
-        [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
-        viewPicsControl.hidden = NO;
-        viewPicsControl.alpha = 1.0;
-        shadowView.alpha = 0.7;
-    } else {
-        viewPicsControl.alpha = 0;
-        shadowView.alpha = 0;
-        viewPicsControl.hidden = YES;
-        [shadowView removeFromSuperview];
-    }
-    
-    [UIView commitAnimations];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"Camera", @"Library", nil];
+    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    sheet.delegate = self;
+    [sheet showInView:self.view];
+    [sheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 -(IBAction)goBack:(id)sender {
@@ -341,7 +351,7 @@
                     }];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
@@ -360,6 +370,12 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (self.product == nil) {
+        if (buttonIndex == 0)
+            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
+        else if (buttonIndex == 1)
+            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    } else
        [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
@@ -460,13 +476,13 @@
         if (self.product != nil){
             [prodParams setObject:[self.product.id stringValue] forKey:@"id"];
             [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
-                                                             withAction:@"Register"
-                                                              withLabel:@"New Product Registered"
+                                                             withAction:@"Edit"
+                                                              withLabel:@"Product Modified"
                                                               withValue:nil];
         }else{
             [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
-                                                             withAction:@"Edit"
-                                                              withLabel:@"Product Modified"
+                                                             withAction:@"Register"
+                                                              withLabel:@"New Product Registered"
                                                               withValue:nil];
         }
         if (![super isReachability])
@@ -486,7 +502,7 @@
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
 	HUD.labelText = @"Saving";
-	HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+	HUD.color = [UIColor blackColor];
     HUD.dimBackground = YES;
     
 	// myProgressTask uses the HUD instance to update progress

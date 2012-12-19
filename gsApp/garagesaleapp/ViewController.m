@@ -427,6 +427,9 @@
     
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
                                      [objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
+    
+    //[prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
+                                     //[objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     [prdTbl setStrTextSearch:objetct];
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
