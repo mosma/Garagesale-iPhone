@@ -162,7 +162,6 @@
             [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
             segmentControl.selectedSegmentIndex = 0;
             segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            [viewSegmentArea addSubview:segmentControl];
             
         } else {
             description.text = garage.about;
@@ -183,6 +182,8 @@
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
         
+        [viewSegmentArea addSubview:segmentControl];
+
         [viewNoProducts setHidden:YES];
         
         self.tabBarController.delegate = self;
