@@ -154,15 +154,7 @@
             [buttonGarageLogo setImage:image forState:UIControlStateNormal];
             
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
-            
-            NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
-            
-            segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
-            segmentControl.frame = CGRectMake(0, 0, 92, 31);
-            [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
-            segmentControl.selectedSegmentIndex = 0;
-            segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            
+
         } else {
             description.text = garage.about;
             garageName.text  = profile.garagem;
@@ -181,7 +173,13 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
+        NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
         
+        segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+        segmentControl.frame = CGRectMake(0, 0, 92, 31);
+        [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+        segmentControl.selectedSegmentIndex = 0;
+        segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [viewSegmentArea addSubview:segmentControl];
 
         [viewNoProducts setHidden:YES];
