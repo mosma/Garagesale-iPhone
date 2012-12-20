@@ -69,7 +69,9 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
-{    
+{
+    [super viewDidLoad];
+
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
@@ -84,8 +86,6 @@
    // [self.imgViewLoading startAnimating];
 
    [self loadAttribsToComponents:NO];
-    
-    [super viewDidLoad];
 
     //Check if Flag isIdPersonNumber is name or number
     if (isIdPersonNumber) {
