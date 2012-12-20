@@ -403,7 +403,7 @@
         _titleLabel.frame = CGRectMake(10, 30, self.bounds.size.width-20, 20);    
 		if (self.title==nil || self.title.length==0) {
 			contentRect.origin = CGPointMake(5, 15);
-			contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-40);
+			contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-20);
 		}
     }
     else if(_arrowDirection == FPPopoverArrowDirectionDown)

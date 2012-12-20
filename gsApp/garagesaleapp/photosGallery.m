@@ -44,26 +44,27 @@
         [scrollView setUserInteractionEnabled:NO];
  
         UIImageView *imageViewDelete      = (UIImageView *)sender.view;
-        [imageViewDelete setHidden:YES];
+        //[imageViewDelete setHidden:YES];
         UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
-        imageView.image = nil;
+       // imageView.image = nil;
         
-        UIImageView * animation = [[UIImageView alloc] init];
-        [animation setFrame:CGRectMake(10,10, 40, 40)];
-        animation.animationImages = [NSArray arrayWithObjects:
-                                     [UIImage imageNamed: @"iconEliminateItem1.png"],
-                                     [UIImage imageNamed: @"iconEliminateItem2.png"],
-                                     [UIImage imageNamed: @"iconEliminateItem3.png"],
-                                     [UIImage imageNamed: @"iconEliminateItem4.png"]
-                                     ,nil];
-        [animation setAnimationRepeatCount:1];
-        [animation setAnimationDuration:0.35];
-        [animation startAnimating];
-        [imageView addSubview:animation];
-        [animation bringSubviewToFront:imageView];
+//        UIImageView * animation = [[UIImageView alloc] init];
+//        [animation setFrame:CGRectMake(10,10, 40, 40)];
+//        animation.animationImages = [NSArray arrayWithObjects:
+//                                     [UIImage imageNamed: @"iconEliminateItem1.png"],
+//                                     [UIImage imageNamed: @"iconEliminateItem2.png"],
+//                                     [UIImage imageNamed: @"iconEliminateItem3.png"],
+//                                     [UIImage imageNamed: @"iconEliminateItem4.png"]
+//                                     ,nil];
+//        [animation setAnimationRepeatCount:1];
+//        [animation setAnimationDuration:0.35];
+//        [animation startAnimating];
+//        [imageView addSubview:animation];
+ //       [animation bringSubviewToFront:imageView];
         
         [UIView animateWithDuration:0.75 animations: ^{
             [self reconfigureImagesAfterRemoving:imageView];
+            imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
         } completion:^(BOOL finished){
             
             NSArray *imageViews         = [scrollView subviews];

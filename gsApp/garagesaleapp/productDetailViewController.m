@@ -363,7 +363,7 @@
         popover.contentSize = CGSizeMake(300, 500);
     }
     else {
-        popover.contentSize = CGSizeMake(118, 115);
+        popover.contentSize = CGSizeMake(170, 145);
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
@@ -731,6 +731,8 @@
     garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
     [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
     [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
+    
+    [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
     [self.navigationController pushViewController:garaAcc animated:YES];
 }
 

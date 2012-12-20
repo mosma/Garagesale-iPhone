@@ -32,6 +32,7 @@
 @synthesize viewSegmentArea;
 @synthesize imageURLs;
 @synthesize viewNoProducts;
+@synthesize imageGravatar;
 
 - (void)awakeFromNib
 {
@@ -165,11 +166,10 @@
             link.text        = garage.link;
             gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
             
+            [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
+            
             self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
-            
-            [NSThread detachNewThreadSelector:@selector(loadGravatarImage:) toTarget:self
-                                   withObject:gravatarUrl];
-            
+
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
         }
@@ -236,12 +236,6 @@
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
         [self loadButtonsProduct];
     }  
-}
-
--(void)loadGravatarImage:(NSURL *)gravatar{
-    NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
-    UIImage *image      = [[UIImage alloc] initWithData:imageData];
-    [buttonGarageLogo setImage:image forState:UIControlStateNormal];
 }
 
 - (void)getResourcePathProduct{    

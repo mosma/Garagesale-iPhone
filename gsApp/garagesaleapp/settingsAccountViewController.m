@@ -231,6 +231,10 @@
 }
 
 -(IBAction)saveSettings{
+    if([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0)  //Account ViewController{
+        if (![self validateFormNameProfile]) return;
+    if([nibId rangeOfString:@"K7a-eB-FnT"].length != 0)  //Password ViewController
+         if (![self validateFormPassword]) return;
     
     [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Profile"
                                                      withAction:@"Save"
@@ -329,6 +333,40 @@
     [userDefaults setObject:@"YES" forKey:@"isSettingsChange"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+-(BOOL)validateFormPassword{
+    BOOL isValid = YES;
+    
+    if ([txtFieldNewPassword.text length] < 6) {
+        [txtFieldNewPassword setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldNewPassword setPlaceholder:@"Please enter at least 6 characters"];
+        isValid = NO;
+    }
+    
+    if ([txtFieldRepeatNewPassword.text length] < 6) {
+        [txtFieldRepeatNewPassword setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldRepeatNewPassword setPlaceholder:@"Please enter at least 6 characters"];
+        isValid = NO;
+    }
+    
+    return isValid;
+}
+
+-(BOOL)validateFormNameProfile{
+    BOOL isValid = YES;
+    
+    if ([txtFieldYourName.text length] < 3) {
+        [txtFieldYourName setValue:[UIColor redColor]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldYourName setPlaceholder:@"Hey, you must tell us your name"];
+        isValid = NO;
+    }
+    
+    return isValid;
+}
+
 
 - (void)getResourcePathLogOut{
     [[RKClient sharedClient] get:[NSString stringWithFormat:@"/login/%@?invalidate=true", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self];

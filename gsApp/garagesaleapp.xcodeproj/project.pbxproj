@@ -192,12 +192,14 @@
 		CC6B0FDF15D62D4600BBB742 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6B0FDC15D62D4200BBB742 /* 37x-Checkmark.png */; };
 		CC6B0FE015D62D4600BBB742 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6B0FDD15D62D4400BBB742 /* 37x-Checkmark@2x.png */; };
 		CC6B0FE115D62D4600BBB742 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6B0FDD15D62D4400BBB742 /* 37x-Checkmark@2x.png */; };
+		CC6F01681683A6EF00A57697 /* btFacebookShareOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F01661683A6EE00A57697 /* btFacebookShareOver.png */; };
+		CC6F01691683A6EF00A57697 /* btFacebookShareOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F01671683A6EF00A57697 /* btFacebookShareOver@2x.png */; };
+		CC6F016E1683A80300A57697 /* btEmailShareOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F016A1683A80200A57697 /* btEmailShareOver.png */; };
+		CC6F016F1683A80300A57697 /* btEmailShareOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F016B1683A80200A57697 /* btEmailShareOver@2x.png */; };
+		CC6F01701683A80300A57697 /* btTwitterShareOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F016C1683A80200A57697 /* btTwitterShareOver.png */; };
+		CC6F01711683A80300A57697 /* btTwitterShareOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F016D1683A80200A57697 /* btTwitterShareOver@2x.png */; };
 		CC6F46031667B182004E5D17 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6F46021667B182004E5D17 /* AsyncImageView.m */; };
 		CC6F461D1667C2D8004E5D17 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6F46021667B182004E5D17 /* AsyncImageView.m */; };
-		CC6F46281668E12E004E5D17 /* iconEliminateItem1.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F46241668E121004E5D17 /* iconEliminateItem1.png */; };
-		CC6F46291668E12E004E5D17 /* iconEliminateItem2.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F46251668E125004E5D17 /* iconEliminateItem2.png */; };
-		CC6F462A1668E12E004E5D17 /* iconEliminateItem3.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F46261668E127004E5D17 /* iconEliminateItem3.png */; };
-		CC6F462B1668E12E004E5D17 /* iconEliminateItem4.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F46271668E12B004E5D17 /* iconEliminateItem4.png */; };
 		CC7228C8158E260300FB1E75 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7228C7158E260300FB1E75 /* person.png */; };
 		CC7228CB158F39BA00FB1E75 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7228CA158F39BA00FB1E75 /* Login.m */; };
 		CC7280B514CA4689006D7BF0 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = CC7280AF14CA4689006D7BF0 /* home.png */; };
@@ -557,12 +559,14 @@
 		CC6B0FD915D622D200BBB742 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		CC6B0FDC15D62D4200BBB742 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		CC6B0FDD15D62D4400BBB742 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		CC6F01661683A6EE00A57697 /* btFacebookShareOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btFacebookShareOver.png; sourceTree = "<group>"; };
+		CC6F01671683A6EF00A57697 /* btFacebookShareOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btFacebookShareOver@2x.png"; sourceTree = "<group>"; };
+		CC6F016A1683A80200A57697 /* btEmailShareOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btEmailShareOver.png; sourceTree = "<group>"; };
+		CC6F016B1683A80200A57697 /* btEmailShareOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btEmailShareOver@2x.png"; sourceTree = "<group>"; };
+		CC6F016C1683A80200A57697 /* btTwitterShareOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btTwitterShareOver.png; sourceTree = "<group>"; };
+		CC6F016D1683A80200A57697 /* btTwitterShareOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btTwitterShareOver@2x.png"; sourceTree = "<group>"; };
 		CC6F46011667B182004E5D17 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		CC6F46021667B182004E5D17 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
-		CC6F46241668E121004E5D17 /* iconEliminateItem1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconEliminateItem1.png; sourceTree = "<group>"; };
-		CC6F46251668E125004E5D17 /* iconEliminateItem2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconEliminateItem2.png; sourceTree = "<group>"; };
-		CC6F46261668E127004E5D17 /* iconEliminateItem3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconEliminateItem3.png; sourceTree = "<group>"; };
-		CC6F46271668E12B004E5D17 /* iconEliminateItem4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconEliminateItem4.png; sourceTree = "<group>"; };
 		CC7228C7158E260300FB1E75 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
 		CC7228C9158F39BA00FB1E75 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
 		CC7228CA158F39BA00FB1E75 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
@@ -878,6 +882,12 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC6F016A1683A80200A57697 /* btEmailShareOver.png */,
+				CC6F016B1683A80200A57697 /* btEmailShareOver@2x.png */,
+				CC6F016C1683A80200A57697 /* btTwitterShareOver.png */,
+				CC6F016D1683A80200A57697 /* btTwitterShareOver@2x.png */,
+				CC6F01661683A6EE00A57697 /* btFacebookShareOver.png */,
+				CC6F01671683A6EF00A57697 /* btFacebookShareOver@2x.png */,
 				CC8374461680D23C002754B8 /* btEmailShare.png */,
 				CC8374471680D23C002754B8 /* btEmailShare@2x.png */,
 				CC8374481680D23C002754B8 /* btTwitterShare.png */,
@@ -912,10 +922,6 @@
 				CC3FC3B2167236F300CDAAAF /* refresh@2x.png */,
 				CC28699B166E601900CBB9C3 /* garageNoProducts.png */,
 				CC28699C166E601900CBB9C3 /* garageNoProducts@2x.png */,
-				CC6F46241668E121004E5D17 /* iconEliminateItem1.png */,
-				CC6F46251668E125004E5D17 /* iconEliminateItem2.png */,
-				CC6F46261668E127004E5D17 /* iconEliminateItem3.png */,
-				CC6F46271668E12B004E5D17 /* iconEliminateItem4.png */,
 				CCD0745B165424EA00156DAC /* addThisButton.png */,
 				CC51E0BA16330ED7006B0D35 /* icon@2x.png */,
 				CC51E0B816330ED2006B0D35 /* icon.png */,
@@ -1608,10 +1614,6 @@
 				CC5265BA1639A36C00F6EADD /* btBackgroundForms.png in Resources */,
 				CC5265BB1639A36C00F6EADD /* btBackgroundForms@2x.png in Resources */,
 				CCD0745C165424EB00156DAC /* addThisButton.png in Resources */,
-				CC6F46281668E12E004E5D17 /* iconEliminateItem1.png in Resources */,
-				CC6F46291668E12E004E5D17 /* iconEliminateItem2.png in Resources */,
-				CC6F462A1668E12E004E5D17 /* iconEliminateItem3.png in Resources */,
-				CC6F462B1668E12E004E5D17 /* iconEliminateItem4.png in Resources */,
 				CC28699D166E601900CBB9C3 /* garageNoProducts.png in Resources */,
 				CC28699E166E601900CBB9C3 /* garageNoProducts@2x.png in Resources */,
 				CC3FC3B3167236F300CDAAAF /* refresh.png in Resources */,
@@ -1646,6 +1648,12 @@
 				CC83744B1680D23C002754B8 /* btEmailShare@2x.png in Resources */,
 				CC83744C1680D23C002754B8 /* btTwitterShare.png in Resources */,
 				CC83744D1680D23C002754B8 /* btTwitterShare@2x.png in Resources */,
+				CC6F01681683A6EF00A57697 /* btFacebookShareOver.png in Resources */,
+				CC6F01691683A6EF00A57697 /* btFacebookShareOver@2x.png in Resources */,
+				CC6F016E1683A80300A57697 /* btEmailShareOver.png in Resources */,
+				CC6F016F1683A80300A57697 /* btEmailShareOver@2x.png in Resources */,
+				CC6F01701683A80300A57697 /* btTwitterShareOver.png in Resources */,
+				CC6F01711683A80300A57697 /* btTwitterShareOver@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,7 +34,7 @@
     Garage              *garage;
     BOOL                isLoadingDone;
     CGFloat                                     _lastContentOffset;
-                      
+    UIImage *imageGravatar;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;
@@ -58,6 +58,7 @@
 @property (nonatomic) BOOL                      isFromParent;
 @property (retain, nonatomic) Profile           *profile;
 @property (retain, nonatomic) Garage            *garage;
+@property (retain, nonatomic) UIImage *imageGravatar;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;

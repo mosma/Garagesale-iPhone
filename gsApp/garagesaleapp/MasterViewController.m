@@ -47,13 +47,13 @@
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
         isReachability = NO;
-        [self showNotification:@"no connection."];
+        [self showNotification:@"No connection."];
     } else if (RKReachabilityReachableViaWiFi == status) {
-        RKLogInfo(@"Online via WiFi!");
+        RKLogInfo(@"Online!"); 
         isReachability = YES;
     } else if (RKReachabilityReachableViaWWAN == status) {
         isReachability = YES;
-        [self showNotification:@"Online via Edge or 3G!"];
+        [self showNotification:@"Online!"]; 
         RKLogInfo(@"Online via Edge or 3G!");
     }
 }
