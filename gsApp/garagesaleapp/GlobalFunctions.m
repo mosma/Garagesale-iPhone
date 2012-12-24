@@ -212,9 +212,6 @@
         NSLog(@"%@", exception);
         return [[UIView alloc] init];
     }
-    
-    
-
 }
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
@@ -223,7 +220,7 @@
     UIImage *homeImage = [[UIImage imageNamed:imageNamed]  
                           stretchableImageWithLeftCapWidth:10 topCapHeight:10];  
     [button setBackgroundImage:homeImage forState:UIControlStateNormal];   
-    button.frame = CGRectMake(0, 0, 38, 32);
+    button.frame = CGRectMake(0, 0, 40, 30);
     [button addTarget:viewContr action:selector
            forControlEvents:UIControlEventTouchUpInside];  
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]  

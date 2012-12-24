@@ -33,6 +33,7 @@
 @synthesize imageURLs;
 @synthesize viewNoProducts;
 @synthesize imageGravatar;
+@synthesize labelTotalProducts;
 
 - (void)awakeFromNib
 {
@@ -110,7 +111,7 @@
     
   //  if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
-        [self reloadPage:nil];
+      //  [self reloadPage:nil];
    // }
 }
 
@@ -268,7 +269,7 @@
         [self awakeFromNib];
         [tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
-        isLoadingDone = !isLoadingDone;
+       // isLoadingDone = !isLoadingDone;
         self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
         [scrollViewMain setUserInteractionEnabled:YES];
         [viewNoProducts setHidden:YES];
@@ -311,30 +312,30 @@
     }
 }
 
--(void)initLoadingGuear{
-    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.scrollViewMain addSubview:HUD];
-	
-	// Regiser for HUD callbacks so we can remove it from the window at the right time
-    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
-	HUD.delegate = self;
-    HUD.labelText = @"Loading Products";
-    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
-    
-    // Show the HUD while the provided method executes in a new thread
-	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-}
+//-(void)initLoadingGuear{
+//    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+//	[self.scrollViewMain addSubview:HUD];
+//	
+//	// Regiser for HUD callbacks so we can remove it from the window at the right time
+//    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
+//	HUD.delegate = self;
+//    HUD.labelText = @"Loading Products";
+//    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+//    
+//    // Show the HUD while the provided method executes in a new thread
+//	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+//}
 
 -(void)backPage{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)myTask {
-	// Do something usefull in here instead of sleeping ...
-	while (!isLoadingDone) {
-		sleep(1);
-	}
-}
+//- (void)myTask {
+//	// Do something usefull in here instead of sleeping ...
+//	while (!isLoadingDone) {
+//		sleep(1);
+//	}
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 0){

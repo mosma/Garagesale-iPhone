@@ -29,7 +29,8 @@
     [super viewDidLoad];
     
     //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,self.scrollViewMain.contentOffset.y,320,40)];
+    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [searchBarProduct setHidden:YES];
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
@@ -39,7 +40,7 @@
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
 
-- (void)loadAttribsToComponents{    
+- (void)loadAttribsToComponents{
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -65,6 +66,16 @@
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0], UITextAttributeTextColor,nil] forState:UIControlStateSelected];
 
+
+    
+    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
+    
+    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
+    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
+    
+    
+    
     
     item0.titlePositionAdjustment = UIOffsetMake(0, -2);
     item1.titlePositionAdjustment = UIOffsetMake(0, -2);
@@ -447,11 +458,13 @@
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
     if (!isSearchDisplayed) {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(320, 0)];
+       // [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, 0)];
+        [searchBarProduct setHidden:NO];
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320,  0)];
+        //[searchBarProduct setTransform:CGAffineTransformMakeTranslation(0,  -80)];
+        [searchBarProduct setHidden:YES];
         [searchBarProduct resignFirstResponder];
     }
     

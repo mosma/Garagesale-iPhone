@@ -53,7 +53,7 @@
         isReachability = YES;
     } else if (RKReachabilityReachableViaWWAN == status) {
         isReachability = YES;
-        [self showNotification:@"Online!"]; 
+       // [self showNotification:@"Online!"];
         RKLogInfo(@"Online via Edge or 3G!");
     }
 }
@@ -61,7 +61,7 @@
 -(void)setNotification{
     viewMessageNet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
     [viewMessageNet setAlpha:0];
-    [viewMessageNet setBackgroundColor:[UIColor colorWithRed:191.0/255.0 green:191.0/255.0 blue:191.0/255.0 alpha:0.9]];
+    [viewMessageNet setBackgroundColor:[UIColor colorWithRed:189.0/255.0 green:189.0/255.0 blue:189.0/255.0 alpha:0.9]];
     labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(13, 11, 307, 22)];
     [labelNotification setTextAlignment:NSTextAlignmentLeft];
     [labelNotification setBackgroundColor:[UIColor clearColor]];

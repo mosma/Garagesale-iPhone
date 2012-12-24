@@ -32,7 +32,7 @@
     //Instacied for Parent. Using in productDetailViewController, productTableViewController.
     Profile             *profile;
     Garage              *garage;
-    BOOL                isLoadingDone;
+   // BOOL                isLoadingDone;
     CGFloat                                     _lastContentOffset;
     UIImage *imageGravatar;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
@@ -62,6 +62,7 @@
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;
+@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *garageName;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *description;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *city;

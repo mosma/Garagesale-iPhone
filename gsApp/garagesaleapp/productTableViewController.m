@@ -88,7 +88,8 @@
     [self.navigationController setNavigationBarHidden:NO];
     
     //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(-320,self.tableView.contentOffset.y,320,40)];
+    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [searchBarProduct setHidden:YES];
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
@@ -234,12 +235,12 @@
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
     if (!isSearchDisplayed) {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(320, self.tableView.contentOffset.y)];
+        [searchBarProduct setHidden:YES];
         [searchBarProduct becomeFirstResponder];
         }
      else {
-        [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];
-        [searchBarProduct resignFirstResponder];
+         [searchBarProduct setHidden:NO];
+         [searchBarProduct resignFirstResponder];
     }
     isSearchDisplayed = !isSearchDisplayed;
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);

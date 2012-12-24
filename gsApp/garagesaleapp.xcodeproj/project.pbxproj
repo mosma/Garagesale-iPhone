@@ -165,6 +165,8 @@
 		CC5265BA1639A36C00F6EADD /* btBackgroundForms.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5265B81639A36B00F6EADD /* btBackgroundForms.png */; };
 		CC5265BB1639A36C00F6EADD /* btBackgroundForms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5265B91639A36B00F6EADD /* btBackgroundForms@2x.png */; };
 		CC53F36E158B9C6900904ECE /* navBarBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CC53F36D158B9C6900904ECE /* navBarBackground.jpg */; };
+		CC5476BA1687CFD000639D40 /* btSearchHomeLogOut.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5476B81687CFD000639D40 /* btSearchHomeLogOut.png */; };
+		CC5476BB1687CFD000639D40 /* btSearchHomeLogOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC5476B91687CFD000639D40 /* btSearchHomeLogOut@2x.png */; };
 		CC5B0A9F14D2C7C900F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
 		CC5B0AA114D2C7E700F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
 		CC5E52D11616242200761C5D /* Caminho.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E52D01616242200761C5D /* Caminho.m */; };
@@ -532,6 +534,8 @@
 		CC5265B81639A36B00F6EADD /* btBackgroundForms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btBackgroundForms.png; sourceTree = "<group>"; };
 		CC5265B91639A36B00F6EADD /* btBackgroundForms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btBackgroundForms@2x.png"; sourceTree = "<group>"; };
 		CC53F36D158B9C6900904ECE /* navBarBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = navBarBackground.jpg; sourceTree = "<group>"; };
+		CC5476B81687CFD000639D40 /* btSearchHomeLogOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearchHomeLogOut.png; sourceTree = "<group>"; };
+		CC5476B91687CFD000639D40 /* btSearchHomeLogOut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchHomeLogOut@2x.png"; sourceTree = "<group>"; };
 		CC5B0A9E14D2C7C900F22D35 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CC5B0AA014D2C7E700F22D35 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CC5E52CF1616242200761C5D /* Caminho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Caminho.h; sourceTree = "<group>"; };
@@ -882,6 +886,8 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC5476B81687CFD000639D40 /* btSearchHomeLogOut.png */,
+				CC5476B91687CFD000639D40 /* btSearchHomeLogOut@2x.png */,
 				CC6F016A1683A80200A57697 /* btEmailShareOver.png */,
 				CC6F016B1683A80200A57697 /* btEmailShareOver@2x.png */,
 				CC6F016C1683A80200A57697 /* btTwitterShareOver.png */,
@@ -1654,6 +1660,8 @@
 				CC6F016F1683A80300A57697 /* btEmailShareOver@2x.png in Resources */,
 				CC6F01701683A80300A57697 /* btTwitterShareOver.png in Resources */,
 				CC6F01711683A80300A57697 /* btTwitterShareOver@2x.png in Resources */,
+				CC5476BA1687CFD000639D40 /* btSearchHomeLogOut.png in Resources */,
+				CC5476BB1687CFD000639D40 /* btSearchHomeLogOut@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
