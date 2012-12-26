@@ -111,6 +111,10 @@
                     range:[titleAbout rangeOfString:@"MoSMA"]];
     [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"MoSMA"]];
     
+    
+    [attrStr setLink:[NSURL URLWithString:@"http://www.mosma.us"] range:[titleAbout rangeOfString:@"MoSMA"]];
+    
+    
     [labelAboutEMAIL setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     
     [buttonRightAbout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
@@ -195,7 +199,7 @@
     imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect: CGRectMake(0, 0, 40, 30)];
     [self setupKeyboardControls];
 }
 

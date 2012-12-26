@@ -183,9 +183,9 @@
 
         
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
-        
+
         [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
+                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
 
         [labelAskSomething setText:NSLocalizedString(@"offer", @"")];
         

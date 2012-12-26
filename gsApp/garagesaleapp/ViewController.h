@@ -34,7 +34,7 @@
     UISearchBar    *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
     UIImageView *activityImageView;
-                                                  
+    UIView *shadowSearch;
                                                   
 }
 

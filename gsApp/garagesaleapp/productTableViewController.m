@@ -88,12 +88,23 @@
     [self.navigationController setNavigationBarHidden:NO];
     
     //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
-    [searchBarProduct setHidden:YES];
+    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
-    [self.tableView addSubview:searchBarProduct];
+    [searchBarProduct setHidden:YES];
+    [self.navigationController.navigationBar addSubview:searchBarProduct];
+    
+    
+    shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+    [shadowSearch setBackgroundColor:[UIColor blackColor]];
+    [shadowSearch setAlpha:0.7];
+    [shadowSearch setHidden:YES];
+    [self.view addSubview:shadowSearch];
+    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
+    [gest setNumberOfTouchesRequired:1];
+    [shadowSearch addGestureRecognizer:gest];
+    
     
     //Initializing the Object Managers
     RKObjManeger = [RKObjectManager sharedManager];
@@ -101,17 +112,17 @@
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-    
     if (!isFromLoadObject) {
     
     self.tableView.delegate = self;
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
+        
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
     
-    [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(showSearch:) viewContr:self imageNamed:@"btSearch.png"]];
+    [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(showSearch:) viewContr:self imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 32)]];
     
     NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
     
@@ -230,21 +241,23 @@
 }
 
 - (IBAction)showSearch:(id)sender{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
+    //[UIView beginAnimations:nil context:nil];
+    //[UIView setAnimationDuration:0.5];
+   // [UIView setAnimationDelegate:self];
+   // [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromTop];
     if (!isSearchDisplayed) {
-        [searchBarProduct setHidden:YES];
+        [searchBarProduct setHidden:NO];
+        [shadowSearch setHidden:NO];
         [searchBarProduct becomeFirstResponder];
         }
      else {
-         [searchBarProduct setHidden:NO];
+         [searchBarProduct setHidden:YES];
+         [shadowSearch setHidden:YES];
          [searchBarProduct resignFirstResponder];
     }
     isSearchDisplayed = !isSearchDisplayed;
     //  viewSignup.transform = CGAffineTransformMakeRotation(0);
-    [UIView commitAnimations];
+  //  [UIView commitAnimations];
     //- (IBAction)reloadProducts:(id)sender{
     //  [activityIndicator startAnimating];
     //    self.strLocalResourcePath = @"/product";
@@ -419,7 +432,7 @@
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // Clear the search text
     // Deactivate the UISearchBar
-    [searchBarProduct resignFirstResponder];
+    [self showSearch:nil];
     // searchBar.text=@"";
     //[self searchBar:searchBar activate:YES];
 }
@@ -436,6 +449,8 @@
     [mutArrayProducts removeAllObjects];
     self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
+    
+    [self showSearch:nil];
     
     
     [segmentControl setSelectedSegmentIndex:0];
@@ -510,7 +525,10 @@
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
    // [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
-    [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];
+   // [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];
+    
+    [searchBarProduct setHidden:YES];
+    
     isSearchDisplayed = NO;
 }
 

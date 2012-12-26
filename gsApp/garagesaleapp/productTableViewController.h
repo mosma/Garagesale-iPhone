@@ -33,6 +33,7 @@
     __unsafe_unretained IBOutlet UIView *viewSegmentArea;
     __unsafe_unretained IBOutlet UITableView        *tableView;                                                          
     CGFloat _lastContentOffset;
+    UIView *shadowSearch;
 }
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;

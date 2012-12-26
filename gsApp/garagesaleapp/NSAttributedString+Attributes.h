@@ -1,17 +1,19 @@
 /***********************************************************************************
+ * This software is under the MIT License quoted below:
+ ***********************************************************************************
  *
  * Copyright (c) 2010 Olivier Halligon
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,13 +21,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
- ***********************************************************************************
- *
- * Created by Olivier Halligon  (AliSoftware) on 20 Jul. 2010.
- *
- * Any comment or suggestion welcome. Please contact me before using this class in
- * your projects. Referencing this project in your AboutBox/Credits is appreciated.
  *
  ***********************************************************************************/
 
@@ -34,25 +29,10 @@
 #import <CoreText/CoreText.h>
 #import <UIKit/UIKit.h>
 
+extern NSString* kOHLinkAttributeName;
 
-#ifndef OBJC_ARC_ENABLED
-
-  #ifdef __has_feature
-
-    #define OBJC_ARC_ENABLED __has_feature(objc_arc)
-
-  #else
-
-    #define OBJC_ARC_ENABLED 0
-
- #endif
-
-#endif
-
-/////////////////////////////////////////////////////////////////////////////
-// MARK: -
-// MARK: NSAttributedString Additions
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSAttributedString Additions
 
 @interface NSAttributedString (OHCommodityConstructors)
 +(id)attributedStringWithString:(NSString*)string;
@@ -63,13 +43,22 @@
 //! if fitRange is not NULL, on return it will contain the used range that actually fits the constrained size.
 //! Note: Use CGFLOAT_MAX for the CGSize's height if you don't want a constraint for the height.
 -(CGSize)sizeConstrainedToSize:(CGSize)maxSize fitRange:(NSRange*)fitRange;
+
+-(CTFontRef)fontAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+-(UIColor*)textColorAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+-(BOOL)textIsUnderlinedAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+//! @return a combination of CTUnderlineStyle & CTUnderlineStyleModifiers
+-(int32_t)textUnderlineStyleAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+-(BOOL)textIsBoldAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+-(CTTextAlignment)textAlignmentAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+-(CTLineBreakMode)lineBreakModeAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
+
+-(NSURL*)linkAtIndex:(NSUInteger)index effectiveRange:(NSRangePointer)aRange;
 @end
 
 
-/////////////////////////////////////////////////////////////////////////////
-// MARK: -
-// MARK: NSMutableAttributedString Additions
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSMutableAttributedString Additions
 
 @interface NSMutableAttributedString (OHCommodityStyleModifiers)
 -(void)setFont:(UIFont*)font;
@@ -82,11 +71,14 @@
 -(void)setTextColor:(UIColor*)color range:(NSRange)range;
 -(void)setTextIsUnderlined:(BOOL)underlined;
 -(void)setTextIsUnderlined:(BOOL)underlined range:(NSRange)range;
--(void)setTextUnderlineStyle:(int32_t)style range:(NSRange)range; //!< style is a combination of CTUnderlineStyle & CTUnderlineStyleModifiers
+//! @param style is a combination of CTUnderlineStyle & CTUnderlineStyleModifiers
+-(void)setTextUnderlineStyle:(int32_t)style range:(NSRange)range;
 -(void)setTextBold:(BOOL)isBold range:(NSRange)range;
 
 -(void)setTextAlignment:(CTTextAlignment)alignment lineBreakMode:(CTLineBreakMode)lineBreakMode;
 -(void)setTextAlignment:(CTTextAlignment)alignment lineBreakMode:(CTLineBreakMode)lineBreakMode range:(NSRange)range;
+
+-(void)setLink:(NSURL*)link range:(NSRange)range;
 @end
 
 

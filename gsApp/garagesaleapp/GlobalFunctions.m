@@ -214,13 +214,16 @@
     }
 }
 
-+(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed{
++(UIBarButtonItem *)getIconNavigationBar:(SEL)selector
+                               viewContr:(UIViewController *)viewContr
+                              imageNamed:(NSString *)imageNamed
+                                rect:(CGRect)rect{
     // Add Search Bar Button  
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];  
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *homeImage = [[UIImage imageNamed:imageNamed]  
                           stretchableImageWithLeftCapWidth:10 topCapHeight:10];  
     [button setBackgroundImage:homeImage forState:UIControlStateNormal];   
-    button.frame = CGRectMake(0, 0, 40, 30);
+    [button setFrame:rect];
     [button addTarget:viewContr action:selector
            forControlEvents:UIControlEventTouchUpInside];  
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]  

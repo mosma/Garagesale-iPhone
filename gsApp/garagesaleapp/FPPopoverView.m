@@ -41,9 +41,10 @@
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"popOverBack"]];
         self.clipsToBounds = YES;
         
-        self.layer.shadowOpacity = 0.4;
+        self.layer.shadowOpacity = 0.2;
         self.layer.shadowRadius = 1;
-        self.layer.shadowOffset = CGSizeMake(-3, 3);
+        self.layer.shadowOffset = CGSizeMake(1, 1);
+        
 
         //to get working the animations
         self.contentMode = UIViewContentModeRedraw;

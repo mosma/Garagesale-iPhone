@@ -39,7 +39,7 @@ typedef enum {
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
 +(BOOL)isValidEmail:(NSString*) emailString;
 +(BOOL)onlyNumberKey:(NSString *)string;
-+(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed;
++(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed rect:(CGRect)rect;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
 +(void)hideTabBar:(UITabBarController *)tabbarcontroller;

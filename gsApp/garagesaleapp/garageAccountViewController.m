@@ -111,7 +111,7 @@
     
   //  if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
         [self loadAttribsToComponents:NO];
-      //  [self reloadPage:nil];
+        [self reloadPage:nil];
    // }
 }
 
@@ -155,7 +155,7 @@
             
             [buttonGarageLogo setImage:image forState:UIControlStateNormal];
             
-            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png"];
+            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png" rect:CGRectMake(0, 0, 38, 32)];
 
         } else {
             description.text = garage.about;
@@ -170,9 +170,9 @@
             [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
             
             self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
-
+            
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         }
         NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
         
@@ -458,7 +458,7 @@
         
         NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:24]];
-        [attrStr setTextColor:[UIColor colorWithRed:12.0/255.0 green:168.0/255.0 blue:12.0/255.0 alpha:1.f]];
+        [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]];
         [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]   
                         range:[strFormat rangeOfString:currency]];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:16] range:[strFormat rangeOfString: currency]];

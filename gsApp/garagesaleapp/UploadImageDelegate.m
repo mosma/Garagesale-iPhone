@@ -28,8 +28,7 @@
 
     progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     [progressView setFrame:CGRectMake(5, 50, 60, 7)];
-    [progressView setTintColor:[UIColor greenColor]];
-    
+    [progressView setTintColor:[UIColor colorWithRed:105.0/255.0 green:159.0/255.0 blue:77.0/255.0 alpha:1.0]];
     return self;
 }
 

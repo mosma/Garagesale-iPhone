@@ -50,7 +50,7 @@
     [self setupKeyboardControls];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"];
+                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect: CGRectMake(0, 0, 40, 30)];
 
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
     if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) {//Signup ViewController
@@ -122,7 +122,15 @@
             [self setProfile:objects];
             [self getResourcePathGarage];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+            ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+            
+            
+            
+            [self.navigationController pushViewController:home animated:YES];
+            
+            
+            
             [self setGarage:objects];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")

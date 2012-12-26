@@ -30,17 +30,27 @@
     
     //set searchBar settings
     searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
-    [searchBarProduct setHidden:YES];
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     [self.view addSubview:searchBarProduct];
-    
+
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
 
 - (void)loadAttribsToComponents{
+    searchBarProduct.hidden=YES;
+    
+    shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 320, 420)];
+    [shadowSearch setBackgroundColor:[UIColor blackColor]];
+    [shadowSearch setAlpha:0.7];
+    [shadowSearch setHidden:YES];
+    [self.view addSubview:shadowSearch];
+    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
+    [gest setNumberOfTouchesRequired:1];
+    [shadowSearch addGestureRecognizer:gest];
+    
     //Main Custom Tab Bar Controller
     UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
     UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
@@ -66,16 +76,11 @@
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0], UITextAttributeTextColor,nil] forState:UIControlStateSelected];
 
-
-    
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
     
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
-    
-    
-    
     
     item0.titlePositionAdjustment = UIOffsetMake(0, -2);
     item1.titlePositionAdjustment = UIOffsetMake(0, -2);
@@ -103,14 +108,15 @@
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonLogo.frame = CGRectMake(33, 149, 253, 55);
+    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
     buttonLogo.adjustsImageWhenHighlighted = NO;
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
     
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:1.0f];
+    [UIView setAnimationDuration:0.6f];
+    [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
     buttonLogo.center = CGPointMake(160, 50);
     [UIView commitAnimations];
     
@@ -381,7 +387,6 @@
         [viewSearch setHidden:YES];
         [viewTopPage setHidden:NO];
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-        searchBarProduct.hidden=NO;
     }
 }
 
@@ -460,11 +465,19 @@
     if (!isSearchDisplayed) {
        // [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, 0)];
         [searchBarProduct setHidden:NO];
+        
+        
+
+        [shadowSearch setHidden:NO];
         [searchBarProduct becomeFirstResponder];
     }
     else {
         //[searchBarProduct setTransform:CGAffineTransformMakeTranslation(0,  -80)];
         [searchBarProduct setHidden:YES];
+        
+        
+        [shadowSearch setHidden:YES];
+        
         [searchBarProduct resignFirstResponder];
     }
     
@@ -486,7 +499,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self reloadPage:nil];
+    [self.navigationController setNavigationBarHidden:YES];
+    if ([mutArrayProducts count] == 0)
+        [self reloadPage:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated

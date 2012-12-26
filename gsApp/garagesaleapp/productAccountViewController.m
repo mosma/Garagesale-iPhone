@@ -272,8 +272,9 @@
 -(void)loadingProduct{
     [self getResourcePathProduct];
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"]];
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
     [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:200]];
 }
 

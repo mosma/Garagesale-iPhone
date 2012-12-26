@@ -62,9 +62,13 @@
 //        [imageView addSubview:animation];
  //       [animation bringSubviewToFront:imageView];
         
-        [UIView animateWithDuration:0.75 animations: ^{
-            [self reconfigureImagesAfterRemoving:imageView];
+        [UIView animateWithDuration:0.25 animations: ^{
             imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
+            [imageView setAlpha:0];
+
+            [self reconfigureImagesAfterRemoving:imageView];
+
+
         } completion:^(BOOL finished){
             
             NSArray *imageViews         = [scrollView subviews];
@@ -77,6 +81,8 @@
             
             [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
         }];
+        
+
         
         if ([nsMutArrayPicsProduct count] < 11){
             buttonAddPics.enabled = YES;
@@ -98,7 +104,7 @@
         if (viewNumber == indexOfRemovedImageView ) {
            // UIImageView * imageViewToBeRemoved= [imageViews objectAtIndex:viewNumber] ;
            // [imageViewToBeRemoved setFrame:CGRectMake(imageViewToBeRemoved.frame.size.width/2+imageViewToBeRemoved.frame.origin.x,scrollView.frame.size.height/2, 0, 0)];
-        }else if (viewNumber >= indexOfRemovedImageView ){
+        }else if (viewNumber >= indexOfRemovedImageView){
             CGPoint origin = ((UIImageView *)[imageViews objectAtIndex:viewNumber]).frame.origin;
             origin.x = origin.x - self.widthPaddingInImages - imageWidth_;
             origin.y = self.heightPaddingInImages;
@@ -109,12 +115,13 @@
     }
 
     //Reposition scrollViewPicsProduct to right
-    if ([nsMutArrayPicsProduct count] < 4)
+    if ([nsMutArrayPicsProduct count] < 4 && [nsMutArrayPicsProduct count] > 1)
         [scrollView setFrame:CGRectMake((173/([nsMutArrayPicsProduct count]-1)) + self.widthPaddingInImages, scrollView.frame.origin.y, scrollView.frame.size.width, scrollView.frame.size.height)];
     
     CGSize size = scrollView.contentSize;
     size.width = size.width - imageWidth_ -self.widthPaddingInImages;
     scrollView.contentSize = size;
+
 }
 
 
