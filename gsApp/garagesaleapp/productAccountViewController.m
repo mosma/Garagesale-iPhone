@@ -319,6 +319,7 @@
     sheet.delegate = self;
     [sheet showInView:self.view];
     [sheet showFromTabBar:self.tabBarController.tabBar];
+    [sheet setTag:99];
 }
 
 -(IBAction)goBack:(id)sender {
@@ -368,7 +369,9 @@
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (self.product == nil) {
+    if (self.product != nil && actionSheet.tag != 99)
+         [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
+    else {
         if (buttonIndex == 0)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (buttonIndex == 1)
@@ -376,8 +379,6 @@
         else if (buttonIndex == 2)
             ;
     }
-    else
-       [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(IBAction)getPicsByCamera:(id)sender {
@@ -458,12 +459,16 @@
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
+
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
+        if (self.product != nil) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+
+        }
+            
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
@@ -827,6 +832,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
