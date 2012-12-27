@@ -200,6 +200,7 @@
 		CC6EE8D2168B7F6E00AB4E87 /* addcam@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6EE8CE168B7F6E00AB4E87 /* addcam@2x.png */; };
 		CC6EE8D3168B7F6E00AB4E87 /* addcamover.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6EE8CF168B7F6E00AB4E87 /* addcamover.png */; };
 		CC6EE8D4168B7F6E00AB4E87 /* addcamover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6EE8D0168B7F6E00AB4E87 /* addcamover@2x.png */; };
+		CC6EE8D7168C743800AB4E87 /* CoreTextUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6EE8D6168C743800AB4E87 /* CoreTextUtils.m */; };
 		CC6F01681683A6EF00A57697 /* btFacebookShareOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F01661683A6EE00A57697 /* btFacebookShareOver.png */; };
 		CC6F01691683A6EF00A57697 /* btFacebookShareOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F01671683A6EF00A57697 /* btFacebookShareOver@2x.png */; };
 		CC6F016E1683A80300A57697 /* btEmailShareOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC6F016A1683A80200A57697 /* btEmailShareOver.png */; };
@@ -576,6 +577,8 @@
 		CC6EE8CE168B7F6E00AB4E87 /* addcam@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addcam@2x.png"; sourceTree = "<group>"; };
 		CC6EE8CF168B7F6E00AB4E87 /* addcamover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addcamover.png; sourceTree = "<group>"; };
 		CC6EE8D0168B7F6E00AB4E87 /* addcamover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addcamover@2x.png"; sourceTree = "<group>"; };
+		CC6EE8D5168C743700AB4E87 /* CoreTextUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreTextUtils.h; sourceTree = "<group>"; };
+		CC6EE8D6168C743800AB4E87 /* CoreTextUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreTextUtils.m; sourceTree = "<group>"; };
 		CC6F01661683A6EE00A57697 /* btFacebookShareOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btFacebookShareOver.png; sourceTree = "<group>"; };
 		CC6F01671683A6EF00A57697 /* btFacebookShareOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btFacebookShareOver@2x.png"; sourceTree = "<group>"; };
 		CC6F016A1683A80200A57697 /* btEmailShareOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btEmailShareOver.png; sourceTree = "<group>"; };
@@ -871,6 +874,8 @@
 		CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
+				CC6EE8D5168C743700AB4E87 /* CoreTextUtils.h */,
+				CC6EE8D6168C743800AB4E87 /* CoreTextUtils.m */,
 				CC6EE8C6168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.m */,
 				CC6EE8C7168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.h */,
 				CC2D1660157D4AF7000B8BD3 /* NSAttributedString+Attributes.h */,
@@ -1791,6 +1796,7 @@
 				CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */,
 				CC8374531681616B002754B8 /* drawing.m in Sources */,
 				CC6EE8C8168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
+				CC6EE8D7168C743800AB4E87 /* CoreTextUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
