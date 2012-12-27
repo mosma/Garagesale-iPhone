@@ -263,7 +263,7 @@
     CGRect frame = CGRectMake(0, 0, width, 22);
     OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
     [label setBackgroundColor:[UIColor clearColor]];
-    [label setShadowColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:1.0]];
+    [label setShadowColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3]];
     [label setShadowOffset:CGSizeMake(0, -1)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
