@@ -35,7 +35,7 @@
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
     UIImageView *activityImageView;
     UIView *shadowSearch;
-                                                  
+    BOOL isFromSignUp;
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -45,6 +45,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
 @property (retain, nonatomic) UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
+@property (unsafe_unretained, nonatomic) BOOL isFromSignUp;
 
 @property (unsafe_unretained, nonatomic) UIImageView *activityImageView;
 

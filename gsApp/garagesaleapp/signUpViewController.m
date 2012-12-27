@@ -126,7 +126,7 @@
             ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
             
             
-            
+            [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];
             
             

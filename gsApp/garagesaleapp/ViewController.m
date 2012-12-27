@@ -17,6 +17,7 @@
 @synthesize searchBarProduct;
 @synthesize txtFieldSearch;
 @synthesize viewSearch;
+@synthesize isFromSignUp;
 
 - (void)didReceiveMemoryWarning
 {
@@ -108,17 +109,21 @@
     
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
     buttonLogo.adjustsImageWhenHighlighted = NO;
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.6f];
-    [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
-    buttonLogo.center = CGPointMake(160, 50);
-    [UIView commitAnimations];
+    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
+
+    if (isFromSignUp) {
+        buttonLogo.center = CGPointMake(160, 50);
+    } else {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.6f];
+        [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
+        buttonLogo.center = CGPointMake(160, 50);
+        [UIView commitAnimations];
+    }
     
     self.tabBarController.delegate = self;
     
@@ -500,12 +505,13 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-    if ([mutArrayProducts count] == 0)
+    if ([mutArrayProducts count] == 0 ||
+        [[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil)
         [self reloadPage:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{
+{    
     [super viewDidAppear:animated];
 }
 
