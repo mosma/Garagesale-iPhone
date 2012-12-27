@@ -151,12 +151,14 @@
         [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:@"results for"]];
         [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-        [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                         range:[text rangeOfString:count]];
-        [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                         range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
         
         OHlabelTitleResults.attributedText = attrStr;
+        
+        [segmentControl setEnabled:YES];
     }
     
     self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
@@ -168,7 +170,7 @@
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
-    
+    [segmentControl setEnabled:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     //set Local Resource Defautl
@@ -338,7 +340,7 @@
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
     
     //Set GarageName Size/Color
-    [attrStr setTextColor:[UIColor redColor]  
+    [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
                     range:[strFormat rangeOfString:garageName]];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
                                                                         [NSString stringWithFormat:@"by %@", garageName]]];
@@ -519,10 +521,14 @@
    // if (isSearchHidden)
     //    [self showSearch:nil];
     [searchBarProduct resignFirstResponder];
-    if (_lastContentOffset < (int)self.tableView.contentOffset.y)
+    if (_lastContentOffset < (int)self.tableView.contentOffset.y){
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-    else
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+    else{
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
    // [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
    // [searchBarProduct setTransform:CGAffineTransformMakeTranslation(-320, self.tableView.contentOffset.y)];

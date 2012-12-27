@@ -124,13 +124,9 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
             
             ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-            
-            
             [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];
-            
-            
-            
+
             [self setGarage:objects];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
@@ -288,28 +284,28 @@
     BOOL isValid = YES;
     
     if ([textFieldGarageName.text length] < 3) {
-        [textFieldGarageName setValue:[UIColor redColor]
+        [textFieldGarageName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:@"Hey, this is not a valid Garage Name!"];
         isValid = NO;
     }
     
     if ([textFieldPersonName.text length] < 3) {
-        [textFieldPersonName setValue:[UIColor redColor]
+        [textFieldPersonName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPersonName setPlaceholder:@"Hey, this is not a valid Name!"];
         isValid = NO;
     }
     
     if ([textFieldEmail.text length] == 0) {
-        [textFieldEmail setValue:[UIColor redColor]
+        [textFieldEmail setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder:@"Hey, Email can not be empty!"];
         isValid = NO;
     }
     
     if ([textFieldPassword.text length] < 5) {
-        [textFieldPassword setValue:[UIColor redColor]
+        [textFieldPassword setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPassword setPlaceholder:@"Hey, this is not a valid Password!"];
         isValid = NO;

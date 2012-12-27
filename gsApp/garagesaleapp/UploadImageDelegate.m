@@ -126,7 +126,9 @@
     } else if ([request isDELETE]) {
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        
+        if (idProduct != -1)
+            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         // Handling DELETE /missing_resource.txt

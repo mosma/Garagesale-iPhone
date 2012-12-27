@@ -205,7 +205,7 @@
            [uploadDelegate setIdProduct:[product.id intValue]];
        else if (product == nil)
            uploadDelegate.idProduct = -1;
-       [uploadDelegate uploadPhotos];
+        [NSThread detachNewThreadSelector:@selector(uploadPhotos) toTarget:uploadDelegate withObject:nil];
     }
 }
 

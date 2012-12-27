@@ -37,6 +37,7 @@
 @synthesize buttonAddPics;
 @synthesize product;
 @synthesize buttonSaveProduct;
+@synthesize buttonDeleteProduct;
 @synthesize gallery;
 
 #define PICKERSTATE     20
@@ -90,7 +91,8 @@
     [shadowView setAlpha:0];
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
-        
+    
+    [buttonDeleteProduct setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
@@ -174,6 +176,7 @@
     [self setupKeyboardControls];
     
     if (self.product != nil) {
+        [buttonDeleteProduct setHidden:NO];
         self.trackedViewName = [NSString stringWithFormat:@"%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
         if ([self.product.fotos count] > 0)
             [scrollViewPicsProduct addSubview:waiting];
@@ -186,12 +189,6 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (textField.tag == PICKERSTATE || textField.tag == PICKERCURRENCY) {
-      for (UIView *v in textField.subviews)
-          if ([[[v class] description] rangeOfString:@"UITextSelectionView"].location != NSNotFound)
-            v.hidden = YES;
-      [textField setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
-    }
     return YES;
 }
 
@@ -398,11 +395,11 @@
         UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
     [scrollViewPicsProduct setFrame:CGRectMake(0, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
-    
+
     [gallery addImageToScrollView:imageThumb
-                      photoReturn:nil
-                          product:self.product
-                        isPosting:YES];
+                          photoReturn:nil
+                              product:self.product
+                            isPosting:YES];
     
     [picker dismissModalViewControllerAnimated:YES];
     
@@ -410,10 +407,66 @@
         [self animationPicsControl];
 }
 
+-(IBAction)deleteProduct:(id)sender {
+    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"Atenção!" message:@"Deseja Realmente excluir ?" delegate:self cancelButtonTitle:@"cancelar" otherButtonTitles:@"Deletar", nil];
+    [alertV show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"0");
+            break;
+        case 1:
+            [[RKClient sharedClient] delete:
+             [NSString stringWithFormat:@"/product/%i?token=%@&garage=%@",
+              [self.product.id intValue] ,
+              [[GlobalFunctions getUserDefaults] valueForKey:@"token"],
+              [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]] delegate:self];
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
     if (error != NULL){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Image was not saved, try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
+    }
+}
+
+
+- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    if ([request isGET]) {
+        // Handling GET /foo.xml
+        
+        if ([response isOK]) {
+            // Success! Let's take a look at the data
+            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+        }
+        
+    } else if ([request isPOST]) {
+        
+        // Handling POST /other.json
+        if ([response isJSON]) {
+            NSLog(@"Got a JSON response back from our POST!");
+        }
+
+        //Set Delay to Hide msgBidSentLabel
+        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideMsgBidSent) userInfo:nil repeats:NO];
+        
+    } else if ([request isDELETE]) {
+        // Handling DELETE /missing_resource.txt
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        if ([response isNotFound]) {
+            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
+        }
     }
 }
 
@@ -553,14 +606,14 @@
     BOOL isValid = YES;
 
     if ([txtFieldTitle.text length] <= 2) {
-        [txtFieldTitle setValue:[UIColor redColor]
+        [txtFieldTitle setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldTitle setPlaceholder:@"Hey, your product must have a name!"];
         isValid = NO;
     } 
     
     if ([txtFieldValue.text length] == 0) {
-        [txtFieldValue setValue:[UIColor redColor]
+        [txtFieldValue setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         isValid = NO;
     } 

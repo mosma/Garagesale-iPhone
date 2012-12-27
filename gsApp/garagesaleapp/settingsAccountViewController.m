@@ -107,13 +107,13 @@
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleAbout];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [attrStr setTextColor:[UIColor grayColor]];
-    [attrStr setTextColor:[UIColor colorWithRed:255.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]
-                    range:[titleAbout rangeOfString:@"MoSMA"]];
     [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"MoSMA"]];
     
     
-    [attrStr setLink:[NSURL URLWithString:@"http://www.mosma.us"] range:[titleAbout rangeOfString:@"MoSMA"]];
+    [attrStr setLink:[NSURL URLWithString:@"http://mosma.us"] range:[titleAbout rangeOfString:@"MoSMA"]];
     
+    [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                    range:[titleAbout rangeOfString:@"MoSMA"]];
     
     [labelAboutEMAIL setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     

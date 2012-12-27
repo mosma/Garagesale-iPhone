@@ -55,6 +55,7 @@
     //Flags at Post
     bool isImagesProductPosted;
     int countPicsPost;
+    __weak IBOutlet UIButton *buttonDeleteProduct;
 }
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
@@ -68,6 +69,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonAddPics;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
+@property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
 
 @property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
@@ -83,4 +85,6 @@
 -(IBAction)getPicsByPhotosAlbum:(id)sender;
 -(IBAction)deleteProduct:(id)sender;
 -(void)validateForm:(id)sender;
+-(IBAction)deleteProduct:(id)sender;
+
 @end

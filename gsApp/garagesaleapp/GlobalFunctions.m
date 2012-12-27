@@ -407,7 +407,7 @@
 
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller {
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.3];
     for(UIView *view in tabbarcontroller.view.subviews)
     {
         if([view isKindOfClass:[UITabBar class]])
@@ -425,7 +425,7 @@
 +(void)showTabBar:(UITabBarController *) tabbarcontroller {
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil){
         [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.5];
+        [UIView setAnimationDuration:0.3];
         for(UIView *view in tabbarcontroller.view.subviews)
         {
             //NSLog(@"%@", view);
