@@ -121,6 +121,7 @@
         [subview removeFromSuperview];
 
     //mutArrayProducts = nil;
+    [segmentControl setEnabled:NO];
     [self getResourcePathProduct];
     
     //Set Display thumbs on Home.
@@ -143,7 +144,7 @@
                                 [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                                 [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
-            
+
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
             //Retrieving
@@ -165,8 +166,9 @@
                                 garage.district,
                                 garage.country];
             link.text        = garage.link;
-            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
             
+            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+                        
             [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
             
             self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
@@ -174,6 +176,10 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                        @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         }
+        
+        if ([city.text length] < 5)
+            [city setHidden:YES];
+        
         NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
         
         segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
@@ -198,8 +204,12 @@
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
-                
-        self.scrollViewMain.contentSize         = CGSizeMake(320,560);
+        
+        UITapGestureRecognizer *gestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(urlGarage:)];
+        [gestureRec setNumberOfTapsRequired:1];
+        [link addGestureRecognizer:gestureRec];
+        
+        self.scrollViewMain.contentSize         = CGSizeMake(320,610);
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
         
@@ -223,6 +233,10 @@
                                                           withLabel:@"Reload Products Screen"
                                                           withValue:nil];
         
+        [segmentControl setEnabled:YES];
+        
+
+        
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -236,7 +250,12 @@
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;
         [self loadButtonsProduct];
-    }  
+    }
+}
+
+- (void)urlGarage:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link.text]];
 }
 
 - (void)getResourcePathProduct{    
@@ -342,7 +361,8 @@
         if (scrollViewMain.contentOffset.y > 130){
             scrollViewProducts.scrollEnabled = YES;
             tableViewProducts.scrollEnabled = YES;
-        }else{        
+        }else{
+
             scrollViewProducts.scrollEnabled = NO;
             tableViewProducts.scrollEnabled = NO;  
         }
@@ -357,12 +377,15 @@
     }
     
     if (_lastContentOffset < (int)tableViewProducts.contentOffset.y ||
+        _lastContentOffset < (int)scrollViewMain.contentOffset.y ||
         _lastContentOffset < (int)scrollViewProducts.contentOffset.y) {
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }else{
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        if (tableViewProducts.contentOffset.y < tableViewProducts.contentSize.height-500) {
+          [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+          [self.navigationController setNavigationBarHidden:NO animated:YES];
+        }
     }
 }
 

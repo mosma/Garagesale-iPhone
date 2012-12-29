@@ -192,7 +192,6 @@
         mutArrayProducts = (NSMutableArray *)objects;
         [self loadButtonsProduct];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [activityImageView stopAnimating];
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
@@ -200,6 +199,10 @@
         [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
         [activityImageView setAlpha:0];
         [UIView commitAnimations];
+        
+        if ([activityImageView isAnimating])
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollViewMain.contentSize.height+300)];
+        [activityImageView stopAnimating];
     }
 }
 
@@ -305,7 +308,7 @@
         if(countLoads < 6){
             //Position the activity image view somewhere in
             //the middle of your current view
-            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+30-(countLoads*7), 46, 45);
+            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+10-(countLoads*7), 46, 45);
             
             //Start the animation
             [activityImageView startAnimating];
@@ -313,7 +316,7 @@
             [scrollViewMain addSubview:activityImageView];
             
             [self getResourcePathProduct];
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+425)];
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+125)];
             
             countLoads++;
         }
@@ -506,8 +509,12 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     if ([mutArrayProducts count] == 0 ||
-        [[GlobalFunctions getUserDefaults] objectForKey:@"token"] == nil)
+        [[[GlobalFunctions getUserDefaults] objectForKey:@"isLogOut"] isEqual:@"YES"]){
         [self reloadPage:nil];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"NO" forKey:@"isLogOut"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

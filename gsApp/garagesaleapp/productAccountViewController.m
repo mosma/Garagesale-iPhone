@@ -490,11 +490,11 @@
         imagePicker.delegate = self;
         
         // Allow editing of image ?
-        imagePicker.allowsImageEditing = NO;
-        
+        imagePicker.allowsImageEditing = YES;
+                
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
-    }    
+    } 
 }
 
 -(IBAction)saveProduct{

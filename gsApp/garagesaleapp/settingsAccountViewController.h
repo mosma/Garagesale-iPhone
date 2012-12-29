@@ -69,7 +69,6 @@
 
     __unsafe_unretained IBOutlet OHAttributedLabel  *labelTotalProducts;                             
     __unsafe_unretained IBOutlet OHAttributedLabel  *labelAboutAPP;
-    __unsafe_unretained IBOutlet UILabel  *labelAboutEMAIL;
 
     NSString                      *nibId;
     BOOL isSaved;

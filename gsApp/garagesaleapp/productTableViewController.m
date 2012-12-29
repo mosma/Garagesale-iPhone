@@ -122,7 +122,7 @@
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
     
-    [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(showSearch:) viewContr:self imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 32)]];
+    [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(showSearch:) viewContr:self imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 31)]];
     
     NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
     
@@ -159,6 +159,7 @@
         OHlabelTitleResults.attributedText = attrStr;
         
         [segmentControl setEnabled:YES];
+        [tableView setScrollEnabled:YES];
     }
     
     self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
@@ -171,6 +172,7 @@
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
     [segmentControl setEnabled:NO];
+    [tableView setScrollEnabled:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     //set Local Resource Defautl
@@ -520,14 +522,17 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
    // if (isSearchHidden)
     //    [self showSearch:nil];
+
     [searchBarProduct resignFirstResponder];
     if (_lastContentOffset < (int)self.tableView.contentOffset.y){
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
     else{
-        [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        if (tableView.contentOffset.y < tableView.contentSize.height-700) {
+          [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+          [self.navigationController setNavigationBarHidden:NO animated:YES];
+        }
     }
    // [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
@@ -536,10 +541,6 @@
     [searchBarProduct setHidden:YES];
     
     isSearchDisplayed = NO;
-}
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-  //  [self.navigationItem.rightBarButtonItem setEnabled:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

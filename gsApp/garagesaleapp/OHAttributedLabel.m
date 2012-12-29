@@ -127,9 +127,9 @@ NSDataDetector* sharedReusableDataDetector(NSTextCheckingTypes types)
 
 - (void)commonInit
 {
-    _linkColor = MRC_RETAIN([UIColor blueColor]);
-    _highlightedLinkColor = MRC_RETAIN([UIColor colorWithWhite:0.4 alpha:0.3]);
-	_linkUnderlineStyle = kCTUnderlineStyleSingle | kCTUnderlinePatternSolid;
+    //_linkColor = MRC_RETAIN([UIColor blueColor]);
+  //  _highlightedLinkColor = MRC_RETAIN([UIColor colorWithWhite:0.4 alpha:0.3]);
+//	_linkUnderlineStyle = kCTUnderlineStyleSingle | kCTUnderlinePatternSolid;
     
 	NSTextCheckingTypes linksType = NSTextCheckingTypeLink;
 	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel:0"]])

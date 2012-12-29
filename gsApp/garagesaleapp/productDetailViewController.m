@@ -232,9 +232,21 @@
             NSLog(@"Object Exist...");
         }
         
+        UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC)];
+        [gest setNumberOfTapsRequired:1];
+        [garageDetailView addGestureRecognizer:gest];
+        
         [labelNameProfile   setText:[[self.arrayProfile objectAtIndex:0] nome]];
-        [labelCityProfile   setText:[[self.arrayGarage objectAtIndex:0] city]];
-        [labelEmailProfile  setText:[[self.arrayProfile objectAtIndex:0] email]];
+        [labelCityProfile   setText:[NSString stringWithFormat:@"%@, %@, %@",
+                                     [[self.arrayGarage objectAtIndex:0] city],
+                                     [[self.arrayGarage objectAtIndex:0] district],
+                                     [[self.arrayGarage objectAtIndex:0] country]
+                                     ]];
+        
+        if ([labelCityProfile.text length] < 5)
+            [labelCityProfile setHidden:YES];
+        
+        [labelEmailProfile  setText:@"Veja mais produtos..."];
         
         [labelNameProfile setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
         [labelCityProfile setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];

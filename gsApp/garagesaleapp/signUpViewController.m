@@ -123,6 +123,9 @@
             [self getResourcePathGarage];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
             
+            [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+            
             ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
             [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];

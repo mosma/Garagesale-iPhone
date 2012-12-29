@@ -109,13 +109,17 @@
     [attrStr setTextColor:[UIColor grayColor]];
     [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"MoSMA"]];
     
-    
     [attrStr setLink:[NSURL URLWithString:@"http://mosma.us"] range:[titleAbout rangeOfString:@"MoSMA"]];
+    
+    [attrStr setLink:[NSURL URLWithString:@"mailto:contact@mosma.us"] range:[titleAbout rangeOfString:@"contact@mosma.us"]];  
     
     [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                     range:[titleAbout rangeOfString:@"MoSMA"]];
     
-    [labelAboutEMAIL setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                    range:[titleAbout rangeOfString:@"contact@mosma.us"]];
+    
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"contact@mosma.us"]];
     
     [buttonRightAbout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
     
@@ -455,6 +459,9 @@
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"YES" forKey:@"isLogOut"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
       navigationController] popToRootViewControllerAnimated:YES];
