@@ -38,52 +38,23 @@
 }
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
-    
     if (buttonSaveProduct.enabled) {
-
         [scrollView setUserInteractionEnabled:NO];
- 
         UIImageView *imageViewDelete      = (UIImageView *)sender.view;
-        //[imageViewDelete setHidden:YES];
         UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
-       // imageView.image = nil;
-        
-//        UIImageView * animation = [[UIImageView alloc] init];
-//        [animation setFrame:CGRectMake(10,10, 40, 40)];
-//        animation.animationImages = [NSArray arrayWithObjects:
-//                                     [UIImage imageNamed: @"iconEliminateItem1.png"],
-//                                     [UIImage imageNamed: @"iconEliminateItem2.png"],
-//                                     [UIImage imageNamed: @"iconEliminateItem3.png"],
-//                                     [UIImage imageNamed: @"iconEliminateItem4.png"]
-//                                     ,nil];
-//        [animation setAnimationRepeatCount:1];
-//        [animation setAnimationDuration:0.35];
-//        [animation startAnimating];
-//        [imageView addSubview:animation];
- //       [animation bringSubviewToFront:imageView];
         
         [UIView animateWithDuration:0.25 animations: ^{
             imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
             [imageView setAlpha:0];
-
             [self reconfigureImagesAfterRemoving:imageView];
-
-
         } completion:^(BOOL finished){
-            
             NSArray *imageViews         = [scrollView subviews];
             int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
-            
             [imageView removeFromSuperview];
-            
             if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
                 [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
-            
             [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
         }];
-        
-
-        
         if ([nsMutArrayPicsProduct count] < 11){
             buttonAddPics.enabled = YES;
             [buttonAddPics setAlpha:1.0];
@@ -121,9 +92,7 @@
     CGSize size = scrollView.contentSize;
     size.width = size.width - imageWidth_ -self.widthPaddingInImages;
     scrollView.contentSize = size;
-
 }
-
 
 -(void)addImageToScrollView:(UIImage *)aImage
                 photoReturn:(PhotoReturn *)photoReturn
@@ -138,7 +107,6 @@
     //[uplImageDelegate.imageView setExclusiveTouch:YES];
     [imgViewDelete setUserInteractionEnabled:YES];
     [imgViewDelete setMultipleTouchEnabled:YES];
-    
     
     /* Configure ImageView in gallery */
     UIImageView *imgViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
@@ -211,25 +179,20 @@
 
 -(void)animePicsGallery:(UITapGestureRecognizer *)sender{
     @try {
-     UIImageView *imageView      = (UIImageView *)sender.view;
+        UIImageView *imageView      = (UIImageView *)sender.view;
 
-     //Remove imgViewDelete
-     //        for (UIView *subview in [imageView subviews])
-     //            if (subview.tag == 455)
-     //                [subview removeFromSuperview];
-     
-     NSArray *imageViews         = [scrollView subviews];
-     int indexOfImageAtScroll_right = [imageViews indexOfObject:imageView];
-     int indexOfImageAtScroll_left = [imageViews indexOfObject:imageView]-1;
+        NSArray *imageViews         = [scrollView subviews];
+        int indexOfImageAtScroll_right = [imageViews indexOfObject:imageView];
+        int indexOfImageAtScroll_left = [imageViews indexOfObject:imageView]-1;
         
-    for (int x = 0; x < [nsMutArrayPhotosDelegate count]; x++)// {
-        if ([[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] == @"")
-            [nsMutArrayPhotosDelegate removeObjectAtIndex:x];
+        for (int x = 0; x < [nsMutArrayPhotosDelegate count]; x++)// {
+            if ([[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] == @"")
+                [nsMutArrayPhotosDelegate removeObjectAtIndex:x];
     
-    if ([nsMutArrayNames count] < [nsMutArrayPicsProduct count])
-        for (int x = 0; x <= [nsMutArrayPicsProduct count]; x++)
-            if (x >= [nsMutArrayNames count] && [nsMutArrayNames count] != [nsMutArrayPicsProduct count])
-                [nsMutArrayNames insertObject:[[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] atIndex:x];
+        if ([nsMutArrayNames count] < [nsMutArrayPicsProduct count])
+            for (int x = 0; x <= [nsMutArrayPicsProduct count]; x++)
+                if (x >= [nsMutArrayNames count] && [nsMutArrayNames count] != [nsMutArrayPicsProduct count])
+                    [nsMutArrayNames insertObject:[[(UploadImageDelegate *)[nsMutArrayPhotosDelegate objectAtIndex:x] photoReturn] valueForKey:@"name"] atIndex:x];
 
         UIImageView *leftImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_left];
         UIImageView *rightImgV = [[scrollView subviews] objectAtIndex:indexOfImageAtScroll_right];
@@ -239,7 +202,6 @@
 
         [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_left withObject:rightImgV];
         [nsMutArrayPicsProduct replaceObjectAtIndex:indexOfImageAtScroll_right withObject:leftImgV];
-
         
         NSString *rightS = [nsMutArrayNames objectAtIndex:indexOfImageAtScroll_right];
         NSString *leftS = [nsMutArrayNames objectAtIndex:indexOfImageAtScroll_left];

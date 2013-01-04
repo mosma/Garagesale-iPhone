@@ -43,6 +43,8 @@
 - (void)loadAttribsToComponents{
     searchBarProduct.hidden=YES;
     
+    mutArrayProducts = [[NSMutableArray alloc] init];
+    
     shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 320, 420)];
     [shadowSearch setBackgroundColor:[UIColor blackColor]];
     [shadowSearch setAlpha:0.7];
@@ -157,13 +159,9 @@
     
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
-    
     self.navigationItem.hidesBackButton = YES;
-    
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
-    
     scrollViewMain.delegate = self;
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
@@ -188,8 +186,9 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
-        [mutArrayProducts removeAllObjects];
-        mutArrayProducts = (NSMutableArray *)objects;
+        for (int x=0; x < [objects count]; x++)
+            [mutArrayProducts addObject:(Product *)[objects objectAtIndex:x]];
+        
         [self loadButtonsProduct];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
@@ -208,7 +207,6 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
@@ -270,7 +268,7 @@
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = 0; i < [mutArrayProducts count]; i++)
+    for(int i = [mutArrayProducts count]-12; i < [mutArrayProducts count]; i++)
     {
         [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:
                                                                               [mutArrayProducts objectAtIndex:i],
@@ -286,7 +284,6 @@
 }
 
 - (BOOL)detectEndofScroll{
-    
     BOOL scrollResult;
     CGPoint offset = self.scrollViewMain.contentOffset;
     CGRect bounds = self.scrollViewMain.bounds;
@@ -353,6 +350,7 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [mutArrayProducts removeAllObjects];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationController setNavigationBarHidden:YES];
     for (UIButton *subview in [scrollViewMain subviews])
@@ -458,8 +456,6 @@
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
                                      [objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     
-    //[prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
-                                     //[objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     [prdTbl setStrTextSearch:objetct];
     [self.navigationController pushViewController:prdTbl animated:YES];
 }
@@ -471,26 +467,16 @@
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
     if (!isSearchDisplayed) {
-       // [searchBarProduct setTransform:CGAffineTransformMakeTranslation(0, 0)];
         [searchBarProduct setHidden:NO];
-        
-        
-
         [shadowSearch setHidden:NO];
         [searchBarProduct becomeFirstResponder];
     }
     else {
-        //[searchBarProduct setTransform:CGAffineTransformMakeTranslation(0,  -80)];
         [searchBarProduct setHidden:YES];
-        
-        
         [shadowSearch setHidden:YES];
-        
         [searchBarProduct resignFirstResponder];
     }
-    
     isSearchDisplayed = !isSearchDisplayed;
-    
     [UIView commitAnimations];
 }
 

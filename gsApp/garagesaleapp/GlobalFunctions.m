@@ -17,7 +17,7 @@
 @synthesize countColumnImageThumbs;
 
 +(NSString *)getUrlServicePath {
-    //return @"http://gsapi.local";//text/html
+    //return @"http://169.254.251.178";//text/html
     return @"http://gsapi.easylikethat.com";//text/plain
     //return @"http://api.garagesaleapp.me";//text/plain
 }

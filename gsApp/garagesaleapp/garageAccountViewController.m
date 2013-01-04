@@ -24,7 +24,6 @@
 @synthesize scrollViewMain;
 @synthesize scrollViewProducts;
 @synthesize mutArrayProducts;
-//@synthesize mutDictDataThumbs;
 @synthesize profile;
 @synthesize garage;
 @synthesize viewTop;
@@ -55,7 +54,7 @@
                  urlThumb = [[[[[[mutArrayProducts objectAtIndex:x] fotos] objectAtIndex:0] caminho] objectAtIndex:0] mobile];
             }
             @catch (NSException *exception) {
-                urlThumb = @"http://s3-sa-east-1.amazonaws.com/garagesale-static-content/images/nopicture.png";
+                urlThumb = @"http://garagesaleapp.me/images/nopicture.png";
                 NSLog(@"%@", exception.description);
             }
             @finally {
@@ -77,7 +76,6 @@
     [super awakeFromNib];
 }
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -91,7 +89,6 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc that aren't in use.
 }
 
@@ -108,11 +105,8 @@
     newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
     newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
     [self.view.layer addSublayer:newShadow];
-    
-  //  if (![[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]){
-        [self loadAttribsToComponents:NO];
-        [self reloadPage:nil];
-   // }
+    [self loadAttribsToComponents:NO];
+    [self reloadPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -223,9 +217,7 @@
        // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-        
-//        [viewTop setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backgroundGarageTop.png"]]];
-        
+                
     } else {
 
         [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
@@ -234,9 +226,7 @@
                                                           withValue:nil];
         
         [segmentControl setEnabled:YES];
-        
-
-        
+                
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -288,7 +278,6 @@
         [self awakeFromNib];
         [tableViewProducts reloadData];
         [self loadAttribsToComponents:YES];
-       // isLoadingDone = !isLoadingDone;
         self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
         [scrollViewMain setUserInteractionEnabled:YES];
         [viewNoProducts setHidden:YES];
@@ -331,30 +320,9 @@
     }
 }
 
-//-(void)initLoadingGuear{
-//    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-//	[self.scrollViewMain addSubview:HUD];
-//	
-//	// Regiser for HUD callbacks so we can remove it from the window at the right time
-//    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
-//	HUD.delegate = self;
-//    HUD.labelText = @"Loading Products";
-//    HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
-//    
-//    // Show the HUD while the provided method executes in a new thread
-//	[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-//}
-
 -(void)backPage{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-//- (void)myTask {
-//	// Do something usefull in here instead of sleeping ...
-//	while (!isLoadingDone) {
-//		sleep(1);
-//	}
-//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.tag == 0){
@@ -389,17 +357,16 @@
     }
 }
 
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _lastContentOffset = scrollView.contentOffset.y;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
-
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
@@ -455,8 +422,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
     static NSString             *CellIdentifier = @"CellProduct";
     productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
@@ -573,6 +538,9 @@
         [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    if ([mutArrayProducts count] == 0)
+        [self reloadPage:nil];
 }
 
 - (void)viewDidUnload

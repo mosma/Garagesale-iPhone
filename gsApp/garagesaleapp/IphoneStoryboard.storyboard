@@ -2068,7 +2068,7 @@
                                                     <rect key="frame" x="10" y="359" width="300" height="6"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="sKx-4N-M8L">
+                                                <imageView contentMode="scaleToFill" id="sKx-4N-M8L">
                                                     <rect key="frame" x="10" y="318" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2254,7 +2254,6 @@
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="pageControlCliked"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
@@ -2375,6 +2374,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wok-pH-dlx"/>
+        <segue reference="4gr-vC-Jdq"/>
     </inferredMetricsTieBreakers>
 </document>

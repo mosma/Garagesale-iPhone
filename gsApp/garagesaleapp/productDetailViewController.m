@@ -104,7 +104,6 @@
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-   
     if (!isFromLoadObject) {
         /*
          Esta verificaçao esta errada... bbbba garagem pode
@@ -181,7 +180,6 @@
         self.navigationItem.rightBarButtonItem = random;
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
 
-        
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
 
         [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
@@ -213,9 +211,6 @@
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
-        
-        
-
     }else {
         [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
         
@@ -254,7 +249,6 @@
         labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
         labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
         
-        
         UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
@@ -287,7 +281,6 @@
         
         int countPhotos = (int)[self.product.fotos count];
 
-        
         PagContGallery = [[UIPageControl alloc] init];
         [PagContGallery setNumberOfPages:countPhotos];
         
@@ -321,8 +314,6 @@
             imageView               = [[UIImageView alloc] initWithImage:image];
         }
         
-        
-        
         //Shadow Top below navigationBar
         CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
         CGColorRef lightColor = [UIColor clearColor].CGColor;
@@ -339,7 +330,6 @@
         } else
             [viewControl.layer addSublayer:newShadow];
 
-        
         [activityIndicator stopAnimating];
     }
 }
@@ -367,9 +357,7 @@
     sharePopOverVC.parent = self;
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
-    
-    //popover.arrowDirection = FPPopoverArrowDirectionAny;
-    
+        
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         popover.contentSize = CGSizeMake(300, 500);
@@ -379,9 +367,7 @@
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
-    
-   // popover.tint = FPPopoverLightGrayTint;
-    
+        
     UIView* btnView = sender;
     
     //sender is the UIButton view
@@ -434,7 +420,6 @@
     [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-    
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -531,10 +516,6 @@
 }
 
 -(IBAction)reportGarage:(id)sender {
-    //garage/nomegarage?absuse=true
-    //fazer get
-    // nao precisa tratar o retorno.
-    
     NSString *urlString = [NSString stringWithFormat:@"http://garagesaleapp.me/%@/reportAbuse", self.product.idPessoa];
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
@@ -611,7 +592,9 @@
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{
     UIImage *image;
-    /*copy pagCont.currentPage with NSString, we do this because pagCont is instable acconding fast or slow scroll*/
+    /*copy pagCont.currentPage with NSString, we do 
+     this because pagCont is instable acconding fast
+     or slow scroll*/
     NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
     [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
                                    withObject:pageCCopy];
@@ -710,11 +693,6 @@
         }
 }
 
--(IBAction)pageControlCliked{
-    //CGPoint offset = CGPointMake(PagContGallery.currentPage * self.view.frame.size.width, 0);
-    //[galleryScrollView setContentOffset:offset animated:YES];
-}
-
 -(void) hideMsgBidSent {
     [UIView beginAnimations:@"msgFade" context:nil];
     [UIView setAnimationDuration:0.5];
@@ -740,12 +718,16 @@
 }
 
 - (IBAction)gotoGarageDetailVC{
-    garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
-    [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
-    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
     
-    [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
-    [self.navigationController pushViewController:garaAcc animated:YES];
+    if ([[self.navigationController viewControllers] count] >= 4)
+        [self.navigationController popViewControllerAnimated:YES];
+    else {
+        garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
+        [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
+        [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
+        [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
+        [self.navigationController pushViewController:garaAcc animated:YES];
+    }
 }
 
 - (IBAction)gotoUserProductTableVC{
@@ -863,17 +845,6 @@
     rc.size.height = 300;
     [scrollViewMain scrollRectToVisible:rc animated:YES];
     
-    /* 
-     Use this block case use UITableView
-    
-    UITableViewCell *cell = nil;
-    if ([textField isKindOfClass:[UITextField class]])
-        cell = (UITableViewCell *) ((UITextField *) textField).superview.superview;
-    else if ([textField isKindOfClass:[UITextView class]])
-        cell = (UITableViewCell *) ((UITextView *) textField).superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    */
 }
 
 /* 

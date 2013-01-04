@@ -122,14 +122,10 @@
             [self setProfile:objects];
             [self getResourcePathGarage];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            
             [self.navigationController setNavigationBarHidden:YES animated:NO];
-
-            
             ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
             [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];
-
             [self setGarage:objects];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
@@ -327,9 +323,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] address]        forKey:@"address"];
     [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
-
     [settingsAccount synchronize];
-    
     isLoadingDone = YES;
 }
 
@@ -342,7 +336,6 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idRole]   forKey:@"idRole"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
-    
     [settingsAccount setObject:@"YES"       forKey:@"isSettingsChange"];
     [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
 
@@ -470,8 +463,6 @@
      [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
      */
 }
-
-
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if ([textField isEqual:textFieldGarageName]){

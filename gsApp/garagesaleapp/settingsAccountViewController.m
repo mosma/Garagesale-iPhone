@@ -17,6 +17,7 @@
 @end
 
 @implementation settingsAccountViewController
+
 @synthesize labelCurrentPassword;
 @synthesize labelNewPassword;
 @synthesize labelRepeatPassword;
@@ -32,7 +33,6 @@
 @synthesize txtFieldCity;
 @synthesize txtFieldDistrict;
 @synthesize txtFieldCountry;
-
 @synthesize labelGarageName;
 @synthesize labelYourName;
 @synthesize labelEmail;
@@ -45,14 +45,10 @@
 @synthesize txtFieldAnyLink;
 @synthesize keyboardControls;
 @synthesize settingsAccount;
-
 @synthesize buttonRightAbout;
-
 @synthesize labelAboutAPP;
 @synthesize labelTotalProducts;
-
 @synthesize totalProducts;
-
 @synthesize RKObjManeger;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -80,7 +76,6 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-    
 }
 
 - (void)loadAttribsToComponents{    
@@ -188,7 +183,6 @@
     txtFieldEmail.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
-    
     garageName.font        = [UIFont fontWithName:@"DroidSans-Bold" size:20 ];
     
     city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
@@ -203,7 +197,8 @@
     imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect: CGRectMake(0, 0, 40, 30)];
+                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"
+                                                                             rect:CGRectMake(0, 0, 40, 30)];
     [self setupKeyboardControls];
 }
 
@@ -303,20 +298,11 @@
     
     //If no error we send the post, voila!
     if (!error){
-        
-        //Add ProductJson in postData for key profile
-//        [postData setObject:json forKey:@"profile"];
-//        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312", 6]  params:postData delegate:self] send];
-//        [postData setObject:json forKey:@"garage"];
-//        [[[RKClient sharedClient] post:@"/garage/turcoloco/?XDEBUG_SESSION_START=ECLIPSE_DBGP&KEY=13488512403312" params:postData delegate:self] send];
-        
-        
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i", [[[GlobalFunctions getUserDefaults] objectForKey:@"id"] intValue]]  params:postData delegate:self] send];
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
-        
         
         self.trackedViewName = [NSString stringWithFormat:@"/%@/settings", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
     }
@@ -364,14 +350,12 @@
 
 -(BOOL)validateFormNameProfile{
     BOOL isValid = YES;
-    
     if ([txtFieldYourName.text length] < 3) {
         [txtFieldYourName setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldYourName setPlaceholder:@"Hey, you must tell us your name"];
         isValid = NO;
     }
-    
     return isValid;
 }
 
@@ -413,7 +397,6 @@
     }
 }
 
-
 /**
  * Sent when a request has failed due to an error
  */
@@ -421,36 +404,11 @@
     isSaved = NO;
 }
 
-
 -(void)logout:(id)sender{
     /*
      Reset Token... Colocar isso no globalfuncionts
      */
-    
     [self getResourcePathLogOut];
-    
-//    for (UIViewController *vc in self.navigationController.viewControllers)
-//    {
-//        UIViewController *vc = v;
-//        if ([vc isKindOfClass:[ViewController class]])
-//        {
-//            [vc.navigationController popToRootViewControllerAnimated:YES];
-//        }
-//        
-//        if ([vc isKindOfClass:[productDetailViewController class]])
-//        {
-//            [vc.navigationController popToRootViewControllerAnimated:YES];
-//        }
-//        
-//        if ([vc isKindOfClass:[garageAccountViewController class]])
-//        {
-//            [[(garageAccountViewController *)vc mutArrayProducts] removeAllObjects];
-//        }
-      //  vc.view = nil;
-       // [vc viewDidLoad];
-    
-//    }
-    
     
     NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
     
@@ -469,11 +427,7 @@
     self.tabBarController.selectedIndex = 0;
     
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
-      navigationController] popToRootViewControllerAnimated:NO];
-    
-//    [[[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController] viewDidLoad];
-//    
-//    [[self.tabBarController.viewControllers objectAtIndex:1] visibleViewController].view = nil;
+      navigationController] popToRootViewControllerAnimated:NO];    
 }
 
 -(void)backPage{
@@ -516,10 +470,6 @@
         return YES;
     }
 }
-
-//-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
-//}
 
 - (void)setGarage:(NSArray *)objects{
     //Garage
@@ -631,7 +581,7 @@
     rc.size.height = 340;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
-    /* 
+    /*
      Use this block case use UITableView
      
      UITableViewCell *cell = nil;

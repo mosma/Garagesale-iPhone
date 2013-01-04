@@ -98,7 +98,7 @@
     if ([tabBar isKindOfClass:[UITabBar class]])
         ((UITabBar *)tabBar).delegate = self;
     
-    self.tabBarController.delegate = self;
+    //self.tabBarController.delegate = self;
     
     gallery = [[photosGallery alloc] init];
     [gallery setButtonAddPics:buttonAddPics];
@@ -157,7 +157,6 @@
     else
         [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
     
-    
     //Create done button in UIPickerView
     UIToolbar       *picViewStateToolbar    = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];
     [picViewStateToolbar setBarStyle:UIBarStyleBlackOpaque];
@@ -182,7 +181,7 @@
             [scrollViewPicsProduct addSubview:waiting];
         [self loadingProduct];
     }else {
-        [self getResourcePathPhotoReturnNotSaved];
+       // [self getResourcePathPhotoReturnNotSaved];
         self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
     }
@@ -290,26 +289,6 @@
 
 - (IBAction)animationPicsControl{
     //Limited Maximum At Pics Add Gallery
-
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.3];
-//    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-//    
-//    if (viewPicsControl.hidden) {
-//        [self.scrollView insertSubview:shadowView belowSubview:viewPicsControl];
-//        viewPicsControl.hidden = NO;
-//        viewPicsControl.alpha = 1.0;
-//        shadowView.alpha = 0.7;
-//    } else {
-//        viewPicsControl.alpha = 0;
-//        shadowView.alpha = 0;
-//        viewPicsControl.hidden = YES;
-//        [shadowView removeFromSuperview];
-//    }
-//    
-//    [UIView commitAnimations];
-    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:nil
                                               cancelButtonTitle:@"Cancel"
@@ -350,23 +329,23 @@
                     }];
 }
 
--(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                           delegate:nil 
-                                                  cancelButtonTitle:@"Cancel" 
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
-}
+//-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+//    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+//    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+//        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
+//                                                           delegate:nil 
+//                                                  cancelButtonTitle:@"Cancel" 
+//                                             destructiveButtonTitle:nil
+//                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+//        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+//        sheet.delegate = self;
+//        [sheet showInView:self.view];
+//        [sheet showFromTabBar:self.tabBarController.tabBar];
+//        return NO;
+//    } else {
+//        return YES;
+//    }
+//}
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (self.product != nil && actionSheet.tag != 99)
@@ -437,7 +416,6 @@
     }
 }
 
-
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     if ([request isGET]) {
         // Handling GET /foo.xml
@@ -459,14 +437,11 @@
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
-
-        
         if (self.product != nil) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self.navigationController popToRootViewControllerAnimated:YES];
-
         }
             
         if ([response isNotFound]) {
@@ -476,7 +451,6 @@
 }
 
 - (void)getTypeCameraOrPhotosAlbum:(UIImagePickerControllerSourceType)type{
-    
     //check presence of a camera:
     if ([UIImagePickerController isSourceTypeAvailable:
          UIImagePickerControllerSourceTypeCamera]) {
@@ -603,26 +577,22 @@
         
         [self newProductFinished:(self.product == nil)];
     }
-    
     _postProdDelegate.isSaveProductFail = NO;
 }
 
 -(BOOL)validateForm{
     BOOL isValid = YES;
-
     if ([txtFieldTitle.text length] <= 2) {
         [txtFieldTitle setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldTitle setPlaceholder:@"Hey, your product must have a name!"];
         isValid = NO;
     } 
-    
     if ([txtFieldValue.text length] == 0) {
         [txtFieldValue setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
         isValid = NO;
-    } 
-    
+    }
     return isValid;
 }
 
@@ -632,7 +602,6 @@
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToTabBarController:2];
-
         self.view = nil;
        [self viewDidLoad];
         [scrollView setContentOffset:CGPointZero animated:NO];
@@ -650,7 +619,6 @@
 
 -(void)loadAttributsToPhotos:(NSArray *)fotos{
     @try {
-
         for (int i=0; i < [fotos count]; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
                                            [(PhotoReturn *)[fotos objectAtIndex:i] icon_url]]];
@@ -664,7 +632,6 @@
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
-    
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
@@ -788,7 +755,6 @@
     if ([textField isEqual:txtFieldValue])
         if (![GlobalFunctions onlyNumberKey:string])
             return NO;
-    
     if ([textField isEqual:txtFieldTitle]){
         int limit = 80;
         return !([textField.text length]>limit && [string length] > range.length);
@@ -797,17 +763,11 @@
         int limit = 6;
         return !([textField.text length]>limit && [string length] > range.length);
     }
-
-//    if ( [string length] > 1) {
-//        return NO;
-//    }
     return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
-    
     if (textField.tag == PICKERSTATE || textField.tag == PICKERCURRENCY) {
         for (UIView *v in textField.subviews)
             if ([[[v class] description] rangeOfString:@"UITextSelectionView"].location != NSNotFound)
@@ -853,9 +813,7 @@
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (action == 1)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-       
-       //textViewDescription.text = @"";
-       
+              
        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
        [[NSUserDefaults standardUserDefaults] synchronize];
@@ -864,11 +822,11 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
     viewPicsControl = nil;
     [self setViewPicsControl:nil];
     buttonAddPics = nil;
     [self setButtonAddPics:nil];
-    [super viewDidUnload];
     
     gallery = nil;
     [self setGallery:nil];

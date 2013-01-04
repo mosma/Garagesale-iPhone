@@ -32,7 +32,6 @@
     //Instacied for Parent. Using in productDetailViewController, productTableViewController.
     Profile             *profile;
     Garage              *garage;
-   // BOOL                isLoadingDone;
     CGFloat                                     _lastContentOffset;
     UIImage *imageGravatar;
     __unsafe_unretained IBOutlet UILabel            *emailLabel;

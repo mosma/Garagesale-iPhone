@@ -275,6 +275,7 @@
 		CCCE58891577FC0500F51ACA /* btBidThisItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE58871577FC0500F51ACA /* btBidThisItem@2x.png */; };
 		CCCE588C1577FD4600F51ACA /* btCancelBidItem.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */; };
 		CCCE588D1577FD4600F51ACA /* btCancelBidItem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */; };
+		CCCE9DCA1693CD2300E53DED /* nopicture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCCE9DC91693CD2300E53DED /* nopicture@2x.png */; };
 		CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD07459165420E100156DAC /* sharePopOverViewController.m */; };
 		CCD0745C165424EB00156DAC /* addThisButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD0745B165424EA00156DAC /* addThisButton.png */; };
 		CCD7958415C3118900F0B4D3 /* uitextViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958215C3118900F0B4D3 /* uitextViewBackground.png */; };
@@ -680,6 +681,7 @@
 		CCCE58871577FC0500F51ACA /* btBidThisItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btBidThisItem@2x.png"; sourceTree = "<group>"; };
 		CCCE588A1577FD4600F51ACA /* btCancelBidItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btCancelBidItem.png; sourceTree = "<group>"; };
 		CCCE588B1577FD4600F51ACA /* btCancelBidItem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btCancelBidItem@2x.png"; sourceTree = "<group>"; };
+		CCCE9DC91693CD2300E53DED /* nopicture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nopicture@2x.png"; sourceTree = "<group>"; };
 		CCD07458165420E100156DAC /* sharePopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharePopOverViewController.h; sourceTree = "<group>"; };
 		CCD07459165420E100156DAC /* sharePopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharePopOverViewController.m; sourceTree = "<group>"; };
 		CCD0745B165424EA00156DAC /* addThisButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addThisButton.png; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CCCE9DC91693CD2300E53DED /* nopicture@2x.png */,
 				CC6EE8CD168B7F6E00AB4E87 /* addcam.png */,
 				CC6EE8CE168B7F6E00AB4E87 /* addcam@2x.png */,
 				CC6EE8CF168B7F6E00AB4E87 /* addcamover.png */,
@@ -1693,6 +1696,7 @@
 				CC6EE8D2168B7F6E00AB4E87 /* addcam@2x.png in Resources */,
 				CC6EE8D3168B7F6E00AB4E87 /* addcamover.png in Resources */,
 				CC6EE8D4168B7F6E00AB4E87 /* addcamover@2x.png in Resources */,
+				CCCE9DCA1693CD2300E53DED /* nopicture@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

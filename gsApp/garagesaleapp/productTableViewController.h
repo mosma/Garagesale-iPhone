@@ -19,10 +19,7 @@
                                                                 RKObjectLoaderDelegate,
                                                                 UIScrollViewDelegate,
                                                                 UITabBarDelegate, NSURLConnectionDataDelegate> {
-
-    BOOL                    *isSearchDisplayed;
-    BOOL                    *isSegmentedControlChanged;
-
+    BOOL                    isSearchDisplayed;
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
     NSString                *strLocalResourcePath;
@@ -31,7 +28,7 @@
     UISearchBar       *searchBarProduct;
     STSegmentedControl *segmentControl;
     __unsafe_unretained IBOutlet UIView *viewSegmentArea;
-    __unsafe_unretained IBOutlet UITableView        *tableView;                                                          
+    __unsafe_unretained IBOutlet UITableView *tableView;                                                          
     CGFloat _lastContentOffset;
     UIView *shadowSearch;
 }

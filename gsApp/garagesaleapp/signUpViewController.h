@@ -20,7 +20,6 @@
                                                     UIScrollViewDelegate, 
                                                     RKObjectLoaderDelegate,
                                                     MBProgressHUDDelegate>{
-                                      
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
     __weak IBOutlet UILabel         *labelLogin;
@@ -69,7 +68,6 @@
 //Others
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSUserDefaults        *settingsAccount;
-
 
 //Actions and functions
 -(void)loadAttribsToComponents;

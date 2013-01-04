@@ -133,7 +133,6 @@
 - (IBAction)isNumberKey:(UITextField *)textField;
 - (IBAction)bidPost:(id)sender;
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
-- (IBAction)pageControlCliked;
 - (void)getResourcePathProduct:(NSString *)localResource;
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
 - (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView;
