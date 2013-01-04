@@ -140,17 +140,17 @@
     if (validatorFlag == 0){
         [textFieldUserPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldUserPassword setPlaceholder:@"Invalid Password or Email"];
+        [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
         textFieldUserPassword.text = @"";        
     } else if (validatorFlag == 1){
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldGarageName setPlaceholder:[NSString stringWithFormat:@"Hey, %@ already exist!", textFieldGarageName.text]];
+        [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         textFieldGarageName.text = @"";
     } else if (validatorFlag == 2) {
         [textFieldEmail setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldEmail setPlaceholder:@"Hey, Email already exist or not is valid!"];
+        [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         textFieldEmail.text = @"";
     }
     isLoadingDone = YES;
@@ -270,7 +270,7 @@
     if (![GlobalFunctions isValidEmail:textFieldEmail.text]){
         [textFieldEmail setValue:[UIColor redColor]
                        forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldEmail setPlaceholder:@"Hey, this is not a valid email!"];
+        [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         textFieldEmail.text = @"";
     } else {
         RKObjectMapping *mapping = [Mappings getValidEmailMapping];
@@ -285,28 +285,28 @@
     if ([textFieldGarageName.text length] < 3) {
         [textFieldGarageName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldGarageName setPlaceholder:@"Hey, this is not a valid Garage Name!"];
+        [textFieldGarageName setPlaceholder: NSLocalizedString(@"form-invalid-garage-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldPersonName.text length] < 3) {
         [textFieldPersonName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldPersonName setPlaceholder:@"Hey, this is not a valid Name!"];
+        [textFieldPersonName setPlaceholder: NSLocalizedString(@"form-invalid-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldEmail.text length] == 0) {
         [textFieldEmail setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                            forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldEmail setPlaceholder:@"Hey, Email can not be empty!"];
+        [textFieldEmail setPlaceholder: NSLocalizedString(@"form-empty-email", nil)];
         isValid = NO;
     }
     
     if ([textFieldPassword.text length] < 5) {
         [textFieldPassword setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                            forKeyPath:@"_placeholderLabel.textColor"];
-        [textFieldPassword setPlaceholder:@"Hey, this is not a valid Password!"];
+        [textFieldPassword setPlaceholder: NSLocalizedString(@"form-invalid-password", nil)];
         isValid = NO;
     }
     
@@ -418,10 +418,10 @@
     self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
     
     // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = @"Previous";
+    self.keyboardControls.previousTitle = NSLocalizedString( @"keyboard-previous-btn",nil);
     
     // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = @"Next";
+    self.keyboardControls.nextTitle = NSLocalizedString( @"keyboard-next-btn",nil);
     
     // Add the keyboard control as accessory view for all of the text fields
     // Also set the delegate of all the text fields to self

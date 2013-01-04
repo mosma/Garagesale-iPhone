@@ -137,14 +137,14 @@
          if ([strTextSearch length] != 0)
             [searchBarProduct setText:strTextSearch];
          
-        NSString *text = [NSString stringWithFormat:@"%i results for \"%@\"", [mutArrayProducts count], strTextSearch];
+        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"search-result", nil), [mutArrayProducts count], strTextSearch];
         NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
         
         [self.tableView setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.f]];
         
         NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
         [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:@"results for"]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15] range:[text rangeOfString:NSLocalizedString(@"results-for", nil)]];
         [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                         range:[text rangeOfString:count]];
@@ -196,10 +196,10 @@
         
     }else{
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Search not found!"
-                              message: @"No itens found for this search."
+                              initWithTitle: NSLocalizedString(@"search-not-found", nil)
+                              message: NSLocalizedString(@"search-not-found-info", nil)
                               delegate: nil
-                              cancelButtonTitle:@"OK"
+                              cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
                               otherButtonTitles:nil];
         [alert show];
     }
@@ -289,8 +289,8 @@
     
     NSString *valorEsperadoFormat;
     if (segmentControl.selectedSegmentIndex != 0)
-        valorEsperadoFormat = @"%@%@ \r\nby %@"; //break line.
-    else valorEsperadoFormat = @"%@%@ by %@"; 
+        valorEsperadoFormat = NSLocalizedString(@"format-expected-value-2line", nil); //break line.
+    else valorEsperadoFormat = NSLocalizedString(@"format-expected-value-1line", nil); 
     
     NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
                                                    [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
@@ -309,7 +309,7 @@
     [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
                     range:[strFormat rangeOfString:garageName]];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
-                                                                        [NSString stringWithFormat:@"by %@", garageName]]];
+                                                                        [NSString stringWithFormat:NSLocalizedString(@"format-expected-value-by", nil), garageName]]];
     
     //Check Flag idEstado (1 - Não Vendido, 2 - Vendido)
     if ([[[mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
@@ -522,9 +522,12 @@
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
                                                            delegate:nil 
-                                                  cancelButtonTitle:@"Cancel" 
+                                                  cancelButtonTitle: NSLocalizedString(@"keyboard-cancel-btn", nil)
                                              destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
+                                                                    NSLocalizedString(@"sheet-library-item", nil),
+                                                                    NSLocalizedString(@"sheet-no-pic-item", nil),
+                                                                    nil];
         [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
         sheet.delegate = self;
         [sheet showInView:self.view];

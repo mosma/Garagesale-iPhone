@@ -69,9 +69,9 @@
     [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
     [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
     
-    [item0 setTitle:@"Explore"];
-    [item1 setTitle:@"Add product"];
-    [item2 setTitle:@"My garage"];
+    [item0 setTitle: NSLocalizedString( @"menu-explore", nil)];
+    [item1 setTitle: NSLocalizedString( @"menu-add-product", nil)];
+    [item2 setTitle: NSLocalizedString( @"menu-my-garage", nil)];
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
 
@@ -152,7 +152,7 @@
     [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
     numberToolbar.items = [NSArray arrayWithObjects:
                            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
+                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
                            nil];
     [numberToolbar sizeToFit];
     [txtFieldSearch setInputAccessoryView:numberToolbar];
@@ -249,9 +249,11 @@
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                            delegate:nil
-                                                  cancelButtonTitle:@"Cancel"
+                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn" , nil)
                                              destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item" , nil),
+                                                                    NSLocalizedString(@"sheet-library-item" , nil),
+                                                                    NSLocalizedString(@"sheet-no-pic-item" , nil), nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
         [sheet showInView:self.view];

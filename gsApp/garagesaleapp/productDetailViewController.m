@@ -145,13 +145,13 @@
         [OHlabelValorEsperado   setText:[self.product valorEsperado]];
         
         //set Navigation Title with OHAttributeLabel
-        NSString *titleNavItem = [NSString stringWithFormat:@"%@ garage", product.idPessoa];
+        NSString *titleNavItem = [NSString stringWithFormat: NSLocalizedString(@"garages-garage", nil) , product.idPessoa];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
         // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
         [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
         [attrStr setTextColor:[UIColor whiteColor]];
         [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
-                        range:[titleNavItem rangeOfString:@"garage"]];
+                        range:[titleNavItem rangeOfString:NSLocalizedString(@"garages-garage-string", nil)]];
         CGRect frame = CGRectMake(100, 0, 320, 27);
         OHAttributedLabel *label = [[OHAttributedLabel alloc] initWithFrame:frame];
         [label setBackgroundColor:[UIColor clearColor]];
@@ -241,7 +241,7 @@
         if ([labelCityProfile.text length] < 5)
             [labelCityProfile setHidden:YES];
         
-        [labelEmailProfile  setText:@"Veja mais produtos..."];
+        [labelEmailProfile  setText:NSLocalizedString(@"see-more-products", nil)];
         
         [labelNameProfile setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
         [labelCityProfile setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
@@ -453,11 +453,19 @@
 -(IBAction)bidPost:(id)sender{
     //Validate fields
     if (([txtViewComment.text length] == 0)) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterValueProduct", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"")
+                                                      message:NSLocalizedString(@"enterValueProduct", @"")
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
         [alert show];
         return;
     } else if([txtFieldEmail.text length] == 0 || ![GlobalFunctions isValidEmail:txtFieldEmail.text]) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"") message:NSLocalizedString(@"enterEmail", @"") delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"")
+                                                      message:NSLocalizedString(@"enterEmail", @"")
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -494,7 +502,11 @@
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"Atenção!" message:@"Deseja Realmente excluir ?" delegate:self cancelButtonTitle:@"cancelar" otherButtonTitles:@"Deletar", nil];
+    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"delete-product-title", nil)
+                                                     message: NSLocalizedString(@"delete-product-desc", nil)
+                                                    delegate: self
+                                           cancelButtonTitle: NSLocalizedString(@"delete-product-btn1", nil)
+                                           otherButtonTitles: NSLocalizedString(@"delete-product-btn2", nil), nil];
     [alertV show];
 }
 
@@ -524,7 +536,11 @@
     NSURLResponse *response;
     urlData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:nil];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Report Abuse" message:@"Recebemos sua reclamação, \n Vamos validar o caso mais rápido possivel" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"report-title", nil)
+                                                    message: NSLocalizedString(@"report-desc", nil)
+                                                   delegate:self
+                                          cancelButtonTitle: NSLocalizedString(@"report-btn1", nil)
+                                          otherButtonTitles:nil];
     [alert show];
 }
 
@@ -814,10 +830,10 @@
     self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
     
     // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = @"Previous";
+    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
     
     // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = @"Next";
+    self.keyboardControls.nextTitle =  NSLocalizedString(@"keyboard-next-btn", nil);
     
     // Add the keyboard control as accessory view for all of the text fields
     // Also set the delegate of all the text fields to self
@@ -891,9 +907,12 @@
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
                                                            delegate:nil 
-                                                  cancelButtonTitle:@"Cancel" 
+                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil) 
                                              destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
+                                                                    NSLocalizedString(@"sheet-library-item", nil),
+                                                                    NSLocalizedString(@"sheet-no-pic-item", nil),
+                                                                    nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
         [sheet showInView:self.view];

@@ -47,7 +47,7 @@
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
         isReachability = NO;
-        [self showNotification:@"No connection."];
+        [self showNotification:NSLocalizedString(@"no-connection-string", nil)];
     } else if (RKReachabilityReachableViaWiFi == status) {
         RKLogInfo(@"Online!"); 
         isReachability = YES;

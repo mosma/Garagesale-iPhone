@@ -51,24 +51,36 @@
 -(IBAction)facebook:(id)sender
 {
     if (imgProduct == nil)
-        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]] withService:@"facebook" title:@"Product Send from Garagesaleapp.me" description:self.description];
+        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
+                   withService:@"facebook"
+                         title: NSLocalizedString(@"share-facebook-text", nil)
+                   description:self.description];
     else
-        [AddThisSDK shareImage:imgProduct withService:@"facebook" title:@"Product Send from Garagesaleapp.me" description:description];
+        [AddThisSDK shareImage:imgProduct
+                   withService:@"facebook"
+                         title: NSLocalizedString(@"share-facebook-text", nil)
+                   description:description];
 }
 
 -(IBAction)twitter:(id)sender
 {
     if (imgProduct == nil)
-        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]] withService:@"twitter" title:@"Product Send from Garagesaleapp.me" description:self.description];
+        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
+                   withService:@"twitter"
+                         title: NSLocalizedString(@"share-twitter-text", nil)
+                   description:self.description];
     else
-        [AddThisSDK shareImage:imgProduct withService:@"twitter" title:@"Product Send from Garagesaleapp.me" description:description];
+        [AddThisSDK shareImage:imgProduct
+                   withService:@"twitter"
+                         title: NSLocalizedString(@"share-twitter-text", nil)
+                   description:description];
 }
 
 - (IBAction)actionEmailComposer {
     MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
     mail.mailComposeDelegate = self;
     [mail setToRecipients:[NSArray arrayWithObject:@""]];
-    [mail setSubject:@"Product Send from Garagesaleapp.me"];
+    [mail setSubject:NSLocalizedString(@"share-email-text", nil)];
     
     NSData *data = UIImagePNGRepresentation(imgProduct);
     [mail addAttachmentData:data mimeType:@"image/png" fileName:@"image.png"];
@@ -82,10 +94,20 @@
     [parent dismissModalViewControllerAnimated:YES];
     
     if (result == MFMailComposeResultSent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Sent!" message:@"Your message has been sent! \n Thank you for your feedback" delegate:self cancelButtonTitle:@"Okay!" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: NSLocalizedString(@"share-response-title", nil)
+                              message: NSLocalizedString(@"share-response-text", nil)
+                              delegate:self
+                              cancelButtonTitle:NSLocalizedString(@"share-response-btn1", nil)
+                              otherButtonTitles:nil];
         [alert show];
     } if (result == MFMailComposeResultFailed) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message Failed" message:@"Your email has failed to send \n Please try again" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: NSLocalizedString(@"share-response-error-title", nil)
+                              message: NSLocalizedString(@"share-response-error-text", nil)
+                              delegate:self
+                              cancelButtonTitle: NSLocalizedString(@"share-response-error-btn1", nil)
+                              otherButtonTitles:nil];
         [alert show];
     }
 }

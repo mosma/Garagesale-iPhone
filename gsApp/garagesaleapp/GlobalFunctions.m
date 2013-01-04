@@ -143,7 +143,7 @@
         if ([product.idEstado intValue] == 1) {
             //Set Label Only
             UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
-            [only setText:@"ONLY"];
+            [only setText:NSLocalizedString(@"only", nil)];
             only.backgroundColor = [UIColor clearColor];
             [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
         
@@ -169,13 +169,13 @@
         
         switch ([product.idEstado intValue]) {
             case 2:
-                [price setText:@"Vendido"];
+                [price setText:NSLocalizedString(@"sold", nil)];
                 break;
             case 3:
-                [price setText:@"N/D"];
+                [price setText:NSLocalizedString(@"not-available-label", nil)];
                 break;
             case 4:
-                [price setText:@"Invisible"];
+                [price setText:NSLocalizedString(@"invisible-label", nil)];
                 break;
         }
         [price sizeToFit];

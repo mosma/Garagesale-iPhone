@@ -502,10 +502,13 @@
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:nil 
-                                                  cancelButtonTitle:@"Cancel" 
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
                                              destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
+                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
+                                NSLocalizedString(@"sheet-library-item", nil),
+                                NSLocalizedString(@"sheet-no-pic-item", nil),
+                                nil];
         sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
         sheet.delegate = self;
         [sheet showInView:self.view];

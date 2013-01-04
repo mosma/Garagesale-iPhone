@@ -41,14 +41,15 @@
 "yourName"                      = "Name";
 
 "only"                          = "Only";
+"sold"                          = "Sold";
+"not-available-label"           = "N/A";
+"invisible-label"               = "Invisible";
 "edit"                          = "Edit";
 "delete"                        = "Delete";
 "resultsFor"                    = "results for";
 
 "notAvailable"                  = "Not available";
 "invisible"                     = "Invisible";
-
-
 
 /*Using in : settingsViewController. */
 "account"                       = "Account";
@@ -68,3 +69,82 @@
 "currentCity"                   = "Current city";
 "currentDistrict"               = "Current district";
 "currentCoutry"                 = "Current country";
+
+
+
+//general info
+"no-connection-string"          = "No Connection";
+"menu-explore"                  = "Explore";
+"menu-add-product"              = "Add Product";
+"menu-my-garage"                = "My Garage";
+"keyboard-cancel-btn"           = "Cancel";
+"keyboard-previous-btn"         = "Previous";
+"keyboard-next-btn"             = "Next";
+"sheet-camera-item"             = "Camera";
+"sheet-library-item"            = "Library";
+"sheet-no-pic-item"             = "Product without photo";
+
+
+//forms
+"form-invalid-email-password"   = "Invalid Password or Email";
+"form-invalid-email-exists"     = "Hey, %@ already exist!";
+"form-invalid-email-or-invalid" = "Hey, Email already exist or not is valid!";
+"form-invalid-email"            = "Hey, this is not a valid email!";
+
+"form-invalid-garage-name"      = "Hey, this is not a valid Garage Name!";
+"form-invalid-name"             = "Hey, this is not a valid Name!";
+"form-empty-email"              = "Hey, Email can not be empty!";
+"form-invalid-password"         = "Hey, this is not a valid Password!";
+
+
+"search-result"                 = "%i results for \"%@\"";
+"results-for"                   = "results for";
+"search-not-found"              = "Search not found!";
+"search-not-found-ok"           = "OK";
+"search-not-found-info"         = "No itens found for this search.";
+
+"format-expected-value-2line"   = "%@%@ \r\nby %@";
+"format-expected-value-1line"   = "%@%@ by %@";
+"format-expected-value-by"      = "by %@";
+
+"garages-garage"                = "%@'s garage";
+"garages-garage-string"         = "garage";
+
+"see-more-products"             = "See other products...";
+
+"delete-product-title"          = "Atenction!";
+"delete-product-desc"           = "Are you sure about removing this product?";
+"delete-product-btn1"           = "Cancel";
+"delete-product-btn2"           = "Delete";
+
+
+"report-title"                  = "Report Abuse";
+"report-desc"                   = "We received your complain, we're going to analyse it as soon as possible, Thanks.";
+"report-btn1"                   = "Ok";
+
+
+"share-facebook-text"           = "Check this out";
+"share-twitter-text"            = "Check this out via @garagesaleapp";
+"share-email-text"              = "Check this product from Garagesaleapp.me";
+"share-response-title"          = "Message Sent!";
+"share-response-text"           = "Your message has been sent! \n Thank you for your feedback";
+"share-response-btn1"           = "Ok!";
+"share-response-error-title"    = "Message Error";
+"share-response-error-text"     = "There was some error sending your message.";
+"share-response-error-btn1"     = "Ok!";
+
+
+"image-upload-error"            = "Some error connecting to the server.";
+"image-upload-error-btn1"       = "Ok";
+"image-upload-error-btn2"       = "Try again";
+
+
+"image-upload-error-title"      = "Error";
+"image-upload-error-imgerror"   = "Image was not saved, try again";
+"image-uploading"               = "Saving";
+"image-upload-error-check"      = "Fail! Check your connection.";
+
+
+"form-error-product-name"       = "Hey, your product must have a name!";
+
+

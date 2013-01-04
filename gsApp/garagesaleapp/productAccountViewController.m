@@ -114,7 +114,9 @@
     [waiting setText:@"waiting..."];    
 
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
-                       NSLocalizedString(@"Sold", @""), NSLocalizedString(@"notAvailable", @""), NSLocalizedString(@"invisible", @""), nil];
+                       NSLocalizedString(@"Sold", @""),
+                       NSLocalizedString(@"notAvailable", @""),
+                       NSLocalizedString(@"invisible", @""), nil];
     
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
@@ -162,9 +164,13 @@
     [picViewStateToolbar setBarStyle:UIBarStyleBlackOpaque];
     [picViewStateToolbar sizeToFit];
     NSMutableArray  *barItems               = [[NSMutableArray alloc] init];
-    UIBarButtonItem *flexSpace              = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *flexSpace              = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                                            target:self
+                                                                                            action:nil];
     [barItems addObject:flexSpace];
-    UIBarButtonItem *doneBtn                = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
+    UIBarButtonItem *doneBtn                = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                            target:self
+                                                                                            action:@selector(pickerDoneClicked)];
     [barItems addObject:doneBtn];
     [picViewStateToolbar setItems:barItems animated:YES];
     
@@ -183,7 +189,9 @@
     }else {
        // [self getResourcePathPhotoReturnNotSaved];
         self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:@"Add Product" width:300];
+        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric: UITextAlignmentCenter
+                                                                               text: NSLocalizedString(@"menu-add-product", nil)
+                                                                              width: 300];
     }
 }
 
@@ -257,8 +265,11 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain message:@"Houve um erro de comunicação com o servidor" delegate:self
-                                        cancelButtonTitle:@"Ok" otherButtonTitles:@"tentar novamente", nil];
+    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain
+                                                  message: NSLocalizedString(@"image-upload-error", nil)
+                                                 delegate:self
+                                        cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
+                                        otherButtonTitles: NSLocalizedString(@"image-upload-error-btn2", nil), nil];
     [waiting removeFromSuperview];
     
     [alV show];
@@ -267,11 +278,16 @@
 
 -(void)loadingProduct{
     [self getResourcePathProduct];
-     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
-    [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
-    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter text:product.nome width:200]];
+    [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                                          viewContr:self
+                                                                         imageNamed:@"btBackNav.png"
+                                                                               rect:CGRectMake(0, 0, 40, 30)]];
+    
+    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter
+                                                                             text:product.nome
+                                                                            width:200]];
 }
 
 -(void)backPage{
@@ -291,9 +307,11 @@
     //Limited Maximum At Pics Add Gallery
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:nil
-                                              cancelButtonTitle:@"Cancel"
+                                              cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles:@"Camera", @"Library", nil];
+                                              otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
+                                                                NSLocalizedString(@"sheet-library-item", nil),
+                                                                nil];
     sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     sheet.delegate = self;
     [sheet showInView:self.view];
@@ -321,7 +339,9 @@
     [UIView transitionFromView:fromView 
                         toView:toView 
                       duration:0.5 
-                       options:(index > self.tabBarController.selectedIndex ? UIViewAnimationOptionTransitionCrossDissolve : UIViewAnimationOptionTransitionCrossDissolve)
+                       options:(index > self.tabBarController.selectedIndex ?
+                                UIViewAnimationOptionTransitionCrossDissolve :
+                                UIViewAnimationOptionTransitionCrossDissolve)
                     completion:^(BOOL finished) {
                         if (finished) {
                             self.tabBarController.selectedIndex = index;
@@ -374,7 +394,10 @@
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) 
         UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
-    [scrollViewPicsProduct setFrame:CGRectMake(0, scrollViewPicsProduct.frame.origin.y, scrollViewPicsProduct.frame.size.width, scrollViewPicsProduct.frame.size.height)];
+    [scrollViewPicsProduct setFrame:CGRectMake(0,
+                                               scrollViewPicsProduct.frame.origin.y,
+                                               scrollViewPicsProduct.frame.size.width,
+                                               scrollViewPicsProduct.frame.size.height)];
 
     [gallery addImageToScrollView:imageThumb
                           photoReturn:nil
@@ -388,7 +411,11 @@
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"Atenção!" message:@"Deseja Realmente excluir ?" delegate:self cancelButtonTitle:@"cancelar" otherButtonTitles:@"Deletar", nil];
+    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
+                                                     message:NSLocalizedString(@"delete-product-desc", nil)
+                                                    delegate:self
+                                           cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
+                                           otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
     [alertV show];
 }
 
@@ -411,7 +438,11 @@
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary *)contextInfo {  
     if (error != NULL){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Image was not saved, try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString(@"image-upload-error-title", nil)
+                                                        message: NSLocalizedString(@"image-upload-error-imgerror", nil)
+                                                       delegate:nil
+                                              cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
+                                              otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -433,7 +464,11 @@
         }
 
         //Set Delay to Hide msgBidSentLabel
-        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideMsgBidSent) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:5.0
+                                         target:self
+                                       selector:@selector(hideMsgBidSent)
+                                       userInfo:nil
+                                        repeats:NO];
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
@@ -537,7 +572,7 @@
     HUD.mode = MBProgressHUDModeAnnularDeterminate;
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
-	HUD.labelText = @"Saving";
+	HUD.labelText = NSLocalizedString(@"image-uploading", nil);
 	HUD.color = [UIColor blackColor];
     HUD.dimBackground = YES;
     
@@ -563,7 +598,7 @@
     if (_postProdDelegate.isSaveProductFail){
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
-        HUD.labelText = @"Fail! Check your connection.";
+        HUD.labelText = NSLocalizedString(@"image-upload-error-check", nil);
         sleep(2);
     }else if (_postProdDelegate.isSaveProductDone && !_postProdDelegate.isSaveProductFail) {
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
@@ -585,7 +620,7 @@
     if ([txtFieldTitle.text length] <= 2) {
         [txtFieldTitle setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                      forKeyPath:@"_placeholderLabel.textColor"];
-        [txtFieldTitle setPlaceholder:@"Hey, your product must have a name!"];
+        [txtFieldTitle setPlaceholder: NSLocalizedString(@"form-error-product-name", nil)];
         isValid = NO;
     } 
     if ([txtFieldValue.text length] == 0) {
@@ -692,10 +727,10 @@
     self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
     
     // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = @"Previous";
+    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
     
     // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = @"Next";
+    self.keyboardControls.nextTitle = NSLocalizedString(@"keyboard-next-btn", nil);
     
     // Add the keyboard control as accessory view for all of the text fields
     // Also set the delegate of all the text fields to self
