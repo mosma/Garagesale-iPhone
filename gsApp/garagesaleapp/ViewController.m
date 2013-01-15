@@ -36,6 +36,9 @@
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     [self.view addSubview:searchBarProduct];
 
+    overlay = [MTStatusBarOverlay sharedInstance];
+    [overlay postImmediateFinishMessage:@"GaragesaleApp - Welcome!" duration:3.0 animated:YES];
+    
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
@@ -126,8 +129,6 @@
         buttonLogo.center = CGPointMake(160, 50);
         [UIView commitAnimations];
     }
-    
-    self.tabBarController.delegate = self;
     
     //init Global Functions
     globalFunctions = [[GlobalFunctions alloc] init];
@@ -245,7 +246,6 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                            delegate:nil
@@ -495,6 +495,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.tabBarController.delegate = self;
     [self.navigationController setNavigationBarHidden:YES];
     if ([mutArrayProducts count] == 0 ||
         [[[GlobalFunctions getUserDefaults] objectForKey:@"isLogOut"] isEqual:@"YES"]){

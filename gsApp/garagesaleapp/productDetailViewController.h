@@ -16,6 +16,7 @@
 #import "OHAttributedLabel.h"
 #import "FPPopoverController.h"
 #import "sharePopOverViewController.h"
+#import "viewHelper.h"
 
 @interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
                                                             UITextViewDelegate, 

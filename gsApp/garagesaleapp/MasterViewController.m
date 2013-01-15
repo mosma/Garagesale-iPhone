@@ -30,6 +30,8 @@
     [super viewDidLoad];
     [self setNotification];
     [self reachability];
+    overlay = [MTStatusBarOverlay sharedInstance];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -47,10 +49,21 @@
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
         isReachability = NO;
-        [self showNotification:NSLocalizedString(@"no-connection-string", nil)];
+
+       // [self showNotification:@"No connection."];
+        
+        //overlay.animation = MTStatusBarOverlayAnimationFallDown;  // MTStatusBarOverlayAnimationShrink
+        overlay.detailViewMode = MTDetailViewModeHistory;         // enable automatic history-tracking and show in detail-view
+        //overlay.delegate = self;
+        //overlay.progress = 0.0;
+        [overlay postMessage:NSLocalizedString(@"no-connection-string", nil) duration:10.0 animated:YES];
+        //overlay.progress = 0.1;
+        
     } else if (RKReachabilityReachableViaWiFi == status) {
         RKLogInfo(@"Online!"); 
         isReachability = YES;
+       // [overlay postImmediateFinishMessage:@"" duration:0.1 animated:NO];
+        //overlay.progress = 1.0;
     } else if (RKReachabilityReachableViaWWAN == status) {
         isReachability = YES;
        // [self showNotification:@"Online!"];

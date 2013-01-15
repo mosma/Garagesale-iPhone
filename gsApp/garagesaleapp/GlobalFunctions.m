@@ -7,7 +7,6 @@
 //
 
 #import "GlobalFunctions.h"
-#import <CommonCrypto/CommonDigest.h> //CC_MD5
 #import "NSAttributedString+Attributes.h"
 
 @implementation GlobalFunctions
@@ -77,16 +76,13 @@
     [buttonThumbsProduct setImage:[UIImage imageNamed:@"placeHolder"] forState:UIControlStateNormal];
 
         
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void) {
-        NSData      * imageData   = [[NSData alloc] initWithContentsOfURL:
-                                     [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:arrayDetailProduct imageType:imageTypeListing]]];
-        UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"]
-        : [[UIImage alloc] initWithData:imageData];
         
-        [buttonThumbsProduct setImage:image forState:UIControlStateNormal];
         
-    });
-    
+        
+    [NSThread detachNewThreadSelector:@selector(loadThumbs:) toTarget:self withObject:[NSArray arrayWithObjects:arrayDetailProduct, buttonThumbsProduct, nil]];
+        
+        
+
     buttonThumbsProduct.imageView.layer.cornerRadius = 3;
     [buttonThumbsProduct setAlpha:0];
     [viewThumbs addSubview:buttonThumbsProduct];
@@ -212,6 +208,16 @@
         NSLog(@"%@", exception);
         return [[UIView alloc] init];
     }
+}
+
+-(void)loadThumbs:(NSArray *)array{
+
+    NSData      * imageData   = [[NSData alloc] initWithContentsOfURL:
+                                 [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:[array objectAtIndex:0] imageType:imageTypeListing]]];
+    UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"]
+    : [[UIImage alloc] initWithData:imageData];
+    
+    [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
 }
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector
@@ -440,27 +446,6 @@
         }
         [UIView commitAnimations];
     }
-}
-
-+ (NSURL*) getGravatarURL:(NSString*) emailAddress {
-	NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
-							   [NSCharacterSet whitespaceCharacterSet]]
-							  lowercaseString];
-    
-	const char *cStr = [curatedEmail UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result);
-    
-	NSString *md5email = [NSString stringWithFormat:
-                          @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-                          result[0], result[1], result[2], result[3],
-                          result[4], result[5], result[6], result[7],
-                          result[8], result[9], result[10], result[11],
-                          result[12], result[13], result[14], result[15]
-                          ];
-	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=160&d=http://gsapp.me/images/no-profileimg.jpg", md5email];
-    
-	return [NSURL URLWithString:gravatarEndPoint];
 }
 
 +(UIImage*)scaleToSize:(CGSize)size imageOrigin:(UIImage *)imageOrigin {

@@ -22,6 +22,7 @@
     BOOL                    isSearchDisplayed;
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
+    NSMutableArray          *mutArrayViewHelper;
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     IBOutlet OHAttributedLabel *OHlabelTitleResults;

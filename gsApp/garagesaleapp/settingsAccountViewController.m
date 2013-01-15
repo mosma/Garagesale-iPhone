@@ -194,7 +194,7 @@
                         [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
     
-    imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
+    imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"

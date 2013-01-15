@@ -96,17 +96,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+    
+    
+    if ([mutArrayProducts count] == 0){
+    
+        RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
-    //Shadow Top below navigationBar
-    CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
-    CGColorRef lightColor = [UIColor clearColor].CGColor;
-    CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
-    newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
-    newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
-    [self.view.layer addSublayer:newShadow];
-    [self loadAttribsToComponents:NO];
-    [self reloadPage:nil];
+        //Shadow Top below navigationBar
+        CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
+        CGColorRef lightColor = [UIColor clearColor].CGColor;
+        CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
+        newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
+        newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
+        [self.view.layer addSublayer:newShadow];
+        [self loadAttribsToComponents:NO];
+        [self reloadPage:nil];
+    }
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -161,7 +166,7 @@
                                 garage.country];
             link.text        = garage.link;
             
-            gravatarUrl = [GlobalFunctions getGravatarURL:profile.email];
+            gravatarUrl = [viewHelper getGravatarURL:profile.email];
                         
             [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
             
@@ -174,6 +179,11 @@
         if ([city.text length] < 5)
             [city setHidden:YES];
         
+        
+        UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
+        [gestReload setNumberOfTapsRequired:1];
+        [viewTop addGestureRecognizer:gestReload];
+        
         NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
         
         segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
@@ -184,8 +194,6 @@
         [viewSegmentArea addSubview:segmentControl];
 
         [viewNoProducts setHidden:YES];
-        
-        self.tabBarController.delegate = self;
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
 
@@ -218,7 +226,10 @@
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
                 
-    } else {
+    }
+    
+    // set values to objetcs from objectLoader
+    else {
 
         [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
                                                          withAction:@"Reload"
@@ -365,11 +376,15 @@
 {
     [super viewWillDisappear:animated];
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
+    
+    NSLog(@"");
+    
     for(int i = 0; i < [mutArrayProducts count]; i++)
     {
         
@@ -525,7 +540,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-
+    self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
         if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
@@ -542,8 +557,8 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    if ([mutArrayProducts count] == 0)
-        [self reloadPage:nil];
+//    if ([mutArrayProducts count] == 0)
+//        [self reloadPage:nil];
 }
 
 - (void)viewDidUnload
