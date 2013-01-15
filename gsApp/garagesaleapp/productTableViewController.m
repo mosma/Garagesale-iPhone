@@ -588,6 +588,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
