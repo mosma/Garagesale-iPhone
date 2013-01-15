@@ -137,4 +137,17 @@
     return validEmailMapping;
 }
 
++ (RKObjectMapping *)getViewHelperMapping{
+    //Configure Photo By IdProduct Object Mapping
+    RKObjectMapping *viewHelperMapping = [RKObjectMapping mappingForClass:[viewHelperReturn class]];
+    [viewHelperMapping mapKeyPath:@"requestToken"    toAttribute:@"requestToken"];
+    [viewHelperMapping mapKeyPath:@"validateUrl"     toAttribute:@"validateUrl"];
+    [viewHelperMapping mapKeyPath:@"oauthVerifier"   toAttribute:@"oauthVerifier"];
+    [viewHelperMapping mapKeyPath:@"oauthToken"      toAttribute:@"oauthToken"];
+    [viewHelperMapping mapKeyPath:@"userId"          toAttribute:@"userId"];
+    [viewHelperMapping mapKeyPath:@"idPessoa"        toAttribute:@"idPessoa"];
+    [viewHelperMapping mapKeyPath:@"id"              toAttribute:@"id"];
+    return viewHelperMapping;
+}
+
 @end

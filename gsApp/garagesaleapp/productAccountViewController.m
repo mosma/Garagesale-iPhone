@@ -92,7 +92,7 @@
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
-    [buttonDeleteProduct setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
@@ -465,7 +465,9 @@
         
         // Allow editing of image ?
         imagePicker.allowsImageEditing = YES;
-                
+         imagePicker.wantsFullScreenLayout = YES;
+        //imagePicker.allowsEditing = NO;
+
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
     } 
@@ -791,8 +793,11 @@
     [sender resignFirstResponder];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -199,7 +199,7 @@
         imageView.clipsToBounds = YES;
         
         [buttonReportThisGarage setTitle:@"Report this garage" forState:UIControlStateNormal];
-        [buttonReportThisGarage setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
+        [buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
         buttonReportThisGarage.titleLabel.textColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
         
         [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 370)];
@@ -249,7 +249,7 @@
         labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
         labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
         
-        UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
+        UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
         
         [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
         
@@ -659,6 +659,18 @@
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     //check if countPicsAtGallery+1 is out of bounds
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tabBarController.delegate = self;
+}
+
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];

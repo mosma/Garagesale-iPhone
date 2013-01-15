@@ -157,6 +157,8 @@
 		CC4A5CB0162C8CE900AF522C /* barItemBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4A5CAC162C8CE900AF522C /* barItemBack@2x.png */; };
 		CC4A5CB1162C8CE900AF522C /* barItemBackOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4A5CAD162C8CE900AF522C /* barItemBackOver.png */; };
 		CC4A5CB2162C8CE900AF522C /* barItemBackOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4A5CAE162C8CE900AF522C /* barItemBackOver@2x.png */; };
+		CC4A812E16973C5B0078F738 /* viewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4A812D16973C5B0078F738 /* viewHelper.m */; };
+		CC4A813116974AEE0078F738 /* viewHelperReturn.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4A813016974AEE0078F738 /* viewHelperReturn.m */; };
 		CC4FF985163083B700F30458 /* ICONE.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4FF984163083B700F30458 /* ICONE.png */; };
 		CC4FF987163083BF00F30458 /* ICONE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC4FF986163083BF00F30458 /* ICONE@2x.png */; };
 		CC51E0B916330ED2006B0D35 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC51E0B816330ED2006B0D35 /* icon.png */; };
@@ -282,6 +284,7 @@
 		CCD7958515C3118900F0B4D3 /* uitextViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */; };
 		CCD7958B15C3A1D000F0B4D3 /* dropDownCurrency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */; };
 		CCD8373E1520BD1300DCF0FD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */; };
+		CCE11D4316A578E90052F058 /* MTStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE11D4216A578E90052F058 /* MTStatusBarOverlay.m */; };
 		CCE7B8E2158BAF2F0020E538 /* btBackNav.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E0158BAF2F0020E538 /* btBackNav.png */; };
 		CCE7B8E3158BAF2F0020E538 /* btBackNav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E1158BAF2F0020E538 /* btBackNav@2x.png */; };
 		CCE9EB6514C2177000526AD6 /* ProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE9EB6414C2177000526AD6 /* ProductPhotos.m */; };
@@ -534,6 +537,10 @@
 		CC4A5CAC162C8CE900AF522C /* barItemBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barItemBack@2x.png"; sourceTree = "<group>"; };
 		CC4A5CAD162C8CE900AF522C /* barItemBackOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barItemBackOver.png; sourceTree = "<group>"; };
 		CC4A5CAE162C8CE900AF522C /* barItemBackOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "barItemBackOver@2x.png"; sourceTree = "<group>"; };
+		CC4A812C16973C5B0078F738 /* viewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewHelper.h; sourceTree = "<group>"; };
+		CC4A812D16973C5B0078F738 /* viewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewHelper.m; sourceTree = "<group>"; };
+		CC4A812F16974AEE0078F738 /* viewHelperReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = viewHelperReturn.h; sourceTree = "<group>"; };
+		CC4A813016974AEE0078F738 /* viewHelperReturn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = viewHelperReturn.m; sourceTree = "<group>"; };
 		CC4FF984163083B700F30458 /* ICONE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ICONE.png; path = ../ICONE.png; sourceTree = "<group>"; };
 		CC4FF986163083BF00F30458 /* ICONE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ICONE@2x.png"; path = "../ICONE@2x.png"; sourceTree = "<group>"; };
 		CC51E0B816330ED2006B0D35 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
@@ -690,6 +697,8 @@
 		CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownCurrency@2x.png"; sourceTree = "<group>"; };
 		CCD8373C1520BD1300DCF0FD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		CCE11D4116A578E90052F058 /* MTStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStatusBarOverlay.h; sourceTree = "<group>"; };
+		CCE11D4216A578E90052F058 /* MTStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStatusBarOverlay.m; sourceTree = "<group>"; };
 		CCE7B8E0158BAF2F0020E538 /* btBackNav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btBackNav.png; sourceTree = "<group>"; };
 		CCE7B8E1158BAF2F0020E538 /* btBackNav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btBackNav@2x.png"; sourceTree = "<group>"; };
 		CCE9EB6314C2177000526AD6 /* ProductPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPhotos.h; sourceTree = "<group>"; };
@@ -891,6 +900,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
 				CC83744E16816042002754B8 /*  PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
 				CC6F46041667B195004E5D17 /* AsyncImageView */,
@@ -1269,6 +1279,8 @@
 				CC2D164D157D489A000B8BD3 /* AppDelegate.m */,
 				CC32DB7C1565BA9000FFB88C /* GlobalFunctions.h */,
 				CC2D164E157D489A000B8BD3 /* GlobalFunctions.m */,
+				CC4A812C16973C5B0078F738 /* viewHelper.h */,
+				CC4A812D16973C5B0078F738 /* viewHelper.m */,
 				CC5F423814C8730800DED726 /* garagesaleapp.entitlements */,
 			);
 			path = garagesaleapp;
@@ -1345,6 +1357,8 @@
 				CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */,
 				CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */,
 				CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */,
+				CC4A812F16974AEE0078F738 /* viewHelperReturn.h */,
+				CC4A813016974AEE0078F738 /* viewHelperReturn.m */,
 			);
 			name = EntityClass;
 			sourceTree = "<group>";
@@ -1383,6 +1397,15 @@
 				CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */,
 			);
 			name = BSKeyboardControls;
+			sourceTree = "<group>";
+		};
+		CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */ = {
+			isa = PBXGroup;
+			children = (
+				CCE11D4116A578E90052F058 /* MTStatusBarOverlay.h */,
+				CCE11D4216A578E90052F058 /* MTStatusBarOverlay.m */,
+			);
+			name = MTStatusBarOverlay;
 			sourceTree = "<group>";
 		};
 		CCEA465F14BB601900952E1A /* AppFonts */ = {
@@ -1801,6 +1824,9 @@
 				CC8374531681616B002754B8 /* drawing.m in Sources */,
 				CC6EE8C8168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
 				CC6EE8D7168C743800AB4E87 /* CoreTextUtils.m in Sources */,
+				CC4A812E16973C5B0078F738 /* viewHelper.m in Sources */,
+				CC4A813116974AEE0078F738 /* viewHelperReturn.m in Sources */,
+				CCE11D4316A578E90052F058 /* MTStatusBarOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1873,14 +1899,14 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B11895DB-2BAB-4B39-886B-841C4E98E467";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B11895DB-2BAB-4B39-886B-841C4E98E467";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 				VALID_ARCHS = "armv7 armv6";
@@ -1896,7 +1922,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
@@ -1904,10 +1930,10 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B4DE4C86-7119-4ABD-97A8-41360B514577";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B4DE4C86-7119-4ABD-97A8-41360B514577";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -1950,13 +1976,13 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B11895DB-2BAB-4B39-886B-841C4E98E467";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B11895DB-2BAB-4B39-886B-841C4E98E467";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv6";
@@ -1977,14 +2003,14 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B11895DB-2BAB-4B39-886B-841C4E98E467";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B11895DB-2BAB-4B39-886B-841C4E98E467";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = NO;
 				VALID_ARCHS = "armv7 armv6";
@@ -2000,7 +2026,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
@@ -2008,10 +2034,10 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B4DE4C86-7119-4ABD-97A8-41360B514577";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B4DE4C86-7119-4ABD-97A8-41360B514577";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2025,7 +2051,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
@@ -2033,10 +2059,10 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "B4DE4C86-7119-4ABD-97A8-41360B514577";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B4DE4C86-7119-4ABD-97A8-41360B514577";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

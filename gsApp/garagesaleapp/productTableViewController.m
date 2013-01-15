@@ -79,6 +79,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    viewHelper *vH = [[viewHelper alloc] init];
+    
+    [vH getResourcePathProfile:@"505"];
+    
+    [mutArrayViewHelper addObject:vH];
+    
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
     

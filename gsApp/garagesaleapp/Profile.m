@@ -14,6 +14,9 @@
 @synthesize senha;
 @synthesize nome;
 @synthesize email;
+@synthesize lang;
+@synthesize fbId;
+@synthesize fbConnect;
 @synthesize idRole;
 @synthesize idState;
 @synthesize id;
@@ -24,6 +27,9 @@
             @"senha", @"senha",
             @"nome", @"nome",
             @"email", @"email",
+                        @"email", @"email",
+                        @"email", @"email",
+                        @"email", @"email",
             @"idRole", @"idRole",
             @"idState", @"idState",
             @"id", @"id",

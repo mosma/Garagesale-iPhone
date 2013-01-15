@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "GAITrackedViewController.h"
 #import "GAI.h"
+#import "MTStatusBarOverlay.h"
 
 @interface MasterViewController : GAITrackedViewController {
     UIView *viewMessageNet;
     UILabel *labelNotification;
     BOOL isReachability;
+    
+    MTStatusBarOverlay *overlay;
+    
 }
 
 @property (nonatomic) BOOL isReachability;

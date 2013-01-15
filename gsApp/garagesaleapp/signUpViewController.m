@@ -339,7 +339,7 @@
     [settingsAccount setObject:@"YES"       forKey:@"isSettingsChange"];
     [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
 
-    NSURL *gravatar = [GlobalFunctions getGravatarURL:[[objects objectAtIndex:0] email]];
+    NSURL *gravatar = [viewHelper getGravatarURL:[[objects objectAtIndex:0] email]];
     NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
     UIImage *image      = [[UIImage alloc] initWithData:imageData];
     
