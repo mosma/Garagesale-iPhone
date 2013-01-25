@@ -13,16 +13,16 @@
 
 @interface viewHelper : NSObject <RKObjectLoaderDelegate> {
     RKObjectManager *RKObjManeger;
-    NSArray                                     *arrayGarage;
-    NSArray                                     *arrayProfile;
-    NSArray                                     *arrayViewHelper;
-
+    NSArray                                    *arrayProfile;
+    NSArray                                    *arrayHelperReturn;
 }
 
 @property (nonatomic, retain) RKObjectManager *RKObjManeger;
+@property (nonatomic, retain) UIImage         *imageAvatar;
+@property (nonatomic, retain) NSString        *avatarName;
 
--(void)getResourcePathProfile:(NSString *)garage;
-+(NSURL*) getGravatarURL:(NSString*) emailAddress;
--(UIImage*)getTTImage:(Profile *)profile;
+-(UIImage *)getGarageAvatar:(NSArray *)profile;
+-(void)getResourcePathGarage:(NSString *)garageName;
+-(void)cancelRequestsWithDelegate;
 
 @end

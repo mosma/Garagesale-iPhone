@@ -22,7 +22,8 @@
     BOOL                    isSearchDisplayed;
     RKObjectManager         *RKObjManeger;
     NSMutableArray          *mutArrayProducts;
-    NSMutableArray          *mutArrayViewHelper;
+    NSMutableArray          *mutArrayViewHelpers;
+
     NSString                *strLocalResourcePath;
     NSString                *strTextSearch;
     IBOutlet OHAttributedLabel *OHlabelTitleResults;
@@ -36,6 +37,8 @@
 
 @property (retain, nonatomic) RKObjectManager       *RKObjManeger;
 @property (retain, nonatomic) NSMutableArray        *mutArrayProducts;
+@property (retain, nonatomic) NSMutableArray        *mutArrayViewHelpers;
+
 @property (retain, nonatomic) NSString              *strLocalResourcePath;
 @property (retain, nonatomic) NSString              *strTextSearch;
 @property (retain, nonatomic) IBOutlet OHAttributedLabel *OHlabelTitleResults;

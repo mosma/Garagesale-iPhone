@@ -34,6 +34,7 @@
     Garage              *garage;
     CGFloat                                     _lastContentOffset;
     UIImage *imageGravatar;
+
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIButton           *buttonGarageLogo;
     __unsafe_unretained IBOutlet UILabel            *garageName;
@@ -54,10 +55,11 @@
 @property (retain, nonatomic) NSURL             *gravatarUrl;
 @property (retain, nonatomic) NSMutableArray    *mutArrayProducts;
 @property (retain, nonatomic) NSMutableDictionary   *mutDictDataThumbs;
-@property (nonatomic) BOOL                      isFromParent;
 @property (retain, nonatomic) Profile           *profile;
 @property (retain, nonatomic) Garage            *garage;
 @property (retain, nonatomic) UIImage *imageGravatar;
+@property (retain, nonatomic) NSString *garageNameSearch;
+@property (nonatomic) BOOL isGenericGarage;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;

@@ -14,6 +14,7 @@
 #import "ViewController.h"
 #import "settingsAccountViewController.h"
 #import "MBProgressHUD.h"
+#import "viewHelper.h"
 
 @interface signUpViewController : MasterViewController <UITextFieldDelegate,
                                                     BSKeyboardControlsDelegate,
@@ -42,6 +43,7 @@
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
     MBProgressHUD                   *HUD;
+    viewHelper *vH;
     BOOL                            isLoadingDone;
     int validatorFlag;
     

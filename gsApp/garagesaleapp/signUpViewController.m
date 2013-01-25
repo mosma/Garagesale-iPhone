@@ -78,6 +78,8 @@
     
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
     
+    vH = [[viewHelper alloc] init];
+    
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    
@@ -127,6 +129,8 @@
             [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];
             [self setGarage:objects];
+            //reset previous viewControllers.
+            self.navigationController.viewControllers = [[NSArray alloc] initWithObjects:home, nil];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
@@ -324,6 +328,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
     [settingsAccount synchronize];
+    
     isLoadingDone = YES;
 }
 
@@ -339,14 +344,11 @@
     [settingsAccount setObject:@"YES"       forKey:@"isSettingsChange"];
     [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
 
-    NSURL *gravatar = [viewHelper getGravatarURL:[[objects objectAtIndex:0] email]];
-    NSData  *imageData  = [NSData dataWithContentsOfURL:gravatar];
-    UIImage *image      = [[UIImage alloc] initWithData:imageData];
-    
-    NSData *imageData2 = [NSKeyedArchiver archivedDataWithRootObject:image];
-    [settingsAccount setObject:imageData2 forKey:@"imageGravatar"];
-
-    [settingsAccount synchronize];    
+    NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg",
+                            [[objects objectAtIndex:0] garagem]];
+    vH.avatarName = avatarName;
+    [vH getGarageAvatar:objects];
+    [settingsAccount synchronize];
 }
 
 -(IBAction)checkLogin:(id)sender{

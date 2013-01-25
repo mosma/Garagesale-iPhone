@@ -84,7 +84,7 @@ typedef enum MTMessageType {
 // the detailView is shown when animation is set to "FallDown"
 @property (nonatomic, strong) UIView *detailView;
 // the current progress
-@property (nonatomic, assign) double progress;
+@property (nonatomic, assign) double progressMTStatus;
 // the frame of the status bar when animation is set to "Shrink" and it is shrinked
 @property (nonatomic, assign) CGRect smallFrame;
 // the current active animation

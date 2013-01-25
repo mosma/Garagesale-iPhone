@@ -17,6 +17,7 @@
 @implementation productTableViewController
 
 @synthesize mutArrayProducts;
+@synthesize mutArrayViewHelpers;
 @synthesize RKObjManeger;
 @synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
@@ -80,13 +81,6 @@
 {
     [super viewDidLoad];
     
-    
-    viewHelper *vH = [[viewHelper alloc] init];
-    
-    [vH getResourcePathProfile:@"505"];
-    
-    [mutArrayViewHelper addObject:vH];
-    
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
     
@@ -124,7 +118,7 @@
     
     [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
     [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
-        
+    
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
     
@@ -160,6 +154,20 @@
                         range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
         
         OHlabelTitleResults.attributedText = attrStr;
+        
+        //logic block to load avatares search.
+        mutArrayViewHelpers = [[NSMutableArray alloc] initWithCapacity:[mutArrayProducts count]];
+        for (int i = 0; i < [mutArrayProducts count]; i++) {
+            NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg",
+                                    [[mutArrayProducts objectAtIndex:i] idPessoa]];
+            if ([[GlobalFunctions getUserDefaults] objectForKey:avatarName] == nil){
+                NSString *garageName = [[mutArrayProducts objectAtIndex:i] idPessoa];
+                viewHelper *vH = [[viewHelper alloc] init];
+                vH.avatarName = avatarName;
+                [vH getResourcePathGarage:garageName];
+                [mutArrayViewHelpers addObject:vH];
+            }
+        }
         
         [segmentControl setEnabled:YES];
         [tableView setScrollEnabled:YES];
@@ -282,9 +290,6 @@
     
     if ([mutArrayProducts count] > 0) {
     
-    
-    
-
     //display image path
    // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
 
@@ -333,11 +338,12 @@
         [customViewCellBlock.valorEsperado setAttributedText:attrStr];
         [customViewCellLine.valorEsperado setAttributedText:attrStr];
     }
+        
+    UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                               objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
+    customViewCellBlock.imageGravatar.image = image;
+    customViewCellBlock.imageGravatar.tag = indexPath.row;
 
-   // NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]];
-    //UIImage *image      = [[UIImage alloc] initWithData:imageData];
-    customViewCellBlock.imageGravatar.image = [UIImage imageNamed:@"nopicture"];
-    
     UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
     [gestGrav setNumberOfTouchesRequired:1];
     
@@ -391,11 +397,9 @@
         //load the image
         customViewCellLine.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
         
-        
         customViewCellLine.imageView.layer.masksToBounds = YES;
         
         customViewCellLine.imageView.layer.cornerRadius = 3;
-        
         
       //  [customViewCellBlock removeFromSuperview];
         [customViewCellBlock setHidden:YES];
@@ -404,11 +408,6 @@
         [self.tableView setRowHeight:367];
         return customViewCellLine;
     }
-
-    
-    
-    
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -427,14 +426,21 @@
 //    [garaAcc setProfile:(Profile *)[mutArrayProducts objectAtIndex:0]];
 //    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
     
-    garaAcc.profile = [[Profile alloc] init];
     
-    [garaAcc.profile setGaragem:[[mutArrayProducts objectAtIndex:0] idPessoa ]];
-
+    NSString *garageName = [[mutArrayProducts objectAtIndex:sender.view.tag] idPessoa];
     UIImageView *imgV = (UIImageView *)sender.view;
-    
+    garaAcc.garageNameSearch = garageName;
     [garaAcc setImageGravatar:imgV.image];
+    garaAcc.isGenericGarage = YES;
     [self.navigationController pushViewController:garaAcc animated:YES];
+    
+    
+//    garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
+//    [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
+//    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
+//    [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
+//    [self.navigationController pushViewController:garaAcc animated:YES];
+    
 }
 
 
@@ -479,6 +485,7 @@
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
 
     [mutArrayProducts removeAllObjects];
+    [mutArrayViewHelpers removeAllObjects];
     self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
     [self showSearch:nil];
@@ -548,6 +555,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
    // [searchBarProduct resignFirstResponder];
+    
+    if ([mutArrayProducts count] > 1) {
+
+    
     if (_lastContentOffset < (int)self.tableView.contentOffset.y){
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
         [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -558,6 +569,9 @@
           [self.navigationController setNavigationBarHidden:NO animated:YES];
         }
     }
+        
+    }
+        
     //[searchBarProduct setHidden:YES];
     isSearchDisplayed = NO;
 }
@@ -575,22 +589,17 @@
     [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    for (int i = 0; i < [mutArrayViewHelpers count]; i++) {
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:i] cancelRequestsWithDelegate];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -602,6 +611,8 @@
 {
     mutArrayProducts = nil;
     [self setMutArrayProducts:nil];
+    mutArrayViewHelpers = nil;
+    [self setMutArrayViewHelpers:nil];
     [super viewDidUnload];
 }
 

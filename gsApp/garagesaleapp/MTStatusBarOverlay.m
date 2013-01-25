@@ -125,7 +125,8 @@ MAX([UIApplication sharedApplication].statusBarFrame.size.width, [UIApplication 
 ///////////////////////////////////////////////////////
 
 // Text that is displayed in the finished-Label when the finish was successful
-#define kFinishedText @"✓"
+//#define kFinishedText @"✓"
+#define kFinishedText @""
 #define kFinishedFontSize 22.f
 
 // Text that is displayed when an error occured
@@ -249,7 +250,7 @@ kDetailViewWidth, kHistoryTableRowHeight*kMaxHistoryTableRowCount + kStatusBarHe
 @synthesize statusLabel1 = statusLabel1_;
 @synthesize statusLabel2 = statusLabel2_;
 @synthesize hiddenStatusLabel = hiddenStatusLabel_;
-@synthesize progress = progress_;
+@synthesize progressMTStatus = progressMTStatus_;
 @synthesize progressView = progressView_;
 @synthesize activityIndicator = activityIndicator_;
 @synthesize finishedLabel = finishedLabel_;
@@ -422,7 +423,7 @@ kDetailViewWidth, kHistoryTableRowHeight*kMaxHistoryTableRowCount + kStatusBarHe
         // the hidden status label at the beginning
         hiddenStatusLabel_ = statusLabel2_;
         
-        progress_ = 1.0;
+        progressMTStatus_ = 1.0;
         progressView_ = [[UIImageView alloc] initWithFrame:statusBarBackgroundImageView_.frame];
         progressView_.opaque = NO;
         progressView_.hidden = YES;
@@ -906,8 +907,8 @@ kDetailViewWidth, kHistoryTableRowHeight*kMaxHistoryTableRowCount + kStatusBarHe
     progress = MAX(0.0, MIN(progress, 1.0));
     
     // do not decrease progress if it is no reset
-    if (progress == 0.0 || progress > progress_) {
-        progress_ = progress;
+    if (progress == 0.0 || progress > progressMTStatus_) {
+        progressMTStatus_ = progress;
     }
     
     // update UI on main thread
@@ -1341,9 +1342,9 @@ kDetailViewWidth, kHistoryTableRowHeight*kMaxHistoryTableRowCount + kStatusBarHe
 }
 
 - (void)updateProgressViewSizeForLabel:(UILabel *)label {
-    if (self.progress < 1.) {
+    if (self.progressMTStatus < 1.) {
         CGSize size = [label sizeThatFits:label.frame.size];
-        CGFloat width = size.width * (float)(1. - self.progress);
+        CGFloat width = size.width * (float)(1. - self.progressMTStatus);
         CGFloat x = label.center.x + size.width/2.f - width;
         
         // if we werent able to determine a size, do nothing

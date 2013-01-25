@@ -499,10 +499,11 @@
         imagePicker.delegate = self;
         
         // Allow editing of image ?
-        imagePicker.allowsImageEditing = YES;
          imagePicker.wantsFullScreenLayout = YES;
-        //imagePicker.allowsEditing = NO;
+        //imagePicker.allowsEditing = YES;
 
+        //[imagePicker.cameraOverlayView addSubview:libraryButton];
+        
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
     } 

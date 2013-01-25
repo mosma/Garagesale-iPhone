@@ -12,6 +12,8 @@
 @implementation viewHelper
 
 @synthesize RKObjManeger;
+@synthesize imageAvatar;
+@synthesize avatarName;
 
 -(id)init{
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
@@ -19,113 +21,151 @@
     return self;
 }
 
-- (void)getResourcePathGarage {
+//receive a user profie and returns its image
+-(UIImage *)getGarageAvatar:(NSArray *)profile {
+    //first validates if there is a facebook profile
+    if([[profile objectAtIndex:0] fbConnect]) {
+        imageAvatar =  [self getFBImage:[[[profile objectAtIndex:0] fbId] stringValue]];
+        if(imageAvatar) {
+            [self updateAvatar];
+            return imageAvatar;
+        }
+    }
+    
+    //validates then if there is a twitter account
+    else {
+        imageAvatar = [self getTTImage:arrayHelperReturn];
+        
+        //in case of twitter login, uses the twitter image
+        if(imageAvatar){
+            [self updateAvatar];
+            return imageAvatar;
+        }
+        //in the case there is no fb ow twitter, we find for the gravatar
+        
+        imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getGravatarURL:[[profile objectAtIndex:0] email]]]];
+        
+        if(imageAvatar) {
+            [self updateAvatar];
+            return imageAvatar;
+        }
+    }
+    NSString *url = @"http://garagesaleapp.me/images/no-profileimg-small.jpg";
+    imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    return imageAvatar;
+}
+
+-(void)updateAvatar{
+    NSUserDefaults *gravImg = [NSUserDefaults standardUserDefaults];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:avatarName];
+    NSData *imageData = [NSKeyedArchiver archivedDataWithRootObject:imageAvatar];
+    [gravImg setObject:imageData forKey:avatarName];
+    [gravImg synchronize];
+}
+
+-(NSURL*) getGravatarURL:(NSString*) emailAddress {
+    @try {
+        NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
+                                   [NSCharacterSet whitespaceCharacterSet]]
+                                  lowercaseString];
+        const char *cStr = [curatedEmail UTF8String];
+        unsigned char result[16];
+        CC_MD5(cStr, strlen(cStr), result);
+        
+        NSString *md5email = [NSString stringWithFormat:
+                              @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                              result[0], result[1], result[2], result[3],
+                              result[4], result[5], result[6], result[7],
+                              result[8], result[9], result[10], result[11],
+                              result[12], result[13], result[14], result[15]];
+        NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=160&d=http://gsapp.me/images/no-profileimg.jpg", md5email];
+        
+        return [NSURL URLWithString:gravatarEndPoint];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
+}
+
+//validates a profile for a twitter picture
+- (UIImage*)getTTImage:(NSArray *)viewHelperReturn {
+    //fint for the twitter id
+    // also got by the url http://gsapi.easylikethat.com/profile/USER_ID?ttinfo=true
+    // on the var userId
+    //$obj['large'] = "http://api.twitter.com/1/users/profile_image/".$id->getUserId()."?size=original";
+    
+    NSNumber *idTT = [[viewHelperReturn objectAtIndex:0] userId];
+    
+    if(!idTT) return false;
+    //using the returnet userId
+    NSString *path = [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@?size=normal", idTT];
+    NSLog(@"%@", path);
+    return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:path]]];
+}
+
+//validates a profile for a facebook image
+-(UIImage *)getFBImage:(NSString *)idFaceBook {
+    NSString *url1 = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture", idFaceBook];
+   //NSString *url2 = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=250&height=250", idFaceBook];
+   //NSDictionary *obj = [[NSDictionary alloc] initWithObjectsAndKeys:@"small", url1, @"large", url2, nil];
+    UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url1]]];
+    return img;
+}
+
+- (void)getResourcePathGarage:(NSString *)garageName{
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
-    
-//    if (self.isIdPersonNumber)
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", [(Profile *)[arrayProfile objectAtIndex:0] garagem]]
-                                  objectMapping:garageMapping delegate:self];
-//    else
-//        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", self.product.idPessoa]
-//                                  objectMapping:garageMapping delegate:self];
-    
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", garageName]
+                              objectMapping:garageMapping delegate:self];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
+                                          forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)getResourcePathProfile:(NSString *)profile {
-    
+- (void)getResourcePathProfile:(NSArray *)garage {
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
-    
-//    if (self.isIdPersonNumber)
-//        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", self.product.idPessoa]
-//                                  objectMapping:prolileMapping delegate:self];
-//    else
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", profile]
-                                  objectMapping:prolileMapping delegate:self];
-    
-    //Set JSon Type
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[garage objectAtIndex:0] idPerson]]
+                              objectMapping:prolileMapping delegate:self];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
+                                          forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)getResourceTTImage {
+- (void)getResourceViewHelper {
     RKObjectMapping *viewHelperMapping = [Mappings getViewHelperMapping];
-    
-    //http://gsapi.easylikethat.com/profile/505?ttinfo=true
-    
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?ttinfo=true",
                                              [[arrayProfile objectAtIndex:0] id]]
                               objectMapping:viewHelperMapping delegate:self];
     
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-}
-
-+ (NSURL*) getGravatarURL:(NSString*) emailAddress {
-	NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
-							   [NSCharacterSet whitespaceCharacterSet]]
-							  lowercaseString];
-    
-	const char *cStr = [curatedEmail UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result);
-    
-	NSString *md5email = [NSString stringWithFormat:
-                          @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-                          result[0], result[1], result[2], result[3],
-                          result[4], result[5], result[6], result[7],
-                          result[8], result[9], result[10], result[11],
-                          result[12], result[13], result[14], result[15]
-                          ];
-	NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=160&d=http://gsapp.me/images/no-profileimg.jpg", md5email];
-    
-	return [NSURL URLWithString:gravatarEndPoint];
-}
-
-//validates a profile for a twitter picture
-- (UIImage*)getTTImage:(Profile *)profile {
-    //fint for the twitter id
-    
-    // also got by the url http://gsapi.easylikethat.com/profile/USER_ID?ttinfo=true
-    
-    // on the var userId
-    
-    int id = [profile.id intValue];
-    
-    if(!id) return false;
-    
-    //using the returnet userId
-    
-    return [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@?size=normal", [(viewHelperReturn *)[arrayViewHelper objectAtIndex:0] userId] ];
-    
-    
-    //$obj['large'] = "http://api.twitter.com/1/users/profile_image/".$id->getUserId()."?size=original";
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
+                                          forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([objects count] > 0) {
-        
-
-        
-        if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
-            arrayProfile = objects;
-            [self getResourcePathGarage];
+        if  ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            [self getResourcePathProfile:objects];
         }
-        else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            arrayGarage = objects;
-            [self getResourceTTImage];
+        else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+            arrayProfile = objects;
+            [self getResourceViewHelper];
         }
         else if ([[objects objectAtIndex:0] isKindOfClass:[viewHelperReturn class]]){
-            arrayViewHelper = objects;
-        }
-        
-        
-        
+            arrayHelperReturn = objects;
+            imageAvatar = [self getGarageAvatar:arrayProfile];
+        } 
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered error: %@",                      error);
+    imageAvatar = nil;
+    @try {
+        imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getGravatarURL:[[arrayProfile objectAtIndex:0] email]]]];
+        [self updateAvatar];    
+    }
+    @catch (NSException *exception) {
+        imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                                [NSURL URLWithString:@"http://garagesaleapp.me/images/no-profileimg-small.jpg"]]];
+    }
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -148,6 +188,10 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)cancelRequestsWithDelegate{
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
 }
 
 @end

@@ -249,9 +249,22 @@
         labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
         labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
         
-        UIImage *imgProfile = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[self.arrayProfile objectAtIndex:0] email]]]];
+       
+        NSString *garageName = [[self.arrayProfile objectAtIndex:0] garagem];
         
-        [buttonGarageDetail setImage:imgProfile forState:UIControlStateNormal];
+        NSString *avatarName =  [NSString stringWithFormat:@"%@_AvatarImg", garageName];
+                
+        UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                               objectForKey:avatarName]];
+
+        if (!image) {
+            vH = [[viewHelper alloc] init];
+            vH.avatarName = avatarName;
+            image = [vH getGarageAvatar:self.arrayProfile];
+        }
+        
+        
+        [buttonGarageDetail setImage:image forState:UIControlStateNormal];
         
         [garageDetailView setHidden:NO];
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
@@ -300,18 +313,18 @@
         } else 
             [countView setHidden:YES];
 
-        UIImage *image;
+        UIImage *firstImage;
 
         @try {
             Photo       *photo      = (Photo *)[self.product.fotos objectAtIndex:0];
             Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
             NSURL *url = [NSURL URLWithString:[caminho mobile]];
-            image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [imageView setImage:image];
+            firstImage                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            [imageView setImage:firstImage];
         }
         @catch (NSException *exception) {
-            image                   = [UIImage imageNamed:@"nopicture.png"];
-            imageView               = [[UIImageView alloc] initWithImage:image];
+            firstImage                   = [UIImage imageNamed:@"nopicture.png"];
+            imageView               = [[UIImageView alloc] initWithImage:firstImage];
         }
         
         //Shadow Top below navigationBar
@@ -754,6 +767,7 @@
         [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
         [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
         [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
+        garaAcc.isGenericGarage = YES;
         [self.navigationController pushViewController:garaAcc animated:YES];
     }
 }

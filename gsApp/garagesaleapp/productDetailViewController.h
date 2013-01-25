@@ -71,6 +71,7 @@
     __unsafe_unretained IBOutlet UILabel        *labelAskSomething;    
     __unsafe_unretained IBOutlet UILabel        *labelCongrats;
     __unsafe_unretained IBOutlet UILabel        *labelBidSent;
+    viewHelper *vH;
 }
 
 

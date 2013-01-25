@@ -33,6 +33,8 @@
 @synthesize viewNoProducts;
 @synthesize imageGravatar;
 @synthesize labelTotalProducts;
+@synthesize garageNameSearch;
+@synthesize isGenericGarage;
 
 - (void)awakeFromNib
 {
@@ -40,7 +42,7 @@
     
     //Hide Products with idEstados == 4 "Invisible."
     for(int i = 0; i < [mutArrayProducts count]; i++)
-        if (!((garage  == nil) && (profile == nil)))
+        if (isGenericGarage)
             if ([[(Product *)[mutArrayProducts objectAtIndex:i] idEstado] intValue] == 4){
               [mutArrayProducts removeObjectAtIndex:i];
               i--;
@@ -135,7 +137,9 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
-        if ((garage  == nil) && (profile == nil)) {
+        
+        //Garage Session
+        if (!isGenericGarage) {
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
             city.text        = [NSString stringWithFormat:@"%@, %@, %@",
@@ -147,7 +151,9 @@
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
             //Retrieving
-            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:@"imageGravatar"]];
+            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                                   objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
+            
             
             self.trackedViewName = [NSString stringWithFormat:@"/%@",
                                     [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
@@ -157,28 +163,25 @@
             
             self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png" rect:CGRectMake(0, 0, 38, 32)];
 
-        } else {
-            description.text = garage.about;
-            garageName.text  = profile.garagem;
-            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                                garage.city,
-                                garage.district,
-                                garage.country];
-            link.text        = garage.link;
-            
-            gravatarUrl = [viewHelper getGravatarURL:profile.email];
-                        
-            [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
-            
-            self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
-            
-            self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                                       @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         }
         
-        if ([city.text length] < 5)
-            [city setHidden:YES];
+        //Generics Garage. From SearchVC and DetailVC
+        else
+            [self loadHeader];
         
+        //            viewHelper *vH = [[viewHelper alloc] init];
+        //             [vH getGarageAvatar:(Profile *)[objects objectAtIndex:0]];
+        //
+        //            gravatarUrl = [viewHelper getGravatarURL:profile.email];
+        
+        if (imageGravatar)
+            [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
+              
+        self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
+        
+        if (isGenericGarage)
+            self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
         [gestReload setNumberOfTapsRequired:1];
@@ -192,16 +195,16 @@
         segmentControl.selectedSegmentIndex = 0;
         segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [viewSegmentArea addSubview:segmentControl];
-
+        
         [viewNoProducts setHidden:YES];
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
-
+        
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
         [garageName setTextColor:[UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.f]];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-
+        
         garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:20];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
@@ -222,10 +225,13 @@
         //init Global Functions
         globalFunctions = [[GlobalFunctions alloc] init];
         
-       // self.tableViewProducts.hidden = YES;
+        // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-                
+
+        
+        
+        
     }
     
     // set values to objetcs from objectLoader
@@ -237,7 +243,7 @@
                                                           withValue:nil];
         
         [segmentControl setEnabled:YES];
-                
+        
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -254,12 +260,39 @@
     }
 }
 
+-(void)loadHeader{
+
+    
+    if (garageNameSearch) {
+
+    description.text = @"";
+    garageName.text  = @"";
+    city.text        = @"";
+    link.text        = @"";
+    
+    } else {
+    
+    description.text = garage.about;
+    garageName.text  = profile.garagem;
+    city.text        = [NSString stringWithFormat:@"%@, %@, %@",
+                        garage.city,
+                        garage.district,
+                        garage.country];
+    link.text        = garage.link;
+    
+     if ([city.text length] < 5)
+        [city setHidden:YES];
+    
+    }
+
+}
+
 - (void)urlGarage:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link.text]];
 }
 
-- (void)getResourcePathProduct{    
+- (void)getResourcePathProduct{
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager sharedManager];
     
@@ -274,32 +307,68 @@
     [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
     //LoadUrlResourcePath
-    if ((garage  == nil) && (profile == nil))
+    if (!isGenericGarage)
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] objectMapping:productMapping delegate:self];
-    else
+    else if (!garageNameSearch)
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", profile.garagem] objectMapping:productMapping delegate:self];
+    else if (garageNameSearch)
+        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", garageNameSearch] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
+- (void)getResourcePathGarage:(NSString *)garage{
+    RKObjectMapping *garageMapping = [Mappings getGarageMapping];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", garage]
+                              objectMapping:garageMapping delegate:self];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
+                                          forMIMEType:[GlobalFunctions getMIMEType]];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+- (void)getResourcePathProfile:(NSArray *)garage {
+    RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[garage objectAtIndex:0] idPerson]]
+                              objectMapping:prolileMapping delegate:self];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
+                                          forMIMEType:[GlobalFunctions getMIMEType]];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    [mutArrayProducts removeAllObjects];
-    if([objects count] > 0){
-        mutArrayProducts = (NSMutableArray *)objects;
-        [self awakeFromNib];
-        [tableViewProducts reloadData];
-        [self loadAttribsToComponents:YES];
-        self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
-        [scrollViewMain setUserInteractionEnabled:YES];
-        [viewNoProducts setHidden:YES];
+    
+    if ([objects count] > 0) {
+
+        if([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+            [mutArrayProducts removeAllObjects];
+            mutArrayProducts = (NSMutableArray *)objects;
+            [self awakeFromNib];
+            [tableViewProducts reloadData];
+            self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
+            [scrollViewMain setUserInteractionEnabled:YES];
+            [viewNoProducts setHidden:YES];
+            [self loadAttribsToComponents:YES];
+            if (garageNameSearch){
+                [self getResourcePathGarage:[[objects objectAtIndex:0] idPessoa]];
+                garageNameSearch = nil;
+            } else
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        } else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            [self getResourcePathProfile:objects];
+            garage = (Garage *)[objects objectAtIndex:0];
+        } else if ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+            profile = (Profile *)[objects objectAtIndex:0];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            [self loadHeader];
+        }
     } else {
+        [mutArrayProducts removeAllObjects];
         [scrollViewMain setUserInteractionEnabled:NO];
-        if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        if (!isGenericGarage)
             [viewNoProducts setHidden:NO];
         labelTotalProducts.text = @"";
         self.scrollViewProducts.contentSize = CGSizeMake(320,400);
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -377,6 +446,7 @@
     [super viewWillDisappear:animated];
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
@@ -391,7 +461,7 @@
         [scrollViewProducts addSubview:
             [globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:[self.mutArrayProducts objectAtIndex:i],
                                                         [NSNumber numberWithInt:i], nil]
-                                              showEdit:((garage  == nil) && (profile == nil)) ? YES : NO
+                                              showEdit:!isGenericGarage ? YES : NO
                                              showPrice:YES
                                              viewContr:self]];
     }
@@ -490,7 +560,7 @@
                 break;
         }
                 
-        if ((garage  == nil) && (profile == nil))
+        if (!isGenericGarage)
             cell.imageEditButton.hidden = NO;
         else 
             cell.imageEditButton.hidden = YES;
@@ -543,7 +613,8 @@
     self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
-        if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
+        if (!isGenericGarage)
+            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -551,6 +622,8 @@
 
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
+        if (!isGenericGarage)
+            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];

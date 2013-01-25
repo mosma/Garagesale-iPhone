@@ -97,6 +97,10 @@
         self.scrollView.contentSize = CGSizeMake(320,525);
     }
     
+    imageView.image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                           objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
+    
+    
     //set Navigation Title with OHAttributeLabel
     NSString *titleAbout = @"This app is developed and created by MoSMA. \r\n\ Want to talk? \n contact@mosma.us";
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleAbout];
@@ -194,7 +198,10 @@
                         [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
                         [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
     
-    imageView.image  = [UIImage imageWithData: [NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
+    
+    //Passar imagem de quem logou para um NSUserDefaults...
+    //
+    //[UIImage imageWithData: [NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"
