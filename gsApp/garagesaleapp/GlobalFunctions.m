@@ -460,19 +460,21 @@
 }
 
 +(NSString *)getCurrencyByCode:(NSString*)currencyCode{
-    NSMutableDictionary *dictLang = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"en_US", @"en_US", @"en_US", @"pt_BR", nil] forKeys:[NSArray arrayWithObjects:@"USD", @"EUR", @"GBP", @"BRL", nil]];
-    
-//    [dictLang setObject:@"en_US" forKey:@"USD"];
-//    [dictLang setObject:@"en_US" forKey:@"EUR"];
-//    [dictLang setObject:@"en_US" forKey:@"GBP"];
-//    [dictLang setObject:@"pt_BR" forKey:@"BRL"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Currencies" ofType:@"plist"];
+    //the key of dictionary : Root > Currency > Name/Rate/Symbol
+    NSDictionary* dictCurrency =  [NSDictionary dictionaryWithContentsOfFile:path];
 
-//    NSLog(@"%@",[dictLang valueForKey:[NSString stringWithString:currencyCode]]);
+    NSDictionary *dictByCurrencyCode;
+    for (id key in dictCurrency)
+    {
+        if ([currencyCode isEqualToString:key])
+            dictByCurrencyCode = [dictCurrency objectForKey:key];
+    }
     
-    NSLocale *lcl = [[NSLocale alloc] initWithLocaleIdentifier:
-                     [NSString stringWithString:[dictLang valueForKey:[NSString stringWithString:currencyCode]]]];
+    NSArray *array = [dictByCurrencyCode allValues];
     
-    return [lcl displayNameForKey:NSLocaleCurrencySymbol value:currencyCode];
+    //index 1 is a Symbol currency
+    return [array objectAtIndex:1];
 }
 
 +(void)setNavigationBarBackground:(UINavigationController *)navController{

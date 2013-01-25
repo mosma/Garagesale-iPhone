@@ -77,6 +77,11 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.delegate = self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

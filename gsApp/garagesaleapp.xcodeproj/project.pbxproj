@@ -218,6 +218,7 @@
 		CC76DC371631ADE80045F7E0 /* Mappings.m in Sources */ = {isa = PBXBuildFile; fileRef = CC76DC361631ADE80045F7E0 /* Mappings.m */; };
 		CC77A86B16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc.png in Resources */ = {isa = PBXBuildFile; fileRef = CC77A86916126902006D6CEA /* iconDeletePicsAtGalleryProdAcc.png */; };
 		CC77A86C16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC77A86A16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png */; };
+		CC7C420016B2C82F002F6CAC /* Currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC7C41FF16B2C82F002F6CAC /* Currencies.plist */; };
 		CC7D7E5D1545C9C200E47F71 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7D7E5C1545C9C200E47F71 /* Twitter.framework */; };
 		CC8374401680CADD002754B8 /* popOverBack.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83743E1680CADD002754B8 /* popOverBack.png */; };
 		CC8374411680CADD002754B8 /* popOverBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83743F1680CADD002754B8 /* popOverBack@2x.png */; };
@@ -604,6 +605,7 @@
 		CC76DC361631ADE80045F7E0 /* Mappings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mappings.m; sourceTree = "<group>"; };
 		CC77A86916126902006D6CEA /* iconDeletePicsAtGalleryProdAcc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconDeletePicsAtGalleryProdAcc.png; sourceTree = "<group>"; };
 		CC77A86A16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconDeletePicsAtGalleryProdAcc@2x.png"; sourceTree = "<group>"; };
+		CC7C41FF16B2C82F002F6CAC /* Currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Currencies.plist; sourceTree = "<group>"; };
 		CC7D7E5C1545C9C200E47F71 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		CC83743E1680CADD002754B8 /* popOverBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popOverBack.png; sourceTree = "<group>"; };
 		CC83743F1680CADD002754B8 /* popOverBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popOverBack@2x.png"; sourceTree = "<group>"; };
@@ -1290,6 +1292,7 @@
 			isa = PBXGroup;
 			children = (
 				CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */,
+				CC7C41FF16B2C82F002F6CAC /* Currencies.plist */,
 				CCB0643D14B2A5D20022BA5D /* garagesaleapp-Info.plist */,
 				CCB0643E14B2A5D20022BA5D /* InfoPlist.strings */,
 				CCB0644114B2A5D20022BA5D /* main.m */,
@@ -1720,6 +1723,7 @@
 				CC6EE8D3168B7F6E00AB4E87 /* addcamover.png in Resources */,
 				CC6EE8D4168B7F6E00AB4E87 /* addcamover@2x.png in Resources */,
 				CCCE9DCA1693CD2300E53DED /* nopicture@2x.png in Resources */,
+				CC7C420016B2C82F002F6CAC /* Currencies.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
