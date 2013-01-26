@@ -117,6 +117,7 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [viewTop setUserInteractionEnabled:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     for (UIButton *subview in [scrollViewProducts subviews]) 
         [subview removeFromSuperview];
@@ -337,7 +338,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     
     if ([objects count] > 0) {
-
+        [viewTop setUserInteractionEnabled:YES];
         if([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             [mutArrayProducts removeAllObjects];
             mutArrayProducts = (NSMutableArray *)objects;
