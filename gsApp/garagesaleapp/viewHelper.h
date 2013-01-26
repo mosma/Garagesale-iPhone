@@ -14,7 +14,7 @@
 @interface viewHelper : NSObject <RKObjectLoaderDelegate> {
     RKObjectManager *RKObjManeger;
     NSArray                                    *arrayProfile;
-    NSArray                                    *arrayHelperReturn;
+    NSArray                                    *arrayTTReturn;
 }
 
 @property (nonatomic, retain) RKObjectManager *RKObjManeger;

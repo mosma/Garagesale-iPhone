@@ -77,6 +77,9 @@
     [prolileMapping mapKeyPath:@"senha"     toAttribute:@"senha"];
     [prolileMapping mapKeyPath:@"nome"      toAttribute:@"nome"];
     [prolileMapping mapKeyPath:@"email"     toAttribute:@"email"];
+    [prolileMapping mapKeyPath:@"lang"      toAttribute:@"lang"];
+    [prolileMapping mapKeyPath:@"fbId"      toAttribute:@"fbId"];
+    [prolileMapping mapKeyPath:@"fbConnect" toAttribute:@"fbConnect"];
     [prolileMapping mapKeyPath:@"idRole"    toAttribute:@"idRole"];
     [prolileMapping mapKeyPath:@"idState"   toAttribute:@"idState"];
     [prolileMapping mapKeyPath:@"id"        toAttribute:@"id"];

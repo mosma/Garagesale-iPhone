@@ -24,8 +24,9 @@
 //receive a user profie and returns its image
 -(UIImage *)getGarageAvatar:(NSArray *)profile {
     //first validates if there is a facebook profile
-    if([[profile objectAtIndex:0] fbConnect]) {
-        imageAvatar =  [self getFBImage:[[[profile objectAtIndex:0] fbId] stringValue]];
+    BOOL isFBConnect = [[[profile objectAtIndex:0] fbConnect] boolValue];
+    if(isFBConnect) {
+        imageAvatar =  [self getFBImage:[[profile objectAtIndex:0] fbId]];
         if(imageAvatar) {
             [self updateAvatar];
             return imageAvatar;
@@ -34,7 +35,7 @@
     
     //validates then if there is a twitter account
     else {
-        imageAvatar = [self getTTImage:arrayHelperReturn];
+        imageAvatar = [self getTTImage:arrayTTReturn];
         
         //in case of twitter login, uses the twitter image
         if(imageAvatar){
@@ -128,7 +129,7 @@
                                           forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)getResourceViewHelper {
+- (void)getResourceTTimage {
     RKObjectMapping *viewHelperMapping = [Mappings getViewHelperMapping];
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?ttinfo=true",
                                              [[arrayProfile objectAtIndex:0] id]]
@@ -146,10 +147,14 @@
         }
         else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
             arrayProfile = objects;
-            [self getResourceViewHelper];
+            BOOL isFBConnect = [[[objects objectAtIndex:0] fbConnect] boolValue];
+            if (isFBConnect) {
+                imageAvatar = [self getGarageAvatar:arrayProfile];
+            }else
+                [self getResourceTTimage];
         }
         else if ([[objects objectAtIndex:0] isKindOfClass:[viewHelperReturn class]]){
-            arrayHelperReturn = objects;
+            arrayTTReturn = objects;
             imageAvatar = [self getGarageAvatar:arrayProfile];
         } 
     }
