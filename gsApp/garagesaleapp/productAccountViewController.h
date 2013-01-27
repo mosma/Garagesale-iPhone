@@ -45,7 +45,7 @@
     RKObjectManager             *RKObjManeger;
                                                                  
     NSArray                     *nsArrayState;
-    NSArray                     *nsArrayCurrency;
+    NSMutableArray              *nsArrayCurrency;
     UITapGestureRecognizer      *singleTap;
     UIView                      *shadowView;
     MBProgressHUD               *HUD;

@@ -121,13 +121,20 @@
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
-        
-    nsArrayCurrency = [NSArray arrayWithObjects:
-                       @"BRL - R$",
-                       @"GBP - £",
-                       @"EUR - €",
-                       @"USD - $", nil];
     
+    
+    NSString *currencyDefault = [NSString stringWithFormat:@"%@ - %@",code,symbol];
+    
+    nsArrayCurrency = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects: currencyDefault,
+                                                             @"BRL - R$",
+                                                             @"GBP - £",
+                                                             @"EUR - €",
+                                                             @"USD - $", nil]];
+    //remove repeat currency.
+    for (int i=1;  i < [nsArrayCurrency count]; i++)
+        if ([[nsArrayCurrency objectAtIndex:i] isEqualToString:currencyDefault])
+            [nsArrayCurrency removeObjectAtIndex:i];
+
     //Set Picker View State
     UIPickerView *pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
     [pickerViewState setDelegate:self];
@@ -157,7 +164,7 @@
         [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
                                    [GlobalFunctions getCurrencyByCode:product.currency]]];
     else
-        [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@",code,symbol]];
+        [txtFieldCurrency setText:currencyDefault];
     
     //Create done button in UIPickerView
     UIToolbar       *picViewStateToolbar    = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 56)];

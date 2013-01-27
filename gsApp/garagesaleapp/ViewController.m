@@ -35,9 +35,6 @@
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     [self.view addSubview:searchBarProduct];
-
-    overlay = [MTStatusBarOverlay sharedInstance];
-    [overlay postImmediateFinishMessage:@"GaragesaleApp - Welcome!" duration:3.0 animated:YES];
     
     [self loadAttribsToComponents];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
