@@ -416,18 +416,22 @@
                                         <color key="backgroundColor" red="0.96950301204819278" green="0.97052663780120485" blue="0.97652720256024095" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="nJk-L9-atK" userLabel="viewTitle">
-                                        <rect key="frame" x="0.0" y="96" width="320" height="52"/>
+                                        <rect key="frame" x="0.0" y="96" width="320" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="line.png" id="Rcy-aL-Uzc">
+                                                <rect key="frame" x="0.0" y="67" width="320" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                             <label opaque="NO" clipsSubviews="YES" contentMode="left" text="Link" lineBreakMode="tailTruncation" minimumFontSize="10" id="cR2-WC-ife">
-                                                <rect key="frame" x="11" y="0.0" width="297" height="18"/>
+                                                <rect key="frame" x="11" y="9" width="297" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" red="1" green="0.39974350527108432" blue="0.39928463855421686" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Welcome to my garage! New stuffs all week. alskdjfa;lskdjfads asd;lfkjasdf a;sdlfkjasdf ;asldkfj ;asdlkfjas;dkjf a;slkdjfasdf" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
-                                                <rect key="frame" x="11" y="17" width="301" height="32"/>
+                                            <label opaque="NO" clipsSubviews="YES" contentMode="TopLeft" text="Welcome" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
+                                                <rect key="frame" x="11" y="26" width="301" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                                 <color key="textColor" red="0.59604668838416042" green="0.60289779974489788" blue="0.60289779974489788" alpha="1" colorSpace="calibratedRGB"/>
@@ -437,7 +441,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <tableView hidden="YES" clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="123" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdi-Kb-uR5" userLabel="tableViewProducts">
-                                        <rect key="frame" x="0.0" y="149" width="320" height="465"/>
+                                        <rect key="frame" x="0.0" y="165" width="320" height="465"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -493,7 +497,7 @@
                                         </prototypes>
                                     </tableView>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="3IH-JW-7oF" userLabel="scrollViewProducts">
-                                        <rect key="frame" x="0.0" y="149" width="320" height="460"/>
+                                        <rect key="frame" x="0.0" y="165" width="320" height="460"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </scrollView>
@@ -2149,6 +2153,7 @@
         <image name="dropDownCurrency.png" width="113" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
+        <image name="line.png" width="320" height="1"/>
         <image name="rightNavItem.png" width="58" height="31"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>

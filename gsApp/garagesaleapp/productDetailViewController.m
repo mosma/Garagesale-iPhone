@@ -232,11 +232,12 @@
         [garageDetailView addGestureRecognizer:gest];
         
         [labelNameProfile   setText:[[self.arrayProfile objectAtIndex:0] nome]];
-        [labelCityProfile   setText:[NSString stringWithFormat:@"%@, %@, %@",
-                                     [[self.arrayGarage objectAtIndex:0] city],
-                                     [[self.arrayGarage objectAtIndex:0] district],
-                                     [[self.arrayGarage objectAtIndex:0] country]
-                                     ]];
+        
+        NSString *cityConc = [[self.arrayGarage objectAtIndex:0] city];
+        NSString *country = [[self.arrayGarage objectAtIndex:0] district];
+        NSString *district = [[self.arrayGarage objectAtIndex:0] country];
+        
+        labelCityProfile.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
         
         if ([labelCityProfile.text length] < 5)
             [labelCityProfile setHidden:YES];

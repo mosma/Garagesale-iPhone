@@ -117,6 +117,8 @@
 		CC2D1664157D4AF8000B8BD3 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D1661157D4AF7000B8BD3 /* NSAttributedString+Attributes.m */; };
 		CC2D1665157D4AF8000B8BD3 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2D1663157D4AF7000B8BD3 /* OHAttributedLabel.m */; };
 		CC2D1667157D4B6D000B8BD3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC2D1666157D4B6D000B8BD3 /* CoreText.framework */; };
+		CC2E6BA216B7013200888BA7 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2E6BA016B7013200888BA7 /* line.png */; };
+		CC2E6BA316B7013200888BA7 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2E6BA116B7013200888BA7 /* line@2x.png */; };
 		CC2EA31A1644A38700F13C62 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2EA3191644A38700F13C62 /* MasterViewController.m */; };
 		CC2EC56214B74B0100AEFE04 /* UIButtonArrow280x40.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2EC55F14B74B0100AEFE04 /* UIButtonArrow280x40.png */; };
 		CC2EC56314B74B0100AEFE04 /* UIButtonArrow280x70.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2EC56014B74B0100AEFE04 /* UIButtonArrow280x70.png */; };
@@ -495,6 +497,8 @@
 		CC2D1662157D4AF7000B8BD3 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
 		CC2D1663157D4AF7000B8BD3 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
 		CC2D1666157D4B6D000B8BD3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		CC2E6BA016B7013200888BA7 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		CC2E6BA116B7013200888BA7 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		CC2EA3181644A38700F13C62 /* MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		CC2EA3191644A38700F13C62 /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 		CC2EC55F14B74B0100AEFE04 /* UIButtonArrow280x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonArrow280x40.png; sourceTree = "<group>"; };
@@ -922,6 +926,8 @@
 				CCCE9DC91693CD2300E53DED /* nopicture@2x.png */,
 				CC6EE8CD168B7F6E00AB4E87 /* addcam.png */,
 				CC6EE8CE168B7F6E00AB4E87 /* addcam@2x.png */,
+				CC2E6BA016B7013200888BA7 /* line.png */,
+				CC2E6BA116B7013200888BA7 /* line@2x.png */,
 				CC6EE8CF168B7F6E00AB4E87 /* addcamover.png */,
 				CC6EE8D0168B7F6E00AB4E87 /* addcamover@2x.png */,
 				CC6EE8B3168B656100AB4E87 /* closeAbout.png */,
@@ -1724,6 +1730,8 @@
 				CC6EE8D4168B7F6E00AB4E87 /* addcamover@2x.png in Resources */,
 				CCCE9DCA1693CD2300E53DED /* nopicture@2x.png in Resources */,
 				CC7C420016B2C82F002F6CAC /* Currencies.plist in Resources */,
+				CC2E6BA216B7013200888BA7 /* line.png in Resources */,
+				CC2E6BA316B7013200888BA7 /* line@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

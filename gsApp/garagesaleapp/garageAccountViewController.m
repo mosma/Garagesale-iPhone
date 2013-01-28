@@ -149,6 +149,7 @@
             city.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
             
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+            [description sizeToFit];
             garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
 
@@ -220,7 +221,7 @@
         
         garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:20];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
-        description.font = [UIFont fontWithName:@"DroidSans-Bold" size:12];
+        description.font = [UIFont fontWithName:@"Droid Sans" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
         
         UITapGestureRecognizer *gestureRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(urlGarage:)];
@@ -241,10 +242,6 @@
         // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-
-        
-        
-        
     }
     
     // set values to objetcs from objectLoader
@@ -256,6 +253,10 @@
                                                           withValue:nil];
         
         [segmentControl setEnabled:YES];
+        
+        UITapGestureRecognizer *tapDescrip = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoDescriptionVC)];
+        [tapDescrip setNumberOfTapsRequired:1];
+        [description addGestureRecognizer:tapDescrip];
         
         NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
@@ -286,7 +287,7 @@
     } else {
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
 
-        description.text = garage.about;
+        description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
         garageName.text  = profile.garagem;
         link.text        = garage.link;
     
@@ -492,6 +493,22 @@
     settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
     settingsVC.totalProducts = [mutArrayProducts count];
     [self.navigationController pushViewController:settingsVC animated:YES];
+}
+
+-(void)gotoDescriptionVC{
+    UIViewController *descr = [[UIViewController alloc] init];
+    [descr.view setBackgroundColor:[UIColor whiteColor]];
+    descr.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
+                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+    UILabel *labDesc = [[UILabel alloc] init];
+    [labDesc setText:description.text];
+    [labDesc setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
+    [labDesc setNumberOfLines:0];
+    [labDesc setTextColor:[UIColor grayColor]];
+    labDesc.frame = CGRectMake(10, 10, 300, 400);
+    [labDesc sizeToFit];
+    [descr.view addSubview:labDesc];
+    [self.navigationController pushViewController:descr animated:YES];
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
