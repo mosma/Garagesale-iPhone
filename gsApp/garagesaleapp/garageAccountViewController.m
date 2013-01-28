@@ -228,7 +228,7 @@
         [gestureRec setNumberOfTapsRequired:1];
         [link addGestureRecognizer:gestureRec];
         
-        self.scrollViewMain.contentSize         = CGSizeMake(320,610);
+        self.scrollViewMain.contentSize         = CGSizeMake(320,640);
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
         
