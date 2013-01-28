@@ -370,17 +370,21 @@
 }
 
 +(NSString *)formatAddressGarage:(NSArray *)array {
-    NSString *locationName = @"No location yet";
-    
+    NSString *locationName = @"";
     for (int i=0; i < [array count]; i++) {
         if (![[array objectAtIndex:i] isEqualToString:@""]) {
             if (i == 0)
                 locationName = [array objectAtIndex:i];
             else
-                locationName = [NSString stringWithFormat:@"%@, %@", locationName, [array objectAtIndex:i]];
+                locationName = [NSString stringWithFormat:@"%@, %@", locationName, [array objectAtIndex:i]];    
         }
-        
     }
+
+    if ([locationName isEqualToString:@""])
+        return @"No location yet";
+    else if ([[array objectAtIndex:0] isEqualToString:@""])
+        locationName = [locationName substringWithRange:NSMakeRange(2, [locationName length]-2)];
+        
     return locationName;
 }
 
