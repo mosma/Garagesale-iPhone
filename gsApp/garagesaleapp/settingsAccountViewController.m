@@ -193,16 +193,13 @@
     [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
     
     garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
-    city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
-                        [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
     
+    NSString *cityConc = [[GlobalFunctions getUserDefaults] objectForKey:@"city"];
+    NSString *district = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];
+    NSString *country = [[GlobalFunctions getUserDefaults] objectForKey:@"country"];
     
-    //Passar imagem de quem logou para um NSUserDefaults...
-    //
-    //[UIImage imageWithData: [NSData dataWithContentsOfURL:[viewHelper getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]]]];
-    
+    city.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
+
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"
                                                                              rect:CGRectMake(0, 0, 40, 30)];

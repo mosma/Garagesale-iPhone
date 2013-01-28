@@ -54,6 +54,8 @@ typedef enum {
 +(NSString *)getUrlImagesProduct:(NSMutableArray *)product imageType:(imageType)imageType;
 +(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonInder;
 -(void)loadThumbs:(NSArray *)array;
++(NSString *)formatAddressGarage:(NSArray *)array;
+
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int countColumnImageThumbs;

@@ -451,7 +451,7 @@
                                                         <imageView autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" id="sJk-A0-owf">
                                                             <rect key="frame" x="11" y="10" width="100" height="100"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Bp-Zl-Q99" userLabel="ButtonEditPencil">
                                                             <rect key="frame" x="15" y="15" width="53" height="26"/>
@@ -501,15 +501,15 @@
                                 <color key="backgroundColor" red="0.96875" green="0.96772637424698793" blue="0.97811558734939763" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" id="vM6-H6-GIK" userLabel="viewNoProducts">
-                                <rect key="frame" x="0.0" y="82" width="320" height="339"/>
+                                <rect key="frame" x="0.0" y="95" width="320" height="339"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="garageNoProducts.png" id="azb-WW-9Y7">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="339"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hello, you dont have any product yet." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36H-0T-KMr">
-                                        <rect key="frame" x="20" y="151" width="280" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hello, you dont have any product yet. Would like to add product" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36H-0T-KMr" customClass="OHAttributedLabel">
+                                        <rect key="frame" x="25" y="120" width="270" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.3238002232142857" green="0.3238002232142857" blue="0.3238002232142857" alpha="1" colorSpace="calibratedRGB"/>
@@ -535,6 +535,7 @@
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>
                         <outlet property="description" destination="buW-ao-lhU" id="5P0-JZ-rlE"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
+                        <outlet property="labelNoProduct" destination="36H-0T-KMr" id="jJV-YV-rHO"/>
                         <outlet property="labelTotalProducts" destination="O6W-Ta-EBh" id="XWr-vg-Y0m"/>
                         <outlet property="link" destination="cR2-WC-ife" id="AOm-9P-RZO"/>
                         <outlet property="scrollViewMain" destination="gzi-hc-7y8" id="dRw-Ng-6PE"/>
@@ -2017,7 +2018,7 @@
                                                 <imageView autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" id="F9F-9T-Jgx">
                                                     <rect key="frame" x="10" y="10" width="100" height="100"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.69103664190000003" green="0.69897959180000002" blue="0.69897959180000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="KvH-sJ-Zfr" userLabel="valorEsperado" customClass="OHAttributedLabel">
                                                     <rect key="frame" x="120" y="60" width="177" height="50"/>
@@ -2196,6 +2197,7 @@
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNoProduct" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="labelTotalProducts" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="link" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>

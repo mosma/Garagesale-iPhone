@@ -369,6 +369,21 @@
     return NULL;
 }
 
++(NSString *)formatAddressGarage:(NSArray *)array {
+    NSString *locationName = @"No location yet";
+    
+    for (int i=0; i < [array count]; i++) {
+        if (![[array objectAtIndex:i] isEqualToString:@""]) {
+            if (i == 0)
+                locationName = [array objectAtIndex:i];
+            else
+                locationName = [NSString stringWithFormat:@"%@, %@", locationName, [array objectAtIndex:i]];
+        }
+        
+    }
+    return locationName;
+}
+
 +(BOOL)isValidEmail:(NSString*) emailString {
     NSString *regExPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];

@@ -49,6 +49,7 @@
     __unsafe_unretained IBOutlet UIView *viewSegmentArea;
     __unsafe_unretained IBOutlet UIView *viewTop;
     __weak IBOutlet UIView *viewNoProducts;
+    __weak IBOutlet OHAttributedLabel *labelNoProduct;
 }
 
 @property (retain, nonatomic) RKObjectManager   *RKObjManeger;
@@ -60,6 +61,7 @@
 @property (retain, nonatomic) UIImage *imageGravatar;
 @property (retain, nonatomic) NSString *garageNameSearch;
 @property (nonatomic) BOOL isGenericGarage;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel *labelNoProduct;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton           *buttonGarageLogo;

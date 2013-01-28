@@ -35,6 +35,7 @@
 @synthesize labelTotalProducts;
 @synthesize garageNameSearch;
 @synthesize isGenericGarage;
+@synthesize labelNoProduct;
 
 - (void)awakeFromNib
 {
@@ -141,12 +142,14 @@
         
         //Garage Session
         if (!isGenericGarage) {
+            NSString *cityConc = [[GlobalFunctions getUserDefaults] objectForKey:@"city"];
+            NSString *country = [[GlobalFunctions getUserDefaults] objectForKey:@"country"];
+            NSString *district = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];
+            
+            city.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
+            
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
-            city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                                [[GlobalFunctions getUserDefaults] objectForKey:@"city"],
-                                [[GlobalFunctions getUserDefaults] objectForKey:@"district"],
-                                [[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
 
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
@@ -155,7 +158,16 @@
             UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
                                                                                    objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
             
-            
+            NSString *noProduct = @"Hello, you dont have any product yet. \n Would like to add product";
+            NSMutableAttributedString* attrStrNoProduct = [NSMutableAttributedString attributedStringWithString:noProduct];
+            [attrStrNoProduct setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+            [attrStrNoProduct setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]                         range:[noProduct rangeOfString:@"Hello, you dont have any product yet."]];
+            [attrStrNoProduct setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                                     range:[noProduct rangeOfString:@"Would like to add product"]];
+            [attrStrNoProduct setFont:[UIFont fontWithName:@"Corben" size:14] range:[noProduct rangeOfString:@"Would like to add product"]];
+            labelNoProduct.attributedText   = attrStrNoProduct;
+            labelNoProduct.textAlignment = UITextAlignmentCenter;
+
             self.trackedViewName = [NSString stringWithFormat:@"/%@",
                                     [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             
@@ -266,23 +278,20 @@
     
     if (garageNameSearch) {
 
-    description.text = @"";
-    garageName.text  = @"";
-    city.text        = @"";
-    link.text        = @"";
+        description.text = @"";
+        garageName.text  = @"";
+        city.text        = @"";
+        link.text        = @"";
     
     } else {
+        city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
+
+        description.text = garage.about;
+        garageName.text  = profile.garagem;
+        link.text        = garage.link;
     
-    description.text = garage.about;
-    garageName.text  = profile.garagem;
-    city.text        = [NSString stringWithFormat:@"%@, %@, %@",
-                        garage.city,
-                        garage.district,
-                        garage.country];
-    link.text        = garage.link;
-    
-     if ([city.text length] < 5)
-        [city setHidden:YES];
+        if ([city.text length] < 5)
+            [city setHidden:YES];
     
     }
 
@@ -655,6 +664,8 @@
     [self setTableViewProducts:nil];
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
+    labelNoProduct = nil;
+    [self setLabelNoProduct:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
