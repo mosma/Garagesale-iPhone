@@ -295,82 +295,95 @@
     
     if ([mutArrayProducts count] > 0) {
     
-    //display image path
-   // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
+        //display image path
+       // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
 
-    NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
-    
-    //Attibuted at strFormat values : Currency, Valor Esperado.
-    NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
-                                                   [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
-    NSString                   *valorEsperado   = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
-    
-    NSString *valorEsperadoFormat;
-    if (segmentControl.selectedSegmentIndex != 0)
-        valorEsperadoFormat = NSLocalizedString(@"format-expected-value-2line", nil); //break line.
-    else valorEsperadoFormat = NSLocalizedString(@"format-expected-value-1line", nil); 
-    
-    NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
-                                                   [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
-    
-    //Set Default Size/Color
-    NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-    
-    //Set Valor Esperado Size/Color
-    [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
-                    range:[strFormat rangeOfString:valorEsperado]];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
-    
-    //Set GarageName Size/Color
-    [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
-                    range:[strFormat rangeOfString:garageName]];
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
-                                                                        [NSString stringWithFormat:NSLocalizedString(@"format-expected-value-by", nil), garageName]]];
-    
-    //Check Flag idEstado (1 - Não Vendido, 2 - Vendido)
-    if ([[[mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue] == 2){
-        [[customViewCellBlock valorEsperado]       setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
-        [[customViewCellBlock valorEsperado] setText:@"Vendido"];
-        [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                           green:(float)102/255.0 \
-                                                            blue:(float)102/255.0 alpha:1.0]];
+        NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
         
-        [customViewCellLine setValorEsperado:customViewCellBlock.valorEsperado];
+        //Attibuted at strFormat values : Currency, Valor Esperado.
+        NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
+                                                       [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
+        NSString                   *valorEsperado   = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
         
-    }else{
-        [customViewCellBlock.valorEsperado setAttributedText:attrStr];
-        [customViewCellLine.valorEsperado setAttributedText:attrStr];
+        NSString *valorEsperadoFormat;
+        if (segmentControl.selectedSegmentIndex != 0)
+            valorEsperadoFormat = NSLocalizedString(@"format-expected-value-2line", nil); //break line.
+        else valorEsperadoFormat = NSLocalizedString(@"format-expected-value-1line", nil); 
+        
+        NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
+                                                       [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
+        
+        //Set Default Size/Color
+        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+        
+        //Set Valor Esperado Size/Color
+        [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
+                        range:[strFormat rangeOfString:valorEsperado]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
+        
+        //Set GarageName Size/Color
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
+                        range:[strFormat rangeOfString:garageName]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
+                                                                            [NSString stringWithFormat:NSLocalizedString(@"format-expected-value-by", nil), garageName]]];
+            
+        int state = [[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue];
+        
+        if (state > 1) {
+            [[customViewCellBlock valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                               green:(float)102/255.0 \
+                                                                blue:(float)102/255.0 alpha:1.0]];
+            
+            [[customViewCellLine valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+            [[customViewCellLine valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                                              green:(float)102/255.0 \
+                                                                               blue:(float)102/255.0 alpha:1.0]];
+        }
+        switch (state) {
+            case 2:
+                [[customViewCellBlock valorEsperado] setText:@"Vendido"];
+                [[customViewCellLine valorEsperado] setText:@"Vendido"];
+                break;
+            case 3:
+                [[customViewCellBlock valorEsperado] setText:@"N/D"];
+                [[customViewCellLine valorEsperado] setText:@"N/D"];
+                break;
+            case 4:
+                [[customViewCellBlock valorEsperado] setText:@"Invisible"];
+                [[customViewCellLine valorEsperado] setText:@"Invisible"];
+                break;
+            default:
+                customViewCellBlock.valorEsperado.attributedText = attrStr;
+                customViewCellLine.valorEsperado.attributedText = attrStr;
+                break;
+        }
+
+        UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                                   objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
+        customViewCellBlock.imageGravatar.image = image;
+        customViewCellBlock.imageGravatar.tag = indexPath.row;
+
+        UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
+        [gestGrav setNumberOfTouchesRequired:1];
+        
+        [customViewCellBlock.imageGravatar addGestureRecognizer:gestGrav];
+        
+        //Set CellBlock Values
+        [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];    
+        
+        //Set Gravatar at CellBlock.
+        //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
+        //UIImage *image      = [[UIImage alloc] initWithData:imageData];
+        
+        //Set CellLine Values
+        [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
     }
-        
-    UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                               objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
-    customViewCellBlock.imageGravatar.image = image;
-    customViewCellBlock.imageGravatar.tag = indexPath.row;
-
-    UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
-    [gestGrav setNumberOfTouchesRequired:1];
     
-    [customViewCellBlock.imageGravatar addGestureRecognizer:gestGrav];
-    
-    //Set CellBlock Values
-    [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-    [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];    
-    
-    //Set Gravatar at CellBlock.
-    //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
-    //UIImage *image      = [[UIImage alloc] initWithData:imageData];
-    
-    //Set CellLine Values
-    [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-    [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-    
-
-        
-    }
-    
-
     if(segmentControl.selectedSegmentIndex == 0){
         
         //cancel loading previous image for cell
@@ -558,26 +571,21 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-   // [searchBarProduct resignFirstResponder];
-    
-    if ([mutArrayProducts count] > 1) {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{    
+    if ((segmentControl.selectedSegmentIndex == 0 && [mutArrayProducts count] > 1) ||
+        (segmentControl.selectedSegmentIndex == 1 && [mutArrayProducts count] > 4)) {
 
-    
-    if (_lastContentOffset < (int)self.tableView.contentOffset.y){
-        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
-    else{
-        if (tableView.contentOffset.y < tableView.contentSize.height-700) {
-          [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-          [self.navigationController setNavigationBarHidden:NO animated:YES];
+        if (_lastContentOffset < (int)self.tableView.contentOffset.y){
+            [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+        }
+        else{
+            if (tableView.contentOffset.y < tableView.contentSize.height-700) {
+              [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+              [self.navigationController setNavigationBarHidden:NO animated:YES];
+            }
         }
     }
-        
-    }
-        
-    //[searchBarProduct setHidden:YES];
     isSearchDisplayed = NO;
 }
 
