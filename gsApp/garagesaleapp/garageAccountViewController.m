@@ -172,11 +172,14 @@
             self.trackedViewName = [NSString stringWithFormat:@"/%@",
                                     [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             
-            
             [buttonGarageLogo setImage:image forState:UIControlStateNormal];
             
-            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png" rect:CGRectMake(0, 0, 38, 32)];
+            settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
+            settingsVC.RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+            settingsVC.RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
+            settingsVC.RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
 
+            self.navigationItem.rightBarButtonItem = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC) viewContr:self imageNamed:@"btSettingsNavItem.png" rect:CGRectMake(0, 0, 38, 32)];
         }
         
         //Generics Garage. From SearchVC and DetailVC
@@ -275,15 +278,11 @@
 }
 
 -(void)loadHeader{
-
-    
     if (garageNameSearch) {
-
         description.text = @"";
         garageName.text  = @"";
         city.text        = @"";
         link.text        = @"";
-    
     } else {
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
 
@@ -293,9 +292,7 @@
     
         if ([city.text length] < 5)
             [city setHidden:YES];
-    
     }
-
 }
 
 - (void)urlGarage:(id)sender
@@ -492,7 +489,6 @@
 }
 
 -(void)gotoSettingsVC{
-    settingsAccountViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
     settingsVC.totalProducts = [mutArrayProducts count];
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
@@ -658,6 +654,9 @@
         [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        [settingsVC getResourcePathProfile];
     
 //    if ([mutArrayProducts count] == 0)
 //        [self reloadPage:nil];

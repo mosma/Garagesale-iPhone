@@ -29,6 +29,7 @@
     NSMutableDictionary *mutDictDataThumbs;
     GlobalFunctions     *globalFunctions;
     MBProgressHUD       *HUD;
+    settingsAccountViewController *settingsVC;
     //Instacied for Parent. Using in productDetailViewController, productTableViewController.
     Profile             *profile;
     Garage              *garage;

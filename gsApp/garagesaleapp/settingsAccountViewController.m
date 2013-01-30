@@ -326,10 +326,6 @@
     HUD.dimBackground = YES;
     
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"YES" forKey:@"isSettingsChange"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(BOOL)validateFormPassword{
@@ -485,6 +481,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] address]        forKey:@"address"];
     [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
+    [settingsAccount setObject:@"YES" forKey:@"isSettingsChange"];
     [settingsAccount synchronize];
 }
 

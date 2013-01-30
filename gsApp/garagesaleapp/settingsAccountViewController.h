@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ViewController.h"
-#import "AppDelegate.h"
+//#import "ViewController.h"
+//#import "AppDelegate.h"
+#import "GlobalFunctions.h"
+#import "OHAttributedLabel.h"
 #import "BSKeyboardControls.h"
 #import "MBProgressHUD.h"
 #import "RestKit/RKJSONParserJSONKit.h"
@@ -122,5 +124,6 @@
 -(IBAction)dimissModal:(id)sender;
 -(void)loadAttribsToComponents;
 -(IBAction)saveSettings;
+-(void)getResourcePathProfile;
 
 @end
