@@ -110,7 +110,7 @@
 "garages-garage"                = "%@'s garage";
 "garages-garage-string"         = "garage";
 
-"see-more-products"             = "See other products...";
+"see-more-products"             = "See other products";
 
 "delete-product-title"          = "Atenction!";
 "delete-product-desc"           = "Are you sure about removing this product?";

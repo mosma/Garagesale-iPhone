@@ -249,7 +249,7 @@
         
         labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
         labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
-        
+        labelEmailProfile.font = [UIFont fontWithName:@"Droid Sans" size:12];
        
         NSString *garageName = [[self.arrayProfile objectAtIndex:0] garagem];
         
@@ -270,10 +270,10 @@
         [garageDetailView setHidden:NO];
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
 
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.4];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
+//        [UIView beginAnimations:nil context:nil];
+//        [UIView setAnimationDuration:0.4];
+//        [UIView setAnimationDelegate:self];
+//        [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
 
         //Calculate resize DescricaoLabel 
             [labelDescricao setText:self.product.descricao];
@@ -286,7 +286,7 @@
             [secondView addSubview:garageDetailView];
             scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
         
-        [UIView commitAnimations];
+ //       [UIView commitAnimations];
         
         countView.layer.cornerRadius = 4;
         [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
