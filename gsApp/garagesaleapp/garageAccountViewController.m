@@ -287,7 +287,7 @@
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
 
         description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
-        garageName.text  = profile.garagem;
+        garageName.text  = profile.nome;
         link.text        = garage.link;
     
         if ([city.text length] < 5)
