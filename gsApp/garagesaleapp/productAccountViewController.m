@@ -240,6 +240,8 @@
 }
 
 - (void)getResourcePathPhotoReturnNotSaved{
+    [scrollViewPicsProduct addSubview:waiting];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     RKObjectMapping *photoReturnEdit = [Mappings getPhotosByIdProduct];
     
     //LoadUrlResourcePath
@@ -262,8 +264,11 @@
             [waiting removeFromSuperview];
             [self loadAttributsToPhotos:objects];
         }
-    }
-    @catch (NSException *exception) {
+        
+        if ([objects count] == 0)
+            [waiting removeFromSuperview];
+
+    }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
     }
     @finally {
@@ -285,8 +290,6 @@
 
 -(void)loadingProduct{
     [self getResourcePathProduct];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
     [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(backPage)
                                                                           viewContr:self
                                                                          imageNamed:@"btBackNav.png"

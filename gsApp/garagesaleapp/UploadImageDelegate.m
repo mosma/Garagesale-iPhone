@@ -162,6 +162,9 @@
     //transform in json
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
+    [NSThread detachNewThreadSelector:@selector(setImageIconReturn) toTarget:self withObject:nil];
+}
+-(void)setImageIconReturn{
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                               [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [GlobalFunctions getUrlApplication], [photoReturn valueForKey:@"listing_url"]]]]];
 }
