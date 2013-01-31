@@ -464,6 +464,8 @@
         if ([response isOK]) {
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
+            if (self.product == nil)
+                [waiting removeFromSuperview];
         }
         
     } else if ([request isPOST]) {
