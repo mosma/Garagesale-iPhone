@@ -150,7 +150,7 @@
             
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             [description sizeToFit];
-            garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
+            garageName.text  = [NSString stringWithFormat:@"%@ @%@", [[GlobalFunctions getUserDefaults] objectForKey:@"nome"], [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
 
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
@@ -292,7 +292,7 @@
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
 
         description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
-        garageName.text  = profile.nome;
+        garageName.text  = [NSString stringWithFormat:@"%@ @%@", profile.nome, profile.garagem];
         link.text        = garage.link;
     
         if ([city.text length] < 5)
