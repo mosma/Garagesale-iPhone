@@ -245,6 +245,7 @@
         // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
+        self.tableViewProducts.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
     }
     
     // set values to objetcs from objectLoader
