@@ -30,7 +30,7 @@
     progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     [progressView setFrame:CGRectMake(5, 50, 60, 7)];
     [progressView setTintColor:[UIColor colorWithRed:105.0/255.0 green:159.0/255.0 blue:77.0/255.0 alpha:1.0]];
-    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+    //timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
     return self;
 }
 
