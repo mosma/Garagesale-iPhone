@@ -143,15 +143,19 @@
 }
 
 -(void)cancelUpload{
-    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
-    [self setEnableSaveButton:YES];
-    [imageView removeGestureRecognizer:self.moveLeftGesture];
-    [imageView addGestureRecognizer:refreshGesture];
-    [UIView animateWithDuration:0.2 animations:^{
-        [imageView setImage:[UIImage imageNamed:@"refresh"]];
-    }];
-    [self.imageView setUserInteractionEnabled:YES];
-    [timerUpload invalidate];
+    if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0)
+        return;
+    else {
+        [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+        [self setEnableSaveButton:YES];
+        [imageView removeGestureRecognizer:self.moveLeftGesture];
+        [imageView addGestureRecognizer:refreshGesture];
+        [UIView animateWithDuration:0.2 animations:^{
+            [imageView setImage:[UIImage imageNamed:@"refresh"]];
+        }];
+        [self.imageView setUserInteractionEnabled:YES];
+        [timerUpload invalidate];
+    }
 }
 
 -(void)setEnableSaveButton:(BOOL)enable{
