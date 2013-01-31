@@ -30,6 +30,7 @@
     progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     [progressView setFrame:CGRectMake(5, 50, 60, 7)];
     [progressView setTintColor:[UIColor colorWithRed:105.0/255.0 green:159.0/255.0 blue:77.0/255.0 alpha:1.0]];
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
     return self;
 }
 
@@ -46,6 +47,7 @@
     [self setEnableSaveButton:NO];
     [self.imageView setUserInteractionEnabled:NO];
 
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
     
     NSData              *dataImage  = UIImageJPEGRepresentation(imageView.image, 1.0);
     UIImage *loadedImage = imageView.image;
@@ -63,8 +65,6 @@
     int neww = 900;
     //get image height proportionally;
     float newh = neww/ratio;
-    
-    timerUpload = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
     
     UIImage *image = [UIImage imageWithData:dataImage];
     CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
@@ -143,18 +143,15 @@
 }
 
 -(void)cancelUpload{
-    if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0) {
-        NSLog(@"ok");
-    }else{
-        [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
-        [self setEnableSaveButton:YES];
-        [imageView removeGestureRecognizer:self.moveLeftGesture];
-        [imageView addGestureRecognizer:refreshGesture];
-        [UIView animateWithDuration:0.2 animations:^{
-            [imageView setImage:[UIImage imageNamed:@"refresh"]];
-        }];
-        [self.imageView setUserInteractionEnabled:YES];
-    }
+    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+    [self setEnableSaveButton:YES];
+    [imageView removeGestureRecognizer:self.moveLeftGesture];
+    [imageView addGestureRecognizer:refreshGesture];
+    [UIView animateWithDuration:0.2 animations:^{
+        [imageView setImage:[UIImage imageNamed:@"refresh"]];
+    }];
+    [self.imageView setUserInteractionEnabled:YES];
+    [timerUpload invalidate];
 }
 
 -(void)setEnableSaveButton:(BOOL)enable{
@@ -195,8 +192,8 @@
 //    NSLog(@"%f", uu);
     
     [timerUpload invalidate];
-    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
-  
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+    
     if (totalBytesExpectedToWrite != totalBytesWritten)
         [self setEnableSaveButton:NO];
     else{
