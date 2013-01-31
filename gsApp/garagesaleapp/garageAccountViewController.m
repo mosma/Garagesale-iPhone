@@ -16,7 +16,7 @@
 @synthesize RKObjManeger;
 @synthesize gravatarUrl;
 @synthesize emailLabel;
-@synthesize buttonGarageLogo;
+@synthesize imgGarageLogo;
 @synthesize garageName;
 @synthesize description;
 @synthesize city;
@@ -172,7 +172,7 @@
             self.trackedViewName = [NSString stringWithFormat:@"/%@",
                                     [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             
-            [buttonGarageLogo setImage:image forState:UIControlStateNormal];
+            [imgGarageLogo setImage:image];
             
             settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
             settingsVC.RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
@@ -192,13 +192,17 @@
         //            gravatarUrl = [viewHelper getGravatarURL:profile.email];
         
         if (imageGravatar)
-            [buttonGarageLogo setImage:imageGravatar forState:UIControlStateNormal];
+            [imgGarageLogo setImage:imageGravatar];
               
         self.trackedViewName = [NSString stringWithFormat:@"/%@", profile.garagem];
         
         if (isGenericGarage)
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                    @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+        
+        //buttonGarageLogo.contentEdgeInsets = UIEdgeInsetsMake(71, 0, 72, 0);
+
+        imgGarageLogo.contentMode = UIViewContentModeScaleAspectFit;
         
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
         [gestReload setNumberOfTapsRequired:1];
@@ -672,13 +676,13 @@
 - (void)viewDidUnload
 {
     emailLabel = nil;
-    buttonGarageLogo = nil;
+    imgGarageLogo = nil;
     garageName = nil;
     description = nil;
     city = nil;
     link = nil;
     [self setEmailLabel:nil];
-    [self setButtonGarageLogo:nil];
+    [self setImgGarageLogo:nil];
     [self setGarageName:nil];
     [self setDescription:nil];
     [self setCity:nil];

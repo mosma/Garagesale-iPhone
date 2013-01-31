@@ -400,18 +400,10 @@
                                                     <outlet property="delegate" destination="E1Z-FY-4Gx" id="7zu-FV-Xbp"/>
                                                 </connections>
                                             </label>
-                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kiP-7d-erC">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="qEg-bX-1wb">
                                                 <rect key="frame" x="10" y="11" width="71" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.96950301204819278" green="0.97052663780120485" blue="0.97652720256024095" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
@@ -535,10 +527,10 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="buttonGarageLogo" destination="kiP-7d-erC" id="MOI-FY-zQF"/>
                         <outlet property="city" destination="tqH-Cc-SCS" id="IUU-Vw-9lS"/>
                         <outlet property="description" destination="buW-ao-lhU" id="5P0-JZ-rlE"/>
                         <outlet property="garageName" destination="cVx-0i-ETY" id="RT8-qF-s6k"/>
+                        <outlet property="imgGarageLogo" destination="qEg-bX-1wb" id="Aph-bc-2YD"/>
                         <outlet property="labelNoProduct" destination="36H-0T-KMr" id="jJV-YV-rHO"/>
                         <outlet property="labelTotalProducts" destination="O6W-Ta-EBh" id="XWr-vg-Y0m"/>
                         <outlet property="link" destination="cR2-WC-ife" id="AOm-9P-RZO"/>
@@ -2197,11 +2189,11 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
             <relationships>
                 <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="outlet" name="buttonGarageLogo" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imgGarageLogo" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="labelNoProduct" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="labelTotalProducts" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="link" candidateClass="UILabel"/>
