@@ -635,6 +635,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [viewTop setUserInteractionEnabled:YES];
     self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
