@@ -176,6 +176,7 @@
        else if (product == nil)
            uploadDelegate.idProduct = -1;
         [NSThread detachNewThreadSelector:@selector(uploadPhotos) toTarget:uploadDelegate withObject:nil];
+        [uploadDelegate setTimmer];
     }
 }
 

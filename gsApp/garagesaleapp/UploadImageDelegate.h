@@ -58,5 +58,5 @@
 
 -(void)uploadPhotos;
 -(void)deletePhoto;
-
+-(void)setTimmer;
 @end
