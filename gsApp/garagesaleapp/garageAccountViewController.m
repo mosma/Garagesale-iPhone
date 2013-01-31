@@ -638,8 +638,8 @@
     self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
-        if (!isGenericGarage)
-            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
+        //if (!isGenericGarage)
+        //    if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -655,9 +655,14 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
-        [settingsVC getResourcePathProfile];
+    //Set Display thumbs on Home.
+    globalFunctions.countColumnImageThumbs = -1;
+    globalFunctions.imageThumbsXorigin_Iphone = 10;
+    globalFunctions.imageThumbsYorigin_Iphone = 10;
     
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil
+        && !isGenericGarage && [mutArrayProducts count] != 0)
+        [settingsVC getResourcePathProfile];
 //    if ([mutArrayProducts count] == 0)
 //        [self reloadPage:nil];
 }
