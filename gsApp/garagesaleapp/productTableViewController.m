@@ -500,6 +500,8 @@
     strTextSearch = searchBar.text;
     //Search Service
 
+    [self removeClientRequest];
+    
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
 
     [mutArrayProducts removeAllObjects];
@@ -605,11 +607,15 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [self removeClientRequest];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
+-(void)removeClientRequest{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
     for (int i = 0; i < [mutArrayViewHelpers count]; i++) {
         [(viewHelper *)[mutArrayViewHelpers objectAtIndex:i] cancelRequestsWithDelegate];
     }
