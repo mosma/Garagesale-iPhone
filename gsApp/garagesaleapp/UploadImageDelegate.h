@@ -25,6 +25,7 @@
     int idProduct;
     UIScrollView    *scrollView;
     UIImageView     *imageView;
+    UIImageView     *imageViewDelete;
     UIImage         *imagePic;
     UIButton        *buttonSaveProduct;
     NSMutableArray  *nsMutArrayPicsProduct;
@@ -36,7 +37,6 @@
      */
     int totalBytesWritten;
     int totalBytesExpectedToWrite;
-
     PDColoredProgressView  *progressView;
     PhotoReturn     *photoReturn;
     NSTimer         *timerUpload;
@@ -44,6 +44,7 @@
 
 @property (readwrite,assign)    int idProduct;
 @property (nonatomic, retain)   UIImageView     *imageView;
+@property (nonatomic, retain)   UIImageView     *imageViewDelete;
 @property (nonatomic, retain)   UIImage         *imagePic;
 @property (nonatomic, retain)   PDColoredProgressView  *progressView;
 @property (nonatomic, retain)   UIButton        *buttonSaveProduct;

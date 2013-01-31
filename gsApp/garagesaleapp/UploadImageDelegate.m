@@ -11,6 +11,7 @@
 @implementation UploadImageDelegate
 
 @synthesize imageView;
+@synthesize imageViewDelete;
 @synthesize photoReturn;
 @synthesize buttonSaveProduct;
 @synthesize nsMutArrayPicsProduct;
@@ -76,7 +77,9 @@
     RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files"];
     attachment.MIMEType = @"image/png";
     attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", picNumber];
-        
+
+    [self.imageViewDelete setHidden:YES];
+    
     if (idProduct == -1)
         [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] params:params delegate:self];
     else
@@ -88,6 +91,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [self setEnableSaveButton:YES];
+    [self.imageViewDelete setHidden:NO];
 
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
@@ -165,6 +169,7 @@
     [NSThread detachNewThreadSelector:@selector(setImageIconReturn) toTarget:self withObject:nil];
 }
 -(void)setImageIconReturn{
+    [self.imageViewDelete setHidden:NO];
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                               [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [GlobalFunctions getUrlApplication], [photoReturn valueForKey:@"listing_url"]]]]];
 }

@@ -157,6 +157,8 @@
 
     [uploadDelegate setMoveLeftGesture:moveLeftGesture];
     
+    [uploadDelegate setImageViewDelete:imgViewDelete];
+    
     /* Set scrollView Size */
     CGSize size = scrollView.contentSize;
     size.width = size.width + imageWidth_ + self.widthPaddingInImages;
