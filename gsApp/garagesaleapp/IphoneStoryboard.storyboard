@@ -1309,7 +1309,7 @@
                                                 </connections>
                                             </scrollView>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="gray" id="FJL-Aj-NrX" userLabel="activityIndicator">
-                                                <rect key="frame" x="148" y="415" width="20" height="20"/>
+                                                <rect key="frame" x="148" y="450" width="20" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </activityIndicatorView>
                                         </subviews>
