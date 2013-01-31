@@ -199,4 +199,8 @@
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
 }
 
+-(void)dealloc {
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+}
+
 @end
