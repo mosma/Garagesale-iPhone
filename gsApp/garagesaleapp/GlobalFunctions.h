@@ -32,6 +32,7 @@ typedef enum {
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
++(NSString *)getUrlApplication;
 +(NSString *)getMIMEType;
 //+(NSString *)getUrlImagePath;
 +(NSUserDefaults *)getUserDefaults;

@@ -21,6 +21,12 @@
     //return @"http://api.garagesaleapp.me";//text/plain
 }
 
++(NSString *)getUrlApplication {
+    //return @"http://169.254.251.178";//text/html
+    return @"http://www.easylikethat.com";//text/plain
+    //return @"http://www.garagesaleapp.me";//text/plain
+}
+
 +(NSString *)getMIMEType {
     return @"text/html";
     //return @"text/plain";

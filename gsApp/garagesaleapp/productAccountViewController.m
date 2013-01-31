@@ -194,7 +194,7 @@
             [scrollViewPicsProduct addSubview:waiting];
         [self loadingProduct];
     }else {
-       // [self getResourcePathPhotoReturnNotSaved];
+        [self getResourcePathPhotoReturnNotSaved];
         self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric: UITextAlignmentCenter
                                                                                text: NSLocalizedString(@"menu-add-product", nil)
@@ -666,7 +666,7 @@
     @try {
         for (int i=0; i < [fotos count]; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
-                                           [(PhotoReturn *)[fotos objectAtIndex:i] icon_url]]];
+                                           [(PhotoReturn *)[fotos objectAtIndex:i] listing_url]]];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             [gallery addImageToScrollView:image
                               photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
