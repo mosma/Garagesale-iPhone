@@ -184,6 +184,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     if ([objects count] > 0) {
+        [buttonLogo setUserInteractionEnabled:YES];
         for (int x=0; x < [objects count]; x++)
             [mutArrayProducts addObject:(Product *)[objects objectAtIndex:x]];
         
@@ -349,6 +350,7 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [buttonLogo setUserInteractionEnabled:NO];
     [mutArrayProducts removeAllObjects];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self.navigationController setNavigationBarHidden:YES];
