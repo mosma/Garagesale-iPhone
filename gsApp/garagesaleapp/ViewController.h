@@ -36,6 +36,10 @@
     UIImageView *activityImageView;
     UIView *shadowSearch;
     BOOL isFromSignUp;
+                                                  
+                                                  
+                                                  __weak IBOutlet UIButton                    *buttonSignUp;
+                                                  __weak IBOutlet UIButton                    *buttonSignIn;
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -46,8 +50,10 @@
 @property (retain, nonatomic) UISearchBar   *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 @property (unsafe_unretained, nonatomic) BOOL isFromSignUp;
-
 @property (unsafe_unretained, nonatomic) UIImageView *activityImageView;
+
+@property (weak, nonatomic) IBOutlet UIButton       *buttonSignUp;
+@property (weak, nonatomic) IBOutlet UIButton       *buttonSignIn;
 
 - (void)getResourcePathProduct;
 - (void)reachability;

@@ -18,6 +18,8 @@
 @synthesize txtFieldSearch;
 @synthesize viewSearch;
 @synthesize isFromSignUp;
+@synthesize buttonSignIn;
+@synthesize buttonSignUp;
 
 - (void)didReceiveMemoryWarning
 {
@@ -41,6 +43,12 @@
 }
 
 - (void)loadAttribsToComponents{
+    
+    
+    //Setting i18n
+    [self.buttonSignIn setTitle:NSLocalizedString(@"signinButton", @"") forState:UIControlStateNormal];
+    [self.buttonSignUp setTitle:NSLocalizedString(@"signupButton", @"") forState:UIControlStateNormal];
+    
     searchBarProduct.hidden=YES;
     
     mutArrayProducts = [[NSMutableArray alloc] init];

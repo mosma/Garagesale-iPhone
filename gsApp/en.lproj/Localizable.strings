@@ -24,7 +24,7 @@
 "search"                        = "search";
 "about"                         = "About";
 "back"                          = "back";
-"Avaliable"                     = "Avaliable";
+"Avaliable"                     = "Available";
 "Sold"                          = "Sold";
 
 "homeSearchField"               = "products categories and garages";
@@ -39,6 +39,8 @@
 "save"                          = "Save";
 "garageName"                    = "Garage name";
 "yourName"                      = "Name";
+"yourPassword"                  = "Password";
+"yourEmail"                     = "Email";
 
 "only"                          = "Only";
 "sold"                          = "Sold";
@@ -146,5 +148,19 @@
 
 
 "form-error-product-name"       = "Hey, your product must have a name!";
+"waiting..."                    = "Loading...";
+"Sign-up"                       = "Sign up now!";
+"Sign-in"                       = "Welcome back";
+"Register"                      = "Register";
+"Login"                         = "Login";
+"loginUser"                     = "email@...";
+"signupButton"                  = "Sign up";
+"signinButton"                  = "Login";
+
+"new-garage-no-product"         = "Hello, you dont have any product yet. \n Would like to add product";
+"ngnp1"                         = "Hello, you dont have any product yet.";
+"ngnp2"                         = "Would like to add product";
+
+"no-location-yet"               = "No location yet";
 
 

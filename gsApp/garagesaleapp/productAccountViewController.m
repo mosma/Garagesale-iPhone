@@ -73,6 +73,13 @@
 }
 
 -(void)loadAttributsToComponents{
+    
+    //initialize the i18n
+    [self.buttonSaveProduct setTitle: NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
+    [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
+    [self.textViewDescription setText:NSLocalizedString(@"description", @"")];
+    
+    
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
@@ -111,7 +118,7 @@
     [waiting setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
     [waiting setBackgroundColor:[UIColor clearColor]];
     [waiting setTextColor:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f]];
-    [waiting setText:@"waiting..."];    
+    [waiting setText:NSLocalizedString(@"waiting...", @"")];    
 
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
                        NSLocalizedString(@"Sold", @""),

@@ -27,18 +27,20 @@
 "Avaliable"                     = "Disponivel";
 "Sold"                          = "Vendido";
 
-"homeSearchField"               = "produtos categorias e garagens";
-"reportGarege"                  = "reportar Abuso";
+"homeSearchField"               = "Produtos categorias e garagens";
+"reportGarege"                  = "Reportar Abuso";
 "offer"                         = "Oferte";
 "sold"                          = "vendido";
 
-"addProduct"                    = "novo produto";
-"myGarage"                      = "minha garagem";
-"title"                         = "titulo";
-"description"                   = "descricao";
-"save"                          = "salvar";
-"garageName"                    = "nome da sua garagem";
-"yourName"                      = "seu nome";
+"addProduct"                    = "Novo produto";
+"myGarage"                      = "Minha garagem";
+"title"                         = "Titulo";
+"description"                   = "Descrição";
+"save"                          = "Salvar";
+"garageName"                    = "Nome da sua garagem";
+"yourName"                      = "Seu nome";
+"yourPassword"                  = "Sua senha";
+"yourEmail"                     = "Seu e-mail";
 
 "only"                          = "só";
 "sold"                          = "Vendido";
@@ -146,5 +148,21 @@
 "image-upload-error-check"      = "Erro, valide a sua conexão.";
 
 "form-error-product-name"       = "Hey, your product must have a name!";
+"waiting..."                    = "Carregando...";
+"Sign-up"                       = "Registre-se";
+"Sign-in"                       = "Bem vindo de volta";
+"Register"                      = "Cadastrar";
+"Login"                      = "Entrar";
+"loginUser"                      = "email@...";
+"signupButton"                  = "Cadastrar";
+"signinButton"                  = "Entrar";
+
+"new-garage-no-product"         = "Olá, você ainda não tem nenhum produto. \n Adicione um, é muito fácil!";
+"ngnp1"                         = "Olá, você ainda não tem nenhum produto.";
+"ngnp2"                         = "Adicione um, é muito fácil!";
+
+"no-location-yet"               = "Sem localização";
+
+
 
 

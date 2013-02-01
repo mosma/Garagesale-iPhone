@@ -23,6 +23,8 @@
 @synthesize textFieldGarageName;
 @synthesize textFieldPassword;
 @synthesize buttonRegister;
+@synthesize buttonLogin;
+@synthesize buttonRegisterNew;
 @synthesize labelGarageName;
 @synthesize labelPersonName;
 @synthesize labelEmail;
@@ -42,6 +44,22 @@
 }
 
 - (void)loadAttribsToComponents{
+    
+    //defining i18n
+    [self.buttonRegister setTitle:NSLocalizedString(@"Register", @"") forState:UIControlStateNormal];
+    [self.buttonLogin setTitle:NSLocalizedString(@"Login", @"") forState:UIControlStateNormal];
+    [self.buttonRegisterNew setTitle:NSLocalizedString(@"Register", @"") forState:UIControlStateNormal];
+    
+    [self.labelSignup setText:NSLocalizedString(@"Sign-up", @"")];
+    [self.labelLogin setText:NSLocalizedString(@"Sign-in", @"")];
+    [self.textFieldGarageName setPlaceholder:NSLocalizedString(@"garageName", @"")];
+    [self.textFieldPersonName setPlaceholder:NSLocalizedString(@"yourName", @"")];
+    [self.textFieldEmail setPlaceholder:NSLocalizedString(@"yourEmail", @"")];
+    [self.textFieldPassword setPlaceholder:NSLocalizedString(@"yourPassword", @"")];
+    
+    [self.textFieldUserName setPlaceholder:NSLocalizedString(@"loginUser", @"")];
+    [self.textFieldUserPassword setPlaceholder:NSLocalizedString(@"yourPassword", @"")];
+    
     
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 

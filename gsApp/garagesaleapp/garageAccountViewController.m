@@ -150,25 +150,48 @@
             
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             [description sizeToFit];
-            garageName.text  = [NSString stringWithFormat:@"%@ @%@", [[GlobalFunctions getUserDefaults] objectForKey:@"nome"], [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+            garageName.text  = [NSString stringWithFormat:@"%@ @%@",
+                                [[GlobalFunctions getUserDefaults] objectForKey:@"nome"],
+                                [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+            
             link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
 
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
             //Retrieving
             UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                                   objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
+                                                                                   objectForKey:[NSString
+                                                                                                 stringWithFormat:@"%@_AvatarImg",
+                                                                                                 [[GlobalFunctions getUserDefaults]
+                                                                                                  objectForKey:@"garagem"]]]];
             
-            NSString *noProduct = @"Hello, you dont have any product yet. \n Would like to add product";
+            
+            NSString *noProduct = NSLocalizedString(@"new-garage-no-product", @"");
+            
             NSMutableAttributedString* attrStrNoProduct = [NSMutableAttributedString attributedStringWithString:noProduct];
+            
             [attrStrNoProduct setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-            [attrStrNoProduct setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]                         range:[noProduct rangeOfString:@"Hello, you dont have any product yet."]];
-            [attrStrNoProduct setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
-                                     range:[noProduct rangeOfString:@"Would like to add product"]];
-            [attrStrNoProduct setFont:[UIFont fontWithName:@"Corben" size:14] range:[noProduct rangeOfString:@"Would like to add product"]];
+            
+            [attrStrNoProduct setTextColor:[UIColor colorWithRed:153.0/255.0
+                                                           green:153.0/255.0
+                                                            blue:153.0/255.0
+                                                           alpha:1.f]
+                                     range:[noProduct rangeOfString:NSLocalizedString(@"ngnp1", @"")]];
+            
+            [attrStrNoProduct setTextColor:[UIColor colorWithRed:253.0/255.0
+                                                           green:103.0/255.0
+                                                            blue:102.0/255.0
+                                                           alpha:1.f]
+                                     range:[noProduct rangeOfString:NSLocalizedString(@"ngnp2", @"")]];
+            
+            
+            [attrStrNoProduct setFont:[UIFont fontWithName:@"Corben" size:14]
+                                range:[noProduct rangeOfString:NSLocalizedString(@"ngnp2", @"")]];
+            
             labelNoProduct.attributedText   = attrStrNoProduct;
             labelNoProduct.textAlignment = UITextAlignmentCenter;
 
+            
             self.trackedViewName = [NSString stringWithFormat:@"/%@",
                                     [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             

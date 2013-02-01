@@ -387,7 +387,8 @@
     }
 
     if ([locationName isEqualToString:@""])
-        return @"No location yet";
+        return NSLocalizedString(@"no-location-yet", @"");
+    
     else if ([[array objectAtIndex:0] isEqualToString:@""])
         locationName = [locationName substringWithRange:NSMakeRange(2, [locationName length]-2)];
         

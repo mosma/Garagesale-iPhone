@@ -29,6 +29,8 @@
     __weak IBOutlet UITextField     *textFieldGarageName;
     __weak IBOutlet UITextField     *textFieldPassword;
     __weak IBOutlet UIButton        *buttonRegister;
+    __weak IBOutlet UIButton        *buttonLogin;
+    __weak IBOutlet UIButton        *buttonRegisterNew;
     __weak IBOutlet UILabel         *labelGarageName;
     __weak IBOutlet UILabel         *labelPersonName;
     __weak IBOutlet UILabel         *labelEmail;
@@ -57,6 +59,8 @@
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldGarageName;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonRegister;
+@property (weak, nonatomic) IBOutlet UIButton       *buttonLogin;
+@property (weak, nonatomic) IBOutlet UIButton       *buttonRegisterNew;
 @property (weak, nonatomic) IBOutlet UILabel        *labelGarageName;
 @property (weak, nonatomic) IBOutlet UILabel        *labelPersonName;
 @property (weak, nonatomic) IBOutlet UILabel        *labelEmail;
