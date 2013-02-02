@@ -35,6 +35,7 @@
     searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
+    
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     [self.view addSubview:searchBarProduct];
     
@@ -46,6 +47,7 @@
     
     
     //Setting i18n
+    [self.txtFieldSearch setPlaceholder:NSLocalizedString(@"homeSearchField", @"")];
     [self.buttonSignIn setTitle:NSLocalizedString(@"signinButton", @"") forState:UIControlStateNormal];
     [self.buttonSignUp setTitle:NSLocalizedString(@"signupButton", @"") forState:UIControlStateNormal];
     
