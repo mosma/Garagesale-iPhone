@@ -8,7 +8,6 @@
 
 //Localizable.Strings file for the Portuguese version.
 "offerAsk"                      = "Valor (pergunte algo)";
-"description"                   = "Descrição"; 
 "bid"                           = "Ofertar";
 "bidSent"                       = "Oferta feita";
 "seeAllProducts"                = "Todos itens desta garagem";

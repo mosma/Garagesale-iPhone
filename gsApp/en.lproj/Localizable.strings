@@ -8,7 +8,6 @@
 
 //Localizable.Strings file for the English version.
 "offerAsk"                      = "offer (ask something)";
-"description"                   = "description";
 "bid"                           = "bid this item";
 "bidSent"                       = "bid Sent";
 "seeAllProducts"                = "see all products";
