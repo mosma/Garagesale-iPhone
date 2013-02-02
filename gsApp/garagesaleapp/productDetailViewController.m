@@ -378,6 +378,7 @@
 {
     sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
+    sharePopOverVC.prodName = labelNomeProduto.text;
     sharePopOverVC.description = labelDescricao.text;
     sharePopOverVC.imgProduct = imageView.image;
     sharePopOverVC.parent = self;

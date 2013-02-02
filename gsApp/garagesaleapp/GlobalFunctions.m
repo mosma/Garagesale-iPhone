@@ -23,8 +23,8 @@
 
 +(NSString *)getUrlApplication {
     //return @"http://169.254.251.178";//text/html
-    return @"http://www.easylikethat.com";//text/plain
-    //return @"http://www.garagesaleapp.me";//text/plain
+    return @"http://easylikethat.com";//text/plain
+    //return @"http://garagesaleapp.me";//text/plain
 }
 
 +(NSString *)getMIMEType {

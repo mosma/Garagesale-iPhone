@@ -125,9 +125,11 @@
 "report-btn1"                   = "Ok";
 
 
-"share-facebook-text"           = "Check this out";
-"share-twitter-text"            = "Check this out via @garagesaleapp";
-"share-email-text"              = "Check this product from Garagesaleapp.me";
+"share-facebook-text"           = "Take a look ‰@ %@";
+"share-twitter-text"            = "Check this out: %@ via @garagesaleapp";
+"share-email-text"              = "Check this product from Garagesaleapp.me:";
+"share-email-body"              = "%@ \n %@";
+
 "share-response-title"          = "Message Sent!";
 "share-response-text"           = "Your message has been sent! \n Thank you for your feedback";
 "share-response-btn1"           = "Ok!";

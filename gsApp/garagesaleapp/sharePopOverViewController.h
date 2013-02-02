@@ -12,14 +12,16 @@
 
 @interface sharePopOverViewController : UIViewController {
         NSString *strUrlImg;
-        UIImage  *imgProduct;
-        NSString *description;
+    UIImage  *imgProduct;
+    NSString *prodName;
+    NSString *description;
         UIViewController *parent;
 }
 
 @property  (nonatomic, retain) NSString *strUrlImg;
 @property  (nonatomic, retain) UIImage  *imgProduct;
 @property  (nonatomic, retain) NSString *description;
+@property  (nonatomic, retain) NSString *prodName;
 @property  (nonatomic, retain) UIViewController *parent;
 
 -(IBAction)facebook:(id)sender;

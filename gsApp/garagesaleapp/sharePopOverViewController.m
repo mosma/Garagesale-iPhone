@@ -7,6 +7,7 @@
 //
 
 #import "sharePopOverViewController.h"
+#import "GlobalFunctions.h"
 
 @interface sharePopOverViewController ()
 
@@ -16,6 +17,7 @@
 
 @synthesize strUrlImg;
 @synthesize description;
+@synthesize prodName;
 @synthesize imgProduct;
 @synthesize parent;
 
@@ -31,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     //configure addthis -- (this step is optional)
     //[AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
     [AddThisSDK setToolBarColor:[UIColor whiteColor]];
@@ -50,30 +52,34 @@
 
 -(IBAction)facebook:(id)sender
 {
+    NSString *text = [NSString stringWithFormat: NSLocalizedString(@"share-facebook-text", nil), [GlobalFunctions getUrlApplication]];
+    
     if (imgProduct == nil)
         [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
                    withService:@"facebook"
-                         title: NSLocalizedString(@"share-facebook-text", nil)
+                         title: text
                    description:self.description];
     else
         [AddThisSDK shareImage:imgProduct
                    withService:@"facebook"
-                         title: NSLocalizedString(@"share-facebook-text", nil)
-                   description:description];
+                         title: text
+                   description:self.description];
 }
 
 -(IBAction)twitter:(id)sender
 {
+    NSString *text = [NSString stringWithFormat: NSLocalizedString(@"share-twitter-text", nil), [GlobalFunctions getUrlApplication]];
+    
     if (imgProduct == nil)
         [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
                    withService:@"twitter"
-                         title: NSLocalizedString(@"share-twitter-text", nil)
-                   description:self.description];
+                         title: text
+                   description:text];
     else
         [AddThisSDK shareImage:imgProduct
                    withService:@"twitter"
-                         title: NSLocalizedString(@"share-twitter-text", nil)
-                   description:description];
+                         title: text
+                   description:text];
 }
 
 - (IBAction)actionEmailComposer {
