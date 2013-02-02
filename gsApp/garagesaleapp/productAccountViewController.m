@@ -660,7 +660,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self goToTabBarController:2];
         self.view = nil;
-       [self viewDidLoad];
+       //[self viewDidLoad];
         [scrollView setContentOffset:CGPointZero animated:NO];
     }
     else{
