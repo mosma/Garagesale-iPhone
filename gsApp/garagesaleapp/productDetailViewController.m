@@ -378,6 +378,10 @@
 {
     sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
+    sharePopOverVC.idProduct = [NSString stringWithFormat:@"%@", self.product.id];
+    sharePopOverVC.priceProduct = self.product.valorEsperado;
+    sharePopOverVC.garageName = self.product.idPessoa;
+    
     sharePopOverVC.prodName = labelNomeProduto.text;
     sharePopOverVC.description = labelDescricao.text;
     sharePopOverVC.imgProduct = imageView.image;

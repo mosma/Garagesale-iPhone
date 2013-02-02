@@ -11,15 +11,21 @@
 //#import <MessageUI/MessageUI.h>
 
 @interface sharePopOverViewController : UIViewController {
-        NSString *strUrlImg;
     UIImage  *imgProduct;
+    NSString *idProduct;
+    NSString *priceProduct;
+    NSString *garageName;
+    NSString *strUrlImg;
     NSString *prodName;
     NSString *description;
-        UIViewController *parent;
+    UIViewController *parent;
 }
 
-@property  (nonatomic, retain) NSString *strUrlImg;
 @property  (nonatomic, retain) UIImage  *imgProduct;
+@property  (nonatomic, retain) NSString *idProduct;
+@property  (nonatomic, retain) NSString *priceProduct;
+@property  (nonatomic, retain) NSString *garageName;
+@property  (nonatomic, retain) NSString *strUrlImg;
 @property  (nonatomic, retain) NSString *description;
 @property  (nonatomic, retain) NSString *prodName;
 @property  (nonatomic, retain) UIViewController *parent;
