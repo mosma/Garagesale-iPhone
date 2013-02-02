@@ -61,9 +61,11 @@
     __weak IBOutlet UILabel       *city;
     
     __weak IBOutlet UIButton   *buttonAccount;
-    __weak IBOutlet UIButton    *buttonPassword;
+    __weak IBOutlet UIButton   *buttonPassword;
     __weak IBOutlet UIButton   *buttonAddress;
-                                     
+    __weak IBOutlet UIButton   *buttonLogout;
+    __weak IBOutlet UIButton   *buttonSave;
+                                                                 
     __weak IBOutlet UIButton      *buttonRightAbout;
     MBProgressHUD                 *HUD;
     RKObjectManager               *RKObjManeger;
@@ -109,6 +111,13 @@
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextView    *txtViewAbout;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldAnyLink;
+
+@property (weak, nonatomic) IBOutlet UIButton      *buttonAccount;
+@property (weak, nonatomic) IBOutlet UIButton      *buttonPassword;
+@property (weak, nonatomic) IBOutlet UIButton      *buttonAddress;
+@property (weak, nonatomic) IBOutlet UIButton      *buttonLogout;
+@property (weak, nonatomic) IBOutlet UIButton      *buttonSave;
+
 
 @property (weak, nonatomic) IBOutlet UIButton      *buttonRightAbout;
 

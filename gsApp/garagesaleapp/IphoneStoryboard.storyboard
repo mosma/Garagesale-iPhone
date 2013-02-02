@@ -615,7 +615,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="L8i-VA-kv4" userLabel="city">
-                                <rect key="frame" x="93" y="39" width="220" height="20"/>
+                                <rect key="frame" x="93" y="37" width="220" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
@@ -684,6 +684,7 @@
                     <connections>
                         <outlet property="buttonAccount" destination="dSJ-oX-MCg" id="YNK-yB-iL1"/>
                         <outlet property="buttonAddress" destination="3wY-Lj-n4o" id="G04-Cn-fHs"/>
+                        <outlet property="buttonLogout" destination="nEi-pR-Ld5" id="7MW-4I-WZS"/>
                         <outlet property="buttonPassword" destination="fQn-FY-oxs" id="03c-Xd-RGw"/>
                         <outlet property="buttonRightAbout" destination="mne-J7-Yvn" id="VdF-5e-9Ed"/>
                         <outlet property="city" destination="L8i-VA-kv4" id="aSy-jj-HDs"/>
@@ -869,6 +870,7 @@
                     <navigationItem key="navigationItem" id="j6o-sM-GsM"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="buttonSave" destination="rJn-zz-IfY" id="4dv-WN-W9f"/>
                         <outlet property="labelAbout" destination="eE3-X8-A2U" id="qb9-pk-mp1"/>
                         <outlet property="labelAnyLink" destination="0hP-gn-cRp" id="1Ni-I9-6UR"/>
                         <outlet property="labelEmail" destination="EDJ-TF-cjw" id="2Ca-PQ-zwf"/>
@@ -1073,6 +1075,7 @@
                     <navigationItem key="navigationItem" id="xxE-AZ-jpM"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="buttonSave" destination="cES-zG-0fg" id="PNw-tc-hxC"/>
                         <outlet property="labelCurrentPassword" destination="dAN-a7-PWP" id="CUS-9R-B1R"/>
                         <outlet property="labelNewPassword" destination="g9d-1x-FsY" id="Por-kr-ez1"/>
                         <outlet property="labelRepeatPassword" destination="Nj7-C2-jJo" id="b0x-Yh-7rh"/>
@@ -1122,7 +1125,7 @@
                                                 <rect key="frame" x="251" y="69" width="59" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" image="btOffer.png">
+                                                <state key="normal" title="Offer" backgroundImage="btOffer.png">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="highlighted">
@@ -1445,7 +1448,7 @@
                     <connections>
                         <outlet property="OHlabelValorEsperado" destination="fV4-sm-nn9" id="ou1-lq-21E"/>
                         <outlet property="activityIndicator" destination="FJL-Aj-NrX" id="nCO-aF-DKN"/>
-                        <outlet property="buttonBid" destination="QaR-k2-gdc" id="Tzq-V7-dqh"/>
+                        <outlet property="buttonBid" destination="VzS-1E-fdJ" id="aWE-eM-ZC3"/>
                         <outlet property="buttonDeleteProduct" destination="cbb-5W-dSx" id="Nkp-ar-QPX"/>
                         <outlet property="buttonEditProduct" destination="WZN-Ek-lty" id="ELo-yF-bLl"/>
                         <outlet property="buttonGarageDetail" destination="9k5-33-1yu" id="6ND-0i-ogR"/>
@@ -1789,6 +1792,7 @@
                     <navigationItem key="navigationItem" id="jZ4-BS-byg"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="buttonSave" destination="YwS-hj-Hpq" id="2ZY-wA-bMx"/>
                         <outlet property="labelAddress" destination="Gfc-Gj-YIf" id="caD-7e-RWR"/>
                         <outlet property="labelCity" destination="TbQ-4H-lTz" id="AZ2-Vk-WJe"/>
                         <outlet property="labelCountry" destination="FVk-lj-Ujb" id="6Vc-3i-wKy"/>

@@ -45,6 +45,10 @@
 @synthesize txtFieldAnyLink;
 @synthesize keyboardControls;
 @synthesize settingsAccount;
+@synthesize buttonAccount;
+@synthesize buttonPassword;
+@synthesize buttonAddress;
+@synthesize buttonLogout;
 @synthesize buttonRightAbout;
 @synthesize labelAboutAPP;
 @synthesize labelTotalProducts;
@@ -83,17 +87,17 @@
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:@"Account" width:210];
+                                         UITextAlignmentCenter text:NSLocalizedString(@"account", @"") width:210];
         self.scrollView.contentSize = CGSizeMake(320,700);
     } else if
         ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) { //Address ViewController
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:@"Address" width:210];
+                                         UITextAlignmentCenter text:NSLocalizedString(@"address", @"") width:210];
         self.scrollView.contentSize = CGSizeMake(320,585);
     }else if
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) { //Password ViewController
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:@"Password" width:210];
+                                         UITextAlignmentCenter text:NSLocalizedString(@"password", @"") width:210];
         self.scrollView.contentSize = CGSizeMake(320,525);
     }
     
@@ -120,21 +124,78 @@
     
     [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14] range:[titleAbout rangeOfString:@"contact@mosma.us"]];
     
-    [buttonRightAbout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    
+    [self.buttonRightAbout setTitle:NSLocalizedString(@"about", @"") forState:UIControlStateNormal];
+    [self.buttonRightAbout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    
+    
+    //setting i18n
+    [self.buttonAccount setTitle:NSLocalizedString(@"account", @"") forState:UIControlStateNormal];
+    [self.buttonPassword setTitle:NSLocalizedString(@"password", @"") forState:UIControlStateNormal];
+    [self.buttonAddress setTitle:NSLocalizedString(@"address", @"") forState:UIControlStateNormal];
+    [self.buttonLogout setTitle:NSLocalizedString(@"logout", @"") forState:UIControlStateNormal];
+    
+    [self.labelGarageName setText:NSLocalizedString(@"garageName", @"")];
+    [self.labelYourName setText:NSLocalizedString(@"yourName", @"")];
+    [self.labelEmail setText:NSLocalizedString(@"yourEmail", @"")];
+    [self.labelAbout setText:NSLocalizedString(@"aboutYou", @"")];
+    [self.labelAnyLink setText:NSLocalizedString(@"anyLink?", @"")];
+    
+    [self.txtFieldGarageName setPlaceholder: NSLocalizedString(@"garageName", @"")];
+    [self.txtFieldYourName setPlaceholder: NSLocalizedString(@"yourName", @"")];
+    [self.txtFieldEmail setPlaceholder: NSLocalizedString(@"yourEmail", @"")];
+    [self.txtViewAbout setText: NSLocalizedString(@"aboutYou", @"")];
+    [self.txtFieldAnyLink setPlaceholder: NSLocalizedString(@"anyLink?", @"")];
+    
+    
+    [self.labelCurrentPassword setText:NSLocalizedString(@"currentPassw", @"")];
+    [self.labelNewPassword setText:NSLocalizedString(@"newPassw", @"")];
+    [self.labelRepeatPassword setText:NSLocalizedString(@"repeatPassw", @"")];
+    [self.txtFieldCurrentPassword setPlaceholder: NSLocalizedString(@"******", @"")];
+    [self.txtFieldNewPassword setPlaceholder: NSLocalizedString(@"******", @"")];
+    [self.txtFieldRepeatNewPassword setPlaceholder: NSLocalizedString(@"******", @"")];
+  
+    
+    [self.labelAddress setText:NSLocalizedString(@"currentAddress", @"")];
+    [self.labelCity setText:NSLocalizedString(@"currentCity", @"")];
+    [self.labelDistrict setText:NSLocalizedString(@"currentDistrict", @"")];
+    [self.labelCountry setText:NSLocalizedString(@"currentCoutry", @"")];
+    
+    [self.txtFieldAddress setPlaceholder: NSLocalizedString(@"currentAddress", @"")];
+    [self.txtFieldCity setPlaceholder: NSLocalizedString(@"currentCity", @"")];
+    [self.txtFieldDistrict setPlaceholder: NSLocalizedString(@"currentDistrict", @"")];
+    [self.txtFieldCountry setPlaceholder: NSLocalizedString(@"currentCoutry", @"")];
+    
+    
+    
+    [self.buttonSave setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
+    
     
     [labelAboutAPP setAttributedText:attrStr];
     [labelAboutAPP setTextAlignment:UITextAlignmentCenter];
     
     //Total Products from garageAccount.
-    NSString *total = [NSString stringWithFormat:@"%i products", totalProducts];
+    NSString *total = [NSString stringWithFormat:NSLocalizedString(@"x-products", @""), totalProducts];
     NSMutableAttributedString *attrStrTotalProd = [NSMutableAttributedString attributedStringWithString:total];
+    
     [attrStrTotalProd setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
-    [attrStrTotalProd setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+    [attrStrTotalProd setTextColor:[UIColor colorWithRed:253.0/255.0
+                                                   green:103.0/255.0
+                                                    blue:102.0/255.0
+                                                   alpha:1.f]
                              range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
-    [attrStrTotalProd setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]
-                             range:[total rangeOfString:@"products"]];
-    [attrStrTotalProd setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[total rangeOfString:@"products"]];
-    [attrStrTotalProd setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
+    
+    [attrStrTotalProd setTextColor:[UIColor colorWithRed:153.0/255.0
+                                                   green:153.0/255.0
+                                                    blue:153.0/255.0
+                                                   alpha:1.f]
+                             range:[total rangeOfString:NSLocalizedString(@"x-products-range", @"")]];
+    
+    [attrStrTotalProd setFont:[UIFont fontWithName:@"Droid Sans" size:13]
+                        range:[total rangeOfString:NSLocalizedString(@"x-products-range", @"")]];
+    
+    [attrStrTotalProd setFont:[UIFont boldSystemFontOfSize:20]
+                        range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
     labelTotalProducts.attributedText   = attrStrTotalProd;
     labelTotalProducts.textAlignment = UITextAlignmentLeft;
     

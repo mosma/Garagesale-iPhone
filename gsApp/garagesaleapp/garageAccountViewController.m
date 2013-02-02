@@ -285,19 +285,33 @@
         
         [segmentControl setEnabled:YES];
         
-        UITapGestureRecognizer *tapDescrip = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoDescriptionVC)];
+        UITapGestureRecognizer *tapDescrip = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(gotoDescriptionVC)];
         [tapDescrip setNumberOfTapsRequired:1];
         [description addGestureRecognizer:tapDescrip];
         
-        NSString *total = [NSString stringWithFormat:@"%i products", [mutArrayProducts count]];
+        NSString *total = [NSString stringWithFormat:NSLocalizedString(@"x-products", @""), [mutArrayProducts count]];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:total];
+        
         [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
-        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0
+                                              green:103.0/255.0
+                                               blue:102.0/255.0
+                                              alpha:1.f]
                         range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
-        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]
-                        range:[total rangeOfString:@"products"]];
-        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[total rangeOfString:@"products"]];
-        [attrStr setFont:[UIFont boldSystemFontOfSize:20] range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
+        
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0
+                                              green:153.0/255.0
+                                               blue:153.0/255.0
+                                              alpha:1.f]
+                        range:[total rangeOfString:NSLocalizedString(@"x-products-range", @"")]];
+        
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13]
+                   range:[total rangeOfString:NSLocalizedString(@"x-products-range", @"")]];
+        
+        [attrStr setFont:[UIFont boldSystemFontOfSize:20]
+                   range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
+        
         labelTotalProducts.attributedText   = attrStr;
         labelTotalProducts.attributedText = attrStr;
         labelTotalProducts.textAlignment = UITextAlignmentLeft;

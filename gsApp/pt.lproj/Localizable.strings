@@ -46,32 +46,32 @@
 "sold"                          = "Vendido";
 "not-available-label"           = "N/D";
 "invisible-label"               = "Invisivel";
-"edit"                          = "edite";
-"delete"                        = "deletar";
+"edit"                          = "      Alterar";
+"delete"                        = "      Apagar";
 "resultsFor"                    = "resultados para";
 
 "notAvailable"                  = "Não disponivel";
 "invisible"                     = "Invisível";
 
 /*Using in : settingsViewController. */
-"account"                       = "conta";
-"password"                      = "senha";
-"currentPassw"                  = "senha atual";
+"account"                       = "Configurações";
+"password"                      = "Senha";
+"currentPassw"                  = "Senha atual";
 
 
 /*Using in : settingsViewController. */
-"aboutYou"                      = "sobre você";
-"anyLink?"                       = "algum link ?";
-"newPassw"                      = "nova senha";
-"repeatPassw"                   = "repita a sua nova senha";
-"address"                       = "endereço";
-"logout"                        = "deslogar";
+"aboutYou"                      = "Sobre você";
+"anyLink?"                      = "Algum link?";
+"newPassw"                      = "Nova senha";
+"repeatPassw"                   = "Repita a sua nova senha";
+"address"                       = "Endereço";
+"logout"                        = "Deslogar";
 
 /*Using in : settingsViewController. */
-"currentAddress"                = "seu endereço";
-"currentCity"                   = "sua cidade";
-"currentDistrict"               = "seu estado atual";
-"currentCoutry"                 = "seu pais atual";
+"currentAddress"                = "Seu endereço";
+"currentCity"                   = "Sua cidade";
+"currentDistrict"               = "Seu estado";
+"currentCoutry"                 = "Seu país";
 
 
 
@@ -162,6 +162,8 @@
 "ngnp2"                         = "Adicione um, é muito fácil!";
 
 "no-location-yet"               = "Sem localização";
+"x-products"                    = "%i produtos";
+"x-products-range"              = "produtos";
 
 
 

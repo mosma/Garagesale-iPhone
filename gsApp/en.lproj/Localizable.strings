@@ -46,8 +46,8 @@
 "sold"                          = "Sold";
 "not-available-label"           = "N/A";
 "invisible-label"               = "Invisible";
-"edit"                          = "Edit";
-"delete"                        = "Delete";
+"edit"                          = "      Edit";
+"delete"                        = "      Delete";
 "resultsFor"                    = "results for";
 
 "notAvailable"                  = "Not available";
@@ -162,5 +162,6 @@
 "ngnp2"                         = "Would like to add product";
 
 "no-location-yet"               = "No location yet";
-
+"x-products"                    = "%i products";
+"x-products-range"              = "products";
 

@@ -104,6 +104,22 @@
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+    
+    
+    //setting i18n
+    [self.buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+    [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"
+                                                                    size:12]];
+    [self.buttonReportThisGarage setTitleColor:[UIColor colorWithRed:253.0/255.0
+                                                               green:103.0/255.0
+                                                                blue:102.0/255.0
+                                                               alpha:1.f]
+                                      forState:UIControlStateNormal ];
+    [self.buttonReportThisGarage setTitle: NSLocalizedString(@"reportGarege", @"") forState:UIControlStateNormal];
+    [self.buttonDeleteProduct setTitle: NSLocalizedString(@"delete", @"") forState:UIControlStateNormal];
+    [self.buttonEditProduct setTitle: NSLocalizedString(@"edit", @"") forState:UIControlStateNormal];
+    
+    
     if (!isFromLoadObject) {
         /*
          Esta verificaçao esta errada... bbbba garagem pode
@@ -198,10 +214,6 @@
         imageView.contentMode   = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         
-        [buttonReportThisGarage setTitle:@"Report this garage" forState:UIControlStateNormal];
-        [buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
-        buttonReportThisGarage.titleLabel.textColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
-        
         [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 370)];
         [galleryScrollView  setClipsToBounds:YES];
         [galleryScrollView  setAutoresizesSubviews:YES];
@@ -212,7 +224,7 @@
 
         nextPageGallery=1;
     }else {
-        [buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+       
         
         // Grab the reference to the router from the manager
         RKObjectRouter *router = [RKObjectManager sharedManager].router;
