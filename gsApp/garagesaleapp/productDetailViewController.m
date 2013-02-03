@@ -28,6 +28,7 @@
 @synthesize isIdPersonNumber;
 @synthesize arrayProfile;
 @synthesize buttonBid;
+@synthesize buttonOffer;
 @synthesize txtFieldEmail;
 @synthesize txtFieldOffer;
 @synthesize txtViewComment;
@@ -107,7 +108,7 @@
     
     
     //setting i18n
-    [self.buttonBid setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+    [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
     [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"
                                                                     size:12]];
     [self.buttonReportThisGarage setTitleColor:[UIColor colorWithRed:253.0/255.0
@@ -131,7 +132,7 @@
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
         
-        buttonBid.layer.cornerRadius            = 5.0f;
+        buttonOffer.layer.cornerRadius            = 5.0f;
         buttonGarageDetail.layer.cornerRadius   = 5.0f;
         
         viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
@@ -223,6 +224,10 @@
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
+        
+        if ([[GlobalFunctions getUserDefaults] objectForKey:@"email"] != nil);
+            self.txtFieldEmail.text = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
+        
     }else {
        
         
@@ -524,11 +529,14 @@
     // POST bid
     [[RKObjectManager sharedManager] postObject:bid delegate:self];
     
+    [txtViewComment resignFirstResponder];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self.buttonBid setEnabled:NO];
+    [self.buttonBid setAlpha:0.4];
+    
     //Animate bidButton
     [UIView beginAnimations:@"buttonFades" context:nil];
     [UIView setAnimationDuration:0.5];
-    [buttonBid setEnabled:NO];
-    [buttonBid setAlpha:0.3];
     [UIView commitAnimations];
 }
 
@@ -619,8 +627,6 @@
     //Settings to Bid Sent
     [UIView beginAnimations:@"buttonFades" context:nil];
     [UIView setAnimationDuration:0.5];
-    [buttonBid setEnabled:YES];
-    [buttonBid setAlpha:1.0];
     [msgBidSentLabel setAlpha:1.0];
     [viewBidSend setAlpha:0];
     [viewBidSend setHidden:YES];
@@ -635,6 +641,10 @@
     [txtFieldEmail  setText:@""];
     [txtFieldOffer  setText:@""];
     [txtViewComment setText:@""];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self.buttonBid setEnabled:YES];
+    [self.buttonBid setAlpha:1.0f];
 }
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{
@@ -902,7 +912,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     
-    rc.size.height = 300;
+    rc.size.height = 400;
     [scrollViewMain scrollRectToVisible:rc animated:YES];
     
 }
@@ -985,7 +995,9 @@
     [self setLabelCityProfile:nil];
     [self setLabelEmailProfile:nil];
     buttonBid = nil;
+    buttonOffer = nil;
     [self setButtonBid:nil];
+    [self setButtonOffer:nil];
     [self setButtonGarageDetail:nil];
     buttonGarageDetail = nil;
     msgBidSentLabel = nil;

@@ -580,8 +580,11 @@
         }
         if (![super isReachability])
             _postProdDelegate.isSaveProductFail = YES;
-        else
+        else{
             [_postProdDelegate postProduct:prodParams];
+            [buttonSaveProduct setUserInteractionEnabled:NO];
+            [buttonSaveProduct setAlpha:0.3f];
+        }
 
         [self initProgressHUDSaveProduct];
     }
@@ -634,6 +637,8 @@
         
         [self newProductFinished:(self.product == nil)];
     }
+    [buttonSaveProduct setUserInteractionEnabled:YES];
+    [buttonSaveProduct setAlpha:1.0f];
     _postProdDelegate.isSaveProductFail = NO;
 }
 

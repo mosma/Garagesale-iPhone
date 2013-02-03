@@ -40,6 +40,7 @@
     IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
     IBOutlet UIScrollView                       *scrollViewMain;
     __unsafe_unretained IBOutlet UIButton       *buttonBid;
+    __unsafe_unretained IBOutlet UIButton       *buttonOffer;
     __unsafe_unretained IBOutlet UITextField    *txtFieldEmail;
     __unsafe_unretained IBOutlet UITextField    *txtFieldOffer;
     __unsafe_unretained IBOutlet UITextView     *txtViewComment;
@@ -88,6 +89,7 @@
 @property (retain, nonatomic) IBOutlet OHAttributedLabel        *OHlabelValorEsperado;
 @property (retain, nonatomic) IBOutlet UIScrollView             *scrollViewMain;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonBid;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonOffer;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldEmail;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldOffer;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextView    *txtViewComment;
@@ -130,6 +132,7 @@
 - (IBAction)gotoGarageDetailVC;
 - (IBAction)gotoUserProductTableVC;
 - (void)gotoProductTableVC:(UIButton *)sender;
+- (IBAction)gotoProductAccountVC:(id)sender;
 - (void)setLoadAnimation;
 - (void)hideMsgBidSent;
 - (IBAction)isNumberKey:(UITextField *)textField;
