@@ -409,18 +409,21 @@
 +(BOOL)onlyNumberKey:(NSString *)string{
 	if ([string length] > 0) {
 		int length = [string length];
-		int Char01 = [string characterAtIndex:length-1];
 		//reference characters www.theasciicode.com.ar/ascii-printable-characters/dot-full-stop-ascii-code-46.html
-		if ((Char01 < 44) || (Char01 > 57) || (Char01 == 47)) {
-			if (length == 1) {
-				string = nil;
-                return NO;
-			}
-			else {
-				string = [string substringWithRange:NSMakeRange(0, length-1)];
-                return NO;
-			}
-		} else return YES;
+        int Char01;
+        for (int x=0; x < length; x++) {
+            Char01 = [string characterAtIndex:x];
+            if ((Char01 < 44) || (Char01 > 57) || (Char01 == 47)) {
+                if (length == 1) {
+                    string = nil;
+                    return NO;
+                }
+                else {
+                    string = [string substringWithRange:NSMakeRange(0, length-1)];
+                    return NO;
+                }
+            } else return YES;
+        }
 	}
     return YES;
 }
