@@ -18,9 +18,9 @@
 @synthesize nsMutArrayNames;
 @synthesize scrollView;
 @synthesize buttonAddPics;
-@synthesize buttonSaveProduct;
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
+@synthesize prodAccount;
 
 -(id)init{
     widthPaddingInImages = kWidthPaddingInImages;
@@ -38,7 +38,7 @@
 }
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
-    if (buttonSaveProduct.enabled) {
+    if (prodAccount.countUploaded == 0) {
         [scrollView setUserInteractionEnabled:NO];
         UIImageView *imageViewDelete      = (UIImageView *)sender.view;
         UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
@@ -132,7 +132,7 @@
      * Upload Delegate set Attributs;
      */
     [uploadDelegate setImageView:imgViewAtGallery];
-    [uploadDelegate setButtonSaveProduct:buttonSaveProduct];
+    [uploadDelegate setProdAccount:self.prodAccount];
     if (photoReturn != nil){
         [uploadDelegate setPhotoReturn:photoReturn];
         [nsMutArrayNames insertObject:[uploadDelegate.photoReturn valueForKey:@"name"] atIndex:newIndex];

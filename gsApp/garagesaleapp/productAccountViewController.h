@@ -56,6 +56,7 @@
     bool isImagesProductPosted;
     int countPicsPost;
     __weak IBOutlet UIButton *buttonDeleteProduct;
+    int       countUploaded;
 }
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
@@ -68,12 +69,12 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UITextView   *textViewDescription;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonAddPics;
-@property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 
 @property (nonatomic)     bool isImagesProductPosted;
 @property (retain, nonatomic) Product                          *product;
-
+@property (readwrite,assign)   int       countUploaded;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;

@@ -23,11 +23,9 @@
      from photosGallery at path ProductAccount
      */
     int idProduct;
-    UIScrollView    *scrollView;
     UIImageView     *imageView;
     UIImageView     *imageViewDelete;
     UIImage         *imagePic;
-    UIButton        *buttonSaveProduct;
     NSMutableArray  *nsMutArrayPicsProduct;
     UITapGestureRecognizer *moveLeftGesture;
     UITapGestureRecognizer *refreshGesture;
@@ -40,6 +38,8 @@
     PDColoredProgressView  *progressView;
     PhotoReturn     *photoReturn;
     NSTimer         *timerUpload;
+    
+    productAccountViewController *prodAccount;
 }
 
 @property (readwrite,assign)    int idProduct;
@@ -47,7 +47,6 @@
 @property (nonatomic, retain)   UIImageView     *imageViewDelete;
 @property (nonatomic, retain)   UIImage         *imagePic;
 @property (nonatomic, retain)   PDColoredProgressView  *progressView;
-@property (nonatomic, retain)   UIButton        *buttonSaveProduct;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
 @property (nonatomic, retain)   NSMutableArray  *nsMutArrayPicsProduct;
 @property (nonatomic, retain)   UIScrollView    *scrollView;
@@ -55,6 +54,8 @@
 
 @property (readwrite,assign)    int totalBytesWritten;
 @property (readwrite,assign)    int totalBytesExpectedToWrite;
+
+@property (retain, nonatomic) productAccountViewController *prodAccount;
 
 -(void)uploadPhotos;
 -(void)deletePhoto;

@@ -16,17 +16,20 @@
     NSMutableArray              *nsMutArrayPhotosDelegate;
     float imageWidth_;
     float imageHeight_;
-    UIButton * buttonSaveProduct;
+
     UIButton * buttonAddPics;
+    productAccountViewController *prodAccount;
 }
 
 @property (retain, nonatomic) NSMutableArray *nsMutArrayPicsProduct;
 @property (retain, nonatomic) NSMutableArray *nsMutArrayNames;
 @property (retain, nonatomic) UIScrollView *scrollView;
-@property (retain, nonatomic) UIButton * buttonSaveProduct;
+
 @property (retain, nonatomic) UIButton * buttonAddPics;
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;
+
+@property (retain, nonatomic) productAccountViewController *prodAccount;
 
 -(void)addImageToScrollView:(UIImage *)aImage
                 photoReturn:(PhotoReturn *)photoReturn

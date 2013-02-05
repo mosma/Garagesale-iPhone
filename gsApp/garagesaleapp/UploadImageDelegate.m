@@ -13,15 +13,14 @@
 @synthesize imageView;
 @synthesize imageViewDelete;
 @synthesize photoReturn;
-@synthesize buttonSaveProduct;
 @synthesize nsMutArrayPicsProduct;
-@synthesize scrollView;
 @synthesize idProduct;
 @synthesize totalBytesWritten;
 @synthesize totalBytesExpectedToWrite;
 @synthesize moveLeftGesture;
 @synthesize imagePic;
 @synthesize progressView;
+@synthesize prodAccount;
 
 -(id)init{
     photoReturn = [[PhotoReturn alloc] init];
@@ -46,7 +45,8 @@
     
     RKParams* params = [RKParams params];
 
-    [self setEnableSaveButton:NO];
+    self.prodAccount.countUploaded = self.self.prodAccount.countUploaded + 1;
+    [self setEnableSaveButton:self.prodAccount.countUploaded];
     [self.imageView setUserInteractionEnabled:NO];
 
     [self setTimmer];
@@ -91,8 +91,8 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    [self setEnableSaveButton:YES];
+    self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
+    [self setEnableSaveButton:self.prodAccount.countUploaded];
     [self.imageViewDelete setHidden:NO];
 
     NSLog(@"Encountered error: %@",                      error);
@@ -149,7 +149,8 @@
         return;
     else {
         [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
-        [self setEnableSaveButton:YES];
+        self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
+        [self setEnableSaveButton:self.prodAccount.countUploaded];
         [imageView removeGestureRecognizer:self.moveLeftGesture];
         [imageView addGestureRecognizer:refreshGesture];
         [UIView animateWithDuration:0.2 animations:^{
@@ -160,9 +161,14 @@
     }
 }
 
--(void)setEnableSaveButton:(BOOL)enable{
-    [buttonSaveProduct setEnabled:enable];
-    enable ? [buttonSaveProduct setAlpha:1.0] : [buttonSaveProduct setAlpha:0.3];
+-(void)setEnableSaveButton:(int)count{
+    if (count == 0) {
+        [prodAccount.buttonSaveProduct setEnabled:YES];
+        [prodAccount.buttonSaveProduct setAlpha:1.0];
+    } else {
+        [prodAccount.buttonSaveProduct setEnabled:NO];
+        [prodAccount.buttonSaveProduct setAlpha:0.3];
+    }
 }
 
 -(void)setValuesResponseToVC:(NSString *)response{
@@ -200,12 +206,11 @@
     [timerUpload invalidate];
     timerUpload = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
     
-    if (totalBytesExpectedToWrite != totalBytesWritten)
-        [self setEnableSaveButton:NO];
-    else{
+    if (totalBytesExpectedToWrite == totalBytesWritten){
         [self.imageView setUserInteractionEnabled:YES];
         [progressView setHidden:YES];
-        [self setEnableSaveButton:YES];
+        self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
+        [self setEnableSaveButton:self.prodAccount.countUploaded];
         [imageView removeGestureRecognizer:refreshGesture];
         [imageView addGestureRecognizer:moveLeftGesture];
     }

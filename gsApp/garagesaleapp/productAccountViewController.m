@@ -36,9 +36,10 @@
 @synthesize viewPicsControl;
 @synthesize buttonAddPics;
 @synthesize product;
-@synthesize buttonSaveProduct;
 @synthesize buttonDeleteProduct;
 @synthesize gallery;
+@synthesize countUploaded;
+@synthesize buttonSaveProduct;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -109,7 +110,7 @@
     
     gallery = [[photosGallery alloc] init];
     [gallery setButtonAddPics:buttonAddPics];
-    [gallery setButtonSaveProduct:buttonSaveProduct];
+    [gallery setProdAccount:self];
     [gallery setScrollView:self.scrollViewPicsProduct];
     
     [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
