@@ -440,21 +440,36 @@
     //NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
 }
 
-+(void)hideTabBar:(UITabBarController *) tabbarcontroller {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-    for(UIView *view in tabbarcontroller.view.subviews)
-    {
-        if([view isKindOfClass:[UITabBar class]])
++(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated {
+    
+    if (animated) {
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        for(UIView *view in tabbarcontroller.view.subviews)
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
-        } 
-        else 
+            if([view isKindOfClass:[UITabBar class]])
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+            } 
+            else 
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            }
+        }
+        [UIView commitAnimations];
+    } else {
+        for(UIView *view in tabbarcontroller.view.subviews)
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            if([view isKindOfClass:[UITabBar class]])
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+            }
+            else
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            }
         }
     }
-    [UIView commitAnimations];
 }
 
 +(void)showTabBar:(UITabBarController *) tabbarcontroller {

@@ -43,7 +43,7 @@ typedef enum {
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed rect:(CGRect)rect;
 //+(void)setProductMapping:(RKObjectMapping *)productMapping;
 //+(void)setUIPickerViewDefault:(UIPickerView *)pickerView;
-+(void)hideTabBar:(UITabBarController *)tabbarcontroller;
++(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated;
 +(void)showTabBar:(UITabBarController *)tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;
 +(UILabel *)getLabelTitleNavBarGeneric:(UITextAlignment *)textAlignment text:(NSString *)text width:(int)width;

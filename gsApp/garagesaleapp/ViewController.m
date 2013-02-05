@@ -31,6 +31,8 @@
 {
     [super viewDidLoad];
     
+    [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:NO];
+    
     //set searchBar settings
     searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
     searchBarProduct.delegate = self;
@@ -338,7 +340,7 @@
             [UIView setAnimationDelegate:self];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
                 [viewSearch setAlpha:0];
-                [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+                [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             }else
                 [viewTopPage setAlpha:0];
             [UIView commitAnimations];
@@ -403,7 +405,7 @@
     }else {
         [viewSearch setHidden:YES];
         [viewTopPage setHidden:NO];
-        [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+        [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
     }
 }
 

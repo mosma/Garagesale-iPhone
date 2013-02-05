@@ -578,7 +578,7 @@
         (segmentControl.selectedSegmentIndex == 1 && [mutArrayProducts count] > 4)) {
 
         if (_lastContentOffset < (int)self.tableView.contentOffset.y){
-            [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+            [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             [self.navigationController setNavigationBarHidden:YES animated:YES];
         }
         else{

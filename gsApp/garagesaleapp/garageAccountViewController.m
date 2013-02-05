@@ -478,7 +478,7 @@
         if (_lastContentOffset < (int)tableViewProducts.contentOffset.y ||
             _lastContentOffset < (int)scrollViewMain.contentOffset.y ||
             _lastContentOffset < (int)scrollViewProducts.contentOffset.y) {
-            [GlobalFunctions hideTabBar:self.navigationController.tabBarController];
+            [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             [self.navigationController setNavigationBarHidden:YES animated:YES];
         }else{
             if (tableViewProducts.contentOffset.y < tableViewProducts.contentSize.height-300) {
