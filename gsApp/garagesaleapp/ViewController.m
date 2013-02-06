@@ -42,11 +42,28 @@
     [self.view addSubview:searchBarProduct];
     
     [self loadAttribsToComponents];
-    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 }
 
 - (void)loadAttribsToComponents{
+    //Set Logo Top Button Not Account.
+    buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
+    buttonLogo.adjustsImageWhenHighlighted = NO;
+    [buttonLogo addTarget:self action:@selector(reloadPage:)
+         forControlEvents:UIControlEventTouchDown];
+    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
     
+    if (isFromSignUp) {
+        buttonLogo.center = CGPointMake(160, 50);
+    } else {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.6f];
+        [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
+        buttonLogo.center = CGPointMake(160, 50);
+        [UIView commitAnimations];
+    }
+
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
     //Setting i18n
     [self.txtFieldSearch setPlaceholder:NSLocalizedString(@"homeSearchField", @"")];
@@ -120,24 +137,6 @@
                                          [UIImage imageNamed:@"ActivityHome00.png"],
                                          nil];
     activityImageView.animationDuration = 1.0;
-    
-    //Set Logo Top Button Not Account.
-    buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
-    buttonLogo.adjustsImageWhenHighlighted = NO;
-    [buttonLogo addTarget:self action:@selector(reloadPage:)
-         forControlEvents:UIControlEventTouchDown];
-    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
-
-    if (isFromSignUp) {
-        buttonLogo.center = CGPointMake(160, 50);
-    } else {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.6f];
-        [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
-        buttonLogo.center = CGPointMake(160, 50);
-        [UIView commitAnimations];
-    }
     
     //init Global Functions
     globalFunctions = [[GlobalFunctions alloc] init];

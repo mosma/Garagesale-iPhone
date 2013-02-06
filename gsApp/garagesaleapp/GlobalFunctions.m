@@ -441,35 +441,18 @@
 }
 
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated {
-    
-    if (animated) {
+    if (animated){
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.3];
-        for(UIView *view in tabbarcontroller.view.subviews)
-        {
-            if([view isKindOfClass:[UITabBar class]])
-            {
-                [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
-            } 
-            else 
-            {
-                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
-            }
-        }
-        [UIView commitAnimations];
-    } else {
-        for(UIView *view in tabbarcontroller.view.subviews)
-        {
-            if([view isKindOfClass:[UITabBar class]])
-            {
-                [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
-            }
-            else
-            {
-                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
-            }
-        }
     }
+    for(UIView *view in tabbarcontroller.view.subviews)
+    {
+        if([view isKindOfClass:[UITabBar class]])
+            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+        else 
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+    }
+    if (animated) [UIView commitAnimations];
 }
 
 +(void)showTabBar:(UITabBarController *) tabbarcontroller {
