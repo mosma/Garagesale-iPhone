@@ -154,7 +154,11 @@
                                 [[GlobalFunctions getUserDefaults] objectForKey:@"nome"],
                                 [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             
-            link.text        = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
+            if ([[[GlobalFunctions getUserDefaults] objectForKey:@"link"] isEqualToString:@""])
+                link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@",
+                             [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+            else
+                link.text = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
 
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
@@ -246,10 +250,10 @@
         
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
-        [garageName setTextColor:[UIColor colorWithRed:51.0/255.0 green:51.0/255.0 blue:51.0/255.0 alpha:1.f]];
+        [garageName setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
-        garageName.font  = [UIFont fontWithName:@"DroidSans-Bold" size:20];
+        garageName.font  = [UIFont fontWithName:@"Droid Sans" size:12];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"Droid Sans" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
@@ -330,7 +334,11 @@
 
         description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
         garageName.text  = [NSString stringWithFormat:@"%@ @%@", profile.nome, profile.garagem];
-        link.text        = garage.link;
+        
+        if ([garage.link isEqualToString:@""])
+            link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@", profile.garagem];
+        else
+            link.text = garage.link;
     
         if ([city.text length] < 5)
             [city setHidden:YES];

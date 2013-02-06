@@ -383,7 +383,7 @@
     HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
 	HUD.delegate = self;
 	HUD.labelText = @"Saving";
-	HUD.color = [UIColor colorWithRed:219.0/255.0 green:87.0/255.0 blue:87.0/255.0 alpha:1.0];
+	HUD.color = [UIColor blackColor];
     HUD.dimBackground = YES;
     
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
