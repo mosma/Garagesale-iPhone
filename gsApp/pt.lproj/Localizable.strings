@@ -9,6 +9,7 @@
 //Localizable.Strings file for the Portuguese version.
 "offerAsk"                      = "Valor (pergunte algo)";
 "bid"                           = "Ofertar";
+"bidItem"                       = "Ofertar produto";
 "bidSent"                       = "Oferta feita";
 "seeAllProducts"                = "Todos itens desta garagem";
 "products"                      = "Produtos";
@@ -45,8 +46,8 @@
 "sold"                          = "Vendido";
 "not-available-label"           = "N/D";
 "invisible-label"               = "Invisivel";
-"edit"                          = "      Alterar";
-"delete"                        = "      Apagar";
+"edit"                          = "  Alterar";
+"delete"                        = "  Apagar";
 "resultsFor"                    = "resultados para";
 
 "notAvailable"                  = "Não disponivel";

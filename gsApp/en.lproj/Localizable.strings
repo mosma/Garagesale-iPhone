@@ -8,7 +8,8 @@
 
 //Localizable.Strings file for the English version.
 "offerAsk"                      = "offer (ask something)";
-"bid"                           = "bid this item";
+"bid"                           = "Offer";
+"bidItem"                       = "bid this item";
 "bidSent"                       = "bid Sent";
 "seeAllProducts"                = "see all products";
 "products"                      = "products";
@@ -45,8 +46,8 @@
 "sold"                          = "Sold";
 "not-available-label"           = "N/A";
 "invisible-label"               = "Invisible";
-"edit"                          = "      Edit";
-"delete"                        = "      Delete";
+"edit"                          = "  Edit";
+"delete"                        = "  Delete";
 "resultsFor"                    = "results for";
 
 "notAvailable"                  = "Not available";

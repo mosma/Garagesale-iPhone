@@ -28,6 +28,7 @@
 @synthesize isIdPersonNumber;
 @synthesize arrayProfile;
 @synthesize buttonBid;
+@synthesize buttonCancelBid;
 @synthesize buttonOffer;
 @synthesize txtFieldEmail;
 @synthesize txtFieldOffer;
@@ -109,6 +110,7 @@
     
     //setting i18n
     [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+    [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"
                                                                     size:12]];
     [self.buttonReportThisGarage setTitleColor:[UIColor colorWithRed:253.0/255.0
@@ -119,7 +121,15 @@
     [self.buttonReportThisGarage setTitle: NSLocalizedString(@"reportGarege", @"") forState:UIControlStateNormal];
     [self.buttonDeleteProduct setTitle: NSLocalizedString(@"delete", @"") forState:UIControlStateNormal];
     [self.buttonEditProduct setTitle: NSLocalizedString(@"edit", @"") forState:UIControlStateNormal];
+
+    [self.buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
+    [self.buttonEditProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
     
+    [self.buttonCancelBid setTitle: NSLocalizedString(@"keyboard-cancel-btn", @"") forState:UIControlStateNormal];
+    [self.buttonBid setTitle: NSLocalizedString(@"bidItem", @"") forState:UIControlStateNormal];
+
+    [self.buttonCancelBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
+    [self.buttonBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     
     if (!isFromLoadObject) {
         /*

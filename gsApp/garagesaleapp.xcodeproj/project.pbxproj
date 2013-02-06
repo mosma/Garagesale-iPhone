@@ -136,8 +136,6 @@
 		CC3454E11610D53F0020B6BD /* btPencilEditProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */; };
 		CC3454E21610D53F0020B6BD /* btPencilEditProductDetail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454E01610D53D0020B6BD /* btPencilEditProductDetail@2x.png */; };
 		CC34BE2D14BFD09D00295BCE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC34BE2C14BFD09D00295BCE /* MessageUI.framework */; };
-		CC3AB097156C892900544D93 /* btLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB092156C892900544D93 /* btLogin.png */; };
-		CC3AB098156C892900544D93 /* btLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB093156C892900544D93 /* btLogin@2x.png */; };
 		CC3AB099156C892900544D93 /* btSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB094156C892900544D93 /* btSearch.png */; };
 		CC3AB09A156C892900544D93 /* btSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB095156C892900544D93 /* btSearch@2x.png */; };
 		CC3AB09B156C892900544D93 /* btSign@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3AB096156C892900544D93 /* btSign@2x.png */; };
@@ -517,8 +515,6 @@
 		CC3454DF1610D53C0020B6BD /* btPencilEditProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btPencilEditProductDetail.png; sourceTree = "<group>"; };
 		CC3454E01610D53D0020B6BD /* btPencilEditProductDetail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btPencilEditProductDetail@2x.png"; sourceTree = "<group>"; };
 		CC34BE2C14BFD09D00295BCE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		CC3AB092156C892900544D93 /* btLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btLogin.png; sourceTree = "<group>"; };
-		CC3AB093156C892900544D93 /* btLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btLogin@2x.png"; sourceTree = "<group>"; };
 		CC3AB094156C892900544D93 /* btSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearch.png; sourceTree = "<group>"; };
 		CC3AB095156C892900544D93 /* btSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearch@2x.png"; sourceTree = "<group>"; };
 		CC3AB096156C892900544D93 /* btSign@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSign@2x.png"; sourceTree = "<group>"; };
@@ -1095,8 +1091,6 @@
 				CC328CB6157132CA0096180B /* topHeaderProductDetail.png */,
 				CC3AB09C156C8D4C00544D93 /* logo.png */,
 				CC3AB09D156C8D4C00544D93 /* logo@2x.png */,
-				CC3AB092156C892900544D93 /* btLogin.png */,
-				CC3AB093156C892900544D93 /* btLogin@2x.png */,
 				CC3AB094156C892900544D93 /* btSearch.png */,
 				CC3AB095156C892900544D93 /* btSearch@2x.png */,
 				CC3AB096156C892900544D93 /* btSign@2x.png */,
@@ -1552,8 +1546,6 @@
 				CC16B4571545BD6A00A4487B /* FBDialog.bundle in Resources */,
 				CC68C8171569219300353059 /* IpadStoryboard.storyboard in Resources */,
 				CC68C81C1569AA4D00353059 /* btSign.png in Resources */,
-				CC3AB097156C892900544D93 /* btLogin.png in Resources */,
-				CC3AB098156C892900544D93 /* btLogin@2x.png in Resources */,
 				CC3AB099156C892900544D93 /* btSearch.png in Resources */,
 				CC3AB09A156C892900544D93 /* btSearch@2x.png in Resources */,
 				CC3AB09B156C892900544D93 /* btSign@2x.png in Resources */,
