@@ -14,6 +14,22 @@
 @synthesize imageThumbsXorigin_Iphone;
 @synthesize imageThumbsYorigin_Iphone;
 @synthesize countColumnImageThumbs;
+@synthesize tabPositionTop;
+@synthesize tabPositionBottom;
+@synthesize homeProductsNumber;
+
+-(void) getScreenSize {
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568) {
+        tabPositionTop = 521;
+        tabPositionBottom = 570;
+        homeProductsNumber = 15;
+    } else {
+        tabPositionTop = 431;
+        tabPositionBottom = 480;
+        homeProductsNumber = 12;
+    }
+}
 
 +(NSString *)getUrlServicePath {
     //return @"http://169.254.251.178";//text/html
@@ -441,6 +457,10 @@
 }
 
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated {
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    
+    
     if (animated){
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.3];
@@ -448,14 +468,17 @@
     for(UIView *view in tabbarcontroller.view.subviews)
     {
         if([view isKindOfClass:[UITabBar class]])
-            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+            [view setFrame:CGRectMake(view.frame.origin.x, [global tabPositionBottom], view.frame.size.width, view.frame.size.height)];
         else 
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, [global tabPositionBottom])];
     }
     if (animated) [UIView commitAnimations];
 }
 
 +(void)showTabBar:(UITabBarController *) tabbarcontroller {
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil){
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.3];
@@ -464,11 +487,11 @@
             //NSLog(@"%@", view);
             if([view isKindOfClass:[UITabBar class]])
             {
-                [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
+                [view setFrame:CGRectMake(view.frame.origin.x, [global tabPositionTop], view.frame.size.width, view.frame.size.height)];
             } 
             else 
             {
-                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, [global tabPositionTop])];
             }
         }
         [UIView commitAnimations];

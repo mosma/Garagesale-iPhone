@@ -178,6 +178,9 @@
 }
 
 - (void)getResourcePathProduct{
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    
     self.trackedViewName = @"/";
     
     RKObjectMapping *productMapping = [Mappings getProductMapping];
@@ -191,7 +194,8 @@
     [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:@"product?count=12" objectMapping:productMapping delegate:self];
+    NSString *path = [NSString stringWithFormat:@"product?count=%0d", [global homeProductsNumber]];
+    [self.RKObjManeger loadObjectsAtResourcePath:path objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -281,8 +285,11 @@
 }
 
 -(void)loadButtonsProduct{
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = [mutArrayProducts count]-12; i < [mutArrayProducts count]; i++)
+    for(int i = [mutArrayProducts count] - [global homeProductsNumber]; i < [mutArrayProducts count]; i++)
     {
         [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:
                                                                               [mutArrayProducts objectAtIndex:i],
@@ -315,11 +322,17 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    int frameSize = 10;
+    if ([global homeProductsNumber] == 15) {
+        frameSize = 50;
+    }
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
             //Position the activity image view somewhere in
             //the middle of your current view
-            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+10-(countLoads*7), 46, 45);
+            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+frameSize-(countLoads*7), 46, 45);
             
             //Start the animation
             [activityImageView startAnimating];
@@ -364,6 +377,13 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    GlobalFunctions * global = [GlobalFunctions new];
+    [global getScreenSize];
+    int frameSize = 530;
+    if ([global homeProductsNumber] == 15) {
+        frameSize = 570;
+    }
+    
     [buttonLogo setUserInteractionEnabled:NO];
     [mutArrayProducts removeAllObjects];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -383,7 +403,7 @@
     [self controlSearchArea];
     
     if ([mutArrayProducts count] == 0) {
-        [scrollViewMain setContentSize:CGSizeMake(320,530)];
+        [scrollViewMain setContentSize:CGSizeMake(320,frameSize)];
     }else {
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
