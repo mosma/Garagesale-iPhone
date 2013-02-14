@@ -69,7 +69,9 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
-        
+    
+    IS_IPHONE_5 ? [self.view setFrame:CGRectMake(0, 0, 320, 455)] : [self.view setFrame:CGRectMake(0, 0, 320, 367)];
+    
     [self loadAttributsToComponents];
 }
 

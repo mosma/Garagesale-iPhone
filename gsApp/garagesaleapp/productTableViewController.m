@@ -86,6 +86,14 @@
 {
     [super viewDidLoad];
     
+    if (IS_IPHONE_5) {
+        [self.view setFrame:CGRectMake(0, 0, 320, 504)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 508)];
+    } else {
+        [self.view setFrame:CGRectMake(0, 0, 320, 416)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 420)];
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
     

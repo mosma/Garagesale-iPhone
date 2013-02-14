@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
     
+    [self.view setFrame:CGRectMake(0, 20, 320, 460)];
+    
     //configure addthis -- (this step is optional)
     //[AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
     [AddThisSDK setToolBarColor:[UIColor whiteColor]];

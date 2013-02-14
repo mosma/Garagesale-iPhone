@@ -35,10 +35,12 @@
 @synthesize textFieldUserPassword;
 @synthesize RKObjManeger;
 @synthesize settingsAccount;
+@synthesize secondView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    IS_IPHONE_5 ? [self.scrollView setFrame:CGRectMake(0, 64, 320, 504)] : [self.scrollView setFrame:CGRectMake(0, 64, 320, 416)];
     [self loadAttribsToComponents];
 	// Do any additional setup after loading the view.
 }
@@ -76,6 +78,8 @@
         self.trackedViewName = @"/newGarage";
     }else if
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0){ //Login ViewController
+        IS_IPHONE_5 ?   [self.secondView setFrame:CGRectMake(0, 0, 320, 811)]:
+                        [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
         self.scrollView.contentSize = CGSizeMake(320,540);
         self.trackedViewName = @"/login";
     }

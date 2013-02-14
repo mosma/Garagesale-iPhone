@@ -28,6 +28,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (IS_IPHONE_5) {
+        [self.view setFrame:CGRectMake(0, 20, 320, 548)];
+        [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 548)];
+    } else {
+        [self.view setFrame:CGRectMake(0, 20, 320, 460)];
+        [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 460)];
+    }
+    
     zoomView                    = [[UIView alloc] init];
     PagContGallery.hidden       = YES;
     RKObjManeger                     = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];

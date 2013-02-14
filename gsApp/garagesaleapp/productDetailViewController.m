@@ -73,7 +73,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if (IS_IPHONE_5) {
+        [self.view setFrame:CGRectMake(0, 64, 320, 504)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 504)];
+        [self.secondView setFrame:CGRectMake(0, 0, 320, 504)];
+        [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 389)];
+    } else {
+        [self.view setFrame:CGRectMake(0, 64, 320, 416)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 416)];
+        [self.secondView setFrame:CGRectMake(0, 0, 320, 416)];
+        [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 301)];
+    }
+    
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     

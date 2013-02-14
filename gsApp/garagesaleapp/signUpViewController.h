@@ -41,11 +41,13 @@
     __weak IBOutlet UITextField     *textFieldUserName;
     __weak IBOutlet UITextField     *textFieldUserPassword;
     
+    __weak IBOutlet UIView          *secondView;
+                                                        
     //Others
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
     MBProgressHUD                   *HUD;
-    viewHelper *vH;
+    viewHelper                      *vH;
     BOOL                            isLoadingDone;
     int validatorFlag;
     
@@ -70,6 +72,8 @@
 //Sigin outlets
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldUserName;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldUserPassword;
+
+@property (weak, nonatomic) IBOutlet UIView         *secondView;
 
 //Others
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;

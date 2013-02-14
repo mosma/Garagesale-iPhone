@@ -80,9 +80,14 @@
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
     RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+    
+    if ([nibId rangeOfString:@"Vnq-S3-BVF"].length != 0) //About ViewController
+            IS_IPHONE_5 ? [self.view setFrame:CGRectMake(0, 20, 320, 548)] : [self.view setFrame:CGRectMake(0, 0, 320, 460)];
+    else
+            IS_IPHONE_5 ? [self.view setFrame:CGRectMake(0, 64, 320, 504)] : [self.view setFrame:CGRectMake(0, 0, 320, 416)];
 }
 
-- (void)loadAttribsToComponents{    
+- (void)loadAttribsToComponents{
     nibId = [[self.navigationController visibleViewController] nibName];
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{

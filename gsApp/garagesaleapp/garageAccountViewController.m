@@ -100,11 +100,22 @@
 {
     [super viewDidLoad];
     
+    if (IS_IPHONE_5) {
+        [self.view setFrame:CGRectMake(0, 0, 320, 504)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 437)];
+        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 545)];
+        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 534)];
+        [self.viewNoProducts setFrame:CGRectMake(0, 0, 320, 504)];
+    } else {
+        [self.view setFrame:CGRectMake(0, 0, 320, 416)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 431)];
+        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 475)];
+        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 465)];
+        [self.viewNoProducts setFrame:CGRectMake(0, 95, 320, 339)];
+    }
     
     if ([mutArrayProducts count] == 0){
-    
         RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-
         //Shadow Top below navigationBar
         CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
         CGColorRef lightColor = [UIColor clearColor].CGColor;
@@ -163,12 +174,12 @@
             //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
             //Retrieving
-            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                                   objectForKey:[NSString
-                                                                                                 stringWithFormat:@"%@_AvatarImg",
-                                                                                                 [[GlobalFunctions getUserDefaults]
-                                                                                                  objectForKey:@"garagem"]]]];
-            
+            UIImage *image = (UIImage*)[NSKeyedUnarchiver
+                                        unarchiveObjectWithData:
+                                        [[GlobalFunctions getUserDefaults]
+                                         objectForKey:[NSString stringWithFormat:@"%@_AvatarImg",
+                                                        [[GlobalFunctions getUserDefaults]
+                                                            objectForKey:@"garagem"]]]];
             
             NSString *noProduct = NSLocalizedString(@"new-garage-no-product", @"");
             

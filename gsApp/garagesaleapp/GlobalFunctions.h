@@ -20,9 +20,6 @@
     int imageThumbsXorigin_Iphone;
     int imageThumbsYorigin_Iphone;
     int countColumnImageThumbs;
-    int tabPositionTop;
-    int tabPositionBottom;
-    int homeProductsNumber;
 }
 
 typedef enum {
@@ -32,6 +29,11 @@ typedef enum {
     imageTypeMobile,
     imageTypeOriginal
 } imageType;
+
+typedef enum {
+	tabPositionTop,
+	tabPositionBottom
+} tabPosition;
 
 +(void)setSearchBarLayout:(UISearchBar *)searchBar;
 +(NSString *)getUrlServicePath;
@@ -58,13 +60,12 @@ typedef enum {
 -(void)loadThumbs:(NSArray *)array;
 -(UIView *)loadButtonsThumbsProduct:(NSArray *)arrayDetailProduct showEdit:(BOOL)showEdit showPrice:(BOOL)showPrice viewContr:(UIViewController *)viewContr;
 
--(void) getScreenSize;
+//if istabTopPosition return topPosition else return tabBottomPosition
++(int)getTabPosition:(tabPosition)position;
++(int)getHomeProductsNumber;
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int countColumnImageThumbs;
-@property (unsafe_unretained, nonatomic) int tabPositionTop;
-@property (unsafe_unretained, nonatomic) int tabPositionBottom;
-@property (unsafe_unretained, nonatomic) int homeProductsNumber;
 
 @end

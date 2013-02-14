@@ -41,6 +41,14 @@
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
     [self.view addSubview:searchBarProduct];
     
+    if (IS_IPHONE_5) {
+        [self.view setFrame:CGRectMake(0, 0, 320, 548)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 548)];
+    } else {
+        [self.view setFrame:CGRectMake(0, 0, 320, 460)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 460)];
+    }
+
     [self loadAttribsToComponents];
 }
 
@@ -178,9 +186,6 @@
 }
 
 - (void)getResourcePathProduct{
-    GlobalFunctions * global = [GlobalFunctions new];
-    [global getScreenSize];
-    
     self.trackedViewName = @"/";
     
     RKObjectMapping *productMapping = [Mappings getProductMapping];
@@ -194,7 +199,7 @@
     [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
     //LoadUrlResourcePath
-    NSString *path = [NSString stringWithFormat:@"product?count=%0d", [global homeProductsNumber]];
+    NSString *path = [NSString stringWithFormat:@"product?count=%0d", [GlobalFunctions getHomeProductsNumber]];
     [self.RKObjManeger loadObjectsAtResourcePath:path objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
@@ -285,11 +290,8 @@
 }
 
 -(void)loadButtonsProduct{
-    GlobalFunctions * global = [GlobalFunctions new];
-    [global getScreenSize];
-    
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = [mutArrayProducts count] - [global homeProductsNumber]; i < [mutArrayProducts count]; i++)
+    for(int i = [mutArrayProducts count] - [GlobalFunctions getHomeProductsNumber]; i < [mutArrayProducts count]; i++)
     {
         [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:
                                                                               [mutArrayProducts objectAtIndex:i],
@@ -322,12 +324,8 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    GlobalFunctions * global = [GlobalFunctions new];
-    [global getScreenSize];
-    int frameSize = 10;
-    if ([global homeProductsNumber] == 15) {
-        frameSize = 50;
-    }
+    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 100 : 10;
+    
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
             //Position the activity image view somewhere in
@@ -340,7 +338,7 @@
             [scrollViewMain addSubview:activityImageView];
             
             [self getResourcePathProduct];
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+125)];
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+125+frameSize)];
             
             countLoads++;
         }
@@ -377,13 +375,8 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
-    GlobalFunctions * global = [GlobalFunctions new];
-    [global getScreenSize];
-    int frameSize = 530;
-    if ([global homeProductsNumber] == 15) {
-        frameSize = 570;
-    }
-    
+    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 570 : 530;
+
     [buttonLogo setUserInteractionEnabled:NO];
     [mutArrayProducts removeAllObjects];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
