@@ -87,11 +87,11 @@
     [super viewDidLoad];
     
     if (IS_IPHONE_5) {
-        [self.view setFrame:CGRectMake(0, 0, 320, 504)];
-        [self.tableView setFrame:CGRectMake(0, 0, 320, 508)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 568)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 553)];
     } else {
-        [self.view setFrame:CGRectMake(0, 0, 320, 416)];
-        [self.tableView setFrame:CGRectMake(0, 0, 320, 420)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 465)];
     }
     
     // Uncomment the following line to preserve selection between presentations.

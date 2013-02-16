@@ -38,7 +38,7 @@
 
     __unsafe_unretained IBOutlet UILabel            *emailLabel;
     __unsafe_unretained IBOutlet UIImageView        *imgGarageLogo;
-    __unsafe_unretained IBOutlet UILabel            *garageName;
+    __unsafe_unretained IBOutlet OHAttributedLabel  *garageName;
     __unsafe_unretained IBOutlet UILabel            *description;
     __unsafe_unretained IBOutlet UILabel            *city;
     __unsafe_unretained IBOutlet UILabel            *link;
@@ -67,7 +67,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *emailLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView        *imgGarageLogo;
 @property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel            *garageName;
+@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *garageName;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *description;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *city;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel            *link;

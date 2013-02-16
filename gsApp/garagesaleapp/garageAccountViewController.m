@@ -101,18 +101,32 @@
     [super viewDidLoad];
     
     if (IS_IPHONE_5) {
-        [self.view setFrame:CGRectMake(0, 0, 320, 504)];
-        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 437)];
-        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 545)];
-        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 534)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 568)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 568)];
+        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 568)];
+        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 568)];
         [self.viewNoProducts setFrame:CGRectMake(0, 0, 320, 504)];
     } else {
-        [self.view setFrame:CGRectMake(0, 0, 320, 416)];
-        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 431)];
-        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 475)];
-        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 465)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 480)];
+        [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 480)];
+        [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 480)];
         [self.viewNoProducts setFrame:CGRectMake(0, 95, 320, 339)];
     }
+    
+    NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
+    
+    segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+    segmentControl.frame = CGRectMake(0, 0, 92, 31);
+    [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+    segmentControl.selectedSegmentIndex = 0;
+    segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [viewSegmentArea addSubview:segmentControl];
+    
+    //init Global Functions
+    globalFunctions = [[GlobalFunctions alloc] init];
+    
+    self.tableViewProducts.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
     
     if ([mutArrayProducts count] == 0){
         RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
@@ -161,9 +175,11 @@
             
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             [description sizeToFit];
-            garageName.text  = [NSString stringWithFormat:@"%@ @%@",
-                                [[GlobalFunctions getUserDefaults] objectForKey:@"nome"],
-                                [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+            
+            garageName.attributedText  = [self getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
+                                                 profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
+
+            garageName.textAlignment  = UITextAlignmentLeft;
             
             if ([[[GlobalFunctions getUserDefaults] objectForKey:@"link"] isEqualToString:@""])
                 link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@",
@@ -245,26 +261,15 @@
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
         [gestReload setNumberOfTapsRequired:1];
         [viewTop addGestureRecognizer:gestReload];
-        
-        NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
-        
-        segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
-        segmentControl.frame = CGRectMake(0, 0, 92, 31);
-        [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
-        segmentControl.selectedSegmentIndex = 0;
-        segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [viewSegmentArea addSubview:segmentControl];
-        
+                
         [viewNoProducts setHidden:YES];
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
         
         [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
         
-        [garageName setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
-        garageName.font  = [UIFont fontWithName:@"Droid Sans" size:12];
         city.font        = [UIFont fontWithName:@"Droid Sans" size:12];
         description.font = [UIFont fontWithName:@"Droid Sans" size:12];
         link.font        = [UIFont fontWithName:@"DroidSans-Bold" size:12];
@@ -273,7 +278,9 @@
         [gestureRec setNumberOfTapsRequired:1];
         [link addGestureRecognizer:gestureRec];
         
-        self.scrollViewMain.contentSize         = CGSizeMake(320,640);
+        if (IS_IPHONE_5) self.scrollViewMain.contentSize  = CGSizeMake(320,735);
+        else             self.scrollViewMain.contentSize  = CGSizeMake(320,647);
+        
         self.scrollViewMain.delegate = self;
         self.scrollViewProducts.delegate = self;
         
@@ -281,13 +288,9 @@
         
         self.navigationItem.hidesBackButton = NO;
         
-        //init Global Functions
-        globalFunctions = [[GlobalFunctions alloc] init];
-        
         // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
-        self.tableViewProducts.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
     }
     
     // set values to objetcs from objectLoader
@@ -334,6 +337,29 @@
     }
 }
 
+-(NSMutableAttributedString *)getNamePerfil:(NSString *)garagem profileName:(NSString *)profileName{
+    NSString *fullName = [NSString stringWithFormat:@"%@ @%@", profileName, garagem];
+    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString: fullName];
+        
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:20]];
+    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0
+                                          green:153.0/255.0
+                                           blue:153.0/255.0
+                                          alpha:1.f]
+                    range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
+    
+    [attrStr setTextColor:[UIColor colorWithRed:51.0/255.0
+                                          green:51.0/255.0
+                                           blue:51.0/255.0
+                                          alpha:1.f]
+                    range:[fullName rangeOfString:profileName]];
+    
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12]
+               range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
+
+    return attrStr;
+}
+
 -(void)loadHeader{
     if (garageNameSearch) {
         description.text = @"";
@@ -342,9 +368,9 @@
         link.text        = @"";
     } else {
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
-
         description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
-        garageName.text  = [NSString stringWithFormat:@"%@ @%@", profile.nome, profile.garagem];
+        garageName.attributedText  = [self getNamePerfil:profile.garagem
+                                             profileName:profile.nome];
         
         if ([garage.link isEqualToString:@""])
             link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@", profile.garagem];
