@@ -716,6 +716,11 @@
     [self loadAttribsToComponents];
 }
 
+- (void)viewWillUnload:(BOOL)animated
+{
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+}
+
 - (void)viewDidUnload
 {
     txtFieldGarageName = nil;
