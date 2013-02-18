@@ -857,7 +857,6 @@
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-    
     if (viewBidSend.hidden && viewBidMsg.hidden) {
         [scrollViewMain insertSubview:viewBidMsg belowSubview:viewBidSend];
         [scrollViewMain insertSubview:viewShadow belowSubview:viewBidSend];
@@ -874,8 +873,9 @@
         [viewBidMsg setHidden:YES];
         [countView setAlpha:1.0];
         [viewShadow removeFromSuperview];
+        [self.txtFieldEmail resignFirstResponder];
+        [self.txtViewComment resignFirstResponder];
     }
-    
     [UIView commitAnimations];
 }
 
@@ -934,9 +934,8 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     
-    rc.size.height = 400;
+    rc.size.height = IS_IPHONE_5 ? 430 : 360;
     [scrollViewMain scrollRectToVisible:rc animated:YES];
-    
 }
 
 /* 
@@ -946,6 +945,7 @@
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
     [controls.activeTextField resignFirstResponder];
+    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
 }
 
 /* Either "Previous" or "Next" was pressed
