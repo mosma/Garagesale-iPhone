@@ -176,6 +176,16 @@
     [self.buttonSave setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     
     
+    
+    //theme information
+    [self.buttonLogout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [self.buttonSave.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [self.labelAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    [self.txtFieldAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    
+    
+    
+    
     [labelAboutAPP setAttributedText:attrStr];
     [labelAboutAPP setTextAlignment:UITextAlignmentCenter];
     

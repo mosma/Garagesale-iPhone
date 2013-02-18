@@ -116,6 +116,7 @@
 
 "see-more-products"             = "Veja mais produtos";
 
+"deleteThisProduct"             = "Apagar este produto";
 "delete-product-title"          = "Atenção!";
 "delete-product-desc"           = "Deseja Realmente excluir ?";
 "delete-product-btn1"           = "Cancelar";

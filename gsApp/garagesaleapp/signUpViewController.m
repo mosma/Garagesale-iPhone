@@ -62,6 +62,10 @@
     [self.textFieldUserName setPlaceholder:NSLocalizedString(@"loginUser", @"")];
     [self.textFieldUserPassword setPlaceholder:NSLocalizedString(@"yourPassword", @"")];
     
+    //theme info
+    [self.buttonRegister.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [self.buttonLogin.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [self.buttonRegisterNew.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
