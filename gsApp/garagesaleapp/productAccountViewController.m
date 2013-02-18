@@ -80,7 +80,7 @@
     //initialize the i18n
     [self.buttonSaveProduct setTitle: NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
-    [self.textViewDescription setText:NSLocalizedString(@"description", @"")];
+    //[self.textViewDescription setText:NSLocalizedString(@"description", @"")];
     
     
     _postProdDelegate = [[PostProductDelegate alloc] init];

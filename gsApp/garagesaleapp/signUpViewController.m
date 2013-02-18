@@ -204,8 +204,6 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
         }
     } else if ([request isPOST]) {
-        isLoadingDone = YES;
-        
         @try {
             [self setValuesResponseToVC:[response bodyAsString]];
         }
