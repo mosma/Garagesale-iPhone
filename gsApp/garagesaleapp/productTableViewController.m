@@ -104,6 +104,22 @@
     
     //set searchBar settings
     searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
+    
+    //define searchbar theme
+    for(int i =0; i<[searchBarProduct.subviews count]; i++) {
+        
+        //textfield
+        if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]){
+            [(UITextField*)[searchBarProduct.subviews objectAtIndex:i] setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        }
+        
+        //button
+        if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UIButton class]]){
+            UIButton * btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
+            [btn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+        }
+    }
+    
     searchBarProduct.delegate = self;
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [GlobalFunctions setSearchBarLayout:searchBarProduct];

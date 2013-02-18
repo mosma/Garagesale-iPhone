@@ -81,7 +81,12 @@
     [self.buttonSaveProduct setTitle: NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
     [self.textViewDescription setText:NSLocalizedString(@"description", @"")];
+    [self.buttonDeleteProduct setTitle: NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
     
+    //theme information
+    [self.buttonSaveProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+    [self.buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+
     
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
@@ -102,7 +107,6 @@
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
-    [buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
