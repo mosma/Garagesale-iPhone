@@ -137,6 +137,7 @@
         newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
         newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
         [self.view.layer addSublayer:newShadow];
+        [viewNoProducts setHidden:YES];
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
     }
@@ -261,7 +262,7 @@
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
         [gestReload setNumberOfTapsRequired:1];
         [viewTop addGestureRecognizer:gestReload];
-                
+        
         [viewNoProducts setHidden:YES];
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
@@ -726,8 +727,8 @@
     self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
-        //if (!isGenericGarage)
-        //    if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
+        if (!isGenericGarage)
+            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
