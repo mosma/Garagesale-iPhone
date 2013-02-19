@@ -30,6 +30,7 @@
 @synthesize buttonBid;
 @synthesize buttonCancelBid;
 @synthesize buttonOffer;
+@synthesize buttonBack;
 @synthesize txtFieldEmail;
 @synthesize txtFieldOffer;
 @synthesize txtViewComment;
@@ -121,6 +122,10 @@
     
     
     //setting i18n
+    [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
+    [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
+    [self.labelCongrats setText: NSLocalizedString(@"bid-sent-congrats", @"")];
+    
     [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
     [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"

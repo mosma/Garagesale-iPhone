@@ -10,7 +10,8 @@
 "offerAsk"                      = "offer (ask something)";
 "bid"                           = "Offer";
 "bidItem"                       = "bid this item";
-"bidSent"                       = "bid Sent";
+"bidSent"                       = "Bid Sent";
+"bid-sent-congrats"             = "Contrats, a email eas sent for %@ garage with your offer. Wait for a answer in your email box and make a good deal.";
 "seeAllProducts"                = "see all products";
 "products"                      = "products";
 "detailProduct"                 = "product details";

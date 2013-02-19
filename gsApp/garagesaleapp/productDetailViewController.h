@@ -42,6 +42,7 @@
     __unsafe_unretained IBOutlet UIButton       *buttonBid;
     __unsafe_unretained IBOutlet UIButton       *buttonCancelBid;
     __unsafe_unretained IBOutlet UIButton       *buttonOffer;
+    __unsafe_unretained IBOutlet UIButton       *buttonBack;
     __unsafe_unretained IBOutlet UITextField    *txtFieldEmail;
     __unsafe_unretained IBOutlet UITextField    *txtFieldOffer;
     __unsafe_unretained IBOutlet UITextView     *txtViewComment;
@@ -92,6 +93,7 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonBid;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonCancelBid;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonOffer;
+@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonBack;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldEmail;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldOffer;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextView    *txtViewComment;

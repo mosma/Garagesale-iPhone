@@ -11,6 +11,7 @@
 "bid"                           = "Ofertar";
 "bidItem"                       = "Ofertar produto";
 "bidSent"                       = "Oferta feita";
+"bid-sent-congrats"             = "Parabéns, um email foi enviado para a garagem do %@ com a sua oferta. Espere por uma resposta no seu email";
 "seeAllProducts"                = "Todos itens desta garagem";
 "products"                      = "Produtos";
 "detailProduct"                 = "Detalhes do Produto"; 
