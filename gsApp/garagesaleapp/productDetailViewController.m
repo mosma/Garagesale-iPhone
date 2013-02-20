@@ -124,7 +124,7 @@
     //setting i18n
     [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
     [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
-    [self.labelCongrats setText: NSLocalizedString(@"bid-sent-congrats", @"")];
+    [self.labelCongrats setText: [NSString stringWithFormat: NSLocalizedString(@"bid-sent-congrats", nil) , product.idPessoa]];
     
     [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
     [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
