@@ -426,7 +426,7 @@
     [gallery addImageToScrollView:imageThumb
                           photoReturn:nil
                               product:self.product
-                            isPosting:YES];
+                         isFromPicker:YES];
     
     [picker dismissModalViewControllerAnimated:YES];
     
@@ -695,7 +695,7 @@
             [gallery addImageToScrollView:image
                               photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
                                   product:self.product
-                                isPosting:NO];
+                             isFromPicker:NO];
         }
     }
     @catch (NSException *exception) {

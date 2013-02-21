@@ -34,6 +34,6 @@
 -(void)addImageToScrollView:(UIImage *)aImage
                 photoReturn:(PhotoReturn *)photoReturn
                     product:(Product *)product
-                  isPosting:(BOOL)isPosting;
+               isFromPicker:(BOOL)isFromPicker;
 
 @end
