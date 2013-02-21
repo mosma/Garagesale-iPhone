@@ -130,11 +130,6 @@
     [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"
                                                                     size:12]];
-    [self.buttonReportThisGarage setTitleColor:[UIColor colorWithRed:253.0/255.0
-                                                               green:103.0/255.0
-                                                                blue:102.0/255.0
-                                                               alpha:1.f]
-                                      forState:UIControlStateNormal ];
     [self.buttonReportThisGarage setTitle: NSLocalizedString(@"reportGarege", @"") forState:UIControlStateNormal];
     [self.buttonDeleteProduct setTitle: NSLocalizedString(@"delete", @"") forState:UIControlStateNormal];
     [self.buttonEditProduct setTitle: NSLocalizedString(@"edit", @"") forState:UIControlStateNormal];
