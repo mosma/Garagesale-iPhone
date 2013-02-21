@@ -179,6 +179,7 @@
 }
 -(void)setImageIconReturn{
     [self.imageViewDelete setHidden:NO];
+    [self setEnableSaveButton:self.prodAccount.countUploaded];
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                               [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [GlobalFunctions getUrlApplication], [photoReturn valueForKey:@"listing_url"]]]]];
 }
@@ -210,7 +211,6 @@
         [self.imageView setUserInteractionEnabled:YES];
         [progressView setHidden:YES];
         self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
-        [self setEnableSaveButton:self.prodAccount.countUploaded];
         [imageView removeGestureRecognizer:refreshGesture];
         [imageView addGestureRecognizer:moveLeftGesture];
     }
