@@ -107,6 +107,7 @@
     //[uplImageDelegate.imageView setExclusiveTouch:YES];
     [imgViewDelete setUserInteractionEnabled:YES];
     [imgViewDelete setMultipleTouchEnabled:YES];
+    [imgViewDelete setHidden:YES];
     
     /* Configure ImageView in gallery */
     UIImageView *imgViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
