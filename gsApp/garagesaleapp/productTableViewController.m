@@ -94,50 +94,53 @@
         [self.tableView setFrame:CGRectMake(0, 0, 320, 465)];
     }
     
-    // Uncomment the following line to preserve selection between presentations.
-    //self.clearsSelectionOnViewWillAppear = NO;
+    if(searchBarProduct == nil){
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self loadAttribsToComponents:NO];
-    [self.navigationController setNavigationBarHidden:NO];
-    
-    //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
-    
-    //define searchbar theme
-    for(int i =0; i<[searchBarProduct.subviews count]; i++) {
+        // Uncomment the following line to preserve selection between presentations.
+        //self.clearsSelectionOnViewWillAppear = NO;
         
-        //textfield
-        if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]){
-            [(UITextField*)[searchBarProduct.subviews objectAtIndex:i] setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        [self loadAttribsToComponents:NO];
+        [self.navigationController setNavigationBarHidden:NO];
+        
+        //set searchBar settings
+        searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
+        
+        //define searchbar theme
+        for(int i =0; i<[searchBarProduct.subviews count]; i++) {
+            
+            //textfield
+            if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]){
+                [(UITextField*)[searchBarProduct.subviews objectAtIndex:i] setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+            }
+            
+            //button
+            if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UIButton class]]){
+                UIButton * btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
+                [btn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+            }
         }
         
-        //button
-        if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UIButton class]]){
-            UIButton * btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
-            [btn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
-        }
+        searchBarProduct.delegate = self;
+        [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
+        [GlobalFunctions setSearchBarLayout:searchBarProduct];
+        [searchBarProduct setHidden:YES];
+        [self.navigationController.navigationBar addSubview:searchBarProduct];
+        
+        shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
+        [shadowSearch setBackgroundColor:[UIColor blackColor]];
+        [shadowSearch setAlpha:0.7];
+        [shadowSearch setHidden:YES];
+        [self.view addSubview:shadowSearch];
+        UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
+        [gest setNumberOfTouchesRequired:1];
+        [shadowSearch addGestureRecognizer:gest];
+        
+        //Initializing the Object Managers
+        RKObjManeger = [RKObjectManager sharedManager];
+        [self getResourcePathProduct];
     }
-    
-    searchBarProduct.delegate = self;
-    [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
-    [GlobalFunctions setSearchBarLayout:searchBarProduct];
-    [searchBarProduct setHidden:YES];
-    [self.navigationController.navigationBar addSubview:searchBarProduct];
-    
-    shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
-    [shadowSearch setBackgroundColor:[UIColor blackColor]];
-    [shadowSearch setAlpha:0.7];
-    [shadowSearch setHidden:YES];
-    [self.view addSubview:shadowSearch];
-    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
-    [gest setNumberOfTouchesRequired:1];
-    [shadowSearch addGestureRecognizer:gest];
-    
-    //Initializing the Object Managers
-    RKObjManeger = [RKObjectManager sharedManager];
-    [self getResourcePathProduct];
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
