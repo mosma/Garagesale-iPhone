@@ -31,6 +31,14 @@
 {
     [super viewDidLoad];
     
+    //Set Logo Top Button Not Account.
+    buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
+    buttonLogo.adjustsImageWhenHighlighted = NO;
+    [buttonLogo addTarget:self action:@selector(reloadPage:)
+         forControlEvents:UIControlEventTouchDown];
+    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
+    
     [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:NO];
     
     //set searchBar settings
@@ -68,14 +76,6 @@
 }
 
 - (void)loadAttribsToComponents{
-    //Set Logo Top Button Not Account.
-    buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
-    buttonLogo.adjustsImageWhenHighlighted = NO;
-    [buttonLogo addTarget:self action:@selector(reloadPage:)
-         forControlEvents:UIControlEventTouchDown];
-    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
-    
     if (isFromSignUp) {
         buttonLogo.center = CGPointMake(160, 50);
     } else {

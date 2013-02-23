@@ -176,10 +176,11 @@
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
     [NSThread detachNewThreadSelector:@selector(setImageIconReturn) toTarget:self withObject:nil];
-}
--(void)setImageIconReturn{
     [self.imageViewDelete setHidden:NO];
     [self setEnableSaveButton:self.prodAccount.countUploaded];
+    [progressView setHidden:YES];
+}
+-(void)setImageIconReturn{
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
                                               [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [GlobalFunctions getUrlApplication], [photoReturn valueForKey:@"listing_url"]]]]];
 }
@@ -209,7 +210,6 @@
     
     if (totalBytesExpectedToWrite == totalBytesWritten){
         [self.imageView setUserInteractionEnabled:YES];
-        [progressView setHidden:YES];
         self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
         [imageView removeGestureRecognizer:refreshGesture];
         [imageView addGestureRecognizer:moveLeftGesture];
