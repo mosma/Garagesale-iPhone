@@ -114,32 +114,34 @@
         [self.viewNoProducts setFrame:CGRectMake(0, 95, 320, 339)];
     }
     
-    NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
-    
-    segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
-    segmentControl.frame = CGRectMake(0, 0, 92, 31);
-    [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
-    segmentControl.selectedSegmentIndex = 0;
-    segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [viewSegmentArea addSubview:segmentControl];
-    
-    //init Global Functions
-    globalFunctions = [[GlobalFunctions alloc] init];
-    
-    self.tableViewProducts.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
-    
-    if ([mutArrayProducts count] == 0){
-        RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-        //Shadow Top below navigationBar
-        CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
-        CGColorRef lightColor = [UIColor clearColor].CGColor;
-        CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
-        newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
-        newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
-        [self.view.layer addSublayer:newShadow];
-        [viewNoProducts setHidden:YES];
-        [self loadAttribsToComponents:NO];
-        [self reloadPage:nil];
+    if (segmentControl == nil) {
+        NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btProdBlock"], [UIImage imageNamed:@"btProdList"], nil];
+        
+        segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+        segmentControl.frame = CGRectMake(0, 0, 92, 31);
+        [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+        segmentControl.selectedSegmentIndex = 0;
+        segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [viewSegmentArea addSubview:segmentControl];
+        
+        //init Global Functions
+        globalFunctions = [[GlobalFunctions alloc] init];
+        
+        self.tableViewProducts.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
+        
+        if ([mutArrayProducts count] == 0){
+            RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+            //Shadow Top below navigationBar
+            CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:0.15f].CGColor;
+            CGColorRef lightColor = [UIColor clearColor].CGColor;
+            CAGradientLayer *newShadow = [[[CAGradientLayer alloc] init] autorelease];
+            newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
+            newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
+            [self.view.layer addSublayer:newShadow];
+            [viewNoProducts setHidden:YES];
+            [self loadAttribsToComponents:NO];
+            [self reloadPage:nil];
+        }
     }
 }
 

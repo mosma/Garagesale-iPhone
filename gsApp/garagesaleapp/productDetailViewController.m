@@ -119,8 +119,6 @@
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
-    
-    
     //setting i18n
     [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
     [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
