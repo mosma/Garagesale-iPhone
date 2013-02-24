@@ -99,7 +99,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [viewNoProducts setHidden:YES];
     if (IS_IPHONE_5) {
         [self.view setFrame:CGRectMake(0, 0, 320, 568)];
         [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 568)];
@@ -138,7 +138,6 @@
             newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 15);
             newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
             [self.view.layer addSublayer:newShadow];
-            [viewNoProducts setHidden:YES];
             [self loadAttribsToComponents:NO];
             [self reloadPage:nil];
         }
@@ -264,8 +263,6 @@
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
         [gestReload setNumberOfTapsRequired:1];
         [viewTop addGestureRecognizer:gestReload];
-        
-        [viewNoProducts setHidden:YES];
         
         [GlobalFunctions setNavigationBarBackground:self.navigationController];
         
@@ -435,6 +432,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     
     if ([objects count] > 0) {
+        [viewNoProducts setHidden:YES];
         [viewTop setUserInteractionEnabled:YES];
         if([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             [mutArrayProducts removeAllObjects];
@@ -443,7 +441,6 @@
             [tableViewProducts reloadData];
             self.scrollViewProducts.contentSize = CGSizeMake(320,([mutArrayProducts count]*35)+130);
             [scrollViewMain setUserInteractionEnabled:YES];
-            [viewNoProducts setHidden:YES];
             [self loadAttribsToComponents:YES];
             if (garageNameSearch){
                 [self getResourcePathGarage:[[objects objectAtIndex:0] idPessoa]];
@@ -458,15 +455,16 @@
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             [self loadHeader];
         }
-    } else {
-        [mutArrayProducts removeAllObjects];
-        [scrollViewMain setUserInteractionEnabled:NO];
-        if (!isGenericGarage)
-            [viewNoProducts setHidden:NO];
-        labelTotalProducts.text = @"";
-        self.scrollViewProducts.contentSize = CGSizeMake(320,400);
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
+    else if ([objects count] == 0)
+        if (!isGenericGarage){
+            [viewNoProducts setHidden:NO];
+            [mutArrayProducts removeAllObjects];
+            [scrollViewMain setUserInteractionEnabled:NO];
+            labelTotalProducts.text = @"";
+            self.scrollViewProducts.contentSize = CGSizeMake(320,400);
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -729,8 +727,6 @@
     self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
-        if (!isGenericGarage)
-            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -738,8 +734,6 @@
 
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
-        if (!isGenericGarage)
-            if ([mutArrayProducts count] == 0) [viewNoProducts setHidden:NO];
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];

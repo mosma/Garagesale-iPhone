@@ -159,6 +159,10 @@
         [viewShadow setBackgroundColor:[UIColor blackColor]];
         [viewShadow setAlpha:0];
         
+        UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animationBidView)];
+        [gest setNumberOfTouchesRequired:1];
+        [viewShadow addGestureRecognizer:gest];
+        
         [viewBidSend setAlpha:0];
         [viewBidSend.layer setCornerRadius:5];
         
@@ -871,6 +875,7 @@
         [viewBidMsg setHidden:YES];
         [countView setAlpha:1.0];
         [viewShadow removeFromSuperview];
+        [UIView commitAnimations];
         [self.txtFieldEmail resignFirstResponder];
         [self.txtViewComment resignFirstResponder];
     }
