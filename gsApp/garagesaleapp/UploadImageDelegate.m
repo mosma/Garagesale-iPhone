@@ -136,7 +136,8 @@
         if (idProduct != -1)
             [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [prodAccount.scrollViewPicsProduct setUserInteractionEnabled:YES];
         // Handling DELETE /missing_resource.txt
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);

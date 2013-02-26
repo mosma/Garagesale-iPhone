@@ -39,6 +39,7 @@
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
     if (prodAccount.countUploaded == 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [scrollView setUserInteractionEnabled:NO];
         UIImageView *imageViewDelete      = (UIImageView *)sender.view;
         UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
@@ -61,10 +62,10 @@
         }
     }
 
-    if (sender.state == UIGestureRecognizerStateEnded ||
-        sender.state == UIGestureRecognizerStateCancelled ||
-        sender.state == UIGestureRecognizerStateFailed)
-        [scrollView setUserInteractionEnabled:YES];
+//    if (sender.state == UIGestureRecognizerStateEnded ||
+//        sender.state == UIGestureRecognizerStateCancelled ||
+//        sender.state == UIGestureRecognizerStateFailed)
+//        [scrollView setUserInteractionEnabled:YES];
 }
 
 -(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{

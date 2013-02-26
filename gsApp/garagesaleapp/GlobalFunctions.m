@@ -431,7 +431,7 @@
                     string = [string substringWithRange:NSMakeRange(0, length-1)];
                     return NO;
                 }
-            } else return YES;
+            }
         }
 	}
     return YES;
