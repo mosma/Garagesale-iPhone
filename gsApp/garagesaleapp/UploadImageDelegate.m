@@ -15,8 +15,8 @@
 @synthesize photoReturn;
 @synthesize nsMutArrayPicsProduct;
 @synthesize idProduct;
-@synthesize totalBytesWritten;
-@synthesize totalBytesExpectedToWrite;
+@synthesize totalBytesW;
+@synthesize totalBytesExpectedToW;
 @synthesize moveLeftGesture;
 @synthesize imagePic;
 @synthesize progressView;
@@ -58,7 +58,7 @@
     float h = loadedImage.size.height;
     float ratio = w/h;
     
-    if (self.totalBytesWritten == 0 && totalBytesWritten == 0)
+    if (self.totalBytesW == 0 && totalBytesW == 0)
         [imageView addSubview:progressView];
     
     [progressView setHidden:NO];
@@ -110,10 +110,7 @@
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
         }
-    } else if ([request isPOST]) {
-        [progressView setHidden:YES];
-        [imageView setUserInteractionEnabled:YES];
-        
+    } else if ([request isPOST]) {        
         NSLog(@"after posting to server, %@", [response bodyAsString]);
         
         @try {
@@ -146,9 +143,9 @@
 }
 
 -(void)cancelUpload{
-    if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0)
-        return;
-    else {
+    //if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0)
+  //      return;
+   // else {
         [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
         self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
         [self setEnableSaveButton:self.prodAccount.countUploaded];
@@ -159,7 +156,7 @@
         }];
         [self.imageView setUserInteractionEnabled:YES];
         [timerUpload invalidate];
-    }
+  //  }
 }
 
 -(void)setEnableSaveButton:(int)count{
@@ -173,6 +170,8 @@
 }
 
 -(void)setValuesResponseToVC:(NSString *)response{
+    [timerUpload invalidate];
+    [imageView setUserInteractionEnabled:YES];
     //transform in json
     NSArray *jsonArray = (NSArray *)[response JSONValue];
     photoReturn = [jsonArray objectAtIndex:0];
@@ -195,8 +194,8 @@
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite{
     
-    self.totalBytesWritten = totalBytesWritten;
-    self.totalBytesExpectedToWrite = totalBytesExpectedToWrite;
+    self.totalBytesW = totalBytesWritten;
+    self.totalBytesExpectedToW = totalBytesExpectedToWrite;
 
     double uu = ((float)totalBytesWritten/(float)totalBytesExpectedToWrite);
     [progressView setProgress:uu];
@@ -207,7 +206,7 @@
 //    NSLog(@"%f", uu);
     
     [timerUpload invalidate];
-    timerUpload = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+    [self setTimmer];
     
     if (totalBytesExpectedToWrite == totalBytesWritten){
         [self.imageView setUserInteractionEnabled:YES];

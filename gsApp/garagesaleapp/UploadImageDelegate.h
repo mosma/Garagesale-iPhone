@@ -33,8 +33,8 @@
     /*
      Total Bytes received from ResKit request Delegate.
      */
-    int totalBytesWritten;
-    int totalBytesExpectedToWrite;
+    int totalBytesW;
+    int totalBytesExpectedToW;
     PDColoredProgressView  *progressView;
     PhotoReturn     *photoReturn;
     NSTimer         *timerUpload;
@@ -52,8 +52,8 @@
 @property (nonatomic, retain)   UIScrollView    *scrollView;
 @property (nonatomic, retain)   UITapGestureRecognizer *moveLeftGesture;
 
-@property (readwrite,assign)    int totalBytesWritten;
-@property (readwrite,assign)    int totalBytesExpectedToWrite;
+@property (readwrite,assign)    int totalBytesW;
+@property (readwrite,assign)    int totalBytesExpectedToW;
 
 @property (retain, nonatomic) productAccountViewController *prodAccount;
 
