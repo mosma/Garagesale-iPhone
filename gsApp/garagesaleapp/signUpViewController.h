@@ -43,6 +43,11 @@
     
     __weak IBOutlet UIView          *secondView;
                                                         
+    //Recover Password
+    __weak IBOutlet UITextField *txtFieldEmailRecover;
+    __weak IBOutlet UILabel     *labelPasswRecover;
+    __weak IBOutlet UIButton    *buttonRecover;
+                                                        
     //Others
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;

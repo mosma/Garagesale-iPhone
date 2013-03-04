@@ -86,10 +86,17 @@
                         [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
         self.scrollView.contentSize = CGSizeMake(320,540);
         self.trackedViewName = @"/login";
+    }else if
+        ([nibId rangeOfString:@"fgR-qs-ekZm"].length != 0){ //Recover ViewController
+            IS_IPHONE_5 ?   [self.secondView setFrame:CGRectMake(0, 0, 320, 811)]:
+                            [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
+            self.scrollView.contentSize = CGSizeMake(320,540);
+            self.trackedViewName = @"/login";
     }
-
+    
     [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
     [labelLogin         setFont:[UIFont fontWithName:@"Droid Sans" size:16 ]];
+    [labelPasswRecover  setFont:[UIFont fontWithName:@"Droid Sans" size:16 ]];
     [labelGarageName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [labelPersonName    setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [labelEmail         setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
@@ -433,7 +440,10 @@
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
                                             textFieldUserPassword,nil];
-
+    else if
+        ([nibId rangeOfString:@"ieA-0u-deN"].length != 0) //Recover ViewController
+        self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmailRecover,nil];
+    
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
     
@@ -562,6 +572,9 @@
     [self setLabelLogin:nil];
     scrollView = nil;
     [self setScrollView:nil];
+    txtFieldEmailRecover = nil;
+    labelPasswRecover = nil;
+    buttonRecover = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

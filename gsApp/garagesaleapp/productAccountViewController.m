@@ -398,7 +398,7 @@
         if (buttonIndex == 0)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (buttonIndex == 1)
-            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
         else if (buttonIndex == 2)
             ;
     }
