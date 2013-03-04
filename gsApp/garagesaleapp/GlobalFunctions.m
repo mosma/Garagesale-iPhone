@@ -449,6 +449,29 @@
     //NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
 }
 
++(NSMutableAttributedString *)getNamePerfil:(NSString *)garagem profileName:(NSString *)profileName{
+    NSString *fullName = [NSString stringWithFormat:@"%@ @%@", profileName, garagem];
+    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString: fullName];
+    
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:20]];
+    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0
+                                          green:153.0/255.0
+                                           blue:153.0/255.0
+                                          alpha:1.f]
+                    range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
+    
+    [attrStr setTextColor:[UIColor colorWithRed:51.0/255.0
+                                          green:51.0/255.0
+                                           blue:51.0/255.0
+                                          alpha:1.f]
+                    range:[fullName rangeOfString:profileName]];
+    
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12]
+               range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
+    
+    return attrStr;
+}
+
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated {
     if (animated){
         [UIView beginAnimations:nil context:NULL];

@@ -45,6 +45,7 @@ typedef enum {
 +(BOOL)isValidEmail:(NSString*) emailString;
 +(BOOL)onlyNumberKey:(NSString *)string;
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed rect:(CGRect)rect;
++(NSMutableAttributedString *)getNamePerfil:(NSString *)garagem profileName:(NSString *)profileName;
 +(void)hideTabBar:(UITabBarController *) tabbarcontroller animated:(BOOL)animated;
 +(void)showTabBar:(UITabBarController *)tabbarcontroller;
 +(UILabel *)getLabelTitleGaragesaleNavBar:(UITextAlignment *)textAlignment width:(int)width;

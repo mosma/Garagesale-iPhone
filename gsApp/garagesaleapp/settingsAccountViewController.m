@@ -263,12 +263,14 @@
     txtFieldEmail.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
     txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
     
-    garageName.font        = [UIFont fontWithName:@"DroidSans-Bold" size:20 ];
-    
     city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
     [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
     
-    garageName.text  = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
+    garageName.attributedText  = [GlobalFunctions
+                                  getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
+                                  profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
+    
+    garageName.textAlignment  = UITextAlignmentLeft;
     
     NSString *cityConc = [[GlobalFunctions getUserDefaults] objectForKey:@"city"];
     NSString *district = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];

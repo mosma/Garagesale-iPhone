@@ -178,8 +178,9 @@
             description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
             [description sizeToFit];
             
-            garageName.attributedText  = [self getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
-                                                 profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
+            garageName.attributedText  = [GlobalFunctions
+                                          getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
+                                          profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
 
             garageName.textAlignment  = UITextAlignmentLeft;
             
@@ -337,29 +338,6 @@
     }
 }
 
--(NSMutableAttributedString *)getNamePerfil:(NSString *)garagem profileName:(NSString *)profileName{
-    NSString *fullName = [NSString stringWithFormat:@"%@ @%@", profileName, garagem];
-    NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString: fullName];
-        
-    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:20]];
-    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0
-                                          green:153.0/255.0
-                                           blue:153.0/255.0
-                                          alpha:1.f]
-                    range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
-    
-    [attrStr setTextColor:[UIColor colorWithRed:51.0/255.0
-                                          green:51.0/255.0
-                                           blue:51.0/255.0
-                                          alpha:1.f]
-                    range:[fullName rangeOfString:profileName]];
-    
-    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:12]
-               range:[fullName rangeOfString:[NSString stringWithFormat:@"@%@", garagem]]];
-
-    return attrStr;
-}
-
 -(void)loadHeader{
     if (garageNameSearch) {
         description.text = @"";
@@ -369,7 +347,7 @@
     } else {
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
         description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
-        garageName.attributedText  = [self getNamePerfil:profile.garagem
+        garageName.attributedText  = [GlobalFunctions getNamePerfil:profile.garagem
                                              profileName:profile.nome];
         
         if ([garage.link isEqualToString:@""])

@@ -87,7 +87,7 @@
         self.scrollView.contentSize = CGSizeMake(320,540);
         self.trackedViewName = @"/login";
     }else if
-        ([nibId rangeOfString:@"fgR-qs-ekZm"].length != 0){ //Recover ViewController
+        ([nibId rangeOfString:@"SG7-S5-ObK"].length != 0){ //Recover ViewController
             IS_IPHONE_5 ?   [self.secondView setFrame:CGRectMake(0, 0, 320, 811)]:
                             [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
             self.scrollView.contentSize = CGSizeMake(320,540);
@@ -441,7 +441,7 @@
         self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
                                             textFieldUserPassword,nil];
     else if
-        ([nibId rangeOfString:@"ieA-0u-deN"].length != 0) //Recover ViewController
+        ([nibId rangeOfString:@"SG7-S5-ObK"].length != 0) //Recover ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmailRecover,nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.

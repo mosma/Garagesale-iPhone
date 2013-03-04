@@ -607,7 +607,7 @@
                                     <segue destination="tbg-8m-otZ" kind="push" id="zlY-6Y-Vyb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="upz-0g-RqH" userLabel="garageName">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" id="upz-0g-RqH" userLabel="garageName" customClass="OHAttributedLabel">
                                 <rect key="frame" x="93" y="12" width="217" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -2302,7 +2302,7 @@
                 <relationship kind="outlet" name="buttonRightAbout" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonSave" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelAboutAPP" candidateClass="OHAttributedLabel"/>

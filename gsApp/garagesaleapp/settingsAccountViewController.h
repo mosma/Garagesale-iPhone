@@ -57,7 +57,7 @@
 
     __weak IBOutlet UIScrollView  *scrollView;                                                   
     __weak IBOutlet UIImageView   *imageView;
-    __weak IBOutlet UILabel       *garageName;
+    __weak IBOutlet OHAttributedLabel  *garageName;
     __weak IBOutlet UILabel       *city;
     
     __weak IBOutlet UIButton   *buttonAccount;
