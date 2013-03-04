@@ -147,17 +147,10 @@
 - (IBAction)reloadPage:(id)sender{
     [viewTop setUserInteractionEnabled:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    for (UIButton *subview in [scrollViewProducts subviews]) 
-        [subview removeFromSuperview];
 
     //mutArrayProducts = nil;
     [segmentControl setEnabled:NO];
     [self getResourcePathProduct];
-    
-    //Set Display thumbs on Home.
-    globalFunctions.countColumnImageThumbs = -1;
-    globalFunctions.imageThumbsXorigin_Iphone = 10;
-    globalFunctions.imageThumbsYorigin_Iphone = 10;
     
     [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -529,7 +522,13 @@
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
     
-    NSLog(@"");
+    for (UIButton *subview in [scrollViewProducts subviews])
+        [subview removeFromSuperview];
+
+    //Set Display thumbs on Home.
+    globalFunctions.countColumnImageThumbs = -1;
+    globalFunctions.imageThumbsXorigin_Iphone = 10;
+    globalFunctions.imageThumbsYorigin_Iphone = 10;
     
     for(int i = 0; i < [mutArrayProducts count]; i++)
     {
