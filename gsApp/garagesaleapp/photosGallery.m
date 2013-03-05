@@ -17,7 +17,6 @@
 @synthesize nsMutArrayPicsProduct;
 @synthesize nsMutArrayNames;
 @synthesize scrollView;
-@synthesize buttonAddPics;
 @synthesize widthPaddingInImages;
 @synthesize heightPaddingInImages;
 @synthesize prodAccount;
@@ -56,10 +55,9 @@
                 [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
             [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
         }];
-        if ([nsMutArrayPicsProduct count] < 11){
-            buttonAddPics.enabled = YES;
-            [buttonAddPics setAlpha:1.0];
-        }
+        if ([nsMutArrayPicsProduct count] < 11)
+            prodAccount.buttonAddPics.enabled = YES;
+        
     }
 
 //    if (sender.state == UIGestureRecognizerStateEnded ||
@@ -121,10 +119,9 @@
     if (photoReturn != nil)
         [imgViewAtGallery setUserInteractionEnabled:YES];
     
-    if ([nsMutArrayPicsProduct count] == 10){
-        buttonAddPics.enabled = NO;
-        [buttonAddPics setAlpha:0.6];
-    }
+    if ([nsMutArrayPicsProduct count] == 10)
+        prodAccount.buttonAddPics.enabled = NO;
+    
     
     //Init Upload Delegate
     UploadImageDelegate *uploadDelegate = [[UploadImageDelegate alloc] init];

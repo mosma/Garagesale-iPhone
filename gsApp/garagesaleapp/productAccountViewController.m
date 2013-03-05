@@ -107,7 +107,7 @@
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
-    [buttonAddPics setUserInteractionEnabled:NO];
+    [buttonAddPics setEnabled:NO];
     
     //Menu
     UIView *tabBar = [self rotatingFooterView];
@@ -117,7 +117,6 @@
     //self.tabBarController.delegate = self;
     
     gallery = [[photosGallery alloc] init];
-    [gallery setButtonAddPics:buttonAddPics];
     [gallery setProdAccount:self];
     [gallery setScrollView:self.scrollViewPicsProduct];
     
@@ -271,23 +270,23 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     @try {
-        if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+        
+        if ([objects count] == 0){
+            [waiting removeFromSuperview];
+            [buttonAddPics setEnabled:YES];
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             self.product = (Product *)[objects objectAtIndex:0];
             [self loadAttributsToProduct];
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            totalPhotosCached = [objects count];
             [buttonSaveProduct setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
             });
         }
-        if ([objects count] == 0){
-            [waiting removeFromSuperview];
-            [buttonAddPics setUserInteractionEnabled:YES];
-        }
+
 
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
@@ -300,7 +299,7 @@
                                                  delegate:self
                                         cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
                                         otherButtonTitles: NSLocalizedString(@"image-upload-error-btn2", nil), nil];
-    [buttonAddPics setUserInteractionEnabled:YES];
+    [buttonAddPics setEnabled:YES];
     [waiting removeFromSuperview];
     
     [alV show];
@@ -428,7 +427,7 @@
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    if (totalPhotosCached != 10) {
+    if ([buttonAddPics isEnabled]) {
         [gallery addImageToScrollView:imageThumb
                           photoReturn:nil
                               product:self.product
@@ -486,7 +485,7 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
             if (self.product == nil){
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                [buttonAddPics setUserInteractionEnabled:YES];
+                //[buttonAddPics setUserInteractionEnabled:YES];
                 [waiting removeFromSuperview];
             }
         }
@@ -719,8 +718,9 @@
                                  isFromPicker:NO];
             
             if ([[scrollViewPicsProduct subviews] count] == [fotos count]){
+                if ([fotos count] != 10)
+                    [buttonAddPics setEnabled:YES];
                 [buttonSaveProduct setUserInteractionEnabled:YES];
-                [buttonAddPics setUserInteractionEnabled:YES];
             }
         }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;

@@ -17,7 +17,6 @@
     float imageWidth_;
     float imageHeight_;
 
-    UIButton * buttonAddPics;
     productAccountViewController *prodAccount;
 }
 
@@ -25,7 +24,6 @@
 @property (retain, nonatomic) NSMutableArray *nsMutArrayNames;
 @property (retain, nonatomic) UIScrollView *scrollView;
 
-@property (retain, nonatomic) UIButton * buttonAddPics;
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;
 
