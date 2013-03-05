@@ -182,12 +182,24 @@
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
             //if ([(EmailValidate *)[objects objectAtIndex:0] message] == @"valid")
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverEmail class]]){
+            if ([[[objects objectAtIndex:0] message] isEqualToString:@"true"]) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:NSLocalizedString(@"yourPassword",nil)
+                                  message:NSLocalizedString(@"form-recover-password",nil)
+                                  delegate: nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+                [alert show];
+            }
         }
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if (validatorFlag == 0){
         [textFieldUserPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
@@ -311,6 +323,21 @@
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
     [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+}
+
+-(IBAction)recoverEmail:(id)sender {
+    if (![GlobalFunctions isValidEmail:txtFieldEmailRecover.text]){
+        [txtFieldEmailRecover setValue:[UIColor redColor]
+                      forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
+        txtFieldEmailRecover.text = @"";
+    } else {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [txtFieldEmailRecover resignFirstResponder];
+        RKObjectMapping *mapping = [Mappings getRecoverEmail];
+        [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/login/recover?email=%@", txtFieldEmailRecover.text] objectMapping:mapping delegate:self];
+        [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    }
 }
 
 -(IBAction)getValidEmail:(id)sender {

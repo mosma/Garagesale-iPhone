@@ -275,7 +275,6 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             [self setEnableButtonSave:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
@@ -701,6 +700,7 @@
         for (size_t i = 0; i < [fotos count]; i++) {
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
                                                    [(PhotoReturn *)[fotos objectAtIndex:i] listing_url]]];
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
                 UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
                 
                 [gallery addImageToScrollView:image

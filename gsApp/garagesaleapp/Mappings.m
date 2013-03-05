@@ -140,6 +140,13 @@
     return validEmailMapping;
 }
 
++ (RKObjectMapping *)getRecoverEmail{
+    //Configure Valid Email Object Mapping
+    RKObjectMapping *recoverEmailMapping = [RKObjectMapping mappingForClass:[RecoverEmail class]];
+    [recoverEmailMapping mapKeyPath:@"message"    toAttribute:@"message"];
+    return recoverEmailMapping;
+}
+
 + (RKObjectMapping *)getViewHelperMapping{
     //Configure Photo By IdProduct Object Mapping
     RKObjectMapping *viewHelperMapping = [RKObjectMapping mappingForClass:[viewHelperReturn class]];

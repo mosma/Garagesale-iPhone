@@ -89,4 +89,7 @@
 -(void)setLogin:(NSArray *)objects;
 -(void)getResourcePathGarage;
 -(void)getResourcePathProfile;
+
+-(IBAction)recoverEmail:(id)sender;
+
 @end

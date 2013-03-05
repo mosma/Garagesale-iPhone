@@ -94,10 +94,14 @@
 "form-invalid-email-or-invalid" = "Hey, Email already exist or not is valid!";
 "form-invalid-email"            = "Hey, this is not a valid email!";
 
+"form-invalid-email-caracter"   = "Please enter at least 6 characters";
+"form-invalid-email-match"      = "Your confirmation password do not match.";
+
 "form-invalid-garage-name"      = "Hey, this is not a valid Garage Name!";
 "form-invalid-name"             = "Hey, this is not a valid Name!";
 "form-empty-email"              = "Hey, Email can not be empty!";
 "form-invalid-password"         = "Hey, this is not a valid Password!";
+"form-recover-password"         = "We'll try to contact you with you new password, check your email!";
 
 
 "search-result"                 = "%i results for \"%@\"";

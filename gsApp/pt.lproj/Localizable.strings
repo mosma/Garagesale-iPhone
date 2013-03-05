@@ -93,12 +93,16 @@
 "form-invalid-email-password"   = "Email ou senha invalidos";
 "form-invalid-email-exists"     = "Hey, %@ já existe!";
 "form-invalid-email-or-invalid" = "Hey, Este email já existe ou não é válido!";
-"form-invalid-email"            = "Hey, Este não é um email válida!";
+"form-invalid-email"            = "Hey, Este não é um email válido!";
+
+"form-invalid-email-caracter"   = "Entre com minimo de 6 caracteres";
+"form-invalid-email-match"      = "Seu email de confirmação não combina!";
 
 "form-invalid-garage-name"      = "Hey, este é um nome de garagem invalido!";
 "form-invalid-name"             = "Hey, nome inválido!";
 "form-empty-email"              = "Hey, o email não pode ser vazio!";
 "form-invalid-password"         = "Hey, senha inválida!";
+"form-recover-password"         = "Uma nova senha foi enviada, verifique seu email!";
 
 
 "search-result"                 = "%i resultados para \"%@\"";

@@ -412,14 +412,24 @@
     if ([txtFieldNewPassword.text length] < 6) {
         [txtFieldNewPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
-        [txtFieldNewPassword setPlaceholder:@"Please enter at least 6 characters"];
+        [txtFieldNewPassword setText:@""];
+        [txtFieldNewPassword setPlaceholder:NSLocalizedString(@"form-invalid-email-caracter" , nil)];
         isValid = NO;
     }
     
     if ([txtFieldRepeatNewPassword.text length] < 6) {
         [txtFieldRepeatNewPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
-        [txtFieldRepeatNewPassword setPlaceholder:@"Please enter at least 6 characters"];
+        [txtFieldRepeatNewPassword setText:@""];
+        [txtFieldRepeatNewPassword setPlaceholder:NSLocalizedString(@"form-invalid-email-caracter" , nil)];
+        isValid = NO;
+    }
+    
+    if (![txtFieldNewPassword.text isEqualToString:txtFieldRepeatNewPassword.text]) {
+        [txtFieldRepeatNewPassword setValue:[UIColor redColor]
+                                 forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldRepeatNewPassword setText:@""];
+        [txtFieldRepeatNewPassword setPlaceholder:NSLocalizedString(@"form-invalid-email-match" , nil)];
         isValid = NO;
     }
     

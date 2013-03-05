@@ -2065,6 +2065,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="recoverEmail:" destination="SG7-S5-ObK" eventType="touchUpInside" id="ib5-KV-dEr"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="gGm-Ts-Hbd">
                                 <rect key="frame" x="0.0" y="-6" width="320" height="65"/>
@@ -2344,6 +2347,7 @@
         <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
+                <relationship kind="action" name="recoverEmail:"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>

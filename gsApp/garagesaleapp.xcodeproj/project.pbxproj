@@ -20,6 +20,7 @@
 		CC0846F114DA358400AD230B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CC2AF17914C2CFF3001D9FA0 /* Default.png */; };
 		CC0846F514DAB34300AD230B /* nopicture.png in Resources */ = {isa = PBXBuildFile; fileRef = CC0846F414DAB34300AD230B /* nopicture.png */; };
 		CC09538A16419844007C2BAC /* UploadImageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC09538916419843007C2BAC /* UploadImageDelegate.m */; };
+		CC0DC8FA16E692700024EBD1 /* RecoverEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = CC0DC8F916E6926F0024EBD1 /* RecoverEmail.m */; };
 		CC13C8CC14BC767E00045502 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = CC13C8CB14BC767E00045502 /* Profile.m */; };
 		CC16B4541545BD6A00A4487B /* ATResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC16B4141545BD6A00A4487B /* ATResources.bundle */; };
 		CC16B4551545BD6A00A4487B /* libAddThis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC16B4151545BD6A00A4487B /* libAddThis.a */; };
@@ -357,6 +358,8 @@
 		CC0846F414DAB34300AD230B /* nopicture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nopicture.png; sourceTree = "<group>"; };
 		CC09538816419842007C2BAC /* UploadImageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadImageDelegate.h; sourceTree = "<group>"; };
 		CC09538916419843007C2BAC /* UploadImageDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadImageDelegate.m; sourceTree = "<group>"; };
+		CC0DC8F816E6926E0024EBD1 /* RecoverEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecoverEmail.h; sourceTree = "<group>"; };
+		CC0DC8F916E6926F0024EBD1 /* RecoverEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecoverEmail.m; sourceTree = "<group>"; };
 		CC13C8CA14BC767E00045502 /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
 		CC13C8CB14BC767E00045502 /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
 		CC16B4131545BD6A00A4487B /* AddThis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddThis.h; sourceTree = "<group>"; };
@@ -1361,6 +1364,8 @@
 				CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */,
 				CC4A812F16974AEE0078F738 /* viewHelperReturn.h */,
 				CC4A813016974AEE0078F738 /* viewHelperReturn.m */,
+				CC0DC8F816E6926E0024EBD1 /* RecoverEmail.h */,
+				CC0DC8F916E6926F0024EBD1 /* RecoverEmail.m */,
 			);
 			name = EntityClass;
 			sourceTree = "<group>";
@@ -1829,6 +1834,7 @@
 				CC4A812E16973C5B0078F738 /* viewHelper.m in Sources */,
 				CC4A813116974AEE0078F738 /* viewHelperReturn.m in Sources */,
 				CCE11D4316A578E90052F058 /* MTStatusBarOverlay.m in Sources */,
+				CC0DC8FA16E692700024EBD1 /* RecoverEmail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
