@@ -708,11 +708,10 @@
                                       product:self.product
                                  isFromPicker:NO];
             
-                if ([[scrollViewPicsProduct subviews] count] == [fotos count]) {
-                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                if ([[scrollViewPicsProduct subviews] count] == [fotos count])
                     [self setEnableButtonSave:YES];
-                }
         }
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
