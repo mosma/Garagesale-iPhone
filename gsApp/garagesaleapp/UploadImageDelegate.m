@@ -32,7 +32,7 @@
     return self;
 }
 -(void)setTimmer{
-    timerUpload = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
+    timerUpload = [NSTimer scheduledTimerWithTimeInterval:40.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
 }
 
 -(void)uploadPhotos{
