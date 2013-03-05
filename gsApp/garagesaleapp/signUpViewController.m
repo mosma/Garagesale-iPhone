@@ -71,6 +71,16 @@
 
     NSLog(@"Available Font Families: %@", [UIFont familyNames]);
 
+    //set done at keyboard
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
+                           nil];
+    [numberToolbar sizeToFit];
+    [txtFieldEmailRecover setInputAccessoryView:numberToolbar];
+    
     [self setupKeyboardControls];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
@@ -116,6 +126,10 @@
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
     self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    
+}
+
+-(void)cancelSearchPad{
+    [txtFieldEmailRecover resignFirstResponder];
 }
 
 - (void)getResourcePathLogin{
@@ -440,9 +454,6 @@
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
         self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
                                             textFieldUserPassword,nil];
-    else if
-        ([nibId rangeOfString:@"SG7-S5-ObK"].length != 0) //Recover ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmailRecover,nil];
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
     self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;

@@ -45,7 +45,7 @@
     
     RKParams* params = [RKParams params];
 
-    self.prodAccount.countUploaded = self.self.prodAccount.countUploaded + 1;
+    self.prodAccount.countUploaded = self.prodAccount.countUploaded + 1;
     [self setEnableSaveButton:self.prodAccount.countUploaded];
     [self.imageView setUserInteractionEnabled:NO];
 
@@ -91,9 +91,9 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
-    [self setEnableSaveButton:self.prodAccount.countUploaded];
-    [self.imageViewDelete setHidden:NO];
+//    self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
+//    [self setEnableSaveButton:self.prodAccount.countUploaded];
+//    [self.imageViewDelete setHidden:NO];
 
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
@@ -143,9 +143,9 @@
 }
 
 -(void)cancelUpload{
-    //if (self.totalBytesWritten == self.totalBytesExpectedToWrite && self.totalBytesWritten != 0)
-  //      return;
-   // else {
+    if (self.totalBytesW == self.totalBytesExpectedToW && self.totalBytesW != 0 && ![self.imageViewDelete isHidden])
+        return;
+    else {
         [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
         self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
         [self setEnableSaveButton:self.prodAccount.countUploaded];
@@ -156,10 +156,19 @@
         }];
         [self.imageView setUserInteractionEnabled:YES];
         [timerUpload invalidate];
-  //  }
+    }
 }
 
 -(void)setEnableSaveButton:(int)count{
+    
+    //Elemina discrepancia na contagem com valores negativo.
+    //Os numeros negativos pararam de acontecer com esta atualização.
+    //então esta condicional pode ser eliminada...
+//    if (count < 0){
+//        self.prodAccount.countUploaded = self.prodAccount.countUploaded +1;
+//        count++;
+//    }
+    
     if (count == 0) {
         [prodAccount.buttonSaveProduct setEnabled:YES];
         [prodAccount.buttonSaveProduct setAlpha:1.0];
@@ -177,6 +186,7 @@
     photoReturn = [jsonArray objectAtIndex:0];
     [NSThread detachNewThreadSelector:@selector(setImageIconReturn) toTarget:self withObject:nil];
     [self.imageViewDelete setHidden:NO];
+    self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
     [self setEnableSaveButton:self.prodAccount.countUploaded];
     [progressView setHidden:YES];
 }
@@ -210,7 +220,6 @@
     
     if (totalBytesExpectedToWrite == totalBytesWritten){
         [self.imageView setUserInteractionEnabled:YES];
-        self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
         [imageView removeGestureRecognizer:refreshGesture];
         [imageView addGestureRecognizer:moveLeftGesture];
     }

@@ -15,7 +15,7 @@
 @synthesize isSaveProductFail;
 
 -(void)postProduct:(NSMutableDictionary *)productParams {
-    timerSave = [NSTimer scheduledTimerWithTimeInterval:300.0 target:self selector:@selector(setSaveProductFail) userInfo:nil repeats:NO];
+    timerSave = [NSTimer scheduledTimerWithTimeInterval:120.0 target:self selector:@selector(setSaveProductDone) userInfo:nil repeats:NO];
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     //The server ask me for this format, so I set it here:
@@ -39,13 +39,17 @@
 }
 
 -(void)setSaveProductFail{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     isSaveProductFail = YES;
 }
 
+-(void)setSaveProductDone{
+    isSaveProductDone = YES;
+}
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    isSaveProductFail = YES;
+    [self setSaveProductFail];
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
