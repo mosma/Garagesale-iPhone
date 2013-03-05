@@ -277,7 +277,8 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            [self setEnableButtonSave:NO];
+            totalPhotosCached = [objects count];
+            [buttonSaveProduct setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
@@ -427,11 +428,12 @@
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    [gallery addImageToScrollView:imageThumb
+    if (totalPhotosCached != 10) {
+        [gallery addImageToScrollView:imageThumb
                           photoReturn:nil
                               product:self.product
                          isFromPicker:YES];
-    
+    }
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -710,14 +712,14 @@
                                                    [(PhotoReturn *)[fotos objectAtIndex:i] listing_url]]];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-                
+            
             [gallery addImageToScrollView:image
                                 photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
                                     product:self.product
                                  isFromPicker:NO];
             
             if ([[scrollViewPicsProduct subviews] count] == [fotos count]){
-                [self setEnableButtonSave:YES];
+                [buttonSaveProduct setUserInteractionEnabled:YES];
                 [buttonAddPics setUserInteractionEnabled:YES];
             }
         }

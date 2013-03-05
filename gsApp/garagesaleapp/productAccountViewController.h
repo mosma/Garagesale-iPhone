@@ -57,6 +57,7 @@
     int countPicsPost;
     __weak IBOutlet UIButton *buttonDeleteProduct;
     int       countUploaded;
+    int       totalPhotosCached;
 }
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
