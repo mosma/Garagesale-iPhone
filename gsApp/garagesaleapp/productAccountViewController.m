@@ -107,6 +107,8 @@
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
+    [buttonAddPics setUserInteractionEnabled:NO];
+    
     //Menu
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
@@ -276,14 +278,15 @@
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [self setEnableButtonSave:NO];
-            [buttonAddPics setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
             });
         }
-        if ([objects count] == 0)
+        if ([objects count] == 0){
             [waiting removeFromSuperview];
+            [buttonAddPics setUserInteractionEnabled:YES];
+        }
 
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
@@ -296,6 +299,7 @@
                                                  delegate:self
                                         cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
                                         otherButtonTitles: NSLocalizedString(@"image-upload-error-btn2", nil), nil];
+    [buttonAddPics setUserInteractionEnabled:YES];
     [waiting removeFromSuperview];
     
     [alV show];
@@ -478,8 +482,11 @@
         if ([response isOK]) {
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-            if (self.product == nil)
+            if (self.product == nil){
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                [buttonAddPics setUserInteractionEnabled:YES];
                 [waiting removeFromSuperview];
+            }
         }
         
     } else if ([request isPOST]) {
