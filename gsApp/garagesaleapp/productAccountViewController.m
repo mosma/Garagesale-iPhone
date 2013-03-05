@@ -275,18 +275,17 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            [waiting removeFromSuperview];
-            [self loadAttributsToPhotos:objects];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(queue, ^(void) {
+                [self loadAttributsToPhotos:objects];
+            });
         }
-        
         if ([objects count] == 0)
             [waiting removeFromSuperview];
 
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
-    }
-    @finally {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
 }
 
@@ -589,11 +588,20 @@
             _postProdDelegate.isSaveProductFail = YES;
         else{
             [_postProdDelegate postProduct:prodParams];
-            [buttonSaveProduct setUserInteractionEnabled:NO];
-            [buttonSaveProduct setAlpha:0.3f];
+            [self setEnableButtonSave:NO];
         }
 
         [self initProgressHUDSaveProduct];
+    }
+}
+
+-(void)setEnableButtonSave:(BOOL)enable{
+    if (enable) {
+        [buttonSaveProduct setUserInteractionEnabled:YES];
+        [buttonSaveProduct setAlpha:1.0f];
+    }else{
+        [buttonSaveProduct setUserInteractionEnabled:NO];
+        [buttonSaveProduct setAlpha:0.3f];
     }
 }
 
@@ -644,8 +652,7 @@
         
         [self newProductFinished:(self.product == nil)];
     }
-    [buttonSaveProduct setUserInteractionEnabled:YES];
-    [buttonSaveProduct setAlpha:1.0f];
+    [self setEnableButtonSave:YES];
     _postProdDelegate.isSaveProductFail = NO;
 }
 
@@ -688,14 +695,21 @@
 
 -(void)loadAttributsToPhotos:(NSArray *)fotos{
     @try {
-        for (int i=0; i < [fotos count]; i++) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
-                                           [(PhotoReturn *)[fotos objectAtIndex:i] listing_url]]];
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [gallery addImageToScrollView:image
-                              photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
-                                  product:self.product
-                             isFromPicker:NO];
+        [waiting removeFromSuperview];
+
+        for (size_t i = 0; i < [fotos count]; i++) {
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
+                                                   [(PhotoReturn *)[fotos objectAtIndex:i] listing_url]]];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                
+                [gallery addImageToScrollView:image
+                                  photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
+                                      product:self.product
+                                 isFromPicker:NO];
+            
+                if ([[scrollViewPicsProduct subviews] count] == [fotos count])
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                
         }
     }
     @catch (NSException *exception) {
