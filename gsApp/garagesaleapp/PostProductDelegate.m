@@ -15,7 +15,7 @@
 @synthesize isSaveProductFail;
 
 -(void)postProduct:(NSMutableDictionary *)productParams {
-    timerSave = [NSTimer scheduledTimerWithTimeInterval:120.0 target:self selector:@selector(setSaveProductDone) userInfo:nil repeats:NO];
+    timerSave = [NSTimer scheduledTimerWithTimeInterval:200.0 target:self selector:@selector(setSaveProductDone) userInfo:nil repeats:NO];
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
     //The server ask me for this format, so I set it here:
