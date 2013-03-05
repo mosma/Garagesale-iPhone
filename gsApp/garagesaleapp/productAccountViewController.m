@@ -276,6 +276,7 @@
                 [self getResourcePathPhotoReturnEdit];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            [self setEnableButtonSave:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
@@ -707,9 +708,10 @@
                                       product:self.product
                                  isFromPicker:NO];
             
-                if ([[scrollViewPicsProduct subviews] count] == [fotos count])
+                if ([[scrollViewPicsProduct subviews] count] == [fotos count]) {
                     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                
+                    [self setEnableButtonSave:YES];
+                }
         }
     }
     @catch (NSException *exception) {
