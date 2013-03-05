@@ -36,7 +36,8 @@
     __weak IBOutlet UILabel         *labelEmail;
     __weak IBOutlet UILabel         *labelPassword;
     __weak IBOutlet UIScrollView    *scrollView;
-    
+    __weak IBOutlet UIButton        *buttonLostPassword;
+
     //Sigin outlets
     __weak IBOutlet UITextField     *textFieldUserName;
     __weak IBOutlet UITextField     *textFieldUserPassword;

@@ -51,9 +51,12 @@
     [self.buttonRegister setTitle:NSLocalizedString(@"Register", @"") forState:UIControlStateNormal];
     [self.buttonLogin setTitle:NSLocalizedString(@"Login", @"") forState:UIControlStateNormal];
     [self.buttonRegisterNew setTitle:NSLocalizedString(@"Register", @"") forState:UIControlStateNormal];
-    
+    [buttonRecover setTitle:NSLocalizedString(@"recover-password", @"") forState:UIControlStateNormal];
+    [buttonLostPassword setTitle:NSLocalizedString(@"lost-password", @"") forState:UIControlStateNormal];
+
     [self.labelSignup setText:NSLocalizedString(@"Sign-up", @"")];
     [self.labelLogin setText:NSLocalizedString(@"Sign-in", @"")];
+    [labelPasswRecover setText:NSLocalizedString(@"recover-password", @"")];
     [self.textFieldGarageName setPlaceholder:NSLocalizedString(@"garageName", @"")];
     [self.textFieldPersonName setPlaceholder:NSLocalizedString(@"yourName", @"")];
     [self.textFieldEmail setPlaceholder:NSLocalizedString(@"yourEmail", @"")];

@@ -1831,6 +1831,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="buttonLogin" destination="UtY-p1-8kY" id="6gv-8R-YfN"/>
+                        <outlet property="buttonLostPassword" destination="M0e-Cg-xEk" id="LjH-27-LhE"/>
                         <outlet property="buttonRegisterNew" destination="qnv-pc-Zfw" id="KbB-Bo-Mox"/>
                         <outlet property="labelEmail" destination="FVp-Qr-trl" id="hMi-jz-hug"/>
                         <outlet property="labelLogin" destination="Wsl-Fa-rw8" id="Mui-B7-NIA"/>
@@ -2347,8 +2348,14 @@
         <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
+                <relationship kind="action" name="checkLogin:"/>
+                <relationship kind="action" name="getValidEmail:"/>
+                <relationship kind="action" name="getValidGarageName:"/>
+                <relationship kind="action" name="postNewGarage:"/>
                 <relationship kind="action" name="recoverEmail:"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRegisterNew" candidateClass="UIButton"/>

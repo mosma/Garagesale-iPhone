@@ -86,7 +86,8 @@
 "sheet-camera-item"             = "Camera";
 "sheet-library-item"            = "Library";
 "sheet-no-pic-item"             = "Product without photo";
-
+"recover-password"              = "Password Recover";
+"lost-password"                 = "Forgot your password?";
 
 //forms
 "form-invalid-email-password"   = "Invalid Password or Email";
