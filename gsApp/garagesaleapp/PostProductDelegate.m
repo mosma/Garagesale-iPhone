@@ -49,6 +49,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    [timerSave invalidate];
     [self setSaveProductFail];
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
