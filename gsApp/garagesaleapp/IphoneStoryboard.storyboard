@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="5">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="2" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="2" customClass="homeViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleAspectFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -436,7 +436,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="productCustomViewCell">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellProduct" rowHeight="123" id="Uug-EU-EKG" customClass="searchCustomViewCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="123"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1903,10 +1903,10 @@
             </objects>
             <point key="canvasLocation" x="1088" y="-892"/>
         </scene>
-        <!--Product Table View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="03F-iW-Zdo">
             <objects>
-                <viewController storyboardIdentifier="ProductsTable" id="9QO-x3-2I2" customClass="productTableViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductsTable" id="9QO-x3-2I2" customClass="searchViewController" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" contentMode="scaleToFill" id="Z2q-Lz-2Le">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1933,7 +1933,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="121" id="RS6-BV-FAW" userLabel="customViewCellLine" customClass="productCustomViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customViewCellLine" rowHeight="121" id="RS6-BV-FAW" userLabel="customViewCellLine" customClass="searchCustomViewCell">
                                         <rect key="frame" x="0.0" y="70" width="320" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1968,7 +1968,7 @@
                                             <outlet property="valorEsperado" destination="KvH-sJ-Zfr" id="w6b-AB-BV2"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customViewCellBlock" rowHeight="360" id="eIK-pQ-UFS" userLabel="customViewCellBlock" customClass="productCustomViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="customViewCellBlock" rowHeight="360" id="eIK-pQ-UFS" userLabel="customViewCellBlock" customClass="searchCustomViewCell">
                                         <rect key="frame" x="0.0" y="191" width="320" height="360"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2150,6 +2150,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wok-pH-dlx"/>
+        <segue reference="4gr-vC-Jdq"/>
     </inferredMetricsTieBreakers>
 </document>

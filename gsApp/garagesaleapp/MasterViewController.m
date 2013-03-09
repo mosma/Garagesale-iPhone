@@ -9,12 +9,15 @@
 #import "MasterViewController.h"
 
 @interface MasterViewController ()
-
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+- (void)setupKeyboardControls;
+- (void)scrollViewToTextField:(id)textField;
 @end
 
 @implementation MasterViewController
 
 @synthesize isReachability;
+@synthesize keyboardControls;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,7 +34,52 @@
     [self setNotification];
     [self reachability];
     overlay = [MTStatusBarOverlay sharedInstance];
+    [self setupKeyboardControls];
 
+}
+
+-(void)setupKeyboardControls{
+    // Initialize the keyboard controls
+    self.keyboardControls = [[BSKeyboardControls alloc] init];
+
+    // Set the delegate of the keyboard controls
+    keyboardControls.delegate = self;
+
+    // Add all text fields you want to be able to skip between to the keyboard controls
+    // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
+
+    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
+    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
+
+    // Set the tint color of the "Previous" and "Next" button. Default is black.
+    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
+
+    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
+    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
+
+    // Set title for the "Previous" button. Default is "Previous".
+    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
+
+    // Set title for the "Next button". Default is "Next".
+    self.keyboardControls.nextTitle = NSLocalizedString(@"keyboard-next-btn", nil);
+}
+
+-(void)addKeyboardControlsAtFields{
+    // Add the keyboard control as accessory view for all of the text fields
+    // Also set the delegate of all the text fields to self
+    for (id textField in self.keyboardControls.textFields)
+    {
+        if ([textField isKindOfClass:[UITextField class]])
+        {
+            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
+            ((UITextField *) textField).delegate = self;
+        }
+        else if ([textField isKindOfClass:[UITextView class]])
+        {
+            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
+            ((UITextView *) textField).delegate = self;
+        }
+    }
 	// Do any additional setup after loading the view.
 }
 
@@ -105,6 +153,30 @@
     [viewMessageNet setFrame:CGRectMake(0, 0, 320, 0)];
     [labelNotification removeFromSuperview];
     [UIView commitAnimations];
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
+    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn" , nil)
+                                             destructiveButtonTitle:nil
+                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item" , nil),
+                                NSLocalizedString(@"sheet-library-item" , nil),
+                                NSLocalizedString(@"sheet-no-pic-item" , nil), nil];
+        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+        sheet.delegate = self;
+        [sheet showInView:self.view];
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)didReceiveMemoryWarning

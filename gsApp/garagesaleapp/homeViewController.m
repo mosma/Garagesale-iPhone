@@ -1,14 +1,14 @@
 //
-//  ViewController.m
+//  homeViewController.m
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 03/01/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "homeViewController.h"
 
-@implementation ViewController
+@implementation homeViewController
 
 @synthesize RKObjManeger;
 @synthesize mutArrayProducts;
@@ -108,46 +108,7 @@
     UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
     [gest setNumberOfTouchesRequired:1];
     [shadowSearch addGestureRecognizer:gest];
-    
-    //Main Custom Tab Bar Controller
-    UIImage *selectedImage0   = [UIImage imageNamed:@"homeOver.png"];
-    UIImage *unselectedImage0 = [UIImage imageNamed:@"home.png"];
-    UIImage *selectedImage1   = [UIImage imageNamed:@"addOver.png"];
-    UIImage *unselectedImage1 = [UIImage imageNamed:@"add.png"];
-    UIImage *selectedImage2   = [UIImage imageNamed:@"personOver.png"];
-    UIImage *unselectedImage2 = [UIImage imageNamed:@"person.png"];
-    UITabBar     *tabBar = self.tabBarController.tabBar;
-    UITabBarItem *item0  = [tabBar.items objectAtIndex:0];
-    UITabBarItem *item1  = [tabBar.items objectAtIndex:1];
-    UITabBarItem *item2  = [tabBar.items objectAtIndex:2];
-
-    [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
-    [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
-    
-    [item0 setTitle: NSLocalizedString( @"menu-explore", nil)];
-    [item1 setTitle: NSLocalizedString( @"menu-add-product", nil)];
-    [item2 setTitle: NSLocalizedString( @"menu-my-garage", nil)];
-    
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
-
         
-    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
-    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0], UITextAttributeTextColor,nil] forState:UIControlStateSelected];
-
-    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
-    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
-    
-    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateNormal];
-    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f], UITextAttributeFont, nil] forState:UIControlStateSelected];
-    
-    item0.titlePositionAdjustment = UIOffsetMake(0, -2);
-    item1.titlePositionAdjustment = UIOffsetMake(0, -2);
-    item2.titlePositionAdjustment = UIOffsetMake(0, -2);
-    [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
-    [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
-    [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
-    //End Custom TabBarItems
-    
     UIImage *statusImage = [UIImage imageNamed:@"ActivityHome00.png"];
     activityImageView = [[UIImageView alloc] initWithImage:statusImage];
     
@@ -280,30 +241,6 @@
     [txtFieldSearch resignFirstResponder];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn" , nil)
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item" , nil),
-                                                                    NSLocalizedString(@"sheet-library-item" , nil),
-                                                                    NSLocalizedString(@"sheet-no-pic-item" , nil), nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
-}
-
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
     for(int i = [mutArrayProducts count] - [GlobalFunctions getHomeProductsNumber]; i < [mutArrayProducts count]; i++)
@@ -416,8 +353,8 @@
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
     
-    [self getResourcePathProduct];
-    
+    NSTimer *load = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(getResourcePathProduct) userInfo:nil repeats:NO];
+        
     if (!isAnimationLogo) {
         [viewTopPage setHidden:YES];
         [viewSearch setHidden:YES];
@@ -493,7 +430,7 @@
 }
 
 -(void)gotoProductTableViewController:(id)objetct{
-    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    searchViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //Search Service
     
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",

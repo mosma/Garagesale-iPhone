@@ -10,12 +10,6 @@
 #import "NSAttributedString+Attributes.h"
 #import "Profile.h"
 
-@interface settingsAccountViewController ()
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-- (void)setupKeyboardControls;
-- (void)scrollViewToTextField:(id)textField;
-@end
-
 @implementation settingsAccountViewController
 
 @synthesize labelCurrentPassword;
@@ -43,7 +37,6 @@
 @synthesize txtFieldEmail;
 @synthesize txtViewAbout;
 @synthesize txtFieldAnyLink;
-@synthesize keyboardControls;
 @synthesize settingsAccount;
 @synthesize buttonAccount;
 @synthesize buttonPassword;
@@ -281,7 +274,7 @@
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"
                                                                              rect:CGRectMake(0, 0, 40, 30)];
-    [self setupKeyboardControls];
+    [self setupKeyboardFields];
 }
 
 - (void)getResourcePathGarage {
@@ -524,39 +517,21 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if ([self.keyboardControls.textFields containsObject:textField])
-        self.keyboardControls.activeTextField = textField;
+    if ([keyboardControls.textFields containsObject:textField])
+        keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.keyboardControls.textFields containsObject:textView])
-        self.keyboardControls.activeTextField = textView;
+    if ([keyboardControls.textFields containsObject:textView])
+        keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{
     [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Cancel"
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
 }
 
 - (void)setGarage:(NSArray *)objects{
@@ -605,56 +580,19 @@
 }
 
 /* Setup the keyboard controls BSKeyboardControls.h */
-- (void)setupKeyboardControls
+- (void)setupKeyboardFields
 {
-    // Initialize the keyboard controls
-    self.keyboardControls = [[BSKeyboardControls alloc] init];
-    
-    // Set the delegate of the keyboard controls
-    self.keyboardControls.delegate = self;
-    
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-        
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) //Account ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldYourName, txtViewAbout, txtFieldAnyLink, nil];
+        keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldYourName, txtViewAbout, txtFieldAnyLink, nil];
     else if  
         ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) //Address ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldAddress, txtFieldCity, txtFieldDistrict, txtFieldCountry, nil];
+        keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldAddress, txtFieldCity, txtFieldDistrict, txtFieldCountry, nil];
     else if  
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) //Password ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldCurrentPassword, txtFieldNewPassword, txtFieldRepeatNewPassword, nil];
-    
-    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
-    
-    // Set the tint color of the "Previous" and "Next" button. Default is black.
-    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
-    
-    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
-    // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = @"Previous";
-    
-    // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = @"Next";
-    
-    // Add the keyboard control as accessory view for all of the text fields
-    // Also set the delegate of all the text fields to self
-    for (id textField in self.keyboardControls.textFields)
-    {
-        if ([textField isKindOfClass:[UITextField class]])
-        {
-            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextField *) textField).delegate = self;
-        }
-        else if ([textField isKindOfClass:[UITextView class]])
-        {
-            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextView *) textField).delegate = self;
-        }
-    }
+        keyboardControls.textFields = [NSArray arrayWithObjects: txtFieldCurrentPassword, txtFieldNewPassword, txtFieldRepeatNewPassword, nil];
+    [super addKeyboardControlsAtFields];
 }
 
 /* Scroll the view to the active text field */
@@ -734,8 +672,8 @@
     //Return to Root viewController to display garge Case User Add A new Product.
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    [self loadAttribsToComponents];
+    }else
+        [self loadAttribsToComponents];
 }
 
 - (void)viewWillUnload:(BOOL)animated

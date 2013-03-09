@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "QuartzCore/QuartzCore.h"
+#import "QuartzCore/QuartzCore.h"
 #import "RestKit/RestKit.h"
 #import "OHAttributedLabel.h"
-#import "Category.h"
+#import "GSCategory.h"
 #import "Product.h"
 #import "Caminho.h"
-#import "productAccountViewController.h"
 
 @interface GlobalFunctions : NSObject <RKObjectLoaderDelegate>{
     NSUserDefaults *getUserDefaults;

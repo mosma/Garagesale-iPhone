@@ -1,20 +1,20 @@
 //
-//  productTableViewController.m
+//  searchViewController.m
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 07/01/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
-#import "productTableViewController.h"
+#import "searchViewController.h"
 #import "NSAttributedString+Attributes.h"
 #import "AsyncImageView.h"
 
-@interface productTableViewController ()
+@interface searchViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation productTableViewController
+@implementation searchViewController
 
 @synthesize mutArrayProducts;
 @synthesize mutArrayViewHelpers;
@@ -316,8 +316,8 @@
     //productCustomViewCell       *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     //create new cell
-    productCustomViewCell *customViewCellBlock = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
-    productCustomViewCell *customViewCellLine = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
+    searchCustomViewCell *customViewCellBlock = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
+    searchCustomViewCell *customViewCellLine = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
 
     
     if ([mutArrayProducts count] > 0) {
@@ -459,7 +459,7 @@
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     [prdDetailVC setProduct:(Product *)[mutArrayProducts objectAtIndex:indexPath.row]];
     
-    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(productCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
+    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(searchCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
     
     [prdDetailVC setImageView:imageV];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
@@ -579,27 +579,6 @@
     [self.tableView reloadInputViews];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                           delegate:nil 
-                                                  cancelButtonTitle: NSLocalizedString(@"keyboard-cancel-btn", nil)
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
-                                                                    NSLocalizedString(@"sheet-library-item", nil),
-                                                                    NSLocalizedString(@"sheet-no-pic-item", nil),
-                                                                    nil];
-        [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
-        sheet.delegate = self;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{    
     if ((segmentControl.selectedSegmentIndex == 0 && [mutArrayProducts count] > 1) ||
         (segmentControl.selectedSegmentIndex == 1 && [mutArrayProducts count] > 4)) {
@@ -625,10 +604,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [self showSearch:nil];
 	return YES;
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

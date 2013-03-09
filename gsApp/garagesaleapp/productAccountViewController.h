@@ -7,28 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GlobalFunctions.h"
-#import "Product.h"
-#import "ProductPhotos.h"
-#import "BSKeyboardControls.h"
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
+#import "ProductPhotos.h"
 #import "MBProgressHUD.h"
+#import "Product.h"
 #import "JSON.h"
 
-@interface productAccountViewController : MasterViewController <UIActionSheetDelegate, 
-                                                             UINavigationControllerDelegate, 
-                                                             UIImagePickerControllerDelegate,
-                                                             RKObjectLoaderDelegate,
-                                                             RKRequestDelegate,
-                                                             UIPickerViewDataSource, 
-                                                             UIPickerViewDelegate, 
-                                                             UITextFieldDelegate,
-                                                             BSKeyboardControlsDelegate,
-                                                             UIScrollViewDelegate,
-                                                             UITabBarControllerDelegate,
-                                                             MBProgressHUDDelegate> {
+@interface productAccountViewController : MasterViewController <UINavigationControllerDelegate, 
+                                                                UIImagePickerControllerDelegate,
+                                                                RKObjectLoaderDelegate,
+                                                                RKRequestDelegate,
+                                                                UIPickerViewDataSource, 
+                                                                UIPickerViewDelegate,
+                                                                UIScrollViewDelegate,
+                                                                MBProgressHUDDelegate> {
     //Outlets
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewPicsProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldTitle;
@@ -39,7 +33,7 @@
     __unsafe_unretained IBOutlet UITextView     *textViewDescription;
     __unsafe_unretained IBOutlet UIView         *viewPicsControl;
     __unsafe_unretained IBOutlet UIButton       *buttonAddPics;
-    __weak IBOutlet UIButton *buttonSaveProduct;
+    __weak IBOutlet UIButton                    *buttonSaveProduct;
 
     //Others
     RKObjectManager             *RKObjManeger;
@@ -53,10 +47,10 @@
     UILabel                     *waiting;
                                                                  
     //Flags at Post
-    bool isImagesProductPosted;
-    int countPicsPost;
-    __weak IBOutlet UIButton *buttonDeleteProduct;
-    int       countUploaded;
+    bool                        isImagesProductPosted;
+    int                         countPicsPost;
+    __weak IBOutlet UIButton    *buttonDeleteProduct;
+    int                         countUploaded;
 }
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
@@ -72,16 +66,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 
-@property (nonatomic)     bool isImagesProductPosted;
-@property (retain, nonatomic) Product                          *product;
-@property (readwrite,assign)   int       countUploaded;
+@property (nonatomic)           bool      isImagesProductPosted;
+@property (retain, nonatomic)   Product   *product;
+@property (readwrite,assign)    int       countUploaded;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;
 -(IBAction)addProduct:(id)sender;
 -(IBAction)isNumberKey:(UITextField *)textField;
 -(IBAction)animationPicsControl;
--(IBAction)goBack:(id)sender;
+//-(IBAction)goBack:(id)sender;
 -(IBAction)getPicsByCamera:(id)sender;
 -(IBAction)getPicsByPhotosAlbum:(id)sender;
 -(IBAction)deleteProduct:(id)sender;

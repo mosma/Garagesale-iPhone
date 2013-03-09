@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  homeViewController.h
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 03/01/12.
@@ -8,20 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "RestKit/RKJSONParserJSONKit.h"
-#import "productTableViewController.h"
-#import "signUpViewController.h"
 #import "productAccountViewController.h"
+#import "searchViewController.h"
+#import "signUpViewController.h"
 
-@interface ViewController : MasterViewController <RKObjectLoaderDelegate,
-                                              UISearchBarDelegate,
-                                              OHAttributedLabelDelegate,
-                                              UITabBarControllerDelegate,
-                                              UIScrollViewDelegate,
-                                              UIActionSheetDelegate> {
+@interface homeViewController : MasterViewController <RKObjectLoaderDelegate,
+                                                    UISearchBarDelegate,
+                                                    OHAttributedLabelDelegate,
+                                                    UIScrollViewDelegate> {
 
     BOOL                                        *isSearchDisplayed;
     BOOL                                        *isUserLoged;
     BOOL                                        *isAnimationLogo;
+    BOOL                                        isFromSignUp;
     GlobalFunctions                             *globalFunctions;
     UIButton                                    *buttonLogo;
     CGFloat                                     _lastContentOffset;
@@ -31,15 +30,13 @@
     __unsafe_unretained IBOutlet UIScrollView   *scrollViewMain;
     __unsafe_unretained IBOutlet UIView         *viewTopPage;
     __unsafe_unretained IBOutlet UIView         *viewSearch;
-    UISearchBar    *searchBarProduct;
+    UISearchBar                                 *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
-    UIImageView *activityImageView;
-    UIView *shadowSearch;
-    BOOL isFromSignUp;
-                                                  
-                                                  
-                                                  __weak IBOutlet UIButton                    *buttonSignUp;
-                                                  __weak IBOutlet UIButton                    *buttonSignIn;
+    UIImageView                                 *activityImageView;
+    UIView                                      *shadowSearch;
+
+    __weak IBOutlet UIButton                    *buttonSignUp;
+    __weak IBOutlet UIButton                    *buttonSignIn;
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -47,13 +44,13 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewMain;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewTopPage;
 @property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
-@property (retain, nonatomic) UISearchBar   *searchBarProduct;
+@property (retain, nonatomic) UISearchBar                       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
-@property (unsafe_unretained, nonatomic) BOOL isFromSignUp;
-@property (unsafe_unretained, nonatomic) UIImageView *activityImageView;
+@property (unsafe_unretained, nonatomic) BOOL                   isFromSignUp;
+@property (unsafe_unretained, nonatomic) UIImageView            *activityImageView;
 
-@property (weak, nonatomic) IBOutlet UIButton       *buttonSignUp;
-@property (weak, nonatomic) IBOutlet UIButton       *buttonSignIn;
+@property (weak, nonatomic) IBOutlet UIButton   *buttonSignUp;
+@property (weak, nonatomic) IBOutlet UIButton   *buttonSignIn;
 
 - (void)getResourcePathProduct;
 - (void)reachability;

@@ -12,14 +12,8 @@
 @class PostProductDelegate;
 
 @interface productAccountViewController ()
-
 @property (nonatomic, strong) PostProductDelegate *postProdDelegate;
-
 @property (nonatomic, strong) photosGallery *gallery;
-
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-- (void)setupKeyboardControls;
-- (void)scrollViewToTextField:(id)textField;
 @end
 
 @implementation productAccountViewController
@@ -31,7 +25,6 @@
 @synthesize txtFieldCurrency;
 @synthesize scrollViewPicsProduct;
 @synthesize scrollView;
-@synthesize keyboardControls;
 @synthesize textViewDescription;
 @synthesize viewPicsControl;
 @synthesize buttonAddPics;
@@ -200,7 +193,7 @@
     [txtFieldCurrency setInputAccessoryView:picViewStateToolbar];
    
     [self.scrollView setContentSize:CGSizeMake(320,587)];
-    [self setupKeyboardControls];
+    [self setupKeyboardFields];
     
     if (self.product != nil) {
         [buttonDeleteProduct setHidden:NO];
@@ -279,6 +272,8 @@
             [self loadAttributsToProduct];
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
+            else
+                [buttonAddPics setEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [buttonSaveProduct setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -347,54 +342,6 @@
     [sheet setTag:99];
 }
 
--(IBAction)goBack:(id)sender {
-    [self goToTabBarController:[[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"] intValue]];
-}
-
--(void)goToTabBarController:(int)index{
-    if (index == 1) index = 0;
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"1" forKey:@"oldTabBar"];  
-    [userDefaults setInteger:index forKey:@"activateTabBar"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    // Get views. controllerIndex is passed in as the controller we want to go to. 
-    UIView * fromView = self.view.superview;
-    UIView * toView = [[self.tabBarController.viewControllers objectAtIndex:index] view];
-    
-    // Transition using a page curl.
-    [UIView transitionFromView:fromView 
-                        toView:toView 
-                      duration:0.5 
-                       options:(index > self.tabBarController.selectedIndex ?
-                                UIViewAnimationOptionTransitionCrossDissolve :
-                                UIViewAnimationOptionTransitionCrossDissolve)
-                    completion:^(BOOL finished) {
-                        if (finished) {
-                            self.tabBarController.selectedIndex = index;
-                        }
-                    }];
-}
-
-//-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-//    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-//    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-//        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-//                                                           delegate:nil 
-//                                                  cancelButtonTitle:@"Cancel" 
-//                                             destructiveButtonTitle:nil
-//                                                  otherButtonTitles:@"Camera", @"Library", @"Produto Sem Foto", nil];
-//        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-//        sheet.delegate = self;
-//        [sheet showInView:self.view];
-//        [sheet showFromTabBar:self.tabBarController.tabBar];
-//        return NO;
-//    } else {
-//        return YES;
-//    }
-//}
-
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (self.product != nil && actionSheet.tag != 99)
          [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
@@ -427,12 +374,12 @@
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    if ([buttonAddPics isEnabled]) {
+    //if ([buttonAddPics isEnabled]) {
         [gallery addImageToScrollView:imageThumb
                           photoReturn:nil
                               product:self.product
                          isFromPicker:YES];
-    }
+    //}
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -485,7 +432,7 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
             if (self.product == nil){
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                //[buttonAddPics setUserInteractionEnabled:YES];
+                [buttonAddPics setEnabled:YES];
                 [waiting removeFromSuperview];
             }
         }
@@ -498,11 +445,11 @@
         }
 
         //Set Delay to Hide msgBidSentLabel
-        [NSTimer scheduledTimerWithTimeInterval:5.0
-                                         target:self
-                                       selector:@selector(hideMsgBidSent)
-                                       userInfo:nil
-                                        repeats:NO];
+//        [NSTimer scheduledTimerWithTimeInterval:5.0
+//                                         target:self
+//                                       selector:@selector(hideMsgBidSent)
+//                                       userInfo:nil
+//                                        repeats:NO];
         
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
@@ -557,8 +504,8 @@
         [prodParams setObject:idPerson                      forKey:@"idPessoa"];
         
 
-        if (txtFieldValue.text.length > 6)
-            txtFieldValue.text = [txtFieldValue.text substringWithRange:NSMakeRange(0, 6)];
+        if (txtFieldValue.text.length > 7)
+            txtFieldValue.text = [txtFieldValue.text substringWithRange:NSMakeRange(0, 7)];
         if (txtFieldTitle.text.length > 80)
             txtFieldTitle.text = [txtFieldTitle.text substringWithRange:NSMakeRange(0, 80)];
         
@@ -654,12 +601,16 @@
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.labelText = @"Completed";
         sleep(1);
-
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self newProductFinished:(self.product == nil)];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self newProductFinished:(self.product == nil)];
+            
+        });
     }
     [self setEnableButtonSave:YES];
     _postProdDelegate.isSaveProductFail = NO;
@@ -683,13 +634,10 @@
 
 -(void)newProductFinished:(BOOL)isNew{
     if (isNew){
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self goToTabBarController:2];
+        self.tabBarController.selectedIndex = 2;
         self.view = nil;
-       //[self viewDidLoad];
-        [scrollView setContentOffset:CGPointZero animated:NO];
+        //[self viewDidLoad];
+        //[scrollView setContentOffset:CGPointZero animated:NO];
     }
     else{
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -759,55 +707,16 @@
 }
 
 // tell the picker the width of each row for a given component
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {    
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     return 300;
 }
 
 /* Setup the keyboard controls BSKeyboardControls.h */
-- (void)setupKeyboardControls
+- (void)setupKeyboardFields
 {
-    // Initialize the keyboard controls
-    self.keyboardControls = [[BSKeyboardControls alloc] init];
-    
-    // Set the delegate of the keyboard controls
-    self.keyboardControls.delegate = self;
-    
-    // Add all text fields you want to be able to skip between to the keyboard controls
-    // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    
-    self.keyboardControls.textFields = [NSArray arrayWithObjects:
+    keyboardControls.textFields = [NSArray arrayWithObjects:
                                         txtFieldState, txtFieldTitle,textViewDescription, txtFieldCurrency, txtFieldValue, nil];
-    
-    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
-    
-    // Set the tint color of the "Previous" and "Next" button. Default is black.
-    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
-    
-    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
-    // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
-    
-    // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = NSLocalizedString(@"keyboard-next-btn", nil);
-    
-    // Add the keyboard control as accessory view for all of the text fields
-    // Also set the delegate of all the text fields to self
-    for (id textField in self.keyboardControls.textFields)
-    {
-        if ([textField isKindOfClass:[UITextField class]])
-        {
-            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextField *) textField).delegate = self;
-        }
-        else if ([textField isKindOfClass:[UITextView class]])
-        {
-            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextView *) textField).delegate = self;
-        }
-    }
+    [super addKeyboardControlsAtFields];
 }
 
 /* Scroll the view to the active text field */
@@ -870,15 +779,15 @@
                 v.hidden = YES;
     }
     
-    if ([self.keyboardControls.textFields containsObject:textField])
-        self.keyboardControls.activeTextField = textField;
+    if ([keyboardControls.textFields containsObject:textField])
+        keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.keyboardControls.textFields containsObject:textView])
-        self.keyboardControls.activeTextField = textView;
+    if ([keyboardControls.textFields containsObject:textView])
+        keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];
 }
 
@@ -903,6 +812,9 @@
         [gallery.scrollView setContentOffset:CGPointMake(-105, scrollView.contentOffset.y) animated:YES];
     if ([gallery.nsMutArrayPicsProduct count] == 3)
         [gallery.scrollView setContentOffset:CGPointMake(-25, scrollView.contentOffset.y) animated:YES];
+    
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"])
+        [self.navigationController popToRootViewControllerAnimated:YES];
     
     if (![[[GlobalFunctions getUserDefaults]
           objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {

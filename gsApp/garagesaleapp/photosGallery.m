@@ -38,26 +38,28 @@
 
 - (void)deletePicsAtGallery:(UILongPressGestureRecognizer *)sender {
     if (prodAccount.countUploaded == 0) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [scrollView setUserInteractionEnabled:NO];
-        UIImageView *imageViewDelete      = (UIImageView *)sender.view;
-        UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
         
-        [UIView animateWithDuration:0.25 animations: ^{
-            imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
-            [imageView setAlpha:0];
-            [self reconfigureImagesAfterRemoving:imageView];
-        } completion:^(BOOL finished){
-            NSArray *imageViews         = [scrollView subviews];
-            int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
-            [imageView removeFromSuperview];
-            if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
-                [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
-            [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
-        }];
-        if ([nsMutArrayPicsProduct count] < 11)
-            prodAccount.buttonAddPics.enabled = YES;
-        
+        if (prodAccount.isReachability) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            [scrollView setUserInteractionEnabled:NO];
+            UIImageView *imageViewDelete      = (UIImageView *)sender.view;
+            UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
+            
+            [UIView animateWithDuration:0.25 animations: ^{
+                imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
+                [imageView setAlpha:0];
+                [self reconfigureImagesAfterRemoving:imageView];
+            } completion:^(BOOL finished){
+                NSArray *imageViews         = [scrollView subviews];
+                int indexOfRemovedImageView = [imageViews indexOfObject:imageView];
+                [imageView removeFromSuperview];
+                if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
+                    [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
+                [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
+            }];
+            if ([nsMutArrayPicsProduct count] < 11)
+                prodAccount.buttonAddPics.enabled = YES;
+        }
     }
 
 //    if (sender.state == UIGestureRecognizerStateEnded ||

@@ -128,11 +128,11 @@
         
     } else if ([request isDELETE]) {
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        
-        if (idProduct != -1)
-            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//        
+//        if (idProduct != -1)
+//            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [prodAccount.scrollViewPicsProduct setUserInteractionEnabled:YES];
         // Handling DELETE /missing_resource.txt
@@ -196,10 +196,12 @@
 }
 
 - (void)deletePhoto {
-    [progressView setHidden:YES];
-    NSLog(@"%@", [photoReturn valueForKey:@"delete_url"]);
-    [[RKClient sharedClient] delete:[photoReturn valueForKey:@"delete_url"] delegate:self];
-    [photoReturn setValue:@"" forKey:@"name"];
+    if (prodAccount.isReachability) {
+        [progressView setHidden:YES];
+        NSLog(@"%@", [photoReturn valueForKey:@"delete_url"]);
+        [[RKClient sharedClient] delete:[photoReturn valueForKey:@"delete_url"] delegate:self];
+        [photoReturn setValue:@"" forKey:@"name"];
+    }
 }
 
 - (void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite{

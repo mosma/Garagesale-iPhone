@@ -1,14 +1,14 @@
 //
-//  productCustomViewCell.m
+//  searchCustomViewCell.m
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 08/01/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
-#import "productCustomViewCell.h"
+#import "searchCustomViewCell.h"
 
-@implementation productCustomViewCell
+@implementation searchCustomViewCell
 
 @synthesize productName;
 @synthesize valorEsperado;

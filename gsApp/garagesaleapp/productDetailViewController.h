@@ -9,23 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "galleryScrollViewController.h"
 #import "RestKit/RKJSONParserJSONKit.h"
-#import "BSKeyboardControls.h"
 #import "garageAccountViewController.h"
-#import "Category.h"
-#import "Bid.h"
-#import "OHAttributedLabel.h"
-#import "FPPopoverController.h"
 #import "sharePopOverViewController.h"
+#import "FPPopoverController.h"
+#import "OHAttributedLabel.h"
 #import "viewHelper.h"
+#import "GSCategory.h"
+#import "Bid.h"
 
-@interface productDetailViewController : MasterViewController <UITextFieldDelegate, 
-                                                            UITextViewDelegate, 
-                                                            BSKeyboardControlsDelegate,
-                                                            UIScrollViewDelegate,
-                                                            RKObjectLoaderDelegate,
-                                                            UITabBarDelegate,
-                                                            UIPopoverControllerDelegate,
-                                                            UIAlertViewDelegate> {
+@interface productDetailViewController : MasterViewController <UIScrollViewDelegate,
+                                                                RKObjectLoaderDelegate,
+                                                                UITabBarDelegate,
+                                                                UIPopoverControllerDelegate,
+                                                                UIAlertViewDelegate> {
 
     RKObjectManager                             *RKObjManeger;
     Product                                     *product;
@@ -57,16 +53,16 @@
     __unsafe_unretained IBOutlet UIView         *viewControl;
     __unsafe_unretained IBOutlet UIView         *viewReport;
     IBOutlet UIView                             *garageDetailView;
-    __weak IBOutlet UIView *countView;                                                
-    __weak IBOutlet OHAttributedLabel *countLabel;
-    UIPageControl  *PagContGallery;
-    __unsafe_unretained IBOutlet UIButton *buttonEditProduct;
-    __unsafe_unretained IBOutlet UIButton *buttonDeleteProduct;
-    __unsafe_unretained IBOutlet UIButton *buttonReportThisGarage;
+    __weak IBOutlet UIView                      *countView;                                                
+    __weak IBOutlet OHAttributedLabel           *countLabel;
+    UIPageControl                               *PagContGallery;
+    __unsafe_unretained IBOutlet UIButton       *buttonEditProduct;
+    __unsafe_unretained IBOutlet UIButton       *buttonDeleteProduct;
+    __unsafe_unretained IBOutlet UIButton       *buttonReportThisGarage;
     //Gallery Images Objects.
-    NSMutableArray          *productPhotos;
-    UIImageView             *imageView;
-    IBOutlet UIScrollView   *galleryScrollView;
+    NSMutableArray                              *productPhotos;
+    UIImageView                                 *imageView;
+    IBOutlet UIScrollView                       *galleryScrollView;
     __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
                                                                 
     __unsafe_unretained IBOutlet UILabel        *labelEmail;
@@ -74,7 +70,7 @@
     __unsafe_unretained IBOutlet UILabel        *labelAskSomething;    
     __unsafe_unretained IBOutlet UILabel        *labelCongrats;
     __unsafe_unretained IBOutlet UILabel        *labelBidSent;
-    viewHelper *vH;
+    viewHelper                                  *vH;
 }
 
 

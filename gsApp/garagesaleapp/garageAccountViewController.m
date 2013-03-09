@@ -598,7 +598,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString             *CellIdentifier = @"CellProduct";
-    productCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
+    searchCustomViewCell       *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
     if ([mutArrayProducts count] > 0) {
         //cancel loading previous image for cell
@@ -667,35 +667,10 @@
     [prdDetailVC setProduct:(Product *)[mutArrayProducts objectAtIndex:indexPath.row]];
     
     
-    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(productCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
+    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(searchCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
     
     [prdDetailVC setImageView:imageV];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
-                                NSLocalizedString(@"sheet-library-item", nil),
-                                NSLocalizedString(@"sheet-no-pic-item", nil),
-                                nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

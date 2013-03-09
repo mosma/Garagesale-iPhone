@@ -11,9 +11,6 @@
 
 @interface productDetailViewController ()
 - (void)configureView;
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-- (void)setupKeyboardControls;
-- (void)scrollViewToTextField:(id)textField;
 @end
 
 @implementation productDetailViewController
@@ -47,7 +44,6 @@
 @synthesize garageDetailView;
 @synthesize countView;
 @synthesize countLabel;
-@synthesize keyboardControls;
 @synthesize productPhotos;
 @synthesize imageView;
 @synthesize galleryScrollView;
@@ -91,7 +87,7 @@
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
     //Setup Scroll animate to TextFields
-    [self setupKeyboardControls];
+    [self setupKeyboardFields];
     
     //Set SerializationMIMEType
     RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
@@ -311,23 +307,16 @@
         [garageDetailView setHidden:NO];
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
 
-//        [UIView beginAnimations:nil context:nil];
-//        [UIView setAnimationDuration:0.4];
-//        [UIView setAnimationDelegate:self];
-//        [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
-
         //Calculate resize DescricaoLabel 
-            [labelDescricao setText:self.product.descricao];
-            [labelDescricao sizeToFit];
-            [secondView setFrame:CGRectMake(0,0,320,550+labelDescricao.frame.size.height)];
-            garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 450);
-            //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
-            [secondView addSubview:labelDescricao];
-            // [secondView addSubview:tagsScrollView];
-            [secondView addSubview:garageDetailView];
-            scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
-        
- //       [UIView commitAnimations];
+        [labelDescricao setText:self.product.descricao];
+        [labelDescricao sizeToFit];
+        [secondView setFrame:CGRectMake(0,0,320,550+labelDescricao.frame.size.height)];
+        garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 450);
+        //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
+        [secondView addSubview:labelDescricao];
+        // [secondView addSubview:tagsScrollView];
+        [secondView addSubview:garageDetailView];
+        scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
         
         countView.layer.cornerRadius = 4;
         [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -749,7 +738,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.delegate = self;
+    
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"])
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    //self.tabBarController.delegate = self;
 }
 
 
@@ -825,13 +818,13 @@
 }
 
 - (IBAction)gotoUserProductTableVC{
-    productTableViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    searchViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     [prdTabVC setStrLocalResourcePath:[NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]]];
     [self.navigationController pushViewController:prdTabVC animated:YES];
 }
 
 - (void)gotoProductTableVC:(UIButton *)sender{
-    productTableViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    searchViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     //filter by Category
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/product?category=%@", [[sender titleLabel] text] ]];
     [self.navigationController pushViewController:prdTbl animated:YES];
@@ -883,52 +876,16 @@
 }
 
 - (IBAction)isNumberKey:(UITextField *)textField{
-    [GlobalFunctions onlyNumberKey:textField];
+    [GlobalFunctions onlyNumberKey:textField.text];
 }
 
-- (void)setupKeyboardControls
+- (void)setupKeyboardFields
 {
-    // Initialize the keyboard controls
-    self.keyboardControls = [[BSKeyboardControls alloc] init];
-    
-    // Set the delegate of the keyboard controls
-    self.keyboardControls.delegate = self;
-    
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    self.keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmail,
+    keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmail,
                                         txtViewComment, nil];
-    
-    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
-    
-    // Set the tint color of the "Previous" and "Next" button. Default is black.
-    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
-    
-    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
-    // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
-    
-    // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle =  NSLocalizedString(@"keyboard-next-btn", nil);
-    
-    // Add the keyboard control as accessory view for all of the text fields
-    // Also set the delegate of all the text fields to self
-    for (id textField in self.keyboardControls.textFields)
-    {
-        if ([textField isKindOfClass:[UITextField class]])
-        {
-            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextField *) textField).delegate = self;
-        }
-        else if ([textField isKindOfClass:[UITextView class]])
-        {
-            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextView *) textField).delegate = self;
-        }
-    }
+    [super addKeyboardControlsAtFields];
 }
 
 - (void)scrollViewToTextField:(id)textField
@@ -965,44 +922,20 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if ([self.keyboardControls.textFields containsObject:textField])
-        self.keyboardControls.activeTextField = textField;
+    if ([keyboardControls.textFields containsObject:textField])
+        keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.keyboardControls.textFields containsObject:textView])
-        self.keyboardControls.activeTextField = textView;
+    if ([keyboardControls.textFields containsObject:textView])
+        keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{
     [sender resignFirstResponder];
-}
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
-    if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil 
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil) 
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
-                                                                    NSLocalizedString(@"sheet-library-item", nil),
-                                                                    NSLocalizedString(@"sheet-no-pic-item", nil),
-                                                                    nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        [sheet showInView:self.view];
-        [sheet showFromTabBar:self.tabBarController.tabBar];
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)viewDidUnload
@@ -1047,13 +980,11 @@
     buttonDeleteProduct = nil;
     [self setButtonDeleteProduct:nil];
     [super viewDidUnload];
-    
     labelEmail = nil;
     labelOffer = nil;
     labelAskSomething = nil;
     labelCongrats = nil;
     labelBidSent= nil;
-    
     [self setLabelEmail:nil];
     [self setLabelOffer:nil];
     [self setLabelAskSomething:nil];

@@ -8,22 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "RestKit/RKJSONParserJSONKit.h"
-#import "BSKeyboardControls.h"
-#import "QuartzCore/QuartzCore.h"
-#import "GlobalFunctions.h"
-#import "ViewController.h"
 #import "settingsAccountViewController.h"
+#import "QuartzCore/QuartzCore.h"
+#import "homeViewController.h"
 #import "MBProgressHUD.h"
 #import "viewHelper.h"
 
-@interface signUpViewController : MasterViewController <UITextFieldDelegate,
-                                                    BSKeyboardControlsDelegate,
-                                                    UIScrollViewDelegate, 
-                                                    RKObjectLoaderDelegate,
-                                                    MBProgressHUDDelegate>{
+@interface signUpViewController : MasterViewController <UIScrollViewDelegate, 
+                                                        RKObjectLoaderDelegate,
+                                                        MBProgressHUDDelegate>{
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
     __weak IBOutlet UILabel         *labelLogin;
+    __weak IBOutlet UILabel         *labelGarageName;
+    __weak IBOutlet UILabel         *labelPersonName;
+    __weak IBOutlet UILabel         *labelEmail;
+    __weak IBOutlet UILabel         *labelPassword;
     __weak IBOutlet UITextField     *textFieldPersonName;
     __weak IBOutlet UITextField     *textFieldEmail;
     __weak IBOutlet UITextField     *textFieldGarageName;
@@ -31,12 +31,8 @@
     __weak IBOutlet UIButton        *buttonRegister;
     __weak IBOutlet UIButton        *buttonLogin;
     __weak IBOutlet UIButton        *buttonRegisterNew;
-    __weak IBOutlet UILabel         *labelGarageName;
-    __weak IBOutlet UILabel         *labelPersonName;
-    __weak IBOutlet UILabel         *labelEmail;
-    __weak IBOutlet UILabel         *labelPassword;
-    __weak IBOutlet UIScrollView    *scrollView;
     __weak IBOutlet UIButton        *buttonLostPassword;
+    __weak IBOutlet UIScrollView    *scrollView;
 
     //Sigin outlets
     __weak IBOutlet UITextField     *textFieldUserName;
@@ -45,9 +41,9 @@
     __weak IBOutlet UIView          *secondView;
                                                         
     //Recover Password
-    __weak IBOutlet UITextField *txtFieldEmailRecover;
-    __weak IBOutlet UILabel     *labelPasswRecover;
-    __weak IBOutlet UIButton    *buttonRecover;
+    __weak IBOutlet UITextField     *txtFieldEmailRecover;
+    __weak IBOutlet UILabel         *labelPasswRecover;
+    __weak IBOutlet UIButton        *buttonRecover;
                                                         
     //Others
     RKObjectManager                 *RKObjManeger;
@@ -55,7 +51,7 @@
     MBProgressHUD                   *HUD;
     viewHelper                      *vH;
     BOOL                            isLoadingDone;
-    int validatorFlag;
+    int                             validatorFlag;
     
 }
 

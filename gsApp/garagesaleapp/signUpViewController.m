@@ -8,12 +8,6 @@
 
 #import "signUpViewController.h"
 
-@interface signUpViewController ()
-@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
-- (void)setupKeyboardControls;
-- (void)scrollViewToTextField:(id)textField;
-@end
-
 @implementation signUpViewController
 
 @synthesize labelSignup;
@@ -30,7 +24,6 @@
 @synthesize labelEmail;
 @synthesize labelPassword;
 @synthesize scrollView;
-@synthesize keyboardControls;
 @synthesize textFieldUserName;
 @synthesize textFieldUserPassword;
 @synthesize RKObjManeger;
@@ -84,7 +77,7 @@
     [numberToolbar sizeToFit];
     [txtFieldEmailRecover setInputAccessoryView:numberToolbar];
     
-    [self setupKeyboardControls];
+    [self setupKeyboardFields];
     
     self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
                                              @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect: CGRectMake(0, 0, 40, 30)];
@@ -175,7 +168,7 @@
             [self getResourcePathGarage];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
             [self.navigationController setNavigationBarHidden:YES animated:NO];
-            ViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+            homeViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
             [home setIsFromSignUp:YES];
             [self.navigationController pushViewController:home animated:YES];
             [self setGarage:objects];
@@ -464,57 +457,17 @@
 }
 
 /* Setup the keyboard controls BSKeyboardControls.h */
-- (void)setupKeyboardControls
+- (void)setupKeyboardFields
 {
-    // Initialize the keyboard controls
-    self.keyboardControls = [[BSKeyboardControls alloc] init];
-    
-    // Set the delegate of the keyboard controls
-    self.keyboardControls.delegate = self;
-    
-    // Add all text fields you want to be able to skip between to the keyboard controls
-    // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
-        
     if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //Signup ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldGarageName,
+        keyboardControls.textFields = [NSArray arrayWithObjects:textFieldGarageName,
                                             textFieldPersonName,textFieldEmail,textFieldPassword,nil];
     else if  
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0) //Login ViewController
-        self.keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
+        keyboardControls.textFields = [NSArray arrayWithObjects:textFieldUserName,
                                             textFieldUserPassword,nil];
-    
-    // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
-    
-    // Set the tint color of the "Previous" and "Next" button. Default is black.
-    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
-    
-    // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
-    // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = NSLocalizedString( @"keyboard-previous-btn",nil);
-    
-    // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = NSLocalizedString( @"keyboard-next-btn",nil);
-    
-    // Add the keyboard control as accessory view for all of the text fields
-    // Also set the delegate of all the text fields to self
-    for (id textField in self.keyboardControls.textFields)
-    {
-        if ([textField isKindOfClass:[UITextField class]])
-        {
-            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextField *) textField).delegate = self;
-        }
-        else if ([textField isKindOfClass:[UITextView class]])
-        {
-            ((UITextView *) textField).inputAccessoryView = self.keyboardControls;
-            ((UITextView *) textField).delegate = self;
-        }
-    }
+    [super addKeyboardControlsAtFields];
 }
 
 /* Scroll the view to the active text field */
@@ -580,8 +533,8 @@
 /* Editing began */
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if ([self.keyboardControls.textFields containsObject:textField])
-        self.keyboardControls.activeTextField = textField;
+    if ([keyboardControls.textFields containsObject:textField])
+        keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
 }
 

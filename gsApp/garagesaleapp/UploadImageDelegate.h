@@ -6,15 +6,17 @@
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
+//#import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"
+#import "productAccountViewController.h"
 #import "GlobalFunctions.h"
 #import "RestKit/RestKit.h"
-#import <Foundation/Foundation.h>
 #import "PhotoReturn.h"
 #import "photosGallery.h"
 #import "PDColoredProgressView.h"
+
 
 @interface UploadImageDelegate : UIView <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
     
@@ -22,27 +24,27 @@
      Parameters instancied control
      from photosGallery at path ProductAccount
      */
-    int idProduct;
-    UIImageView     *imageView;
-    UIImageView     *imageViewDelete;
-    UIImage         *imagePic;
-    NSMutableArray  *nsMutArrayPicsProduct;
-    UITapGestureRecognizer *moveLeftGesture;
-    UITapGestureRecognizer *refreshGesture;
+    int                         idProduct;
+    UIImageView                 *imageView;
+    UIImageView                 *imageViewDelete;
+    UIImage                     *imagePic;
+    NSMutableArray              *nsMutArrayPicsProduct;
+    UITapGestureRecognizer      *moveLeftGesture;
+    UITapGestureRecognizer      *refreshGesture;
     
     /*
      Total Bytes received from ResKit request Delegate.
      */
-    int totalBytesW;
-    int totalBytesExpectedToW;
-    PDColoredProgressView  *progressView;
-    PhotoReturn     *photoReturn;
-    NSTimer         *timerUpload;
+    int                         totalBytesW;
+    int                         totalBytesExpectedToW;
+    PDColoredProgressView       *progressView;
+    PhotoReturn                 *photoReturn;
+    NSTimer                     *timerUpload;
     
     productAccountViewController *prodAccount;
 }
 
-@property (readwrite,assign)    int idProduct;
+@property (readwrite,assign)    int             idProduct;
 @property (nonatomic, retain)   UIImageView     *imageView;
 @property (nonatomic, retain)   UIImageView     *imageViewDelete;
 @property (nonatomic, retain)   UIImage         *imagePic;

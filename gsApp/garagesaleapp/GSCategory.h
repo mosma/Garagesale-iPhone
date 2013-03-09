@@ -1,5 +1,5 @@
 //
-//  Category.h
+//  GSCategory.h
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 05/01/12.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Category : NSObject {
+@interface GSCategory : NSObject {
     NSNumber* identifier;
     NSString* descricao;
     NSNumber* idPessoa;

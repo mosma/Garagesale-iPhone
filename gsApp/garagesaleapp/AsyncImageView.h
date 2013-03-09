@@ -63,7 +63,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "productCustomViewCell.h"
+#import "searchCustomViewCell.h"
 
 extern NSString *const AsyncImageLoadDidFinish;
 extern NSString *const AsyncImageLoadDidFail;

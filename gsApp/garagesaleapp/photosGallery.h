@@ -8,21 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "UploadImageDelegate.h"
+#import "productAccountViewController.h"
 
 @interface photosGallery : NSObject {
-    NSMutableArray              *nsMutArrayPicsProduct;
-    NSMutableArray              *nsMutArrayNames;
-    UIScrollView                *scrollView;
-    NSMutableArray              *nsMutArrayPhotosDelegate;
-    float imageWidth_;
-    float imageHeight_;
+    NSMutableArray      *nsMutArrayPicsProduct;
+    NSMutableArray      *nsMutArrayNames;
+    UIScrollView        *scrollView;
+    NSMutableArray      *nsMutArrayPhotosDelegate;
+    float               imageWidth_;
+    float               imageHeight_;
 
     productAccountViewController *prodAccount;
 }
 
 @property (retain, nonatomic) NSMutableArray *nsMutArrayPicsProduct;
 @property (retain, nonatomic) NSMutableArray *nsMutArrayNames;
-@property (retain, nonatomic) UIScrollView *scrollView;
+@property (retain, nonatomic) UIScrollView      *scrollView;
 
 @property (nonatomic) float heightPaddingInImages;
 @property (nonatomic) float widthPaddingInImages;

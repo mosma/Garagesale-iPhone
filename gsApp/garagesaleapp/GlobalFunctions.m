@@ -311,7 +311,7 @@
         //initial position x
         x = 20;
         
-        Category *category = [tags objectAtIndex:i];
+        GSCategory *category = [tags objectAtIndex:i];
         //get size of button string
         CGSize stringSize = [[category.descricao lowercaseString] sizeWithFont:[UIFont systemFontOfSize:14]]; 
         

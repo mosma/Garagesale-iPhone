@@ -1,14 +1,14 @@
 //
-//  Category.m
+//  GSCategory.m
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 05/01/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
-#import "Category.h"
+#import "GSCategory.h"
 
-@implementation Category
+@implementation GSCategory
 
 @synthesize identifier;
 @synthesize descricao;

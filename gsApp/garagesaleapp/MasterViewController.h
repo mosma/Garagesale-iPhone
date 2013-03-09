@@ -8,23 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import "GAITrackedViewController.h"
-#import "GAI.h"
 #import "MTStatusBarOverlay.h"
+#import "BSKeyboardControls.h"
+#import "GlobalFunctions.h"
+#import "GAI.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 #define IS_IPHONE_4 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 480.0f)
 
-@interface MasterViewController : GAITrackedViewController {
-    UIView *viewMessageNet;
-    UILabel *labelNotification;
-    BOOL isReachability;
-    
-    MTStatusBarOverlay *overlay;
-    
+@interface MasterViewController : GAITrackedViewController <UITabBarControllerDelegate,
+                                                            UIActionSheetDelegate,
+                                                            UITextFieldDelegate,
+                                                            BSKeyboardControlsDelegate>{
+    UIView              *viewMessageNet;
+    UILabel             *labelNotification;
+    BOOL                isReachability;
+    MTStatusBarOverlay  *overlay;
+    BSKeyboardControls  *keyboardControls;
 }
 
 @property (nonatomic) BOOL isReachability;
-
+-(void)addKeyboardControlsAtFields;
 @end
