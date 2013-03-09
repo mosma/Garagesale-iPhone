@@ -160,6 +160,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
             [self setLogin:objects];
@@ -180,7 +181,6 @@
             //if ([(EmailValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverEmail class]]){
             if ([[[objects objectAtIndex:0] message] isEqualToString:@"true"]) {
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"yourPassword",nil)
                                   message:NSLocalizedString(@"form-recover-password",nil)
@@ -305,6 +305,8 @@
         }
         
         [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     }
 }
 
@@ -319,6 +321,7 @@
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
     [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 -(IBAction)recoverEmail:(id)sender {
@@ -348,6 +351,7 @@
         RKObjectMapping *mapping = [Mappings getValidEmailMapping];
         [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?validate=true", textFieldEmail.text] objectMapping:mapping delegate:self];
         [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
 }
 
@@ -435,12 +439,24 @@
 	// Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
     
+    timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+    
     [self getResourcePathLogin];
 }
 
 -(void)waitingTask{
     while (!isLoadingDone)
         NSLog(@"isLoading");
+    [timer invalidate];
+}
+
+-(void)cancelRequest{
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.labelText = NSLocalizedString(@"image-upload-error-check", nil);
+    sleep(2);
+    isLoadingDone = YES;
 }
 
 -(void)setLogin:(NSArray *)objects{

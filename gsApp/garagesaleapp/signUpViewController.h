@@ -52,7 +52,7 @@
     viewHelper                      *vH;
     BOOL                            isLoadingDone;
     int                             validatorFlag;
-    
+    NSTimer                         *timer;
 }
 
 //Sigup outlets
