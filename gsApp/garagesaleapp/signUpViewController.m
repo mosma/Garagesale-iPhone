@@ -306,7 +306,7 @@
         
         [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
         
-        timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     }
 }
 
@@ -439,7 +439,7 @@
 	// Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     
     [self getResourcePathLogin];
 }
