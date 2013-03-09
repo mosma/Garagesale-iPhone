@@ -161,6 +161,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [timer invalidate];
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Login class]]){
             [self setLogin:objects];
@@ -212,6 +213,7 @@
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         textFieldEmail.text = @"";
     }
+    [timer invalidate];
     isLoadingDone = YES;
 }
 
@@ -228,6 +230,7 @@
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     [self setEnableRegisterButton:YES];
+    [timer invalidate];
     NSLog(@"Retrieved XML: %@", [response bodyAsString]);
 
     if ([request isGET]) {
@@ -306,7 +309,7 @@
         
         [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
         
-        timer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:45.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     }
 }
 
@@ -439,7 +442,7 @@
 	// Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:25.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+    timer = [NSTimer scheduledTimerWithTimeInterval:45.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     
     [self getResourcePathLogin];
 }
@@ -455,7 +458,10 @@
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.labelText = NSLocalizedString(@"image-upload-error-check", nil);
-    sleep(2);
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(finished) userInfo:nil repeats:NO];
+}
+
+-(void)finished{
     isLoadingDone = YES;
 }
 
