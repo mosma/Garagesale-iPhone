@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
-//#import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 #import <RestKit/RKRequestSerialization.h>
 #import "RestKit/RKJSONParserJSONKit.h"

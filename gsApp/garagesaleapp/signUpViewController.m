@@ -502,9 +502,6 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark BSKeyboardControls Delegate
-
 /* 
  * The "Done" button was pressed
  * We want to close the keyboard
@@ -513,18 +510,6 @@
 {
     [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
-}
-
-/* Either "Previous" or "Next" was pressed
- * Here we usually want to scroll the view to the active text field
- * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
- * KeyboardControlsDirectionPrevious        "Previous" was pressed
- * KeyboardControlsDirectionNext            "Next" was pressed
- */
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
-{
-    [textField becomeFirstResponder];
-    [self scrollViewToTextField:textField];
 }
 
 #pragma mark -

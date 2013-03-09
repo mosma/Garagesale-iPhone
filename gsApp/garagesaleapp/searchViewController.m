@@ -54,7 +54,7 @@
                 {
                     NSLog(@"'%@' is not a valid URL", urlThumb);
                 }
-                NSLog(@"xxx : %i",x);
+                //NSLog(@"mutArrayProducts indice : %i",x);
             }
             self.imageURLs = URLs;
         }
@@ -67,14 +67,6 @@
         [self changeSegControl:nil];
     }
     [super awakeFromNib];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -470,7 +462,6 @@
     garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
 //    [garaAcc setProfile:(Profile *)[mutArrayProducts objectAtIndex:0]];
 //    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
-    
     
     NSString *garageName = [[mutArrayProducts objectAtIndex:sender.view.tag] idPessoa];
     UIImageView *imgV = (UIImageView *)sender.view;

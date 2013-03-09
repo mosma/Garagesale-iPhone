@@ -61,11 +61,6 @@
                 prodAccount.buttonAddPics.enabled = YES;
         }
     }
-
-//    if (sender.state == UIGestureRecognizerStateEnded ||
-//        sender.state == UIGestureRecognizerStateCancelled ||
-//        sender.state == UIGestureRecognizerStateFailed)
-//        [scrollView setUserInteractionEnabled:YES];
 }
 
 -(void)reconfigureImagesAfterRemoving:(UIImageView *)aImageView{
@@ -104,8 +99,6 @@
     UIImage     *imgDelete      = [UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"];
     UIImageView *imgViewDelete  = [[UIImageView alloc] initWithImage:imgDelete];
     [imgViewDelete setFrame:CGRectMake(-5, -5, 25, 25)];
-    //[uplImageDelegate.imageView setUserInteractionEnabled:YES];
-    //[uplImageDelegate.imageView setExclusiveTouch:YES];
     [imgViewDelete setUserInteractionEnabled:YES];
     [imgViewDelete setMultipleTouchEnabled:YES];
     if (isFromPicker) [imgViewDelete setHidden:YES];
@@ -123,7 +116,6 @@
     
     if ([nsMutArrayPicsProduct count] == 10)
         prodAccount.buttonAddPics.enabled = NO;
-    
     
     //Init Upload Delegate
     UploadImageDelegate *uploadDelegate = [[UploadImageDelegate alloc] init];
@@ -167,9 +159,6 @@
     
     /* Scrolling to show last ImageView add in scrollViewPicsProduct at right side of gallery */
     [scrollView setContentOffset:CGPointMake(imgViewAtGallery.frame.origin.x-190, scrollView.contentOffset.y) animated:YES];
-    
-    /* Scrolling to show last ImageView add in scrollViewPicsProduct at Left side of gallery */
-    //[scrollViewPicsProduct setContentOffset:CGPointMake(0, scrollViewPicsProduct.contentOffset.y) animated:YES];
     
     if (isFromPicker){
        if(product != nil)

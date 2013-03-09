@@ -54,170 +54,116 @@
     
     @try {
 
-    Product     *product    = (Product *)[arrayDetailProduct objectAtIndex:0];
+        Product     *product    = (Product *)[arrayDetailProduct objectAtIndex:0];
 
-    /*
-     Logic Block of count Logic At X,Y Position viewThumbs display on Iphone.
-     imageThumbsXorigin_Iphone    Create by Instance Class
-     imageThumbsYorigin_Iphone    Create by Instance Class
-     countColumnImageThumbs       Create by Instance Class
-    */
-    if (countColumnImageThumbs == 3) {
-        imageThumbsXorigin_Iphone = 10;
-        imageThumbsYorigin_Iphone = imageThumbsYorigin_Iphone + 103;
-        countColumnImageThumbs = 0;
-    } else if (countColumnImageThumbs >= 1){
-        imageThumbsXorigin_Iphone = imageThumbsXorigin_Iphone + 103;
-    }
-    if (countColumnImageThumbs == -1)
+        /*
+         Logic Block of count Logic At X,Y Position viewThumbs display on Iphone.
+         imageThumbsXorigin_Iphone    Create by Instance Class
+         imageThumbsYorigin_Iphone    Create by Instance Class
+         countColumnImageThumbs       Create by Instance Class
+        */
+        if (countColumnImageThumbs == 3) {
+            imageThumbsXorigin_Iphone = 10;
+            imageThumbsYorigin_Iphone = imageThumbsYorigin_Iphone + 103;
+            countColumnImageThumbs = 0;
+        } else if (countColumnImageThumbs >= 1){
+            imageThumbsXorigin_Iphone = imageThumbsXorigin_Iphone + 103;
+        }
+        if (countColumnImageThumbs == -1)
+            countColumnImageThumbs++;
         countColumnImageThumbs++;
-    countColumnImageThumbs++;
-    /*
-     End Block
-     */
+        /*
+         End Block
+         */
 
-    UIView *viewThumbs = [[UIView alloc] initWithFrame:
-                            CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
-    
-//    [viewThumbs.layer setShadowColor:[[UIColor blackColor] CGColor]];
-//    [viewThumbs.layer setShadowOffset:CGSizeMake(2, 2)];
-//    [viewThumbs.layer setShadowOpacity:0.1];
-
-    //Button Product
-    UIButton *buttonThumbsProduct  = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonThumbsProduct.frame      = CGRectMake(0, 0, 94, 94);
-    [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
-    [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonThumbsProduct setImage:[UIImage imageNamed:@"placeHolder"] forState:UIControlStateNormal];
-
+        UIView *viewThumbs = [[UIView alloc] initWithFrame:
+                                CGRectMake(imageThumbsXorigin_Iphone, imageThumbsYorigin_Iphone, 94, 94)];
         
-        
-        
-        
-    [NSThread detachNewThreadSelector:@selector(loadThumbs:) toTarget:self withObject:[NSArray arrayWithObjects:arrayDetailProduct, buttonThumbsProduct, nil]];
-        
-        
-
-    buttonThumbsProduct.imageView.layer.cornerRadius = 3;
-    [buttonThumbsProduct setAlpha:0];
-    [viewThumbs addSubview:buttonThumbsProduct];
-
-    
-    // CGAffineTransform flipAndRotateTransform = CGAffineTransformMake(0.0, -1.0, -1.0, 0.0, 0, 0);
-    
-//    [UIView animateWithDuration:0.3 delay:0.0 options: UIViewAnimationOptionCurveEaseIn animations:^{
-//        CGAffineTransform transform = flipAndRotateTransform;
-//        buttonThumbsProduct.transform = transform;
-//    } completion:NULL];
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
-    //[UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationTransitionCurlUp];
-    [buttonThumbsProduct setAlpha:1.0];
-    [UIView commitAnimations];
-    
-    //    [UIView animateWithDuration:0.5
-    //                          delay:1.0
-    //                        options: UIViewAnimationTransitionCurlDown
-    //                     animations:^{
-    //                             buttonThumbsProduct.frame = CGRectMake(0, 0, 94, 94);
-    //                     }
-    //                     completion:^(BOOL finished){
-    //                     }];
-    //    
-    //    
-
-    //if (image) [spinner stopAnimating];
-    
-    UIGraphicsEndImageContext();
-
-    if (showPrice) {
-        
-        
-        
-        //Set View Price
-        UIView *viewPrice = [[UIView alloc] init];
-        viewPrice.layer.cornerRadius = 4;
-        viewPrice.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
-        
-        [viewPrice setUserInteractionEnabled:NO];
-        
-        [viewThumbs addSubview:viewPrice];
-        
-
-        
-        
-        UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(13, 12, 50, 20)];
-        
-        
-        if ([product.idEstado intValue] == 1) {
-            //Set Label Only
-            UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
-            [only setText:NSLocalizedString(@"only", nil)];
-            only.backgroundColor = [UIColor clearColor];
-            [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
-        
-            [viewPrice addSubview:only];
+        //Button Product
+        UIButton *buttonThumbsProduct  = [UIButton buttonWithType:UIButtonTypeCustom];
+        buttonThumbsProduct.frame      = CGRectMake(0, 0, 94, 94);
+        [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
+        [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
+        [buttonThumbsProduct setImage:[UIImage imageNamed:@"placeHolder"] forState:UIControlStateNormal];
             
-            //Set Label Price
+        [NSThread detachNewThreadSelector:@selector(loadThumbs:) toTarget:self withObject:[NSArray arrayWithObjects:arrayDetailProduct, buttonThumbsProduct, nil]];
 
-            NSString                   *currency        = [GlobalFunctions getCurrencyByCode:product.currency];
-            [price setText:[NSString stringWithFormat:@"%@%@", currency, product.valorEsperado]];
-            //[price setAdjustsFontSizeToFitWidth:YES];
-            price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
-            [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
-        } else {
-        
-            [price setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
-            [price setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                               green:(float)102/255.0 \
-                                                                blue:(float)102/255.0 alpha:1.0]];
-        
+        buttonThumbsProduct.imageView.layer.cornerRadius = 3;
+        [buttonThumbsProduct setAlpha:0];
+        [viewThumbs addSubview:buttonThumbsProduct];
+
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.2];
+        //[UIView setAnimationDelegate:self];
+        [UIView setAnimationCurve:UIViewAnimationTransitionCurlUp];
+        [buttonThumbsProduct setAlpha:1.0];
+        [UIView commitAnimations];
+            
+        UIGraphicsEndImageContext();
+
+        if (showPrice) {
+            //Set View Price
+            UIView *viewPrice = [[UIView alloc] init];
+            viewPrice.layer.cornerRadius = 4;
+            viewPrice.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
+            [viewPrice setUserInteractionEnabled:NO];
+            
+            [viewThumbs addSubview:viewPrice];
+
+            UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(13, 12, 50, 20)];
+
+            if ([product.idEstado intValue] == 1) {
+                //Set Label Only
+                UILabel *only = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 30, 20)];
+                [only setText:NSLocalizedString(@"only", nil)];
+                only.backgroundColor = [UIColor clearColor];
+                [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
+            
+                [viewPrice addSubview:only];
+                
+                //Set Label Price
+
+                NSString                   *currency        = [GlobalFunctions getCurrencyByCode:product.currency];
+                [price setText:[NSString stringWithFormat:@"%@%@", currency, product.valorEsperado]];
+                //[price setAdjustsFontSizeToFitWidth:YES];
+                price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
+                [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+            } else {
+                [price setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+                [price setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                                   green:(float)102/255.0 \
+                                                                    blue:(float)102/255.0 alpha:1.0]];
+            }
+            
+            switch ([product.idEstado intValue]) {
+                case 2:
+                    [price setText:NSLocalizedString(@"sold", nil)];
+                    break;
+                case 3:
+                    [price setText:NSLocalizedString(@"not-available-label", nil)];
+                    break;
+                case 4:
+                    [price setText:NSLocalizedString(@"invisible-label", nil)];
+                    break;
+            }
+            [price sizeToFit];
+            price.backgroundColor = [UIColor clearColor];
+            [viewPrice addSubview:price];
+            [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+20, 35)];
         }
-        
-        
-        
-        switch ([product.idEstado intValue]) {
-            case 2:
-                [price setText:NSLocalizedString(@"sold", nil)];
-                break;
-            case 3:
-                [price setText:NSLocalizedString(@"not-available-label", nil)];
-                break;
-            case 4:
-                [price setText:NSLocalizedString(@"invisible-label", nil)];
-                break;
+        if (showEdit) {
+            //View Edit Pencil
+            
+            UIButton *buttonViewEditPencil = [UIButton buttonWithType:UIButtonTypeCustom];
+            [buttonViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
+            
+            [buttonViewEditPencil setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
+            [buttonViewEditPencil addTarget:viewContr action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
+            [buttonViewEditPencil setImage:[UIImage imageNamed:@"btPencilEditProductThumbs.png"] forState:UIControlStateNormal];
+
+            [viewThumbs addSubview:buttonViewEditPencil];
         }
-        [price sizeToFit];
-        price.backgroundColor = [UIColor clearColor];
-        [viewPrice addSubview:price];
-        [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+20, 35)];
-
-        
-        
- 
-    }
-    
-    if (showEdit) {
-        //View Edit Pencil
-        
-        UIButton *buttonViewEditPencil = [UIButton buttonWithType:UIButtonTypeCustom];
-        [buttonViewEditPencil setFrame:CGRectMake(5, 5, 24, 22)];
-        
-        [buttonViewEditPencil setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
-        [buttonViewEditPencil addTarget:viewContr action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
-        [buttonViewEditPencil setImage:[UIImage imageNamed:@"btPencilEditProductThumbs.png"] forState:UIControlStateNormal];
-
-        [viewThumbs addSubview:buttonViewEditPencil];
-    }
-    
-        
-    return viewThumbs;
-        
-        
-        
-        
+        return viewThumbs;
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -271,7 +217,6 @@
     [label setShadowOffset:CGSizeMake(0, -1)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
-    
     return label;
 }
 
@@ -288,7 +233,6 @@
     [label setShadowOffset:CGSizeMake(0, -1)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
-
     return label;
 }
 
@@ -499,7 +443,6 @@
         [UIView setAnimationDuration:0.3];
         for(UIView *view in tabbarcontroller.view.subviews)
         {
-            //NSLog(@"%@", view);
             if([view isKindOfClass:[UITabBar class]])
             {
                 [view setFrame:CGRectMake(view.frame.origin.x,

@@ -72,27 +72,11 @@
             {
                 NSLog(@"'%@' is not a valid URL", urlThumb);
             }
-            NSLog(@"xxx : %i",x);
+            //NSLog(@"mutArrayProducts indice : %i",x);
         }
         self.imageURLs = URLs;
     }
     [super awakeFromNib];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -182,8 +166,6 @@
                              [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             else
                 link.text = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
-
-            //gravatarUrl = [GlobalFunctions getGravatarURL:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
             
             //Retrieving
             UIImage *image = (UIImage*)[NSKeyedUnarchiver
@@ -236,11 +218,6 @@
         else
             [self loadHeader];
         
-        //            viewHelper *vH = [[viewHelper alloc] init];
-        //             [vH getGarageAvatar:(Profile *)[objects objectAtIndex:0]];
-        //
-        //            gravatarUrl = [viewHelper getGravatarURL:profile.email];
-        
         if (imageGravatar)
             [imgGarageLogo setImage:imageGravatar];
               
@@ -250,8 +227,6 @@
             self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                    @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         
-        //buttonGarageLogo.contentEdgeInsets = UIEdgeInsetsMake(71, 0, 72, 0);
-
         imgGarageLogo.contentMode = UIViewContentModeScaleAspectFit;
         
         UITapGestureRecognizer *gestReload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reloadPage:)];
@@ -282,7 +257,6 @@
         
         self.navigationItem.hidesBackButton = NO;
         
-        // self.tableViewProducts.hidden = YES;
         [self.tableViewProducts setDataSource:self];
         [self.tableViewProducts setDelegate:self];
     }
@@ -383,17 +357,17 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
-- (void)getResourcePathGarage:(NSString *)garage{
+- (void)getResourcePathGarage:(NSString *)garagem{
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", garage]
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", garagem]
                               objectMapping:garageMapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
                                           forMIMEType:[GlobalFunctions getMIMEType]];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
-- (void)getResourcePathProfile:(NSArray *)garage {
+- (void)getResourcePathProfile:(NSArray *)garagem {
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
-    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[garage objectAtIndex:0] idPerson]]
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[garagem objectAtIndex:0] idPerson]]
                               objectMapping:prolileMapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
                                           forMIMEType:[GlobalFunctions getMIMEType]];
@@ -519,9 +493,7 @@
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
--(void)loadButtonsProduct{
-    //NSOperationQueue *queue = [NSOperationQueue new];
-    
+-(void)loadButtonsProduct{    
     for (UIButton *subview in [scrollViewProducts subviews])
         [subview removeFromSuperview];
 
@@ -700,8 +672,6 @@
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil
         && !isGenericGarage && [mutArrayProducts count] != 0)
         [settingsVC getResourcePathProfile];
-//    if ([mutArrayProducts count] == 0)
-//        [self reloadPage:nil];
 }
 
 - (void)viewDidUnload

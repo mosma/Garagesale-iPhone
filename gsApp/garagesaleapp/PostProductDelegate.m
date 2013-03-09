@@ -59,7 +59,7 @@
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     if ([request isGET]) {
         // Handling GET /foo.xml
-        
+
         if ([response isOK]) {
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);

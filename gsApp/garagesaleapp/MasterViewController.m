@@ -28,6 +28,12 @@
     return self;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,6 +89,24 @@
 	// Do any additional setup after loading the view.
 }
 
+
+#pragma mark -
+#pragma mark BSKeyboardControls Delegate
+
+/* Either "Previous" or "Next" was pressed
+ * Here we usually want to scroll the view to the active text field
+ * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
+ * KeyboardControlsDirectionPrevious        "Previous" was pressed
+ * KeyboardControlsDirectionNext            "Next" was pressed
+ */
+- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
+{
+    [textField becomeFirstResponder];
+    [self scrollViewToTextField:textField];
+}
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls{}
+
 - (void)reachability {// Check if the network is available
     [[RKClient sharedClient] isNetworkAvailable];
     // Register for changes in network availability
@@ -97,9 +121,6 @@
     RKReachabilityNetworkStatus status = [observer networkStatus];
     if (RKReachabilityNotReachable == status) {
         isReachability = NO;
-
-       // [self showNotification:@"No connection."];
-        
         //overlay.animation = MTStatusBarOverlayAnimationFallDown;  // MTStatusBarOverlayAnimationShrink
         overlay.detailViewMode = MTDetailViewModeHistory;         // enable automatic history-tracking and show in detail-view
         //overlay.delegate = self;
@@ -177,12 +198,6 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

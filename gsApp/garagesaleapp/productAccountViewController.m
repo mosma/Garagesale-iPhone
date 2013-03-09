@@ -37,23 +37,6 @@
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,7 +56,6 @@
     //initialize the i18n
     [self.buttonSaveProduct setTitle: NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
-    //[self.textViewDescription setText:NSLocalizedString(@"description", @"")];
     [self.buttonDeleteProduct setTitle: NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
     
     //theme information
@@ -106,9 +88,7 @@
     UIView *tabBar = [self rotatingFooterView];
     if ([tabBar isKindOfClass:[UITabBar class]])
         ((UITabBar *)tabBar).delegate = self;
-    
-    //self.tabBarController.delegate = self;
-    
+        
     gallery = [[photosGallery alloc] init];
     [gallery setProdAccount:self];
     [gallery setScrollView:self.scrollViewPicsProduct];
@@ -318,7 +298,7 @@
 }
 
 - (IBAction)isNumberKey:(UITextField *)textField{
-    [GlobalFunctions onlyNumberKey:textField];
+    [GlobalFunctions onlyNumberKey:textField.text];
 }
 
 -(void)pickerDoneClicked{
@@ -731,29 +711,14 @@
     [self.scrollView scrollRectToVisible:rc animated:YES];
 }
 
-#pragma mark -
-#pragma mark BSKeyboardControls Delegate
-
-/* 
- * The "Done" button was pressed
- * We want to close the keyboard
- */
+/*
+* The "Done" button was pressed
+* We want to close the keyboard
+*/
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
     [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
-}
-
-/* Either "Previous" or "Next" was pressed
- * Here we usually want to scroll the view to the active text field
- * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
- * KeyboardControlsDirectionPrevious        "Previous" was pressed
- * KeyboardControlsDirectionNext            "Next" was pressed
- */
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
-{
-    [textField becomeFirstResponder];
-    [self scrollViewToTextField:textField];
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{

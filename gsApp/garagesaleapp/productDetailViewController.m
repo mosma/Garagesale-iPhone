@@ -184,7 +184,6 @@
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat: NSLocalizedString(@"garages-garage", nil) , product.idPessoa];
         NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleNavItem];
-        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
         [attrStr setFont:[UIFont fontWithName:@"Corben" size:13]];
         [attrStr setTextColor:[UIColor whiteColor]];
         [attrStr setTextColor:[UIColor colorWithRed:244.0/255.0 green:162.0/255.0 blue:162.0/255.0 alpha:1.f]
@@ -200,7 +199,6 @@
         
         NSString *titleValorEsperado = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
         NSMutableAttributedString* attrStrVE = [NSMutableAttributedString attributedStringWithString:titleValorEsperado];
-        // NSLog(@"Available Font Families: %@", [UIFont familyNames]);
         [attrStrVE setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
         [attrStrVE setTextColor:[UIColor grayColor]];
         [attrStrVE setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
@@ -240,7 +238,6 @@
         [galleryScrollView  setAutoresizesSubviews:YES];
         [galleryScrollView  addSubview:imageView];
 
-        //[secondView addSubview:garageDetailView];
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
@@ -747,9 +744,7 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];
-    //[countLabel setText:[NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages]];
-    
+    [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];    
     NSString *titleCount = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
     NSMutableAttributedString* attrStrCount = [NSMutableAttributedString attributedStringWithString:titleCount];
     [attrStrCount setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -758,25 +753,22 @@
                          range:[titleCount rangeOfString:[NSString stringWithFormat:@"/%i", PagContGallery.numberOfPages]]];
     [countLabel setBackgroundColor:[UIColor clearColor]];
     countLabel.attributedText = attrStrCount;
-
-    NSLog(@"Current Page %i",PagContGallery.currentPage);
-    NSLog(@"nextPageGallery %i",nextPageGallery);
-
-        //never repeat load image at your respective page.
-        if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {
-            NSOperationQueue *queue = [NSOperationQueue new];
-            UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
-            [actInd startAnimating];
-            [actInd setColor:[UIColor grayColor]];
-            [actInd setCenter:CGPointMake(160+(320*PagContGallery.currentPage), 140)];
-            [galleryScrollView addSubview:actInd];
-            NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-                                                initWithTarget:self
-                                                selector:@selector(loadGalleryTop:)
-                                                object:PagContGallery];
-            [queue addOperation:operation];
-            nextPageGallery++;
-        }
+    
+    //never repeat load image at your respective page.
+    if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {
+        NSOperationQueue *queue = [NSOperationQueue new];
+        UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+        [actInd startAnimating];
+        [actInd setColor:[UIColor grayColor]];
+        [actInd setCenter:CGPointMake(160+(320*PagContGallery.currentPage), 140)];
+        [galleryScrollView addSubview:actInd];
+        NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                            initWithTarget:self
+                                            selector:@selector(loadGalleryTop:)
+                                            object:PagContGallery];
+        [queue addOperation:operation];
+        nextPageGallery++;
+    }
 }
 
 -(void) hideMsgBidSent {
@@ -839,14 +831,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 - (IBAction)animationBidView{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
@@ -906,18 +890,6 @@
 {
     [controls.activeTextField resignFirstResponder];
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
-}
-
-/* Either "Previous" or "Next" was pressed
- * Here we usually want to scroll the view to the active text field
- * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
- * KeyboardControlsDirectionPrevious        "Previous" was pressed
- * KeyboardControlsDirectionNext            "Next" was pressed
- */
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
-{
-    [textField becomeFirstResponder];
-    [self scrollViewToTextField:textField];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

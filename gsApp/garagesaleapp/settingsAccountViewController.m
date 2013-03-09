@@ -48,23 +48,6 @@
 @synthesize totalProducts;
 @synthesize RKObjManeger;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -164,20 +147,13 @@
     [self.txtFieldDistrict setPlaceholder: NSLocalizedString(@"currentDistrict", @"")];
     [self.txtFieldCountry setPlaceholder: NSLocalizedString(@"currentCoutry", @"")];
     
-    
-    
     [self.buttonSave setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
-    
-    
     
     //theme information
     [self.buttonLogout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.buttonSave.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.labelAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [self.txtFieldAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-    
-    
-    
     
     [labelAboutAPP setAttributedText:attrStr];
     [labelAboutAPP setTextAlignment:UITextAlignmentCenter];
@@ -440,7 +416,6 @@
     return isValid;
 }
 
-
 - (void)getResourcePathLogOut{
     [[RKClient sharedClient] get:[NSString stringWithFormat:@"/login/%@?invalidate=true", [[GlobalFunctions getUserDefaults] objectForKey:@"token"]] delegate:self];
 }
@@ -602,9 +577,6 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
     
-    //rc.origin.x = 0 ;
-    //rc.origin.y = 0;
-    
     rc.size.height = 340;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
@@ -642,9 +614,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark -
-#pragma mark BSKeyboardControls Delegate
-
 /*
  * The "Done" button was pressed
  * We want to close the keyboard
@@ -653,18 +622,6 @@
 {
     [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
-}
-
-/* Either "Previous" or "Next" was pressed
- * Here we usually want to scroll the view to the active text field
- * If we want to know which of the two was pressed, we can use the "direction" which will have one of the following values:
- * KeyboardControlsDirectionPrevious        "Previous" was pressed
- * KeyboardControlsDirectionNext            "Next" was pressed
- */
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
-{
-    [textField becomeFirstResponder];
-    [self scrollViewToTextField:textField];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
