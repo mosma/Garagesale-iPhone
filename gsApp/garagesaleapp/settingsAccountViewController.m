@@ -84,8 +84,7 @@
     
     imageView.image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
                                                                            objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
-    
-    
+
     //set Navigation Title with OHAttributeLabel
     NSString *titleAbout = @"This app is developed and created by MoSMA. \r\n\ Want to talk? \n contact@mosma.us";
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleAbout];
@@ -281,6 +280,8 @@
         [self getResourcePathGarage];
     }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
         [self setGarage:objects];
+        if (isSaved)
+            [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -538,10 +539,11 @@
 - (void)resultProgress{
 	// This just increases the progress indicator in a loop
 	float progress = 0.0f;
-	while (progress < 1.0f) {
-		progress += 0.01f;
+	while (progress < 3.0f) {
+		progress += 0.005f;
 		HUD.progress = progress;
 		usleep(10000);
+        if (isSaved) break;
 	}
     HUD.mode = MBProgressHUDModeCustomView;
     if (isSaved) {

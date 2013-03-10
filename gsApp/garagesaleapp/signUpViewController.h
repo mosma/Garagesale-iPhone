@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "RestKit/RKJSONParserJSONKit.h"
-#import "settingsAccountViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "homeViewController.h"
 #import "MBProgressHUD.h"
