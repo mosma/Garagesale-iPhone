@@ -655,12 +655,12 @@
         [userDefaults setObject:@"NO" forKey:@"isSettingsChange"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"]) {
+    
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"reloadGarage"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"NO" forKey:@"isNewOrRemoveProduct"];
+        [userDefaults setObject:@"NO" forKey:@"reloadGarage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     

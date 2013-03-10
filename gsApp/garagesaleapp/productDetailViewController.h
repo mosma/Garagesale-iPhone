@@ -63,7 +63,6 @@
     NSMutableArray                              *productPhotos;
     UIImageView                                 *imageView;
     IBOutlet UIScrollView                       *galleryScrollView;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
                                                                 
     __unsafe_unretained IBOutlet UILabel        *labelEmail;
     __unsafe_unretained IBOutlet UILabel        *labelOffer;
@@ -115,7 +114,6 @@
 @property (retain, nonatomic) UIImageView            *imageView;
 @property (retain, nonatomic) UIPageControl          *PagContGallery;
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelEmail;
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelOffer;

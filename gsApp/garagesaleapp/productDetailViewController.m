@@ -52,7 +52,6 @@
 @synthesize viewControl;
 @synthesize viewReport;
 @synthesize PagContGallery;
-@synthesize activityIndicator;
 @synthesize buttonReportThisGarage;
 @synthesize labelAskSomething, labelBidSent, labelCongrats, labelEmail, labelOffer;
 
@@ -180,6 +179,10 @@
         [labelNomeProduto       setText:[self.product nome]];
         [labelDescricao         setText:[self.product descricao]];
         [OHlabelValorEsperado   setText:[self.product valorEsperado]];
+        
+        activityImageView.frame = CGRectMake(137, 450, 46, 45);
+        [activityImageView startAnimating];
+        [secondView addSubview:activityImageView];
         
         //set Navigation Title with OHAttributeLabel
         NSString *titleNavItem = [NSString stringWithFormat: NSLocalizedString(@"garages-garage", nil) , product.idPessoa];
@@ -370,8 +373,8 @@
             [buttonEditProduct setUserInteractionEnabled:YES];
         } else
             [viewControl.layer addSublayer:newShadow];
-
-        [activityIndicator stopAnimating];
+        [activityImageView setAlpha:0];
+        [activityImageView stopAnimating];
     }
 }
 
@@ -623,7 +626,7 @@
         // Handling DELETE /missing_resource.txt
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+        [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.navigationController popToRootViewControllerAnimated:YES];
 
@@ -735,11 +738,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"])
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    //self.tabBarController.delegate = self;
 }
 
 

@@ -54,9 +54,9 @@
 -(void)loadAttributsToComponents{
     
     //initialize the i18n
-    [self.buttonSaveProduct setTitle: NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
+    [self.buttonSaveProduct setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
-    [self.buttonDeleteProduct setTitle: NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
+    [self.buttonDeleteProduct setTitle:NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
     
     //theme information
     [self.buttonSaveProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
@@ -102,9 +102,9 @@
     [waiting setText:NSLocalizedString(@"waiting...", @"")];    
 
     nsArrayState    = [NSArray arrayWithObjects:NSLocalizedString(@"Avaliable", @""),
-                       NSLocalizedString(@"Sold", @""),
-                       NSLocalizedString(@"notAvailable", @""),
-                       NSLocalizedString(@"invisible", @""), nil];
+                                                NSLocalizedString(@"Sold", @""),
+                                                NSLocalizedString(@"notAvailable", @""),
+                                                NSLocalizedString(@"invisible", @""), nil];
     
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
@@ -159,13 +159,11 @@
     [picViewStateToolbar setBarStyle:UIBarStyleBlackOpaque];
     [picViewStateToolbar sizeToFit];
     NSMutableArray  *barItems               = [[NSMutableArray alloc] init];
-    UIBarButtonItem *flexSpace              = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                            target:self
-                                                                                            action:nil];
+    UIBarButtonItem *flexSpace              = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:
+                                               UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [barItems addObject:flexSpace];
-    UIBarButtonItem *doneBtn                = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                            target:self
-                                                                                            action:@selector(pickerDoneClicked)];
+    UIBarButtonItem *doneBtn                = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:
+                                               UIBarButtonSystemItemDone target:self action:@selector(pickerDoneClicked)];
     [barItems addObject:doneBtn];
     [picViewStateToolbar setItems:barItems animated:YES];
     
@@ -243,7 +241,6 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     @try {
-        
         if ([objects count] == 0){
             [waiting removeFromSuperview];
             [buttonAddPics setEnabled:YES];
@@ -261,23 +258,15 @@
                 [self loadAttributsToPhotos:objects];
             });
         }
-
-
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
     }
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    UIAlertView *alV = [[UIAlertView alloc] initWithTitle:error.domain
-                                                  message: NSLocalizedString(@"image-upload-error", nil)
-                                                 delegate:self
-                                        cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
-                                        otherButtonTitles: NSLocalizedString(@"image-upload-error-btn2", nil), nil];
     [buttonAddPics setEnabled:YES];
     [waiting removeFromSuperview];
-    
-    [alV show];
+    [self.view setUserInteractionEnabled:YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
@@ -354,12 +343,10 @@
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    //if ([buttonAddPics isEnabled]) {
-        [gallery addImageToScrollView:imageThumb
-                          photoReturn:nil
-                              product:self.product
-                         isFromPicker:YES];
-    //}
+    [gallery addImageToScrollView:imageThumb
+                      photoReturn:nil
+                          product:self.product
+                     isFromPicker:YES];
     [picker dismissModalViewControllerAnimated:YES];
     
     if(!viewPicsControl.hidden)
@@ -367,12 +354,14 @@
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
-                                                     message:NSLocalizedString(@"delete-product-desc", nil)
-                                                    delegate:self
-                                           cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
-                                           otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
-    [alertV show];
+    if (isReachability) {
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
+                                                         message:NSLocalizedString(@"delete-product-desc", nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
+                                               otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
+        [alertV show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -381,6 +370,8 @@
             NSLog(@"0");
             break;
         case 1:
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            [self.view setUserInteractionEnabled:NO];
             [[RKClient sharedClient] delete:
              [NSString stringWithFormat:@"/product/%i?token=%@&garage=%@",
               [self.product.id intValue] ,
@@ -404,42 +395,30 @@
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([request isGET]) {
         // Handling GET /foo.xml
-        
         if ([response isOK]) {
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
             if (self.product == nil){
-                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 [buttonAddPics setEnabled:YES];
                 [waiting removeFromSuperview];
             }
         }
-        
     } else if ([request isPOST]) {
-        
         // Handling POST /other.json
         if ([response isJSON]) {
             NSLog(@"Got a JSON response back from our POST!");
         }
-
-        //Set Delay to Hide msgBidSentLabel
-//        [NSTimer scheduledTimerWithTimeInterval:5.0
-//                                         target:self
-//                                       selector:@selector(hideMsgBidSent)
-//                                       userInfo:nil
-//                                        repeats:NO];
-        
     } else if ([request isDELETE]) {
         // Handling DELETE /missing_resource.txt
         if (self.product != nil) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
+            [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
-            
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
@@ -582,14 +561,9 @@
         HUD.labelText = @"Completed";
         sleep(1);
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"isNewOrRemoveProduct"];
-        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        [[self.tabBarController.viewControllers objectAtIndex:2] popToRootViewControllerAnimated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self newProductFinished:(self.product == nil)];
-            
         });
     }
     [self setEnableButtonSave:YES];
@@ -614,10 +588,12 @@
 
 -(void)newProductFinished:(BOOL)isNew{
     if (isNew){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
+        [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         self.tabBarController.selectedIndex = 2;
         self.view = nil;
-        //[self viewDidLoad];
-        //[scrollView setContentOffset:CGPointZero animated:NO];
     }
     else{
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -777,9 +753,6 @@
         [gallery.scrollView setContentOffset:CGPointMake(-105, scrollView.contentOffset.y) animated:YES];
     if ([gallery.nsMutArrayPicsProduct count] == 3)
         [gallery.scrollView setContentOffset:CGPointMake(-25, scrollView.contentOffset.y) animated:YES];
-    
-    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isNewOrRemoveProduct"] isEqual:@"YES"])
-        [self.navigationController popToRootViewControllerAnimated:YES];
     
     if (![[[GlobalFunctions getUserDefaults]
           objectForKey:@"isProductDisplayed"] boolValue] && self.product == nil) {

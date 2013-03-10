@@ -417,7 +417,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]  forKey:@"idState"];
     [settingsAccount setObject:[[objects objectAtIndex:0] id]       forKey:@"id"];
     [settingsAccount setObject:@"YES"       forKey:@"isSettingsChange"];
-    [settingsAccount setObject:@"YES"       forKey:@"isNewOrRemoveProduct"];
+    [settingsAccount setObject:@"YES"       forKey:@"reloadGarage"];
 
     NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg",
                             [[objects objectAtIndex:0] garagem]];

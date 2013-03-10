@@ -32,7 +32,6 @@
     __unsafe_unretained IBOutlet UIView         *viewSearch;
     UISearchBar                                 *searchBarProduct;
     __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
-    UIImageView                                 *activityImageView;
     UIView                                      *shadowSearch;
 
     __weak IBOutlet UIButton                    *buttonSignUp;
@@ -47,7 +46,6 @@
 @property (retain, nonatomic) UISearchBar                       *searchBarProduct;
 @property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 @property (unsafe_unretained, nonatomic) BOOL                   isFromSignUp;
-@property (unsafe_unretained, nonatomic) UIImageView            *activityImageView;
 
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignUp;
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignIn;

@@ -27,6 +27,7 @@
     BOOL                isReachability;
     MTStatusBarOverlay  *overlay;
     BSKeyboardControls  *keyboardControls;
+    UIImageView         *activityImageView;
 }
 
 @property (nonatomic) BOOL isReachability;

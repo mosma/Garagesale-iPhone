@@ -41,7 +41,25 @@
     [self reachability];
     overlay = [MTStatusBarOverlay sharedInstance];
     [self setupKeyboardControls];
+    [self setupActivityAnimation];
+}
 
+-(void)setupActivityAnimation{
+    UIImage *statusImage = [UIImage imageNamed:@"ActivityHome00.png"];
+    activityImageView = [[UIImageView alloc] initWithImage:statusImage];
+    
+    activityImageView.animationImages = [NSArray arrayWithObjects:
+                                         [UIImage imageNamed:@"ActivityHome00.png"],
+                                         [UIImage imageNamed:@"ActivityHome01.png"],
+                                         [UIImage imageNamed:@"ActivityHome02.png"],
+                                         [UIImage imageNamed:@"ActivityHome03.png"],
+                                         [UIImage imageNamed:@"ActivityHome04.png"],
+                                         [UIImage imageNamed:@"ActivityHome05.png"],
+                                         [UIImage imageNamed:@"ActivityHome06.png"],
+                                         [UIImage imageNamed:@"ActivityHome07.png"],
+                                         [UIImage imageNamed:@"ActivityHome00.png"],
+                                         nil];
+    activityImageView.animationDuration = 1.0;
 }
 
 -(void)setupKeyboardControls{
@@ -88,7 +106,6 @@
     }
 	// Do any additional setup after loading the view.
 }
-
 
 #pragma mark -
 #pragma mark BSKeyboardControls Delegate
