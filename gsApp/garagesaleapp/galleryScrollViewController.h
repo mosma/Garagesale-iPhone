@@ -11,7 +11,6 @@
 @interface galleryScrollViewController : UIViewController <UIScrollViewDelegate> {
     NSMutableArray          *productPhotos;
     UIImageView             *imageView;
-    UIView                  *zoomView;
     
     IBOutlet UIScrollView   *galleryScrollView;
     IBOutlet UIPageControl  *PagContGallery;
@@ -19,7 +18,6 @@
 
 @property (retain, nonatomic) NSMutableArray    *productPhotos;
 @property (retain, nonatomic) UIImageView       *imageView;
-@property (retain, nonatomic) UIView            *zoomView;
 
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 @property (retain, nonatomic) IBOutlet UIPageControl *PagContGallery;

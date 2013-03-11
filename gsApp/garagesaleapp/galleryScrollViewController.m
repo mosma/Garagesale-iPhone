@@ -16,7 +16,6 @@
 
 @synthesize productPhotos;
 @synthesize imageView;
-@synthesize zoomView;
 @synthesize galleryScrollView;
 @synthesize PagContGallery;
 
@@ -37,7 +36,6 @@
 }
 
 - (void)loadAttribsToComponents{
-    zoomView                    = [[UIView alloc] init];
     PagContGallery.hidden       = YES;
     int countPhotos = (int)[productPhotos count];
     self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
@@ -48,18 +46,29 @@
     imageView.contentMode   = UIViewContentModeScaleAspectFit;
     [galleryScrollView addSubview:imageView];
     
-    galleryScrollView.minimumZoomScale = 0.25;
-    galleryScrollView.maximumZoomScale = 4.0;
-    [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale];
-         
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [galleryScrollView addGestureRecognizer:doubleTap];
     
+    galleryScrollView.minimumZoomScale = 0.5;
+    galleryScrollView.maximumZoomScale = 3.0;
+
     [galleryScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
-    galleryScrollView.pagingEnabled         = YES;
     galleryScrollView.delegate              = self;
     galleryScrollView.clipsToBounds         = YES;
-    galleryScrollView.autoresizesSubviews   = YES;
-    PagContGallery.numberOfPages        = countPhotos; 
-    PagContGallery.hidden               = NO;
+    PagContGallery.numberOfPages            = countPhotos; 
+    PagContGallery.hidden                   = NO;
+    
+    [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:NO];
+
+}
+
+- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer
+{
+    if(galleryScrollView.zoomScale > galleryScrollView.minimumZoomScale)
+        [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:YES];
+    else
+        [galleryScrollView setZoomScale:galleryScrollView.maximumZoomScale animated:YES];
 }
 
 -(void)backPage{
