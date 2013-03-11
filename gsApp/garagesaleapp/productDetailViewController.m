@@ -236,11 +236,11 @@
         imageView.contentMode   = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         
-        [galleryScrollView  setFrame:CGRectMake(0, 115, 320, 370)];
-        [galleryScrollView  setClipsToBounds:YES];
-        [galleryScrollView  setAutoresizesSubviews:YES];
-        [galleryScrollView  addSubview:imageView];
-
+        [galleryScrollView setFrame:CGRectMake(0, 115, 320, 370)];
+        [galleryScrollView setClipsToBounds:YES];
+        [galleryScrollView setAutoresizesSubviews:YES];
+        [galleryScrollView addSubview:imageView];
+        
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
 
         nextPageGallery=1;
@@ -249,8 +249,7 @@
             self.txtFieldEmail.text = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
         
     }else {
-       
-        
+
         // Grab the reference to the router from the manager
         RKObjectRouter *router = [RKObjectManager sharedManager].router;
         
@@ -264,10 +263,11 @@
             NSLog(@"Object Exist...");
         }
         
-        UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC)];
-        [gest setNumberOfTapsRequired:1];
-        [garageDetailView addGestureRecognizer:gest];
-        
+        UITapGestureRecognizer *tapGaraDet = [[UITapGestureRecognizer alloc]
+                                        initWithTarget:self action:@selector(gotoGarageDetailVC)];
+        [tapGaraDet setNumberOfTapsRequired:1];
+        [garageDetailView addGestureRecognizer:tapGaraDet];
+
         [labelNameProfile   setText:[[self.arrayProfile objectAtIndex:0] nome]];
         
         NSString *cityConc = [[self.arrayGarage objectAtIndex:0] city];
@@ -354,10 +354,13 @@
             [imageView setImage:firstImage];
         }
         @catch (NSException *exception) {
-            firstImage                   = [UIImage imageNamed:@"nopicture.png"];
+            firstImage              = [UIImage imageNamed:@"nopicture.png"];
             imageView               = [[UIImageView alloc] initWithImage:firstImage];
         }
-        
+
+        [imageView setUserInteractionEnabled:YES];
+        [self setTapGestureImageGallery:imageView];
+
         //Shadow Top below navigationBar
         CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
         CGColorRef lightColor = [UIColor clearColor].CGColor;
@@ -686,12 +689,21 @@
         [imageView setFrame:rect];
         imageView.contentMode   = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        
+        [imageView setUserInteractionEnabled:YES];
+        [self setTapGestureImageGallery:imageView];
+
         [galleryScrollView addSubview:imageView];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
+}
+
+-(void)setTapGestureImageGallery:(UIImageView *)image{
+    UITapGestureRecognizer *tapGallery = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(gotoGalleryScrollVC:)];
+    [tapGallery setNumberOfTouchesRequired:1];
+    [image addGestureRecognizer:tapGallery];
 }
 
 -(void)backPage{
@@ -786,10 +798,11 @@
                   [UIImage imageNamed:@"load-frame4.png"],nil];
 }
 
-- (IBAction)gotoGalleryScrollVC{
+-(void)gotoGalleryScrollVC:(UITapGestureRecognizer *)sender {
     galleryScrollViewController *galleryScrollVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GalleryProduct"];
-    [galleryScrollVC setIdPessoa:[[self.arrayProfile objectAtIndex:0] garagem]];
-    [galleryScrollVC setIdProduto:self.product.id];
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:[(UIImageView *)sender.view image]];
+    [galleryScrollVC setImageView:imgV];
+    imgV = nil;
     [self.navigationController pushViewController:galleryScrollVC animated:YES];
 }
 

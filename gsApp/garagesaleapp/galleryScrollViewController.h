@@ -7,32 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "RestKit/RKJSONParserJSONKit.h"
 
-@interface galleryScrollViewController : UIViewController <RKObjectLoaderDelegate,UIScrollViewDelegate> {
-    RKObjectManager         *RKObjManeger;
+@interface galleryScrollViewController : UIViewController <UIScrollViewDelegate> {
     NSMutableArray          *productPhotos;
-    NSString                *idPessoa;     //from ProductDetail
-    NSNumber                *idProduto;    //from ProductDetail
     UIImageView             *imageView;
     UIView                  *zoomView;
     
     IBOutlet UIScrollView   *galleryScrollView;
     IBOutlet UIPageControl  *PagContGallery;
-    __unsafe_unretained IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
-@property (retain, nonatomic) RKObjectManager        *RKObjManeger;
-@property (retain, nonatomic) NSMutableArray         *productPhotos;
-@property (retain, nonatomic) NSString               *idPessoa;
-@property (retain, nonatomic) NSNumber               *idProduto;
-@property (retain, nonatomic) UIImageView            *imageView;
-@property (retain, nonatomic) UIView                 *zoomView;
+@property (retain, nonatomic) NSMutableArray    *productPhotos;
+@property (retain, nonatomic) UIImageView       *imageView;
+@property (retain, nonatomic) UIView            *zoomView;
 
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 @property (retain, nonatomic) IBOutlet UIPageControl *PagContGallery;
-@property (unsafe_unretained, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)pageControlCliked;
 - (void)loadAttribsToComponents;

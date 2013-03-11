@@ -126,7 +126,6 @@
 - (void)getResourcePathGarage;
 - (void)getResourcePathProfile;
 - (void)getResourcePathProduct;
-- (IBAction)gotoGalleryScrollVC;
 - (IBAction)gotoGarageDetailVC;
 - (IBAction)gotoUserProductTableVC;
 - (void)gotoProductTableVC:(UIButton *)sender;

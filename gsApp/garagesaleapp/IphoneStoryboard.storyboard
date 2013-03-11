@@ -1399,12 +1399,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="2Oc-qr-Cc4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="Rqo-DY-Xta">
-                                        <rect key="frame" x="142" y="170" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="PYd-8T-aZN" id="duv-zN-GTM"/>
                                 </connections>
@@ -1417,12 +1412,11 @@
                                 </connections>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jir-jQ-zi6"/>
                     <connections>
                         <outlet property="PagContGallery" destination="v5p-5Z-KPn" id="47C-A3-AOa"/>
-                        <outlet property="activityIndicator" destination="Rqo-DY-Xta" id="9bf-UF-Hvv"/>
                         <outlet property="galleryScrollView" destination="2Oc-qr-Cc4" id="ofe-Uu-mW3"/>
                     </connections>
                 </viewController>
@@ -2157,7 +2151,6 @@
             <relationships>
                 <relationship kind="action" name="pageControlCliked"/>
                 <relationship kind="outlet" name="PagContGallery" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
@@ -2223,13 +2216,10 @@
             <relationships>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="deleteProduct:"/>
-                <relationship kind="action" name="gotoGalleryScrollVC"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoProductAccountVC:"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>

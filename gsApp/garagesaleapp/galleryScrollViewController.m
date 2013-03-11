@@ -14,21 +14,17 @@
 
 @implementation galleryScrollViewController
 
-@synthesize RKObjManeger;
 @synthesize productPhotos;
-@synthesize idPessoa;
-@synthesize idProduto;
 @synthesize imageView;
 @synthesize zoomView;
 @synthesize galleryScrollView;
 @synthesize PagContGallery;
-@synthesize activityIndicator;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [GlobalFunctions hideTabBar:self.tabBarController animated:YES];
     if (IS_IPHONE_5) {
         [self.view setFrame:CGRectMake(0, 20, 320, 548)];
         [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 548)];
@@ -37,107 +33,27 @@
         [self.galleryScrollView setFrame:CGRectMake(0, 0, 320, 460)];
     }
     
-    zoomView                    = [[UIView alloc] init];
-    PagContGallery.hidden       = YES;
-    RKObjManeger                     = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
-    [self setupProductMapping:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", self.idPessoa, self.idProduto]];
-}
-
-- (void)setupProductMapping:(NSString *)localResource {
-    //Initializing the Object Manager
-    RKObjManeger = [RKObjectManager sharedManager];
-    
-    //Configure Photo Object Mapping
-    RKObjectMapping *photoMapping = [RKObjectMapping mappingForClass:[Photo class]];
-    [photoMapping mapAttributes:@"caminho",
-     @"caminhoThumb",
-     @"caminhoTiny",
-     @"principal",
-     @"idProduto",
-     @"id",
-     @"id_estado",
-     nil];
-    
-    //Configure Product Object Mapping
-    RKObjectMapping *productMapping = [RKObjectMapping mappingForClass:[ProductPhotos class]];    
-    [productMapping mapKeyPath:@"sold"          toAttribute:@"sold"];
-    [productMapping mapKeyPath:@"showPrice"     toAttribute:@"showPrice"];
-    [productMapping mapKeyPath:@"currency"      toAttribute:@"currency"];
-    [productMapping mapKeyPath:@"categorias"    toAttribute:@"categorias"];
-    [productMapping mapKeyPath:@"valorEsperado" toAttribute:@"valorEsperado"];    
-    [productMapping mapKeyPath:@"descricao"     toAttribute:@"descricao"];
-    [productMapping mapKeyPath:@"nome"          toAttribute:@"nome"];
-    [productMapping mapKeyPath:@"idEstado"      toAttribute:@"idEstado"];
-    [productMapping mapKeyPath:@"idPessoa"      toAttribute:@"idPessoa"];
-    [productMapping mapKeyPath:@"id"            toAttribute:@"id"];
-    //Relationship
-    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
-    //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:localResource objectMapping:productMapping delegate:self];
-    
-    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:@"text/plain"];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
-    self.productPhotos = (NSMutableArray *)objects;
     [self loadAttribsToComponents];
-    [activityIndicator stopAnimating];
-}
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    NSLog(@"Encountered an error: %@", error);
-}
-
-- (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    if ([request isGET]) {
-        // Handling GET /foo.xml
-        
-        if ([response isOK]) {
-            // Success! Let's take a look at the data
-            NSLog(@"Retrieved XML: %@", [response bodyAsString]);
-        }
-        
-    } else if ([request isPOST]) {
-        
-        // Handling POST /other.json        
-        if ([response isJSON]) {
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-        
-    } else if ([request isDELETE]) {
-        
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
-        }
-    }
 }
 
 - (void)loadAttribsToComponents{
-    int countPhotos = (int)[[[productPhotos objectAtIndex:0] fotos ] count];
-    for (int i = 0; i < countPhotos; i++){
-        
-        imageView = [UIImageView alloc];
-        
-      //  NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [GlobalFunctions getUrlImagePath], [[[[productPhotos objectAtIndex:0]fotos]objectAtIndex:i]caminho]]];
-        
-       // NSLog(@"url object at index %i is %@",i,url);
-        
-       // UIImage *image          = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-       // imageView               =[[UIImageView alloc] initWithImage:image];
-        CGRect rect             =imageView.frame;
-        rect.size.width         = 320;
-        rect.origin.x           = i*320;
-        imageView.frame         =rect;
-        imageView.contentMode   = UIViewContentModeScaleAspectFit;
-        [galleryScrollView addSubview:imageView];
-        /*
-         galleryScrollView.minimumZoomScale = 0.25;
-         galleryScrollView.maximumZoomScale = 4.0;
-         [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale];
-         */
-    }
-    galleryScrollView.contentSize           = CGSizeMake(self.view.frame.size.width * countPhotos, self.view.frame.size.height);
+    zoomView                    = [[UIView alloc] init];
+    PagContGallery.hidden       = YES;
+    int countPhotos = (int)[productPhotos count];
+    self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
+                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+
+        //imageView               =[[UIImageView alloc] init];
+
+    imageView.contentMode   = UIViewContentModeScaleAspectFit;
+    [galleryScrollView addSubview:imageView];
+    
+    galleryScrollView.minimumZoomScale = 0.25;
+    galleryScrollView.maximumZoomScale = 4.0;
+    [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale];
+         
+    
+    [galleryScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     galleryScrollView.pagingEnabled         = YES;
     galleryScrollView.delegate              = self;
     galleryScrollView.clipsToBounds         = YES;
@@ -146,8 +62,18 @@
     PagContGallery.hidden               = NO;
 }
 
+-(void)backPage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return imageView;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
@@ -175,7 +101,52 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-     PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+//    PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
+//    NSOperationQueue *queue = [NSOperationQueue new];
+//    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
+//    [actInd startAnimating];
+//    [actInd setColor:[UIColor grayColor]];
+//    [actInd setCenter:CGPointMake(160+(320*PagContGallery.currentPage), 140)];
+//    [galleryScrollView addSubview:actInd];
+//    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+//                                        initWithTarget:self
+//                                        selector:@selector(loadGalleryTop:)
+//                                        object:PagContGallery];
+//    [queue addOperation:operation];
+}
+
+-(void)loadGalleryTop:(UIPageControl *)pagContr{
+    UIImage *image;
+    /*copy pagCont.currentPage with NSString, we do
+     this because pagCont is instable acconding fast
+     or slow scroll*/
+    NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
+    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self
+                           withObject:pageCCopy];
+}
+
+- (void)loadImageGalleryThumbs:(NSString *)pagContr{
+    @try {
+        UIImage *image;
+        CGRect rect;//             = imageView.frame;
+        rect.size.width         = 320;
+        rect.size.height        = 280;
+        
+        Caminho *caminho = (Caminho *)[[[productPhotos objectAtIndex:[pagContr intValue]] caminho ] objectAtIndex:0];
+        NSURL *url = [NSURL URLWithString:[caminho mobile]];
+        
+        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        imageView               = [[UIImageView alloc] initWithImage:image];
+        rect.origin.x           = [pagContr intValue]*320;
+        [imageView setFrame:rect];
+        imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        
+        [galleryScrollView addSubview:imageView];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
 }
 
 -(IBAction)pageControlCliked{
@@ -185,8 +156,6 @@
 
 - (void)viewDidUnload
 {
-    activityIndicator = nil;
-    [self setActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
