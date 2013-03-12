@@ -118,6 +118,7 @@
     [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
     [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
     [self.labelCongrats setText: [NSString stringWithFormat: NSLocalizedString(@"bid-sent-congrats", nil) , product.idPessoa]];
+    [self.labelOffer setText:NSLocalizedString(@"offer", @"")];
     
     [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
     [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
@@ -802,6 +803,9 @@
     galleryScrollViewController *galleryScrollVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GalleryProduct"];
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[(UIImageView *)sender.view image]];
     [galleryScrollVC setImageView:imgV];
+    [galleryScrollVC setFotos:self.product.fotos];
+    [galleryScrollVC setIndex:PagContGallery.currentPage];
+    
     imgV = nil;
     [self.navigationController pushViewController:galleryScrollVC animated:YES];
 }

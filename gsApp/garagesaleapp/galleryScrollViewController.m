@@ -18,6 +18,8 @@
 @synthesize imageView;
 @synthesize galleryScrollView;
 @synthesize PagContGallery;
+@synthesize fotos;
+@synthesize index;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -41,8 +43,6 @@
     self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
                                                @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
 
-        //imageView               =[[UIImageView alloc] init];
-
     imageView.contentMode   = UIViewContentModeScaleAspectFit;
     [galleryScrollView addSubview:imageView];
     
@@ -50,7 +50,7 @@
     [doubleTap setNumberOfTapsRequired:2];
     [galleryScrollView addGestureRecognizer:doubleTap];
     
-    galleryScrollView.minimumZoomScale = 0.5;
+    galleryScrollView.minimumZoomScale = 0.6;
     galleryScrollView.maximumZoomScale = 3.0;
 
     [galleryScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
@@ -60,7 +60,15 @@
     PagContGallery.hidden                   = NO;
     
     [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:NO];
-
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    dispatch_async(queue, ^(void) {
+        Caminho *caminho    = (Caminho *)[[[fotos objectAtIndex:index] caminho ] objectAtIndex:0];
+        NSURL *url          = [NSURL URLWithString:[caminho original]];
+        UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        imageView.image     = image;
+        NSLog(@"jajjajajajaaj");
+    });
 }
 
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer

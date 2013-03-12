@@ -159,10 +159,14 @@
 
     [self.tableView setRowHeight:377];
     
+    activityImageView.frame = CGRectMake(137, self.view.center.y-50, 46, 45);
+    [activityImageView setAlpha:0];
+    [self.view addSubview:activityImageView];
+    
     } else {
          if ([strTextSearch length] != 0)
             [searchBarProduct setText:strTextSearch];
-         
+
         NSString *text = [NSString stringWithFormat:NSLocalizedString(@"search-result", nil), [mutArrayProducts count], strTextSearch];
         NSString *count = [NSString stringWithFormat:@"%i", [mutArrayProducts count]];
         
@@ -199,13 +203,14 @@
     self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 }
 
-
 - (void)getResourcePathProduct{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
     [segmentControl setEnabled:NO];
     [tableView setScrollEnabled:NO];
+    [activityImageView startAnimating];
+    [activityImageView setAlpha:1.0];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     //set Local Resource Defautl
@@ -227,13 +232,11 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     //set Array objects Products
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [activityImageView setAlpha:0];
+    
     if([objects count] > 0){
         mutArrayProducts = (NSMutableArray *)objects;
-        
         [self awakeFromNib];
-        
-        
-        
     }else{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: NSLocalizedString(@"search-not-found", nil)
@@ -248,6 +251,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [activityImageView setAlpha:0];
     NSLog(@"Encountered an error: %@", error);
 }
 
@@ -428,7 +432,6 @@
         //cancel loading previous image for cell
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellLine.imageView];
 
-        
         //set placeholder image or cell won't update when image is loaded
         customViewCellLine.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
         //load the image
@@ -523,6 +526,7 @@
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
 
     [mutArrayProducts removeAllObjects];
+    [tableView reloadData];
     [mutArrayViewHelpers removeAllObjects];
     self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
@@ -600,8 +604,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self removeClientRequest];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -621,11 +623,13 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
+    [self removeClientRequest];
+    //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     mutArrayProducts = nil;
     [self setMutArrayProducts:nil];
     mutArrayViewHelpers = nil;
     [self setMutArrayViewHelpers:nil];
-    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
