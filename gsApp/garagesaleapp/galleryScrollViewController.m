@@ -53,6 +53,12 @@
     galleryScrollView.minimumZoomScale = 0.6;
     galleryScrollView.maximumZoomScale = 3.0;
 
+    UIRotationGestureRecognizer *rotationGesture =
+    [[UIRotationGestureRecognizer alloc] initWithTarget:self
+                                                 action:@selector(handleRotate:)];
+    [imageView setUserInteractionEnabled:YES];
+    [imageView addGestureRecognizer:rotationGesture];
+    
     [galleryScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     galleryScrollView.delegate              = self;
     galleryScrollView.clipsToBounds         = YES;
@@ -69,6 +75,16 @@
         imageView.image     = image;
         NSLog(@"jajjajajajaaj");
     });
+}
+
+- (void)handleRotate:(UIRotationGestureRecognizer *)recognizer {
+    if(recognizer.state == UIGestureRecognizerStateBegan ||
+       recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        recognizer.view.transform = CGAffineTransformRotate(recognizer.view.transform,
+                                                            recognizer.rotation);
+        [recognizer setRotation:0];
+    }
 }
 
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer
