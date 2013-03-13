@@ -803,7 +803,7 @@
     galleryScrollViewController *galleryScrollVC = [self.storyboard instantiateViewControllerWithIdentifier:@"GalleryProduct"];
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[(UIImageView *)sender.view image]];
     [galleryScrollVC setImageView:imgV];
-    [galleryScrollVC setFotos:self.product.fotos];
+    [galleryScrollVC setUrls:self.product.fotos];
     [galleryScrollVC setIndex:PagContGallery.currentPage];
     
     imgV = nil;

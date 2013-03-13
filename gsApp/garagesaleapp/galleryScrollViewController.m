@@ -5,6 +5,8 @@
 //  Created by Tarek Jradi on 11/01/12.
 //  Copyright (c) 2012 MOSMA. All rights reserved.
 //
+// see reference to solution scale and zoom image in :
+// http://stackoverflow.com/questions/3448614/uiimageview-gestures-zoom-rotate-question
 
 #import "galleryScrollViewController.h"
 #import "ProductPhotos.h"
@@ -14,12 +16,10 @@
 
 @implementation galleryScrollViewController
 
-@synthesize productPhotos;
+//@synthesize productPhotos;
 @synthesize imageView;
 @synthesize galleryScrollView;
-@synthesize PagContGallery;
-@synthesize fotos;
-@synthesize index;
+@synthesize urls;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -38,10 +38,10 @@
 }
 
 - (void)loadAttribsToComponents{
-    PagContGallery.hidden       = YES;
-    int countPhotos = (int)[productPhotos count];
     self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+                                               @selector(backPage) viewContr:self
+                                                                  imageNamed:@"btBackNav.png"
+                                                                        rect:CGRectMake(0, 0, 40, 30)];
 
     imageView.contentMode   = UIViewContentModeScaleAspectFit;
     [galleryScrollView addSubview:imageView];
@@ -62,19 +62,85 @@
     [galleryScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     galleryScrollView.delegate              = self;
     galleryScrollView.clipsToBounds         = YES;
-    PagContGallery.numberOfPages            = countPhotos; 
-    PagContGallery.hidden                   = NO;
     
     [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:NO];
     
+    fotos = [[NSMutableDictionary alloc] init];
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(queue, ^(void) {
-        Caminho *caminho    = (Caminho *)[[[fotos objectAtIndex:index] caminho ] objectAtIndex:0];
+        Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:index] caminho ] objectAtIndex:0];
         NSURL *url          = [NSURL URLWithString:[caminho original]];
         UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
         imageView.image     = image;
-        NSLog(@"jajjajajajaaj");
+        
+        for (int i = 0; i < [urls count]; i++) {
+            Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:i] caminho ] objectAtIndex:0];
+            NSURL *url          = [NSURL URLWithString:[caminho original]];
+            UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            if (![[fotos allKeys] containsObject:[NSString stringWithFormat:@"%i", i]])
+                [fotos setValue:image forKey:[NSString stringWithFormat:@"%i", i]];
+        }
     });
+    
+    for (int i=0; i < [urls count]; i++) {
+        CGRect rect;
+        rect = i == 9 ? CGRectMake(10, 5, 10, 20) : CGRectMake(10, 5, 20, 20);
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 20, 20)];
+        UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(290, i*32+5, 27, 27)];
+        
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadImage:)];
+        [singleTap setNumberOfTapsRequired:1];
+        
+        [label setBackgroundColor:[UIColor clearColor]];
+        [label setText:[NSString stringWithFormat:@"%i", i+1]];
+        [label setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
+        [countView setUserInteractionEnabled:YES];
+        [countView addGestureRecognizer:singleTap];
+        if (i == 0){
+            [countView setBackgroundColor:[UIColor grayColor]];
+            [label setTextColor:[UIColor whiteColor]];
+        }else{
+            [countView setBackgroundColor:[UIColor whiteColor]];
+            [label setTextColor:[UIColor blackColor]];
+        }
+        [countView.layer setCornerRadius:4];
+        [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [countView.layer setShadowOffset:CGSizeMake(1, 1)];
+        [countView.layer setShadowOpacity:0.2];
+        [countView setAlpha:0.8];
+        [countView addSubview:label];
+        [self.view addSubview:countView];
+    }
+}
+
+-(void)loadImage:(UITapGestureRecognizer *)gesture{
+    for (UIView *view in [self.view subviews]){
+        [view setBackgroundColor:[UIColor whiteColor]];
+        for (UIView *v in [view subviews])
+            if ([v isKindOfClass:[UILabel class]])
+                [(UILabel *)v setTextColor:[UIColor blackColor]];
+    }
+    
+    int indx;
+    for (UILabel *lab in [gesture.view subviews]){
+        indx = [lab.text intValue]-1;
+        [lab setTextColor:[UIColor whiteColor]];
+    }
+    
+    if ([[fotos allKeys] containsObject:[NSString stringWithFormat:@"%i", indx]])
+        imageView.image = (UIImage *)[fotos valueForKey:[NSString stringWithFormat:@"%i", indx]];
+    else{
+        Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:indx] caminho ] objectAtIndex:0];
+        NSURL *url          = [NSURL URLWithString:[caminho original]];
+        UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        [fotos setValue:image forKey:[NSString stringWithFormat:@"%i", indx]];
+        imageView.image     = image;
+    }
+    
+    [gesture.view setBackgroundColor:[UIColor grayColor]];
+    [galleryScrollView setBackgroundColor:[UIColor whiteColor]];
+    [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:YES];
 }
 
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer {
@@ -131,60 +197,6 @@
         frameToCenter.origin.y = 0;
     }
     return frameToCenter;
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    PagContGallery.currentPage = galleryScrollView.contentOffset.x / self.view.frame.size.width;
-//    NSOperationQueue *queue = [NSOperationQueue new];
-//    UIActivityIndicatorView *actInd = [[UIActivityIndicatorView alloc] init];
-//    [actInd startAnimating];
-//    [actInd setColor:[UIColor grayColor]];
-//    [actInd setCenter:CGPointMake(160+(320*PagContGallery.currentPage), 140)];
-//    [galleryScrollView addSubview:actInd];
-//    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
-//                                        initWithTarget:self
-//                                        selector:@selector(loadGalleryTop:)
-//                                        object:PagContGallery];
-//    [queue addOperation:operation];
-}
-
--(void)loadGalleryTop:(UIPageControl *)pagContr{
-    UIImage *image;
-    /*copy pagCont.currentPage with NSString, we do
-     this because pagCont is instable acconding fast
-     or slow scroll*/
-    NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
-    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self
-                           withObject:pageCCopy];
-}
-
-- (void)loadImageGalleryThumbs:(NSString *)pagContr{
-    @try {
-        UIImage *image;
-        CGRect rect;//             = imageView.frame;
-        rect.size.width         = 320;
-        rect.size.height        = 280;
-        
-        Caminho *caminho = (Caminho *)[[[productPhotos objectAtIndex:[pagContr intValue]] caminho ] objectAtIndex:0];
-        NSURL *url = [NSURL URLWithString:[caminho mobile]];
-        
-        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        imageView               = [[UIImageView alloc] initWithImage:image];
-        rect.origin.x           = [pagContr intValue]*320;
-        [imageView setFrame:rect];
-        imageView.contentMode   = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        
-        [galleryScrollView addSubview:imageView];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
-    }
-}
-
--(IBAction)pageControlCliked{
-    CGPoint offset = CGPointMake(PagContGallery.currentPage * self.view.frame.size.width, 0);
-    [galleryScrollView setContentOffset:offset animated:YES];
 }
 
 - (void)viewDidUnload
