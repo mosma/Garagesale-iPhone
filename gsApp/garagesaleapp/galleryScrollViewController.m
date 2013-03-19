@@ -50,7 +50,7 @@
     [doubleTap setNumberOfTapsRequired:2];
     [galleryScrollView addGestureRecognizer:doubleTap];
     
-    galleryScrollView.minimumZoomScale = 0.6;
+    galleryScrollView.minimumZoomScale = 0.7;
     galleryScrollView.maximumZoomScale = 3.0;
 
     UIRotationGestureRecognizer *rotationGesture =
@@ -74,44 +74,44 @@
         UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
         imageView.image     = image;
         
-        for (int i = 0; i < [urls count]; i++) {
-            Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:i] caminho ] objectAtIndex:0];
-            NSURL *url          = [NSURL URLWithString:[caminho original]];
-            UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            if (![[fotos allKeys] containsObject:[NSString stringWithFormat:@"%i", i]])
-                [fotos setValue:image forKey:[NSString stringWithFormat:@"%i", i]];
-        }
+//        for (int i = 0; i < [urls count]; i++) {
+//            Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:i] caminho ] objectAtIndex:0];
+//            NSURL *url          = [NSURL URLWithString:[caminho original]];
+//            UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+//            if (![[fotos allKeys] containsObject:[NSString stringWithFormat:@"%i", i]])
+//                [fotos setValue:image forKey:[NSString stringWithFormat:@"%i", i]];
+//        }
     });
     
-    for (int i=0; i < [urls count]; i++) {
-        CGRect rect;
-        rect = i == 9 ? CGRectMake(10, 5, 10, 20) : CGRectMake(10, 5, 20, 20);
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 20, 20)];
-        UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(290, i*32+5, 27, 27)];
-        
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadImage:)];
-        [singleTap setNumberOfTapsRequired:1];
-        
-        [label setBackgroundColor:[UIColor clearColor]];
-        [label setText:[NSString stringWithFormat:@"%i", i+1]];
-        [label setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
-        [countView setUserInteractionEnabled:YES];
-        [countView addGestureRecognizer:singleTap];
-        if (i == 0){
-            [countView setBackgroundColor:[UIColor grayColor]];
-            [label setTextColor:[UIColor whiteColor]];
-        }else{
-            [countView setBackgroundColor:[UIColor whiteColor]];
-            [label setTextColor:[UIColor blackColor]];
-        }
-        [countView.layer setCornerRadius:4];
-        [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
-        [countView.layer setShadowOffset:CGSizeMake(1, 1)];
-        [countView.layer setShadowOpacity:0.2];
-        [countView setAlpha:0.8];
-        [countView addSubview:label];
-        [self.view addSubview:countView];
-    }
+//    for (int i=0; i < [urls count]; i++) {
+//        CGRect rect;
+//        rect = i == 9 ? CGRectMake(10, 5, 10, 20) : CGRectMake(10, 5, 20, 20);
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 20, 20)];
+//        UIView *countView = [[UIView alloc] initWithFrame:CGRectMake(290, i*32+5, 27, 27)];
+//        
+//        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadImage:)];
+//        [singleTap setNumberOfTapsRequired:1];
+//        
+//        [label setBackgroundColor:[UIColor clearColor]];
+//        [label setText:[NSString stringWithFormat:@"%i", i+1]];
+//        [label setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
+//        [countView setUserInteractionEnabled:YES];
+//        [countView addGestureRecognizer:singleTap];
+//        if (i == 0){
+//            [countView setBackgroundColor:[UIColor grayColor]];
+//            [label setTextColor:[UIColor whiteColor]];
+//        }else{
+//            [countView setBackgroundColor:[UIColor whiteColor]];
+//            [label setTextColor:[UIColor blackColor]];
+//        }
+//        [countView.layer setCornerRadius:4];
+//        [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+//        [countView.layer setShadowOffset:CGSizeMake(1, 1)];
+//        [countView.layer setShadowOpacity:0.2];
+//        [countView setAlpha:0.8];
+//        [countView addSubview:label];
+//        [self.view addSubview:countView];
+//    }
 }
 
 -(void)loadImage:(UITapGestureRecognizer *)gesture{
@@ -141,6 +141,10 @@
     [gesture.view setBackgroundColor:[UIColor grayColor]];
     [galleryScrollView setBackgroundColor:[UIColor whiteColor]];
     [galleryScrollView setZoomScale:galleryScrollView.minimumZoomScale animated:YES];
+}
+
+-(IBAction)dimissModal:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer {

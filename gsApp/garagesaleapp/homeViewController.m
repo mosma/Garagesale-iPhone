@@ -183,6 +183,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [buttonLogo setUserInteractionEnabled:YES];
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);
@@ -260,7 +261,11 @@
         if(countLoads < 6){
             //Position the activity image view somewhere in
             //the middle of your current view
-            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+frameSize-(countLoads*7), 46, 45);
+            int space;
+            
+            space = countLoads == 5 ? -70 : 0;
+            
+            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+frameSize-(countLoads*7)+space, 46, 45);
             
             //Start the animation
             [activityImageView startAnimating];
@@ -268,7 +273,10 @@
             [scrollViewMain addSubview:activityImageView];
             
             [self getResourcePathProduct];
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+125+frameSize)];
+                        
+            space = countLoads == 5 ? 15 : 125;
+            
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+space+frameSize)];
             
             countLoads++;
         }

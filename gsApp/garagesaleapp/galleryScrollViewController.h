@@ -28,5 +28,5 @@
 - (void)setupProductMapping:(NSString *)localResource;
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center;
 - (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView;
-
+- (IBAction)dimissModal:(id)sender;
 @end

@@ -807,7 +807,8 @@
     [galleryScrollVC setIndex:PagContGallery.currentPage];
     
     imgV = nil;
-    [self.navigationController pushViewController:galleryScrollVC animated:YES];
+    
+    [self.navigationController presentModalViewController:galleryScrollVC animated:YES];
 }
 
 - (IBAction)gotoGarageDetailVC{
