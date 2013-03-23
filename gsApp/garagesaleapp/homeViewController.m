@@ -255,17 +255,14 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 100 : 10;
+    int activity  = [GlobalFunctions getHomeProductsNumber] == 15 ? 80-countLoads : 17;
+    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 229 : 117;
     
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
             //Position the activity image view somewhere in
             //the middle of your current view
-            int space;
-            
-            space = countLoads == 5 ? -70 : 0;
-            
-            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+frameSize-(countLoads*7)+space, 46, 45);
+            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+activity, 46, 45);
             
             //Start the animation
             [activityImageView startAnimating];
@@ -273,10 +270,8 @@
             [scrollViewMain addSubview:activityImageView];
             
             [self getResourcePathProduct];
-                        
-            space = countLoads == 5 ? 15 : 125;
             
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+space+frameSize)];
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+frameSize)];
             
             countLoads++;
         }
@@ -463,10 +458,10 @@
     self.tabBarController.delegate = self;
     [self.navigationController setNavigationBarHidden:YES];
     if ([mutArrayProducts count] == 0 ||
-        [[[GlobalFunctions getUserDefaults] objectForKey:@"isLogOut"] isEqual:@"YES"]){
+        [[[GlobalFunctions getUserDefaults] objectForKey:@"reloadHome"] isEqual:@"YES"]){
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"NO" forKey:@"isLogOut"];
+        [userDefaults setObject:@"NO" forKey:@"reloadHome"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }

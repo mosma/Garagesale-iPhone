@@ -50,7 +50,7 @@
     MBProgressHUD                   *HUD;
     viewHelper                      *vH;
     BOOL                            isLoadingDone;
-    int                             validatorFlag;
+    int                             flagViewControllers;
     NSTimer                         *timer;
 }
 
@@ -85,7 +85,6 @@
 -(void)setLogin:(NSArray *)objects;
 -(void)getResourcePathGarage;
 -(void)getResourcePathProfile;
-
--(IBAction)recoverEmail:(id)sender;
+-(IBAction)recoverPassword:(id)sender;
 
 @end

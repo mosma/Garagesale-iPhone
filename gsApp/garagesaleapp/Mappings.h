@@ -17,7 +17,7 @@
 #import "PhotoReturn.h"
 #import "GarageNameValidate.h"
 #import "EmailValidate.h"
-#import "RecoverEmail.h"
+#import "RecoverPassword.h"
 #import "viewHelperReturn.h"
 
 @interface Mappings : NSObject {
@@ -33,6 +33,6 @@
 + (RKObjectMapping *)getPhotosByIdProduct;
 + (RKObjectMapping *)getValidGarageNameMapping;
 + (RKObjectMapping *)getValidEmailMapping;
-+ (RKObjectMapping *)getRecoverEmail;
++ (RKObjectMapping *)getRecoverPassword;
 + (RKObjectMapping *)getViewHelperMapping;
 @end

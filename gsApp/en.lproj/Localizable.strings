@@ -47,7 +47,7 @@
 "sold"                          = "Sold";
 "not-available-label"           = "N/A";
 "invisible-label"               = "Invisible";
-"edit"                          = "Edit";
+"edit"                          = " Edit";
 "delete"                        = "  Delete";
 "resultsFor"                    = "results for";
 

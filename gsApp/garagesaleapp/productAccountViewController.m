@@ -621,12 +621,11 @@
                                     product:self.product
                                  isFromPicker:NO];
             
-            if ([[scrollViewPicsProduct subviews] count] == [fotos count]){
+            if ([[scrollViewPicsProduct subviews] count] == [fotos count])
                 if ([fotos count] != 10)
                     [buttonAddPics setEnabled:YES];
-                [buttonSaveProduct setUserInteractionEnabled:YES];
-            }
         }
+        [buttonSaveProduct setUserInteractionEnabled:YES];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
     @catch (NSException *exception) {
@@ -767,6 +766,30 @@
        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
        [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    if ([[[GlobalFunctions getUserDefaults] objectForKey:@"reloadProductAccount"] isEqual:@"YES"]){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"NO" forKey:@"reloadProductAccount"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self reloadPage];
+    }
+}
+
+-(void)reloadPage{
+    txtFieldCurrency.text    = @"";
+    txtFieldState.text       = @"";
+    txtFieldTitle.text       = @"";
+    txtFieldValue.text       = @"";
+    textViewDescription.text = @"";
+    gallery = nil;
+    for (UIImageView *img in [scrollViewPicsProduct subviews])
+        [img removeFromSuperview];
+    [txtFieldTitle setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
+    [txtFieldValue setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
+    CGSize size = CGSizeMake(0, self.scrollViewPicsProduct.frame.size.height);
+    scrollViewPicsProduct.contentSize = size ;
+    [scrollView setContentOffset:CGPointZero animated:NO];
+    [self loadAttributsToComponents];
 }
 
 - (void)viewDidUnload

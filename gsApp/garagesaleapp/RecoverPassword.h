@@ -1,5 +1,5 @@
 //
-//  RecoverEmail.h
+//  RecoverPassword.h
 //  garagesaleapp
 //
 //  Created by Tarek Jradi on 05/03/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RecoverEmail : NSObject{
+@interface RecoverPassword : NSObject{
     NSString *message;
 }
 

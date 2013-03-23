@@ -131,7 +131,7 @@
         
         //Initializing the Object Managers
         RKObjManeger = [RKObjectManager sharedManager];
-        [self getResourcePathProduct];
+        [self getResourceSearch];
     }
 }
 
@@ -203,7 +203,18 @@
     self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 }
 
-- (void)getResourcePathProduct{
+//http://www.icanlocalize.com/site/tutorials/iphone-applications-localization-guide/
+
+-(NSString *)htmlEntityDecode:(NSString *)string {
+    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"&" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@">" withString:@""];
+    return string;
+}
+
+- (void)getResourceSearch{
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
@@ -224,7 +235,7 @@
     [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
     
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:strLocalResourcePath objectMapping:productMapping delegate:self];
+    [self.RKObjManeger loadObjectsAtResourcePath:[self htmlEntityDecode:strLocalResourcePath] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -238,13 +249,7 @@
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: NSLocalizedString(@"search-not-found", nil)
-                              message: NSLocalizedString(@"search-not-found-info", nil)
-                              delegate: nil
-                              cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
-                              otherButtonTitles:nil];
-        [alert show];
+        [self getAlertNoResults];
     }
     [self loadAttribsToComponents:YES];
 }
@@ -253,6 +258,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [activityImageView setAlpha:0];
     NSLog(@"Encountered an error: %@", error);
+    [self getAlertNoResults];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -277,6 +283,16 @@
 
 -(void)backPage{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)getAlertNoResults{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: NSLocalizedString(@"search-not-found", nil)
+                          message: NSLocalizedString(@"search-not-found-info", nil)
+                          delegate: nil
+                          cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
+                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (IBAction)showSearch:(id)sender{
@@ -534,7 +550,7 @@
     
     [segmentControl setSelectedSegmentIndex:0];
     [self.tableView setRowHeight:377];
-    [self getResourcePathProduct];
+    [self getResourceSearch];
     [self searchBar:searchBar activate:NO];
     [searchBarProduct resignFirstResponder];
 }

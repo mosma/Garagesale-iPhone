@@ -62,7 +62,8 @@
     [self.buttonRegister.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.buttonLogin.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.buttonRegisterNew.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
-    
+    [buttonLostPassword.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 
     NSLog(@"Available Font Families: %@", [UIFont familyNames]);
@@ -129,7 +130,7 @@
 }
 
 - (void)getResourcePathLogin{
-    validatorFlag = 0;
+    flagViewControllers = 0;
     RKObjectMapping *loginMapping = [Mappings getLoginMapping];
     
     //LoadUrlResourcePath
@@ -180,7 +181,7 @@
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
             //if ([(EmailValidate *)[objects objectAtIndex:0] message] == @"valid")
-        }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverEmail class]]){
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverPassword class]]){
             if ([[[objects objectAtIndex:0] message] isEqualToString:@"true"]) {
                 UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"yourPassword",nil)
@@ -189,6 +190,8 @@
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
                 [alert show];
+                [buttonRecover setEnabled:YES];
+                [txtFieldEmailRecover setText:@""];
             }
         }
     }
@@ -197,21 +200,27 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if (validatorFlag == 0){
+    if (flagViewControllers == 0){
         [textFieldUserPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
         textFieldUserPassword.text = @"";        
-    } else if (validatorFlag == 1){
+    } else if (flagViewControllers == 1){
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         textFieldGarageName.text = @"";
-    } else if (validatorFlag == 2) {
+    } else if (flagViewControllers == 2) {
         [textFieldEmail setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         textFieldEmail.text = @"";
+    } else if (flagViewControllers == 3) {
+        [buttonRecover setEnabled:YES];
+        [txtFieldEmailRecover setValue:[UIColor redColor]
+                            forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
+        txtFieldEmailRecover.text = @"";
     }
     [timer invalidate];
     isLoadingDone = YES;
@@ -320,23 +329,25 @@
 
 -(IBAction)getValidGarageName:(id)sender {
     [self setEnableRegisterButton:NO];
-    validatorFlag = 1;
+    flagViewControllers = 1;
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
     [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
--(IBAction)recoverEmail:(id)sender {
+-(IBAction)recoverPassword:(id)sender {
     if (![GlobalFunctions isValidEmail:txtFieldEmailRecover.text]){
         [txtFieldEmailRecover setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         txtFieldEmailRecover.text = @"";
     } else {
+        flagViewControllers = 3;
+        [buttonRecover setEnabled:NO];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [txtFieldEmailRecover resignFirstResponder];
-        RKObjectMapping *mapping = [Mappings getRecoverEmail];
+        RKObjectMapping *mapping = [Mappings getRecoverPassword];
         [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/login/recover?email=%@", txtFieldEmailRecover.text] objectMapping:mapping delegate:self];
         [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     }
@@ -344,7 +355,7 @@
 
 -(IBAction)getValidEmail:(id)sender {
     [self setEnableRegisterButton:NO];
-    validatorFlag = 2;
+    flagViewControllers = 2;
     if (![GlobalFunctions isValidEmail:textFieldEmail.text]){
         [textFieldEmail setValue:[UIColor redColor]
                        forKeyPath:@"_placeholderLabel.textColor"];

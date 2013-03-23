@@ -657,6 +657,8 @@
     }
     
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"reloadGarage"] isEqual:@"YES"]) {
+        for (UIButton *subview in [[self scrollViewProducts] subviews])
+            [subview removeFromSuperview];
         [self loadAttribsToComponents:NO];
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

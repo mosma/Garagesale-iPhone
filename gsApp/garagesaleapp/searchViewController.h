@@ -50,7 +50,7 @@
 
 @property (nonatomic, retain) NSArray *imageURLs;
 
--(void)getResourcePathProduct;
+-(void)getResourceSearch;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;
 -(void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 -(IBAction)changeSegControl;

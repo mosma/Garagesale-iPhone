@@ -475,7 +475,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"YES" forKey:@"isLogOut"];
+    [userDefaults setObject:@"YES" forKey:@"reloadHome"];
+    [userDefaults setObject:@"YES" forKey:@"reloadProductAccount"];    
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]

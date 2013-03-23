@@ -140,11 +140,11 @@
     return validEmailMapping;
 }
 
-+ (RKObjectMapping *)getRecoverEmail{
++ (RKObjectMapping *)getRecoverPassword{
     //Configure Valid Email Object Mapping
-    RKObjectMapping *recoverEmailMapping = [RKObjectMapping mappingForClass:[RecoverEmail class]];
-    [recoverEmailMapping mapKeyPath:@"message"    toAttribute:@"message"];
-    return recoverEmailMapping;
+    RKObjectMapping *recoverPasswordMapping = [RKObjectMapping mappingForClass:[RecoverPassword class]];
+    [recoverPasswordMapping mapKeyPath:@"message"    toAttribute:@"message"];
+    return recoverPasswordMapping;
 }
 
 + (RKObjectMapping *)getViewHelperMapping{
