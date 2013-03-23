@@ -804,10 +804,8 @@
     UIImageView *imgV = [[UIImageView alloc] initWithImage:[(UIImageView *)sender.view image]];
     [galleryScrollVC setImageView:imgV];
     [galleryScrollVC setUrls:self.product.fotos];
-    [galleryScrollVC setIndex:PagContGallery.currentPage];
-    
+    [galleryScrollVC setIndice:PagContGallery.currentPage];
     imgV = nil;
-    
     [self.navigationController presentModalViewController:galleryScrollVC animated:YES];
 }
 

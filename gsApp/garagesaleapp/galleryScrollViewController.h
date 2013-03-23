@@ -12,14 +12,14 @@
     UIImageView             *imageView;
     NSArray                 *urls;
     NSMutableDictionary     *fotos;
-    int                     index;
+    int                     indice;
     
     IBOutlet UIScrollView   *galleryScrollView;
 }
 
 @property (retain, nonatomic) UIImageView       *imageView;
 @property (retain, nonatomic) NSArray           *urls;
-@property (nonatomic)         int               index;
+@property (nonatomic)         int               indice;
 
 @property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 

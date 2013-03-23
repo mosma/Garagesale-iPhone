@@ -20,6 +20,7 @@
 @synthesize imageView;
 @synthesize galleryScrollView;
 @synthesize urls;
+@synthesize indice;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -69,11 +70,10 @@
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
     dispatch_async(queue, ^(void) {
-        Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:index] caminho ] objectAtIndex:0];
+        Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:indice] caminho ] objectAtIndex:0];
         NSURL *url          = [NSURL URLWithString:[caminho original]];
         UIImage *image      = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
         imageView.image     = image;
-        
 //        for (int i = 0; i < [urls count]; i++) {
 //            Caminho *caminho    = (Caminho *)[[[urls objectAtIndex:i] caminho ] objectAtIndex:0];
 //            NSURL *url          = [NSURL URLWithString:[caminho original]];
