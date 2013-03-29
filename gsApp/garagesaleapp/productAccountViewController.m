@@ -587,17 +587,16 @@
 }
 
 -(void)newProductFinished:(BOOL)isNew{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
     if (isNew){
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         self.tabBarController.selectedIndex = 2;
         self.view = nil;
     }
-    else{
+    else
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)loadAttributsToProduct{
