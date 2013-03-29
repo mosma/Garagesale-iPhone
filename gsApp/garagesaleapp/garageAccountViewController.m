@@ -487,8 +487,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
@@ -678,7 +676,10 @@
 }
 
 - (void)viewDidUnload
-{
+{    
+    [super viewDidUnload];    
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     emailLabel = nil;
     imgGarageLogo = nil;
     garageName = nil;
@@ -699,7 +700,6 @@
     [self setScrollViewMain:nil];
     labelNoProduct = nil;
     [self setLabelNoProduct:nil];
-    [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }

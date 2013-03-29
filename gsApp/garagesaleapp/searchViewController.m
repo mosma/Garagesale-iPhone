@@ -159,7 +159,7 @@
 
     [self.tableView setRowHeight:377];
     
-    activityImageView.frame = CGRectMake(137, self.view.center.y-50, 46, 45);
+    activityImageView.frame = CGRectMake(137, self.view.center.y-60, 46, 45);
     [activityImageView setAlpha:0];
     [self.view addSubview:activityImageView];
     
