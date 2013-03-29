@@ -605,7 +605,6 @@
             }
         }
     }
-    isSearchDisplayed = NO;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

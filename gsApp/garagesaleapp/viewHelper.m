@@ -66,6 +66,10 @@
 
 -(NSURL*) getGravatarURL:(NSString*) emailAddress {
     @try {
+        
+        if (!emailAddress)
+            [NSException raise:@"Email can not empty" format:@"email is null"];
+            
         NSString *curatedEmail = [[emailAddress stringByTrimmingCharactersInSet:
                                    [NSCharacterSet whitespaceCharacterSet]]
                                   lowercaseString];

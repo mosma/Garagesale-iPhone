@@ -91,7 +91,7 @@
 
 //forms
 "form-invalid-email-password"   = "Invalid Password or Email";
-"form-invalid-email-exists"     = "Hey, %@ already exist!";
+"form-invalid-email-exists"     = "Hey, %@ already exist or is invalid name!";
 "form-invalid-email-or-invalid" = "Hey, Email already exist or not is valid!";
 "form-invalid-email"            = "Hey, this is not a valid email!";
 
