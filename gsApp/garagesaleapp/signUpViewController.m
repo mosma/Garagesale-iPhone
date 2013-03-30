@@ -180,6 +180,7 @@
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
+            emailWrited = textFieldEmail.text;
             //if ([(EmailValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverPassword class]]){
             if ([[[objects objectAtIndex:0] message] isEqualToString:@"true"]) {
@@ -214,6 +215,7 @@
         [textFieldEmail setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
+        emailWrited = textFieldEmail.text;
         textFieldEmail.text = @"";
     } else if (flagViewControllers == 3) {
         [buttonRecover setEnabled:YES];
@@ -360,6 +362,7 @@
         [textFieldEmail setValue:[UIColor redColor]
                        forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
+        emailWrited = textFieldEmail.text;
         textFieldEmail.text = @"";
     } else {
         RKObjectMapping *mapping = [Mappings getValidEmailMapping];
@@ -483,6 +486,10 @@
     [self getResourcePathProfile];
     
     [self.tabBarController setSelectedIndex:0];
+}
+
+-(IBAction)setEmailWrited:(id)sender{
+    textFieldEmail.text = emailWrited;
 }
 
 -(void)backPage{

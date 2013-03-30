@@ -135,7 +135,7 @@
 
 + (RKObjectMapping *)getValidEmailMapping{
     //Configure Valid Email Object Mapping
-    RKObjectMapping *validEmailMapping = [RKObjectMapping mappingForClass:[GarageNameValidate class]];
+    RKObjectMapping *validEmailMapping = [RKObjectMapping mappingForClass:[EmailValidate class]];
     [validEmailMapping mapKeyPath:@"message"    toAttribute:@"message"];
     return validEmailMapping;
 }

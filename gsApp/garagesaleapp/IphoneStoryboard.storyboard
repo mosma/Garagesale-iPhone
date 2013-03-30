@@ -1042,7 +1042,7 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
                                                 <rect key="frame" x="10" y="70" width="233" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
@@ -1053,7 +1053,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="Better Togeter Cap Pouch v2" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="aKV-ty-jd3" userLabel="labelNomeProduto">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="aKV-ty-jd3" userLabel="labelNomeProduto">
                                                 <rect key="frame" x="10" y="0.0" width="300" height="55"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="EuphemiaUCAS" family="Euphemia UCAS" pointSize="16"/>
@@ -1551,6 +1551,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                         <connections>
                                             <action selector="getValidEmail:" destination="fgR-qs-ekZ" eventType="editingDidEnd" id="U0k-ff-fqv"/>
+                                            <action selector="setEmailWrited:" destination="fgR-qs-ekZ" eventType="editingDidBegin" id="65I-X3-diU"/>
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="PZK-ya-bSY" userLabel="textField01iphoneTitle.png">
@@ -2341,6 +2342,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
                 <relationship kind="action" name="recoverPassword:"/>
+                <relationship kind="action" name="setEmailWrited:"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>

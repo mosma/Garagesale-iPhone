@@ -52,6 +52,8 @@
     BOOL                            isLoadingDone;
     int                             flagViewControllers;
     NSTimer                         *timer;
+                                                            
+    NSString                        *emailWrited;
 }
 
 //Sigup outlets
@@ -86,5 +88,5 @@
 -(void)getResourcePathGarage;
 -(void)getResourcePathProfile;
 -(IBAction)recoverPassword:(id)sender;
-
+-(IBAction)setEmailWrited:(id)sender;
 @end

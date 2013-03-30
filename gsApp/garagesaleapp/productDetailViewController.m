@@ -137,6 +137,20 @@
     [self.buttonCancelBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [self.buttonBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     
+    NSString *titleValorEsperado = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
+    NSMutableAttributedString* attrStrVE = [NSMutableAttributedString attributedStringWithString:titleValorEsperado];
+    [attrStrVE setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
+    [attrStrVE setTextColor:[UIColor grayColor]];
+    [attrStrVE setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
+                      range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
+    [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
+    [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
+    OHlabelValorEsperado.attributedText = attrStrVE;
+    titleValorEsperado = nil;
+    attrStrVE = nil;
+    
+    [labelNomeProduto       setText:[self.product nome]];
+    
     if (!isFromLoadObject) {
         /*
          Esta verificaçao esta errada... bbbba garagem pode
@@ -176,11 +190,6 @@
         [labelCongrats setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [labelBidSent setFont:[UIFont fontWithName:@"DroidSans-Bold" size:17]];
         
-        //Set Labels, titles, TextView...
-        [labelNomeProduto       setText:[self.product nome]];
-        [labelDescricao         setText:[self.product descricao]];
-        [OHlabelValorEsperado   setText:[self.product valorEsperado]];
-        
         activityImageView.frame = CGRectMake(137, 450, 46, 45);
         [activityImageView startAnimating];
         [secondView addSubview:activityImageView];
@@ -201,16 +210,6 @@
         [label setTextAlignment:UITextAlignmentCenter];
         [self.navigationItem setTitleView:label];
         
-        NSString *titleValorEsperado = [NSString stringWithFormat:@"%@%@", [GlobalFunctions getCurrencyByCode:(NSString *)self.product.currency], self.product.valorEsperado];
-        NSMutableAttributedString* attrStrVE = [NSMutableAttributedString attributedStringWithString:titleValorEsperado];
-        [attrStrVE setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
-        [attrStrVE setTextColor:[UIColor grayColor]];
-        [attrStrVE setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
-                        range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
-        [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
-        [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
-        OHlabelValorEsperado.attributedText = attrStrVE;
-
         UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
         [buttonShare setFrame:CGRectMake(0.0f, 0.0f, 38.0f, 32.0f)];
         [buttonShare setImage:[UIImage imageNamed:@"addThisButton.png"] forState:UIControlStateNormal];
@@ -489,7 +488,9 @@
             [self getResourcePathProduct];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
-            [product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
+            [(Product *)[objects objectAtIndex:0] setFotos:product.fotos];
+            product = (Product *)[objects objectAtIndex:0];
+            //[product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
             [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
             productPhotos = (NSMutableArray *)objects;
