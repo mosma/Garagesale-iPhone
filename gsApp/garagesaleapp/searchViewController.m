@@ -216,7 +216,7 @@
 
 - (void)getResourceSearch{
     
-    NSString *text = [NSString stringWithFormat:@"Buscando produtos para : %@ ", strTextSearch ];
+    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"searching-for-products", @""), strTextSearch];
     
     NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];

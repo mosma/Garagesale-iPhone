@@ -111,6 +111,7 @@
 "search-not-found"              = "Nada encontrado!";
 "search-not-found-ok"           = "OK";
 "search-not-found-info"         = "Nenhum prodto encontrado para esta busca.";
+"searching-for-products"        = "Buscando produtos para %@";
 
 "format-expected-value-2line"   = "%@%@ \r\npor %@";
 "format-expected-value-1line"   = "%@%@ por %@";

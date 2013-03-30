@@ -110,6 +110,7 @@
 "search-not-found"              = "Search not found!";
 "search-not-found-ok"           = "OK";
 "search-not-found-info"         = "No itens found for this search.";
+"searching-for-products"        = "Searching for products %@";
 
 "format-expected-value-2line"   = "%@%@ \r\nby %@";
 "format-expected-value-1line"   = "%@%@ by %@";
