@@ -561,6 +561,10 @@
         HUD.labelText = @"Completed";
         sleep(1);
         
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
         [[self.tabBarController.viewControllers objectAtIndex:2] popToRootViewControllerAnimated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self newProductFinished:(self.product == nil)];
@@ -587,16 +591,15 @@
 }
 
 -(void)newProductFinished:(BOOL)isNew{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
     if (isNew){
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         self.tabBarController.selectedIndex = 2;
         self.view = nil;
     }
     else
         [self.navigationController popToRootViewControllerAnimated:YES];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)loadAttributsToProduct{
