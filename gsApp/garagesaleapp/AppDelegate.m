@@ -23,7 +23,10 @@
     // Optional: set debug to YES for extra debugging information.
     [GAI sharedInstance].debug = NO;
     // Create tracker instance.
+    //ID Developer
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-27377582-3"];
+    //ID Production
+    //id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-27377582-5"];
     [self setLayoutTabBarController];
     return YES;
 }

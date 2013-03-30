@@ -158,7 +158,7 @@
 "image-uploading"               = "Salvando";
 "image-upload-error-check"      = "Erro, valide a sua conexão.";
 
-"form-error-product-name"       = "Hey, your product must have a name!";
+"form-error-product-name"       = "Hey, o seu produto deve ter um nome!";
 "waiting..."                    = "Carregando...";
 "Sign-up"                       = "Registre-se";
 "Sign-in"                       = "Bem vindo de volta";

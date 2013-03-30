@@ -1042,7 +1042,7 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="56.94" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
                                                 <rect key="frame" x="10" y="70" width="233" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
@@ -2205,7 +2205,6 @@
                 <relationship kind="action" name="getPicsByPhotosAlbum:"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="saveProduct"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonSaveProduct" candidateClass="UIButton"/>

@@ -71,6 +71,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.delegate = self; 
 }
 
 - (void)viewDidLoad
@@ -205,15 +206,30 @@
 //http://www.icanlocalize.com/site/tutorials/iphone-applications-localization-guide/
 
 -(NSString *)htmlEntityDecode:(NSString *)string {
-    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"'" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"&" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    string = [string stringByReplacingOccurrencesOfString:@">" withString:@""];
+    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"&#91;"];
+    string = [string stringByReplacingOccurrencesOfString:@"'" withString:@"&#44;"];
+    string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"&#38;"];
+    string = [string stringByReplacingOccurrencesOfString:@"<" withString:@"&#60;"];
+    string = [string stringByReplacingOccurrencesOfString:@">" withString:@"&#62;"];
     return string;
 }
 
 - (void)getResourceSearch{
+    
+    NSString *text = [NSString stringWithFormat:@"Buscando produtos para : %@ ", strTextSearch ];
+    
+    NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:text];
+    [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    [attrStr setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15] range:[text rangeOfString:strTextSearch]];
+    [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+    [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                    range:[text rangeOfString:strTextSearch]];
+    
+    OHlabelTitleResults.attributedText = attrStr;
+
+    text = nil;
+    attrStr = nil;
+    
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
     RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
