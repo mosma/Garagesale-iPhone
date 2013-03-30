@@ -455,7 +455,6 @@
 {
     [super viewWillAppear:animated];
     [buttonLogo setUserInteractionEnabled:YES];
-    self.tabBarController.delegate = self;
     [self.navigationController setNavigationBarHidden:YES];
     if ([mutArrayProducts count] == 0 ||
         [[[GlobalFunctions getUserDefaults] objectForKey:@"reloadHome"] isEqual:@"YES"]){

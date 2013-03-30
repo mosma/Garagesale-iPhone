@@ -139,6 +139,11 @@
     [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
+
+    //reload Settings.
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil
+        && !isGenericGarage && [mutArrayProducts count] != 0)
+        [settingsVC getResourcePathProfile];
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
@@ -646,7 +651,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [viewTop setUserInteractionEnabled:YES];
-    self.tabBarController.delegate = self;
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"isSettingsChange"] isEqual:@"YES"]) {
         [self loadAttribsToComponents:NO];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -669,17 +673,17 @@
     globalFunctions.countColumnImageThumbs = -1;
     globalFunctions.imageThumbsXorigin_Iphone = 10;
     globalFunctions.imageThumbsYorigin_Iphone = 10;
-    
-    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil
-        && !isGenericGarage && [mutArrayProducts count] != 0)
-        [settingsVC getResourcePathProfile];
+}
+
+- (void)viewWillUnload:(BOOL)animated
+{
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewDidUnload
 {    
-    [super viewDidUnload];    
-    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [super viewDidUnload];
     emailLabel = nil;
     imgGarageLogo = nil;
     garageName = nil;

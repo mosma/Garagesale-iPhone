@@ -42,6 +42,7 @@
     overlay = [MTStatusBarOverlay sharedInstance];
     [self setupKeyboardControls];
     [self setupActivityAnimation];
+    self.tabBarController.delegate = self;
 }
 
 -(void)setupActivityAnimation{
