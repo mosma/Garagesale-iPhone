@@ -157,8 +157,12 @@
             
             city.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
             
-            description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-            [description sizeToFit];
+            if ([[[GlobalFunctions getUserDefaults] objectForKey:@"about"] isEqualToString:@""])
+                description.text = NSLocalizedString(@"welcome-my-garage", @"");
+            else
+                description.text = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
+            
+          //  [description sizeToFit];
             
             garageName.attributedText  = [GlobalFunctions
                                           getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
@@ -317,8 +321,11 @@
         city.text        = @"";
         link.text        = @"";
     } else {
+        if ([garage.about isEqualToString:@""])
+            description.text = NSLocalizedString(@"welcome-my-garage", @"");
+        else
+            description.text = [NSString stringWithFormat:@"%@", garage.about];
         city.text = [GlobalFunctions formatAddressGarage:@[garage.city, garage.district, garage.country]];
-        description.text = [NSString stringWithFormat:@"%@\n\n", garage.about];
         garageName.attributedText  = [GlobalFunctions getNamePerfil:profile.garagem
                                              profileName:profile.nome];
         

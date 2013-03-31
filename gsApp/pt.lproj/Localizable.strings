@@ -27,6 +27,7 @@
 "back"                          = "Voltar";
 "Avaliable"                     = "Disponivel";
 "Sold"                          = "Vendido";
+"welcome-my-garage"             = "Bem vindo a minha garagem \n...";
 
 "homeSearchField"               = "Produtos, categorias ou garagens";
 "reportGarege"                  = "Reportar Abuso";
