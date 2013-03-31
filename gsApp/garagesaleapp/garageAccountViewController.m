@@ -493,6 +493,10 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if (isGenericGarage){
+        [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
