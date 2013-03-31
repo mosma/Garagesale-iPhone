@@ -622,8 +622,8 @@
                                 photoReturn:(PhotoReturn *)[fotos objectAtIndex:i]
                                     product:self.product
                                  isFromPicker:NO];
-            
-            if ([[scrollViewPicsProduct subviews] count] == [fotos count])
+                        
+            if ([fotos count] == i + 1)
                 if ([fotos count] != 10)
                     [buttonAddPics setEnabled:YES];
         }
