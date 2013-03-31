@@ -367,8 +367,9 @@
         CAGradientLayer *newShadow = [[CAGradientLayer alloc] init];
         newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 10);
         newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
-        
-        if ([product.idPessoa isEqualToString:(NSString *)[[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]]) {
+
+        NSString *idUser = [NSString stringWithFormat:@"%@", [[GlobalFunctions getUserDefaults] valueForKey:@"id"]];
+        if ([product.idPessoa isEqualToString:idUser]) {
             [buttonDeleteProduct setHidden:NO];
             [buttonEditProduct setHidden:NO];
             [viewControl setBackgroundColor:[UIColor whiteColor]];
@@ -378,6 +379,7 @@
             [viewControl.layer addSublayer:newShadow];
         [activityImageView setAlpha:0];
         [activityImageView stopAnimating];
+        idUser = nil;
     }
 }
 

@@ -741,6 +741,12 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+   // [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+   // [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void)viewWillUnload:(BOOL)animated
+{
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
