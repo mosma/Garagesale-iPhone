@@ -330,6 +330,8 @@
 }
 
 -(IBAction)getValidGarageName:(id)sender {
+    if (textFieldGarageName.text.length > 20)
+        textFieldGarageName.text = [textFieldGarageName.text substringWithRange:NSMakeRange(0, 20)];
     [self setEnableRegisterButton:NO];
     flagViewControllers = 1;
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
@@ -536,7 +538,7 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     if ([textField isEqual:textFieldGarageName]){
-        int limit = 20;
+        int limit = 19;
         return !([textField.text length]>limit && [string length] > range.length);
     }
     return YES;
