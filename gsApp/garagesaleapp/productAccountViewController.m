@@ -603,6 +603,8 @@
 }
 
 -(void)loadAttributsToProduct{
+    [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
+                               [GlobalFunctions getCurrencyByCode:product.currency]]];
     self.txtFieldTitle.text = [product nome];
     self.txtFieldValue.text = [product valorEsperado];
     self.textViewDescription.text = [product descricao];
