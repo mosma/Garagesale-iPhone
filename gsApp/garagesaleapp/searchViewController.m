@@ -297,6 +297,7 @@
 }
 
 -(void)backPage{
+    [self removeClientRequest];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
