@@ -14,6 +14,7 @@
 @synthesize RKObjManeger;
 @synthesize imageAvatar;
 @synthesize avatarName;
+@synthesize isCancelRequests;
 
 -(id)init{
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
@@ -165,14 +166,11 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered error: %@",                      error);
-    imageAvatar = nil;
-    @try {
-        imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getGravatarURL:[[arrayProfile objectAtIndex:0] email]]]];
-        [self updateAvatar];    
-    }
-    @catch (NSException *exception) {
+    if (!isCancelRequests) {
+        imageAvatar = nil;
         imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                                                [NSURL URLWithString:@"http://garagesaleapp.me/images/no-profileimg-small.jpg"]]];
+                                              [self getGravatarURL:[[arrayProfile objectAtIndex:0] email]]]];
+        [self updateAvatar];    
     }
 }
 

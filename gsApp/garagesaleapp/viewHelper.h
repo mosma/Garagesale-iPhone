@@ -20,6 +20,7 @@
 @property (nonatomic, retain) RKObjectManager *RKObjManeger;
 @property (nonatomic, retain) UIImage         *imageAvatar;
 @property (nonatomic, retain) NSString        *avatarName;
+@property (nonatomic) BOOL                    *isCancelRequests;
 
 -(UIImage *)getGarageAvatar:(NSArray *)profile;
 -(void)getResourcePathGarage:(NSString *)garageName;

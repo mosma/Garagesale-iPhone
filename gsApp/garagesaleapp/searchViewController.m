@@ -184,6 +184,8 @@
         OHlabelTitleResults.attributedText = attrStr;
         
         //logic block to load avatares search.
+        [mutArrayViewHelpers removeAllObjects];
+        mutArrayViewHelpers = nil;
         mutArrayViewHelpers = [[NSMutableArray alloc] initWithCapacity:[mutArrayProducts count]];
         for (int i = 0; i < [mutArrayProducts count]; i++) {
             NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg",
@@ -559,7 +561,10 @@
 
     [mutArrayProducts removeAllObjects];
     [tableView reloadData];
-    [mutArrayViewHelpers removeAllObjects];
+    
+    for (int n=0; n < [mutArrayViewHelpers count]; n++)
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] setIsCancelRequests:YES];
+    
     self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
     [self showSearch:nil];
