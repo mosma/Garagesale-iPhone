@@ -27,7 +27,7 @@
 "back"                          = "Voltar";
 "Avaliable"                     = "Disponivel";
 "Sold"                          = "Vendido";
-"welcome-my-garage"             = "Bem vindo a minha garagem \n...";
+"welcome-my-garage"             = "Bem vindo a minha garagem! \n...";
 
 "homeSearchField"               = "Produtos, categorias ou garagens";
 "reportGarege"                  = "Reportar Abuso";
@@ -93,7 +93,7 @@
 
 //forms
 "form-invalid-email-password"   = "Email ou senha invalidos";
-"form-invalid-email-exists"     = "Hey, %@ já existe ou não é um bom nome!";
+"form-invalid-email-exists"     = "Hey, %@ não é um bom nome ou já existe!";
 "form-invalid-email-or-invalid" = "Hey, Este email já existe ou não é válido!";
 "form-invalid-email"            = "Hey, Este não é um email válido!";
 

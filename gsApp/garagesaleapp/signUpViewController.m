@@ -178,6 +178,7 @@
             //reset previous viewControllers.
             self.navigationController.viewControllers = [[NSArray alloc] initWithObjects:home, nil];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
+            garageNameWrited = textFieldGarageName.text;
             //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
             emailWrited = textFieldEmail.text;
@@ -210,6 +211,7 @@
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
+        garageNameWrited = textFieldGarageName.text;
         textFieldGarageName.text = @"";
     } else if (flagViewControllers == 2) {
         [textFieldEmail setValue:[UIColor redColor]
@@ -333,6 +335,7 @@
     if (textFieldGarageName.text.length > 20)
         textFieldGarageName.text = [textFieldGarageName.text substringWithRange:NSMakeRange(0, 20)];
     [self setEnableRegisterButton:NO];
+    garageNameWrited = textFieldGarageName.text;
     flagViewControllers = 1;
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
     [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
@@ -378,28 +381,28 @@
     BOOL isValid = YES;
     
     if ([textFieldGarageName.text length] < 3) {
-        [textFieldGarageName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [textFieldGarageName setValue:[UIColor redColor]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder: NSLocalizedString(@"form-invalid-garage-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldPersonName.text length] < 3) {
-        [textFieldPersonName setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [textFieldPersonName setValue:[UIColor redColor]
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPersonName setPlaceholder: NSLocalizedString(@"form-invalid-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldEmail.text length] == 0) {
-        [textFieldEmail setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [textFieldEmail setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-empty-email", nil)];
         isValid = NO;
     }
     
     if ([textFieldPassword.text length] < 5) {
-        [textFieldPassword setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+        [textFieldPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPassword setPlaceholder: NSLocalizedString(@"form-invalid-password", nil)];
         isValid = NO;
@@ -488,6 +491,10 @@
     [self getResourcePathProfile];
     
     [self.tabBarController setSelectedIndex:0];
+}
+
+-(IBAction)setGarageNameWrited:(id)sender{
+    textFieldGarageName.text = garageNameWrited;
 }
 
 -(IBAction)setEmailWrited:(id)sender{

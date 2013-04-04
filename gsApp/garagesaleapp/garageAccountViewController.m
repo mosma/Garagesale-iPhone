@@ -171,7 +171,7 @@
             garageName.textAlignment  = UITextAlignmentLeft;
             
             if ([[[GlobalFunctions getUserDefaults] objectForKey:@"link"] isEqualToString:@""])
-                link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@",
+                link.text = [NSString stringWithFormat:@"http://gsapp.me/%@",
                              [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
             else
                 link.text = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
@@ -330,7 +330,7 @@
                                              profileName:profile.nome];
         
         if ([garage.link isEqualToString:@""])
-            link.text = [NSString stringWithFormat:@"http://garagesaleapp.me/%@", profile.garagem];
+            link.text = [NSString stringWithFormat:@"http://gsapp.me/%@", profile.garagem];
         else
             link.text = garage.link;
     

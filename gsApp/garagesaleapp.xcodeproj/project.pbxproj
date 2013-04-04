@@ -284,6 +284,8 @@
 		CCD7958515C3118900F0B4D3 /* uitextViewBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958315C3118900F0B4D3 /* uitextViewBackground@2x.png */; };
 		CCD7958B15C3A1D000F0B4D3 /* dropDownCurrency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */; };
 		CCD8373E1520BD1300DCF0FD /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */; };
+		CCE0420D170CF78C00E3C641 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE0420B170CF78C00E3C641 /* Default-568h.png */; };
+		CCE0420E170CF78C00E3C641 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE0420C170CF78C00E3C641 /* Default@2x.png */; };
 		CCE11D4316A578E90052F058 /* MTStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE11D4216A578E90052F058 /* MTStatusBarOverlay.m */; };
 		CCE7B8E2158BAF2F0020E538 /* btBackNav.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E0158BAF2F0020E538 /* btBackNav.png */; };
 		CCE7B8E3158BAF2F0020E538 /* btBackNav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCE7B8E1158BAF2F0020E538 /* btBackNav@2x.png */; };
@@ -700,6 +702,8 @@
 		CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownCurrency@2x.png"; sourceTree = "<group>"; };
 		CCD8373C1520BD1300DCF0FD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		CCE0420B170CF78C00E3C641 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
+		CCE0420C170CF78C00E3C641 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CCE11D4116A578E90052F058 /* MTStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStatusBarOverlay.h; sourceTree = "<group>"; };
 		CCE11D4216A578E90052F058 /* MTStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStatusBarOverlay.m; sourceTree = "<group>"; };
 		CCE7B8E0158BAF2F0020E538 /* btBackNav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btBackNav.png; sourceTree = "<group>"; };
@@ -1023,6 +1027,8 @@
 				CC297FEC160CEE40003BFA36 /* navBarBackground@2x.png */,
 				CC3FF7EF15F04F560073479D /* dotsDetailProduct.png */,
 				E27D3DC116C6727B0068EEAB /* Default-568h@2x.png */,
+				CCE0420B170CF78C00E3C641 /* Default-568h.png */,
+				CCE0420C170CF78C00E3C641 /* Default@2x.png */,
 				CC3FF7F015F04F560073479D /* dotsDetailProduct@2x.png */,
 				CC3FF7F115F04F560073479D /* topHeaderProductDetail@2x.png */,
 				CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */,
@@ -1727,6 +1733,8 @@
 				CC2E6BA216B7013200888BA7 /* line.png in Resources */,
 				CC2E6BA316B7013200888BA7 /* line@2x.png in Resources */,
 				E27D3DC216C6727B0068EEAB /* Default-568h@2x.png in Resources */,
+				CCE0420D170CF78C00E3C641 /* Default-568h.png in Resources */,
+				CCE0420E170CF78C00E3C641 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1939,8 +1947,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -2045,8 +2053,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -2070,8 +2078,8 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "96961F03-E529-41AE-B4B7-2A9CF3C72192";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

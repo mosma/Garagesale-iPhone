@@ -417,7 +417,7 @@
                                                 <color key="textColor" red="1" green="0.39974350527108432" blue="0.39928463855421686" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" autoresizesSubviews="NO" clipsSubviews="YES" contentMode="TopLeft" text="Welcome" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
+                                            <label autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="TopLeft" text="Welcome" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" id="buW-ao-lhU" userLabel="Label - Description asdf  asfajsdf lasdf as flsakjdf asd falks dfasdj fasdj falksjd flkasjdf asd fal sdkjf asdf">
                                                 <rect key="frame" x="11" y="26" width="301" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
@@ -1526,6 +1526,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                         <connections>
                                             <action selector="getValidGarageName:" destination="fgR-qs-ekZ" eventType="editingDidEnd" id="j6J-5J-yc7"/>
+                                            <action selector="setGarageNameWrited:" destination="fgR-qs-ekZ" eventType="editingDidBegin" id="4ET-uq-jO7"/>
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="IbB-4C-H00" userLabel="textField01iphoneTitle.png">
@@ -2341,8 +2342,14 @@
         <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
+                <relationship kind="action" name="checkLogin:"/>
+                <relationship kind="action" name="getValidEmail:"/>
+                <relationship kind="action" name="getValidGarageName:"/>
+                <relationship kind="action" name="postNewGarage:"/>
                 <relationship kind="action" name="recoverPassword:"/>
                 <relationship kind="action" name="setEmailWrited:"/>
+                <relationship kind="action" name="setGarageNameWrited:"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>

@@ -52,7 +52,8 @@
     BOOL                            isLoadingDone;
     int                             flagViewControllers;
     NSTimer                         *timer;
-                                                            
+                                                 
+    NSString                        *garageNameWrited;
     NSString                        *emailWrited;
 }
 
@@ -88,5 +89,6 @@
 -(void)getResourcePathGarage;
 -(void)getResourcePathProfile;
 -(IBAction)recoverPassword:(id)sender;
+-(IBAction)setGarageNameWrited:(id)sender;
 -(IBAction)setEmailWrited:(id)sender;
 @end
