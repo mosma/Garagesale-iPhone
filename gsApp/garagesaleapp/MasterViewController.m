@@ -241,7 +241,7 @@
     labelNotification = nil;
     isReachability = nil;
     overlay = nil;
-    keyboardControls.delegate = nil;
+    //keyboardControls.delegate = nil;
     keyboardControls = nil;
     activityImageView = nil;
     sheet.delegate = nil;

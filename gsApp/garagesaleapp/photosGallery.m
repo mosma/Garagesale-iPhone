@@ -177,6 +177,7 @@
     deleteGesture = nil;
     imgViewDelete = nil;
     imgViewAtGallery = nil;
+    aImage = nil;
 }
 
 -(void)animePicsGallery:(UITapGestureRecognizer *)sender{

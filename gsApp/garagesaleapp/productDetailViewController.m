@@ -517,7 +517,8 @@
             [(Product *)[objects objectAtIndex:0] setFotos:product.fotos];
             product = (Product *)[objects objectAtIndex:0];
             //[product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
-            [self loadAttribsToComponents:YES];
+            if (galleryScrollView)
+                [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
         }
     }
@@ -755,14 +756,15 @@
 }
 
 -(void)backPage{
-    [self releaseMemoryCache];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(releaseMemoryCache) userInfo:nil repeats:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)releaseMemoryCache{
     for (UIImageView *imgV in galleryScrollView.subviews)
         [imgV removeFromSuperview];
-    
     galleryScrollView.delegate = self;
     galleryScrollView = nil;
     imageView = nil;
@@ -776,6 +778,7 @@
     isIdPersonNumber = nil;
     nextPageGallery = nil;
     buttonGarageDetail = nil;
+    [vH releaseMemoryCache];
     vH = nil;
     [super releaseMemoryCache];
 }

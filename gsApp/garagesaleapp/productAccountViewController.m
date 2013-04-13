@@ -124,7 +124,6 @@
         if ([[nsArrayCurrency objectAtIndex:i] isEqualToString:currencyDefault])
             [nsArrayCurrency removeObjectAtIndex:i];
 
-    currencyDefault = nil;
     theLocale = nil;
     symbol = nil;
     code = nil;
@@ -183,7 +182,8 @@
     pickerViewState = nil;
     barItems = nil;
     doneBtn = nil;
-    
+    currencyDefault = nil;
+
     [self.scrollView setContentSize:CGSizeMake(320,587)];
     [self setupKeyboardFields];
     
@@ -278,6 +278,7 @@
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
             });
+            queue = nil;
         }
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
@@ -386,6 +387,7 @@
                                                cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
                                                otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
         [alertV show];
+        alertV = nil;
     }
 }
 
@@ -659,6 +661,8 @@
             if ([fotos count] == i + 1)
                 if ([fotos count] != 10)
                     [buttonAddPics setEnabled:YES];
+            
+            url = nil;
         }
         [buttonSaveProduct setUserInteractionEnabled:YES];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -760,6 +764,7 @@
     HUD = nil;
     product = nil;
     waiting = nil;
+    keyboardControls.delegate = nil;
     [super releaseMemoryCache];
 }
 

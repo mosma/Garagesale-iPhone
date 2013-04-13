@@ -206,6 +206,7 @@
 }
 
 -(void)releaseMemoryCache{
+    [self cancelRequestsWithDelegate];
     RKObjManeger = nil;
     imageAvatar = nil;
     isCancelRequests = nil;

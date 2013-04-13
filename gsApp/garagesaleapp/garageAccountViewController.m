@@ -633,6 +633,7 @@
     productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
     prdAccVC.product   = (Product *)[self.mutArrayProducts objectAtIndex:sender.tag];
     [self.navigationController pushViewController:prdAccVC animated:YES];
+    prdAccVC = nil;
 }
 
 // Table view data source

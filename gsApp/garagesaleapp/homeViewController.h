@@ -30,7 +30,7 @@
     __weak IBOutlet UIScrollView   *scrollViewMain;
     __weak IBOutlet UIView         *viewTopPage;
     __weak IBOutlet UIView         *viewSearch;
-    __weak UISearchBar                                 *searchBarProduct;
+    UISearchBar                    *searchBarProduct;
     __weak IBOutlet UITextField    *txtFieldSearch;
     UIView                                      *shadowSearch;
 
@@ -43,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView  *scrollViewMain;
 @property (weak, nonatomic) IBOutlet UIView        *viewTopPage;
 @property (weak, nonatomic) IBOutlet UIView        *viewSearch;
-@property (weak, nonatomic) UISearchBar                       *searchBarProduct;
+@property (strong, nonatomic) UISearchBar                       *searchBarProduct;
 @property (weak, nonatomic) IBOutlet UITextField   *txtFieldSearch;
 @property (nonatomic) BOOL                   isFromSignUp;
 

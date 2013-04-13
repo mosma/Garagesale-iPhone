@@ -519,6 +519,7 @@
     RKObjManeger = nil;
     settingsAccount = nil;
     nibId = nil;
+    keyboardControls.delegate = nil;
     [super releaseMemoryCache];
 }
 
