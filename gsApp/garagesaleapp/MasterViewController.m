@@ -37,55 +37,72 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self load];
     [self setNotification];
     [self reachability];
-    overlay = [MTStatusBarOverlay sharedInstance];
     [self setupKeyboardControls];
     [self setupActivityAnimation];
+    [self setupActionSheet];
+}
+
+-(void)load{
+    overlay = [MTStatusBarOverlay sharedInstance];
+    viewMessageNet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+}
+
+-(void)setupActionSheet{
+    sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                        delegate:nil
+                               cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn" , nil)
+                          destructiveButtonTitle:nil
+                               otherButtonTitles:NSLocalizedString(@"sheet-camera-item" , nil),
+            NSLocalizedString(@"sheet-library-item" , nil),
+            NSLocalizedString(@"sheet-no-pic-item" , nil), nil];
 }
 
 -(void)setupActivityAnimation{
     UIImage *statusImage = [UIImage imageNamed:@"ActivityHome00.png"];
     activityImageView = [[UIImageView alloc] initWithImage:statusImage];
     
-    activityImageView.animationImages = [NSArray arrayWithObjects:
-                                         [UIImage imageNamed:@"ActivityHome00.png"],
-                                         [UIImage imageNamed:@"ActivityHome01.png"],
-                                         [UIImage imageNamed:@"ActivityHome02.png"],
-                                         [UIImage imageNamed:@"ActivityHome03.png"],
-                                         [UIImage imageNamed:@"ActivityHome04.png"],
-                                         [UIImage imageNamed:@"ActivityHome05.png"],
-                                         [UIImage imageNamed:@"ActivityHome06.png"],
-                                         [UIImage imageNamed:@"ActivityHome07.png"],
-                                         [UIImage imageNamed:@"ActivityHome00.png"],
-                                         nil];
-    activityImageView.animationDuration = 1.0;
+    [activityImageView setAnimationImages:[NSArray arrayWithObjects:
+                                           [UIImage imageNamed:@"ActivityHome00.png"],
+                                           [UIImage imageNamed:@"ActivityHome01.png"],
+                                           [UIImage imageNamed:@"ActivityHome02.png"],
+                                           [UIImage imageNamed:@"ActivityHome03.png"],
+                                           [UIImage imageNamed:@"ActivityHome04.png"],
+                                           [UIImage imageNamed:@"ActivityHome05.png"],
+                                           [UIImage imageNamed:@"ActivityHome06.png"],
+                                           [UIImage imageNamed:@"ActivityHome07.png"],
+                                           [UIImage imageNamed:@"ActivityHome00.png"],
+                                           nil]];
+    [activityImageView setAnimationDuration:1.0];
+    statusImage = nil;
 }
 
 -(void)setupKeyboardControls{
     // Initialize the keyboard controls
-    self.keyboardControls = [[BSKeyboardControls alloc] init];
+    [self setKeyboardControls:[[BSKeyboardControls alloc] init]];
 
     // Set the delegate of the keyboard controls
-    keyboardControls.delegate = self;
+    [keyboardControls setDelegate:self];
 
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
 
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    self.keyboardControls.barStyle = UIBarStyleBlackTranslucent;
+    [self.keyboardControls setBarStyle:UIBarStyleBlackTranslucent];
 
     // Set the tint color of the "Previous" and "Next" button. Default is black.
-    self.keyboardControls.previousNextTintColor = [UIColor blackColor];
+    [self.keyboardControls setPreviousNextTintColor:[UIColor blackColor]];
 
     // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    self.keyboardControls.doneTintColor = [UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0];
+    [self.keyboardControls setDoneTintColor:[UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0]];
 
     // Set title for the "Previous" button. Default is "Previous".
-    self.keyboardControls.previousTitle = NSLocalizedString(@"keyboard-previous-btn", nil);
+    [self.keyboardControls setPreviousTitle:NSLocalizedString(@"keyboard-previous-btn", nil)];
 
     // Set title for the "Next button". Default is "Next".
-    self.keyboardControls.nextTitle = NSLocalizedString(@"keyboard-next-btn", nil);
+    [self.keyboardControls setNextTitle:NSLocalizedString(@"keyboard-next-btn", nil)];
 }
 
 -(void)addKeyboardControlsAtFields{
@@ -146,19 +163,18 @@
         //overlay.progress = 0.1;
         
     } else if (RKReachabilityReachableViaWiFi == status) {
-        RKLogInfo(@"Online!"); 
+        //RKLogInfo(@"Online!");
         isReachability = YES;
        // [overlay postImmediateFinishMessage:@"" duration:0.1 animated:NO];
         //overlay.progress = 1.0;
     } else if (RKReachabilityReachableViaWWAN == status) {
         isReachability = YES;
        // [self showNotification:@"Online!"];
-        RKLogInfo(@"Online via Edge or 3G!");
+        //RKLogInfo(@"Online via Edge or 3G!");
     }
 }
 
 -(void)setNotification{
-    viewMessageNet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
     [viewMessageNet setAlpha:0];
     [viewMessageNet setBackgroundColor:[UIColor colorWithRed:189.0/255.0 green:189.0/255.0 blue:189.0/255.0 alpha:0.9]];
     labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(13, 11, 307, 22)];
@@ -196,15 +212,8 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     NSUInteger indexOfTab = [tabBarController.viewControllers indexOfObject:viewController];
     if (indexOfTab == 1 && ![[[GlobalFunctions getUserDefaults] objectForKey:@"isProductDisplayed"] boolValue]) {
-        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn" , nil)
-                                             destructiveButtonTitle:nil
-                                                  otherButtonTitles:NSLocalizedString(@"sheet-camera-item" , nil),
-                                NSLocalizedString(@"sheet-library-item" , nil),
-                                NSLocalizedString(@"sheet-no-pic-item" , nil), nil];
-        sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-        sheet.delegate = self;
+        [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
+        [sheet setDelegate:self];
         [sheet showInView:self.view];
         [sheet showFromTabBar:self.tabBarController.tabBar];
         return NO;
@@ -215,6 +224,28 @@
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [GlobalFunctions setActionSheetAddProduct:self.tabBarController clickedButtonAtIndex:buttonIndex];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    isReachability = nil;
+    [self setIsReachability:nil];
+    keyboardControls = nil;
+    [self setKeyboardControls:nil];
+}
+
+-(void)releaseMemoryCache{
+    viewMessageNet = nil;
+    labelNotification = nil;
+    isReachability = nil;
+    overlay = nil;
+    keyboardControls.delegate = nil;
+    keyboardControls = nil;
+    activityImageView = nil;
+    sheet.delegate = nil;
+    sheet = nil;
 }
 
 @end

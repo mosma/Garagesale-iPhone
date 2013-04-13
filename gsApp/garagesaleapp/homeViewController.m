@@ -28,15 +28,15 @@
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
-    buttonLogo.adjustsImageWhenHighlighted = NO;
+    [buttonLogo setAdjustsImageWhenHighlighted:NO];
     [buttonLogo addTarget:self action:@selector(reloadPage:)
          forControlEvents:UIControlEventTouchDown];
-    buttonLogo.frame = CGRectMake(34, 149, 253, 55);
+    [buttonLogo setFrame:CGRectMake(34, 149, 253, 55)];
     
     [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:NO];
     
     //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 40)];
+    searchBarProduct = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     
     //definind searchbar theme
     for(int i =0; i<[searchBarProduct.subviews count]; i++) {
@@ -52,7 +52,7 @@
         }
     }
     
-    searchBarProduct.delegate = self;
+    [searchBarProduct setDelegate:self];
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     
     [GlobalFunctions setSearchBarLayout:searchBarProduct];
@@ -71,16 +71,16 @@
 
 - (void)loadAttribsToComponents{
     if (isFromSignUp) {
-        buttonLogo.center = CGPointMake(160, 50);
+        [buttonLogo setCenter:CGPointMake(160, 50)];
     } else {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.6f];
         [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
-        buttonLogo.center = CGPointMake(160, 50);
+        [buttonLogo setCenter:CGPointMake(160, 50)];
         [UIView commitAnimations];
     }
-
-    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+    
+    mutArrayProducts = [[NSMutableArray alloc] init];
     
     //Setting i18n
     [self.txtFieldSearch setPlaceholder:NSLocalizedString(@"homeSearchField", @"")];
@@ -91,9 +91,7 @@
     [self.buttonSignUp.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
 
     searchBarProduct.hidden=YES;
-    
-    mutArrayProducts = [[NSMutableArray alloc] init];
-    
+        
     shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 320, 420)];
     [shadowSearch setBackgroundColor:[UIColor blackColor]];
     [shadowSearch setAlpha:0.7];
@@ -102,9 +100,6 @@
     UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
     [gest setNumberOfTouchesRequired:1];
     [shadowSearch addGestureRecognizer:gest];
-        
-    //init Global Functions
-    globalFunctions = [[GlobalFunctions alloc] init];
     
     [viewTopPage.layer setCornerRadius:6];
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -125,22 +120,22 @@
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
     numberToolbar.items = [NSArray arrayWithObjects:
-                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
-                           nil];
+                           [[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)], nil];
     [numberToolbar sizeToFit];
     [txtFieldSearch setInputAccessoryView:numberToolbar];
     
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
-    self.navigationItem.hidesBackButton = YES;
+    [self.navigationItem setHidesBackButton:YES];
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
-    scrollViewMain.delegate = self;
+    [scrollViewMain setDelegate:self];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)getResourcePathProduct{
-    self.trackedViewName = @"/";
+    [self setTrackedViewName:@"/"];
     
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
@@ -155,6 +150,11 @@
     //LoadUrlResourcePath
     NSString *path = [NSString stringWithFormat:@"product?count=%0d", [GlobalFunctions getHomeProductsNumber]];
     [self.RKObjManeger loadObjectsAtResourcePath:path objectMapping:productMapping delegate:self];
+    
+    productMapping = nil;
+    photoMapping = nil;
+    caminhoMapping = nil;
+    path = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -222,14 +222,20 @@
 
 -(void)loadButtonsProduct{
     //NSOperationQueue *queue = [NSOperationQueue new];
-    for(int i = [mutArrayProducts count] - [GlobalFunctions getHomeProductsNumber]; i < [mutArrayProducts count]; i++)
-    {
-        [scrollViewMain addSubview:[globalFunctions loadButtonsThumbsProduct:[NSArray arrayWithObjects:
-                                                                              [mutArrayProducts objectAtIndex:i],
-                                                                              [NSNumber numberWithInt:i], nil]
-                                                                    showEdit:NO
-                                                                   showPrice:NO
-                                                                   viewContr:self]];
+    @autoreleasepool {
+        for(int i = [mutArrayProducts count] - [GlobalFunctions getHomeProductsNumber]; i < [mutArrayProducts count]; i++)
+        {
+            UIView *viewThumb = [globalFunctions
+                                 loadButtonsThumbsProduct:[NSArray arrayWithObjects:
+                                                           [mutArrayProducts objectAtIndex:i],
+                                                           [NSNumber numberWithInt:i], nil]
+                                 showEdit:NO
+                                 showPrice:NO
+                                 viewContr:self];
+            [scrollViewMain addSubview:viewThumb];
+            viewThumb = nil;
+        }
+        
     }
 }
 
@@ -318,6 +324,12 @@
         [subview removeFromSuperview];
     [scrollViewMain addSubview:buttonLogo];
     
+    RKObjManeger = nil;
+    RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
+    
+    globalFunctions = nil;
+    globalFunctions = [[GlobalFunctions alloc] init];
+    
     //Set Display thumbs on Home.
     [globalFunctions setCountColumnImageThumbs:-1];
     [globalFunctions setImageThumbsXorigin_Iphone:10];
@@ -341,6 +353,8 @@
         [viewSearch setHidden:YES];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
     }
+    load = nil;
+    frameSize = nil;
 }
 
 
@@ -357,11 +371,12 @@
     }
 }
 
-- (void)gotoProductDetailVC:(UIButton *)sender{    
+- (void)gotoProductDetailVC:(UIButton *)sender{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
     [prdDetailVC setImageView:[[UIImageView alloc] initWithImage:[[sender imageView] image]]];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
+    prdDetailVC = nil;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -410,15 +425,16 @@
 	return YES;
 }
 
--(void)gotoProductTableViewController:(id)objetct{
+-(void)gotoProductTableViewController:(id)object{    
     searchViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    //Search Service
     
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
-                                     [objetct stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
+                                     [object stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
     
-    [prdTbl setStrTextSearch:objetct];
+    [prdTbl setStrTextSearch:object];
+    
     [self.navigationController pushViewController:prdTbl animated:YES];
+    prdTbl = nil;
 }
 
 - (IBAction)showSearch:(id)sender{
@@ -462,7 +478,8 @@
         [self reloadPage:nil];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"reloadHome"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [userDefaults synchronize];
+        userDefaults = nil;
     }
 }
 
@@ -487,6 +504,18 @@
 - (void)viewDidUnload
 {
     // Release any retained subviews of the main view.
+    RKObjManeger = nil;
+    [self setRKObjManeger:nil];
+    mutArrayProducts = nil;
+    [self setMutArrayProducts:nil];
+    viewTopPage = nil;
+    [self setViewTopPage:nil];
+    searchBarProduct = nil;
+    [self setSearchBarProduct:nil];
+    txtFieldSearch = nil;
+    [self setSearchBarProduct:nil];
+    isFromSignUp = nil;
+    [self setIsFromSignUp:nil];
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
     txtFieldSearch = nil;

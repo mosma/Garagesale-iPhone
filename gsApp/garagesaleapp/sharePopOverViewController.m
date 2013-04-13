@@ -90,6 +90,9 @@
                    withService:@"facebook"
                          title: title
                    description:content];
+    url = nil;
+    title = nil;
+    content = nil;
 }
 
 -(IBAction)twitter:(id)sender
@@ -144,6 +147,12 @@
     [mail setMessageBody:content isHTML:NO];
     
     [parent presentViewController:mail animated:YES completion:nil];
+    
+    url = nil;
+    title = nil;
+    content = nil;
+    data = nil;
+    mail = nil;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
@@ -158,6 +167,7 @@
                               cancelButtonTitle:NSLocalizedString(@"share-response-btn1", nil)
                               otherButtonTitles:nil];
         [alert show];
+        alert = nil;
     } if (result == MFMailComposeResultFailed) {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: NSLocalizedString(@"share-response-error-title", nil)
@@ -166,6 +176,7 @@
                               cancelButtonTitle: NSLocalizedString(@"share-response-error-btn1", nil)
                               otherButtonTitles:nil];
         [alert show];
+        alert = nil;
     }
 }
 
@@ -173,6 +184,25 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidUnload{
+    imgProduct = nil;
+    [self setImgProduct:nil];
+    idProduct = nil;
+    [self setIdProduct:nil];
+    priceProduct = nil;
+    [self setPriceProduct:nil];
+    garageName = nil;
+    [self setGarageName:nil];
+    strUrlImg = nil;
+    [self setStrUrlImg:nil];
+    description = nil;
+    [self setDescription:nil];
+    prodName = nil;
+    [self setProdName:nil];
+    parent = nil;
+    [self setParent:nil];
 }
 
 @end

@@ -1,9 +1,9 @@
 //
-//  productDetailViewController.h
-//  garagesaleapp
+// productDetailViewController.h
+// garagesaleapp
 //
-//  Created by Tarek Jradi on 08/01/12.
-//  Copyright (c) 2012 MOSMA. All rights reserved.
+// Created by Tarek Jradi on 08/01/12.
+// Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -22,104 +22,102 @@
                                                                 UITabBarDelegate,
                                                                 UIPopoverControllerDelegate,
                                                                 UIAlertViewDelegate> {
-
-    RKObjectManager                             *RKObjManeger;
-    Product                                     *product;
-    NSArray                                     *arrayGarage;
-    NSArray                                     *arrayProfile;
-    NSArray                                     *arrayTags;
-    UIView                                      *viewShadow;
-    BOOL                                        isIdPersonNumber;
-    int                                         nextPageGallery;
-    IBOutlet UILabel                            *labelNomeProduto;
-    IBOutlet UILabel                            *labelDescricao;
-    IBOutlet OHAttributedLabel                  *OHlabelValorEsperado;
-    IBOutlet UIScrollView                       *scrollViewMain;
-    __unsafe_unretained IBOutlet UIButton       *buttonBid;
-    __unsafe_unretained IBOutlet UIButton       *buttonCancelBid;
-    __unsafe_unretained IBOutlet UIButton       *buttonOffer;
-    __unsafe_unretained IBOutlet UIButton       *buttonBack;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldEmail;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldOffer;
-    __unsafe_unretained IBOutlet UITextView     *txtViewComment;
-    __unsafe_unretained IBOutlet UILabel        *labelNameProfile;
-    __unsafe_unretained IBOutlet UILabel        *labelCityProfile;
-    __unsafe_unretained IBOutlet UILabel        *labelEmailProfile;
-    __unsafe_unretained IBOutlet UIButton       *buttonGarageDetail;
-    __unsafe_unretained IBOutlet UILabel        *msgBidSentLabel;
-    __unsafe_unretained IBOutlet UIView         *secondView;
-    __unsafe_unretained IBOutlet UIView         *viewBidSend;
-    __unsafe_unretained IBOutlet UIView         *viewBidMsg;
-    __unsafe_unretained IBOutlet UIView         *viewControl;
-    __unsafe_unretained IBOutlet UIView         *viewReport;
-    IBOutlet UIView                             *garageDetailView;
-    __weak IBOutlet UIView                      *countView;                                                
-    __weak IBOutlet OHAttributedLabel           *countLabel;
-    UIPageControl                               *PagContGallery;
-    __unsafe_unretained IBOutlet UIButton       *buttonEditProduct;
-    __unsafe_unretained IBOutlet UIButton       *buttonDeleteProduct;
-    __unsafe_unretained IBOutlet UIButton       *buttonReportThisGarage;
+    
+    RKObjectManager *RKObjManeger;
+    Product *product;
+    NSArray *arrayGarage;
+    NSArray *arrayProfile;
+    NSArray *arrayTags;
+    UIView *viewShadow;
+    BOOL isIdPersonNumber;
+    int nextPageGallery;
+    __weak IBOutlet UILabel *labelNomeProduto;
+    __weak IBOutlet UILabel *labelDescricao;
+    __weak IBOutlet OHAttributedLabel *OHlabelValorEsperado;
+    __weak IBOutlet UIScrollView *scrollViewMain;
+    __weak IBOutlet UIButton *buttonBid;
+    __weak IBOutlet UIButton *buttonCancelBid;
+    __weak IBOutlet UIButton *buttonOffer;
+    __weak IBOutlet UIButton *buttonBack;
+    __weak IBOutlet UITextField *txtFieldEmail;
+    __weak IBOutlet UITextField *txtFieldOffer;
+    __weak IBOutlet UITextView *txtViewComment;
+    __weak IBOutlet UILabel *labelNameProfile;
+    __weak IBOutlet UILabel *labelCityProfile;
+    __weak IBOutlet UILabel *labelEmailProfile;
+    IBOutlet UIButton *buttonGarageDetail;
+    __weak IBOutlet UILabel *msgBidSentLabel;
+    __weak IBOutlet UIView *secondView;
+    __weak IBOutlet UIView *viewBidSend;
+    __weak IBOutlet UIView *viewBidMsg;
+    __weak IBOutlet UIView *viewControl;
+    __weak IBOutlet UIView *viewReport;
+    __weak IBOutlet UIView *garageDetailView;
+    __weak IBOutlet UIView *countView;
+    __weak IBOutlet OHAttributedLabel *countLabel;
+    UIPageControl *PagContGallery;
+    __weak IBOutlet UIButton *buttonEditProduct;
+    __weak IBOutlet UIButton *buttonDeleteProduct;
+    __weak IBOutlet UIButton *buttonReportThisGarage;
     //Gallery Images Objects.
-    NSMutableArray                              *productPhotos;
-    UIImageView                                 *imageView;
-    IBOutlet UIScrollView                       *galleryScrollView;
-                                                                
-    __unsafe_unretained IBOutlet UILabel        *labelEmail;
-    __unsafe_unretained IBOutlet UILabel        *labelOffer;
-    __unsafe_unretained IBOutlet UILabel        *labelAskSomething;    
-    __unsafe_unretained IBOutlet UILabel        *labelCongrats;
-    __unsafe_unretained IBOutlet UILabel        *labelBidSent;
-    viewHelper                                  *vH;
+    UIImageView *imageView;
+    __weak IBOutlet UIScrollView *galleryScrollView;
+    
+    __weak IBOutlet UILabel *labelEmail;
+    __weak IBOutlet UILabel *labelOffer;
+    __weak IBOutlet UILabel *labelAskSomething;
+    __weak IBOutlet UILabel *labelCongrats;
+    __weak IBOutlet UILabel *labelBidSent;
+    viewHelper *vH;
 }
 
 
 @property (strong, nonatomic) id detailItem;
-@property (retain, nonatomic) RKObjectManager                   *RKObjManeger;
-@property (retain, nonatomic) Product                           *product;
-@property (retain, nonatomic) NSArray                           *arrayGarage;
-@property (retain, nonatomic) NSArray                           *arrayProfile;
-@property (retain, nonatomic) NSArray                           *arrayTags;
-@property (nonatomic) BOOL                                      isIdPersonNumber;
+@property (strong, nonatomic) RKObjectManager *RKObjManeger;
+@property (strong, nonatomic) Product *product;
+@property (strong, nonatomic) NSArray *arrayGarage;
+@property (strong, nonatomic) NSArray *arrayProfile;
+@property (strong, nonatomic) NSArray *arrayTags;
+@property (nonatomic) BOOL isIdPersonNumber;
 
-@property (retain, nonatomic) IBOutlet UILabel                  *labelNomeProduto;
-@property (retain, nonatomic) IBOutlet UILabel                  *labelDescricao;
-@property (retain, nonatomic) IBOutlet OHAttributedLabel        *OHlabelValorEsperado;
-@property (retain, nonatomic) IBOutlet UIScrollView             *scrollViewMain;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonBid;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonCancelBid;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonOffer;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonBack;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldEmail;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldOffer;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextView    *txtViewComment;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelNameProfile;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelCityProfile;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *labelEmailProfile;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton      *buttonGarageDetail;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel       *msgBidSentLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *secondView;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidSend;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewBidMsg;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewControl;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewReport;
-@property (retain, nonatomic) IBOutlet UIView                   *garageDetailView;
+@property (weak, nonatomic) IBOutlet UILabel *labelNomeProduto;
+@property (weak, nonatomic) IBOutlet UILabel *labelDescricao;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel *OHlabelValorEsperado;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewMain;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBid;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCancelBid;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOffer;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBack;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldEmail;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldOffer;
+@property (weak, nonatomic) IBOutlet UITextView *txtViewComment;
+@property (weak, nonatomic) IBOutlet UILabel *labelNameProfile;
+@property (weak, nonatomic) IBOutlet UILabel *labelCityProfile;
+@property (weak, nonatomic) IBOutlet UILabel *labelEmailProfile;
+@property (strong, nonatomic) IBOutlet UIButton *buttonGarageDetail;
+@property (weak, nonatomic) IBOutlet UILabel *msgBidSentLabel;
+@property (weak, nonatomic) IBOutlet UIView *secondView;
+@property (weak, nonatomic) IBOutlet UIView *viewBidSend;
+@property (weak, nonatomic) IBOutlet UIView *viewBidMsg;
+@property (weak, nonatomic) IBOutlet UIView *viewControl;
+@property (weak, nonatomic) IBOutlet UIView *viewReport;
+@property (weak, nonatomic) IBOutlet UIView *garageDetailView;
 @property (weak, nonatomic) IBOutlet UIView *countView;
 @property (weak, nonatomic) IBOutlet OHAttributedLabel *countLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonEditProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton *buttonReportThisGarage;
+@property (weak, nonatomic) IBOutlet UIButton *buttonEditProduct;
+@property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
+@property (weak, nonatomic) IBOutlet UIButton *buttonReportThisGarage;
 
 //Gallery Images Objects.
-@property (retain, nonatomic) NSMutableArray         *productPhotos;
-@property (retain, nonatomic) UIImageView            *imageView;
-@property (retain, nonatomic) UIPageControl          *PagContGallery;
-@property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIPageControl *PagContGallery;
+@property (weak, nonatomic) IBOutlet UIScrollView *galleryScrollView;
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelEmail;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelOffer;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelAskSomething; 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelCongrats;
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel        *labelBidSent;
+@property (weak, nonatomic) IBOutlet UILabel *labelEmail;
+@property (weak, nonatomic) IBOutlet UILabel *labelOffer;
+@property (weak, nonatomic) IBOutlet UILabel *labelAskSomething;
+@property (weak, nonatomic) IBOutlet UILabel *labelCongrats;
+@property (weak, nonatomic) IBOutlet UILabel *labelBidSent;
 
 - (IBAction)animationBidView;
 - (IBAction)textFieldEditingEnded:(id)sender;

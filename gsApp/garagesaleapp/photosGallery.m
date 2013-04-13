@@ -46,7 +46,7 @@
             UIImageView *imageView      = (UIImageView *)imageViewDelete.superview;
             
             [UIView animateWithDuration:0.25 animations: ^{
-                imageView.transform = CGAffineTransformScale(imageView.transform, 0, 0);
+                [imageView setTransform:CGAffineTransformScale(imageView.transform, 0, 0)];
                 [imageView setAlpha:0];
                 [self reconfigureImagesAfterRemoving:imageView];
             } completion:^(BOOL finished){
@@ -58,7 +58,7 @@
                 [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
             }];
             if ([nsMutArrayPicsProduct count] < 11)
-                prodAccount.buttonAddPics.enabled = YES;
+                [prodAccount.buttonAddPics setEnabled:YES];
         }
     }
 }
@@ -87,7 +87,7 @@
     
     CGSize size = scrollView.contentSize;
     size.width = size.width - imageWidth_ -self.widthPaddingInImages;
-    scrollView.contentSize = size;
+    [scrollView setContentSize:size];
 }
 
 -(void)addImageToScrollView:(UIImage *)aImage
@@ -109,13 +109,13 @@
     int newIndex = [nsMutArrayPicsProduct count];
     [nsMutArrayPicsProduct insertObject:imgViewAtGallery atIndex:newIndex];
     [scrollView insertSubview:imgViewAtGallery atIndex:newIndex];
-    imgViewAtGallery.frame = CGRectMake(scrollView.contentSize.width+7 ,
-                                        self.heightPaddingInImages, imageWidth_, imageHeight_);
+    [imgViewAtGallery setFrame:CGRectMake(scrollView.contentSize.width+7 ,
+                                          self.heightPaddingInImages, imageWidth_, imageHeight_)];
     if (photoReturn != nil)
         [imgViewAtGallery setUserInteractionEnabled:YES];
     
     if ([nsMutArrayPicsProduct count] == 10)
-        prodAccount.buttonAddPics.enabled = NO;
+        [prodAccount.buttonAddPics setEnabled:NO];
     
     //Init Upload Delegate
     UploadImageDelegate *uploadDelegate = [[UploadImageDelegate alloc] init];
@@ -155,7 +155,7 @@
     /* Set scrollView Size */
     CGSize size = scrollView.contentSize;
     size.width = size.width + imageWidth_ + self.widthPaddingInImages;
-    scrollView.contentSize = size;
+    [scrollView setContentSize:size];
     
     /* Scrolling to show last ImageView add in scrollViewPicsProduct at right side of gallery */
     [scrollView setContentOffset:CGPointMake(imgViewAtGallery.frame.origin.x-190, scrollView.contentOffset.y) animated:YES];
@@ -164,7 +164,7 @@
        if(product != nil)
            [uploadDelegate setIdProduct:[product.id intValue]];
        else if (product == nil)
-           uploadDelegate.idProduct = -1;
+           [uploadDelegate setIdProduct:-1];
         [NSThread detachNewThreadSelector:@selector(uploadPhotos) toTarget:uploadDelegate withObject:nil];
         [uploadDelegate setTimmer];
     }

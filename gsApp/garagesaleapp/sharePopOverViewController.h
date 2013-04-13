@@ -11,24 +11,24 @@
 //#import <MessageUI/MessageUI.h>
 
 @interface sharePopOverViewController : UIViewController {
-    UIImage  *imgProduct;
-    NSString *idProduct;
-    NSString *priceProduct;
-    NSString *garageName;
-    NSString *strUrlImg;
-    NSString *prodName;
-    NSString *description;
-    UIViewController *parent;
+    __weak UIImage  *imgProduct;
+    __weak NSString *idProduct;
+    __weak NSString *priceProduct;
+    __weak NSString *garageName;
+    __weak NSString *strUrlImg;
+    __weak NSString *prodName;
+    __weak NSString *description;
+    __weak UIViewController *parent;
 }
 
-@property  (nonatomic, retain) UIImage  *imgProduct;
-@property  (nonatomic, retain) NSString *idProduct;
-@property  (nonatomic, retain) NSString *priceProduct;
-@property  (nonatomic, retain) NSString *garageName;
-@property  (nonatomic, retain) NSString *strUrlImg;
-@property  (nonatomic, retain) NSString *description;
-@property  (nonatomic, retain) NSString *prodName;
-@property  (nonatomic, retain) UIViewController *parent;
+@property  (weak, nonatomic) UIImage  *imgProduct;
+@property  (weak, nonatomic) NSString *idProduct;
+@property  (weak, nonatomic) NSString *priceProduct;
+@property  (weak, nonatomic) NSString *garageName;
+@property  (weak, nonatomic) NSString *strUrlImg;
+@property  (weak, nonatomic) NSString *description;
+@property  (weak, nonatomic) NSString *prodName;
+@property  (weak, nonatomic) UIViewController *parent;
 
 -(IBAction)facebook:(id)sender;
 -(IBAction)twitter:(id)sender;

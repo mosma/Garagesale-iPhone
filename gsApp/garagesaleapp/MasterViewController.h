@@ -28,8 +28,10 @@
     MTStatusBarOverlay  *overlay;
     BSKeyboardControls  *keyboardControls;
     UIImageView         *activityImageView;
+    UIActionSheet       *sheet;
 }
 
 @property (nonatomic) BOOL isReachability;
 -(void)addKeyboardControlsAtFields;
+-(void)releaseMemoryCache;
 @end

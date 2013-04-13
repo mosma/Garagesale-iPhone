@@ -24,14 +24,14 @@
     GlobalFunctions                             *globalFunctions;
     UIButton                                    *buttonLogo;
     CGFloat                                     _lastContentOffset;
-    int                                         countLoads;                     
+    int                                         countLoads;
     RKObjectManager                             *RKObjManeger;
     NSMutableArray                              *mutArrayProducts;
-    __unsafe_unretained IBOutlet UIScrollView   *scrollViewMain;
-    __unsafe_unretained IBOutlet UIView         *viewTopPage;
-    __unsafe_unretained IBOutlet UIView         *viewSearch;
-    UISearchBar                                 *searchBarProduct;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldSearch;
+    __weak IBOutlet UIScrollView   *scrollViewMain;
+    __weak IBOutlet UIView         *viewTopPage;
+    __weak IBOutlet UIView         *viewSearch;
+    __weak UISearchBar                                 *searchBarProduct;
+    __weak IBOutlet UITextField    *txtFieldSearch;
     UIView                                      *shadowSearch;
 
     __weak IBOutlet UIButton                    *buttonSignUp;
@@ -40,12 +40,12 @@
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
 @property (nonatomic, retain) NSMutableArray                    *mutArrayProducts;
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView  *scrollViewMain;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewTopPage;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView        *viewSearch;
-@property (retain, nonatomic) UISearchBar                       *searchBarProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField   *txtFieldSearch;
-@property (unsafe_unretained, nonatomic) BOOL                   isFromSignUp;
+@property (weak, nonatomic) IBOutlet UIScrollView  *scrollViewMain;
+@property (weak, nonatomic) IBOutlet UIView        *viewTopPage;
+@property (weak, nonatomic) IBOutlet UIView        *viewSearch;
+@property (weak, nonatomic) UISearchBar                       *searchBarProduct;
+@property (weak, nonatomic) IBOutlet UITextField   *txtFieldSearch;
+@property (nonatomic) BOOL                   isFromSignUp;
 
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignUp;
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignIn;

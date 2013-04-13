@@ -24,15 +24,15 @@
                                                                 UIScrollViewDelegate,
                                                                 MBProgressHUDDelegate> {
     //Outlets
-    __unsafe_unretained IBOutlet UIScrollView   *scrollViewPicsProduct;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldTitle;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldValue;
-    __unsafe_unretained IBOutlet UITextField    *txtFieldState;   
-    __unsafe_unretained IBOutlet UITextField    *txtFieldCurrency;                                                              
-    __unsafe_unretained IBOutlet UIScrollView   *scrollView;
-    __unsafe_unretained IBOutlet UITextView     *textViewDescription;
-    __unsafe_unretained IBOutlet UIView         *viewPicsControl;
-    __unsafe_unretained IBOutlet UIButton       *buttonAddPics;
+    __weak IBOutlet UIScrollView   *scrollViewPicsProduct;
+    __weak IBOutlet UITextField    *txtFieldTitle;
+    __weak IBOutlet UITextField    *txtFieldValue;
+    __weak IBOutlet UITextField    *txtFieldState;   
+    __weak IBOutlet UITextField    *txtFieldCurrency;                                                              
+    __weak IBOutlet UIScrollView   *scrollView;
+    __weak IBOutlet UITextView     *textViewDescription;
+    __weak IBOutlet UIView         *viewPicsControl;
+    __weak IBOutlet UIButton       *buttonAddPics;
     __weak IBOutlet UIButton                    *buttonSaveProduct;
 
     //Others
@@ -54,15 +54,15 @@
 }
 
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldTitle;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldValue;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldState;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
-@property (unsafe_unretained, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (unsafe_unretained, nonatomic) IBOutlet UITextView   *textViewDescription;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView       *viewPicsControl;
-@property (unsafe_unretained, nonatomic) IBOutlet UIButton     *buttonAddPics;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
+@property (weak, nonatomic) IBOutlet UITextField  *txtFieldTitle;
+@property (weak, nonatomic) IBOutlet UITextField  *txtFieldValue;
+@property (weak, nonatomic) IBOutlet UITextField  *txtFieldState;
+@property (weak, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextView   *textViewDescription;
+@property (weak, nonatomic) IBOutlet UIView       *viewPicsControl;
+@property (weak, nonatomic) IBOutlet UIButton     *buttonAddPics;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 

@@ -43,8 +43,8 @@
     //Initializing the Object Manager
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     //Set SerializationMIMEType
-    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
-    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+    [RKObjManeger setAcceptMIMEType:RKMIMETypeJSON];
+    [RKObjManeger setSerializationMIMEType:RKMIMETypeJSON];
     
     IS_IPHONE_5 ? [self.view setFrame:CGRectMake(0, 0, 320, 455)] : [self.view setFrame:CGRectMake(0, 0, 320, 367)];
     
@@ -146,7 +146,7 @@
     [pickerViewCurrency setShowsSelectionIndicator:YES];
     [txtFieldCurrency setInputView:pickerViewCurrency];
     [txtFieldCurrency setTag:PICKERCURRENCY];
-    txtFieldCurrency.delegate = self;
+    [txtFieldCurrency setDelegate:self];
     
     if (self.product != nil)
         [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
@@ -271,15 +271,16 @@
 }
 
 -(void)loadingProduct{
+    UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                viewContr:self
+                               imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
     [self getResourcePathProduct];
-    [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(backPage)
-                                                                          viewContr:self
-                                                                         imageNamed:@"btBackNav.png"
-                                                                               rect:CGRectMake(0, 0, 40, 30)]];
+    [self.navigationItem setLeftBarButtonItem:barItem];
     
     [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:UITextAlignmentCenter
                                                                              text:product.nome
                                                                             width:200]];
+    barItem = nil;
 }
 
 -(void)backPage{
@@ -297,18 +298,18 @@
 
 - (IBAction)animationPicsControl{
     //Limited Maximum At Pics Add Gallery
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+    UIActionSheet *gallerySheet = [[UIActionSheet alloc] initWithTitle:nil
                                                        delegate:nil
                                               cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
                                          destructiveButtonTitle:nil
                                               otherButtonTitles:NSLocalizedString(@"sheet-camera-item", nil),
                                                                 NSLocalizedString(@"sheet-library-item", nil),
                                                                 nil];
-    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    sheet.delegate = self;
-    [sheet showInView:self.view];
-    [sheet showFromTabBar:self.tabBarController.tabBar];
-    [sheet setTag:99];
+    gallerySheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    gallerySheet.delegate = self;
+    [gallerySheet showInView:self.view];
+    [gallerySheet showFromTabBar:self.tabBarController.tabBar];
+    [gallerySheet setTag:99];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -416,7 +417,8 @@
         if (self.product != nil) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [userDefaults synchronize];
+            userDefaults = nil;
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         if ([response isNotFound]) {
@@ -433,13 +435,13 @@
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         
         // Set source to the camera
-        imagePicker.sourceType = type;
+        [imagePicker setSourceType:type];
         
         // Delegate is self
-        imagePicker.delegate = self;
+        [imagePicker setDelegate:self];
         
         // Allow editing of image ?
-         imagePicker.wantsFullScreenLayout = YES;
+         [imagePicker setWantsFullScreenLayout:YES];
         //imagePicker.allowsEditing = YES;
 
         //[imagePicker.cameraOverlayView addSubview:libraryButton];
@@ -464,9 +466,9 @@
         
 
         if (txtFieldValue.text.length > 7)
-            txtFieldValue.text = [txtFieldValue.text substringWithRange:NSMakeRange(0, 7)];
+            [txtFieldValue setText:[txtFieldValue.text substringWithRange:NSMakeRange(0, 7)]];
         if (txtFieldTitle.text.length > 80)
-            txtFieldTitle.text = [txtFieldTitle.text substringWithRange:NSMakeRange(0, 80)];
+            [txtFieldTitle setText:[txtFieldTitle.text substringWithRange:NSMakeRange(0, 80)]];
         
         [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
         [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
@@ -500,7 +502,7 @@
                                                               withValue:nil];
         }
         if (![super isReachability])
-            _postProdDelegate.isSaveProductFail = YES;
+            [_postProdDelegate setIsSaveProductFail:YES];
         else{
             [_postProdDelegate postProduct:prodParams];
             [self setEnableButtonSave:NO];
@@ -524,12 +526,12 @@
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
     
-    HUD.mode = MBProgressHUDModeAnnularDeterminate;
-    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
-	HUD.delegate = self;
-	HUD.labelText = NSLocalizedString(@"image-uploading", nil);
-	HUD.color = [UIColor blackColor];
-    HUD.dimBackground = YES;
+    [HUD setMode:MBProgressHUDModeAnnularDeterminate];
+    [HUD setLabelFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+	[HUD setDelegate:self];
+	[HUD setLabelText:NSLocalizedString(@"image-uploading", nil)];
+	[HUD setColor:[UIColor blackColor]];
+    [HUD setDimBackground:YES];
     
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
@@ -542,7 +544,7 @@
     int count = 0;
     while (!_postProdDelegate.isSaveProductDone) {
 		progress += 0.01f;
-		HUD.progress = progress;
+		[HUD setProgress:progress];
         if (progress > 1) progress = 0.0f;
 		usleep(30000);
         count++;
@@ -551,19 +553,20 @@
 	}
     
     if (_postProdDelegate.isSaveProductFail){
-        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
-        HUD.mode = MBProgressHUDModeCustomView;
-        HUD.labelText = NSLocalizedString(@"image-upload-error-check", nil);
+        [HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]]];
+        [HUD setMode:MBProgressHUDModeCustomView];
+        [HUD setLabelText:NSLocalizedString(@"image-upload-error-check", nil)];
         sleep(2);
     }else if (_postProdDelegate.isSaveProductDone && !_postProdDelegate.isSaveProductFail) {
-        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-        HUD.mode = MBProgressHUDModeCustomView;
-        HUD.labelText = @"Completed";
+        [HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]]];
+        [HUD setMode:MBProgressHUDModeCustomView];
+        [HUD setLabelText: @"Completed"];
         sleep(1);
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [userDefaults synchronize];
+        userDefaults = nil;
 
         [[self.tabBarController.viewControllers objectAtIndex:2] popToRootViewControllerAnimated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -594,8 +597,10 @@
     if (isNew){
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [userDefaults synchronize];
+        userDefaults = nil;
         self.tabBarController.selectedIndex = 2;
+        [self releaseMemoryCache];
         self.view = nil;
     }
     else
@@ -605,9 +610,9 @@
 -(void)loadAttributsToProduct{
     [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
                                [GlobalFunctions getCurrencyByCode:product.currency]]];
-    self.txtFieldTitle.text = [product nome];
-    self.txtFieldValue.text = [product valorEsperado];
-    self.textViewDescription.text = [product descricao];
+    [self.txtFieldTitle setText:[product nome]];
+    [self.txtFieldValue setText:[product valorEsperado]];
+    [self.textViewDescription setText:[product descricao]];
 }
 
 -(void)loadAttributsToPhotos:(NSArray *)fotos{
@@ -639,9 +644,9 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow: (NSInteger)row inComponent:(NSInteger)component {
     if(pickerView.tag == PICKERSTATE)
-        txtFieldState.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayState objectAtIndex:row]];
+        [txtFieldState setText:[NSString stringWithFormat:@"%@", (NSString *)[nsArrayState objectAtIndex:row]]];
     else 
-        txtFieldCurrency.text = [NSString stringWithFormat:@"%@", (NSString *)[nsArrayCurrency objectAtIndex:row]];
+        [txtFieldCurrency setText:[NSString stringWithFormat:@"%@", (NSString *)[nsArrayCurrency objectAtIndex:row]]];
 }
 
 // tell the picker how many rows are available for a given component
@@ -673,8 +678,8 @@
 /* Setup the keyboard controls BSKeyboardControls.h */
 - (void)setupKeyboardFields
 {
-    keyboardControls.textFields = [NSArray arrayWithObjects:
-                                        txtFieldState, txtFieldTitle,textViewDescription, txtFieldCurrency, txtFieldValue, nil];
+    [keyboardControls setTextFields:[NSArray arrayWithObjects:
+                                     txtFieldState, txtFieldTitle,textViewDescription, txtFieldCurrency, txtFieldValue, nil]];
     [super addKeyboardControlsAtFields];
 }
 
@@ -713,6 +718,18 @@
         return !([textField.text length]>limit && [string length] > range.length);
     }
     return YES;
+}
+
+-(void)releaseMemoryCache{
+    RKObjManeger = nil;
+    nsArrayState = nil;
+    nsArrayCurrency = nil;
+    singleTap = nil;
+    shadowView = nil;
+    HUD = nil;
+    product = nil;
+    waiting = nil;
+    [super releaseMemoryCache];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -774,30 +791,32 @@
               
        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
        [userDefaults setBool:YES forKey:@"isProductDisplayed"];
-       [[NSUserDefaults standardUserDefaults] synchronize];
+       [userDefaults synchronize];
+        userDefaults = nil;
     }
     
     if ([[[GlobalFunctions getUserDefaults] objectForKey:@"reloadProductAccount"] isEqual:@"YES"]){
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"NO" forKey:@"reloadProductAccount"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [userDefaults synchronize];
+        userDefaults = nil;
         [self reloadPage];
     }
 }
 
 -(void)reloadPage{
-    txtFieldCurrency.text    = @"";
-    txtFieldState.text       = @"";
-    txtFieldTitle.text       = @"";
-    txtFieldValue.text       = @"";
-    textViewDescription.text = @"";
+    [txtFieldCurrency setText:@""];
+    [txtFieldState setText:@""];
+    [txtFieldTitle setText:@""];
+    [txtFieldValue setText:@""];
+    [textViewDescription setText:@""];
     gallery = nil;
     for (UIImageView *img in [scrollViewPicsProduct subviews])
         [img removeFromSuperview];
     [txtFieldTitle setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
     [txtFieldValue setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
     CGSize size = CGSizeMake(0, self.scrollViewPicsProduct.frame.size.height);
-    scrollViewPicsProduct.contentSize = size ;
+    [scrollViewPicsProduct setContentSize:size];
     [scrollView setContentOffset:CGPointZero animated:NO];
     [self loadAttributsToComponents];
 }
@@ -805,15 +824,38 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    RKObjManeger = nil;
+    [self setRKObjManeger:nil];
+    scrollViewPicsProduct = nil;
+    [self setScrollViewPicsProduct:nil];
+    txtFieldTitle = nil;
+    [self setTxtFieldTitle:nil];
+    txtFieldValue = nil;
+    [self setTxtFieldValue:nil];
+    txtFieldState = nil;
+    [self setTxtFieldState:nil];
+    txtFieldCurrency = nil;
+    [self setTxtFieldCurrency:nil];
+    scrollView = nil;
+    [self setScrollView:nil];
+    textViewDescription = nil;
+    [self setTextViewDescription:nil];
+    buttonDeleteProduct = nil;
+    [self setButtonDeleteProduct:nil];
+    buttonSaveProduct = nil;
+    [self setButtonSaveProduct:nil];
+    isImagesProductPosted = nil;
+    [self setIsImagesProductPosted:nil];
+    product = nil;
+    [self setProduct:nil];
+    countUploaded = nil;
+    [self setCountUploaded:nil];
     viewPicsControl = nil;
     [self setViewPicsControl:nil];
     buttonAddPics = nil;
     [self setButtonAddPics:nil];
-    
     gallery = nil;
     [self setGallery:nil];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -39,10 +39,12 @@
 }
 
 - (void)loadAttribsToComponents{
-    self.navigationItem.leftBarButtonItem   = [GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self
-                                                                  imageNamed:@"btBackNav.png"
-                                                                        rect:CGRectMake(0, 0, 40, 30)];
+    UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                               viewContr:self
+                                                              imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+    
+    [self.navigationItem setLeftBarButtonItem:barItemBack];
+    barItemBack = nil;
 
     imageView.contentMode   = UIViewContentModeScaleAspectFit;
     [galleryScrollView addSubview:imageView];
@@ -82,6 +84,8 @@
 //                [fotos setValue:image forKey:[NSString stringWithFormat:@"%i", i]];
 //        }
     });
+    
+    doubleTap = nil;
     
 //    for (int i=0; i < [urls count]; i++) {
 //        CGRect rect;
@@ -176,6 +180,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    imageView = nil;
+    galleryScrollView = nil;
+    urls = nil;
+    indice = nil;
+    [self setImageView:nil];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
@@ -206,8 +215,14 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    imageView = nil;
+    [self setImageView:nil];
+    urls = nil;
+    [self setUrls:nil];
+    indice = nil;
+    [self setIndice:nil];
+    galleryScrollView = nil;
+    [self setGalleryScrollView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

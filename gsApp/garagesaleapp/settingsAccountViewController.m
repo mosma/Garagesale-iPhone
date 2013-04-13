@@ -54,8 +54,8 @@
     [super viewDidLoad];
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     //Set SerializationMIMEType
-    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
-    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+    [RKObjManeger setAcceptMIMEType:RKMIMETypeJSON];
+    [RKObjManeger setSerializationMIMEType:RKMIMETypeJSON];
     
     if ([nibId rangeOfString:@"Vnq-S3-BVF"].length != 0) //About ViewController
             IS_IPHONE_5 ? [self.view setFrame:CGRectMake(0, 20, 320, 548)] : [self.view setFrame:CGRectMake(0, 0, 320, 460)];
@@ -67,23 +67,23 @@
     nibId = [[self.navigationController visibleViewController] nibName];
     
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:NSLocalizedString(@"account", @"") width:210];
-        self.scrollView.contentSize = CGSizeMake(320,700);
+        [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
+                                           UITextAlignmentCenter text:NSLocalizedString(@"account", @"") width:210]];
+        [self.scrollView setContentSize:CGSizeMake(320,700)];
     } else if
         ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) { //Address ViewController
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:NSLocalizedString(@"address", @"") width:210];
-        self.scrollView.contentSize = CGSizeMake(320,585);
+            [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
+                                               UITextAlignmentCenter text:NSLocalizedString(@"address", @"") width:210]];
+        [self.scrollView setContentSize:CGSizeMake(320,585)];
     }else if
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) { //Password ViewController
-        self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric:
-                                         UITextAlignmentCenter text:NSLocalizedString(@"password", @"") width:210];
-        self.scrollView.contentSize = CGSizeMake(320,525);
+            [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
+                                               UITextAlignmentCenter text:NSLocalizedString(@"password", @"") width:210]];
+        [self.scrollView setContentSize:CGSizeMake(320,525)];
     }
     
-    imageView.image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                           objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]];
+    [imageView setImage:(UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                              objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]]];
 
     //set Navigation Title with OHAttributeLabel
     NSString *titleAbout = @"This app is developed and created by MoSMA. \r\n\ Want to talk? \n contact@mosma.us";
@@ -180,16 +180,16 @@
     [attrStrTotalProd setFont:[UIFont boldSystemFontOfSize:20]
                         range:[total rangeOfString:[NSString stringWithFormat:@"%i", totalProducts]]];
     labelTotalProducts.attributedText   = attrStrTotalProd;
-    labelTotalProducts.textAlignment = UITextAlignmentLeft;
+    [labelTotalProducts setTextAlignment:UITextAlignmentLeft];
     
     [buttonAccount.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
     [buttonAddress.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
     [buttonPassword.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15]];
     
     //Password ViewController
-    labelCurrentPassword.font   = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelNewPassword.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelRepeatPassword.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    [labelCurrentPassword setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelNewPassword setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelRepeatPassword setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
     
     [txtFieldCurrentPassword    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldNewPassword        setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -198,26 +198,26 @@
     txtFieldCurrentPassword.text = [[GlobalFunctions getUserDefaults] objectForKey:@"senha"];
     
     //Address ViewController
-    labelAddress.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelCity.font          = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelDistrict.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelCountry.font       = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    [labelAddress setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelCity setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelDistrict setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelCountry setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
     
     [txtFieldAddress    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldCity       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldDistrict   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldCountry    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
-    txtFieldAddress.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"address"];
-    txtFieldCity.text       = [[GlobalFunctions getUserDefaults] objectForKey:@"city"];
-    txtFieldDistrict.text   = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];
-    txtFieldCountry.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"country"];
+    [txtFieldAddress setText:[[GlobalFunctions getUserDefaults] objectForKey:@"address"]];
+    [txtFieldCity setText:[[GlobalFunctions getUserDefaults] objectForKey:@"city"]];
+    [txtFieldDistrict setText:[[GlobalFunctions getUserDefaults] objectForKey:@"district"]];
+    [txtFieldCountry setText:[[GlobalFunctions getUserDefaults] objectForKey:@"country"]];
     
     //Account ViewController
-    labelGarageName.font    = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelEmail.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelAbout.font         = [UIFont fontWithName:@"Droid Sans" size:13 ];
-    labelYourName.font      = [UIFont fontWithName:@"Droid Sans" size:13 ];
+    [labelGarageName setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelEmail setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelAbout setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
+    [labelYourName setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
     
     [txtFieldGarageName setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldYourName   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -225,30 +225,42 @@
     [txtFieldEmail      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldAnyLink    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
-    txtFieldGarageName.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
-    txtFieldYourName.text   = [[GlobalFunctions getUserDefaults] objectForKey:@"nome"];
-    txtViewAbout.text       = [[GlobalFunctions getUserDefaults] objectForKey:@"about"];
-    txtFieldEmail.placeholder = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
-    txtFieldAnyLink.text    = [[GlobalFunctions getUserDefaults] objectForKey:@"link"];
+    [txtFieldGarageName setPlaceholder:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+    [txtFieldYourName setText:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
+    [txtViewAbout setText:[[GlobalFunctions getUserDefaults] objectForKey:@"about"]];
+    [txtFieldEmail setPlaceholder:[[GlobalFunctions getUserDefaults] objectForKey:@"email"]];
+    [txtFieldAnyLink setText:[[GlobalFunctions getUserDefaults] objectForKey:@"link"]];
     
-    city.font              = [UIFont fontWithName:@"Droid Sans" size:12 ];
+    [city setFont:[UIFont fontWithName:@"Droid Sans" size:12 ]];
     [city setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
     
-    garageName.attributedText  = [GlobalFunctions
-                                  getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
-                                  profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]];
+    [garageName setAttributedText:[GlobalFunctions
+                                   getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
+                                   profileName:[[GlobalFunctions getUserDefaults] objectForKey:@"nome"]]];
     
-    garageName.textAlignment  = UITextAlignmentLeft;
+    [garageName setTextAlignment:UITextAlignmentLeft];
     
     NSString *cityConc = [[GlobalFunctions getUserDefaults] objectForKey:@"city"];
     NSString *district = [[GlobalFunctions getUserDefaults] objectForKey:@"district"];
     NSString *country = [[GlobalFunctions getUserDefaults] objectForKey:@"country"];
     
-    city.text = [GlobalFunctions formatAddressGarage:@[cityConc, district, country]];
+    [city setText:[GlobalFunctions formatAddressGarage:@[cityConc, district, country]]];
 
-    self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png"
-                                                                             rect:CGRectMake(0, 0, 40, 30)];
+    UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                           viewContr:self
+                                                          imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+    
+    [self.navigationItem setLeftBarButtonItem:barItem];
+    barItem = nil;
+    cityConc = nil;
+    district = nil;
+    country = nil;
+    total = nil;
+    attrStrTotalProd = nil;
+    titleAbout = nil;
+    attrStr = nil;
+    imageView = nil;
+    
     [self setupKeyboardFields];
 }
 
@@ -259,6 +271,7 @@
                                              [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]
                               objectMapping:garageMapping delegate:self];
     
+    garageMapping = nil;
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -270,6 +283,7 @@
                                              [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]
                               objectMapping:profileMapping delegate:self];
     
+    profileMapping = nil;
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -300,15 +314,15 @@
     NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
 
     if (txtFieldCity.text.length > 100)
-        txtFieldCity.text = [txtFieldCity.text substringWithRange:NSMakeRange(0, 100)];
+        [txtFieldCity setText:[txtFieldCity.text substringWithRange:NSMakeRange(0, 100)]];
     if (txtFieldDistrict.text.length > 11)
-        txtFieldDistrict.text = [txtFieldDistrict.text substringWithRange:NSMakeRange(0, 11)];
+        [txtFieldDistrict setText:[txtFieldDistrict.text substringWithRange:NSMakeRange(0, 11)]];
     if (txtFieldCountry.text.length > 200)
-        txtFieldCountry.text = [txtFieldCountry.text substringWithRange:NSMakeRange(0, 200)];
+        [txtFieldCountry setText: [txtFieldCountry.text substringWithRange:NSMakeRange(0, 200)]];
     if (txtFieldAddress.text.length > 200)
-        txtFieldAddress.text = [txtFieldAddress.text substringWithRange:NSMakeRange(0, 200)];
+        [txtFieldAddress setText:[txtFieldAddress.text substringWithRange:NSMakeRange(0, 200)]];
     if (txtFieldAnyLink.text.length > 200)
-        txtFieldAnyLink.text = [txtFieldAnyLink.text substringWithRange:NSMakeRange(0, 200)];
+        [txtFieldAnyLink setText:[txtFieldAnyLink.text substringWithRange:NSMakeRange(0, 200)]];
     
     NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
     [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults]
@@ -363,17 +377,20 @@
 	[self.navigationController.view addSubview:HUD];
 	
 	// Set determinate mode
-	HUD.mode = MBProgressHUDModeAnnularDeterminate;
+	[HUD setMode:MBProgressHUDModeAnnularDeterminate];
 	
-    HUD. center = CGPointMake(0, 0);
+    [HUD setCenter:CGPointMake(0, 0)];
     
-    HUD.labelFont = [UIFont fontWithName:@"Droid Sans" size:14];
-	HUD.delegate = self;
-	HUD.labelText = @"Saving";
-	HUD.color = [UIColor blackColor];
-    HUD.dimBackground = YES;
+    [HUD setLabelFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+	[HUD setDelegate:self];
+	[HUD setLabelText:@"Saving"];
+	[HUD setColor:[UIColor blackColor]];
+    [HUD setDimBackground:YES];
     
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
+    
+    postData = nil;
+    prodParams = nil;
 }
 
 -(BOOL)validateFormPassword{
@@ -477,19 +494,32 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"YES" forKey:@"reloadHome"];
     [userDefaults setObject:@"YES" forKey:@"reloadProductAccount"];    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [userDefaults synchronize];
+    userDefaults = nil;
     
     [[[[self.tabBarController.viewControllers objectAtIndex:0] visibleViewController]
       navigationController] popToRootViewControllerAnimated:YES];
     
     self.tabBarController.selectedIndex = 0;
     
+    defaultsDictionary = nil;
+    userDefaults = nil;
+    
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
       navigationController] popToRootViewControllerAnimated:NO];    
 }
 
 -(void)backPage{
+    [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)releaseMemoryCache{
+    HUD = nil;
+    RKObjManeger = nil;
+    settingsAccount = nil;
+    nibId = nil;
+    [super releaseMemoryCache];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -542,17 +572,21 @@
 	float progress = 0.0f;
 	while (progress < 3.0f) {
 		progress += 0.005f;
-		HUD.progress = progress;
+		[HUD setProgress:progress];
 		usleep(10000);
         if (isSaved) break;
 	}
     HUD.mode = MBProgressHUDModeCustomView;
     if (isSaved) {
-        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-        HUD.labelText = @"Completed";
+        UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        [HUD setCustomView:imgV];
+        imgV = nil;
+        [HUD setLabelText:@"Completed"];
     }else{
-        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
-        HUD.labelText = @"Fail! Check your connection.";
+        UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
+        [HUD setCustomView:imgV];
+        imgV = nil;
+        [HUD setLabelText:@"Fail! Check your connection."];
     }
     sleep(2);
 }
@@ -583,6 +617,7 @@
     rc.size.height = 340;
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
+    v = nil;
     /*
      Use this block case use UITableView
      
@@ -638,6 +673,29 @@
 
 - (void)viewDidUnload
 {
+    [super viewDidUnload];
+    RKObjManeger = nil;
+    [self setRKObjManeger:nil];
+    labelTotalProducts = nil;
+    [self setLabelTotalProducts:nil];
+    labelAboutAPP = nil;
+    [self setLabelAboutAPP:nil];
+    settingsAccount = nil;
+    [self setSettingsAccount:nil];
+    scrollView = nil;
+    [self setScrollView:nil];
+    buttonAccount = nil;
+    [self setButtonAccount:nil];
+    buttonPassword = nil;
+    [self setButtonPassword:nil];
+    buttonAddress = nil;
+    [self setButtonAddress:nil];
+    buttonLogout = nil;
+    [self setButtonLogout:nil];
+    buttonSave = nil;
+    [self setButtonSave:nil];
+    buttonRightAbout = nil;
+    [self setButtonRightAbout:nil];
     txtFieldGarageName = nil;
     [self setTxtFieldGarageName:nil];
     txtFieldYourName = nil;
@@ -686,9 +744,6 @@
     [self setTxtFieldCurrentPassword:nil];
     [self setTxtFieldNewPassword:nil];
     [self setTxtFieldRepeatNewPassword:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

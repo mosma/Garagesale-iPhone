@@ -18,37 +18,37 @@
                                                         UISearchBarDelegate,
                                                         RKObjectLoaderDelegate,
                                                         UIScrollViewDelegate,
-                                                        UITabBarDelegate,
-                                                        NSURLConnectionDataDelegate> {
+                                                        UITabBarDelegate
+                                                        > {
     BOOL                        isSearchDisplayed;
-    RKObjectManager             *RKObjManeger;
-    NSMutableArray              *mutArrayProducts;
-    NSMutableArray              *mutArrayViewHelpers;
-
-    NSString                    *strLocalResourcePath;
+    __weak RKObjectManager             *RKObjManeger;
+     NSMutableArray              *mutArrayProducts;
+     NSMutableArray              *mutArrayViewHelpers;
+     NSString                    *strLocalResourcePath;
     NSString                    *strTextSearch;
-    IBOutlet OHAttributedLabel  *OHlabelTitleResults;
+    __weak IBOutlet OHAttributedLabel  *OHlabelTitleResults;
     UISearchBar                 *searchBarProduct;
-    STSegmentedControl          *segmentControl;                                                       
+    STSegmentedControl          *segmentControl;
     CGFloat                     _lastContentOffset;
     UIView                      *shadowSearch;
-    __unsafe_unretained IBOutlet UIView         *viewSegmentArea;
-    __unsafe_unretained IBOutlet UITableView    *tableView;
+    IBOutlet UIView         *viewSegmentArea;
+    __weak IBOutlet UITableView    *tableView;
+    NSArray *imageURLs;
 }
 
-@property (retain, nonatomic) RKObjectManager               *RKObjManeger;
-@property (retain, nonatomic) NSMutableArray                *mutArrayProducts;
-@property (retain, nonatomic) NSMutableArray                *mutArrayViewHelpers;
+@property (weak, nonatomic) RKObjectManager               *RKObjManeger;
+@property (strong, nonatomic) NSMutableArray                *mutArrayProducts;
+@property (strong, nonatomic) NSMutableArray                *mutArrayViewHelpers;
 
-@property (retain, nonatomic) NSString                      *strLocalResourcePath;
-@property (retain, nonatomic) NSString                      *strTextSearch;
-@property (retain, nonatomic) IBOutlet OHAttributedLabel    *OHlabelTitleResults;
-@property (retain, nonatomic) UISearchBar                   *searchBarProduct;
-@property (retain, nonatomic) STSegmentedControl            *segmentControl;
-@property (unsafe_unretained, nonatomic) IBOutlet UIView    *viewSegmentArea;
-@property (unsafe_unretained, nonatomic) IBOutlet UITableView   *tableView;
+@property (strong, nonatomic) NSString                      *strLocalResourcePath;
+@property (strong, nonatomic) NSString                      *strTextSearch;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel    *OHlabelTitleResults;
+@property (strong, nonatomic) STSegmentedControl            *segmentControl;
+@property (strong, nonatomic) IBOutlet UIView    *viewSegmentArea;
+@property (weak, nonatomic) IBOutlet UITableView   *tableView;
+@property (strong, nonatomic) UIView                      *shadowSearch;
 
-@property (nonatomic, retain) NSArray *imageURLs;
+@property (strong, nonatomic) NSArray *imageURLs;
 
 -(void)getResourceSearch;
 -(void)searchBar:(UISearchBar *)searchBar activate:(BOOL) active;

@@ -54,6 +54,7 @@
     }
     NSString *url = @"http://garagesaleapp.me/images/no-profileimg-small.jpg";
     imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    url = nil;
     return imageAvatar;
 }
 
@@ -63,6 +64,9 @@
     NSData *imageData = [NSKeyedArchiver archivedDataWithRootObject:imageAvatar];
     [gravImg setObject:imageData forKey:avatarName];
     [gravImg synchronize];
+    gravImg = nil;
+    imageData = nil;
+    avatarName = nil;
 }
 
 -(NSURL*)getGravatarURL:(NSString*) emailAddress {
@@ -84,7 +88,8 @@
                               result[8], result[9], result[10], result[11],
                               result[12], result[13], result[14], result[15]];
         NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=160&d=http://gsapp.me/images/no-profileimg.jpg", md5email];
-        
+        curatedEmail = nil;
+        md5email = nil;
         return [NSURL URLWithString:gravatarEndPoint];
     }
     @catch (NSException *exception) {
@@ -104,6 +109,7 @@
     if(!idTT) return false;
     //using the returnet userId
     NSString *path = [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@?size=normal", idTT];
+    idTT = nil;
     NSLog(@"%@", path);
     return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:path]]];
 }
@@ -114,6 +120,7 @@
    //NSString *url2 = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=250&height=250", idFaceBook];
    //NSDictionary *obj = [[NSDictionary alloc] initWithObjectsAndKeys:@"small", url1, @"large", url2, nil];
     UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url1]]];
+    url1 = nil;
     return img;
 }
 
@@ -121,6 +128,7 @@
     RKObjectMapping *garageMapping = [Mappings getGarageMapping];
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", garageName]
                               objectMapping:garageMapping delegate:self];
+    garageMapping = nil;
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
                                           forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -129,6 +137,7 @@
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[garage objectAtIndex:0] idPerson]]
                               objectMapping:prolileMapping delegate:self];
+    prolileMapping = nil;
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
                                           forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -138,7 +147,7 @@
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?ttinfo=true",
                                              [[arrayProfile objectAtIndex:0] id]]
                               objectMapping:viewHelperMapping delegate:self];
-    
+    viewHelperMapping = nil;
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class]
                                           forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -194,6 +203,14 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)releaseMemoryCache{
+    RKObjManeger = nil;
+    imageAvatar = nil;
+    isCancelRequests = nil;
+    arrayProfile = nil;
+    arrayTTReturn = nil;
 }
 
 -(void)cancelRequestsWithDelegate{

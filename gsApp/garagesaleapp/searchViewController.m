@@ -19,7 +19,6 @@
 @synthesize mutArrayProducts;
 @synthesize mutArrayViewHelpers;
 @synthesize RKObjManeger;
-@synthesize searchBarProduct;
 @synthesize strLocalResourcePath;
 @synthesize strTextSearch;
 @synthesize OHlabelTitleResults;
@@ -27,6 +26,7 @@
 @synthesize viewSegmentArea;
 @synthesize imageURLs;
 @synthesize tableView;
+@synthesize shadowSearch;
 
 - (void)awakeFromNib
 {
@@ -64,6 +64,7 @@
         @finally {
             ;
         }
+        URLs = nil;
         [self changeSegControl:nil];
     }
     [super awakeFromNib];
@@ -71,7 +72,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tabBarController.delegate = self; 
+    [self.tabBarController setDelegate:self];
+}
+
+-(void)viewWillUnload{
+    [self removeClientRequest];
 }
 
 - (void)viewDidLoad
@@ -109,12 +114,12 @@
             
             //button
             if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UIButton class]]){
-                UIButton * btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
+                UIButton *btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
                 [btn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
             }
         }
         
-        searchBarProduct.delegate = self;
+        [searchBarProduct setDelegate:self];
         [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
         [GlobalFunctions setSearchBarLayout:searchBarProduct];
         [searchBarProduct setHidden:YES];
@@ -128,6 +133,7 @@
         UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
         [gest setNumberOfTouchesRequired:1];
         [shadowSearch addGestureRecognizer:gest];
+        gest = nil;
         
         //Initializing the Object Managers
         RKObjManeger = [RKObjectManager sharedManager];
@@ -138,31 +144,42 @@
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
     if (!isFromLoadObject) {
     
-    self.tableView.delegate = self;
-    
-    [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
-    [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
-    
-    [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                               @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
-    
-    [self.navigationItem setRightBarButtonItem:[GlobalFunctions getIconNavigationBar:@selector(showSearch:) viewContr:self imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 31)]];
-    
-    NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
-    
-	segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
-	segmentControl.frame = CGRectMake(0, 0, 92, 31);
-	[segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
-	segmentControl.selectedSegmentIndex = 0;
-	segmentControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	[viewSegmentArea addSubview:segmentControl];
+        [self.tableView setDelegate:self];
+        
+        [self.navigationController.navigationBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+        [self.navigationItem setTitle:NSLocalizedString(@"products", @"")];
+        
+        UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                                   viewContr:self
+                                                                  imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+            
+        [self.navigationItem setLeftBarButtonItem:barItemBack];
+        barItemBack = nil;
+            
+        UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(showSearch:)
+                                                                   viewContr:self
+                                                                  imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 31)];
+            
+        [self.navigationItem setRightBarButtonItem:barItem];
+        
+        barItem = nil;
+        
+        NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
+        
+        segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
+        [segmentControl setFrame:CGRectMake(0, 0, 92, 31)];
+        [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
+        [segmentControl setSelectedSegmentIndex:0];
+        [segmentControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [viewSegmentArea addSubview:segmentControl];
 
-    [self.tableView setRowHeight:377];
-    
-    activityImageView.frame = CGRectMake(137, self.view.center.y-60, 46, 45);
-    [activityImageView setAlpha:0];
-    [self.view addSubview:activityImageView];
-    
+        [self.tableView setRowHeight:377];
+        
+        [activityImageView setFrame:CGRectMake(137, self.view.center.y-60, 46, 45)];
+        [activityImageView setAlpha:0];
+        [self.view addSubview:activityImageView];
+        objects = nil;
+        
     } else {
          if ([strTextSearch length] != 0)
             [searchBarProduct setText:strTextSearch];
@@ -181,7 +198,10 @@
         [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                         range:[text rangeOfString:[NSString stringWithFormat:@"\"%@\"", strTextSearch]]];
         
-        OHlabelTitleResults.attributedText = attrStr;
+        text = nil;
+        count = nil;
+        
+        [OHlabelTitleResults setAttributedText:attrStr];
         
         //logic block to load avatares search.
         [mutArrayViewHelpers removeAllObjects];
@@ -197,6 +217,7 @@
                 [vH getResourcePathGarage:garageName];
                 [mutArrayViewHelpers addObject:vH];
             }
+            avatarName = nil;
         }
         
         [segmentControl setEnabled:YES];
@@ -255,6 +276,10 @@
     [self.RKObjManeger loadObjectsAtResourcePath:[self htmlEntityDecode:strLocalResourcePath] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    
+    productMapping = nil;
+    photoMapping = nil;
+    caminhoMapping = nil;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
@@ -263,6 +288,7 @@
     [activityImageView setAlpha:0];
     
     if([objects count] > 0){
+        mutArrayProducts = nil;
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
     }else{
@@ -298,8 +324,25 @@
     }
 }
 
+-(void)releaseMemoryCache{
+    for (int n=0; n < [mutArrayViewHelpers count]; n++)
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] releaseMemoryCache];
+    [mutArrayViewHelpers removeAllObjects];
+    mutArrayViewHelpers = nil;
+    [mutArrayProducts removeAllObjects];
+    mutArrayProducts = nil;
+    searchBarProduct.delegate = nil;
+    searchBarProduct.delegate = nil;
+    self.tabBarController.delegate = nil;
+    tableView.delegate = nil;
+    tableView = nil;
+    imageURLs = nil;
+    [super releaseMemoryCache];
+}
+
 -(void)backPage{
     [self removeClientRequest];
+    [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -358,9 +401,9 @@
         NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
         
         //Attibuted at strFormat values : Currency, Valor Esperado.
-        NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
+        NSString *currency   = [GlobalFunctions getCurrencyByCode:(NSString *)
                                                        [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
-        NSString                   *valorEsperado   = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
+        NSString *valorEsperado = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
         
         NSString *valorEsperadoFormat;
         if (segmentControl.selectedSegmentIndex != 0)
@@ -420,8 +463,8 @@
 
         UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
                                                                                    objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
-        customViewCellBlock.imageGravatar.image = image;
-        customViewCellBlock.imageGravatar.tag = indexPath.row;
+        [customViewCellBlock.imageGravatar setImage:image];
+        [customViewCellBlock.imageGravatar setTag:indexPath.row];
 
         UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
         [gestGrav setNumberOfTouchesRequired:1];
@@ -447,12 +490,12 @@
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
         
         //set placeholder image or cell won't update when image is loaded
-        customViewCellBlock.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
+        [customViewCellBlock.imageView setImage:[UIImage imageNamed:@"placeHolder.png"]];
         //load the image
-        customViewCellBlock.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
+        [customViewCellBlock.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
         
-        customViewCellBlock.imageView.layer.masksToBounds = YES;
-        customViewCellBlock.imageView.layer.cornerRadius = 3;
+        [customViewCellBlock.imageView.layer setMasksToBounds:YES];
+        [customViewCellBlock.imageView.layer setCornerRadius:3];
         
         //[customViewCellLine removeFromSuperview];
         [customViewCellBlock setHidden:NO];
@@ -467,13 +510,13 @@
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellLine.imageView];
 
         //set placeholder image or cell won't update when image is loaded
-        customViewCellLine.imageView.image = [UIImage imageNamed:@"placeHolder.png"];
+        [customViewCellLine.imageView setImage:[UIImage imageNamed:@"placeHolder.png"]];
         //load the image
-        customViewCellLine.imageView.imageURL = [imageURLs objectAtIndex:indexPath.row];
+        [customViewCellLine.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
         
-        customViewCellLine.imageView.layer.masksToBounds = YES;
+        [customViewCellLine.imageView.layer setMasksToBounds:YES];
         
-        customViewCellLine.imageView.layer.cornerRadius = 3;
+        [customViewCellLine.imageView.layer setCornerRadius:3];
         
       //  [customViewCellBlock removeFromSuperview];
         [customViewCellBlock setHidden:YES];
@@ -482,15 +525,20 @@
         [self.tableView setRowHeight:367];
         return customViewCellLine;
     }
+        
+    customViewCellBlock = nil;
+    customViewCellLine = nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     [prdDetailVC setProduct:(Product *)[mutArrayProducts objectAtIndex:indexPath.row]];
     
-    UIImageView *imageV = [[UIImageView alloc] initWithImage:[[(searchCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
+    UIImageView *imageV = [[UIImageView alloc] initWithImage:
+                           [[(searchCustomViewCell *)[tableView cellForRowAtIndexPath:indexPath] imageView] image]];
     
     [prdDetailVC setImageView:imageV];
+    imageV = nil;
     [self.navigationController pushViewController:prdDetailVC animated:YES];
 }
 
@@ -502,9 +550,9 @@
     
     NSString *garageName = [[mutArrayProducts objectAtIndex:sender.view.tag] idPessoa];
     UIImageView *imgV = (UIImageView *)sender.view;
-    garaAcc.garageNameSearch = garageName;
+    [garaAcc setGarageNameSearch:garageName];
     [garaAcc setImageGravatar:imgV.image];
-    garaAcc.isGenericGarage = YES;
+    [garaAcc setIsGenericGarage:YES];
     [self.navigationController pushViewController:garaAcc animated:YES];
     
     
@@ -560,6 +608,9 @@
     strLocalResourcePath = [NSString stringWithFormat:@"/search?q=%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
 
     [mutArrayProducts removeAllObjects];
+    
+    imageURLs = nil;
+
     [tableView reloadData];
     
     for (int n=0; n < [mutArrayViewHelpers count]; n++)
@@ -660,12 +711,27 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [self removeClientRequest];
-    //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    RKObjManeger = nil;
+    [self setRKObjManeger:nil];
+    strLocalResourcePath = nil;
+    [self setStrLocalResourcePath:nil];
+    strTextSearch = nil;
+    [self setStrTextSearch:nil];
     mutArrayProducts = nil;
     [self setMutArrayProducts:nil];
     mutArrayViewHelpers = nil;
     [self setMutArrayViewHelpers:nil];
+    OHlabelTitleResults = nil;
+    [self setOHlabelTitleResults:nil];
+    searchBarProduct = nil;
+    segmentControl = nil;
+    [self setSegmentControl:nil];
+    viewSegmentArea = nil;
+    [self setViewSegmentArea:nil];
+    tableView = nil;
+    [self setTableView:nil];
+    imageURLs = nil;
+    [self setImageURLs:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

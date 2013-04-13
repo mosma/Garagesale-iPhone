@@ -10,21 +10,21 @@
 #import "OHAttributedLabel.h"
 
 @interface searchCustomViewCell : UITableViewCell {
-    IBOutlet UILabel                  *productName;
-    IBOutlet UILabel                  *currency;
-    IBOutlet UILabel                  *garageName;
-    IBOutlet OHAttributedLabel        *valorEsperado;
-    IBOutlet UIImageView              *imageView;
-    IBOutlet UIImageView              *imageGravatar;
-    IBOutlet UIButton                 *imageEditButton;
+    __weak IBOutlet UILabel                  *productName;
+    __weak IBOutlet UILabel                  *currency;
+    __weak IBOutlet UILabel                  *garageName;
+    __weak IBOutlet OHAttributedLabel        *valorEsperado;
+    __weak IBOutlet UIImageView              *imageView;
+    __weak IBOutlet UIImageView              *imageGravatar;
+    __weak IBOutlet UIButton                 *imageEditButton;
 }
 
-@property (retain, nonatomic) IBOutlet UILabel                *productName;
-@property (retain, nonatomic) IBOutlet UILabel                *currency;
-@property (retain, nonatomic) IBOutlet UILabel                *garageName;
-@property (retain, nonatomic) IBOutlet OHAttributedLabel      *valorEsperado;
-@property (retain, nonatomic) IBOutlet UIImageView            *imageView;
-@property (retain, nonatomic) IBOutlet UIImageView            *imageGravatar;
-@property (retain, nonatomic) IBOutlet UIButton               *imageEditButton;
+@property (weak, nonatomic) IBOutlet UILabel                *productName;
+@property (weak, nonatomic) IBOutlet UILabel                *currency;
+@property (weak, nonatomic) IBOutlet UILabel                *garageName;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel      *valorEsperado;
+@property (weak, nonatomic) IBOutlet UIImageView            *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView            *imageGravatar;
+@property (weak, nonatomic) IBOutlet UIButton               *imageEditButton;
 
 @end

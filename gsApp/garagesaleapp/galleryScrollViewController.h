@@ -10,18 +10,18 @@
 
 @interface galleryScrollViewController : UIViewController <UIScrollViewDelegate> {
     UIImageView             *imageView;
-    NSArray                 *urls;
+    __weak NSArray                 *urls;
     NSMutableDictionary     *fotos;
     int                     indice;
     
-    IBOutlet UIScrollView   *galleryScrollView;
+    __weak IBOutlet UIScrollView   *galleryScrollView;
 }
 
-@property (retain, nonatomic) UIImageView       *imageView;
-@property (retain, nonatomic) NSArray           *urls;
+@property (strong, nonatomic) UIImageView       *imageView;
+@property (weak, nonatomic) NSArray           *urls;
 @property (nonatomic)         int               indice;
 
-@property (retain, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView  *galleryScrollView;
 
 - (IBAction)pageControlCliked;
 - (void)loadAttribsToComponents;

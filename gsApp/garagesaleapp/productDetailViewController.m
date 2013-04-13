@@ -1,9 +1,9 @@
 //
-//  productDetailViewController.m
-//  garagesaleapp
+// productDetailViewController.m
+// garagesaleapp
 //
-//  Created by Tarek Jradi on 08/01/12.
-//  Copyright (c) 2012 MOSMA. All rights reserved.
+// Created by Tarek Jradi on 08/01/12.
+// Copyright (c) 2012 MOSMA. All rights reserved.
 //
 
 #import "productDetailViewController.h"
@@ -44,7 +44,6 @@
 @synthesize garageDetailView;
 @synthesize countView;
 @synthesize countLabel;
-@synthesize productPhotos;
 @synthesize imageView;
 @synthesize galleryScrollView;
 @synthesize viewBidSend;
@@ -89,27 +88,17 @@
     [self setupKeyboardFields];
     
     //Set SerializationMIMEType
-    RKObjManeger.acceptMIMEType          = RKMIMETypeJSON;
-    RKObjManeger.serializationMIMEType   = RKMIMETypeJSON;
+    RKObjManeger.acceptMIMEType = RKMIMETypeJSON;
+    RKObjManeger.serializationMIMEType = RKMIMETypeJSON;
     self.navigationItem.hidesBackButton = YES;
-    [self setLoadAnimation];
-   // [self.imgViewLoading startAnimating];
-
-   [self loadAttribsToComponents:NO];
-
+    
+    [self loadAttribsToComponents:NO];
+    
     //Check if Flag isIdPersonNumber is name or number
     if (isIdPersonNumber) {
         [self getResourcePathProfile];
     } else{
         [self getResourcePathGarage];
-    }
-}
-
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-    if (self.detailItem) {
-        //self.detailDescriptionLabel.text = [self.detailItem description];
     }
 }
 
@@ -127,13 +116,13 @@
     [self.buttonReportThisGarage setTitle: NSLocalizedString(@"reportGarege", @"") forState:UIControlStateNormal];
     [self.buttonDeleteProduct setTitle: NSLocalizedString(@"delete", @"") forState:UIControlStateNormal];
     [self.buttonEditProduct setTitle: NSLocalizedString(@"edit", @"") forState:UIControlStateNormal];
-
+    
     [self.buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
     [self.buttonEditProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
     
     [self.buttonCancelBid setTitle: NSLocalizedString(@"keyboard-cancel-btn", @"") forState:UIControlStateNormal];
     [self.buttonBid setTitle: NSLocalizedString(@"bidItem", @"") forState:UIControlStateNormal];
-
+    
     [self.buttonCancelBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [self.buttonBid.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     
@@ -149,21 +138,21 @@
     titleValorEsperado = nil;
     attrStrVE = nil;
     
-    [labelNomeProduto       setText:[self.product nome]];
+    [labelNomeProduto setText:[self.product nome]];
     
     if (!isFromLoadObject) {
         /*
          Esta verificaçao esta errada... bbbba garagem pode
          ter so numeros ?
          */
-        self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet] 
+        self.isIdPersonNumber = [[NSCharacterSet decimalDigitCharacterSet]
                                  characterIsMember:[self.product.idPessoa characterAtIndex:0]];
         
         //Show Navigation bar
         [self.navigationController setNavigationBarHidden:NO];
         
-        buttonOffer.layer.cornerRadius            = 5.0f;
-        buttonGarageDetail.layer.cornerRadius   = 5.0f;
+        buttonOffer.layer.cornerRadius = 5.0f;
+        buttonGarageDetail.layer.cornerRadius = 5.0f;
         
         viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
         [viewShadow setBackgroundColor:[UIColor blackColor]];
@@ -172,6 +161,7 @@
         UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animationBidView)];
         [gest setNumberOfTouchesRequired:1];
         [viewShadow addGestureRecognizer:gest];
+        gest = nil;
         
         [viewBidSend setAlpha:0];
         [viewBidSend.layer setCornerRadius:5];
@@ -179,9 +169,9 @@
         [viewBidMsg setAlpha:0];
         [viewBidMsg.layer setCornerRadius:5];
         
-        [txtFieldEmail    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [txtViewComment   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [labelDescricao   setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtFieldEmail setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [txtViewComment setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+        [labelDescricao setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
         [labelNomeProduto setFont:[UIFont fontWithName:@"Droid Sans" size:18]];
         
         [labelEmail setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -209,6 +199,8 @@
         [label setAttributedText:attrStr];
         [label setTextAlignment:UITextAlignmentCenter];
         [self.navigationItem setTitleView:label];
+        label = nil;
+        titleNavItem = nil;
         
         UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
         [buttonShare setFrame:CGRectMake(0.0f, 0.0f, 38.0f, 32.0f)];
@@ -217,23 +209,29 @@
         [buttonShare addTarget:self action:@selector(topRight:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = random;
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
-
+        buttonShare = nil;
+        random = nil;
+        
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
-
-        [self.navigationItem setLeftBarButtonItem:[GlobalFunctions getIconNavigationBar:
-                                                   @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)]];
-
+        
+        UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                                   viewContr:self
+                                                                  imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+        
+        [self.navigationItem setLeftBarButtonItem:barItemBack];
+        barItemBack = nil;
+        
         [labelAskSomething setText:NSLocalizedString(@"offer", @"")];
         
-        CGRect rect;//             = imageView.frame;
+        CGRect rect;// = imageView.frame;
         
-        rect.size.width         = 320;
-        rect.size.height        = 280;
-        rect.origin.x             = 0;
-        rect.origin.y             = 0;
-        imageView.frame         = rect;
+        rect.size.width = 320;
+        rect.size.height = 280;
+        rect.origin.x = 0;
+        rect.origin.y = 0;
+        imageView.frame = rect;
         
-        imageView.contentMode   = UIViewContentModeScaleAspectFill;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
         
         [galleryScrollView setFrame:CGRectMake(0, 115, 320, 370)];
@@ -242,14 +240,14 @@
         [galleryScrollView addSubview:imageView];
         
         [scrollViewMain setContentSize:CGSizeMake(320,550+labelDescricao.frame.size.height)];
-
+        
         nextPageGallery=1;
         
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"email"] != nil);
-            self.txtFieldEmail.text = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
+        self.txtFieldEmail.text = [[GlobalFunctions getUserDefaults] objectForKey:@"email"];
         
     }else {
-
+        
         // Grab the reference to the router from the manager
         RKObjectRouter *router = [RKObjectManager sharedManager].router;
         
@@ -262,13 +260,15 @@
         @catch (NSException *exception) {
             NSLog(@"Object Exist...");
         }
+        router = nil;
         
         UITapGestureRecognizer *tapGaraDet = [[UITapGestureRecognizer alloc]
-                                        initWithTarget:self action:@selector(gotoGarageDetailVC)];
+                                              initWithTarget:self action:@selector(gotoGarageDetailVC)];
         [tapGaraDet setNumberOfTapsRequired:1];
         [garageDetailView addGestureRecognizer:tapGaraDet];
-
-        [labelNameProfile   setText:[[self.arrayProfile objectAtIndex:0] nome]];
+        tapGaraDet = nil;
+        
+        [labelNameProfile setText:[[self.arrayProfile objectAtIndex:0] nome]];
         
         NSString *cityConc = [[self.arrayGarage objectAtIndex:0] city];
         NSString *country = [[self.arrayGarage objectAtIndex:0] district];
@@ -279,44 +279,45 @@
         if ([labelCityProfile.text length] < 5)
             [labelCityProfile setHidden:YES];
         
-        [labelEmailProfile  setText:NSLocalizedString(@"see-more-products", nil)];
+        [labelEmailProfile setText:NSLocalizedString(@"see-more-products", nil)];
         
         [labelNameProfile setTextColor:[UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.f]];
         [labelCityProfile setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
         
-        labelNameProfile.font  = [UIFont fontWithName:@"DroidSans-Bold" size:14];
-        labelCityProfile.font  = [UIFont fontWithName:@"Droid Sans" size:12];
+        labelNameProfile.font = [UIFont fontWithName:@"DroidSans-Bold" size:14];
+        labelCityProfile.font = [UIFont fontWithName:@"Droid Sans" size:12];
         labelEmailProfile.font = [UIFont fontWithName:@"Droid Sans" size:12];
-       
+        
         NSString *garageName = [[self.arrayProfile objectAtIndex:0] garagem];
         
-        NSString *avatarName =  [NSString stringWithFormat:@"%@_AvatarImg", garageName];
-                
+        NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg", garageName];
+        
         UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
                                                                                objectForKey:avatarName]];
-
+        
         if (!image) {
+            vH = nil;
             vH = [[viewHelper alloc] init];
             vH.avatarName = avatarName;
             image = [vH getGarageAvatar:self.arrayProfile];
+            //vH = nil;
         }
-        
         
         [buttonGarageDetail setImage:image forState:UIControlStateNormal];
         
         [garageDetailView setHidden:NO];
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
-
-        //Calculate resize DescricaoLabel 
+        
+        //Calculate resize DescricaoLabel
         [labelDescricao setText:self.product.descricao];
         [labelDescricao sizeToFit];
         [secondView setFrame:CGRectMake(0,0,320,550+labelDescricao.frame.size.height)];
         garageDetailView.frame = CGRectMake(0, labelDescricao.frame.origin.y+labelDescricao.frame.size.height+10, 320, 450);
-        //[self.tagsScrollView initWithFrame:CGRectMake(13,  garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
+        //[self.tagsScrollView initWithFrame:CGRectMake(13, garageDetailView.frame.origin.y+garageDetailView.frame.size.height+100, 307, 200)];
         [secondView addSubview:labelDescricao];
         // [secondView addSubview:tagsScrollView];
         [secondView addSubview:garageDetailView];
-        scrollViewMain.contentSize             = CGSizeMake(320,630+labelDescricao.frame.size.height);
+        scrollViewMain.contentSize = CGSizeMake(320,630+labelDescricao.frame.size.height);
         
         countView.layer.cornerRadius = 4;
         [countView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -324,7 +325,8 @@
         [countView.layer setShadowOpacity:0.1];
         
         int countPhotos = (int)[self.product.fotos count];
-
+        
+        PagContGallery = nil;
         PagContGallery = [[UIPageControl alloc] init];
         [PagContGallery setNumberOfPages:countPhotos];
         
@@ -341,33 +343,40 @@
             [countView setHidden:NO];
             [galleryScrollView setContentSize:CGSizeMake(self.view.frame.size.width * countPhotos, 320)];
             [galleryScrollView setDelegate:self];
-        } else 
+            titleCount = nil;
+            attrStrCount = nil;
+        } else
             [countView setHidden:YES];
-
+        
         UIImage *firstImage;
-
+        
         @try {
-            Photo       *photo      = (Photo *)[self.product.fotos objectAtIndex:0];
-            Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
+            Photo *photo = (Photo *)[self.product.fotos objectAtIndex:0];
+            Caminho *caminho = (Caminho *)[[photo caminho] objectAtIndex:0];
             NSURL *url = [NSURL URLWithString:[caminho mobile]];
-            firstImage                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            firstImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
             [imageView setImage:firstImage];
+            photo = nil;
+            caminho = nil;
+            url = nil;
         }
         @catch (NSException *exception) {
-            firstImage              = [UIImage imageNamed:@"nopicture.png"];
-            imageView               = [[UIImageView alloc] initWithImage:firstImage];
+            firstImage = [UIImage imageNamed:@"nopicture.png"];
+            imageView = nil;
+            imageView = [[UIImageView alloc] initWithImage:firstImage];
         }
-
+        firstImage = nil;
+        
         [imageView setUserInteractionEnabled:YES];
         [self setTapGestureImageGallery:imageView];
-
+        
         //Shadow Top below navigationBar
         CGColorRef darkColor = [[UIColor blackColor] colorWithAlphaComponent:.15f].CGColor;
         CGColorRef lightColor = [UIColor clearColor].CGColor;
         CAGradientLayer *newShadow = [[CAGradientLayer alloc] init];
         newShadow.frame = CGRectMake(0, 0, self.view.frame.size.width, 10);
         newShadow.colors = [NSArray arrayWithObjects:(__bridge id)darkColor, (__bridge id)lightColor, nil];
-
+        
         NSString *idUser = [NSString stringWithFormat:@"%@", [[GlobalFunctions getUserDefaults] valueForKey:@"id"]];
         if ([product.idPessoa isEqualToString:idUser]) {
             [buttonDeleteProduct setHidden:NO];
@@ -380,6 +389,9 @@
         [activityImageView setAlpha:0];
         [activityImageView stopAnimating];
         idUser = nil;
+        newShadow = nil;
+        garageName = nil;
+        image = nil;
     }
 }
 
@@ -392,6 +404,7 @@
     else
         [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@", self.product.idPessoa]
                                   objectMapping:garageMapping delegate:self];
+    garageMapping = nil;
     
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
@@ -411,7 +424,7 @@
     sharePopOverVC.parent = self;
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
-        
+    
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         popover.contentSize = CGSizeMake(300, 500);
@@ -421,11 +434,14 @@
     }
     
     popover.arrowDirection = FPPopoverArrowDirectionUp;
-        
+    
     UIView* btnView = sender;
     
     //sender is the UIButton view
     [popover presentPopoverFromView:btnView];
+    popover = nil;
+    sharePopOverVC = nil;
+    btnView = nil;
 }
 
 -(void)topRight:(id)sender
@@ -444,6 +460,7 @@
     else
         [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@", [[self.arrayGarage objectAtIndex:0] idPerson]]
                                   objectMapping:prolileMapping delegate:self];
+    prolileMapping = nil;
     
     //Set JSon Type
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
@@ -455,11 +472,12 @@
     
     //LoadUrlResourcePath
     if (self.isIdPersonNumber)
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
                                                       [[self.arrayGarage objectAtIndex:0] idPerson], self.product.id ] objectMapping:productMapping delegate:self];
     else
-        [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
+        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/product/%@?idProduct=%@",
                                                       self.product.idPessoa, self.product.id ] objectMapping:productMapping delegate:self];
+    productMapping = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -471,7 +489,10 @@
     //Relationship
     [productPhotoMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[self.arrayProfile objectAtIndex:0] garagem], self.product.id] objectMapping:productPhotoMapping delegate:self];
+    
+    photoMapping = nil;
+    productPhotoMapping = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -480,30 +501,33 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if ([objects count] > 0) {
         if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
+            arrayGarage = nil;
             arrayGarage = objects;
             if (!self.isIdPersonNumber)
                 [self getResourcePathProfile];
-        }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+        }else if ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
+            arrayProfile = nil;
             arrayProfile = objects;
             if (self.isIdPersonNumber)
                 [self getResourcePathGarage];
             [self getResourcePathProduct];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+            arrayTags = nil;
             arrayTags = [(Product *)[objects objectAtIndex:0] categorias];
             [(Product *)[objects objectAtIndex:0] setFotos:product.fotos];
             product = (Product *)[objects objectAtIndex:0];
             //[product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
             [self loadAttribsToComponents:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
-            productPhotos = (NSMutableArray *)objects;
         }
     }
 }
 
 - (IBAction)gotoProductAccountVC:(id)sender{
     productAccountViewController *prdAccVC = [self.storyboard instantiateViewControllerWithIdentifier:@"productAccount"];
-    prdAccVC.product   = self.product;
+    prdAccVC.product = self.product;
     [self.navigationController pushViewController:prdAccVC animated:YES];
+    prdAccVC = nil;
 }
 
 -(IBAction)bidPost:(id)sender{
@@ -515,6 +539,7 @@
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
         [alert show];
+        alert = nil;
         return;
     } else if([txtFieldEmail.text length] == 0 || ![GlobalFunctions isValidEmail:txtFieldEmail.text]) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"fieldsRequired", @"")
@@ -523,14 +548,15 @@
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
         [alert show];
+        alert = nil;
         return;
     }
     //Post Bid Sent
     RKObjectMapping *patientSerializationMapping = [RKObjectMapping mappingForClass:[Bid class]];
-    [patientSerializationMapping mapKeyPath:@"email"      toAttribute:@"email"];
-    [patientSerializationMapping mapKeyPath:@"value"      toAttribute:@"value"];
-    [patientSerializationMapping mapKeyPath:@"comment"    toAttribute:@"comment"];
-    [patientSerializationMapping mapKeyPath:@"idProduct"  toAttribute:@"idProduct"];
+    [patientSerializationMapping mapKeyPath:@"email" toAttribute:@"email"];
+    [patientSerializationMapping mapKeyPath:@"value" toAttribute:@"value"];
+    [patientSerializationMapping mapKeyPath:@"comment" toAttribute:@"comment"];
+    [patientSerializationMapping mapKeyPath:@"idProduct" toAttribute:@"idProduct"];
     
     [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
                                                      withAction:@"Bid"
@@ -538,6 +564,8 @@
                                                       withValue:nil];
     
     [[RKObjectManager sharedManager].mappingProvider setSerializationMapping:[patientSerializationMapping inverseMapping] forClass:[Bid class]];
+    
+    patientSerializationMapping = nil;
     
     //Setting Bid Entity
     Bid* bid = [[Bid alloc] init];
@@ -558,6 +586,7 @@
     [UIView beginAnimations:@"buttonFades" context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView commitAnimations];
+    bid = nil;
 }
 
 -(IBAction)deleteProduct:(id)sender {
@@ -567,6 +596,7 @@
                                            cancelButtonTitle: NSLocalizedString(@"delete-product-btn1", nil)
                                            otherButtonTitles: NSLocalizedString(@"delete-product-btn2", nil), nil];
     [alertV show];
+    alertV = nil;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -601,6 +631,11 @@
                                           cancelButtonTitle: NSLocalizedString(@"report-btn1", nil)
                                           otherButtonTitles:nil];
     [alert show];
+    alert = nil;
+    url = nil;
+    urlString = nil;
+    urlRequest = nil;
+    urlData = nil;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -634,9 +669,10 @@
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"YES" forKey:@"reloadGarage"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [userDefaults synchronize];
+        userDefaults = nil;
         [self.navigationController popToRootViewControllerAnimated:YES];
-
+        
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
@@ -658,8 +694,8 @@
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     
     msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
-    [txtFieldEmail  setText:@""];
-    [txtFieldOffer  setText:@""];
+    [txtFieldEmail setText:@""];
+    [txtFieldOffer setText:@""];
     [txtViewComment setText:@""];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -668,35 +704,42 @@
 }
 
 -(void)loadGalleryTop:(UIPageControl *)pagContr{
-    UIImage *image;
-    /*copy pagCont.currentPage with NSString, we do 
+    /*copy pagCont.currentPage with NSString, we do
      this because pagCont is instable acconding fast
      or slow scroll*/
     NSString *pageCCopy = [NSString stringWithFormat:@"%i" , pagContr.currentPage];
-    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self 
-                                   withObject:pageCCopy];
+    [NSThread detachNewThreadSelector:@selector(loadImageGalleryThumbs:) toTarget:self
+                           withObject:pageCCopy];
+    pageCCopy = nil;
 }
 
 - (void)loadImageGalleryThumbs:(NSString *)pagContr{
     @try {
-        UIImage *image;
-        CGRect rect;//             = imageView.frame;
-        rect.size.width         = 320;
-        rect.size.height        = 280;
-
-        Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:[pagContr intValue]] caminho ] objectAtIndex:0];
-        NSURL *url = [NSURL URLWithString:[caminho mobile]];
-
-        image                   = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-        imageView               = [[UIImageView alloc] initWithImage:image];
-        rect.origin.x           = [pagContr intValue]*320;
-        [imageView setFrame:rect];
-        imageView.contentMode   = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        [imageView setUserInteractionEnabled:YES];
-        [self setTapGestureImageGallery:imageView];
-
-        [galleryScrollView addSubview:imageView];
+        
+        @autoreleasepool {
+            UIImage *image;
+            CGRect rect;// = imageView.frame;
+            rect.size.width = 320;
+            rect.size.height = 280;
+            
+            Caminho *caminho = (Caminho *)[[[self.product.fotos objectAtIndex:[pagContr intValue]] caminho ] objectAtIndex:0];
+            NSURL *url = [NSURL URLWithString:[caminho mobile]];
+            
+            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            imageView = nil;
+            imageView = [[UIImageView alloc] initWithImage:image];
+            rect.origin.x = [pagContr intValue]*320;
+            [imageView setFrame:rect];
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            [imageView setUserInteractionEnabled:YES];
+            [self setTapGestureImageGallery:imageView];
+            
+            [galleryScrollView addSubview:imageView];
+            image = nil;
+            caminho = nil;
+            url = nil;
+        }
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
@@ -708,10 +751,33 @@
                                           initWithTarget:self action:@selector(gotoGalleryScrollVC:)];
     [tapGallery setNumberOfTouchesRequired:1];
     [image addGestureRecognizer:tapGallery];
+    tapGallery = nil;
 }
 
 -(void)backPage{
+    [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)releaseMemoryCache{
+    for (UIImageView *imgV in galleryScrollView.subviews)
+        [imgV removeFromSuperview];
+    
+    galleryScrollView.delegate = self;
+    galleryScrollView = nil;
+    imageView = nil;
+    PagContGallery = nil;
+    RKObjManeger = nil;
+    product = nil;
+    arrayGarage = nil;
+    arrayProfile = nil;
+    arrayTags = nil;
+    viewShadow = nil;
+    isIdPersonNumber = nil;
+    nextPageGallery = nil;
+    buttonGarageDetail = nil;
+    vH = nil;
+    [super releaseMemoryCache];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -723,7 +789,7 @@
 }
 
 - (CGRect)centeredFrameForScrollView:(UIScrollView *)scroll andUIView:(UIView *)rView {
-    CGSize boundsSize    = scroll.bounds.size;
+    CGSize boundsSize = scroll.bounds.size;
     CGRect frameToCenter = rView.frame;
     // center horizontally
     if (frameToCenter.size.width < boundsSize.width) {
@@ -758,7 +824,7 @@
 
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];    
+    [PagContGallery setCurrentPage:galleryScrollView.contentOffset.x / self.view.frame.size.width];
     NSString *titleCount = [NSString stringWithFormat:@"%i/%i", PagContGallery.currentPage+1, PagContGallery.numberOfPages];
     NSMutableAttributedString* attrStrCount = [NSMutableAttributedString attributedStringWithString:titleCount];
     [attrStrCount setFont:[UIFont fontWithName:@"Droid Sans" size:20]];
@@ -767,6 +833,8 @@
                          range:[titleCount rangeOfString:[NSString stringWithFormat:@"/%i", PagContGallery.numberOfPages]]];
     [countLabel setBackgroundColor:[UIColor clearColor]];
     countLabel.attributedText = attrStrCount;
+    titleCount = nil;
+    attrStrCount = nil;
     
     //never repeat load image at your respective page.
     if (nextPageGallery < [self.product.fotos count] && PagContGallery.currentPage == nextPageGallery) {
@@ -782,6 +850,8 @@
                                             object:PagContGallery];
         [queue addOperation:operation];
         nextPageGallery++;
+        actInd = nil;
+        operation = nil;
     }
 }
 
@@ -790,16 +860,6 @@
     [UIView setAnimationDuration:0.5];
     [msgBidSentLabel setAlpha:0.0];
     [UIView commitAnimations];
-}
-
-- (void)setLoadAnimation{
-    NSArray *imageArray;
-    
-    imageArray = [[NSArray alloc] initWithObjects:
-                  [UIImage imageNamed:@"load-frame1.png"],
-                  [UIImage imageNamed:@"load-frame2.png"],
-                  [UIImage imageNamed:@"load-frame3.png"],
-                  [UIImage imageNamed:@"load-frame4.png"],nil];
 }
 
 -(void)gotoGalleryScrollVC:(UITapGestureRecognizer *)sender {
@@ -823,6 +883,7 @@
         [garaAcc setImageGravatar:buttonGarageDetail.imageView.image];
         garaAcc.isGenericGarage = YES;
         [self.navigationController pushViewController:garaAcc animated:YES];
+        garaAcc = nil;
     }
 }
 
@@ -830,6 +891,7 @@
     searchViewController *prdTabVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
     [prdTabVC setStrLocalResourcePath:[NSString stringWithFormat:@"/product/%@", [[self.arrayProfile objectAtIndex:0] garagem]]];
     [self.navigationController pushViewController:prdTabVC animated:YES];
+    prdTabVC = nil;
 }
 
 - (void)gotoProductTableVC:(UIButton *)sender{
@@ -837,6 +899,7 @@
     //filter by Category
     [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/product?category=%@", [[sender titleLabel] text] ]];
     [self.navigationController pushViewController:prdTbl animated:YES];
+    prdTbl = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -885,7 +948,7 @@
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmail,
-                                        txtViewComment, nil];
+                                   txtViewComment, nil];
     [super addKeyboardControlsAtFields];
 }
 
@@ -897,9 +960,10 @@
     
     rc.size.height = IS_IPHONE_5 ? 430 : 360;
     [scrollViewMain scrollRectToVisible:rc animated:YES];
+    v = nil;
 }
 
-/* 
+/*
  * The "Done" button was pressed
  * We want to close the keyboard
  */

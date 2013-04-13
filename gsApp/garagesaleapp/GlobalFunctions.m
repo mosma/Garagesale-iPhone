@@ -120,7 +120,7 @@
                 [only setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
             
                 [viewPrice addSubview:only];
-                
+                only = nil;
                 //Set Label Price
 
                 NSString                   *currency        = [GlobalFunctions getCurrencyByCode:product.currency];
@@ -128,6 +128,7 @@
                 //[price setAdjustsFontSizeToFitWidth:YES];
                 price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
                 [price setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+                currency = nil;
             } else {
                 [price setFont:[UIFont fontWithName:@"Droid Sans" size:13 ]];
                 [price setTextColor:[UIColor colorWithRed:(float)255/255.0 \
@@ -150,6 +151,9 @@
             price.backgroundColor = [UIColor clearColor];
             [viewPrice addSubview:price];
             [viewPrice setFrame:CGRectMake(-5, 45, price.bounds.size.width+20, 35)];
+            price = nil;
+            buttonThumbsProduct = nil;
+            viewPrice = nil;
         }
         if (showEdit) {
             //View Edit Pencil
@@ -162,7 +166,10 @@
             [buttonViewEditPencil setImage:[UIImage imageNamed:@"btPencilEditProductThumbs.png"] forState:UIControlStateNormal];
 
             [viewThumbs addSubview:buttonViewEditPencil];
+            buttonViewEditPencil = nil;
         }
+        product = nil;
+        arrayDetailProduct = nil;
         return viewThumbs;
     }
     @catch (NSException *exception) {
@@ -172,13 +179,22 @@
 }
 
 -(void)loadThumbs:(NSArray *)array{
-
-    NSData      * imageData   = [[NSData alloc] initWithContentsOfURL:
-                                 [NSURL URLWithString:[GlobalFunctions getUrlImagesProduct:[array objectAtIndex:0] imageType:imageTypeListing]]];
-    UIImage     *image      = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"]
-    : [[UIImage alloc] initWithData:imageData];
-    
-    [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
+    @autoreleasepool {
+        NSString *strUrl = [GlobalFunctions getUrlImagesProduct:[array objectAtIndex:0]
+                                                      imageType:imageTypeListing];
+        
+        NSURL *url = [NSURL URLWithString:strUrl];
+        strUrl = nil;
+        
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL:url];
+        url = nil;
+        
+        UIImage *image = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] : [[UIImage alloc] initWithData:imageData];
+        [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
+        imageData = nil;
+        image = nil;
+        array = nil;
+    }
 }
 
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector
@@ -194,7 +210,10 @@
     [button addTarget:viewContr action:selector
            forControlEvents:UIControlEventTouchUpInside];  
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]  
-                                     initWithCustomView:button];      
+                                     initWithCustomView:button];
+    
+    button = nil;
+    homeImage = nil;
     return buttonItem;
 }
 
@@ -217,6 +236,8 @@
     [label setShadowOffset:CGSizeMake(0, -1)];
     label.attributedText = attrStr;
     label.textAlignment = textAlignment;
+    titleNavItem = nil;
+    attrStr = nil;
     return label;
 }
 
@@ -231,8 +252,9 @@
     [label setBackgroundColor:[UIColor clearColor]];
     [label setShadowColor:[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3]];
     [label setShadowOffset:CGSizeMake(0, -1)];
-    label.attributedText = attrStr;
-    label.textAlignment = textAlignment;
+    [label setAttributedText:attrStr];
+    [label setTextAlignment:textAlignment];
+    attrStr = nil;
     return label;
 }
 
@@ -240,7 +262,8 @@
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:searchBar.bounds];
     backgroundView.image = [UIImage imageNamed:@"navBarBackground.png"];
     [searchBar insertSubview:backgroundView atIndex:1];
-    searchBar.tintColor = [GlobalFunctions getColorRedNavComponets];
+    [searchBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+    backgroundView = nil;
 }
 
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController{
@@ -269,7 +292,7 @@
         [tagsButton setTintColor:[UIColor greenColor]];
         [tagsButton setTag:(NSInteger)category.identifier];
         [tagsButton setTitle:[category.descricao lowercaseString] forState:UIControlStateNormal];
-        tagsButton.layer.masksToBounds = YES;
+        [tagsButton.layer setMasksToBounds:YES];
         tagsButton.layer.cornerRadius = 5.0f;
         tagsButton.backgroundColor = [UIColor colorWithRed:0.1 green:0.466666666666667 blue:0 alpha:0.7];
         tagsButton.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -303,6 +326,8 @@
         Product     *prd        = (Product *)[product objectAtIndex:0];
         Photo       *photo      = (Photo *)[[prd fotos] objectAtIndex:0];
         Caminho     *caminho    = (Caminho *)[[photo caminho] objectAtIndex:0];
+        prd = nil;
+        photo = nil;
         switch (imageType) {
             case imageTypeIcon:
                 return [caminho icon];
@@ -388,7 +413,9 @@
     NSUInteger indexOfTab = [theTabBarController.viewControllers indexOfObject:viewController];
     [userDefaults setInteger:indexOfTab forKey:@"activateTabBar"];
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [userDefaults synchronize];
+    userDefaults = nil;
+    
     //NSLog(@"Tab index For Activate Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"activateTabBar"]);
     //NSLog(@"Tab index For Olt Tab Bar = %@", (NSInteger)[[GlobalFunctions getUserDefaults] objectForKey:@"oldTabBar"]);
 }
@@ -486,7 +513,7 @@
     }
     
     NSArray *array = [dictByCurrencyCode allValues];
-    
+    path = nil;
     //index 1 is a Symbol currency
     return [array objectAtIndex:1];
 }
@@ -495,14 +522,14 @@
     [navController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBackground.png"] 
     forBarMetrics:UIBarMetricsDefault];
     //[navController.navigationController.navigationBar setTintColor:[self getColorRedNavComponets]];
-    navController.navigationItem.hidesBackButton = YES;
-    navController.navigationItem.titleView = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+    [navController.navigationItem setHidesBackButton:YES];
+    [navController.navigationItem setTitleView:[self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300]];
 }
 
 +(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-    // (0)@"Camera", (1)@"Library", (2)@"Product without pics" 
+    // (0)@"Camera", (1)@"Library", (2)@"Product without pics"
     [userDefaults setInteger:buttonIndex forKey:@"controlComponentsAtFirstDisplay"];
 
     //buttonIndex == 3 is Cancel Button on ActionSheet
@@ -514,7 +541,8 @@
        // [tabBarController addChildViewController:prdtAcc];
     }
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [userDefaults synchronize];
+    userDefaults = nil;
 }
 
 @end

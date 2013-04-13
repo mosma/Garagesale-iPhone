@@ -72,33 +72,38 @@
     UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
     [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
     numberToolbar.items = [NSArray arrayWithObjects:
-                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)],
-                           nil];
+                           [[UIBarButtonItem alloc]
+                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)], nil];
     [numberToolbar sizeToFit];
     [txtFieldEmailRecover setInputAccessoryView:numberToolbar];
     
     [self setupKeyboardFields];
     
-    self.navigationItem.leftBarButtonItem = [GlobalFunctions getIconNavigationBar:
-                                             @selector(backPage) viewContr:self imageNamed:@"btBackNav.png" rect: CGRectMake(0, 0, 40, 30)];
+    UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(backPage)
+                                                           viewContr:self
+                                                          imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+    
+    [self.navigationItem setLeftBarButtonItem:barItem];
+    
+    barItem = nil;
 
     NSString *nibId = [[self.navigationController visibleViewController] nibName];
     if  ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) {//Signup ViewController
-        self.scrollView.contentSize = CGSizeMake(320,700);
-        self.trackedViewName = @"/newGarage";
+        [self.scrollView setContentSize:CGSizeMake(320,700)];
+        [self setTrackedViewName:@"/newGarage"];
     }else if
         ([nibId rangeOfString:@"L0X-YO-oem"].length != 0){ //Login ViewController
         IS_IPHONE_5 ?   [self.secondView setFrame:CGRectMake(0, 0, 320, 811)]:
                         [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
-        self.scrollView.contentSize = CGSizeMake(320,540);
-        self.trackedViewName = @"/login";
+        [self.scrollView setContentSize:CGSizeMake(320,540)];
+        [self setTrackedViewName:@"/login"];
     }else if
         ([nibId rangeOfString:@"SG7-S5-ObK"].length != 0){ //Recover ViewController
             IS_IPHONE_5 ?   [self.secondView setFrame:CGRectMake(0, 0, 320, 811)]:
                             [self.secondView setFrame:CGRectMake(0, 0, 320, 670)];
-            self.scrollView.contentSize = CGSizeMake(320,540);
-            self.trackedViewName = @"/login";
+            [self.scrollView setContentSize:CGSizeMake(320,540)];
+            [self setTrackedViewName:@"/login"];
     }
     
     [labelSignup        setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
@@ -122,7 +127,7 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
-    self.navigationItem.titleView = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];    
+    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225]];
 }
 
 -(void)cancelSearchPad{
@@ -194,6 +199,7 @@
                 [alert show];
                 [buttonRecover setEnabled:YES];
                 [txtFieldEmailRecover setText:@""];
+                alert = nil;
             }
         }
     }
@@ -206,25 +212,25 @@
         [textFieldUserPassword setValue:[UIColor redColor]
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
-        textFieldUserPassword.text = @"";        
+        [textFieldUserPassword setText:@""];
     } else if (flagViewControllers == 1){
         [textFieldGarageName setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         garageNameWrited = textFieldGarageName.text;
-        textFieldGarageName.text = @"";
+        [textFieldGarageName setText:@""];
     } else if (flagViewControllers == 2) {
         [textFieldEmail setValue:[UIColor redColor]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         emailWrited = textFieldEmail.text;
-        textFieldEmail.text = @"";
+        [textFieldEmail setText:@""];
     } else if (flagViewControllers == 3) {
         [buttonRecover setEnabled:YES];
         [txtFieldEmailRecover setValue:[UIColor redColor]
                             forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
-        txtFieldEmailRecover.text = @"";
+        [txtFieldEmailRecover setText:@""];
     }
     [timer invalidate];
     isLoadingDone = YES;
@@ -271,6 +277,19 @@
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
+}
+
+-(void)releaseMemoryCache{
+    RKObjManeger = nil;
+    settingsAccount = nil;
+    HUD = nil;
+    vH = nil;
+    isLoadingDone = nil;
+    flagViewControllers = nil;
+    timer = nil;
+    garageNameWrited = nil;
+    emailWrited = nil;
+    [super releaseMemoryCache];
 }
 
 -(IBAction)postNewGarage:(id)sender {
@@ -474,9 +493,9 @@
 
 -(void)cancelRequest{
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]];
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.labelText = NSLocalizedString(@"image-upload-error-check", nil);
+    [HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]]];
+    [HUD setMode:MBProgressHUDModeCustomView];
+    [HUD setLabelText:NSLocalizedString(@"image-upload-error-check", nil)];
     [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(finished) userInfo:nil repeats:NO];
 }
 
@@ -494,11 +513,11 @@
 }
 
 -(IBAction)setGarageNameWrited:(id)sender{
-    textFieldGarageName.text = garageNameWrited;
+    [textFieldGarageName setText:garageNameWrited];
 }
 
 -(IBAction)setEmailWrited:(id)sender{
-    textFieldEmail.text = emailWrited;
+    [textFieldEmail setText:emailWrited];
 }
 
 -(void)backPage{
@@ -604,6 +623,20 @@
     labelPasswRecover = nil;
     buttonRecover = nil;
     [super viewDidUnload];
+    buttonLogin = nil;
+    [self setButtonLogin:nil];
+    buttonRegisterNew = nil;
+    [self setButtonRegisterNew:nil];
+    textFieldUserName = nil;
+    [self setTextFieldUserName:nil];
+    textFieldUserPassword = nil;
+    [self setTextFieldUserPassword:nil];
+    secondView = nil;
+    [self setSecondView:nil];
+    RKObjManeger = nil;
+    [self setRKObjManeger:nil];
+    settingsAccount = nil;
+    [self setSettingsAccount:nil];
     // Release any retained subviews of the main view.
 }
 

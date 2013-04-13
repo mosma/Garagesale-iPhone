@@ -65,8 +65,8 @@
     RKObjectManager                 *RKObjManeger;
     NSUserDefaults                  *settingsAccount;
 
-    __unsafe_unretained IBOutlet OHAttributedLabel  *labelTotalProducts;                             
-    __unsafe_unretained IBOutlet OHAttributedLabel  *labelAboutAPP;
+    __weak IBOutlet OHAttributedLabel  *labelTotalProducts;                             
+    __weak IBOutlet OHAttributedLabel  *labelAboutAPP;
 
     NSString                        *nibId;
     BOOL                            isSaved;
@@ -120,8 +120,8 @@
 
 @property (nonatomic) int                           totalProducts;
 
-@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
-@property (unsafe_unretained, nonatomic) IBOutlet OHAttributedLabel  *labelAboutAPP;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
+@property (weak, nonatomic) IBOutlet OHAttributedLabel  *labelAboutAPP;
 
 -(IBAction)logout:(id)sender;
 -(IBAction)dimissModal:(id)sender;

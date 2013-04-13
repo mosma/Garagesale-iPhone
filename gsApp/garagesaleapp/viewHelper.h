@@ -12,18 +12,18 @@
 #import "GlobalFunctions.h"
 
 @interface viewHelper : NSObject <RKObjectLoaderDelegate> {
-    RKObjectManager *RKObjManeger;
-    NSArray         *arrayProfile;
-    NSArray         *arrayTTReturn;
+     RKObjectManager *RKObjManeger;
+     NSArray         *arrayProfile;
+     NSArray         *arrayTTReturn;
 }
 
-@property (nonatomic, retain) RKObjectManager *RKObjManeger;
-@property (nonatomic, retain) UIImage         *imageAvatar;
-@property (nonatomic, retain) NSString        *avatarName;
+@property (nonatomic, strong) RKObjectManager *RKObjManeger;
+@property (nonatomic, strong) UIImage         *imageAvatar;
+@property (nonatomic, strong) NSString        *avatarName;
 @property (nonatomic) BOOL                    *isCancelRequests;
 
 -(UIImage *)getGarageAvatar:(NSArray *)profile;
 -(void)getResourcePathGarage:(NSString *)garageName;
 -(void)cancelRequestsWithDelegate;
-
+-(void)releaseMemoryCache;
 @end
