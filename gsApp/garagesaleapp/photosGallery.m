@@ -56,9 +56,13 @@
                 if ([nsMutArrayPicsProduct count] == [nsMutArrayNames count])
                     [nsMutArrayNames removeObjectAtIndex:indexOfRemovedImageView];
                 [nsMutArrayPicsProduct removeObjectAtIndex:indexOfRemovedImageView];
+                imageViews = nil;
             }];
             if ([nsMutArrayPicsProduct count] < 11)
                 [prodAccount.buttonAddPics setEnabled:YES];
+        
+            imageViewDelete = nil;
+            imageView = nil;
         }
     }
 }
@@ -80,7 +84,8 @@
             scrollView.showsHorizontalScrollIndicator = NO;
         }
     }
-
+    imageViews = nil;
+    
     //Reposition scrollViewPicsProduct to right
     if ([nsMutArrayPicsProduct count] < 4 && [nsMutArrayPicsProduct count] > 1)
         [scrollView setFrame:CGRectMake((173/([nsMutArrayPicsProduct count]-1)) + self.widthPaddingInImages, scrollView.frame.origin.y, scrollView.frame.size.width, scrollView.frame.size.height)];
@@ -168,6 +173,10 @@
         [NSThread detachNewThreadSelector:@selector(uploadPhotos) toTarget:uploadDelegate withObject:nil];
         [uploadDelegate setTimmer];
     }
+    moveLeftGesture = nil;
+    deleteGesture = nil;
+    imgViewDelete = nil;
+    imgViewAtGallery = nil;
 }
 
 -(void)animePicsGallery:(UITapGestureRecognizer *)sender{
@@ -219,6 +228,14 @@
     @finally {
         ;
     }
+}
+
+-(void)releaseMemoryCache{
+    nsMutArrayPicsProduct = nil;
+    nsMutArrayNames = nil;
+    scrollView = nil;
+    nsMutArrayPhotosDelegate = nil;
+    prodAccount = nil;
 }
 
 @end

@@ -85,10 +85,11 @@
     [buttonAddPics setEnabled:NO];
     
     //Menu
-    UIView *tabBar = [self rotatingFooterView];
-    if ([tabBar isKindOfClass:[UITabBar class]])
-        ((UITabBar *)tabBar).delegate = self;
-        
+//    UIView *tabBar = [self rotatingFooterView];
+//    if ([tabBar isKindOfClass:[UITabBar class]])
+//        ((UITabBar *)tabBar).delegate = self;
+//    tabBar = nil;
+    
     gallery = [[photosGallery alloc] init];
     [gallery setProdAccount:self];
     [gallery setScrollView:self.scrollViewPicsProduct];
@@ -123,6 +124,11 @@
         if ([[nsArrayCurrency objectAtIndex:i] isEqualToString:currencyDefault])
             [nsArrayCurrency removeObjectAtIndex:i];
 
+    currencyDefault = nil;
+    theLocale = nil;
+    symbol = nil;
+    code = nil;
+    
     //Set Picker View State
     UIPickerView *pickerViewState = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 200, 320, 200)];
     [pickerViewState setDelegate:self];
@@ -132,6 +138,8 @@
     [txtFieldState setInputView:pickerViewState];
     [txtFieldState setTag:PICKERSTATE];
     txtFieldState.delegate = self;
+    
+    pickerViewState = nil;
     
     if (self.product != nil)
         txtFieldState.text = [nsArrayState objectAtIndex:[product.idEstado intValue]-1];
@@ -147,6 +155,8 @@
     [txtFieldCurrency setInputView:pickerViewCurrency];
     [txtFieldCurrency setTag:PICKERCURRENCY];
     [txtFieldCurrency setDelegate:self];
+    
+    pickerViewCurrency = nil;
     
     if (self.product != nil)
         [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
@@ -170,6 +180,10 @@
     [txtFieldState setInputAccessoryView:picViewStateToolbar];
     [txtFieldCurrency setInputAccessoryView:picViewStateToolbar];
    
+    pickerViewState = nil;
+    barItems = nil;
+    doneBtn = nil;
+    
     [self.scrollView setContentSize:CGSizeMake(320,587)];
     [self setupKeyboardFields];
     
@@ -211,6 +225,10 @@
     //LoadUrlResourcePath    
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@/?idProduct=%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id] objectMapping:productMapping delegate:self];
     
+    productMapping = nil;
+    photoMapping = nil;
+    caminhoMapping = nil;
+    
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
@@ -221,6 +239,7 @@
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/photo/?idProduct=%i&token=%@",
                                              [self.product.id intValue], [[GlobalFunctions getUserDefaults] objectForKey:@"token"] ]
                               objectMapping:photoReturnEdit delegate:self];
+    photoReturnEdit = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -234,6 +253,7 @@
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/photo/?token=%@",
                                              [[GlobalFunctions getUserDefaults] objectForKey:@"token"] ]
                               objectMapping:photoReturnEdit delegate:self];
+    photoReturnEdit = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -245,6 +265,7 @@
             [waiting removeFromSuperview];
             [buttonAddPics setEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+            self.product = nil;
             self.product = (Product *)[objects objectAtIndex:0];
             [self loadAttributsToProduct];
             if ([self.product.fotos count] > 0)
@@ -284,6 +305,7 @@
 }
 
 -(void)backPage{
+    [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -310,6 +332,7 @@
     [gallerySheet showInView:self.view];
     [gallerySheet showFromTabBar:self.tabBarController.tabBar];
     [gallerySheet setTag:99];
+    gallerySheet = nil;
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -349,6 +372,7 @@
                           product:self.product
                      isFromPicker:YES];
     [picker dismissModalViewControllerAnimated:YES];
+    imageThumb = nil;
     
     if(!viewPicsControl.hidden)
         [self animationPicsControl];
@@ -392,6 +416,7 @@
                                               cancelButtonTitle: NSLocalizedString(@"image-upload-error-btn1", nil)
                                               otherButtonTitles:nil];
         [alert show];
+        alert = nil;
     }
 }
 
@@ -507,7 +532,8 @@
             [_postProdDelegate postProduct:prodParams];
             [self setEnableButtonSave:NO];
         }
-
+        prodParams = nil;
+        dictPhot = nil;
         [self initProgressHUDSaveProduct];
     }
 }
@@ -691,7 +717,7 @@
     rc = [textField convertRect:rc toView:v];
 
     rc.size.height = 360;
-    
+    v = nil;
     [self.scrollView scrollRectToVisible:rc animated:YES];
 }
 
@@ -721,6 +747,11 @@
 }
 
 -(void)releaseMemoryCache{
+    [gallery releaseMemoryCache];
+    gallery = nil;
+    isImagesProductPosted = nil;
+    countPicsPost = nil;
+    countUploaded = nil;
     RKObjManeger = nil;
     nsArrayState = nil;
     nsArrayCurrency = nil;

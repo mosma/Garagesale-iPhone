@@ -34,5 +34,6 @@
                 photoReturn:(PhotoReturn *)photoReturn
                     product:(Product *)product
                isFromPicker:(BOOL)isFromPicker;
+-(void)releaseMemoryCache;
 
 @end
