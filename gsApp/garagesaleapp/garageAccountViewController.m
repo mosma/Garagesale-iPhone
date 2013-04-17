@@ -686,13 +686,13 @@
         }
         switch (state) {
             case 2:
-                [[cell valorEsperado] setText:@"Vendido"];
+                [[cell valorEsperado] setText:NSLocalizedString(@"sold", nil)];
                 break;
             case 3:
                 [[cell valorEsperado] setText:@"N/D"];
                 break;
             case 4:
-                [[cell valorEsperado] setText:@"Invisible"];
+                [[cell valorEsperado] setText:NSLocalizedString(@"invisible", nil)];
                 break;
             default:
                 cell.valorEsperado.attributedText = attrStr;
@@ -706,6 +706,10 @@
         
         [cell.imageEditButton setTag:indexPath.row];
         [cell.imageEditButton addTarget:self action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
+    
+        currency        = nil;
+        valorEsperado   = nil;
+        strFormat       = nil;
     }
     
     return cell;

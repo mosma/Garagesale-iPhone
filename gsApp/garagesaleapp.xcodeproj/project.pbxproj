@@ -292,6 +292,8 @@
 		CCE9EB6514C2177000526AD6 /* ProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE9EB6414C2177000526AD6 /* ProductPhotos.m */; };
 		CCEAE5C3158BA3030009153C /* btProdListSearch.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCEAE5C1158BA3030009153C /* btProdListSearch.jpg */; };
 		CCEAE5C4158BA3030009153C /* btProdListSearch@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CCEAE5C2158BA3030009153C /* btProdListSearch@2x.jpg */; };
+		CCEB0C81171F3A8500413341 /* textFieldHomeSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = CCEB0C7F171F3A8500413341 /* textFieldHomeSearch.png */; };
+		CCEB0C82171F3A8500413341 /* textFieldHomeSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCEB0C80171F3A8500413341 /* textFieldHomeSearch@2x.png */; };
 		CCEB606F14BB45AC0078BA72 /* Corben-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606C14BB45AC0078BA72 /* Corben-Bold.ttf */; };
 		CCEB607014BB45AC0078BA72 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606D14BB45AC0078BA72 /* DroidSans-Bold.ttf */; };
 		CCEB607114BB45AC0078BA72 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */; };
@@ -712,6 +714,8 @@
 		CCE9EB6414C2177000526AD6 /* ProductPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPhotos.m; sourceTree = "<group>"; };
 		CCEAE5C1158BA3030009153C /* btProdListSearch.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = btProdListSearch.jpg; sourceTree = "<group>"; };
 		CCEAE5C2158BA3030009153C /* btProdListSearch@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "btProdListSearch@2x.jpg"; sourceTree = "<group>"; };
+		CCEB0C7F171F3A8500413341 /* textFieldHomeSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textFieldHomeSearch.png; sourceTree = "<group>"; };
+		CCEB0C80171F3A8500413341 /* textFieldHomeSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textFieldHomeSearch@2x.png"; sourceTree = "<group>"; };
 		CCEB606C14BB45AC0078BA72 /* Corben-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Corben-Bold.ttf"; sourceTree = "<group>"; };
 		CCEB606D14BB45AC0078BA72 /* DroidSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DroidSans-Bold.ttf"; sourceTree = "<group>"; };
 		CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
@@ -934,6 +938,8 @@
 				CC6EE8D0168B7F6E00AB4E87 /* addcamover@2x.png */,
 				CC6EE8B3168B656100AB4E87 /* closeAbout.png */,
 				CC6EE8B4168B656100AB4E87 /* closeAbout@2x.png */,
+				CCEB0C7F171F3A8500413341 /* textFieldHomeSearch.png */,
+				CCEB0C80171F3A8500413341 /* textFieldHomeSearch@2x.png */,
 				CC5476B81687CFD000639D40 /* btSearchHomeLogOut.png */,
 				CC5476B91687CFD000639D40 /* btSearchHomeLogOut@2x.png */,
 				CC6F016A1683A80200A57697 /* btEmailShareOver.png */,
@@ -1735,6 +1741,8 @@
 				E27D3DC216C6727B0068EEAB /* Default-568h@2x.png in Resources */,
 				CCE0420D170CF78C00E3C641 /* Default-568h.png in Resources */,
 				CCE0420E170CF78C00E3C641 /* Default@2x.png in Resources */,
+				CCEB0C81171F3A8500413341 /* textFieldHomeSearch.png in Resources */,
+				CCEB0C82171F3A8500413341 /* textFieldHomeSearch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

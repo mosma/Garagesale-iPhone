@@ -127,7 +127,9 @@
     
     [self.navigationController setNavigationBarHidden:NO];
     [textFieldUserName becomeFirstResponder];
-    [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225]];
+    UILabel * lab = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];
+    [self.navigationItem setTitleView:lab];
+    lab = nil;
 }
 
 -(void)cancelSearchPad{

@@ -110,8 +110,7 @@
     NSLocale *theLocale = [NSLocale currentLocale];
     NSString *symbol = [theLocale objectForKey:NSLocaleCurrencySymbol];
     NSString *code = [theLocale objectForKey:NSLocaleCurrencyCode];
-    
-    
+        
     NSString *currencyDefault = [NSString stringWithFormat:@"%@ - %@",code,symbol];
     
     nsArrayCurrency = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects: currencyDefault,

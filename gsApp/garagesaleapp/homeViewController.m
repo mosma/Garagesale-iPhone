@@ -38,6 +38,8 @@
     //set searchBar settings
     searchBarProduct = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     
+    [self setLayoutTabBarController];
+    
     //definind searchbar theme
     for(int i =0; i<[searchBarProduct.subviews count]; i++) {
         //text field
@@ -67,6 +69,69 @@
     }
 
     [self loadAttribsToComponents];
+}
+
+-(void)setLayoutTabBarController{
+   // self.tabBarController = (UITabBarController *)self.window.rootViewController;
+    
+    UIImage         *selectedImage0     = [UIImage imageNamed:@"homeOver.png"];
+    UIImage         *unselectedImage0   = [UIImage imageNamed:@"home.png"];
+    UIImage         *selectedImage1     = [UIImage imageNamed:@"addOver.png"];
+    UIImage         *unselectedImage1   = [UIImage imageNamed:@"add.png"];
+    UIImage         *selectedImage2     = [UIImage imageNamed:@"personOver.png"];
+    UIImage         *unselectedImage2   = [UIImage imageNamed:@"person.png"];
+    
+    UITabBar        *tabBar             = self.tabBarController.tabBar;
+    UITabBarItem    *item0              = [tabBar.items objectAtIndex:0];
+    UITabBarItem    *item1              = [tabBar.items objectAtIndex:1];
+    UITabBarItem    *item2              = [tabBar.items objectAtIndex:2];
+    
+    [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
+    [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
+    
+    [item0 setTitle: NSLocalizedString( @"menu-explore", nil)];
+    [item1 setTitle: NSLocalizedString( @"menu-add-product", nil)];
+    [item2 setTitle: NSLocalizedString( @"menu-my-garage", nil)];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                                       UITextAttributeFont, nil] forState:UIControlStateNormal];
+    
+    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeFont, nil] forState:UIControlStateNormal];
+    
+    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor,nil] forState:UIControlStateSelected];
+    
+    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeFont, nil] forState:UIControlStateNormal];
+    
+    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeFont, nil] forState:UIControlStateSelected];
+    
+    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeFont, nil] forState:UIControlStateNormal];
+    
+    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                   [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeFont, nil] forState:UIControlStateSelected];
+    
+    item0.titlePositionAdjustment = UIOffsetMake(0, -2);
+    item1.titlePositionAdjustment = UIOffsetMake(0, -2);
+    item2.titlePositionAdjustment = UIOffsetMake(0, -2);
+    [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
+    [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
+    [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
 }
 
 - (void)loadAttribsToComponents{
@@ -113,7 +178,7 @@
     [viewSearch.layer setShadowOpacity:0.5];
     viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
-    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:12.9]];
+    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldSearch setDelegate:self];
     
     //set done at keyboard
@@ -374,9 +439,11 @@
 - (void)gotoProductDetailVC:(UIButton *)sender{
     productDetailViewController *prdDetailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailProduct"];
     prdDetailVC.product = (Product *)[mutArrayProducts objectAtIndex:sender.tag];
-    [prdDetailVC setImageView:[[UIImageView alloc] initWithImage:[[sender imageView] image]]];
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:[[sender imageView] image]];
+    [prdDetailVC setImageView:imgV];
     [self.navigationController pushViewController:prdDetailVC animated:YES];
     prdDetailVC = nil;
+    imgV = nil;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -457,15 +524,15 @@
     [UIView commitAnimations];
 }
 
--(IBAction)showSearchLoged:(id)sender{
-    if ([txtFieldSearch isFirstResponder]){
-        [txtFieldSearch resignFirstResponder];
-        if (![txtFieldSearch.text isEqualToString:@""])
-            [self gotoProductTableViewController:txtFieldSearch.text];
-    }
-    else
-        [txtFieldSearch becomeFirstResponder];
-}
+//-(IBAction)showSearchLoged:(id)sender{
+//    if ([txtFieldSearch isFirstResponder]){
+//        [txtFieldSearch resignFirstResponder];
+//        if (![txtFieldSearch.text isEqualToString:@""])
+//            [self gotoProductTableViewController:txtFieldSearch.text];
+//    }
+//    else
+//        [txtFieldSearch becomeFirstResponder];
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {

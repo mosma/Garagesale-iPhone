@@ -37,17 +37,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self load];
-    [self setNotification];
     [self reachability];
     [self setupKeyboardControls];
     [self setupActivityAnimation];
     [self setupActionSheet];
-}
-
--(void)load{
-    overlay = [MTStatusBarOverlay sharedInstance];
-    viewMessageNet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
 }
 
 -(void)setupActionSheet{
@@ -81,7 +74,9 @@
 
 -(void)setupKeyboardControls{
     // Initialize the keyboard controls
-    [self setKeyboardControls:[[BSKeyboardControls alloc] init]];
+    BSKeyboardControls *bsKeyB = [[BSKeyboardControls alloc] init];
+    
+    [self setKeyboardControls:bsKeyB];
 
     // Set the delegate of the keyboard controls
     [keyboardControls setDelegate:self];
@@ -103,6 +98,7 @@
 
     // Set title for the "Next button". Default is "Next".
     [self.keyboardControls setNextTitle:NSLocalizedString(@"keyboard-next-btn", nil)];
+    bsKeyB = nil;
 }
 
 -(void)addKeyboardControlsAtFields{
@@ -147,9 +143,11 @@
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reachabilityDidChange:)
                    name:RKReachabilityDidChangeNotification object:nil];
+    center = nil;
 }
 
 - (void)reachabilityDidChange:(NSNotification *)notification {
+    overlay = [MTStatusBarOverlay sharedInstance];
     RKReachabilityObserver* observer = (RKReachabilityObserver *) [notification
                                                                    object];
     RKReachabilityNetworkStatus status = [observer networkStatus];
@@ -172,41 +170,8 @@
        // [self showNotification:@"Online!"];
         //RKLogInfo(@"Online via Edge or 3G!");
     }
-}
-
--(void)setNotification{
-    [viewMessageNet setAlpha:0];
-    [viewMessageNet setBackgroundColor:[UIColor colorWithRed:189.0/255.0 green:189.0/255.0 blue:189.0/255.0 alpha:0.9]];
-    labelNotification = [[UILabel alloc] initWithFrame:CGRectMake(13, 11, 307, 22)];
-    [labelNotification setTextAlignment:NSTextAlignmentLeft];
-    [labelNotification setBackgroundColor:[UIColor clearColor]];
-    [labelNotification setTextColor:[UIColor blackColor]];
-    [labelNotification setFont:[UIFont fontWithName:@"DroidSans-Bold" size:12.0f]];
-    [labelNotification setAlpha:12.0];
-}
-
--(void)showNotification:(NSString *)notification{
-    [labelNotification setText:notification];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.9];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
-    [self.view addSubview:viewMessageNet];
-    [viewMessageNet setAlpha:1.0];
-    [viewMessageNet setFrame:CGRectMake(0, 0, 320, 47)];
-    [viewMessageNet addSubview:labelNotification];
-    [UIView commitAnimations];
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(hideViewMessageNet) userInfo:viewMessageNet repeats:NO];
-}
-
--(void)hideViewMessageNet{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.4];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
-    [viewMessageNet setFrame:CGRectMake(0, 0, 320, 0)];
-    [labelNotification removeFromSuperview];
-    [UIView commitAnimations];
+    overlay = nil;
+    observer = nil;
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
@@ -237,7 +202,7 @@
 }
 
 -(void)releaseMemoryCache{
-    viewMessageNet = nil;
+    //viewMessageNet = nil;
     labelNotification = nil;
     isReachability = nil;
     overlay = nil;

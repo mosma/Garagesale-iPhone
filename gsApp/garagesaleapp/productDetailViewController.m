@@ -359,6 +359,7 @@
             photo = nil;
             caminho = nil;
             url = nil;
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
         }
         @catch (NSException *exception) {
             firstImage = [UIImage imageNamed:@"nopicture.png"];
@@ -740,6 +741,7 @@
             image = nil;
             caminho = nil;
             url = nil;
+            [[NSURLCache sharedURLCache] removeAllCachedResponses];
         }
     }
     @catch (NSException *exception) {
@@ -950,9 +952,12 @@
 {
     // Add all text fields you want to be able to skip between to the keyboard controls
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
-    keyboardControls.textFields = [NSArray arrayWithObjects:txtFieldEmail,
-                                   txtViewComment, nil];
+    
+    NSArray *array = [NSArray arrayWithObjects:txtFieldEmail,
+                      txtViewComment, nil];
+    keyboardControls.textFields = array;
     [super addKeyboardControlsAtFields];
+    array = nil;
 }
 
 - (void)scrollViewToTextField:(id)textField

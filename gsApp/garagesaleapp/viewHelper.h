@@ -12,15 +12,15 @@
 #import "GlobalFunctions.h"
 
 @interface viewHelper : NSObject <RKObjectLoaderDelegate> {
-     RKObjectManager *RKObjManeger;
-     NSArray         *arrayProfile;
-     NSArray         *arrayTTReturn;
+    RKObjectManager *RKObjManeger;
+    NSArray         *arrayProfile;
+    NSArray         *arrayTTReturn;
 }
 
 @property (nonatomic, strong) RKObjectManager *RKObjManeger;
 @property (nonatomic, strong) UIImage         *imageAvatar;
 @property (nonatomic, strong) NSString        *avatarName;
-@property (nonatomic) BOOL                    *isCancelRequests;
+@property (nonatomic) bool                    isCancelRequests;
 
 -(UIImage *)getGarageAvatar:(NSArray *)profile;
 -(void)getResourcePathGarage:(NSString *)garageName;

@@ -85,9 +85,10 @@
         [buttonThumbsProduct setTag:[[arrayDetailProduct objectAtIndex:1] intValue]];
         [buttonThumbsProduct addTarget:viewContr action:@selector(gotoProductDetailVC:) forControlEvents:UIControlEventTouchUpInside];
         [buttonThumbsProduct setImage:[UIImage imageNamed:@"placeHolder"] forState:UIControlStateNormal];
-            
-        [NSThread detachNewThreadSelector:@selector(loadThumbs:) toTarget:self withObject:[NSArray arrayWithObjects:arrayDetailProduct, buttonThumbsProduct, nil]];
-
+        
+        NSThread *thr = [[NSThread alloc] initWithTarget:self selector:@selector(loadThumbs:) object:[NSArray arrayWithObjects:arrayDetailProduct, buttonThumbsProduct, nil]];
+        [thr start];
+        
         buttonThumbsProduct.imageView.layer.cornerRadius = 3;
         [buttonThumbsProduct setAlpha:0];
         [viewThumbs addSubview:buttonThumbsProduct];
@@ -123,7 +124,7 @@
                 only = nil;
                 //Set Label Price
 
-                NSString                   *currency        = [GlobalFunctions getCurrencyByCode:product.currency];
+                NSString *currency = [GlobalFunctions getCurrencyByCode:product.currency];
                 [price setText:[NSString stringWithFormat:@"%@%@", currency, product.valorEsperado]];
                 //[price setAdjustsFontSizeToFitWidth:YES];
                 price.textColor = [UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.0];
@@ -154,6 +155,7 @@
             price = nil;
             buttonThumbsProduct = nil;
             viewPrice = nil;
+            thr = nil;
         }
         if (showEdit) {
             //View Edit Pencil
@@ -191,9 +193,10 @@
         
         UIImage *image = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] : [[UIImage alloc] initWithData:imageData];
         [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
-        imageData = nil;
-        image = nil;
         array = nil;
+        image = nil;
+        imageData = nil;
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
     }
 }
 
@@ -515,7 +518,13 @@
     NSArray *array = [dictByCurrencyCode allValues];
     path = nil;
     //index 1 is a Symbol currency
-    return [array objectAtIndex:1];
+    dictByCurrencyCode = nil;
+    dictCurrency = nil;
+    
+    NSString *currency = [array objectAtIndex:1];
+    array = nil;
+    
+    return currency;
 }
 
 +(void)setNavigationBarBackground:(UINavigationController *)navController{
@@ -523,7 +532,9 @@
     forBarMetrics:UIBarMetricsDefault];
     //[navController.navigationController.navigationBar setTintColor:[self getColorRedNavComponets]];
     [navController.navigationItem setHidesBackButton:YES];
-    [navController.navigationItem setTitleView:[self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300]];
+    UILabel *lab = [self getLabelTitleGaragesaleNavBar:UITextAlignmentLeft width:300];
+    [navController.navigationItem setTitleView:lab];
+    lab = nil;
 }
 
 +(void)setActionSheetAddProduct:(UITabBarController *)tabBarController clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -543,6 +554,7 @@
     
     [userDefaults synchronize];
     userDefaults = nil;
+    buttonIndex = nil;
 }
 
 @end

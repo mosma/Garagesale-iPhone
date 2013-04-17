@@ -22,7 +22,7 @@
                                                             UIActionSheetDelegate,
                                                             UITextFieldDelegate,
                                                             BSKeyboardControlsDelegate>{
-    UIView              *viewMessageNet;
+    //UIView              *viewMessageNet;
     UILabel             *labelNotification;
     BOOL                isReachability;
     MTStatusBarOverlay  *overlay;

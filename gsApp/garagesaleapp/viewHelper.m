@@ -53,8 +53,11 @@
         }
     }
     NSString *url = @"http://garagesaleapp.me/images/no-profileimg-small.jpg";
-    imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    imageAvatar = [UIImage imageWithData:data];
     url = nil;
+    data = nil;
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     return imageAvatar;
 }
 
@@ -175,12 +178,16 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered error: %@",                      error);
-    if (!isCancelRequests) {
-        imageAvatar = nil;
-        imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:
-                                              [self getGravatarURL:[[arrayProfile objectAtIndex:0] email]]]];
-        [self updateAvatar];    
-    }
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^(void) {
+        if (!isCancelRequests) {
+            imageAvatar = nil;
+            imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:
+                                                  [self getGravatarURL:[[arrayProfile objectAtIndex:0] email]]]];
+            [self updateAvatar];
+        }
+    });
+    queue = nil;
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -209,7 +216,6 @@
     [self cancelRequestsWithDelegate];
     RKObjManeger = nil;
     imageAvatar = nil;
-    isCancelRequests = nil;
     arrayProfile = nil;
     arrayTTReturn = nil;
 }

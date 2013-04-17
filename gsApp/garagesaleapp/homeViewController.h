@@ -58,6 +58,6 @@
 //Control searchBarProduct when no have user session.
 - (IBAction)showSearch:(id)sender;
 //Control searchBarProduct at session user.
-- (IBAction)showSearchLoged:(id)sender;
+//- (IBAction)showSearchLoged:(id)sender;
 -(void)controlSearchArea;
 @end

@@ -49,6 +49,7 @@
                 if (URL)
                 {
                     [URLs addObject:URL];
+                    URL = nil;
                 }
                 else
                 {
@@ -116,6 +117,7 @@
             if([[searchBarProduct.subviews objectAtIndex:i] isKindOfClass:[UIButton class]]){
                 UIButton *btn = (UIButton *)[searchBarProduct.subviews objectAtIndex:i];
                 [btn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
+                btn = nil;
             }
         }
         
@@ -151,14 +153,16 @@
         
         UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
                                                                    viewContr:self
-                                                                  imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+                                                                  imageNamed:@"btBackNav.png"
+                                                                        rect:CGRectMake(0, 0, 40, 30)];
             
         [self.navigationItem setLeftBarButtonItem:barItemBack];
         barItemBack = nil;
             
         UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(showSearch:)
                                                                    viewContr:self
-                                                                  imageNamed:@"btSearch.png" rect:CGRectMake(0, 0, 38, 31)];
+                                                                  imageNamed:@"btSearch.png"
+                                                                        rect:CGRectMake(0, 0, 38, 31)];
             
         [self.navigationItem setRightBarButtonItem:barItem];
         
@@ -166,6 +170,7 @@
         
         NSArray *objects = [NSArray arrayWithObjects:[UIImage imageNamed:@"btSearchBlock"], [UIImage imageNamed:@"btProdList"], nil];
         
+        segmentControl = nil;
         segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
         [segmentControl setFrame:CGRectMake(0, 0, 92, 31)];
         [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
@@ -217,7 +222,6 @@
                 [vH getResourcePathGarage:garageName];
                 [mutArrayViewHelpers addObject:vH];
             }
-            avatarName = nil;
         }
         
         [segmentControl setEnabled:YES];
@@ -325,8 +329,10 @@
 }
 
 -(void)releaseMemoryCache{
-    for (int n=0; n < [mutArrayViewHelpers count]; n++)
-        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] setIsCancelRequests:YES];
+    for (int n=0; n < [mutArrayViewHelpers count]; n++){
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] setIsCancelRequests:true];
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] releaseMemoryCache];
+    }
     [mutArrayViewHelpers removeAllObjects];
     mutArrayViewHelpers = nil;
     [mutArrayProducts removeAllObjects];
@@ -337,6 +343,7 @@
     tableView.delegate = nil;
     tableView = nil;
     imageURLs = nil;
+    segmentControl = nil;
     [super releaseMemoryCache];
 }
 
@@ -354,6 +361,7 @@
                           cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
                           otherButtonTitles:nil];
     [alert show];
+    alert = nil;
 }
 
 - (IBAction)showSearch:(id)sender{
@@ -384,150 +392,155 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.tableView) {
-        //static NSString             *CellIdentifier = @"CellProduct";
-        //productCustomViewCell       *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //static NSString             *CellIdentifier = @"CellProduct";
+    //productCustomViewCell       *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    //create new cell
+    __weak searchCustomViewCell *customViewCellBlock = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
+    __weak searchCustomViewCell *customViewCellLine = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
+
+    
+    if ([mutArrayProducts count] > 0) {
+    
+        //display image path
+       // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
+
+        NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
         
-        //create new cell
-        searchCustomViewCell *customViewCellBlock = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellBlock"];
-        searchCustomViewCell *customViewCellLine = [self.tableView dequeueReusableCellWithIdentifier:@"customViewCellLine"];
-
+        //Attibuted at strFormat values : Currency, Valor Esperado.
+        NSString *currency   = [GlobalFunctions getCurrencyByCode:(NSString *)
+                                                       [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
+        NSString *valorEsperado = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
         
-        if ([mutArrayProducts count] > 0) {
+        NSString *valorEsperadoFormat;
+        if (segmentControl.selectedSegmentIndex != 0)
+            valorEsperadoFormat = NSLocalizedString(@"format-expected-value-2line", nil); //break line.
+        else valorEsperadoFormat = NSLocalizedString(@"format-expected-value-1line", nil); 
         
-            //display image path
-           // cell.productName.text = [[[imageURLs objectAtIndex:indexPath.row] path] lastPathComponent];
-
-            NSString *garageName = [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ];
+        NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
+                                                       [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
+        
+        //Set Default Size/Color
+        NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+        [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
+        
+        //Set Valor Esperado Size/Color
+        [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
+                        range:[strFormat rangeOfString:valorEsperado]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
+        
+        //Set GarageName Size/Color
+        [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
+                        range:[strFormat rangeOfString:garageName]];
+        [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
+                                                                            [NSString stringWithFormat:NSLocalizedString(@"format-expected-value-by", nil), garageName]]];
             
-            //Attibuted at strFormat values : Currency, Valor Esperado.
-            NSString *currency   = [GlobalFunctions getCurrencyByCode:(NSString *)
-                                                           [[mutArrayProducts objectAtIndex:indexPath.row] currency]];
-            NSString *valorEsperado = [[mutArrayProducts objectAtIndex:indexPath.row] valorEsperado ];
+        int state = [[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue];
+        
+        if (state > 1) {
+            [[customViewCellBlock valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+            [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                               green:(float)102/255.0 \
+                                                                blue:(float)102/255.0 alpha:1.0]];
             
-            NSString *valorEsperadoFormat;
-            if (segmentControl.selectedSegmentIndex != 0)
-                valorEsperadoFormat = NSLocalizedString(@"format-expected-value-2line", nil); //break line.
-            else valorEsperadoFormat = NSLocalizedString(@"format-expected-value-1line", nil); 
-            
-            NSString                   *strFormat       = [NSString stringWithFormat: valorEsperadoFormat, currency, valorEsperado,
-                                                           [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa ]];
-            
-            //Set Default Size/Color
-            NSMutableAttributedString  *attrStr         = [NSMutableAttributedString attributedStringWithString:strFormat];
-            [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
-            [attrStr setTextColor:[UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.f]];
-            
-            //Set Valor Esperado Size/Color
-            [attrStr setTextColor:[UIColor colorWithRed:91.0/255.0 green:148.0/255.0 blue:67.0/255.0 alpha:1.f]
-                            range:[strFormat rangeOfString:valorEsperado]];
-            [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:22] range:[strFormat rangeOfString:valorEsperado]];
-            
-            //Set GarageName Size/Color
-            [attrStr setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]  
-                            range:[strFormat rangeOfString:garageName]];
-            [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:13] range:[strFormat rangeOfString:
-                                                                                [NSString stringWithFormat:NSLocalizedString(@"format-expected-value-by", nil), garageName]]];
-                
-            int state = [[[self.mutArrayProducts objectAtIndex:indexPath.row] idEstado] intValue];
-            
-            if (state > 1) {
-                [[customViewCellBlock valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
-                [[customViewCellBlock valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                                   green:(float)102/255.0 \
-                                                                    blue:(float)102/255.0 alpha:1.0]];
-                
-                [[customViewCellLine valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
-                [[customViewCellLine valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
-                                                                                  green:(float)102/255.0 \
-                                                                                   blue:(float)102/255.0 alpha:1.0]];
-            }
-            switch (state) {
-                case 2:
-                    [[customViewCellBlock valorEsperado] setText:@"Vendido"];
-                    [[customViewCellLine valorEsperado] setText:@"Vendido"];
-                    break;
-                case 3:
-                    [[customViewCellBlock valorEsperado] setText:@"N/D"];
-                    [[customViewCellLine valorEsperado] setText:@"N/D"];
-                    break;
-                case 4:
-                    [[customViewCellBlock valorEsperado] setText:@"Invisible"];
-                    [[customViewCellLine valorEsperado] setText:@"Invisible"];
-                    break;
-                default:
-                    customViewCellBlock.valorEsperado.attributedText = attrStr;
-                    customViewCellLine.valorEsperado.attributedText = attrStr;
-                    break;
-            }
-
-            UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                                       objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
-            [customViewCellBlock.imageGravatar setImage:image];
-            [customViewCellBlock.imageGravatar setTag:indexPath.row];
-
-            UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
-            [gestGrav setNumberOfTouchesRequired:1];
-            
-            [customViewCellBlock.imageGravatar addGestureRecognizer:gestGrav];
-            
-            //Set CellBlock Values
-            [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-            [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];    
-            
-            //Set Gravatar at CellBlock.
-            //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
-            //UIImage *image      = [[UIImage alloc] initWithData:imageData];
-            
-            //Set CellLine Values
-            [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
-            [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+            [[customViewCellLine valorEsperado] setFont:[UIFont fontWithName:@"Droid Sans" size:20 ]];
+            [[customViewCellLine valorEsperado] setTextColor:[UIColor colorWithRed:(float)255/255.0 \
+                                                                              green:(float)102/255.0 \
+                                                                               blue:(float)102/255.0 alpha:1.0]];
         }
-        
-        if(segmentControl.selectedSegmentIndex == 0){
-            
-            //cancel loading previous image for cell
-            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
-            
-            //set placeholder image or cell won't update when image is loaded
-            [customViewCellBlock.imageView setImage:[UIImage imageNamed:@"placeHolder.png"]];
-            //load the image
-            [customViewCellBlock.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
-            
-            [customViewCellBlock.imageView.layer setMasksToBounds:YES];
-            [customViewCellBlock.imageView.layer setCornerRadius:3];
-            
-            //[customViewCellLine removeFromSuperview];
-            [customViewCellBlock setHidden:NO];
-            [customViewCellLine setHidden:YES];
-            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-            [self.tableView setRowHeight:122];
-            return customViewCellBlock;
+        switch (state) {
+            case 2:
+                [[customViewCellBlock valorEsperado] setText:NSLocalizedString(@"sold", nil)];
+                [[customViewCellLine valorEsperado] setText:NSLocalizedString(@"sold", nil)];
+                break;
+            case 3:
+                [[customViewCellBlock valorEsperado] setText:@"N/D"];
+                [[customViewCellLine valorEsperado] setText:@"N/D"];
+                break;
+            case 4:
+                [[customViewCellBlock valorEsperado] setText:NSLocalizedString(@"invisible", nil)];
+                [[customViewCellLine valorEsperado] setText:NSLocalizedString(@"invisible", nil)];
+                break;
+            default:
+                customViewCellBlock.valorEsperado.attributedText = attrStr;
+                customViewCellLine.valorEsperado.attributedText = attrStr;
+                break;
         }
-        else{
-            
-            //cancel loading previous image for cell
-            [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellLine.imageView];
 
-            //set placeholder image or cell won't update when image is loaded
-            [customViewCellLine.imageView setImage:[UIImage imageNamed:@"placeHolder.png"]];
-            //load the image
-            [customViewCellLine.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
+        UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
+                                                                                   objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
+        [customViewCellBlock.imageGravatar setImage:image];
+        [customViewCellBlock.imageGravatar setTag:indexPath.row];
+
+        UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
+        [gestGrav setNumberOfTouchesRequired:1];
+        
+        [customViewCellBlock.imageGravatar addGestureRecognizer:gestGrav];
+        
+        //Set CellBlock Values
+        [[customViewCellBlock productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[customViewCellBlock productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];    
+        
+        //Set Gravatar at CellBlock.
+        //NSData  *imageData  = [NSData dataWithContentsOfURL:[GlobalFunctions getGravatarURL:[[mutArrayProducts objectAtIndex:indexPath.row] email]]];
+        //UIImage *image      = [[UIImage alloc] initWithData:imageData];
+        
+        //Set CellLine Values
+        [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
+    
+        gestGrav = nil;
+        currency        = nil;
+        valorEsperado   = nil;
+        strFormat       = nil;
+        valorEsperadoFormat = nil;
+    }
+    
+    if(segmentControl.selectedSegmentIndex == 0){
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellBlock.imageView];
+        
+        //set placeholder image or cell won't update when image is loaded
+        UIImage *img = [UIImage imageNamed:@"placeHolder.png"];
+        [customViewCellBlock.imageView setImage:img];
+        //load the image
+        [customViewCellBlock.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
+        
+        [customViewCellBlock.imageView.layer setMasksToBounds:YES];
+        [customViewCellBlock.imageView.layer setCornerRadius:3];
+        img = nil;
+        
+        [customViewCellLine removeFromSuperview];
+        [customViewCellBlock setHidden:NO];
+        [customViewCellLine setHidden:YES];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [self.tableView setRowHeight:122];
             
-            [customViewCellLine.imageView.layer setMasksToBounds:YES];
-            
-            [customViewCellLine.imageView.layer setCornerRadius:3];
-            
-          //  [customViewCellBlock removeFromSuperview];
-            [customViewCellBlock setHidden:YES];
-            [customViewCellLine setHidden:NO];
-            [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-            [self.tableView setRowHeight:367];
-            return customViewCellLine;
-        }
-            
-        customViewCellBlock = nil;
-        customViewCellLine = nil;
+        return customViewCellBlock;
+    
+    }else{
+        //cancel loading previous image for cell
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:customViewCellLine.imageView];
+
+        //set placeholder image or cell won't update when image is loaded
+        UIImage *img = [UIImage imageNamed:@"placeHolder.png"];
+        
+        [customViewCellLine.imageView setImage:img];
+        //load the image
+        [customViewCellLine.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
+        
+        [customViewCellLine.imageView.layer setMasksToBounds:YES];
+        
+        [customViewCellLine.imageView.layer setCornerRadius:3];
+        img = nil;
+        
+        [customViewCellBlock removeFromSuperview];
+        [customViewCellBlock setHidden:YES];
+        [customViewCellLine setHidden:NO];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+        [self.tableView setRowHeight:367];
+        return customViewCellLine;
     }
 }
 
@@ -556,7 +569,8 @@
     [garaAcc setIsGenericGarage:YES];
     [self.navigationController pushViewController:garaAcc animated:YES];
     
-    
+    garageName = nil;
+    imgV = nil;
 //    garageAccountViewController *garaAcc = [self.storyboard instantiateViewControllerWithIdentifier:@"garageAccount"];
 //    [garaAcc setProfile:(Profile *)[arrayProfile objectAtIndex:0]];
 //    [garaAcc setGarage:(Garage *)[arrayGarage objectAtIndex:0]];
@@ -615,7 +629,7 @@
     [tableView reloadData];
     
     for (int n=0; n < [mutArrayViewHelpers count]; n++)
-        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] setIsCancelRequests:YES];
+        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:n] setIsCancelRequests:true];
     
     self.trackedViewName = [NSString stringWithFormat: @"/search/%@", [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
@@ -663,13 +677,20 @@
     [self.tableView reloadInputViews];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{    
-    if ((segmentControl.selectedSegmentIndex == 0 && [mutArrayProducts count] > 1) ||
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    if ((segmentControl.selectedSegmentIndex == 0) ||
         (segmentControl.selectedSegmentIndex == 1 && [mutArrayProducts count] > 4)) {
 
         if (_lastContentOffset < (int)self.tableView.contentOffset.y){
             [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             [self.navigationController setNavigationBarHidden:YES animated:YES];
+        }
+        else if (segmentControl.selectedSegmentIndex == 0 && [mutArrayProducts count] == 1 &&
+                 tableView.contentOffset.y < tableView.contentSize.height-500){
+            [GlobalFunctions showTabBar:self.navigationController.tabBarController];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            return;
         }
         else{
             if (tableView.contentOffset.y < tableView.contentSize.height-700) {
@@ -678,6 +699,22 @@
             }
         }
     }
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.navigationItem.leftBarButtonItem setEnabled:YES];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -699,9 +736,6 @@
 -(void)removeClientRequest{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-    for (int i = 0; i < [mutArrayViewHelpers count]; i++) {
-        [(viewHelper *)[mutArrayViewHelpers objectAtIndex:i] cancelRequestsWithDelegate];
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -729,8 +763,8 @@
     [self setSegmentControl:nil];
     viewSegmentArea = nil;
     [self setViewSegmentArea:nil];
-    tableView = nil;
-    [self setTableView:nil];
+//    tableView = nil;
+//    [self setTableView:nil];
     imageURLs = nil;
     [self setImageURLs:nil];
 }
