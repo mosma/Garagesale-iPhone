@@ -84,15 +84,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (isGenericGarage){
-        UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
-                                                                   viewContr:self
-                                                                  imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
-        
-        [self.navigationItem setLeftBarButtonItem:barItemBack];
-        barItemBack = nil;
-    }
     [viewNoProducts setHidden:YES];
     if (IS_IPHONE_5) {
         [self.view setFrame:CGRectMake(0, 0, 320, 568)];
@@ -140,7 +131,6 @@
 
 - (IBAction)reloadPage:(id)sender{
     [viewTop setUserInteractionEnabled:NO];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
     //mutArrayProducts = nil;
     [segmentControl setEnabled:NO];
@@ -392,6 +382,7 @@
         [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@", garageNameSearch] objectMapping:productMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)getResourcePathGarage:(NSString *)garagem{
@@ -486,6 +477,10 @@
 }
 
 -(void)backPage{
+    if (isGenericGarage){
+        [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
     [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -550,10 +545,6 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    if (isGenericGarage){
-        [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 
@@ -767,7 +758,6 @@
 - (void)viewWillUnload:(BOOL)animated
 {
     [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewDidUnload

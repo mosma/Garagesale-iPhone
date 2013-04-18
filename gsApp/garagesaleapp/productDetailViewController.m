@@ -451,8 +451,6 @@
 }
 
 - (void)getResourcePathProfile {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
     
     if (self.isIdPersonNumber)
@@ -824,7 +822,6 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
