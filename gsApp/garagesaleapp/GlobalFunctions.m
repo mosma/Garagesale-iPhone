@@ -191,8 +191,16 @@
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:url];
         url = nil;
         
+        [[array objectAtIndex:1] setImage:nil forState:UIControlStateNormal];
+        [[array objectAtIndex:1] setAlpha:0];
+        
         UIImage *image = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] : [[UIImage alloc] initWithData:imageData];
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
         [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
+        [[array objectAtIndex:1] setAlpha:1.0];
+        [UIView commitAnimations];
+
         array = nil;
         image = nil;
         imageData = nil;

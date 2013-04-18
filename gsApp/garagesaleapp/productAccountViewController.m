@@ -446,6 +446,11 @@
             [userDefaults synchronize];
             userDefaults = nil;
             [self.navigationController popToRootViewControllerAnimated:YES];
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(queue, ^(void) {
+                [self releaseMemoryCache];
+            });
+            queue = nil;
         }
         if ([response isNotFound]) {
             NSLog(@"The resource path '%@' was not found.", [request resourcePath]);

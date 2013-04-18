@@ -66,6 +66,7 @@
             if (URL)
             {
                 [URLs addObject:URL];
+                URL = nil;
             }
             else
             {
@@ -74,6 +75,7 @@
             //NSLog(@"mutArrayProducts indice : %i",x);
         }
         self.imageURLs = URLs;
+        URLs = nil;
     }
     [super awakeFromNib];
 }
@@ -234,6 +236,7 @@
             
             [self.navigationItem setRightBarButtonItem:barItemBack];
             barItemBack = nil;
+            image = nil;
         }
         
         //Generics Garage. From SearchVC and DetailVC
@@ -647,20 +650,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString      *CellIdentifier = @"CellProduct";
-    searchCustomViewCell *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
+    __weak searchCustomViewCell *cell = [self.tableViewProducts dequeueReusableCellWithIdentifier:CellIdentifier];
         
     if ([mutArrayProducts count] > 0) {
         //cancel loading previous image for cell
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.imageView];
         //set placeholder image or cell won't update when image is loader
-        [cell.imageView setImage:[UIImage imageNamed:@"placeHolder.png"]];
+        UIImage *placeHolder = [UIImage imageNamed:@"placeHolder.png"];
+        [cell.imageView setImage:placeHolder];
         //load the image
         [cell.imageView setImageURL:[imageURLs objectAtIndex:indexPath.row]];
         [cell.imageView.layer setMasksToBounds:YES];
         [cell.imageView.layer setCornerRadius:3];
-        
+        NSString *prodName = (NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome];
         [[cell productName]         setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-        [[cell productName]         setText:(NSString *)[[self.mutArrayProducts objectAtIndex:indexPath.row] nome]];
+        [[cell productName]         setText:prodName];
 
         NSString                   *currency        = [GlobalFunctions getCurrencyByCode:(NSString *)
                                                        [[self.mutArrayProducts objectAtIndex:indexPath.row] currency]];
@@ -710,6 +714,10 @@
         currency        = nil;
         valorEsperado   = nil;
         strFormat       = nil;
+        attrStr         = nil;
+        strFormat       = nil;
+        placeHolder     = nil;
+        prodName        = nil;
     }
     
     return cell;
