@@ -210,30 +210,32 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    UIColor *placeHolderColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
     if (flagViewControllers == 0){
-        [textFieldUserPassword setValue:[UIColor redColor]
+        [textFieldUserPassword setValue:placeHolderColor
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
         [textFieldUserPassword setText:@""];
     } else if (flagViewControllers == 1){
-        [textFieldGarageName setValue:[UIColor redColor]
+        [textFieldGarageName setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         garageNameWrited = textFieldGarageName.text;
         [textFieldGarageName setText:@""];
     } else if (flagViewControllers == 2) {
-        [textFieldEmail setValue:[UIColor redColor]
+        [textFieldEmail setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         emailWrited = textFieldEmail.text;
         [textFieldEmail setText:@""];
     } else if (flagViewControllers == 3) {
         [buttonRecover setEnabled:YES];
-        [txtFieldEmailRecover setValue:[UIColor redColor]
+        [txtFieldEmailRecover setValue:placeHolderColor
                             forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         [txtFieldEmailRecover setText:@""];
     }
+    placeHolderColor = nil;
     [timer invalidate];
     isLoadingDone = YES;
 }
@@ -366,7 +368,7 @@
 
 -(IBAction)recoverPassword:(id)sender {
     if (![GlobalFunctions isValidEmail:txtFieldEmailRecover.text]){
-        [txtFieldEmailRecover setValue:[UIColor redColor]
+        [txtFieldEmailRecover setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                       forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         txtFieldEmailRecover.text = @"";
@@ -385,7 +387,7 @@
     [self setEnableRegisterButton:NO];
     flagViewControllers = 2;
     if (![GlobalFunctions isValidEmail:textFieldEmail.text]){
-        [textFieldEmail setValue:[UIColor redColor]
+        [textFieldEmail setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                        forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         emailWrited = textFieldEmail.text;
@@ -400,35 +402,35 @@
 
 -(BOOL)validateFormNewGarage{
     BOOL isValid = YES;
-    
+    UIColor *placeHolderColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
     if ([textFieldGarageName.text length] < 3) {
-        [textFieldGarageName setValue:[UIColor redColor]
+        [textFieldGarageName setValue:placeHolderColor
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder: NSLocalizedString(@"form-invalid-garage-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldPersonName.text length] < 3) {
-        [textFieldPersonName setValue:[UIColor redColor]
+        [textFieldPersonName setValue:placeHolderColor
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPersonName setPlaceholder: NSLocalizedString(@"form-invalid-name", nil)];
         isValid = NO;
     }
     
     if ([textFieldEmail.text length] == 0) {
-        [textFieldEmail setValue:[UIColor redColor]
+        [textFieldEmail setValue:placeHolderColor
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-empty-email", nil)];
         isValid = NO;
     }
     
     if ([textFieldPassword.text length] < 5) {
-        [textFieldPassword setValue:[UIColor redColor]
+        [textFieldPassword setValue:placeHolderColor
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPassword setPlaceholder: NSLocalizedString(@"form-invalid-password", nil)];
         isValid = NO;
     }
-    
+    placeHolderColor = nil;
     return isValid;
 }
 
