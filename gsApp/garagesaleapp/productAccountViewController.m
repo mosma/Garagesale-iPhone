@@ -261,7 +261,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     @try {
         if ([objects count] == 0){
-            [waiting removeFromSuperview];
+            [self removeWaiting];
             [buttonAddPics setEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             self.product = nil;
@@ -286,7 +286,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [buttonAddPics setEnabled:YES];
-    [waiting removeFromSuperview];
+    [self removeWaiting];
     [self.view setUserInteractionEnabled:YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -304,7 +304,14 @@
     barItem = nil;
 }
 
+-(void)removeWaiting{
+    [waiting removeFromSuperview];
+    [waiting setHidden:YES];
+}
+
 -(void)backPage{
+    [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self releaseMemoryCache];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -430,7 +437,7 @@
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
             if (self.product == nil){
                 [buttonAddPics setEnabled:YES];
-                [waiting removeFromSuperview];
+                [self removeWaiting];
             }
         }
     } else if ([request isPOST]) {
@@ -649,7 +656,7 @@
 
 -(void)loadAttributsToPhotos:(NSArray *)fotos{
     @try {
-        [waiting removeFromSuperview];
+        [self removeWaiting];
 
         for (size_t i = 0; i < [fotos count]; i++) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",
@@ -766,9 +773,10 @@
     singleTap = nil;
     shadowView = nil;
     HUD = nil;
+    if ([waiting isHidden])
+        keyboardControls.delegate = nil;
     product = nil;
     waiting = nil;
-    keyboardControls.delegate = nil;
     [super releaseMemoryCache];
 }
 
@@ -800,8 +808,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   // [[[[RKObjectManager sharedManager] client] requestQueue] cancelRequestsWithDelegate:self];
-   // [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)viewWillUnload:(BOOL)animated
