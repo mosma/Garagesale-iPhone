@@ -196,7 +196,7 @@
         
         UIImage *image = (imageData == NULL) ? [UIImage imageNamed:@"nopicture.png"] : [[UIImage alloc] initWithData:imageData];
         [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationDuration:0.2];
         [[array objectAtIndex:1] setImage:image forState:UIControlStateNormal];
         [[array objectAtIndex:1] setAlpha:1.0];
         [UIView commitAnimations];

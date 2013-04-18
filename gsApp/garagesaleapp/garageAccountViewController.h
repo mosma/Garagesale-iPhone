@@ -22,7 +22,6 @@
     settingsAccountViewController *settingsVC;
     RKObjectManager     *RKObjManeger;
     NSMutableArray      *mutArrayProducts;
-    //GlobalFunctions     *globalFunctions;
     STSegmentedControl  *segmentControl;
 
     //Instacied for Parent. Using in productDetailViewController, productTableViewController.

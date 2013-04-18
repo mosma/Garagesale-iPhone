@@ -175,7 +175,7 @@
     [viewSearch.layer setCornerRadius:6];
     [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
-    [viewSearch.layer setShadowOpacity:0.5];
+    [viewSearch.layer setShadowOpacity:0.7];
     viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
     
     [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -216,10 +216,10 @@
     NSString *path = [NSString stringWithFormat:@"product?count=%0d", [GlobalFunctions getHomeProductsNumber]];
     [self.RKObjManeger loadObjectsAtResourcePath:path objectMapping:productMapping delegate:self];
     
-    productMapping = nil;
-    photoMapping = nil;
-    caminhoMapping = nil;
-    path = nil;
+//    productMapping = nil;
+//    photoMapping = nil;
+//    caminhoMapping = nil;
+//    path = nil;
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
@@ -298,7 +298,7 @@
                                  showPrice:NO
                                  viewContr:self];
             [scrollViewMain addSubview:viewThumb];
-            viewThumb = nil;
+           // viewThumb = nil;
         }
         
     }
@@ -352,27 +352,27 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
         if (!viewSearch.hidden || !viewTopPage.hidden){
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:0.3];
-            [UIView setAnimationDelegate:self];
+//            [UIView beginAnimations:nil context:nil];
+//            [UIView setAnimationDuration:0.3];
+//            [UIView setAnimationDelegate:self];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
                 [viewSearch setAlpha:0];
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             }else
                 [viewTopPage setAlpha:0];
-            [UIView commitAnimations];
+           // [UIView commitAnimations];
             [txtFieldSearch resignFirstResponder];
         }
     }else{
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.3];
-        [UIView setAnimationDelegate:self];
+//        [UIView beginAnimations:nil context:nil];
+//        [UIView setAnimationDuration:0.3];
+//        [UIView setAnimationDelegate:self];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
             [viewSearch setAlpha:1.0];
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
             [viewTopPage setAlpha:1.0];
-        [UIView commitAnimations];
+//        [UIView commitAnimations];
     }
     if (isSearchDisplayed)
         [self showSearch:nil];
@@ -389,10 +389,10 @@
         [subview removeFromSuperview];
     [scrollViewMain addSubview:buttonLogo];
     
-    RKObjManeger = nil;
+   // RKObjManeger = nil;
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
-    globalFunctions = nil;
+    //globalFunctions = nil;
     globalFunctions = [[GlobalFunctions alloc] init];
     
     //Set Display thumbs on Home.
@@ -411,15 +411,14 @@
         [scrollViewMain setContentSize:CGSizeMake(320,([mutArrayProducts count]*35)+130)];
     }
     
-    NSTimer *load = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(getResourcePathProduct) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(getResourcePathProduct) userInfo:nil repeats:NO];
         
     if (!isAnimationLogo) {
         [viewTopPage setHidden:YES];
         [viewSearch setHidden:YES];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
     }
-    load = nil;
-    frameSize = nil;
+//    frameSize = nil;
 }
 
 

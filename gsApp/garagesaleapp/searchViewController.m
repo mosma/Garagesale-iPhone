@@ -678,11 +678,13 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    if ([mutArrayProducts count] > 0)
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    
     if ((segmentControl.selectedSegmentIndex == 0) ||
         (segmentControl.selectedSegmentIndex == 1 && [mutArrayProducts count] > 4)) {
 
-        if (_lastContentOffset < (int)self.tableView.contentOffset.y){
+        if (_lastContentOffset < (int)self.tableView.contentOffset.y && [mutArrayProducts count] != 0){
             [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             [self.navigationController setNavigationBarHidden:YES animated:YES];
         }
