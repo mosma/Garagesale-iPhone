@@ -128,8 +128,8 @@
         [self.navigationController.navigationBar addSubview:searchBarProduct];
         
         shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
-        [shadowSearch setBackgroundColor:[UIColor blackColor]];
-        [shadowSearch setAlpha:0.7];
+        [shadowSearch setBackgroundColor:[UIColor whiteColor]];
+        [shadowSearch setAlpha:0.6];
         [shadowSearch setHidden:YES];
         [self.view addSubview:shadowSearch];
         UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];

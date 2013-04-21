@@ -158,10 +158,10 @@
     searchBarProduct.hidden=YES;
         
     shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 320, 420)];
-    [shadowSearch setBackgroundColor:[UIColor blackColor]];
-    [shadowSearch setAlpha:0.7];
+    [shadowSearch setBackgroundColor:[UIColor whiteColor]];
+    [shadowSearch setAlpha:0.6];
     [shadowSearch setHidden:YES];
-    [self.view addSubview:shadowSearch];
+    [self.view insertSubview:shadowSearch belowSubview:viewSearch];
     UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
     [gest setNumberOfTouchesRequired:1];
     [shadowSearch addGestureRecognizer:gest];
@@ -352,27 +352,20 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
         if (!viewSearch.hidden || !viewTopPage.hidden){
-//            [UIView beginAnimations:nil context:nil];
-//            [UIView setAnimationDuration:0.3];
-//            [UIView setAnimationDelegate:self];
+            [viewSearch setAlpha:0];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-                [viewSearch setAlpha:0];
+
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             }else
                 [viewTopPage setAlpha:0];
-           // [UIView commitAnimations];
             [txtFieldSearch resignFirstResponder];
         }
     }else{
-//        [UIView beginAnimations:nil context:nil];
-//        [UIView setAnimationDuration:0.3];
-//        [UIView setAnimationDelegate:self];
+        [viewSearch setAlpha:1.0];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
-            [viewSearch setAlpha:1.0];
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
             [viewTopPage setAlpha:1.0];
-//        [UIView commitAnimations];
     }
     if (isSearchDisplayed)
         [self showSearch:nil];

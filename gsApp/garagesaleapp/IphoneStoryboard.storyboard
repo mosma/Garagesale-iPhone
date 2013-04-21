@@ -18,11 +18,11 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" id="oAx-vy-ZuX" userLabel="viewSearch">
-                                <rect key="frame" x="19" y="119" width="281" height="52"/>
+                                <rect key="frame" x="19" y="119" width="283" height="53"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textFieldHomeSearch.png" id="R82-8s-jjh" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="7" y="7" width="267" height="37"/>
+                                        <rect key="frame" x="8" y="8" width="267" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wen-uR-S49" userLabel="txtFieldSearch">
@@ -2191,7 +2191,6 @@
                 <relationship kind="action" name="getPicsByPhotosAlbum:"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="saveProduct"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonSaveProduct" candidateClass="UIButton"/>
