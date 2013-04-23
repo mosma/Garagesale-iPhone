@@ -76,9 +76,9 @@
     
     txtFieldValue.keyboardType = UIKeyboardTypeDecimalPad;
     
-    shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
-    [shadowView setBackgroundColor:[UIColor blackColor]];
-    [shadowView setAlpha:0];
+//    shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
+//    [shadowView setBackgroundColor:[UIColor blackColor]];
+//    [shadowView setAlpha:0];
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
@@ -771,7 +771,7 @@
     nsArrayState = nil;
     nsArrayCurrency = nil;
     singleTap = nil;
-    shadowView = nil;
+//    shadowView = nil;
     HUD = nil;
     if ([waiting isHidden])
         keyboardControls.delegate = nil;

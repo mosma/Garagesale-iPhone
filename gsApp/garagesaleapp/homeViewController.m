@@ -156,16 +156,14 @@
     [self.buttonSignUp.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
 
     searchBarProduct.hidden=YES;
-        
-    shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 40, 320, 420)];
+    
+    shadowSearch = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 420)];
     [shadowSearch setBackgroundColor:[UIColor whiteColor]];
     [shadowSearch setAlpha:0.6];
     [shadowSearch setHidden:YES];
-    [self.view insertSubview:shadowSearch belowSubview:viewSearch];
-    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showSearch:)];
-    [gest setNumberOfTouchesRequired:1];
-    [shadowSearch addGestureRecognizer:gest];
-    
+    [self.view insertSubview:viewTopPage belowSubview:viewSearch];
+    [self.view insertSubview:shadowSearch aboveSubview:viewTopPage];
+
     [viewTopPage.layer setCornerRadius:6];
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
@@ -182,14 +180,14 @@
     [txtFieldSearch setDelegate:self];
     
     //set done at keyboard
-    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
-    numberToolbar.items = [NSArray arrayWithObjects:
-                           [[UIBarButtonItem alloc]
-                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelSearchPad)], nil];
-    [numberToolbar sizeToFit];
-    [txtFieldSearch setInputAccessoryView:numberToolbar];
+//    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+//    [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
+//    numberToolbar.items = [NSArray arrayWithObjects:
+//                           [[UIBarButtonItem alloc]
+//                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+//                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(showHideViewSearch:)], nil];
+//    [numberToolbar sizeToFit];
+//    [txtFieldSearch setInputAccessoryView:numberToolbar];
     
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
@@ -281,8 +279,16 @@
     [self controlSearchArea];
 }
 
--(void)cancelSearchPad{
-    [txtFieldSearch resignFirstResponder];
+- (IBAction)showHideViewSearch:(id)sender{
+    if (isTopViewShowing) {
+        [shadowSearch setHidden:YES];
+        [txtFieldSearch resignFirstResponder];
+    }
+    else {
+        [shadowSearch setHidden:NO];
+        [txtFieldSearch becomeFirstResponder];
+    }
+    isTopViewShowing = !isTopViewShowing;
 }
 
 -(void)loadButtonsProduct{
@@ -367,8 +373,8 @@
         }else
             [viewTopPage setAlpha:1.0];
     }
-    if (isSearchDisplayed)
-        [self showSearch:nil];
+    if (isTopViewShowing)
+        [self showHideTopPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -416,16 +422,22 @@
 
 
 -(void)controlSearchArea{
+    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] init];
+    [gest setNumberOfTouchesRequired:1];
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
+        [gest addTarget:self action:@selector(showHideViewSearch:)];
         [viewSearch setHidden:NO];
         [viewTopPage setHidden:YES];
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         searchBarProduct.hidden=YES;
     }else {
+        [gest addTarget:self action:@selector(showHideTopPage:)];
         [viewSearch setHidden:YES];
         [viewTopPage setHidden:NO];
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
     }
+    [shadowSearch addGestureRecognizer:gest];
+    gest = nil;
 }
 
 - (void)gotoProductDetailVC:(UIButton *)sender{
@@ -469,7 +481,7 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     // Clear the search text
     // Deactivate the UISearchBar
-    [self showSearch:nil];
+    [self showHideTopPage:nil];
     // searchBar.text=@"";
     //[self searchBar:searchBar activate:YES];
 }
@@ -496,13 +508,13 @@
     prdTbl = nil;
 }
 
-- (IBAction)showSearch:(id)sender{
+- (IBAction)showHideTopPage:(id)sender{
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
-    if (!isSearchDisplayed) {
+    if (!isTopViewShowing) {
         [searchBarProduct setHidden:NO];
         [shadowSearch setHidden:NO];
         [searchBarProduct becomeFirstResponder];
@@ -512,7 +524,7 @@
         [shadowSearch setHidden:YES];
         [searchBarProduct resignFirstResponder];
     }
-    isSearchDisplayed = !isSearchDisplayed;
+    isTopViewShowing = !isTopViewShowing;
     [UIView commitAnimations];
 }
 
@@ -550,8 +562,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-    if (isSearchDisplayed)
-        [self showSearch:nil];
+    if (isTopViewShowing)
+        [self showHideTopPage:nil];
     [GlobalFunctions showTabBar:self.navigationController.tabBarController];
 }
 

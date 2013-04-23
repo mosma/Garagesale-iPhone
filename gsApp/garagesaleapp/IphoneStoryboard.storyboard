@@ -31,6 +31,9 @@
                                         <color key="textColor" red="0.64705884459999996" green="0.64705884459999996" blue="0.64705884459999996" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <action selector="showHideViewSearch:" destination="2" eventType="touchDown" id="53q-5P-2dG"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -51,7 +54,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="showSearch:" destination="2" eventType="touchUpInside" id="O7z-PE-ma7"/>
+                                            <action selector="showHideTopPage:" destination="2" eventType="touchUpInside" id="EsW-B6-9sZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PIV-QD-y6b">
@@ -2172,7 +2175,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/homeViewController.h"/>
             <relationships>
                 <relationship kind="action" name="reloadPage:"/>
-                <relationship kind="action" name="showSearch:"/>
+                <relationship kind="action" name="showHideTopPage:"/>
                 <relationship kind="outlet" name="buttonSignIn" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonSignUp" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>

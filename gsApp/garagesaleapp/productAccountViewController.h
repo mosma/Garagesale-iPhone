@@ -41,7 +41,7 @@
     NSArray                     *nsArrayState;
     NSMutableArray              *nsArrayCurrency;
     UITapGestureRecognizer      *singleTap;
-    UIView                      *shadowView;
+    //UIView                      *shadowView;
     MBProgressHUD               *HUD;
     Product                     *product;
     UILabel                     *waiting;

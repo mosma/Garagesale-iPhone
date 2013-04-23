@@ -17,7 +17,7 @@
                                                     OHAttributedLabelDelegate,
                                                     UIScrollViewDelegate> {
 
-    BOOL                                        *isSearchDisplayed;
+    BOOL                                        *isTopViewShowing;
     BOOL                                        *isUserLoged;
     BOOL                                        *isAnimationLogo;
     BOOL                                        isFromSignUp;
@@ -56,7 +56,8 @@
 - (IBAction)reloadPage:(id)sender;
 - (void)gotoProductDetailVC:(id)sender;
 //Control searchBarProduct when no have user session.
-- (IBAction)showSearch:(id)sender;
+- (IBAction)showHideTopPage:(id)sender;
+- (IBAction)showHideViewSearch:(id)sender;
 //Control searchBarProduct at session user.
 //- (IBAction)showSearchLoged:(id)sender;
 -(void)controlSearchArea;
