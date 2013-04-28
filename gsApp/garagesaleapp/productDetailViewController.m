@@ -135,6 +135,7 @@
     [attrStrVE setFontName:@"Droid Sans" size:28 range:[titleValorEsperado rangeOfString:self.product.valorEsperado]];
     [OHlabelValorEsperado setBackgroundColor:[UIColor clearColor]];
     OHlabelValorEsperado.attributedText = attrStrVE;
+    [OHlabelValorEsperado setAutomaticallyAddLinksForType:0];
     titleValorEsperado = nil;
     attrStrVE = nil;
     
