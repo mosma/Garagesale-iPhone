@@ -33,9 +33,11 @@
     UISearchBar                    *searchBarProduct;
     __weak IBOutlet UITextField    *txtFieldSearch;
     UIView                                      *shadowSearch;
+    __weak IBOutlet UIButton *btCancelSearch;
 
     __weak IBOutlet UIButton                    *buttonSignUp;
     __weak IBOutlet UIButton                    *buttonSignIn;
+    __weak IBOutlet UIImageView *imgTxtField;
 }
 
 @property (nonatomic, retain) RKObjectManager                   *RKObjManeger;
@@ -49,6 +51,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignUp;
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignIn;
+@property (weak, nonatomic) IBOutlet UIImageView *imgTxtField;
+@property (weak, nonatomic) IBOutlet UIButton *btCancelSearch;
 
 - (void)getResourcePathProduct;
 - (void)reachability;

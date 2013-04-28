@@ -20,6 +20,8 @@
 @synthesize isFromSignUp;
 @synthesize buttonSignIn;
 @synthesize buttonSignUp;
+@synthesize imgTxtField;
+@synthesize btCancelSearch;
 
 - (void)viewDidLoad
 {
@@ -420,6 +422,39 @@
 //    frameSize = nil;
 }
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frameCopy1 = imgTxtField.frame;
+        frameCopy1.size.width = 213.f;
+        imgTxtField.frame = frameCopy1;
+        
+        CGRect frameCopy2 = txtFieldSearch.frame;
+        frameCopy2.size.width = 178.f;
+        txtFieldSearch.frame = frameCopy2;
+        
+        [btCancelSearch setHidden:NO];
+    }];
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frameCopy1 = imgTxtField.frame;
+        frameCopy1.size.width = 267.f;
+        imgTxtField.frame = frameCopy1;
+        
+        CGRect frameCopy2 = txtFieldSearch.frame;
+        frameCopy2.size.width = 232.f;
+        txtFieldSearch.frame = frameCopy2;
+        
+        [btCancelSearch setHidden:YES];
+    }];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    if (!isTopViewShowing) 
+        [self showHideViewSearch:nil];
+    return YES;
+}
 
 -(void)controlSearchArea{
     UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] init];
@@ -591,6 +626,10 @@
     [self setScrollViewMain:nil];
     txtFieldSearch = nil;
     [self setTxtFieldSearch:nil];
+    imgTxtField = nil;
+    [self setImgTxtField:nil];
+    btCancelSearch = nil;
+    [self setBtCancelSearch:nil];
     [super viewDidUnload];
 }
 

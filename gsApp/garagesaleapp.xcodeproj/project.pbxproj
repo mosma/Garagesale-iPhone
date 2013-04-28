@@ -236,6 +236,10 @@
 		CC8BF4A915B878580048AE70 /* homeOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A315B878580048AE70 /* homeOver@2x.png */; };
 		CC8BF4AA15B878580048AE70 /* personOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A415B878580048AE70 /* personOver.png */; };
 		CC8BF4AB15B878580048AE70 /* personOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A515B878580048AE70 /* personOver@2x.png */; };
+		CC8C467A172B8AEB00329188 /* btCancelSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8C4678172B8AEB00329188 /* btCancelSearch.png */; };
+		CC8C467B172B8AEB00329188 /* btCancelSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8C4679172B8AEB00329188 /* btCancelSearch@2x.png */; };
+		CC8C4680172CB4B000329188 /* loupe.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8C467F172CB4B000329188 /* loupe.png */; };
+		CC8C4682172CB4C200329188 /* loupe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8C4681172CB4C200329188 /* loupe@2x.png */; };
 		CC8ED71C157E9F6700FEB780 /* signUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8ED71B157E9F6700FEB780 /* signUpViewController.m */; };
 		CC8EEDBB14BD41DF00B9DC22 /* UIButtonArrow280x160.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */; };
 		CC96408E159192EC00D00915 /* productAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC96408D159192EB00D00915 /* productAccountViewController.m */; };
@@ -630,6 +634,10 @@
 		CC8BF4A315B878580048AE70 /* homeOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "homeOver@2x.png"; sourceTree = "<group>"; };
 		CC8BF4A415B878580048AE70 /* personOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = personOver.png; sourceTree = "<group>"; };
 		CC8BF4A515B878580048AE70 /* personOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personOver@2x.png"; sourceTree = "<group>"; };
+		CC8C4678172B8AEB00329188 /* btCancelSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btCancelSearch.png; sourceTree = "<group>"; };
+		CC8C4679172B8AEB00329188 /* btCancelSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btCancelSearch@2x.png"; sourceTree = "<group>"; };
+		CC8C467F172CB4B000329188 /* loupe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loupe.png; sourceTree = "<group>"; };
+		CC8C4681172CB4C200329188 /* loupe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loupe@2x.png"; sourceTree = "<group>"; };
 		CC8ED71A157E9F6700FEB780 /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
 		CC8ED71B157E9F6700FEB780 /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
 		CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonArrow280x160.png; sourceTree = "<group>"; };
@@ -929,6 +937,10 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC8C4681172CB4C200329188 /* loupe@2x.png */,
+				CC8C467F172CB4B000329188 /* loupe.png */,
+				CC8C4678172B8AEB00329188 /* btCancelSearch.png */,
+				CC8C4679172B8AEB00329188 /* btCancelSearch@2x.png */,
 				CCCE9DC91693CD2300E53DED /* nopicture@2x.png */,
 				CC6EE8CD168B7F6E00AB4E87 /* addcam.png */,
 				CC6EE8CE168B7F6E00AB4E87 /* addcam@2x.png */,
@@ -1743,6 +1755,10 @@
 				CCE0420E170CF78C00E3C641 /* Default@2x.png in Resources */,
 				CCEB0C81171F3A8500413341 /* textFieldHomeSearch.png in Resources */,
 				CCEB0C82171F3A8500413341 /* textFieldHomeSearch@2x.png in Resources */,
+				CC8C467A172B8AEB00329188 /* btCancelSearch.png in Resources */,
+				CC8C467B172B8AEB00329188 /* btCancelSearch@2x.png in Resources */,
+				CC8C4680172CB4B000329188 /* loupe.png in Resources */,
+				CC8C4682172CB4C200329188 /* loupe@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
