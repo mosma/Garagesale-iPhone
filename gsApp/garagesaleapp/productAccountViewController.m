@@ -320,6 +320,17 @@
     [GlobalFunctions onlyNumberKey:textField.text];
 }
 
+-(BOOL)isValidMoneyValue:(NSString*)moneyValue {
+    NSString *regExPattern = @"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:.[0-9]{2})?$";
+    NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSUInteger regExMatches = [regEx numberOfMatchesInString:moneyValue options:0 range:NSMakeRange(0, [moneyValue length])];
+    NSLog(@"%i", regExMatches);
+    if (regExMatches == 0) {
+        return NO;
+    } else
+        return YES;
+}
+
 -(void)pickerDoneClicked{
     [txtFieldState resignFirstResponder];
     [txtFieldCurrency resignFirstResponder];
@@ -629,6 +640,14 @@
                      forKeyPath:@"_placeholderLabel.textColor"];
         isValid = NO;
     }
+    else if (![self isValidMoneyValue:txtFieldValue.text]){
+        [txtFieldValue setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldValue setPlaceholder:txtFieldValue.text];
+        [txtFieldValue setText:@""];
+        isValid = NO;
+    }
+
     return isValid;
 }
 
