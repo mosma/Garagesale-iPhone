@@ -476,7 +476,7 @@
                                                             <color key="textColor" red="0.20000001788139343" green="0.20000001788139343" blue="0.20000001788139343" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="cHf-lD-giI" userLabel="valorEsperado" customClass="OHAttributedLabel">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="cHf-lD-giI" userLabel="valorEsperado" customClass="OHAttributedLabel">
                                                             <rect key="frame" x="119" y="63" width="177" height="29"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -1952,7 +1952,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" id="KvH-sJ-Zfr" userLabel="valorEsperado" customClass="OHAttributedLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="KvH-sJ-Zfr" userLabel="valorEsperado" customClass="OHAttributedLabel">
                                                     <rect key="frame" x="120" y="60" width="177" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -2002,7 +2002,7 @@
                                                     <rect key="frame" x="10" y="318" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Valor Esperado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="uvu-Wb-69i" customClass="OHAttributedLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Valor Esperado" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" enabled="NO" id="uvu-Wb-69i" customClass="OHAttributedLabel">
                                                     <rect key="frame" x="49" y="329" width="261" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -2238,10 +2238,12 @@
             <relationships>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
+                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoProductAccountVC:"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>
