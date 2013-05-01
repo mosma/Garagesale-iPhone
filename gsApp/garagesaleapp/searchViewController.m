@@ -472,6 +472,7 @@
                                                                                    objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[mutArrayProducts objectAtIndex:indexPath.row] idPessoa]]]];
         [customViewCellBlock.imageGravatar setImage:image];
         [customViewCellBlock.imageGravatar setTag:indexPath.row];
+        [customViewCellBlock.valorEsperado setAutomaticallyAddLinksForType:0];
 
         UITapGestureRecognizer *gestGrav = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoGarageDetailVC:)];
         [gestGrav setNumberOfTouchesRequired:1];
@@ -490,6 +491,8 @@
         [[customViewCellLine productName] setText:(NSString *)[[mutArrayProducts objectAtIndex:indexPath.row] nome]];
         [[customViewCellLine productName] setFont:[UIFont fontWithName:@"Droid Sans" size:15]];
     
+        [customViewCellLine.valorEsperado setAutomaticallyAddLinksForType:0];
+        
         gestGrav = nil;
         currency        = nil;
         valorEsperado   = nil;

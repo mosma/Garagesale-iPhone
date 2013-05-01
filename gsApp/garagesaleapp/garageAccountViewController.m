@@ -701,7 +701,8 @@
         
         [cell.imageEditButton setTag:indexPath.row];
         [cell.imageEditButton addTarget:self action:@selector(gotoProductAccountVC:) forControlEvents:UIControlEventTouchUpInside];
-    
+        [cell.valorEsperado setAutomaticallyAddLinksForType:0];
+        
         currency        = nil;
         valorEsperado   = nil;
         strFormat       = nil;
