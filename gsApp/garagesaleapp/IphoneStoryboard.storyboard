@@ -681,6 +681,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="trackAbout:" destination="mXU-mi-vjO" eventType="touchUpInside" id="eEM-td-CSu"/>
                                             <segue destination="Vnq-S3-BVF" kind="modal" id="Bdh-k9-4Nx"/>
                                         </connections>
                                     </button>
@@ -706,10 +707,10 @@
             </objects>
             <point key="canvasLocation" x="711" y="864"/>
         </scene>
-        <!--Settings Account View Controller-->
+        <!--About Account View Controller-->
         <scene sceneID="r7v-3h-4Lo">
             <objects>
-                <viewController id="Vnq-S3-BVF" customClass="settingsAccountViewController" sceneMemberID="viewController">
+                <viewController id="Vnq-S3-BVF" userLabel="About Account View Controller" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b7f-xw-Se0">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1824,6 +1825,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="trackRecoverPassword:" destination="L0X-YO-oem" eventType="touchUpInside" id="oZt-OK-s6R"/>
                                             <segue destination="SG7-S5-ObK" kind="push" id="XFu-UH-jOe"/>
                                         </connections>
                                     </button>
@@ -2306,6 +2308,7 @@
                 <relationship kind="action" name="dimissModal:"/>
                 <relationship kind="action" name="logout:"/>
                 <relationship kind="action" name="saveSettings"/>
+                <relationship kind="action" name="trackAbout:"/>
                 <relationship kind="outlet" name="buttonAccount" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonAddress" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLogout" candidateClass="UIButton"/>
@@ -2358,6 +2361,7 @@
                 <relationship kind="action" name="recoverPassword:"/>
                 <relationship kind="action" name="setEmailWrited:"/>
                 <relationship kind="action" name="setGarageNameWrited:"/>
+                <relationship kind="action" name="trackRecoverPassword:"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
@@ -2388,6 +2392,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4gr-vC-Jdq"/>
+        <segue reference="Wok-pH-dlx"/>
     </inferredMetricsTieBreakers>
 </document>

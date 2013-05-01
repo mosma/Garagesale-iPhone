@@ -252,8 +252,8 @@
         // Grab the reference to the router from the manager
         RKObjectRouter *router = [RKObjectManager sharedManager].router;
         
-        self.trackedViewName = [NSString stringWithFormat:@"/%@/%@",
-                                [[self.arrayProfile objectAtIndex:0] garagem], self.product.id];
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@/%@",
+                                  [[self.arrayProfile objectAtIndex:0] garagem], self.product.id]];
         
         @try {
             [router routeClass:[Bid class] toResourcePath:@"/bid" forMethod:RKRequestMethodPOST];

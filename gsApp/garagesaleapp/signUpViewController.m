@@ -383,6 +383,10 @@
     }
 }
 
+-(IBAction)trackRecoverPassword:(id)sender{
+    [self setTrackedViewName:@"/recoverPassword"];
+}
+
 -(IBAction)getValidEmail:(id)sender {
     [self setEnableRegisterButton:NO];
     flagViewControllers = 2;

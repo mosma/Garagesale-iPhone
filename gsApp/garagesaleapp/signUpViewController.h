@@ -89,6 +89,7 @@
 -(void)getResourcePathGarage;
 -(void)getResourcePathProfile;
 -(IBAction)recoverPassword:(id)sender;
+-(IBAction)trackRecoverPassword:(id)sender;
 -(IBAction)setGarageNameWrited:(id)sender;
 -(IBAction)setEmailWrited:(id)sender;
 @end

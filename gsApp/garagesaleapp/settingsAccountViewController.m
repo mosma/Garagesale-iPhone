@@ -70,16 +70,19 @@
         [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                            UITextAlignmentCenter text:NSLocalizedString(@"account", @"") width:210]];
         [self.scrollView setContentSize:CGSizeMake(320,700)];
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/account", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     } else if
         ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) { //Address ViewController
             [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                                UITextAlignmentCenter text:NSLocalizedString(@"address", @"") width:210]];
         [self.scrollView setContentSize:CGSizeMake(320,585)];
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/address", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     }else if
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) { //Password ViewController
             [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                                UITextAlignmentCenter text:NSLocalizedString(@"password", @"") width:210]];
         [self.scrollView setContentSize:CGSizeMake(320,525)];
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/password", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     }
     
     [imageView setImage:(UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
@@ -369,8 +372,6 @@
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i", [[[GlobalFunctions getUserDefaults] objectForKey:@"id"] intValue]]  params:postData delegate:self] send];
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
-        
-        self.trackedViewName = [NSString stringWithFormat:@"/%@/settings", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
     }
     
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -651,6 +652,10 @@
 
 -(IBAction)dimissModal:(id)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)trackAbout:(id)sender{
+    [self setTrackedViewName:@"/about"];
 }
 
 /*

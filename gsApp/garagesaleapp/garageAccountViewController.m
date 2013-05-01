@@ -127,9 +127,18 @@
         }
         objects = nil;
     }
+    if (profile.garagem)
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@", profile.garagem]];
+    else
+        [self setTrackedViewName:[NSString stringWithFormat:@"/%@",
+                                  [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
+                                                     withAction:@"Reload"
+                                                      withLabel:@"Reload Products Screen"
+                                                      withValue:nil];
     [viewTop setUserInteractionEnabled:NO];
 
     //mutArrayProducts = nil;
@@ -208,10 +217,6 @@
             
             [labelNoProduct setAttributedText:attrStrNoProduct];
             [labelNoProduct setTextAlignment:UITextAlignmentCenter];
-
-            
-            [self setTrackedViewName:[NSString stringWithFormat:@"objectForKey:garagem/%@",
-                                      [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
             
             [imgGarageLogo setImage:image];
             
@@ -236,9 +241,6 @@
         if (imageGravatar)
             [imgGarageLogo setImage:imageGravatar];
         //imageGravatar = nil;
-        
-        
-        [self setTrackedViewName:[NSString stringWithFormat:@"profile.garagem/%@", profile.garagem]];
         
         if (isGenericGarage){
             UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
@@ -287,12 +289,6 @@
     
     // set values to objetcs from objectLoader
     else {
-
-        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Garage"
-                                                         withAction:@"Reload"
-                                                          withLabel:@"Reload Products Screen"
-                                                          withValue:nil];
-        
         [segmentControl setEnabled:YES];
         
         UITapGestureRecognizer *tapDescrip = [[UITapGestureRecognizer alloc] initWithTarget:self

@@ -200,7 +200,7 @@
 }
 
 - (void)getResourcePathProduct{
-    [self setTrackedViewName:@"/"];
+    [self setTrackedViewName:@"/home"];
     
     RKObjectMapping *productMapping = [Mappings getProductMapping];
     RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
@@ -380,6 +380,11 @@
 }
 
 - (IBAction)reloadPage:(id)sender{
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Home"
+                                                     withAction:@"Reload"
+                                                      withLabel:@"Reload Products Screen"
+                                                      withValue:nil];
+
     int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 570 : 530;
 
     [buttonLogo setUserInteractionEnabled:NO];

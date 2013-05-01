@@ -125,6 +125,7 @@
 
 -(IBAction)logout:(id)sender;
 -(IBAction)dimissModal:(id)sender;
+-(IBAction)trackAbout:(id)sender;
 -(void)loadAttribsToComponents;
 -(IBAction)saveSettings;
 -(void)getResourcePathProfile;
