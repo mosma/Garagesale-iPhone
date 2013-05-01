@@ -141,6 +141,7 @@
         RKObjManeger = [RKObjectManager sharedManager];
         [self getResourceSearch];
     }
+    self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 }
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
@@ -227,7 +228,6 @@
         [segmentControl setEnabled:YES];
         [tableView setScrollEnabled:YES];
     }
-    self.trackedViewName = [NSString stringWithFormat: @"/search%@", strLocalResourcePath];
 }
 
 //http://www.icanlocalize.com/site/tutorials/iphone-applications-localization-guide/

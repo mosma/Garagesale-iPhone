@@ -127,9 +127,9 @@
         }
         objects = nil;
     }
-    if (profile.garagem)
+    if (profile.garagem && !garageNameSearch)
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@", profile.garagem]];
-    else
+    else if (!garageNameSearch)
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@",
                                   [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
 }
@@ -347,6 +347,8 @@
     
         if ([city.text length] < 5)
             [city setHidden:YES];
+        
+       // [self setTrackedViewName:[NSString stringWithFormat:@"/%@", profile.garagem]];
     }
 }
 
