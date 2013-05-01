@@ -210,7 +210,7 @@
             [labelNoProduct setTextAlignment:UITextAlignmentCenter];
 
             
-            [self setTrackedViewName:[NSString stringWithFormat:@"/%@",
+            [self setTrackedViewName:[NSString stringWithFormat:@"objectForKey:garagem/%@",
                                       [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
             
             [imgGarageLogo setImage:image];
@@ -238,7 +238,7 @@
         //imageGravatar = nil;
         
         
-        [self setTrackedViewName:[NSString stringWithFormat:@"/%@", profile.garagem]];
+        [self setTrackedViewName:[NSString stringWithFormat:@"profile.garagem/%@", profile.garagem]];
         
         if (isGenericGarage){
             UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)

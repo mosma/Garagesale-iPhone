@@ -65,6 +65,11 @@
 
 -(IBAction)facebook:(id)sender
 {
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                     withAction:@"Share"
+                                                      withLabel:@"FaceBook"
+                                                      withValue:nil];
+    
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
                      [GlobalFunctions getUrlApplication],
                      self.garageName,
@@ -97,6 +102,11 @@
 
 -(IBAction)twitter:(id)sender
 {
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                     withAction:@"Share"
+                                                      withLabel:@"Twitter"
+                                                      withValue:nil];
+    
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
                      [GlobalFunctions getUrlApplication],
                      self.garageName,
@@ -123,6 +133,10 @@
 }
 
 - (IBAction)actionEmailComposer {
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Product"
+                                                     withAction:@"Share"
+                                                      withLabel:@"Email"
+                                                      withValue:nil];
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
                      [GlobalFunctions getUrlApplication],

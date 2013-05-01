@@ -188,13 +188,13 @@
     
     if (self.product != nil) {
         [buttonDeleteProduct setHidden:NO];
-        self.trackedViewName = [NSString stringWithFormat:@"%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
+        self.trackedViewName = [NSString stringWithFormat:@"/%@/%@/edit", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"], self.product.id];
         if ([self.product.fotos count] > 0)
             [scrollViewPicsProduct addSubview:waiting];
         [self loadingProduct];
     }else {
         [self getResourcePathPhotoReturnNotSaved];
-        self.trackedViewName = [NSString stringWithFormat:@"%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+        self.trackedViewName = [NSString stringWithFormat:@"/%@/new", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
         self.navigationItem.titleView = [GlobalFunctions getLabelTitleNavBarGeneric: UITextAlignmentCenter
                                                                                text: NSLocalizedString(@"menu-add-product", nil)
                                                                               width: 300];
