@@ -41,7 +41,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="loupe.png" id="3OT-gl-qVu" userLabel="loupe">
-                                        <rect key="frame" x="16" y="16" width="20" height="21"/>
+                                        <rect key="frame" x="16" y="15" width="22" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Products, categories and garages" minimumFontSize="17" clearButtonMode="always" id="wen-uR-S49" userLabel="txtFieldSearch">
@@ -2146,7 +2146,7 @@
         <image name="dropDownState.png" width="150" height="32"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="line.png" width="320" height="1"/>
-        <image name="loupe.png" width="20" height="21"/>
+        <image name="loupe.png" width="22" height="23"/>
         <image name="rightNavItem.png" width="58" height="31"/>
         <image name="textField01iphone.png" width="300" height="40"/>
         <image name="textFieldHomeSearch.png" width="267" height="38"/>
@@ -2238,12 +2238,10 @@
             <relationships>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoProductAccountVC:"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
-                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>
