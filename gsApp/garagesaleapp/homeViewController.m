@@ -128,9 +128,19 @@
                                    UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateSelected];
     
-    item0.titlePositionAdjustment = UIOffsetMake(0, -2);
-    item1.titlePositionAdjustment = UIOffsetMake(0, -2);
-    item2.titlePositionAdjustment = UIOffsetMake(0, -2);
+    if (IS_IPHONE_5) {
+        item0.titlePositionAdjustment = UIOffsetMake(0,-4);
+        item1.titlePositionAdjustment = UIOffsetMake(0,-4);
+        item2.titlePositionAdjustment = UIOffsetMake(0,-4);
+        [item0 setImageInsets:UIEdgeInsetsMake(-2.0, 0.0, 2.0, 0.0)];
+        [item1 setImageInsets:UIEdgeInsetsMake(-2.0, 0.0, 2.0, 0.0)];
+        [item2 setImageInsets:UIEdgeInsetsMake(-2.0, 0.0, 2.0, 0.0)];
+    }else{
+        item0.titlePositionAdjustment = UIOffsetMake(0,-2);
+        item1.titlePositionAdjustment = UIOffsetMake(0,-2);
+        item2.titlePositionAdjustment = UIOffsetMake(0,-2);
+    }
+    
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
@@ -138,12 +148,18 @@
 
 - (void)loadAttribsToComponents{
     if (isFromSignUp) {
-        [buttonLogo setCenter:CGPointMake(160, 50)];
+        if (IS_IPHONE_5)
+            [buttonLogo setCenter:CGPointMake(160, 40)];
+        else
+            [buttonLogo setCenter:CGPointMake(160, 50)];
     } else {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.6f];
         [UIView setAnimationDelay: UIViewAnimationCurveEaseIn];
-        [buttonLogo setCenter:CGPointMake(160, 50)];
+        if (IS_IPHONE_5)
+            [buttonLogo setCenter:CGPointMake(160, 40)];
+        else
+            [buttonLogo setCenter:CGPointMake(160, 50)];
         [UIView commitAnimations];
     }
     
@@ -404,8 +420,11 @@
     //Set Display thumbs on Home.
     [globalFunctions setCountColumnImageThumbs:-1];
     [globalFunctions setImageThumbsXorigin_Iphone:10];
-    [globalFunctions setImageThumbsYorigin_Iphone:95];
-    
+    if (IS_IPHONE_5)
+        [globalFunctions setImageThumbsYorigin_Iphone:85];
+    else
+        [globalFunctions setImageThumbsYorigin_Iphone:95];
+
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     countLoads = 0;
     
