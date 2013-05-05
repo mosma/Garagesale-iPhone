@@ -213,18 +213,25 @@
         [mutArrayViewHelpers removeAllObjects];
         mutArrayViewHelpers = nil;
         mutArrayViewHelpers = [[NSMutableArray alloc] initWithCapacity:[mutArrayProducts count]];
+        NSMutableArray *contain = [[NSMutableArray alloc] init];
         for (int i = 0; i < [mutArrayProducts count]; i++) {
             NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg",
                                     [[mutArrayProducts objectAtIndex:i] idPessoa]];
             if ([[GlobalFunctions getUserDefaults] objectForKey:avatarName] == nil){
                 NSString *garageName = [[mutArrayProducts objectAtIndex:i] idPessoa];
-                viewHelper *vH = [[viewHelper alloc] init];
-                vH.avatarName = avatarName;
-                [vH getResourcePathGarage:garageName];
-                [mutArrayViewHelpers addObject:vH];
+                if ([contain containsObject:garageName]) {
+                    goto outer;
+                } else {
+                    viewHelper *vH = [[viewHelper alloc] init];
+                    vH.avatarName = avatarName;
+                    [vH getResourcePathGarage:garageName];
+                    [mutArrayViewHelpers addObject:vH];
+                    [contain addObject:garageName];
+                }
             }
+            outer:;
         }
-        
+        contain = nil;
         [segmentControl setEnabled:YES];
         [tableView setScrollEnabled:YES];
     }
