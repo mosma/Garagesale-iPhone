@@ -145,6 +145,7 @@
             [imageView setImage:[UIImage imageNamed:@"refresh"]];
         }];
         [self.imageView setUserInteractionEnabled:YES];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [timerUpload invalidate];
     }
 }
@@ -170,6 +171,7 @@
     self.prodAccount.countUploaded = self.prodAccount.countUploaded -1;
     [self setEnableSaveButton:self.prodAccount.countUploaded];
     [progressView setHidden:YES];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 -(void)setImageIconReturn{
     imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:
@@ -200,7 +202,8 @@
         [self.imageView setUserInteractionEnabled:YES];
         [imageView removeGestureRecognizer:refreshGesture];
         [imageView addGestureRecognizer:moveLeftGesture];
-    }
+    } 
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 /**
