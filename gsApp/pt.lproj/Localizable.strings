@@ -178,6 +178,5 @@
 "x-products"                    = "%i produtos";
 "x-products-range"              = "produtos";
 
-
-
-
+"unable-attach-photo"           = "Não foi possivel adicionar a foto";
+"panorama-cannot-attached"      = "Imagens em modo panorama não podem ser adicionadas.";

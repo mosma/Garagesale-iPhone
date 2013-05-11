@@ -178,3 +178,5 @@
 "x-products"                    = "%i products";
 "x-products-range"              = "products";
 
+"unable-attach-photo"           = "Unable to Attach Photo";
+"panorama-cannot-attached"      = "Panorama images cannot be attached.";

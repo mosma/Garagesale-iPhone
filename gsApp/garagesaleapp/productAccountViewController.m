@@ -377,7 +377,20 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *imageThumb = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     
-    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera) 
+    if (imageThumb.size.width > 1000.000) {
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unable-attach-photo", nil)
+                                                         message:NSLocalizedString(@"panorama-cannot-attached", nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
+                                               otherButtonTitles:nil];
+        [alertV show];
+        alertV = nil;
+        [picker dismissModalViewControllerAnimated:YES];
+        imageThumb = nil;
+        return;
+    }
+    
+    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
         UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
     [scrollViewPicsProduct setFrame:CGRectMake(0,
