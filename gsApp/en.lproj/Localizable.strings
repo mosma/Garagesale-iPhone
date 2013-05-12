@@ -11,7 +11,7 @@
 "bid"                           = "Offer";
 "bidItem"                       = "bid this item";
 "bidSent"                       = "Bid Sent";
-"bid-sent-congrats"             = "Contrats, a email eas sent for %@ garage with your offer. Wait for a answer in your email box and make a good deal.";
+"bid-sent-congrats"             = "Contrats, a email was sent for %@ garage with your offer. Wait for a answer in your email box and make a good deal.";
 "seeAllProducts"                = "see all products";
 "products"                      = "products";
 "detailProduct"                 = "product details";

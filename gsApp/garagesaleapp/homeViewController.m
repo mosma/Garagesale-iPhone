@@ -163,6 +163,14 @@
         [UIView commitAnimations];
     }
     
+    if (IS_IPHONE_5){
+        [viewSearch setCenter:CGPointMake(160, 136)];
+        [viewTopPage setCenter:CGPointMake(160, 132)];
+    }else {
+        [viewSearch setCenter:CGPointMake(160, 146)];
+        [viewTopPage setCenter:CGPointMake(160, 142)];
+    }
+    
     mutArrayProducts = [[NSMutableArray alloc] init];
     
     //Setting i18n
