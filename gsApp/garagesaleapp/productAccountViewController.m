@@ -375,35 +375,36 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *imageThumb = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *newImage;
     
-    if (imageThumb.size.width > 1000.000) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unable-attach-photo", nil)
-                                                         message:NSLocalizedString(@"panorama-cannot-attached", nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"keyboard-cancel-btn", nil)
-                                               otherButtonTitles:nil];
-        [alertV show];
-        alertV = nil;
-        [picker dismissModalViewControllerAnimated:YES];
-        imageThumb = nil;
-        return;
-    }
+    int maxWidth = 900;
+    if (originalImage.size.width > maxWidth) {
+        int w = originalImage.size.width;
+        int h = originalImage.size.height;
+        float ratio = w/h;
+        CGSize newSize = CGSizeMake(maxWidth, maxWidth/ratio);
+        UIGraphicsBeginImageContext(newSize);
+        [originalImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+        newImage = UIGraphicsGetImageFromCurrentImageContext();
+    } else
+        newImage = originalImage;
     
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
-        UIImageWriteToSavedPhotosAlbum(imageThumb, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
     [scrollViewPicsProduct setFrame:CGRectMake(0,
                                                scrollViewPicsProduct.frame.origin.y,
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    [gallery addImageToScrollView:imageThumb
+    [gallery addImageToScrollView:newImage
                       photoReturn:nil
                           product:self.product
                      isFromPicker:YES];
     [picker dismissModalViewControllerAnimated:YES];
-    imageThumb = nil;
+    originalImage = nil;
+    newImage = nil;
     
     if(!viewPicsControl.hidden)
         [self animationPicsControl];
@@ -596,6 +597,8 @@
 	[HUD setColor:[UIColor blackColor]];
     [HUD setDimBackground:YES];
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
 	// myProgressTask uses the HUD instance to update progress
 	[HUD showWhileExecuting:@selector(myProgressTask) onTarget:self withObject:nil animated:YES];
 }
@@ -636,6 +639,7 @@
             [self newProductFinished:(self.product == nil)];
         });
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [self setEnableButtonSave:YES];
     _postProdDelegate.isSaveProductFail = NO;
 }
