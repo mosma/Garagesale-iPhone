@@ -399,8 +399,8 @@
         }else
             [viewTopPage setAlpha:1.0];
     }
-    if (isTopViewShowing)
-        [self showHideTopPage:nil];
+    //if (isTopViewShowing)
+    //    [self showHideTopPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{

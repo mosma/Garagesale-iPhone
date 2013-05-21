@@ -376,20 +376,30 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    UIImage *newImage;
+    UIImage *newImage = originalImage;
     
-    int maxWidth = 900;
-    if (originalImage.size.width > maxWidth) {
-        int w = originalImage.size.width;
-        int h = originalImage.size.height;
-        float ratio = w/h;
-        CGSize newSize = CGSizeMake(maxWidth, maxWidth/ratio);
+    int maxSize = 900;
+    float w = originalImage.size.width;
+    float h = originalImage.size.height;
+    if (originalImage.size.width > maxSize || originalImage.size.height > maxSize) {
+        float ratio;
+        if (w > h)
+            ratio = w/h;
+        else
+            ratio = h/w;
+        
+        CGSize newSize;
+        if (w > h)
+            newSize = CGSizeMake(maxSize, roundf(maxSize/ratio));
+        else
+            newSize = CGSizeMake(roundf(maxSize/ratio), maxSize);
+
         UIGraphicsBeginImageContext(newSize);
         [originalImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
         newImage = UIGraphicsGetImageFromCurrentImageContext();
-    } else
-        newImage = originalImage;
-    
+        UIGraphicsEndImageContext();
+    }
+
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
         UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
