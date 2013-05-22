@@ -106,7 +106,7 @@
     //setting i18n
     [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
     [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
-    [self.labelCongrats setText: [NSString stringWithFormat: NSLocalizedString(@"bid-sent-congrats", nil) , product.idPessoa]];
+    [self.labelCongrats setText: [NSString stringWithFormat: NSLocalizedString(@"bid-sent-congrats", nil) , [[self.arrayProfile objectAtIndex:0] garagem]]];
     [self.labelOffer setText:NSLocalizedString(@"offer", @"")];
     
     [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
@@ -416,14 +416,13 @@
 {
     sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
-    sharePopOverVC.idProduct = [NSString stringWithFormat:@"%@", self.product.id];
-    sharePopOverVC.priceProduct = self.product.valorEsperado;
-    sharePopOverVC.garageName = self.product.idPessoa;
-    
-    sharePopOverVC.prodName = labelNomeProduto.text;
-    sharePopOverVC.description = labelDescricao.text;
-    sharePopOverVC.imgProduct = imageView.image;
-    sharePopOverVC.parent = self;
+    [sharePopOverVC setIdProduct:(NSString *)self.product.id];
+    [sharePopOverVC setPriceProduct:self.product.valorEsperado];
+    [sharePopOverVC setGarageName:[[self.arrayProfile objectAtIndex:0] garagem]];
+    [sharePopOverVC setProdName:labelNomeProduto.text];
+    [sharePopOverVC setDescription:labelDescricao.text];
+    [sharePopOverVC setImgProduct:imageView.image];
+    [sharePopOverVC setParent:self];
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
     

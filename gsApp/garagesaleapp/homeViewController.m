@@ -576,10 +576,10 @@
 }
 
 - (IBAction)showHideTopPage:(id)sender{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:0.5];
+//    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
     
     if (!isTopViewShowing) {
         [searchBarProduct setHidden:NO];
@@ -592,7 +592,7 @@
         [searchBarProduct resignFirstResponder];
     }
     isTopViewShowing = !isTopViewShowing;
-    [UIView commitAnimations];
+//    [UIView commitAnimations];
 }
 
 //-(IBAction)showSearchLoged:(id)sender{
