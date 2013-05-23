@@ -401,7 +401,7 @@
         UIGraphicsEndImageContext();
     }
 
-    NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 1.0);
+    NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 0.5);
     UIImage *imageRender = [UIImage imageWithData:dataImage];
     
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
