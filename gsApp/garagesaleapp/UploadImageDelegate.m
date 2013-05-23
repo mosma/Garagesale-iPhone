@@ -18,13 +18,13 @@
 @synthesize totalBytesW;
 @synthesize totalBytesExpectedToW;
 @synthesize moveLeftGesture;
-@synthesize imagePic;
+@synthesize imageUpload;
 @synthesize progressView;
 @synthesize prodAccount;
 
 -(id)init{
     photoReturn = [[PhotoReturn alloc] init];
-    refreshGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(uploadPhotos)];
+    refreshGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(uploadPhotos:)];
 
     progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
     [progressView setFrame:CGRectMake(5, 50, 60, 7)];
@@ -35,13 +35,19 @@
     timerUpload = [NSTimer scheduledTimerWithTimeInterval:40.0 target:self selector:@selector(cancelUpload) userInfo:nil repeats:NO];
 }
 
--(void)uploadPhotos{
-    [UIView animateWithDuration:0.2 animations:^{
-        
-        [imageView setImage:self.imagePic];
-    }];
-    
+-(void)uploadPhotos:(UITapGestureRecognizer *)tap{
+//    [UIView animateWithDuration:0.2 animations:^{
+//        
+//        [imageView setImage:self.imagePic];
+//    }];
+//    
     int picNumber = [nsMutArrayPicsProduct count] -1;
+    
+    if (tap) {
+        UIImage *thumbImg = [GlobalFunctions generatePhotoThumbnail:imageUpload];
+        [imageView setImage:thumbImg];
+        thumbImg = nil;
+    }
     
     RKParams* params = [RKParams params];
 
@@ -50,34 +56,17 @@
     [self.imageView setUserInteractionEnabled:NO];
 
     [self setTimmer];
-    
-    NSData              *dataImage  = UIImageJPEGRepresentation(imageView.image, 1.0);
-    UIImage *loadedImage = imageView.image;
-    
-    float w = loadedImage.size.width;
-    float h = loadedImage.size.height;
-    float ratio = w/h;
-    
+
     if (self.totalBytesW == 0 && totalBytesW == 0)
         [imageView addSubview:progressView];
     
     [progressView setHidden:NO];
     progressView.progress = 0;
     
-    int neww = 900;
-    //get image height proportionally;
-    float newh = neww/ratio;
+    NSData              *dataImage  = UIImageJPEGRepresentation(imageUpload, 1.0);
     
-    UIImage *image = [UIImage imageWithData:dataImage];
-    CGRect rect = CGRectMake(0.0, 0.0, neww, newh);
-    UIGraphicsBeginImageContext(rect.size);
-    [image drawInRect:rect];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *imgdata1 = UIImageJPEGRepresentation(img, 1.0);
-
-    RKParamsAttachment  *attachment = [params setData:imgdata1 forParam:@"files"];
-    attachment.MIMEType = @"image/png";
+    RKParamsAttachment  *attachment = [params setData:dataImage forParam:@"files"];
+    attachment.MIMEType = @"image/jpg";
     attachment.fileName = [NSString stringWithFormat:@"foto%i.jpg", picNumber];
 
     [self.imageViewDelete setHidden:YES];
@@ -87,6 +76,7 @@
     else
         [[RKClient sharedClient] post:[NSString stringWithFormat:@"/photo?token=%@&idProduct=%i", [[GlobalFunctions getUserDefaults] objectForKey:@"token"], idProduct ] params:params delegate:self];
     
+    dataImage = nil;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {

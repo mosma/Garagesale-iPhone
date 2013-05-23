@@ -63,6 +63,8 @@ typedef enum {
 //if istabTopPosition return topPosition else return tabBottomPosition
 +(int)getTabPosition:(tabPosition)position;
 +(int)getHomeProductsNumber;
++(UIImage *)generatePhotoThumbnail:(UIImage *)image;
+
 
 @property (unsafe_unretained, nonatomic) int imageThumbsXorigin_Iphone;
 @property (unsafe_unretained, nonatomic) int imageThumbsYorigin_Iphone;

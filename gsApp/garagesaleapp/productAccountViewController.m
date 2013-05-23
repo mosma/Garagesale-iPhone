@@ -376,7 +376,8 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    UIImage *newImage = originalImage;
+    
+    UIImage *newImage;
     
     int maxSize = 900;
     float w = originalImage.size.width;
@@ -400,6 +401,9 @@
         UIGraphicsEndImageContext();
     }
 
+    NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 1.0);
+    UIImage *imageRender = [UIImage imageWithData:dataImage];
+    
     if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
         UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 
@@ -408,7 +412,7 @@
                                                scrollViewPicsProduct.frame.size.width,
                                                scrollViewPicsProduct.frame.size.height)];
 
-    [gallery addImageToScrollView:newImage
+    [gallery addImageToScrollView:imageRender
                       photoReturn:nil
                           product:self.product
                      isFromPicker:YES];

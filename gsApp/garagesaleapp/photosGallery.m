@@ -109,13 +109,21 @@
     if (isFromPicker) [imgViewDelete setHidden:YES];
     
     /* Configure ImageView in gallery */
-    UIImageView *imgViewAtGallery = [[UIImageView alloc] initWithImage:aImage];
+    UIImageView *imgViewAtGallery = [[UIImageView alloc] init];
     [imgViewAtGallery addSubview:imgViewDelete];
     int newIndex = [nsMutArrayPicsProduct count];
     [nsMutArrayPicsProduct insertObject:imgViewAtGallery atIndex:newIndex];
     [scrollView insertSubview:imgViewAtGallery atIndex:newIndex];
     [imgViewAtGallery setFrame:CGRectMake(scrollView.contentSize.width+7 ,
                                           self.heightPaddingInImages, imageWidth_, imageHeight_)];
+    
+    if (isFromPicker){
+        UIImage *thumbImg = [GlobalFunctions generatePhotoThumbnail:aImage];
+        [imgViewAtGallery setImage:thumbImg];
+        thumbImg = nil;
+    } else
+        [imgViewAtGallery setImage:aImage];
+    
     if (photoReturn != nil)
         [imgViewAtGallery setUserInteractionEnabled:YES];
     
@@ -138,7 +146,7 @@
     //[uplImageDelegate setNsMutArrayNames:nsMutArrayNames];
     [uploadDelegate setNsMutArrayPicsProduct:nsMutArrayPicsProduct];
     [uploadDelegate setScrollView:self.scrollView];
-    [uploadDelegate setImagePic:aImage];
+    [uploadDelegate setImageUpload:aImage];
     
     //Set Gestures
     UITapGestureRecognizer * deleteGesture = [[UITapGestureRecognizer alloc]
@@ -170,7 +178,7 @@
            [uploadDelegate setIdProduct:[product.id intValue]];
        else if (product == nil)
            [uploadDelegate setIdProduct:-1];
-        [NSThread detachNewThreadSelector:@selector(uploadPhotos) toTarget:uploadDelegate withObject:nil];
+        [NSThread detachNewThreadSelector:@selector(uploadPhotos:) toTarget:uploadDelegate withObject:nil];
         [uploadDelegate setTimmer];
     }
     moveLeftGesture = nil;

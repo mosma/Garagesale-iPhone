@@ -26,7 +26,7 @@
     int                         idProduct;
     UIImageView                 *imageView;
     UIImageView                 *imageViewDelete;
-    UIImage                     *imagePic;
+    UIImage                     *imageUpload;
     NSMutableArray              *nsMutArrayPicsProduct;
     UITapGestureRecognizer      *moveLeftGesture;
     UITapGestureRecognizer      *refreshGesture;
@@ -46,7 +46,7 @@
 @property (readwrite,assign)    int             idProduct;
 @property (nonatomic, retain)   UIImageView     *imageView;
 @property (nonatomic, retain)   UIImageView     *imageViewDelete;
-@property (nonatomic, retain)   UIImage         *imagePic;
+@property (nonatomic, retain)   UIImage         *imageUpload;
 @property (nonatomic, retain)   PDColoredProgressView  *progressView;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
 @property (nonatomic, retain)   NSMutableArray  *nsMutArrayPicsProduct;
@@ -58,7 +58,7 @@
 
 @property (retain, nonatomic) productAccountViewController *prodAccount;
 
--(void)uploadPhotos;
+-(void)uploadPhotos:(UITapGestureRecognizer *)tap;
 -(void)deletePhoto;
 -(void)setTimmer;
 @end
