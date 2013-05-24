@@ -382,24 +382,23 @@
     int maxSize = 900;
     float w = originalImage.size.width;
     float h = originalImage.size.height;
-    if (originalImage.size.width > maxSize || originalImage.size.height > maxSize) {
-        float ratio;
-        if (w > h)
-            ratio = w/h;
-        else
-            ratio = h/w;
-        
-        CGSize newSize;
-        if (w > h)
-            newSize = CGSizeMake(maxSize, roundf(maxSize/ratio));
-        else
-            newSize = CGSizeMake(roundf(maxSize/ratio), maxSize);
+    float ratio;
+    
+    if (w > h)
+        ratio = w/h;
+    else
+        ratio = h/w;
+    
+    CGSize newSize;
+    if (w > h)
+        newSize = CGSizeMake(maxSize, roundf(maxSize/ratio));
+    else
+        newSize = CGSizeMake(roundf(maxSize/ratio), maxSize);
 
-        UIGraphicsBeginImageContext(newSize);
-        [originalImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-        newImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
+    UIGraphicsBeginImageContext(newSize);
+    [originalImage drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
     NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 0.5);
     UIImage *imageRender = [UIImage imageWithData:dataImage];
@@ -419,6 +418,8 @@
     [picker dismissModalViewControllerAnimated:YES];
     originalImage = nil;
     newImage = nil;
+    dataImage = nil;
+    imageRender = nil;
     
     if(!viewPicsControl.hidden)
         [self animationPicsControl];
