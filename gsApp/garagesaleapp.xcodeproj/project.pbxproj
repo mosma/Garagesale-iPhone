@@ -921,7 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
-				CC83744E16816042002754B8 /*  PDColoredProgressview */,
+				CC83744E16816042002754B8 /* PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
 				CC6F46041667B195004E5D17 /* AsyncImageView */,
 				CCACED961663D12100E00519 /* GoogleAnalitics */,
@@ -1170,14 +1170,14 @@
 			name = AsyncImageView;
 			sourceTree = "<group>";
 		};
-		CC83744E16816042002754B8 /*  PDColoredProgressview */ = {
+		CC83744E16816042002754B8 /* PDColoredProgressview */ = {
 			isa = PBXGroup;
 			children = (
 				CC8374521681616B002754B8 /* drawing.m */,
 				CC83744F1681607F002754B8 /* PDColoredProgressView.h */,
 				CC8374501681607F002754B8 /* PDColoredProgressView.m */,
 			);
-			name = " PDColoredProgressview";
+			name = PDColoredProgressview;
 			sourceTree = "<group>";
 		};
 		CC9DCA99165BBED6004C4F54 /* Home */ = {

@@ -303,6 +303,7 @@
 }
 
 -(IBAction)saveSettings{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0)  //Account ViewController{
         if (![self validateFormNameProfile]) return;
     if([nibId rangeOfString:@"K7a-eB-FnT"].length != 0)  //Password ViewController
@@ -373,19 +374,17 @@
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
     }
-    
+
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
 	// Set determinate mode
-	[HUD setMode:MBProgressHUDModeAnnularDeterminate];
-	
-    [HUD setCenter:CGPointMake(0, 0)];
-    
+	[HUD setMode:MBProgressHUDModeText];
+	    
     [HUD setLabelFont:[UIFont fontWithName:@"Droid Sans" size:14]];
 	[HUD setDelegate:self];
 	[HUD setLabelText:@"Saving"];
-	[HUD setColor:[UIColor blackColor]];
+	[HUD setColor:[UIColor clearColor]];
     [HUD setDimBackground:YES];
     
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
@@ -590,6 +589,7 @@
         imgV = nil;
         [HUD setLabelText:@"Fail! Check your connection."];
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     sleep(2);
 }
 

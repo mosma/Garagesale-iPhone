@@ -283,20 +283,20 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 #pragma mark - Internal show & hide operations
 
 - (void)showUsingAnimation:(BOOL)animated {
-	self.alpha = 0.0f;
+	//self.alpha = 0.0f;
 	if (animated && animationType == MBProgressHUDAnimationZoom) {
-		self.transform = CGAffineTransformConcat(rotationTransform, CGAffineTransformMakeScale(1.5f, 1.5f));
+		//self.transform = CGAffineTransformConcat(rotationTransform, CGAffineTransformMakeScale(1.5f, 1.5f));
 	}
 	self.showStarted = [NSDate date];
 	// Fade in
 	if (animated) {
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.30];
+		//[UIView beginAnimations:nil context:NULL];
+		//[UIView setAnimationDuration:0.30];
 		self.alpha = 1.0f;
-		if (animationType == MBProgressHUDAnimationZoom) {
-			self.transform = rotationTransform;
-		}
-		[UIView commitAnimations];
+		//if (animationType == MBProgressHUDAnimationZoom) {
+			//self.transform = rotationTransform;
+		//}
+		//[UIView commitAnimations];
 	}
 	else {
 		self.alpha = 1.0f;
@@ -421,9 +421,10 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	label.textAlignment = UITextAlignmentCenter;
 	label.opaque = NO;
 	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor whiteColor];
+	label.textColor = [UIColor colorWithRed:139.0/255.0 green:139.0/255.0 blue:139.0/255.0 alpha:1.0];
 	label.font = self.labelFont;
 	label.text = self.labelText;
+    label.center = CGPointMake(self.center.x, self.center.y+35);
 	[self addSubview:label];
 	
 	detailsLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -432,7 +433,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	detailsLabel.textAlignment = UITextAlignmentCenter;
 	detailsLabel.opaque = NO;
 	detailsLabel.backgroundColor = [UIColor clearColor];
-	detailsLabel.textColor = [UIColor whiteColor];
+	detailsLabel.textColor = [UIColor blackColor];
 	detailsLabel.numberOfLines = 0;
 	detailsLabel.font = self.detailsLabelFont;
 	detailsLabel.text = self.detailsLabelText;
@@ -447,10 +448,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	if (mode == MBProgressHUDModeIndeterminate &&  !isActivityIndicator) {
 		// Update to indeterminate indicator
 		[indicator removeFromSuperview];
-		self.indicator = MB_AUTORELEASE([[UIActivityIndicatorView alloc]
-										 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]);
-		[(UIActivityIndicatorView *)indicator startAnimating];
-		[self addSubview:indicator];
+		[self.indicator addSubview:[self getActivityAnimation]];
+		[self addSubview:[self getActivityAnimation]];
 	}
 	else if (mode == MBProgressHUDModeDeterminate || mode == MBProgressHUDModeAnnularDeterminate) {
 		if (!isRoundIndicator) {
@@ -466,100 +465,35 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	else if (mode == MBProgressHUDModeCustomView && customView != indicator) {
 		// Update custom view indicator
 		[indicator removeFromSuperview];
-		self.indicator = customView;
-		[self addSubview:indicator];
+		//self.indicator = customView;
+		[self addSubview:[self getActivityAnimation]];
 	} else if (mode == MBProgressHUDModeText) {
 		[indicator removeFromSuperview];
 		self.indicator = nil;
 	}
 }
 
-#pragma mark - Layout
-
-- (void)layoutSubviews {
-	
-	// Entirely cover the parent view
-	UIView *parent = self.superview;
-	if (parent) {
-		self.frame = parent.bounds;
-	}
-	CGRect bounds = self.bounds;
-	
-	// Determine the total widt and height needed
-	CGFloat maxWidth = bounds.size.width - 4 * margin;
-	CGSize totalSize = CGSizeZero;
-	
-	CGRect indicatorF = indicator.bounds;
-	indicatorF.size.width = MIN(indicatorF.size.width, maxWidth);
-	totalSize.width = MAX(totalSize.width, indicatorF.size.width);
-	totalSize.height += indicatorF.size.height;
-	
-	CGSize labelSize = [label.text sizeWithFont:label.font];
-	labelSize.width = MIN(labelSize.width, maxWidth);
-	totalSize.width = MAX(totalSize.width, labelSize.width);
-	totalSize.height += labelSize.height;
-	if (labelSize.height > 0.f && indicatorF.size.height > 0.f) {
-		totalSize.height += kPadding;
-	}
-
-	CGFloat remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin; 
-	CGSize maxSize = CGSizeMake(maxWidth, remainingHeight);
-	CGSize detailsLabelSize = [detailsLabel.text sizeWithFont:detailsLabel.font 
-								constrainedToSize:maxSize lineBreakMode:detailsLabel.lineBreakMode];
-	totalSize.width = MAX(totalSize.width, detailsLabelSize.width);
-	totalSize.height += detailsLabelSize.height;
-	if (detailsLabelSize.height > 0.f && (indicatorF.size.height > 0.f || labelSize.height > 0.f)) {
-		totalSize.height += kPadding;
-	}
-	
-	totalSize.width += 2 * margin;
-	totalSize.height += 2 * margin;
-	
-	// Position elements
-	CGFloat yPos = roundf(((bounds.size.height - totalSize.height) / 2)) + margin + yOffset;
-	CGFloat xPos = xOffset;
-	indicatorF.origin.y = yPos;
-	indicatorF.origin.x = roundf((bounds.size.width - indicatorF.size.width) / 2) + xPos;
-	indicator.frame = indicatorF;
-	yPos += indicatorF.size.height;
-	
-	if (labelSize.height > 0.f && indicatorF.size.height > 0.f) {
-		yPos += kPadding;
-	}
-	CGRect labelF;
-	labelF.origin.y = yPos;
-	labelF.origin.x = roundf((bounds.size.width - labelSize.width) / 2) + xPos;
-	labelF.size = labelSize;
-	label.frame = labelF;
-	yPos += labelF.size.height;
-	
-	if (detailsLabelSize.height > 0.f && (indicatorF.size.height > 0.f || labelSize.height > 0.f)) {
-		yPos += kPadding;
-	}
-	CGRect detailsLabelF;
-	detailsLabelF.origin.y = yPos;
-	detailsLabelF.origin.x = roundf((bounds.size.width - detailsLabelSize.width) / 2) + xPos;
-	detailsLabelF.size = detailsLabelSize;
-	detailsLabel.frame = detailsLabelF;
-	
-	// Enforce minsize and quare rules
-	if (square) {
-		CGFloat max = MAX(totalSize.width, totalSize.height);
-		if (max <= bounds.size.width - 2 * margin) {
-			totalSize.width = max;
-		}
-		if (max <= bounds.size.height - 2 * margin) {
-			totalSize.height = max;
-		}
-	}
-	if (totalSize.width < minSize.width) {
-		totalSize.width = minSize.width;
-	} 
-	if (totalSize.height < minSize.height) {
-		totalSize.height = minSize.height;
-	}
-	
-	self.size = totalSize;
+-(UIImageView *)getActivityAnimation{
+    UIImage *statusImage = [UIImage imageNamed:@"ActivityHome00.png"];
+    UIImageView *activityImageView = [[UIImageView alloc] initWithImage:statusImage];
+    [activityImageView setCenter:CGPointMake(self.frame.size.width/2, self.frame.size.height/2)];
+    
+    [activityImageView setAnimationImages:[NSArray arrayWithObjects:
+                                           [UIImage imageNamed:@"ActivityHome00.png"],
+                                           [UIImage imageNamed:@"ActivityHome01.png"],
+                                           [UIImage imageNamed:@"ActivityHome02.png"],
+                                           [UIImage imageNamed:@"ActivityHome03.png"],
+                                           [UIImage imageNamed:@"ActivityHome04.png"],
+                                           [UIImage imageNamed:@"ActivityHome05.png"],
+                                           [UIImage imageNamed:@"ActivityHome06.png"],
+                                           [UIImage imageNamed:@"ActivityHome07.png"],
+                                           [UIImage imageNamed:@"ActivityHome00.png"],
+                                           nil]];
+    [activityImageView setAnimationDuration:1.0];
+    statusImage = nil;
+    [activityImageView startAnimating];
+    
+    return activityImageView;
 }
 
 #pragma mark BG Drawing
@@ -573,14 +507,14 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		//Gradient colours
 		size_t gradLocationsNum = 2;
 		CGFloat gradLocations[2] = {0.0f, 1.0f};
-		CGFloat gradColors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.75f}; 
+		CGFloat gradColors[8] = {255.0f,255.0f,255.0f,255.0f,255.0f,255.0f,255.0f,0.75f};
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 		CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, gradColors, gradLocations, gradLocationsNum);
 		CGColorSpaceRelease(colorSpace);
 		//Gradient center
 		CGPoint gradCenter= CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
 		//Gradient radius
-		float gradRadius = MIN(self.bounds.size.width , self.bounds.size.height) ;
+		float gradRadius = MIN(self.bounds.size.width/4 , self.bounds.size.height/4) ;
 		//Gradient draw
 		CGContextDrawRadialGradient (context, gradient, gradCenter,
 									 0, gradCenter, gradRadius,
@@ -594,22 +528,6 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     } else {
         CGContextSetGrayFillColor(context, 0.0f, self.opacity);
     }
-
-	
-	// Center HUD
-	CGRect allRect = self.bounds;
-	// Draw rounded HUD backgroud rect
-	CGRect boxRect = CGRectMake((roundf(allRect.size.width - size.width) / 2) + self.xOffset,
-								roundf((allRect.size.height - size.height) / 2) + self.yOffset, size.width, size.height);
-	float radius = 10.0f;
-	CGContextBeginPath(context);
-	CGContextMoveToPoint(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect));
-	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMinY(boxRect) + radius, radius, 3 * (float)M_PI / 2, 0, 0);
-	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMaxY(boxRect) - radius, radius, 0, (float)M_PI / 2, 0);
-	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMaxY(boxRect) - radius, radius, (float)M_PI / 2, (float)M_PI, 0);
-	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect) + radius, radius, (float)M_PI, 3 * (float)M_PI / 2, 0);
-	CGContextClosePath(context);
-	CGContextFillPath(context);
 
 	UIGraphicsPopContext();
 }
@@ -787,7 +705,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		processPath.lineWidth = lineWidth;
 		endAngle = (self.progress * 2 * (float)M_PI) + startAngle;
 		[processPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
-		[[UIColor whiteColor] set];
+		[[UIColor blackColor] set];
 		[processPath stroke];
 	} else {
 		// Draw background

@@ -605,11 +605,12 @@
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
     
-    [HUD setMode:MBProgressHUDModeAnnularDeterminate];
+    [HUD setMode:MBProgressHUDModeText];
     [HUD setLabelFont:[UIFont fontWithName:@"Droid Sans" size:14]];
 	[HUD setDelegate:self];
 	[HUD setLabelText:NSLocalizedString(@"image-uploading", nil)];
-	[HUD setColor:[UIColor blackColor]];
+	[HUD setColor:[UIColor clearColor]];
+    [HUD setBackgroundColor:[UIColor clearColor]];
     [HUD setDimBackground:YES];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
