@@ -156,7 +156,7 @@
         buttonGarageDetail.layer.cornerRadius = 5.0f;
         
         viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
-        [viewShadow setBackgroundColor:[UIColor blackColor]];
+        [viewShadow setBackgroundColor:[UIColor whiteColor]];
         [viewShadow setAlpha:0];
         
         UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(animationBidView)];
@@ -687,7 +687,7 @@
 -(void)bidSend{
     //Settings to Bid Sent
     [UIView beginAnimations:@"buttonFades" context:nil];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.8];
     [msgBidSentLabel setAlpha:1.0];
     [viewBidSend setAlpha:0];
     [viewBidSend setHidden:YES];
