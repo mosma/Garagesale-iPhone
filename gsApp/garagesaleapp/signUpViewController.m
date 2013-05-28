@@ -411,6 +411,7 @@
         [textFieldGarageName setValue:placeHolderColor
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder: NSLocalizedString(@"form-invalid-garage-name", nil)];
+        [textFieldGarageName setText:@""];
         isValid = NO;
     }
     
@@ -418,6 +419,7 @@
         [textFieldPersonName setValue:placeHolderColor
                      forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldPersonName setPlaceholder: NSLocalizedString(@"form-invalid-name", nil)];
+        [textFieldPersonName setText:@""];
         isValid = NO;
     }
     

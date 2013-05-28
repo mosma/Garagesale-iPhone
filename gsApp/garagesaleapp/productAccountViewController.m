@@ -82,7 +82,7 @@
     [viewPicsControl setAlpha:0];
     [viewPicsControl.layer setCornerRadius:5];
     
-    [buttonAddPics setEnabled:NO];
+    [buttonAddPics setUserInteractionEnabled:NO];
     
     //Menu
 //    UIView *tabBar = [self rotatingFooterView];
@@ -262,7 +262,7 @@
     @try {
         if ([objects count] == 0){
             [self removeWaiting];
-            [buttonAddPics setEnabled:YES];
+            [buttonAddPics setUserInteractionEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Product class]]){
             self.product = nil;
             self.product = (Product *)[objects objectAtIndex:0];
@@ -270,7 +270,7 @@
             if ([self.product.fotos count] > 0)
                 [self getResourcePathPhotoReturnEdit];
             else
-                [buttonAddPics setEnabled:YES];
+                [buttonAddPics setUserInteractionEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [buttonSaveProduct setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -285,7 +285,7 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [buttonAddPics setEnabled:YES];
+    [buttonAddPics setUserInteractionEnabled:YES];
     [self removeWaiting];
     [self.view setUserInteractionEnabled:YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -476,7 +476,7 @@
             // Success! Let's take a look at the data
             NSLog(@"Retrieved XML: %@", [response bodyAsString]);
             if (self.product == nil){
-                [buttonAddPics setEnabled:YES];
+                [buttonAddPics setUserInteractionEnabled:YES];
                 [self removeWaiting];
             }
         }
@@ -722,7 +722,7 @@
                         
             if ([fotos count] == i + 1)
                 if ([fotos count] != 10)
-                    [buttonAddPics setEnabled:YES];
+                    [buttonAddPics setUserInteractionEnabled:YES];
             
             url = nil;
         }
