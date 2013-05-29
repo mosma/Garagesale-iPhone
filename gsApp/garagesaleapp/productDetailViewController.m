@@ -92,7 +92,7 @@
     RKObjManeger.serializationMIMEType = RKMIMETypeJSON;
     self.navigationItem.hidesBackButton = YES;
     
-    [self loadAttribsToComponents:NO];
+    [self loadAttribsToComponents];
     
     //Check if Flag isIdPersonNumber is name or number
     if (isIdPersonNumber) {
@@ -100,9 +100,10 @@
     } else{
         [self getResourcePathGarage];
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)loadAttribsToComponents:(BOOL)isFromLoadObject{
+- (void)loadAttribsToComponents{
     //setting i18n
     [self.buttonBack setTitle: NSLocalizedString(@"back", @"") forState:UIControlStateNormal];
     [self.labelBidSent setText: NSLocalizedString(@"bidSent", @"")];
@@ -141,7 +142,7 @@
     
     [labelNomeProduto setText:[self.product nome]];
     
-    if (!isFromLoadObject) {
+    if (!self.arrayProfile) {
         /*
          Esta verificaçao esta errada... bbbba garagem pode
          ter so numeros ?
@@ -295,9 +296,9 @@
         NSString *garageName = [[self.arrayProfile objectAtIndex:0] garagem];
         
         NSString *avatarName = [NSString stringWithFormat:@"%@_AvatarImg", garageName];
-        
-        UIImage *image = (UIImage*)[NSKeyedUnarchiver unarchiveObjectWithData:[[GlobalFunctions getUserDefaults]
-                                                                               objectForKey:avatarName]];
+
+        UIImage *image = (UIImage*)[NSKeyedUnarchiver
+                                    unarchiveObjectWithData:[[GlobalFunctions getUserDefaults] objectForKey:avatarName]];
         
         if (!image) {
             vH = nil;
@@ -352,25 +353,29 @@
         } else
             [countView setHidden:YES];
         
-        UIImage *firstImage;
         
-        @try {
-            Photo *photo = (Photo *)[self.product.fotos objectAtIndex:0];
-            Caminho *caminho = (Caminho *)[[photo caminho] objectAtIndex:0];
-            NSURL *url = [NSURL URLWithString:[caminho mobile]];
-            firstImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-            [imageView setImage:firstImage];
-            photo = nil;
-            caminho = nil;
-            url = nil;
-            [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        }
-        @catch (NSException *exception) {
-            firstImage = [UIImage imageNamed:@"nopicture.png"];
-            imageView = nil;
-            imageView = [[UIImageView alloc] initWithImage:firstImage];
-        }
-        firstImage = nil;
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        dispatch_async(queue, ^(void) {
+            UIImage *firstImage;
+            @try {
+                Photo *photo = (Photo *)[self.product.fotos objectAtIndex:0];
+                Caminho *caminho = (Caminho *)[[photo caminho] objectAtIndex:0];
+                NSURL *url = [NSURL URLWithString:[caminho mobile]];
+                firstImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                [imageView setImage:firstImage];
+                photo = nil;
+                caminho = nil;
+                url = nil;
+                [[NSURLCache sharedURLCache] removeAllCachedResponses];
+            }
+            @catch (NSException *exception) {
+                firstImage = [UIImage imageNamed:@"nopicture.png"];
+                imageView = nil;
+                imageView = [[UIImageView alloc] initWithImage:firstImage];
+            }
+            firstImage = nil;
+        });
+        queue = nil;
         
         [imageView setUserInteractionEnabled:YES];
         [self setTapGestureImageGallery:imageView];
@@ -454,6 +459,7 @@
 }
 
 - (void)getResourcePathProfile {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     RKObjectMapping *prolileMapping = [Mappings getProfileMapping];
     
     if (self.isIdPersonNumber)
@@ -520,7 +526,7 @@
             product = (Product *)[objects objectAtIndex:0];
             //[product setDescricao:[(Product *)[objects objectAtIndex:0] descricao]];
             if (galleryScrollView)
-                [self loadAttribsToComponents:YES];
+                [self loadAttribsToComponents];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[ProductPhotos class]]){
         }
     }
@@ -698,7 +704,7 @@
     [scrollViewMain insertSubview:viewShadow belowSubview:viewBidMsg];
     [viewBidMsg setHidden:NO];
     [UIView commitAnimations];
-    
+
     [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     
     msgBidSentLabel.text = NSLocalizedString(@"bidSent", @"");
@@ -922,10 +928,6 @@
 }
 
 - (IBAction)animationBidView{
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.3];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationCurve:UIViewAnimationOptionTransitionFlipFromLeft];
     if (viewBidSend.hidden && viewBidMsg.hidden) {
         [scrollViewMain insertSubview:viewBidMsg belowSubview:viewBidSend];
         [scrollViewMain insertSubview:viewShadow belowSubview:viewBidSend];
@@ -946,7 +948,6 @@
         [self.txtFieldEmail resignFirstResponder];
         [self.txtViewComment resignFirstResponder];
     }
-    [UIView commitAnimations];
 }
 
 - (IBAction)isNumberKey:(UITextField *)textField{

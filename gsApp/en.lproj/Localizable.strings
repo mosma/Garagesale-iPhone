@@ -123,9 +123,9 @@
 "see-more-products"             = "See other products";
 
 "deleteThisProduct"             = "Delete this product";
-"delete-product-title"          = "Atenction!";
-"delete-product-desc"           = "Are you sure about removing this product?";
-"delete-product-btn1"           = "Cancel";
+"delete-product-title"          = "Warning!";
+"delete-product-desc"           = "Delete this product?";
+"delete-product-btn1"           = "Don't Delete";
 "delete-product-btn2"           = "Delete";
 
 
