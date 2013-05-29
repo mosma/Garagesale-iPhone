@@ -89,7 +89,7 @@
                                                                               objectForKey:[NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]]]];
 
     //set Navigation Title with OHAttributeLabel
-    NSString *titleAbout = @"This app is developed and \n created by MoSMA. \r\n We love feedbacks! Report a \n bug or give some suggestion? \n contact@mosma.us";
+    NSString *titleAbout = @"This app is developed and \n created by MoSMA. \r\n We love feedbacks! Report a \n bug or give some suggestion! \n contact@mosma.us";
     NSMutableAttributedString* attrStr = [NSMutableAttributedString attributedStringWithString:titleAbout];
     [attrStr setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [attrStr setTextColor:[UIColor grayColor]];

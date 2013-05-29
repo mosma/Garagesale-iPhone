@@ -166,6 +166,9 @@
         
         [viewBidSend setAlpha:0];
         [viewBidSend.layer setCornerRadius:5];
+        [viewBidSend.layer setShadowColor:[[UIColor blackColor] CGColor]];
+        [viewBidSend.layer setShadowOffset:CGSizeMake(1, 2)];
+        [viewBidSend.layer setShadowOpacity:0.5];
         
         [viewBidMsg setAlpha:0];
         [viewBidMsg.layer setCornerRadius:5];
