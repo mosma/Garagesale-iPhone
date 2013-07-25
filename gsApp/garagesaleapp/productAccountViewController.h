@@ -31,9 +31,7 @@
     __weak IBOutlet UITextField    *txtFieldCurrency;                                                              
     __weak IBOutlet UIScrollView   *scrollView;
     __weak IBOutlet UITextView     *textViewDescription;
-    __weak IBOutlet UIView         *viewPicsControl;
     __weak IBOutlet UIButton       *buttonAddPics;
-    __weak IBOutlet UIButton                    *buttonSaveProduct;
 
     //Others
     RKObjectManager             *RKObjManeger;
@@ -45,7 +43,10 @@
     MBProgressHUD               *HUD;
     Product                     *product;
     UILabel                     *waiting;
-                                                                 
+                                                                    
+    __weak IBOutlet UIButton       *save;
+    __weak IBOutlet UIButton       *cancel;
+                                                                    
     //Flags at Post
     bool                        isImagesProductPosted;
     int                         countPicsPost;
@@ -61,25 +62,26 @@
 @property (weak, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView   *textViewDescription;
-@property (weak, nonatomic) IBOutlet UIView       *viewPicsControl;
 @property (weak, nonatomic) IBOutlet UIButton     *buttonAddPics;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
-@property (weak, nonatomic) IBOutlet UIButton *buttonSaveProduct;
 
 @property (nonatomic)           bool      isImagesProductPosted;
 @property (retain, nonatomic)   Product   *product;
 @property (readwrite,assign)    int       countUploaded;
+
+@property (weak, nonatomic) IBOutlet UIButton       *save;
+@property (weak, nonatomic) IBOutlet UIButton       *cancel;
 
 -(void)loadAttributsToComponents;
 -(IBAction)saveProduct;
 -(IBAction)addProduct:(id)sender;
 -(IBAction)isNumberKey:(UITextField *)textField;
 -(IBAction)animationPicsControl;
-//-(IBAction)goBack:(id)sender;
 -(IBAction)getPicsByCamera:(id)sender;
 -(IBAction)getPicsByPhotosAlbum:(id)sender;
 -(IBAction)deleteProduct:(id)sender;
 -(void)validateForm:(id)sender;
 -(IBAction)deleteProduct:(id)sender;
+-(IBAction)cancelRegister:(id)sender;
 
 @end

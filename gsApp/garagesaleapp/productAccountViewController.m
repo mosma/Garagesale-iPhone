@@ -26,13 +26,13 @@
 @synthesize scrollViewPicsProduct;
 @synthesize scrollView;
 @synthesize textViewDescription;
-@synthesize viewPicsControl;
 @synthesize buttonAddPics;
 @synthesize product;
 @synthesize buttonDeleteProduct;
 @synthesize gallery;
 @synthesize countUploaded;
-@synthesize buttonSaveProduct;
+@synthesize save;
+@synthesize cancel;
 
 #define PICKERSTATE     20
 #define PICKERCURRENCY  21
@@ -54,14 +54,17 @@
 -(void)loadAttributsToComponents{
     
     //initialize the i18n
-    [self.buttonSaveProduct setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
     [self.buttonDeleteProduct setTitle:NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
     
     //theme information
-    [self.buttonSaveProduct.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.buttonDeleteProduct.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-
+    
+    [self.save setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
+    [self.save.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    
+    [self.cancel setTitle:NSLocalizedString(@"keyboard-cancel-btn", @"") forState:UIControlStateNormal];
+    [self.cancel.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
     
     _postProdDelegate = [[PostProductDelegate alloc] init];
     
@@ -76,19 +79,7 @@
     
     txtFieldValue.keyboardType = UIKeyboardTypeDecimalPad;
     
-//    shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1200)];
-//    [shadowView setBackgroundColor:[UIColor blackColor]];
-//    [shadowView setAlpha:0];
-    [viewPicsControl setAlpha:0];
-    [viewPicsControl.layer setCornerRadius:5];
-    
     [buttonAddPics setUserInteractionEnabled:NO];
-    
-    //Menu
-//    UIView *tabBar = [self rotatingFooterView];
-//    if ([tabBar isKindOfClass:[UITabBar class]])
-//        ((UITabBar *)tabBar).delegate = self;
-//    tabBar = nil;
     
     gallery = [[photosGallery alloc] init];
     [gallery setProdAccount:self];
@@ -272,7 +263,7 @@
             else
                 [buttonAddPics setUserInteractionEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
-            [buttonSaveProduct setUserInteractionEnabled:NO];
+            [self.save setUserInteractionEnabled:NO];
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
             dispatch_async(queue, ^(void) {
                 [self loadAttributsToPhotos:objects];
@@ -420,20 +411,28 @@
     newImage = nil;
     dataImage = nil;
     imageRender = nil;
-    
-    if(!viewPicsControl.hidden)
-        [self animationPicsControl];
 }
 
 -(IBAction)deleteProduct:(id)sender {
-    if (isReachability) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
-                                                         message:NSLocalizedString(@"delete-product-desc", nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
-                                               otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
-        [alertV show];
-        alertV = nil;
+    if (sender) {
+        if (isReachability) {
+            UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
+                                                             message:NSLocalizedString(@"delete-product-desc", nil)
+                                                            delegate:self
+                                                   cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
+                                                   otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
+            [alertV show];
+            alertV.tag = 0;
+            alertV = nil;
+        }
+    }else{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [self.view setUserInteractionEnabled:NO];
+        [[RKClient sharedClient] delete:
+         [NSString stringWithFormat:@"/product/%i?token=%@&garage=%@",
+          [self.product.id intValue] ,
+          [[GlobalFunctions getUserDefaults] valueForKey:@"token"],
+          [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]] delegate:self];
     }
 }
 
@@ -443,13 +442,11 @@
             NSLog(@"0");
             break;
         case 1:
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-            [self.view setUserInteractionEnabled:NO];
-            [[RKClient sharedClient] delete:
-             [NSString stringWithFormat:@"/product/%i?token=%@&garage=%@",
-              [self.product.id intValue] ,
-              [[GlobalFunctions getUserDefaults] valueForKey:@"token"],
-              [[GlobalFunctions getUserDefaults] valueForKey:@"garagem"]] delegate:self];
+            if (alertView.tag == 0)
+                [self deleteProduct:nil];
+            else
+            if (alertView.tag == 1)
+                [self cancelRegister:nil];
             break;
         default:
             break;
@@ -591,13 +588,29 @@
     }
 }
 
+-(IBAction)cancelRegister:(id)sender{
+    if (sender) {
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"delete-product-title", nil)
+                                                         message:NSLocalizedString(@"delete-product-desc", nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"delete-product-btn1", nil)
+                                               otherButtonTitles:NSLocalizedString(@"delete-product-btn2", nil), nil];
+        [alertV show];
+        alertV.tag = 1;
+        alertV = nil;
+    }
+    else {
+        [self newProductFinished:YES];
+    }
+}
+
 -(void)setEnableButtonSave:(BOOL)enable{
     if (enable) {
-        [buttonSaveProduct setUserInteractionEnabled:YES];
-        [buttonSaveProduct setAlpha:1.0f];
+        [self.save setUserInteractionEnabled:YES];
+        [self.save setAlpha:1.0f];
     }else{
-        [buttonSaveProduct setUserInteractionEnabled:NO];
-        [buttonSaveProduct setAlpha:0.3f];
+        [self.save setUserInteractionEnabled:NO];
+        [self.save setAlpha:0.3f];
     }
 }
 
@@ -688,6 +701,7 @@
     if (isNew){
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setBool:NO forKey:@"isProductDisplayed"];
+        [userDefaults setBool:YES forKey:@"reloadProductAccount"];
         [userDefaults synchronize];
         userDefaults = nil;
         self.tabBarController.selectedIndex = 2;
@@ -727,7 +741,7 @@
             
             url = nil;
         }
-        [buttonSaveProduct setUserInteractionEnabled:YES];
+        [self.save setUserInteractionEnabled:YES];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
     @catch (NSException *exception) {
@@ -940,18 +954,18 @@
     [self setTextViewDescription:nil];
     buttonDeleteProduct = nil;
     [self setButtonDeleteProduct:nil];
-    buttonSaveProduct = nil;
-    [self setButtonSaveProduct:nil];
     isImagesProductPosted = nil;
     [self setIsImagesProductPosted:nil];
     product = nil;
     [self setProduct:nil];
     countUploaded = nil;
     [self setCountUploaded:nil];
-    viewPicsControl = nil;
-    [self setViewPicsControl:nil];
     buttonAddPics = nil;
     [self setButtonAddPics:nil];
+    [self setSave:nil];
+    self.save = nil;
+    [self setCancel:nil];
+    self.cancel = nil;
     gallery = nil;
     [self setGallery:nil];
 }

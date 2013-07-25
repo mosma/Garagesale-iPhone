@@ -164,18 +164,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HiQ-Y2-wLZ">
-                                        <rect key="frame" x="9" y="334" width="300" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
-                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="vZq-v7-pUa"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" id="sfh-PS-VWG" userLabel="viewTop">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -261,7 +249,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LZD-ns-90l">
-                                        <rect key="frame" x="8" y="373" width="166" height="44"/>
+                                        <rect key="frame" x="8" y="325" width="166" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Delete this product">
@@ -278,69 +266,66 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="deviceRGB"/>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="Tba-tA-i5u" userLabel="ViewPicsControl">
-                                <rect key="frame" x="10" y="87" width="300" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7sc-fe-UrJ" userLabel="buttonCancel">
-                                        <rect key="frame" x="8" y="114" width="285" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Cancel" backgroundImage="btBackgroundForms.png">
-                                            <color key="titleColor" red="0.43529415129999999" green="0.43529415129999999" blue="0.43529415129999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="animationPicsControl" destination="o08-vM-tNV" eventType="touchUpInside" id="qE9-2A-xpW"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="exV-nT-m7q" userLabel="buttonCamera">
-                                        <rect key="frame" x="8" y="12" width="285" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Camera" backgroundImage="btMenuTableTopB.png">
-                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="getPicsByCamera:" destination="o08-vM-tNV" eventType="touchUpInside" id="5W4-Xi-D6N"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jNI-vL-QVJ" userLabel="buttonLibrary">
-                                        <rect key="frame" x="8" y="57" width="285" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Library" backgroundImage="btMenuTableBottomB.png">
-                                            <color key="titleColor" red="0.40000003579999999" green="0.40000003579999999" blue="0.40000003579999999" alpha="1" colorSpace="deviceRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="getPicsByPhotosAlbum:" destination="o08-vM-tNV" eventType="touchUpInside" id="R4D-n3-J8p"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.92941182850000004" green="0.92941182850000004" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="srU-rt-wty">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="uaF-Ro-qk0">
+                            <view key="customView" contentMode="scaleToFill" id="3og-ia-d3L">
+                                <rect key="frame" x="5" y="6" width="58" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QDg-Q9-X8Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Cancel" backgroundImage="rightNavItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelRegister:" destination="o08-vM-tNV" eventType="touchUpInside" id="lWq-9j-ZXt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="WVK-Vs-L9e">
+                            <view key="customView" contentMode="scaleToFill" id="TEE-kp-aAp">
+                                <rect key="frame" x="257" y="6" width="58" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qy3-Ps-rC2">
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save" backgroundImage="rightNavItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveProduct" destination="o08-vM-tNV" eventType="touchUpInside" id="gfi-oa-F2P"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="buttonAddPics" destination="dPI-DF-bHS" id="aH9-jb-OOf"/>
                         <outlet property="buttonDeleteProduct" destination="LZD-ns-90l" id="jLu-Vb-py1"/>
-                        <outlet property="buttonSaveProduct" destination="HiQ-Y2-wLZ" id="veU-ps-wyl"/>
+                        <outlet property="cancel" destination="QDg-Q9-X8Q" id="fVw-UL-tfh"/>
+                        <outlet property="save" destination="Qy3-Ps-rC2" id="fEw-8I-h7n"/>
                         <outlet property="scrollView" destination="Ghd-rh-LIi" id="HWu-5z-SZL"/>
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
@@ -348,7 +333,6 @@
                         <outlet property="txtFieldState" destination="hOV-6e-aOk" id="Xcs-9y-jOC"/>
                         <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
                         <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
-                        <outlet property="viewPicsControl" destination="Tba-tA-i5u" id="5QD-vt-IDQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJ9-BR-tHU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2131,10 +2115,8 @@
         <image name="btFacebookShare.png" width="157" height="40"/>
         <image name="btFacebookShareOver.png" width="157" height="40"/>
         <image name="btMenuTableBottom.png" width="301" height="45"/>
-        <image name="btMenuTableBottomB.png" width="285" height="46"/>
         <image name="btMenuTableMiddle.png" width="301" height="46"/>
         <image name="btMenuTableTop.png" width="301" height="45"/>
-        <image name="btMenuTableTopB.png" width="285" height="45"/>
         <image name="btOffer.png" width="56" height="36"/>
         <image name="btPencilEditProductDetail.png" width="75" height="25"/>
         <image name="btPencilEditProductTable.png" width="53" height="26"/>
@@ -2217,6 +2199,7 @@
             <relationships>
                 <relationship kind="action" name="addProduct:"/>
                 <relationship kind="action" name="animationPicsControl"/>
+                <relationship kind="action" name="cancelRegister:"/>
                 <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="getPicsByCamera:"/>
                 <relationship kind="action" name="getPicsByPhotosAlbum:"/>
@@ -2225,6 +2208,8 @@
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonSaveProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
@@ -2232,7 +2217,6 @@
                 <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="viewPicsControl" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="productDetailViewController" superclassName="MasterViewController">

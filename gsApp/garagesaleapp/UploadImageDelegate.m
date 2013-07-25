@@ -142,11 +142,11 @@
 
 -(void)setEnableSaveButton:(int)count{
     if (count == 0) {
-        [prodAccount.buttonSaveProduct setEnabled:YES];
-        [prodAccount.buttonSaveProduct setAlpha:1.0];
+        [prodAccount.save setEnabled:YES];
+        [prodAccount.save setAlpha:1.0];
     } else {
-        [prodAccount.buttonSaveProduct setEnabled:NO];
-        [prodAccount.buttonSaveProduct setAlpha:0.3];
+        [prodAccount.save setEnabled:NO];
+        [prodAccount.save setAlpha:0.3];
     }
 }
 
