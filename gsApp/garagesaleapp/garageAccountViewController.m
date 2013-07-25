@@ -605,8 +605,14 @@
     [labDesc setTextColor:[UIColor grayColor]];
     [labDesc setFrame:CGRectMake(10, 10, 300, 400)];
     [labDesc sizeToFit];
-    [descr.view addSubview:labDesc];
+    
+    UIScrollView *scrl = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    [scrl addSubview:labDesc];
+    [scrl setContentSize:CGSizeMake(320, labDesc.frame.size.height+50)];
+    
+    [descr.view addSubview:scrl];
     labDesc = nil;
+    scrl = nil;
     [self.navigationController pushViewController:descr animated:YES];
     descr = nil;
 }
