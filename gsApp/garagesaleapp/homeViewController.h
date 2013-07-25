@@ -11,6 +11,7 @@
 #import "productAccountViewController.h"
 #import "searchViewController.h"
 #import "signUpViewController.h"
+#import "CKRefreshControl.h"
 
 @interface homeViewController : MasterViewController <RKObjectLoaderDelegate,
                                                     UISearchBarDelegate,
@@ -53,6 +54,8 @@
 @property (weak, nonatomic) IBOutlet UIButton   *buttonSignIn;
 @property (weak, nonatomic) IBOutlet UIImageView *imgTxtField;
 @property (weak, nonatomic) IBOutlet UIButton *btCancelSearch;
+
+@property (strong, nonatomic) CKRefreshControl *refreshControl;
 
 - (void)getResourcePathProduct;
 - (void)reachability;

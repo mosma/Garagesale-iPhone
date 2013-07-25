@@ -13,6 +13,7 @@
 #import "settingsAccountViewController.h"
 #import "OHAttributedLabel.h"
 #import "STSegmentedControl.h"
+#import "CKRefreshControl.h"
 
 @interface garageAccountViewController : MasterViewController <RKObjectLoaderDelegate, 
                                                                 UITableViewDelegate,
@@ -72,6 +73,7 @@
 @property (weak, nonatomic) IBOutlet UIView             *viewTop;
 @property (weak, nonatomic) IBOutlet UIView             *viewNoProducts;
 
+@property (strong, nonatomic) CKRefreshControl          *refreshControl;
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)reloadPage:(id)sender;

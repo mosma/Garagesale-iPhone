@@ -132,6 +132,10 @@
     else if (!garageNameSearch)
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@",
                                   [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
+
+    self.refreshControl = [[CKRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
+    [self.refreshControl addTarget:self action:@selector(reloadPage:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -141,13 +145,11 @@
                                                       withValue:nil];
     [viewTop setUserInteractionEnabled:NO];
 
-    //mutArrayProducts = nil;
     [segmentControl setEnabled:NO];
     [self getResourcePathProduct];
     
     [scrollViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
     [tableViewProducts setContentOffset:CGPointMake(0, 0) animated:NO];
-    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
 
     //reload Settings.
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil
@@ -170,8 +172,6 @@
                 [description setText:NSLocalizedString(@"welcome-my-garage", @"")];
             else
                 [description setText:[[GlobalFunctions getUserDefaults] objectForKey:@"about"]];
-            
-          //  [description sizeToFit];
             
             [garageName setAttributedText:[GlobalFunctions
                                            getNamePerfil:[[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]
@@ -240,7 +240,6 @@
         
         if (imageGravatar)
             [imgGarageLogo setImage:imageGravatar];
-        //imageGravatar = nil;
         
         if (isGenericGarage){
             UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(backPage)
@@ -347,8 +346,6 @@
     
         if ([city.text length] < 5)
             [city setHidden:YES];
-        
-       // [self setTrackedViewName:[NSString stringWithFormat:@"/%@", profile.garagem]];
     }
 }
 
@@ -439,6 +436,7 @@
             [self.scrollViewProducts setContentSize:CGSizeMake(320,400)];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         }
+    [self.refreshControl endRefreshing];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -549,7 +547,8 @@
 -(void)loadButtonsProduct{
     for (UIButton *subview in [scrollViewProducts subviews])
         [subview removeFromSuperview];
-
+    [self.scrollViewMain addSubview:self.refreshControl];
+    
     //init Global Functions
     GlobalFunctions *globalFunctions = [[GlobalFunctions alloc] init];
     
@@ -747,11 +746,6 @@
         [userDefaults synchronize];
         userDefaults = nil;
     }
-    
-    //Set Display thumbs on Home.
-//    [globalFunctions setCountColumnImageThumbs:-1];
-//    [globalFunctions setImageThumbsXorigin_Iphone:10];
-//    [globalFunctions setImageThumbsYorigin_Iphone:10];
 }
 
 - (void)viewWillUnload:(BOOL)animated
@@ -808,6 +802,8 @@
     [self setImageURLs:nil];
     viewNoProducts = nil;
     [self setViewNoProducts:nil];
+    self.refreshControl = nil;
+    [self setRefreshControl:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

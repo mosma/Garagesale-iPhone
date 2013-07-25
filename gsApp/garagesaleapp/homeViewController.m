@@ -35,6 +35,10 @@
          forControlEvents:UIControlEventTouchDown];
     [buttonLogo setFrame:CGRectMake(34, 149, 253, 55)];
     
+    self.refreshControl = [[CKRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
+    [self.refreshControl addTarget:self action:@selector(reloadPage:) forControlEvents:UIControlEventValueChanged];
+    
     [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:NO];
     
     //set searchBar settings
@@ -205,16 +209,6 @@
     [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldSearch setDelegate:self];
     
-    //set done at keyboard
-//    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-//    [numberToolbar setBarStyle:UIBarStyleBlackTranslucent];
-//    numberToolbar.items = [NSArray arrayWithObjects:
-//                           [[UIBarButtonItem alloc]
-//                            initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-//                           [[UIBarButtonItem alloc]initWithTitle: NSLocalizedString(@"keyboard-cancel-btn" , nil) style:UIBarButtonItemStyleDone target:self action:@selector(showHideViewSearch:)], nil];
-//    [numberToolbar sizeToFit];
-//    [txtFieldSearch setInputAccessoryView:numberToolbar];
-    
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [self.navigationItem setHidesBackButton:YES];
@@ -240,11 +234,6 @@
     NSString *path = [NSString stringWithFormat:@"product?count=%0d", [GlobalFunctions getHomeProductsNumber]];
     [self.RKObjManeger loadObjectsAtResourcePath:path objectMapping:productMapping delegate:self];
     
-//    productMapping = nil;
-//    photoMapping = nil;
-//    caminhoMapping = nil;
-//    path = nil;
-    
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
@@ -267,6 +256,7 @@
         if ([activityImageView isAnimating])
             [scrollViewMain setContentSize:CGSizeMake(320,scrollViewMain.contentSize.height+300)];
         [activityImageView stopAnimating];
+        [self.refreshControl endRefreshing];
     }
 }
 
@@ -399,8 +389,6 @@
         }else
             [viewTopPage setAlpha:1.0];
     }
-    //if (isTopViewShowing)
-    //    [self showHideTopPage:nil];
 }
 
 - (IBAction)reloadPage:(id)sender{
@@ -418,11 +406,10 @@
     for (UIButton *subview in [scrollViewMain subviews])
         [subview removeFromSuperview];
     [scrollViewMain addSubview:buttonLogo];
+    [scrollViewMain addSubview:self.refreshControl];
     
-   // RKObjManeger = nil;
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
     
-    //globalFunctions = nil;
     globalFunctions = [[GlobalFunctions alloc] init];
     
     //Set Display thumbs on Home.
@@ -433,7 +420,6 @@
     else
         [globalFunctions setImageThumbsYorigin_Iphone:95];
 
-    [scrollViewMain setContentOffset:CGPointMake(0, 0) animated:YES];
     countLoads = 0;
     
     [self controlSearchArea];
@@ -576,11 +562,6 @@
 }
 
 - (IBAction)showHideTopPage:(id)sender{
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.5];
-//    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationCurve:UIViewAnimationOptionShowHideTransitionViews];
-    
     if (!isTopViewShowing) {
         [searchBarProduct setHidden:NO];
         [shadowSearch setHidden:NO];
@@ -592,18 +573,7 @@
         [searchBarProduct resignFirstResponder];
     }
     isTopViewShowing = !isTopViewShowing;
-//    [UIView commitAnimations];
 }
-
-//-(IBAction)showSearchLoged:(id)sender{
-//    if ([txtFieldSearch isFirstResponder]){
-//        [txtFieldSearch resignFirstResponder];
-//        if (![txtFieldSearch.text isEqualToString:@""])
-//            [self gotoProductTableViewController:txtFieldSearch.text];
-//    }
-//    else
-//        [txtFieldSearch becomeFirstResponder];
-//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -662,6 +632,8 @@
     [self setImgTxtField:nil];
     btCancelSearch = nil;
     [self setBtCancelSearch:nil];
+    self.refreshControl = nil;
+    [self setRefreshControl:nil];
     [super viewDidUnload];
 }
 

@@ -269,6 +269,9 @@
 		CCB1B3C314BA119A0002723D /* searchCustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB1B3C214BA119A0002723D /* searchCustomViewCell.m */; };
 		CCBAD3BF14BE042B00FEDC76 /* galleryScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */; };
 		CCC02D8B14D2FF180076BE31 /* Bid.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC02D8A14D2FF180076BE31 /* Bid.m */; };
+		CCC5AB8817A1941B00984B97 /* CKParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8217A1941B00984B97 /* CKParagraphStyle.m */; };
+		CCC5AB8917A1941B00984B97 /* CKRefreshArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8417A1941B00984B97 /* CKRefreshArrowView.m */; };
+		CCC5AB8A17A1941B00984B97 /* CKRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8717A1941B00984B97 /* CKRefreshControl.m */; };
 		CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */; };
 		CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */; };
 		CCC7B09D164F03E900BB3EC6 /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B098164F03E900BB3EC6 /* FPPopoverController.m */; };
@@ -686,6 +689,13 @@
 		CCBAD3BE14BE042B00FEDC76 /* galleryScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = galleryScrollViewController.m; sourceTree = "<group>"; };
 		CCC02D8914D2FF180076BE31 /* Bid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bid.h; sourceTree = "<group>"; };
 		CCC02D8A14D2FF180076BE31 /* Bid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bid.m; sourceTree = "<group>"; };
+		CCC5AB8117A1941B00984B97 /* CKParagraphStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKParagraphStyle.h; sourceTree = "<group>"; };
+		CCC5AB8217A1941B00984B97 /* CKParagraphStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKParagraphStyle.m; sourceTree = "<group>"; };
+		CCC5AB8317A1941B00984B97 /* CKRefreshArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshArrowView.h; sourceTree = "<group>"; };
+		CCC5AB8417A1941B00984B97 /* CKRefreshArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshArrowView.m; sourceTree = "<group>"; };
+		CCC5AB8517A1941B00984B97 /* CKRefreshControl-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRefreshControl-Prefix.pch"; sourceTree = "<group>"; };
+		CCC5AB8617A1941B00984B97 /* CKRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshControl.h; sourceTree = "<group>"; };
+		CCC5AB8717A1941B00984B97 /* CKRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshControl.m; sourceTree = "<group>"; };
 		CCC7B07E164AEB4400BB3EC6 /* GarageNameValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GarageNameValidate.h; sourceTree = "<group>"; };
 		CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GarageNameValidate.m; sourceTree = "<group>"; };
 		CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailValidate.h; sourceTree = "<group>"; };
@@ -920,6 +930,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CCC5AB7D17A193EE00984B97 /* RefreshControl */,
 				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
 				CC83744E16816042002754B8 /* PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
@@ -1392,6 +1403,20 @@
 				CC0DC8F916E6926F0024EBD1 /* RecoverPassword.m */,
 			);
 			name = EntityClass;
+			sourceTree = "<group>";
+		};
+		CCC5AB7D17A193EE00984B97 /* RefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				CCC5AB8117A1941B00984B97 /* CKParagraphStyle.h */,
+				CCC5AB8217A1941B00984B97 /* CKParagraphStyle.m */,
+				CCC5AB8317A1941B00984B97 /* CKRefreshArrowView.h */,
+				CCC5AB8417A1941B00984B97 /* CKRefreshArrowView.m */,
+				CCC5AB8517A1941B00984B97 /* CKRefreshControl-Prefix.pch */,
+				CCC5AB8617A1941B00984B97 /* CKRefreshControl.h */,
+				CCC5AB8717A1941B00984B97 /* CKRefreshControl.m */,
+			);
+			name = RefreshControl;
 			sourceTree = "<group>";
 		};
 		CCC7B096164F03BE00BB3EC6 /* PopOver */ = {
@@ -1867,6 +1892,9 @@
 				CC4A813116974AEE0078F738 /* viewHelperReturn.m in Sources */,
 				CCE11D4316A578E90052F058 /* MTStatusBarOverlay.m in Sources */,
 				CC0DC8FA16E692700024EBD1 /* RecoverPassword.m in Sources */,
+				CCC5AB8817A1941B00984B97 /* CKParagraphStyle.m in Sources */,
+				CCC5AB8917A1941B00984B97 /* CKRefreshArrowView.m in Sources */,
+				CCC5AB8A17A1941B00984B97 /* CKRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
