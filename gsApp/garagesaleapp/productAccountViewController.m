@@ -394,8 +394,13 @@
     NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 0.5);
     UIImage *imageRender = [UIImage imageWithData:dataImage];
     
-    if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
-        UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    @try {
+        if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Erro saving...");
+    }
 
     [scrollViewPicsProduct setFrame:CGRectMake(0,
                                                scrollViewPicsProduct.frame.origin.y,
