@@ -148,12 +148,9 @@
     [self.txtFieldCity setPlaceholder: NSLocalizedString(@"currentCity", @"")];
     [self.txtFieldDistrict setPlaceholder: NSLocalizedString(@"currentDistrict", @"")];
     [self.txtFieldCountry setPlaceholder: NSLocalizedString(@"currentCoutry", @"")];
-    
-    [self.buttonSave setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
-    
+        
     //theme information
     [self.buttonLogout.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
-    [self.buttonSave.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.labelAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:13]];
     [self.txtFieldAnyLink setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
@@ -252,6 +249,12 @@
     UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(backPage)
                                                            viewContr:self
                                                           imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
+    
+    [self.save setTitle:NSLocalizedString(@"save", @"") forState:UIControlStateNormal];
+    [self.save.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
+    
+    [self.cancel setTitle:NSLocalizedString(@"keyboard-cancel-btn", @"") forState:UIControlStateNormal];
+    [self.cancel.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:13]];
     
     [self.navigationItem setLeftBarButtonItem:barItem];
     barItem = nil;
@@ -698,8 +701,6 @@
     [self setButtonAddress:nil];
     buttonLogout = nil;
     [self setButtonLogout:nil];
-    buttonSave = nil;
-    [self setButtonSave:nil];
     buttonRightAbout = nil;
     [self setButtonRightAbout:nil];
     txtFieldGarageName = nil;
@@ -750,6 +751,10 @@
     [self setTxtFieldCurrentPassword:nil];
     [self setTxtFieldNewPassword:nil];
     [self setTxtFieldRepeatNewPassword:nil];
+    [self setSave:nil];
+    self.save = nil;
+    [self setCancel:nil];
+    self.cancel = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

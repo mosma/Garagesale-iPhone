@@ -324,8 +324,8 @@
                     <connections>
                         <outlet property="buttonAddPics" destination="dPI-DF-bHS" id="aH9-jb-OOf"/>
                         <outlet property="buttonDeleteProduct" destination="LZD-ns-90l" id="jLu-Vb-py1"/>
-                        <outlet property="cancel" destination="QDg-Q9-X8Q" id="fVw-UL-tfh"/>
-                        <outlet property="save" destination="Qy3-Ps-rC2" id="fEw-8I-h7n"/>
+                        <outlet property="cancel" destination="QDg-Q9-X8Q" id="SHG-mz-nbA"/>
+                        <outlet property="save" destination="Qy3-Ps-rC2" id="c8u-03-tBk"/>
                         <outlet property="scrollView" destination="Ghd-rh-LIi" id="HWu-5z-SZL"/>
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
@@ -784,21 +784,6 @@
                                         <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rJn-zz-IfY">
-                                        <rect key="frame" x="10" y="444" width="300" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
-                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveSettings" destination="5xi-Kh-5i5" eventType="touchUpInside" id="xCC-Jh-l0q"/>
-                                        </connections>
-                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="hMk-g3-17t" userLabel="uitextViewBackgroundDescription.png">
                                         <rect key="frame" x="13" y="258" width="295" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -861,15 +846,40 @@
                         </subviews>
                         <color key="backgroundColor" red="0.96765577936746983" green="0.96759695030120485" blue="0.97546827936746983" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" id="j6o-sM-GsM"/>
+                    <navigationItem key="navigationItem" id="j6o-sM-GsM">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="jlV-6G-ovM">
+                            <view key="customView" contentMode="scaleToFill" id="WKy-Eg-hny">
+                                <rect key="frame" x="257" y="6" width="58" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3uj-zY-PY8">
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save" backgroundImage="rightNavItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveSettings" destination="5xi-Kh-5i5" eventType="touchUpInside" id="61d-8j-nqm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="buttonSave" destination="rJn-zz-IfY" id="4dv-WN-W9f"/>
                         <outlet property="labelAbout" destination="eE3-X8-A2U" id="qb9-pk-mp1"/>
                         <outlet property="labelAnyLink" destination="0hP-gn-cRp" id="1Ni-I9-6UR"/>
                         <outlet property="labelEmail" destination="EDJ-TF-cjw" id="2Ca-PQ-zwf"/>
                         <outlet property="labelGarageName" destination="9wu-Hr-f5T" id="wAd-ce-tuK"/>
                         <outlet property="labelYourName" destination="pj5-Ge-HPD" id="9Ba-Jo-frJ"/>
+                        <outlet property="save" destination="3uj-zY-PY8" id="95Y-Nm-98f"/>
                         <outlet property="scrollView" destination="O4A-WE-qi1" id="gs8-Cg-yZe"/>
                         <outlet property="txtFieldAnyLink" destination="8Pa-ic-Wnf" id="jPx-zY-avG"/>
                         <outlet property="txtFieldEmail" destination="JLL-lq-QF0" id="Ry5-hX-q4V"/>
@@ -908,25 +918,6 @@
                                         <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cES-zG-0fg">
-                                        <rect key="frame" x="10" y="266" width="300" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
-                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveSettings" destination="K7a-eB-FnT" eventType="touchUpInside" id="60a-Rp-vgR"/>
-                                        </connections>
-                                    </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="YRA-o6-VDg">
-                                        <rect key="frame" x="33" y="275" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Repeat new password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Nj7-C2-jJo">
                                         <rect key="frame" x="11" y="174" width="300" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -973,13 +964,38 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97057370105421692" green="0.96871470256024095" blue="0.97556240587349397" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" id="xxE-AZ-jpM"/>
+                    <navigationItem key="navigationItem" id="xxE-AZ-jpM">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="5ER-hy-6gY">
+                            <view key="customView" contentMode="scaleToFill" id="aO7-B6-Xqs">
+                                <rect key="frame" x="257" y="6" width="58" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xAI-Kg-vdt">
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save" backgroundImage="rightNavItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveSettings" destination="K7a-eB-FnT" eventType="touchUpInside" id="iaX-sV-GeG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="buttonSave" destination="cES-zG-0fg" id="PNw-tc-hxC"/>
                         <outlet property="labelCurrentPassword" destination="dAN-a7-PWP" id="CUS-9R-B1R"/>
                         <outlet property="labelNewPassword" destination="g9d-1x-FsY" id="Por-kr-ez1"/>
                         <outlet property="labelRepeatPassword" destination="Nj7-C2-jJo" id="b0x-Yh-7rh"/>
+                        <outlet property="save" destination="xAI-Kg-vdt" id="Uy3-S5-YJ2"/>
                         <outlet property="scrollView" destination="rIV-SN-IUS" id="Ybz-yQ-H2G"/>
                         <outlet property="txtFieldCurrentPassword" destination="Ybw-wj-kWz" id="tmR-mk-Mw5"/>
                         <outlet property="txtFieldNewPassword" destination="A0J-4A-y4W" id="XQO-Uu-UhK"/>
@@ -1627,21 +1643,6 @@
                                         <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YwS-hj-Hpq">
-                                        <rect key="frame" x="10" y="329" width="300" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Save" backgroundImage="btBackgroundForms.png">
-                                            <color key="titleColor" red="0.43529411764705883" green="0.43529411764705883" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveSettings" destination="tbg-8m-otZ" eventType="touchUpInside" id="Ksi-lw-t7z"/>
-                                        </connections>
-                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="Hbq-Ts-K3u" userLabel="textField01iphoneTitle.png">
                                         <rect key="frame" x="12" y="113" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1692,14 +1693,39 @@
                         </subviews>
                         <color key="backgroundColor" red="0.96667921686746983" green="0.96976185993975905" blue="0.97744493599397586" alpha="1" colorSpace="deviceRGB"/>
                     </scrollView>
-                    <navigationItem key="navigationItem" id="jZ4-BS-byg"/>
+                    <navigationItem key="navigationItem" id="jZ4-BS-byg">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="2Lo-bQ-vXL">
+                            <view key="customView" contentMode="scaleToFill" id="J8h-Yg-182">
+                                <rect key="frame" x="257" y="6" width="58" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mfJ-J2-ZCg">
+                                        <rect key="frame" x="0.0" y="0.0" width="58" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Save" backgroundImage="rightNavItem.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveSettings" destination="tbg-8m-otZ" eventType="touchUpInside" id="wxZ-5H-Gek"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="buttonSave" destination="YwS-hj-Hpq" id="2ZY-wA-bMx"/>
                         <outlet property="labelAddress" destination="Gfc-Gj-YIf" id="caD-7e-RWR"/>
                         <outlet property="labelCity" destination="TbQ-4H-lTz" id="AZ2-Vk-WJe"/>
                         <outlet property="labelCountry" destination="FVk-lj-Ujb" id="6Vc-3i-wKy"/>
                         <outlet property="labelDistrict" destination="wSC-Pi-UTO" id="uD0-y7-vfE"/>
+                        <outlet property="save" destination="mfJ-J2-ZCg" id="hMT-Nr-9LA"/>
                         <outlet property="scrollView" destination="DcC-rR-Xyk" id="yxu-YY-4hX"/>
                         <outlet property="txtFieldAddress" destination="URr-vu-9yn" id="QPq-KG-nh9"/>
                         <outlet property="txtFieldCity" destination="Agz-PU-108" id="iI6-Pn-fq7"/>
@@ -2143,6 +2169,10 @@
         </class>
         <class className="MasterViewController" superclassName="GAITrackedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="OHAttributedLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
@@ -2207,8 +2237,6 @@
                 <relationship kind="action" name="saveProduct"/>
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
@@ -2297,7 +2325,6 @@
                 <relationship kind="outlet" name="buttonLogout" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRightAbout" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonSave" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>

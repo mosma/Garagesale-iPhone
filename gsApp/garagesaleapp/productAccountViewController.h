@@ -44,9 +44,6 @@
     Product                     *product;
     UILabel                     *waiting;
                                                                     
-    __weak IBOutlet UIButton       *save;
-    __weak IBOutlet UIButton       *cancel;
-                                                                    
     //Flags at Post
     bool                        isImagesProductPosted;
     int                         countPicsPost;

@@ -58,7 +58,6 @@
     __weak IBOutlet UIButton        *buttonPassword;
     __weak IBOutlet UIButton        *buttonAddress;
     __weak IBOutlet UIButton        *buttonLogout;
-    __weak IBOutlet UIButton        *buttonSave;
                                                                  
     __weak IBOutlet UIButton        *buttonRightAbout;
     MBProgressHUD                   *HUD;
@@ -110,7 +109,6 @@
 @property (weak, nonatomic) IBOutlet UIButton       *buttonPassword;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonAddress;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonLogout;
-@property (weak, nonatomic) IBOutlet UIButton       *buttonSave;
 
 
 @property (weak, nonatomic) IBOutlet UIButton       *buttonRightAbout;
@@ -122,6 +120,9 @@
 
 @property (weak, nonatomic) IBOutlet OHAttributedLabel  *labelTotalProducts;
 @property (weak, nonatomic) IBOutlet OHAttributedLabel  *labelAboutAPP;
+
+@property (weak, nonatomic) IBOutlet UIButton       *save;
+@property (weak, nonatomic) IBOutlet UIButton       *cancel;
 
 -(IBAction)logout:(id)sender;
 -(IBAction)dimissModal:(id)sender;
