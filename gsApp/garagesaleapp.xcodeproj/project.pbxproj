@@ -272,6 +272,12 @@
 		CCC5AB8817A1941B00984B97 /* CKParagraphStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8217A1941B00984B97 /* CKParagraphStyle.m */; };
 		CCC5AB8917A1941B00984B97 /* CKRefreshArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8417A1941B00984B97 /* CKRefreshArrowView.m */; };
 		CCC5AB8A17A1941B00984B97 /* CKRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC5AB8717A1941B00984B97 /* CKRefreshControl.m */; };
+		CCC5AB9017A1F45300984B97 /* noproducts.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB8C17A1F45200984B97 /* noproducts.png */; };
+		CCC5AB9117A1F45300984B97 /* noproducts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB8D17A1F45200984B97 /* noproducts@2x.png */; };
+		CCC5AB9217A1F45300984B97 /* noresults.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB8E17A1F45200984B97 /* noresults.png */; };
+		CCC5AB9317A1F45300984B97 /* noresults@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB8F17A1F45200984B97 /* noresults@2x.png */; };
+		CCC5AB9617A1F51A00984B97 /* nointernet.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB9417A1F51A00984B97 /* nointernet.png */; };
+		CCC5AB9717A1F51A00984B97 /* nointernet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCC5AB9517A1F51A00984B97 /* nointernet@2x.png */; };
 		CCC7B080164AEB4400BB3EC6 /* GarageNameValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */; };
 		CCC7B083164AEB5800BB3EC6 /* EmailValidate.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B082164AEB5800BB3EC6 /* EmailValidate.m */; };
 		CCC7B09D164F03E900BB3EC6 /* FPPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC7B098164F03E900BB3EC6 /* FPPopoverController.m */; };
@@ -696,6 +702,12 @@
 		CCC5AB8517A1941B00984B97 /* CKRefreshControl-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRefreshControl-Prefix.pch"; sourceTree = "<group>"; };
 		CCC5AB8617A1941B00984B97 /* CKRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshControl.h; sourceTree = "<group>"; };
 		CCC5AB8717A1941B00984B97 /* CKRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshControl.m; sourceTree = "<group>"; };
+		CCC5AB8C17A1F45200984B97 /* noproducts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noproducts.png; sourceTree = "<group>"; };
+		CCC5AB8D17A1F45200984B97 /* noproducts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noproducts@2x.png"; sourceTree = "<group>"; };
+		CCC5AB8E17A1F45200984B97 /* noresults.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noresults.png; sourceTree = "<group>"; };
+		CCC5AB8F17A1F45200984B97 /* noresults@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noresults@2x.png"; sourceTree = "<group>"; };
+		CCC5AB9417A1F51A00984B97 /* nointernet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nointernet.png; sourceTree = "<group>"; };
+		CCC5AB9517A1F51A00984B97 /* nointernet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nointernet@2x.png"; sourceTree = "<group>"; };
 		CCC7B07E164AEB4400BB3EC6 /* GarageNameValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GarageNameValidate.h; sourceTree = "<group>"; };
 		CCC7B07F164AEB4400BB3EC6 /* GarageNameValidate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GarageNameValidate.m; sourceTree = "<group>"; };
 		CCC7B081164AEB5800BB3EC6 /* EmailValidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailValidate.h; sourceTree = "<group>"; };
@@ -948,6 +960,12 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CCC5AB9417A1F51A00984B97 /* nointernet.png */,
+				CCC5AB9517A1F51A00984B97 /* nointernet@2x.png */,
+				CCC5AB8C17A1F45200984B97 /* noproducts.png */,
+				CCC5AB8D17A1F45200984B97 /* noproducts@2x.png */,
+				CCC5AB8E17A1F45200984B97 /* noresults.png */,
+				CCC5AB8F17A1F45200984B97 /* noresults@2x.png */,
 				CC8C4681172CB4C200329188 /* loupe@2x.png */,
 				CC8C467F172CB4B000329188 /* loupe.png */,
 				CC8C4678172B8AEB00329188 /* btCancelSearch.png */,
@@ -1784,6 +1802,12 @@
 				CC8C467B172B8AEB00329188 /* btCancelSearch@2x.png in Resources */,
 				CC8C4680172CB4B000329188 /* loupe.png in Resources */,
 				CC8C4682172CB4C200329188 /* loupe@2x.png in Resources */,
+				CCC5AB9017A1F45300984B97 /* noproducts.png in Resources */,
+				CCC5AB9117A1F45300984B97 /* noproducts@2x.png in Resources */,
+				CCC5AB9217A1F45300984B97 /* noresults.png in Resources */,
+				CCC5AB9317A1F45300984B97 /* noresults@2x.png in Resources */,
+				CCC5AB9617A1F51A00984B97 /* nointernet.png in Resources */,
+				CCC5AB9717A1F51A00984B97 /* nointernet@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

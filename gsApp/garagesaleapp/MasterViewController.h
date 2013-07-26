@@ -32,6 +32,10 @@
 }
 
 @property (nonatomic) BOOL isReachability;
+@property (strong, nonatomic) UIImageView *nomessage;
+
+
 -(void)addKeyboardControlsAtFields;
 -(void)releaseMemoryCache;
+-(void)showNoMessage:(NSString *)name;
 @end

@@ -303,7 +303,7 @@
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
     }else{
-        [self getAlertNoResults];
+        [self showNoMessage:@"noresults"];
     }
     [self loadAttribsToComponents:YES];
 }
@@ -312,7 +312,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [activityImageView setAlpha:0];
     NSLog(@"Encountered an error: %@", error);
-    [self getAlertNoResults];
+    [self showNoMessage:@"noresults"];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -360,16 +360,16 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)getAlertNoResults{
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: NSLocalizedString(@"search-not-found", nil)
-                          message: NSLocalizedString(@"search-not-found-info", nil)
-                          delegate: nil
-                          cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
-                          otherButtonTitles:nil];
-    [alert show];
-    alert = nil;
-}
+//-(void)getAlertNoResults{
+//    UIAlertView *alert = [[UIAlertView alloc]
+//                          initWithTitle: NSLocalizedString(@"search-not-found", nil)
+//                          message: NSLocalizedString(@"search-not-found-info", nil)
+//                          delegate: nil
+//                          cancelButtonTitle:NSLocalizedString(@"search-not-found-ok", nil)
+//                          otherButtonTitles:nil];
+//    [alert show];
+//    alert = nil;
+//}
 
 - (IBAction)showSearch:(id)sender{
     if (!isSearchDisplayed) {

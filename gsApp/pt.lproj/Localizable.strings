@@ -82,7 +82,7 @@
 "menu-explore"                  = "Explore";
 "menu-add-product"              = "Novo Produto";
 "menu-my-garage"                = "Minha Garagem";
-"keyboard-cancel-btn"           = "Cancelar";
+"keyboard-cancel-btn"           = "Cancela";
 "keyboard-previous-btn"         = "Anterior";
 "keyboard-next-btn"             = "Próximo";
 "sheet-camera-item"             = "Camera";
@@ -127,7 +127,7 @@
 "deleteThisProduct"             = "Apagar este produto";
 "delete-product-title"          = "Atenção!";
 "delete-product-desc"           = "Deseja Realmente excluir ?";
-"delete-product-btn1"           = "Cancelar";
+"delete-product-btn1"           = "Cancela";
 "delete-product-btn2"           = "Deletar";
 
 "report-title"                  = "Reportar abuso";

@@ -2207,7 +2207,6 @@
                 <relationship kind="action" name="saveProduct"/>
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonSaveProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="save" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
