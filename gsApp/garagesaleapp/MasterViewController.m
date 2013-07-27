@@ -79,7 +79,7 @@
 }
 -(void)hideNoMessage{
     [UIView animateWithDuration:0.5 animations:^{
-        [self.nomessage setCenter:CGPointMake(self.view.frame.size.width/2, -50)];
+        [self.nomessage setCenter:CGPointMake(self.view.frame.size.width/2, 800)];
     }];
 }
 
