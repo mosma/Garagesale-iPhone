@@ -366,7 +366,7 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *originalImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     UIImage *newImage;
     
@@ -521,10 +521,7 @@
         [imagePicker setDelegate:self];
         
         // Allow editing of image ?
-         [imagePicker setWantsFullScreenLayout:YES];
-        //imagePicker.allowsEditing = YES;
-
-        //[imagePicker.cameraOverlayView addSubview:libraryButton];
+        imagePicker.allowsEditing = YES;
         
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	
