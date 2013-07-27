@@ -53,9 +53,28 @@
 -(void)showNoMessage:(NSString *)name{
     UIImage *img = [UIImage imageNamed:name];
     [self.nomessage setImage:img];
-    [UIView animateWithDuration:1.5 animations:^{
-        [self.nomessage setCenter:self.navigationController.tabBarController.selectedViewController.view.center];
-    }];
+    
+    //Animate CAKeyframeAnimation
+    self.nomessage.layer.anchorPoint = CGPointMake(0.50, 1.0);
+    CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    
+    bounceAnimation.values = [NSArray arrayWithObjects:
+                              [NSNumber numberWithFloat:0.05],
+                              [NSNumber numberWithFloat:1.08],
+                              [NSNumber numberWithFloat:0.92],
+                              [NSNumber numberWithFloat:1.0],
+                              nil];
+    
+    bounceAnimation.duration = 0.3;
+    [bounceAnimation setTimingFunctions:[NSArray arrayWithObjects:
+                                         [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                         [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                         [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                         [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                         nil]];
+    bounceAnimation.removedOnCompletion = NO;
+    [self.nomessage setCenter:self.navigationController.tabBarController.selectedViewController.view.center];
+    [self.nomessage.layer addAnimation:bounceAnimation forKey:@"bounce"];
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideNoMessage) userInfo:nil repeats:NO];
 }
 -(void)hideNoMessage{
