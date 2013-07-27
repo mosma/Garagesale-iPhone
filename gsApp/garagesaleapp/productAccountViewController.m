@@ -20,6 +20,7 @@
 
 @synthesize RKObjManeger;
 @synthesize txtFieldTitle;
+@synthesize txtFieldLink;
 @synthesize txtFieldValue;
 @synthesize txtFieldState;
 @synthesize txtFieldCurrency;
@@ -55,6 +56,7 @@
     
     //initialize the i18n
     [self.txtFieldTitle setPlaceholder:NSLocalizedString(@"title", @"")];
+    [self.txtFieldLink setPlaceholder:NSLocalizedString(@"link-to-sell", @"")];
     [self.buttonDeleteProduct setTitle:NSLocalizedString(@"deleteThisProduct", @"") forState:UIControlStateNormal];
     
     //theme information
@@ -73,6 +75,7 @@
     
     [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldTitle       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    [txtFieldLink        setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldCurrency    setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [txtFieldValue       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textViewDescription setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
@@ -549,6 +552,7 @@
         
         [prodParams setObject:txtFieldValue.text            forKey:@"valorEsperado"];
         [prodParams setObject:txtFieldTitle.text            forKey:@"nome"];
+        [prodParams setObject:txtFieldLink.text             forKey:@"link"];
         [prodParams setObject:textViewDescription.text      forKey:@"descricao"];
         [prodParams setObject:[NSString stringWithFormat:@"%i", idEstado]
                        forKey:@"idEstado"];
@@ -695,6 +699,13 @@
         [txtFieldValue setText:@""];
         isValid = NO;
     }
+    else if (![GlobalFunctions isValidUrl:txtFieldLink.text] && [txtFieldLink.text length]!=0){
+        [txtFieldLink setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
+                     forKeyPath:@"_placeholderLabel.textColor"];
+        [txtFieldLink setPlaceholder:txtFieldLink.text];
+        [txtFieldLink setText:@""];
+        isValid = NO;
+    }
 
     return isValid;
 }
@@ -718,6 +729,7 @@
     [txtFieldCurrency setText:[NSString stringWithFormat:@"%@ - %@", product.currency,
                                [GlobalFunctions getCurrencyByCode:product.currency]]];
     [self.txtFieldTitle setText:[product nome]];
+    [self.txtFieldLink  setText:[product link]];
     [self.txtFieldValue setText:[product valorEsperado]];
     [self.textViewDescription setText:[product descricao]];
 }
@@ -788,7 +800,7 @@
 - (void)setupKeyboardFields
 {
     [keyboardControls setTextFields:[NSArray arrayWithObjects:
-                                     txtFieldState, txtFieldTitle,textViewDescription, txtFieldCurrency, txtFieldValue, nil]];
+                                     txtFieldState, txtFieldTitle, txtFieldLink, textViewDescription, txtFieldCurrency, txtFieldValue, nil]];
     [super addKeyboardControlsAtFields];
 }
 
@@ -922,12 +934,14 @@
     [txtFieldCurrency setText:@""];
     [txtFieldState setText:@""];
     [txtFieldTitle setText:@""];
+    [txtFieldLink  setText:@""];
     [txtFieldValue setText:@""];
     [textViewDescription setText:@""];
     gallery = nil;
     for (UIImageView *img in [scrollViewPicsProduct subviews])
         [img removeFromSuperview];
     [txtFieldTitle setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
+    [txtFieldLink setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
     [txtFieldValue setValue:[UIColor colorWithRed:152.0/255.0 green:154.0/255.0 blue:154.0/255.0 alpha:1.f] forKeyPath:@"_placeholderLabel.textColor"];
     CGSize size = CGSizeMake(0, self.scrollViewPicsProduct.frame.size.height);
     [scrollViewPicsProduct setContentSize:size];
@@ -942,6 +956,8 @@
     [self setRKObjManeger:nil];
     scrollViewPicsProduct = nil;
     [self setScrollViewPicsProduct:nil];
+    txtFieldLink = nil;
+    [self setTxtFieldLink:nil];
     txtFieldTitle = nil;
     [self setTxtFieldTitle:nil];
     txtFieldValue = nil;

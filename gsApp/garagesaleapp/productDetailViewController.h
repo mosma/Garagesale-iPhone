@@ -38,6 +38,7 @@
     __weak IBOutlet UIButton *buttonBid;
     __weak IBOutlet UIButton *buttonCancelBid;
     __weak IBOutlet UIButton *buttonOffer;
+    __weak IBOutlet UIButton *buttonBy;
     __weak IBOutlet UIButton *buttonBack;
     __weak IBOutlet UITextField *txtFieldEmail;
     __weak IBOutlet UITextField *txtFieldOffer;
@@ -87,6 +88,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonBid;
 @property (weak, nonatomic) IBOutlet UIButton *buttonCancelBid;
 @property (weak, nonatomic) IBOutlet UIButton *buttonOffer;
+@property (weak, nonatomic) IBOutlet UIButton *buttonBy;
 @property (weak, nonatomic) IBOutlet UIButton *buttonBack;
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextField *txtFieldOffer;
@@ -120,6 +122,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelBidSent;
 
 - (IBAction)animationBidView;
+- (IBAction)pushToByLink;
 - (IBAction)textFieldEditingEnded:(id)sender;
 - (void)getResourcePathGarage;
 - (void)getResourcePathProfile;

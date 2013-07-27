@@ -395,6 +395,17 @@
         return YES;
 }
 
++(BOOL)isValidUrl:(NSString*) emailString {
+    NSString *regExPattern = @"http?://([-\\w\\.]+)+(:\\d+)?(/([\\w/_\\.]*(\\?\\S+)?)?)?";
+    NSRegularExpression *regEx = [[NSRegularExpression alloc] initWithPattern:regExPattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSUInteger regExMatches = [regEx numberOfMatchesInString:emailString options:0 range:NSMakeRange(0, [emailString length])];
+    NSLog(@"%i", regExMatches);
+    if (regExMatches == 0) {
+        return NO;
+    } else
+        return YES;
+}
+
 +(BOOL)onlyNumberKey:(NSString *)string{
 	if ([string length] > 0) {
 		int length = [string length];

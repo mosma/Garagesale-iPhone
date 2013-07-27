@@ -193,7 +193,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="uitextViewBackground.png" id="inn-22-zk8" userLabel="uitextViewBackgroundDescription.png">
-                                        <rect key="frame" x="12" y="186" width="295" height="91"/>
+                                        <rect key="frame" x="12" y="234" width="295" height="91"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="831-yZ-49S" userLabel="textField01iphoneTitle.png">
@@ -201,11 +201,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dropDownCurrency.png" id="dHd-sg-7FA" userLabel="textField01iphoneCurrency.png">
-                                        <rect key="frame" x="12" y="289" width="113" height="32"/>
+                                        <rect key="frame" x="12" y="337" width="113" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="DRN-1p-jee" userLabel="textField01iphoneValue.png">
-                                        <rect key="frame" x="136" y="285" width="171" height="40"/>
+                                        <rect key="frame" x="136" y="333" width="171" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" clearButtonMode="whileEditing" id="KcX-L5-2OX" userLabel="txtFieldTitle">
@@ -215,8 +215,19 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                                     </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="anE-Fc-0HQ" userLabel="textField01iphoneTitle.png">
+                                        <rect key="frame" x="12" y="186" width="296" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Link to Sell http://..." minimumFontSize="17" clearButtonMode="whileEditing" id="sXd-aj-3z4" userLabel="txtFieldTitle">
+                                        <rect key="frame" x="21" y="186" width="280" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" keyboardType="URL"/>
+                                    </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UWq-Q7-Mfp" userLabel="textViewDescription">
-                                        <rect key="frame" x="13" y="192" width="293" height="80"/>
+                                        <rect key="frame" x="13" y="240" width="293" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
@@ -224,14 +235,14 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                                     </textView>
                                     <textField opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0,00" minimumFontSize="17" clearButtonMode="whileEditing" id="oNN-KV-k3j" userLabel="txtFieldValue">
-                                        <rect key="frame" x="142" y="286" width="156" height="36"/>
+                                        <rect key="frame" x="142" y="334" width="156" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                                     </textField>
                                     <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Ex6-UX-kFX" userLabel="txtFieldCurrency">
-                                        <rect key="frame" x="18" y="289" width="107" height="31"/>
+                                        <rect key="frame" x="18" y="337" width="107" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.55112005740000003" green="0.55112005740000003" blue="0.55112005740000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
@@ -249,7 +260,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LZD-ns-90l">
-                                        <rect key="frame" x="8" y="325" width="166" height="44"/>
+                                        <rect key="frame" x="8" y="373" width="166" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Delete this product">
@@ -330,6 +341,7 @@
                         <outlet property="scrollViewPicsProduct" destination="hxN-Mo-vec" id="axQ-9T-3uB"/>
                         <outlet property="textViewDescription" destination="UWq-Q7-Mfp" id="pId-FG-uQf"/>
                         <outlet property="txtFieldCurrency" destination="Ex6-UX-kFX" id="ZGM-U1-YWW"/>
+                        <outlet property="txtFieldLink" destination="sXd-aj-3z4" id="JJ5-0T-hB4"/>
                         <outlet property="txtFieldState" destination="hOV-6e-aOk" id="Xcs-9y-jOC"/>
                         <outlet property="txtFieldTitle" destination="KcX-L5-2OX" id="tOY-HZ-Inh"/>
                         <outlet property="txtFieldValue" destination="oNN-KV-k3j" id="iAq-U0-Nch"/>
@@ -1052,6 +1064,20 @@
                                                     <action selector="animationBidView" destination="Nbe-H5-7nH" eventType="touchUpInside" id="Gv5-Qh-NPR"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gxs-2f-RV1" userLabel="ButtonBuy">
+                                                <rect key="frame" x="163" y="69" width="80" height="38"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Buy" backgroundImage="btCancelBidItem.png">
+                                                    <color key="titleColor" red="0.50080529679999997" green="0.50418911639999997" blue="0.50418911639999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pushToByLink" destination="Nbe-H5-7nH" eventType="touchUpInside" id="dV1-yL-peE"/>
+                                                </connections>
+                                            </button>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="fV4-sm-nn9" userLabel="OHlabelValorEsperado" customClass="OHAttributedLabel">
                                                 <rect key="frame" x="10" y="70" width="233" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1363,6 +1389,7 @@
                         <outlet property="OHlabelValorEsperado" destination="fV4-sm-nn9" id="ou1-lq-21E"/>
                         <outlet property="buttonBack" destination="Rgz-Bx-1Hk" id="u9a-h3-ClW"/>
                         <outlet property="buttonBid" destination="QaR-k2-gdc" id="sxu-t1-qIn"/>
+                        <outlet property="buttonBy" destination="gxs-2f-RV1" id="wvv-XH-sS9"/>
                         <outlet property="buttonCancelBid" destination="X1R-m6-yDH" id="2ti-qu-10k"/>
                         <outlet property="buttonDeleteProduct" destination="cbb-5W-dSx" id="Nkp-ar-QPX"/>
                         <outlet property="buttonEditProduct" destination="WZN-Ek-lty" id="ELo-yF-bLl"/>
@@ -2169,10 +2196,6 @@
         </class>
         <class className="MasterViewController" superclassName="GAITrackedViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
-            </relationships>
         </class>
         <class className="OHAttributedLabel" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
@@ -2237,10 +2260,13 @@
                 <relationship kind="action" name="saveProduct"/>
                 <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldLink" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
@@ -2255,10 +2281,12 @@
                 <relationship kind="action" name="gotoProductAccountVC:"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="pushToByLink"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonBid" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonBy" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonCancelBid" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonEditProduct" candidateClass="UIButton"/>
@@ -2325,6 +2353,7 @@
                 <relationship kind="outlet" name="buttonLogout" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRightAbout" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="garageName" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
@@ -2342,6 +2371,7 @@
                 <relationship kind="outlet" name="labelRepeatPassword" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelTotalProducts" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="labelYourName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="txtFieldAddress" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="txtFieldAnyLink" candidateClass="UITextField"/>

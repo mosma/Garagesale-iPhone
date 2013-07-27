@@ -9,6 +9,7 @@
 //Localizable.Strings file for the English version.
 "offerAsk"                      = "offer (ask something)";
 "bid"                           = "Offer";
+"buy"                           = "Buy";
 "bidItem"                       = "bid this item";
 "bidSent"                       = "Bid Sent";
 "bid-sent-congrats"             = "Contrats, a email was sent for %@ garage with your offer. Wait for a answer in your email box and make a good deal.";
@@ -37,6 +38,7 @@
 "addProduct"                    = "Add droduct";
 "myGarage"                      = "My garage";
 "title"                         = "Title";
+"link-to-sell"                  = "Link to Sell http://...";
 "description"                   = "Description";
 "save"                          = "Save";
 "garageName"                    = "Garage name";

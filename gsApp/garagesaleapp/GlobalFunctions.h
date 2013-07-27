@@ -41,6 +41,7 @@ typedef enum {
 +(NSUserDefaults *)getUserDefaults;
 +(UIColor *)getColorRedNavComponets;
 +(void)drawTagsButton:(NSArray *)tags scrollView:(UIScrollView *)scrollView viewController:(UIViewController *)viewController;
++(BOOL)isValidUrl:(NSString*) emailString;
 +(BOOL)isValidEmail:(NSString*) emailString;
 +(BOOL)onlyNumberKey:(NSString *)string;
 +(UIBarButtonItem *)getIconNavigationBar:(SEL)selector viewContr:(UIViewController *)viewContr imageNamed:(NSString *)imageNamed rect:(CGRect)rect;

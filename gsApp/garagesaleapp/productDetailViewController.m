@@ -27,6 +27,7 @@
 @synthesize buttonBid;
 @synthesize buttonCancelBid;
 @synthesize buttonOffer;
+@synthesize buttonBy;
 @synthesize buttonBack;
 @synthesize txtFieldEmail;
 @synthesize txtFieldOffer;
@@ -110,10 +111,11 @@
     [self.labelCongrats setText: [NSString stringWithFormat: NSLocalizedString(@"bid-sent-congrats", nil) , [[self.arrayProfile objectAtIndex:0] garagem]]];
     [self.labelOffer setText:NSLocalizedString(@"offer", @"")];
     
-    [self.buttonOffer setTitle: NSLocalizedString(@"bid", @"") forState:UIControlStateNormal];
+    [self.buttonOffer setTitle: NSLocalizedString(@"offer", @"") forState:UIControlStateNormal];
     [self.buttonOffer.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
-    [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans"
-                                                                    size:12]];
+    [self.buttonBy setTitle: NSLocalizedString(@"buy", @"") forState:UIControlStateNormal];
+    [self.buttonBy.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
+    [self.buttonReportThisGarage.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:12]];
     [self.buttonReportThisGarage setTitle: NSLocalizedString(@"reportGarege", @"") forState:UIControlStateNormal];
     [self.buttonDeleteProduct setTitle: NSLocalizedString(@"delete", @"") forState:UIControlStateNormal];
     [self.buttonEditProduct setTitle: NSLocalizedString(@"edit", @"") forState:UIControlStateNormal];
@@ -154,6 +156,7 @@
         [self.navigationController setNavigationBarHidden:NO];
         
         buttonOffer.layer.cornerRadius = 5.0f;
+        buttonBy.layer.cornerRadius = 5.0f;
         buttonGarageDetail.layer.cornerRadius = 5.0f;
         
         viewShadow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320,5000)];
@@ -308,6 +311,9 @@
             //vH = nil;
         }
         
+        if ([self.product.link length]!=0)
+            [self.buttonBy setHidden:NO];
+            
         [buttonGarageDetail setImage:image forState:UIControlStateNormal];
         
         [garageDetailView setHidden:NO];
@@ -949,6 +955,9 @@
         [self.txtViewComment resignFirstResponder];
     }
 }
+- (IBAction)pushToByLink{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.product.link]];
+}
 
 - (IBAction)isNumberKey:(UITextField *)textField{
     [GlobalFunctions onlyNumberKey:textField.text];
@@ -1021,6 +1030,8 @@
     [self setLabelEmailProfile:nil];
     buttonBid = nil;
     buttonOffer = nil;
+    buttonBy = nil;
+    [self setButtonBy:nil];
     [self setButtonBid:nil];
     [self setButtonOffer:nil];
     [self setButtonGarageDetail:nil];

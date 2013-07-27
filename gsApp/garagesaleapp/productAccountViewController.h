@@ -26,6 +26,7 @@
     //Outlets
     __weak IBOutlet UIScrollView   *scrollViewPicsProduct;
     __weak IBOutlet UITextField    *txtFieldTitle;
+    __weak IBOutlet UITextField    *txtFieldLink;
     __weak IBOutlet UITextField    *txtFieldValue;
     __weak IBOutlet UITextField    *txtFieldState;   
     __weak IBOutlet UITextField    *txtFieldCurrency;                                                              
@@ -54,6 +55,7 @@
 @property (retain, nonatomic) RKObjectManager                  *RKObjManeger;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollViewPicsProduct;
 @property (weak, nonatomic) IBOutlet UITextField  *txtFieldTitle;
+@property (weak, nonatomic) IBOutlet UITextField  *txtFieldLink;
 @property (weak, nonatomic) IBOutlet UITextField  *txtFieldValue;
 @property (weak, nonatomic) IBOutlet UITextField  *txtFieldState;
 @property (weak, nonatomic) IBOutlet UITextField  *txtFieldCurrency;
