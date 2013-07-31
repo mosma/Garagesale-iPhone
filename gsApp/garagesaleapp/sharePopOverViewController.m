@@ -41,26 +41,26 @@
     
     //configure addthis -- (this step is optional)
     //[AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
-    [AddThisSDK setToolBarColor:[UIColor whiteColor]];
-    [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
-    
-    //Facebook connect settings
-    //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-    [AddThisSDK setFacebookAPIKey:@"280819525292258"];
-    [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-    
-    
-    [AddThisSDK setTwitterAuthenticationMode:ATTwitterAuthenticationTypeOAuth];
-    [AddThisSDK setTwitterConsumerKey:@"VjxdccbCQn88i0uvg8w"];
-    [AddThisSDK setTwitterConsumerSecret:@"lMMbO9dtewLkuAGwRYIPByztAtHdNtVOQxao9Y"];
-    [AddThisSDK setTwitterCallBackURL:@"http://garagesaleapp.me/login/ttreturn"];
-    
-    [AddThisSDK setTwitterViaText:@"garagesaleapp"];
-    
-    [AddThisSDK shouldAutoRotate:NO];
-    [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-    
-    [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
+//    [AddThisSDK setToolBarColor:[UIColor whiteColor]];
+//    [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
+//    
+//    //Facebook connect settings
+//    //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
+//    [AddThisSDK setFacebookAPIKey:@"280819525292258"];
+//    [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
+//    
+//    
+//    [AddThisSDK setTwitterAuthenticationMode:ATTwitterAuthenticationTypeOAuth];
+//    [AddThisSDK setTwitterConsumerKey:@"VjxdccbCQn88i0uvg8w"];
+//    [AddThisSDK setTwitterConsumerSecret:@"lMMbO9dtewLkuAGwRYIPByztAtHdNtVOQxao9Y"];
+//    [AddThisSDK setTwitterCallBackURL:@"http://garagesaleapp.me/login/ttreturn"];
+//    
+//    [AddThisSDK setTwitterViaText:@"garagesaleapp"];
+//    
+//    [AddThisSDK shouldAutoRotate:NO];
+//    [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
+//    
+//    [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
 }
 
 -(IBAction)facebook:(id)sender
@@ -85,16 +85,16 @@
                          NSLocalizedString(@"share-facebook-content", nil),
                          self.description];
     
-    if (imgProduct == nil)
-        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
-                   withService:@"facebook"
-                         title: title
-                   description:content];
-    else
-        [AddThisSDK shareImage:imgProduct
-                   withService:@"facebook"
-                         title: title
-                   description:content];
+//    if (imgProduct == nil)
+//        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
+//                   withService:@"facebook"
+//                         title: title
+//                   description:content];
+//    else
+//        [AddThisSDK shareImage:imgProduct
+//                   withService:@"facebook"
+//                         title: title
+//                   description:content];
     url = nil;
     title = nil;
     content = nil;
@@ -120,16 +120,16 @@
     NSString *content = [NSString stringWithFormat:
                          NSLocalizedString(@"share-twitter-content", nil), url];
 
-    if (imgProduct == nil)
-        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
-                   withService:@"twitter"
-                         title: title
-                   description:content];
-    else
-        [AddThisSDK shareImage:imgProduct
-                   withService:@"twitter"
-                         title: title
-                   description:content];
+//    if (imgProduct == nil)
+//        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
+//                   withService:@"twitter"
+//                         title: title
+//                   description:content];
+//    else
+//        [AddThisSDK shareImage:imgProduct
+//                   withService:@"twitter"
+//                         title: title
+//                   description:content];
 }
 
 - (IBAction)actionEmailComposer {

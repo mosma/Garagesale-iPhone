@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddThis.h"
 //#import <MessageUI/MessageUI.h>
 
 @interface sharePopOverViewController : UIViewController {
