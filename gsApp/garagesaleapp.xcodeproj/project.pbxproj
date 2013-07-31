@@ -172,6 +172,13 @@
 		CC5B0A9F14D2C7C900F22D35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */; };
 		CC5E52D11616242200761C5D /* Caminho.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E52D01616242200761C5D /* Caminho.m */; };
 		CC5EBAEB1730AE7D001B3F10 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5EBAE91730AE7D001B3F10 /* libGoogleAnalytics.a */; };
+		CC60730817A84B600021E1C0 /* facebookLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = CC60730617A84B600021E1C0 /* facebookLogin.png */; };
+		CC60730917A84B600021E1C0 /* facebookLogin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC60730717A84B600021E1C0 /* facebookLogin@2x.png */; };
+		CC60731017A84BAF0021E1C0 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC60730F17A84BAF0021E1C0 /* FacebookSDKResources.bundle */; };
+		CC60731217A84BCE0021E1C0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60731117A84BCE0021E1C0 /* libsqlite3.dylib */; };
+		CC60731417A84BD70021E1C0 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60731317A84BD70021E1C0 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CC60731617A84BED0021E1C0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60731517A84BED0021E1C0 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CC60731817A84BF90021E1C0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC60731717A84BF90021E1C0 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CC6085F4164217E5007CF930 /* PostProductDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6085F3164217E5007CF930 /* PostProductDelegate.m */; };
 		CC632C301590EBA800B3A617 /* textField01iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C2F1590EBA800B3A617 /* textField01iphone.png */; };
 		CC632C321590EE4F00B3A617 /* textField01iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC632C311590EE4F00B3A617 /* textField01iphone@2x.png */; };
@@ -253,7 +260,6 @@
 		CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643914B2A5D20022BA5D /* CoreGraphics.framework */; };
 		CCB0644014B2A5D20022BA5D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCB0643E14B2A5D20022BA5D /* InfoPlist.strings */; };
 		CCB0644214B2A5D20022BA5D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB0644114B2A5D20022BA5D /* main.m */; };
-		CCB0645414B2A5D30022BA5D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0645314B2A5D30022BA5D /* SenTestingKit.framework */; };
 		CCB0645514B2A5D30022BA5D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643514B2A5D20022BA5D /* UIKit.framework */; };
 		CCB0645614B2A5D30022BA5D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB0643714B2A5D20022BA5D /* Foundation.framework */; };
 		CCB0645E14B2A5D30022BA5D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCB0645C14B2A5D30022BA5D /* InfoPlist.strings */; };
@@ -580,6 +586,14 @@
 		CC5EBAE71730AE7D001B3F10 /* GAITransactionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITransactionItem.h; sourceTree = "<group>"; };
 		CC5EBAE91730AE7D001B3F10 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		CC5F423814C8730800DED726 /* garagesaleapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = garagesaleapp.entitlements; sourceTree = "<group>"; };
+		CC60730617A84B600021E1C0 /* facebookLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookLogin.png; sourceTree = "<group>"; };
+		CC60730717A84B600021E1C0 /* facebookLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebookLogin@2x.png"; sourceTree = "<group>"; };
+		CC60730D17A84BA30021E1C0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		CC60730F17A84BAF0021E1C0 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../../../../FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		CC60731117A84BCE0021E1C0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		CC60731317A84BD70021E1C0 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		CC60731517A84BED0021E1C0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		CC60731717A84BF90021E1C0 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CC6085F2164217E5007CF930 /* PostProductDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProductDelegate.h; sourceTree = "<group>"; };
 		CC6085F3164217E5007CF930 /* PostProductDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProductDelegate.m; sourceTree = "<group>"; };
 		CC632C2F1590EBA800B3A617 /* textField01iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textField01iphone.png; sourceTree = "<group>"; };
@@ -675,7 +689,6 @@
 		CCB0644314B2A5D20022BA5D /* garagesaleapp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "garagesaleapp-Prefix.pch"; sourceTree = "<group>"; };
 		CCB0644414B2A5D20022BA5D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CCB0645214B2A5D30022BA5D /* garagesaleappTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = garagesaleappTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCB0645314B2A5D30022BA5D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CCB0645B14B2A5D30022BA5D /* garagesaleappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "garagesaleappTests-Info.plist"; sourceTree = "<group>"; };
 		CCB0645D14B2A5D30022BA5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CCB0645F14B2A5D30022BA5D /* garagesaleappTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = garagesaleappTests.h; sourceTree = "<group>"; };
@@ -761,13 +774,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC60731817A84BF90021E1C0 /* Accounts.framework in Frameworks */,
+				CC60731617A84BED0021E1C0 /* AdSupport.framework in Frameworks */,
+				CC60731417A84BD70021E1C0 /* Social.framework in Frameworks */,
 				CC9DCAA9165BED87004C4F54 /* QuartzCore.framework in Frameworks */,
 				CC2D1667157D4B6D000B8BD3 /* CoreText.framework in Frameworks */,
 				CC7D7E5D1545C9C200E47F71 /* Twitter.framework in Frameworks */,
 				CC34BE2D14BFD09D00295BCE /* MessageUI.framework in Frameworks */,
 				CCB067A414B3F6AD0022BA5D /* Security.framework in Frameworks */,
-				CCB067A214B3F6130022BA5D /* libRestKit.a in Frameworks */,
-				CCB0678D14B39ACD0022BA5D /* libxml2.dylib in Frameworks */,
 				CCB0678B14B3979D0022BA5D /* SystemConfiguration.framework in Frameworks */,
 				CCB0678914B397900022BA5D /* MobileCoreServices.framework in Frameworks */,
 				CCB0646B14B2A74E0022BA5D /* CFNetwork.framework in Frameworks */,
@@ -775,6 +789,9 @@
 				CCB0643614B2A5D20022BA5D /* UIKit.framework in Frameworks */,
 				CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */,
 				CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */,
+				CC60731217A84BCE0021E1C0 /* libsqlite3.dylib in Frameworks */,
+				CCB067A214B3F6130022BA5D /* libRestKit.a in Frameworks */,
+				CCB0678D14B39ACD0022BA5D /* libxml2.dylib in Frameworks */,
 				CC16B4551545BD6A00A4487B /* libAddThis.a in Frameworks */,
 				CC5EBAEB1730AE7D001B3F10 /* libGoogleAnalytics.a in Frameworks */,
 			);
@@ -784,7 +801,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCB0645414B2A5D30022BA5D /* SenTestingKit.framework in Frameworks */,
 				CCB0645514B2A5D30022BA5D /* UIKit.framework in Frameworks */,
 				CCB0645614B2A5D30022BA5D /* Foundation.framework in Frameworks */,
 			);
@@ -960,6 +976,8 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC60730617A84B600021E1C0 /* facebookLogin.png */,
+				CC60730717A84B600021E1C0 /* facebookLogin@2x.png */,
 				CCC5AB9417A1F51A00984B97 /* nointernet.png */,
 				CCC5AB9517A1F51A00984B97 /* nointernet@2x.png */,
 				CCC5AB8C17A1F45200984B97 /* noproducts.png */,
@@ -1282,6 +1300,10 @@
 		CCB0642614B2A5CE0022BA5D = {
 			isa = PBXGroup;
 			children = (
+				CC60731717A84BF90021E1C0 /* Accounts.framework */,
+				CC60731517A84BED0021E1C0 /* AdSupport.framework */,
+				CC60731317A84BD70021E1C0 /* Social.framework */,
+				CC60731117A84BCE0021E1C0 /* libsqlite3.dylib */,
 				CCB0678C14B39ACD0022BA5D /* libxml2.dylib */,
 				CCB0676714B3956E0022BA5D /* RestKit.xcodeproj */,
 				CCB0643B14B2A5D20022BA5D /* garagesaleapp */,
@@ -1304,6 +1326,8 @@
 		CCB0643414B2A5D20022BA5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC60730F17A84BAF0021E1C0 /* FacebookSDKResources.bundle */,
+				CC60730D17A84BA30021E1C0 /* FacebookSDK.framework */,
 				CC9DCAA8165BED87004C4F54 /* QuartzCore.framework */,
 				CC2D1666157D4B6D000B8BD3 /* CoreText.framework */,
 				CC7D7E5C1545C9C200E47F71 /* Twitter.framework */,
@@ -1316,7 +1340,6 @@
 				CCB0643514B2A5D20022BA5D /* UIKit.framework */,
 				CCB0643714B2A5D20022BA5D /* Foundation.framework */,
 				CCB0643914B2A5D20022BA5D /* CoreGraphics.framework */,
-				CCB0645314B2A5D30022BA5D /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1808,6 +1831,9 @@
 				CCC5AB9317A1F45300984B97 /* noresults@2x.png in Resources */,
 				CCC5AB9617A1F51A00984B97 /* nointernet.png in Resources */,
 				CCC5AB9717A1F51A00984B97 /* nointernet@2x.png in Resources */,
+				CC60730817A84B600021E1C0 /* facebookLogin.png in Resources */,
+				CC60730917A84B600021E1C0 /* facebookLogin@2x.png in Resources */,
+				CC60731017A84BAF0021E1C0 /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2011,11 +2037,15 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
@@ -2117,11 +2147,15 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",
@@ -2142,11 +2176,15 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AddThis\"",

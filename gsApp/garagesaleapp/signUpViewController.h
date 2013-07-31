@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
 #import "homeViewController.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 #import "viewHelper.h"
 
 @interface signUpViewController : MasterViewController <UIScrollViewDelegate, 
                                                         RKObjectLoaderDelegate,
-                                                        MBProgressHUDDelegate>{
+                                                        MBProgressHUDDelegate,
+                                                        FBLoginViewDelegate>{
     //Sigup outlets
     __weak IBOutlet UILabel         *labelSignup;
     __weak IBOutlet UILabel         *labelLogin;
@@ -82,6 +85,9 @@
 //Others
 @property (nonatomic, retain) RKObjectManager       *RKObjManeger;
 @property (nonatomic, retain) NSUserDefaults        *settingsAccount;
+
+//FaceBook Login
+@property (strong, nonatomic) IBOutlet UIButton     *buttonFaceBook;
 
 //Actions and functions
 -(void)loadAttribsToComponents;

@@ -1866,6 +1866,21 @@
                                             <segue destination="SG7-S5-ObK" kind="push" id="XFu-UH-jOe"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CQc-HQ-ocI">
+                                        <rect key="frame" x="10" y="266" width="240" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="facebookLogin.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonClickHandler:" destination="L0X-YO-oem" eventType="touchUpInside" id="oDC-n9-QSL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -2181,6 +2196,7 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="113" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
+        <image name="facebookLogin.png" width="240" height="48"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="line.png" width="320" height="1"/>
         <image name="loupe.png" width="22" height="23"/>
@@ -2402,6 +2418,7 @@
                 <relationship kind="action" name="setEmailWrited:"/>
                 <relationship kind="action" name="setGarageNameWrited:"/>
                 <relationship kind="action" name="trackRecoverPassword:"/>
+                <relationship kind="outlet" name="buttonFaceBook" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
