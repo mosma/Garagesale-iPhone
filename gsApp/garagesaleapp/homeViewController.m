@@ -15,13 +15,15 @@
 @synthesize scrollViewMain;
 @synthesize viewTopPage;
 @synthesize searchBarProduct;
-@synthesize txtFieldSearch;
-@synthesize viewSearch;
+@synthesize viewSearchFront;
+@synthesize viewSearchFooter;
 @synthesize isFromSignUp;
 @synthesize buttonSignIn;
 @synthesize buttonSignUp;
-@synthesize imgTxtField;
-@synthesize btCancelSearch;
+
+//@synthesize txtFieldSearch;
+//@synthesize imgTxtField;
+//@synthesize btCancelSearch;
 
 - (void)viewDidLoad
 {
@@ -167,18 +169,20 @@
         [UIView commitAnimations];
     }
     
+    [viewSearchFooter setSettings];
+    [viewSearchFront  setSettings];
+    
     if (IS_IPHONE_5){
-        [viewSearch setCenter:CGPointMake(160, 136)];
+        [viewSearchFront setCenter:CGPointMake(160, 136)];
         [viewTopPage setCenter:CGPointMake(160, 132)];
     }else {
-        [viewSearch setCenter:CGPointMake(160, 146)];
+        [viewSearchFront setCenter:CGPointMake(160, 146)];
         [viewTopPage setCenter:CGPointMake(160, 142)];
     }
     
     mutArrayProducts = [[NSMutableArray alloc] init];
     
     //Setting i18n
-    [self.txtFieldSearch setPlaceholder:NSLocalizedString(@"homeSearchField", @"")];
     [self.buttonSignIn setTitle:NSLocalizedString(@"signinButton", @"") forState:UIControlStateNormal];
     [self.buttonSignUp setTitle:NSLocalizedString(@"signupButton", @"") forState:UIControlStateNormal];
     
@@ -191,7 +195,7 @@
     [shadowSearch setBackgroundColor:[UIColor whiteColor]];
     [shadowSearch setAlpha:0.6];
     [shadowSearch setHidden:YES];
-    [self.view insertSubview:viewTopPage belowSubview:viewSearch];
+    [self.view insertSubview:viewTopPage belowSubview:viewSearchFront];
     [self.view insertSubview:shadowSearch aboveSubview:viewTopPage];
 
     [viewTopPage.layer setCornerRadius:6];
@@ -199,16 +203,7 @@
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
     [viewTopPage.layer setShadowOpacity:0.5];
     viewTopPage.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
-    
-    [viewSearch.layer setCornerRadius:6];
-    [viewSearch.layer setShadowColor:[[UIColor blackColor] CGColor]];
-    [viewSearch.layer setShadowOffset:CGSizeMake(1, 2)];
-    [viewSearch.layer setShadowOpacity:0.7];
-    viewSearch.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
-    
-    [txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
-    [txtFieldSearch setDelegate:self];
-    
+
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
     [self.navigationItem setHidesBackButton:YES];
@@ -298,11 +293,11 @@
 - (IBAction)showHideViewSearch:(id)sender{
     if (isTopViewShowing) {
         [shadowSearch setHidden:YES];
-        [txtFieldSearch resignFirstResponder];
+        [viewSearchFront.txtFieldSearch resignFirstResponder];
     }
     else {
         [shadowSearch setHidden:NO];
-        [txtFieldSearch becomeFirstResponder];
+        [viewSearchFront.txtFieldSearch becomeFirstResponder];
     }
     isTopViewShowing = !isTopViewShowing;
 }
@@ -368,22 +363,49 @@
             
             countLoads++;
         }
+        if (countLoads == 7) {
+            int spaceNotFinding = 300;
+            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+spaceNotFinding)];
+            
+            UIImageView *publicity01 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
+            UIImageView *publicity02 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
+            [publicity01 setFrame:CGRectMake(0, 0, publicity01.image.size.width, publicity01.image.size.height)];
+            [publicity02 setFrame:CGRectMake(0, 0, publicity02.image.size.width, publicity02.image.size.height)];
+            
+            [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-330)];
+            [publicity01      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-120)];
+            [publicity02      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-240)];
+
+            [self.scrollViewMain addSubview:publicity01];
+            [self.scrollViewMain addSubview:publicity02];
+            [self.scrollViewMain addSubview:viewSearchFooter];
+
+            countLoads++;
+        }
+        if (countLoads == 6) {
+            countLoads++;
+        }
     }
 }
+//- (id)clone:(id)obj{
+//    NSData *archivedViewData = [NSKeyedArchiver archivedDataWithRootObject:obj];
+//    id clone = [NSKeyedUnarchiver unarchiveObjectWithData:archivedViewData];
+//    return clone;
+//}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
-        if (!viewSearch.hidden || !viewTopPage.hidden){
-            [viewSearch setAlpha:0];
+        if (!viewSearchFront.hidden || !viewTopPage.hidden){
+            [viewSearchFront setAlpha:0];
             if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
 
                 [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
             }else
                 [viewTopPage setAlpha:0];
-            [txtFieldSearch resignFirstResponder];
+            [viewSearchFront.txtFieldSearch resignFirstResponder];
         }
     }else{
-        [viewSearch setAlpha:1.0];
+        [viewSearchFront setAlpha:1.0];
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
@@ -434,38 +456,10 @@
         
     if (!isAnimationLogo) {
         [viewTopPage setHidden:YES];
-        [viewSearch setHidden:YES];
+        [viewSearchFront setHidden:YES];
         [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(setFlagFirstLoad) userInfo:nil repeats:NO];
     }
 //    frameSize = nil;
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    [UIView animateWithDuration:0.2 animations:^{
-        CGRect frameCopy1 = imgTxtField.frame;
-        frameCopy1.size.width = 213.f;
-        imgTxtField.frame = frameCopy1;
-        
-        CGRect frameCopy2 = txtFieldSearch.frame;
-        frameCopy2.size.width = 178.f;
-        txtFieldSearch.frame = frameCopy2;
-        
-        [btCancelSearch setHidden:NO];
-    }];
-}
-
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    [UIView animateWithDuration:0.2 animations:^{
-        CGRect frameCopy1 = imgTxtField.frame;
-        frameCopy1.size.width = 267.f;
-        imgTxtField.frame = frameCopy1;
-        
-        CGRect frameCopy2 = txtFieldSearch.frame;
-        frameCopy2.size.width = 232.f;
-        txtFieldSearch.frame = frameCopy2;
-        
-        [btCancelSearch setHidden:YES];
-    }];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField{
@@ -479,13 +473,13 @@
     [gest setNumberOfTouchesRequired:1];
     if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
         [gest addTarget:self action:@selector(showHideViewSearch:)];
-        [viewSearch setHidden:NO];
+        [viewSearchFront setHidden:NO];
         [viewTopPage setHidden:YES];
         [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         searchBarProduct.hidden=YES;
     }else {
         [gest addTarget:self action:@selector(showHideTopPage:)];
-        [viewSearch setHidden:YES];
+        [viewSearchFront setHidden:YES];
         [viewTopPage setHidden:NO];
         [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:YES];
     }
@@ -620,18 +614,15 @@
     [self setViewTopPage:nil];
     searchBarProduct = nil;
     [self setSearchBarProduct:nil];
-    txtFieldSearch = nil;
+    viewSearchFront = nil;
+    [self setViewSearchFront:nil];
+    viewSearchFooter = nil;
+    [self setViewSearchFooter:nil];
     [self setSearchBarProduct:nil];
     isFromSignUp = nil;
     [self setIsFromSignUp:nil];
     scrollViewMain = nil;
     [self setScrollViewMain:nil];
-    txtFieldSearch = nil;
-    [self setTxtFieldSearch:nil];
-    imgTxtField = nil;
-    [self setImgTxtField:nil];
-    btCancelSearch = nil;
-    [self setBtCancelSearch:nil];
     self.refreshControl = nil;
     [self setRefreshControl:nil];
     [super viewDidUnload];
@@ -642,5 +633,47 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+@end
+
+
+@implementation viewSearchArea
+
+-(void)setSettings{
+    [self.txtFieldSearch setPlaceholder:NSLocalizedString(@"homeSearchField", @"")];
+    [self.layer setCornerRadius:6];
+    [self.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.layer setShadowOffset:CGSizeMake(1, 2)];
+    [self.layer setShadowOpacity:0.7];
+    self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
+    [self.txtFieldSearch setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+}
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frameCopy1 = self.imgTxtField.frame;
+        frameCopy1.size.width = 213.f;
+        self.imgTxtField.frame = frameCopy1;
+        
+        CGRect frameCopy2 = self.txtFieldSearch.frame;
+        frameCopy2.size.width = 178.f;
+        self.txtFieldSearch.frame = frameCopy2;
+        
+        [self.btCancelSearch setHidden:NO];
+    }];
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frameCopy1 = self.imgTxtField.frame;
+        frameCopy1.size.width = 267.f;
+        self.imgTxtField.frame = frameCopy1;
+        
+        CGRect frameCopy2 = self.txtFieldSearch.frame;
+        frameCopy2.size.width = 232.f;
+        self.txtFieldSearch.frame = frameCopy2;
+        
+        [self.btCancelSearch setHidden:YES];
+    }];
+}
+
 
 @end

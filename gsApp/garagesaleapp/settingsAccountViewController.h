@@ -10,6 +10,7 @@
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "OHAttributedLabel.h"
 #import "MBProgressHUD.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface settingsAccountViewController : MasterViewController <UIScrollViewDelegate, 
                                                                 RKObjectLoaderDelegate,

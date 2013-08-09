@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "RestKit/RKJSONParserJSONKit.h"
 #import "QuartzCore/QuartzCore.h"
 #import "homeViewController.h"
@@ -53,11 +52,12 @@
     MBProgressHUD                   *HUD;
     viewHelper                      *vH;
     BOOL                            isLoadingDone;
-    int                             flagViewControllers;
+    int                             flagRequest;
     NSTimer                         *timer;
                                                  
     NSString                        *garageNameWrited;
     NSString                        *emailWrited;
+                                                            
 }
 
 //Sigup outlets
@@ -88,6 +88,12 @@
 
 //FaceBook Login
 @property (strong, nonatomic) IBOutlet UIButton     *buttonFaceBook;
+@property (strong, nonatomic) NSString *FBGarageName;
+@property (strong, nonatomic) NSString *FBName;
+@property (strong, nonatomic) NSString *FBEmail;
+@property (strong, nonatomic) NSString *FBLocale;
+@property (strong, nonatomic) NSString *FBToken;
+
 
 //Actions and functions
 -(void)loadAttribsToComponents;

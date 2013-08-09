@@ -509,7 +509,10 @@
     userDefaults = nil;
     
     [[[[self.tabBarController.viewControllers objectAtIndex:2] visibleViewController]
-      navigationController] popToRootViewControllerAnimated:NO];    
+      navigationController] popToRootViewControllerAnimated:NO];
+    
+    [[FBSession activeSession] closeAndClearTokenInformation];
+
 }
 
 -(void)backPage{

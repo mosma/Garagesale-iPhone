@@ -198,6 +198,10 @@
 		CC77A86C16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC77A86A16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png */; };
 		CC7C420016B2C82F002F6CAC /* Currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC7C41FF16B2C82F002F6CAC /* Currencies.plist */; };
 		CC7D7E5D1545C9C200E47F71 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7D7E5C1545C9C200E47F71 /* Twitter.framework */; };
+		CC807BBE17B13C8500747143 /* publicity02.png in Resources */ = {isa = PBXBuildFile; fileRef = CC807BBA17B13C8500747143 /* publicity02.png */; };
+		CC807BBF17B13C8500747143 /* publicity02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC807BBB17B13C8500747143 /* publicity02@2x.png */; };
+		CC807BC017B13C8500747143 /* publicity01.png in Resources */ = {isa = PBXBuildFile; fileRef = CC807BBC17B13C8500747143 /* publicity01.png */; };
+		CC807BC117B13C8500747143 /* publicity01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC807BBD17B13C8500747143 /* publicity01@2x.png */; };
 		CC8374401680CADD002754B8 /* popOverBack.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83743E1680CADD002754B8 /* popOverBack.png */; };
 		CC8374411680CADD002754B8 /* popOverBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC83743F1680CADD002754B8 /* popOverBack@2x.png */; };
 		CC8374441680D117002754B8 /* btFacebookShare.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374421680D117002754B8 /* btFacebookShare.png */; };
@@ -564,6 +568,10 @@
 		CC77A86A16126902006D6CEA /* iconDeletePicsAtGalleryProdAcc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconDeletePicsAtGalleryProdAcc@2x.png"; sourceTree = "<group>"; };
 		CC7C41FF16B2C82F002F6CAC /* Currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Currencies.plist; sourceTree = "<group>"; };
 		CC7D7E5C1545C9C200E47F71 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		CC807BBA17B13C8500747143 /* publicity02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicity02.png; sourceTree = "<group>"; };
+		CC807BBB17B13C8500747143 /* publicity02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicity02@2x.png"; sourceTree = "<group>"; };
+		CC807BBC17B13C8500747143 /* publicity01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicity01.png; sourceTree = "<group>"; };
+		CC807BBD17B13C8500747143 /* publicity01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicity01@2x.png"; sourceTree = "<group>"; };
 		CC83743E1680CADD002754B8 /* popOverBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popOverBack.png; sourceTree = "<group>"; };
 		CC83743F1680CADD002754B8 /* popOverBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popOverBack@2x.png"; sourceTree = "<group>"; };
 		CC8374421680D117002754B8 /* btFacebookShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btFacebookShare.png; sourceTree = "<group>"; };
@@ -788,6 +796,10 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CC807BBA17B13C8500747143 /* publicity02.png */,
+				CC807BBB17B13C8500747143 /* publicity02@2x.png */,
+				CC807BBC17B13C8500747143 /* publicity01.png */,
+				CC807BBD17B13C8500747143 /* publicity01@2x.png */,
 				CC60730617A84B600021E1C0 /* facebookLogin.png */,
 				CC60730717A84B600021E1C0 /* facebookLogin@2x.png */,
 				CCC5AB9417A1F51A00984B97 /* nointernet.png */,
@@ -1664,6 +1676,10 @@
 				CC60730817A84B600021E1C0 /* facebookLogin.png in Resources */,
 				CC60730917A84B600021E1C0 /* facebookLogin@2x.png in Resources */,
 				CCDC279D17A8C508004954D0 /* FacebookSDKResources.bundle in Resources */,
+				CC807BBE17B13C8500747143 /* publicity02.png in Resources */,
+				CC807BBF17B13C8500747143 /* publicity02@2x.png in Resources */,
+				CC807BC017B13C8500747143 /* publicity01.png in Resources */,
+				CC807BC117B13C8500747143 /* publicity01@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
