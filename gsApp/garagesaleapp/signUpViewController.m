@@ -225,6 +225,28 @@
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
+- (void)getResourcePathProduct{
+    //Initializing the Object Manager
+    RKObjManeger = [RKObjectManager sharedManager];
+    
+    RKObjectMapping *productMapping = [Mappings getProductMapping];
+    RKObjectMapping *photoMapping = [Mappings getPhotoMapping];
+    RKObjectMapping *caminhoMapping = [Mappings getCaminhoMapping];
+    
+    //Relationship
+    [productMapping mapKeyPath:@"fotos" toRelationship:@"fotos" withMapping:photoMapping serialize:NO];
+    
+    //Relationship
+    [photoMapping mapKeyPath:@"caminho" toRelationship:@"caminho" withMapping:caminhoMapping serialize:NO];
+    
+    //LoadUrlResourcePath
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/product/%@",
+                                                  [settingsAccount valueForKey:@"garagem"]] objectMapping:productMapping delegate:self];
+    
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [timer invalidate];
@@ -233,38 +255,26 @@
             [self setLogin:objects];
         }else if  ([[objects objectAtIndex:0] isKindOfClass:[Profile class]]){
             [self setProfile:objects];
-            [self getResourcePathGarage];
+            [self getResourcePathProduct];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[Garage class]]){
-            [self.navigationController setNavigationBarHidden:YES animated:NO];
-            homeViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-            [home setIsFromSignUp:YES];
-            [self.navigationController pushViewController:home animated:YES];
             [self setGarage:objects];
-            //reset previous viewControllers.
-            self.navigationController.viewControllers = [[NSArray alloc] initWithObjects:home, nil];
+            [self pushAfterLogin];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[GarageNameValidate class]]){
             garageNameWrited = textFieldGarageName.text;
-            //if ([(GarageNameValidate *)[objects objectAtIndex:0] message] == @"valid")
         }else if ([[objects objectAtIndex:0] isKindOfClass:[EmailValidate class]]){
             emailWrited = textFieldEmail.text;
-            //Realiza Novo Registro com FaceBook
             if ([[[objects objectAtIndex:0] message] isEqualToString:@"valid"]){
                 [self newRegisterWithFacebook];
             }
         }else if ([[objects objectAtIndex:0] isKindOfClass:[RecoverPassword class]]){
             if ([[[objects objectAtIndex:0] message] isEqualToString:@"true"]) {
-                UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:NSLocalizedString(@"yourPassword",nil)
-                                  message:NSLocalizedString(@"form-recover-password",nil)
-                                  delegate: nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-                [alert show];
-                [buttonRecover setEnabled:YES];
-                [txtFieldEmailRecover setText:@""];
-                alert = nil;
+                [self alertRecoverPassword];
             }
         }
+    }
+    if ([objects count] == 0 || [[objects objectAtIndex:0] isKindOfClass:[Product class]]){
+        _qtdProducts = [objects count];
+        [self getResourcePathGarage];
     }
 }
 -(void)newRegisterWithFacebook{
@@ -274,7 +284,7 @@
        NSDictionary<FBGraphUser> *user,
        NSError *error) {
          if (error) {
-             NSLog(@"error Going Form New Garage");
+             NSLog(@"error to going a new form garage");
          }else{
              signUpViewController *signup = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUp"];
              [signup setFBGarageName:[user objectForKey:@"username"]];
@@ -285,6 +295,32 @@
              [self.navigationController pushViewController:signup animated:YES];
          }
      }];
+}
+-(void)pushAfterLogin{
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    homeViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
+    [home setIsFromSignUp:YES];
+    [self.navigationController pushViewController:home animated:YES];
+    self.navigationController.viewControllers = [[NSArray alloc] initWithObjects:home, nil];
+    if(_qtdProducts < 5)
+        home.tabBarController.selectedIndex = 2;
+    else
+        [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Home"
+                                                         withAction:@"Login"
+                                                          withLabel:@"More than 5 products"
+                                                          withValue:nil];
+}
+-(void)alertRecoverPassword{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:NSLocalizedString(@"yourPassword",nil)
+                          message:NSLocalizedString(@"form-recover-password",nil)
+                          delegate: nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil];
+    [alert show];
+    [buttonRecover setEnabled:YES];
+    [txtFieldEmailRecover setText:@""];
+    alert = nil;
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {

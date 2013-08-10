@@ -97,6 +97,8 @@
 @property (strong, nonatomic) NSString *FBId;
 @property (strong, nonatomic) NSString *FBToken;
 
+@property (nonatomic) int qtdProducts;
+
 //Actions and functions
 -(void)loadAttribsToComponents;
 -(void)setLogin:(NSArray *)objects;
