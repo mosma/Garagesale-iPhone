@@ -442,6 +442,7 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     NSLog(@"Encountered an error: %@", error);
+    [self.refreshControl endRefreshing];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {

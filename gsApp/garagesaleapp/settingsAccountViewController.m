@@ -285,6 +285,10 @@
 - (void)getResourcePathProfile {
     RKObjectMapping *profileMapping = [Mappings getProfileMapping];
     
+    
+    NSLog(@"%@", [NSString stringWithFormat:@"/profile/%@",
+                [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]);
+    
     [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@",
                                              [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"]]
                               objectMapping:profileMapping delegate:self];
@@ -318,7 +322,7 @@
                                                       withValue:nil];
     
     NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *prodParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *settingsParams = [[NSMutableDictionary alloc] init];
 
     if (txtFieldCity.text.length > 100)
         [txtFieldCity setText:[txtFieldCity.text substringWithRange:NSMakeRange(0, 100)]];
@@ -332,31 +336,36 @@
         [txtFieldAnyLink setText:[txtFieldAnyLink.text substringWithRange:NSMakeRange(0, 200)]];
     
     NSString *idPerson = [[GlobalFunctions getUserDefaults] objectForKey:@"idPerson"];
-    [prodParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldGarageName != nil ? txtFieldGarageName.placeholder : [[GlobalFunctions getUserDefaults]
                                                                                         objectForKey:@"garagem"]  forKey:@"garagem"];
-    [prodParams setObject:txtFieldCurrentPassword   != nil ? txtFieldCurrentPassword.text :        @""          forKey:@"oldPassword"];
-    [prodParams setObject:txtFieldNewPassword       != nil ? txtFieldNewPassword.text :            @""          forKey:@"newPassword"];
-    [prodParams setObject:txtFieldRepeatNewPassword != nil ? txtFieldRepeatNewPassword.text :      @""          forKey:@"newPassword2"];
-    [prodParams setObject:txtFieldYourName          != nil ? txtFieldYourName.text :[[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldCurrentPassword   != nil ? txtFieldCurrentPassword.text :        @""          forKey:@"oldPassword"];
+    [settingsParams setObject:txtFieldNewPassword       != nil ? txtFieldNewPassword.text :            @""          forKey:@"newPassword"];
+    [settingsParams setObject:txtFieldRepeatNewPassword != nil ? txtFieldRepeatNewPassword.text :      @""          forKey:@"newPassword2"];
+    [settingsParams setObject:txtFieldYourName          != nil ? txtFieldYourName.text :[[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"nome"]     forKey:@"nome"];
-    [prodParams setObject:txtFieldEmail             != nil ? txtFieldEmail.placeholder : [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldEmail             != nil ? txtFieldEmail.placeholder : [[GlobalFunctions getUserDefaults]
                                                                                           objectForKey:@"email"]    forKey:@"email"];
-    [prodParams setObject:txtViewAbout              != nil ? txtViewAbout.text :    [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtViewAbout              != nil ? txtViewAbout.text :    [[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"about"]    forKey:@"about"];
-    [prodParams setObject:txtFieldAnyLink           != nil ? txtFieldAnyLink.text : [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldAnyLink           != nil ? txtFieldAnyLink.text : [[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"link"]     forKey:@"link"];
-    [prodParams setObject:txtFieldAddress           != nil ? txtFieldAddress.text : [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldAddress           != nil ? txtFieldAddress.text : [[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"address"]   forKey:@"address"];
-    [prodParams setObject:txtFieldCity              != nil ? txtFieldCity.text :    [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldCity              != nil ? txtFieldCity.text :    [[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"city"]     forKey:@"city"];
-    [prodParams setObject:txtFieldCountry           != nil ? txtFieldCountry.text : [[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldCountry           != nil ? txtFieldCountry.text : [[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"country"]   forKey:@"country"];
-    [prodParams setObject:txtFieldDistrict          != nil ? txtFieldDistrict.text :[[GlobalFunctions getUserDefaults]
+    [settingsParams setObject:txtFieldDistrict          != nil ? txtFieldDistrict.text :[[GlobalFunctions getUserDefaults]
                                                                                      objectForKey:@"district"] forKey:@"district"];
-    [prodParams setObject:@""                               forKey:@"idState"];
-    [prodParams setObject:@""                               forKey:@"lang"];
-    [prodParams setObject:@""                               forKey:@"localization"];
+    [settingsParams setObject:@""                               forKey:@"idState"];
+    [settingsParams setObject:@""                               forKey:@"lang"];
     
+    if (_isAddressChanged)
+        [settingsParams setObject:@"0,0"                               forKey:@"localization"];
+    else
+        [settingsParams setObject:[[GlobalFunctions getUserDefaults]
+                     objectForKey:@"localization"]                     forKey:@"localization"];
+
 
     //The server ask me for this format, so I set it here:
     [postData setObject:[[GlobalFunctions getUserDefaults] objectForKey:@"token"] forKey:@"token"];
@@ -365,7 +374,7 @@
     //Parsing prodParams to JSON!
     id<RKParser> parser = [[RKParserRegistry sharedRegistry] parserForMIMEType:[GlobalFunctions getMIMEType]];
     NSError *error = nil;
-    NSString *json = [parser stringFromObject:prodParams error:&error];
+    NSString *json = [parser stringFromObject:settingsParams error:&error];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     
@@ -373,7 +382,7 @@
     if (!error){
         //Add ProductJson in postData for key profile
         [postData setObject:json forKey:@"profile"];
-        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i", [[[GlobalFunctions getUserDefaults] objectForKey:@"id"] intValue]]  params:postData delegate:self] send];
+        [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/profile/%i&iphoneApp=true", [[[GlobalFunctions getUserDefaults] objectForKey:@"id"] intValue]]  params:postData delegate:self] send];
         [postData setObject:json forKey:@"garage"];
         [[[RKClient sharedClient] post:[NSString stringWithFormat:@"/garage/%@", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]] params:postData delegate:self] send];
     }
@@ -393,7 +402,7 @@
 	[HUD showWhileExecuting:@selector(resultProgress) onTarget:self withObject:nil animated:YES];
     
     postData = nil;
-    prodParams = nil;
+    settingsParams = nil;
 }
 
 -(BOOL)validateFormPassword{
@@ -534,6 +543,8 @@
     if ([keyboardControls.textFields containsObject:textField])
         keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
+    
+    if ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) self.isAddressChanged = YES;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView

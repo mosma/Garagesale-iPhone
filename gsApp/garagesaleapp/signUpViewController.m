@@ -39,42 +39,9 @@
 	// Do any additional setup after loading the view.
 }
 
-// FBSample logic
-// main helper method to update the UI to reflect the current state of the session.
-- (void)returnFB{
-    // get the app delegate, so that we can reference the session property
-   // AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
-    if ([[FBSession activeSession] isOpen]) {
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection,
-           NSDictionary<FBGraphUser> *user,
-           NSError *error) {
-             if (error) {
-                 //error
-             }else{
-                [self getValidEmail:[user objectForKey:@"email"]];
-             }
-         }];
-        // valid account UI is shown whenever the session is open
-        [self.buttonFaceBook setTitle:@"Log out" forState:UIControlStateNormal];
-        //[self.textNoteOrLink setText:[NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
-        //appDelegate.session.accessTokenData.accessToken]];
-    } else {
-        // login-needed account UI is shown whenever the session is closed
-        [self.buttonFaceBook setTitle:@"Log in" forState:UIControlStateNormal];
-        //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
-    }
-}
-
 - (IBAction)buttonClickHandler:(id)sender {
- 
-    
-    
     if ([[FBSession activeSession] isOpen]) {
-        
-                [self returnFB];
-        
-
+        [self returnFB];
     } else {
         [FBSession openActiveSessionWithPublishPermissions:@[@"email", @"user_location"]
                                            defaultAudience:FBSessionDefaultAudienceOnlyMe
@@ -87,15 +54,33 @@
                                              }
                                          }];
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
+}
+// FBSample logic
+// main helper method to update the UI to reflect the current state of the session.
+- (void)returnFB{
+    [self initProgress];
+    // get the app delegate, so that we can reference the session property
+    // AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    if ([[FBSession activeSession] isOpen]) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             if (error) {
+                 //error
+             }else{
+                 [self getValidEmail:[user objectForKey:@"email"]];
+             }
+         }];
+        // valid account UI is shown whenever the session is open
+        [self.buttonFaceBook setTitle:@"Log out" forState:UIControlStateNormal];
+        //[self.textNoteOrLink setText:[NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
+        //appDelegate.session.accessTokenData.accessToken]];
+    } else {
+        // login-needed account UI is shown whenever the session is closed
+        [self.buttonFaceBook setTitle:@"Log in" forState:UIControlStateNormal];
+        //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
+    }
 }
 
 - (void)loadAttribsToComponents{
@@ -196,7 +181,12 @@
     [textFieldEmail      setText:self.FBEmail];
     if ([[[FBSession activeSession] accessTokenData] accessToken]) {
         [textFieldPassword setText:[[[FBSession activeSession] accessTokenData] accessToken]];
-        //[textFieldPassword setHidden:YES];
+        [textFieldPassword setHidden:YES];
+        [_imgFieldPassword setHidden:YES];
+        [textFieldEmail setHidden:YES];
+        [_imgFieldEmail setHidden:YES];
+        if ([nibId rangeOfString:@"fgR-qs-ekZ"].length != 0) //NewGarage
+            [buttonFaceBook setHidden:YES];
     }
 }
 
@@ -209,7 +199,7 @@
     RKObjectMapping *loginMapping = [Mappings getLoginMapping];
     
     //LoadUrlResourcePath
-    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@", 
+    [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat: @"/login/?user=%@&password=%@&iphoneApp=true", 
                                                   textFieldUserName.text, textFieldUserPassword.text ] objectMapping:loginMapping delegate:self];
     
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
@@ -278,6 +268,7 @@
     }
 }
 -(void)newRegisterWithFacebook{
+    isLoadingDone = YES;
     [[FBRequest requestForMe] startWithCompletionHandler:
      ^(FBRequestConnection *connection,
        NSDictionary<FBGraphUser> *user,
@@ -290,6 +281,7 @@
              [signup setFBName:[user objectForKey:@"name"]];
              [signup setFBEmail:[user objectForKey:@"email"]];
              [signup setFBLocale:[user objectForKey:@"locale"]];
+             [signup setFBId:[user objectForKey:@"id"]];
              [self.navigationController pushViewController:signup animated:YES];
          }
      }];
@@ -304,31 +296,34 @@
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
         [textFieldUserPassword setText:@""];
+        isLoadingDone = YES;
     } else if (flagRequest == 1){
         [textFieldGarageName setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         garageNameWrited = textFieldGarageName.text;
         [textFieldGarageName setText:@""];
+        isLoadingDone = YES;
     } else if (flagRequest == 2) {
         [textFieldEmail setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         emailWrited = textFieldEmail.text;
         [textFieldEmail setText:@""];
+        isLoadingDone = YES;
     } else if (flagRequest == 3) {
         [buttonRecover setEnabled:YES];
         [txtFieldEmailRecover setValue:placeHolderColor
                             forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         [txtFieldEmailRecover setText:@""];
+        isLoadingDone = YES;
     } else if (flagRequest == 4) {
         [self loginFacebook];
     }
     
     placeHolderColor = nil;
     [timer invalidate];
-    isLoadingDone = YES;
 }
 -(void)loginFacebook{
     [[FBRequest requestForMe] startWithCompletionHandler:
@@ -339,16 +334,11 @@
              //error
          }else{
              RKObjectMapping *loginMapping = [Mappings getLoginMapping];
-             
-             
              NSLog(@"%@", [[[FBSession activeSession] accessTokenData] accessToken]);
-             
              //LoadUrlResourcePath
              [self.RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/login/?user=%@&password=%@&fbLogin=true&keep=true&iphoneApp=true",
                                                            [user objectForKey:@"email"], [[[FBSession activeSession] accessTokenData] accessToken] ] objectMapping:loginMapping delegate:self];
-             
              [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-             
          }
      }];
 }
@@ -417,17 +407,7 @@
                                                           withLabel:@"Register new Garage"
                                                           withValue:nil];
         
-        HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-        [self.navigationController.view addSubview:HUD];
-        
-        HUD.dimBackground = YES;
-        
-        // Regiser for HUD callbacks so we can remove it from the window at the right time
-        HUD.delegate = self;
-        isLoadingDone = NO;
-        
-        // Show the HUD while the provided method executes in a new thread
-        [HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
+        [self initProgress];
 
         NSMutableDictionary *garageParams = [[NSMutableDictionary alloc] init];
         NSMutableDictionary *postData = [[NSMutableDictionary alloc] init];
@@ -443,14 +423,14 @@
         [garageParams setObject:textFieldEmail.text         forKey:@"email"];
         [garageParams setObject:textFieldPassword.text      forKey:@"senha"];
         [garageParams setObject:@"true"                     forKey:@"agree"];
-        [garageParams setObject:@"true"                     forKey:@"iphoneApp"];
-        [garageParams setObject:textFieldPassword.text                     forKey:@"token"];
         
-                [garageParams setObject:@"true"                     forKey:@"fbConnect"];
-                [garageParams setObject:@"100000917352916"                     forKey:@"fbId"];
-                [garageParams setObject:@"Anapolis"                     forKey:@"city"];
-                [garageParams setObject:@"pt_BR"                     forKey:@"lang"];
+        if ([[FBSession activeSession] isOpen]) {
         
+        [garageParams setObject:textFieldPassword.text      forKey:@"token"];
+        [garageParams setObject:@"true"                     forKey:@"fbConnect"];
+        [garageParams setObject:_FBId                       forKey:@"fbId"];
+        [garageParams setObject:_FBLocale                   forKey:@"lang"];
+        }
 
         
         //[garageParams setObject:@"true"                     forKey:@"localization"];
@@ -467,7 +447,10 @@
             [postData setObject:json forKey:@"garage"];
         }
         
-        [[[RKClient sharedClient] post:@"/garage" params:postData delegate:self] send];
+        if ([[FBSession activeSession] isOpen])
+            [[[RKClient sharedClient] post:@"/garage?iphoneApp=true&isfb=true" params:postData delegate:self] send];
+        else
+            [[[RKClient sharedClient] post:@"/garage?iphoneApp=true" params:postData delegate:self] send];
         
         timer = [NSTimer scheduledTimerWithTimeInterval:45.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
     }
@@ -502,7 +485,7 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [txtFieldEmailRecover resignFirstResponder];
         RKObjectMapping *mapping = [Mappings getRecoverPassword];
-        [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/login/recover?email=%@", txtFieldEmailRecover.text] objectMapping:mapping delegate:self];
+        [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/login/recover?email=%@&iphoneApp=true", txtFieldEmailRecover.text] objectMapping:mapping delegate:self];
         [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
     }
 }
@@ -619,6 +602,19 @@
     [self.textFieldUserPassword resignFirstResponder];
     [self.textFieldUserName resignFirstResponder];
 
+    [self initProgress];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:45.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
+    
+    [self getResourcePathLogin];
+}
+
+-(void)waitingTask{
+    while (!isLoadingDone)
+        continue;//NSLog(@"isLoading");
+    [timer invalidate];
+}
+-(void)initProgress{
     HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.navigationController.view addSubview:HUD];
 	
@@ -630,16 +626,6 @@
     
 	// Show the HUD while the provided method executes in a new thread
 	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:45.0 target:self selector:@selector(cancelRequest) userInfo:nil repeats:NO];
-    
-    [self getResourcePathLogin];
-}
-
--(void)waitingTask{
-    while (!isLoadingDone)
-        continue;//NSLog(@"isLoading");
-    [timer invalidate];
 }
 
 -(void)cancelRequest{
@@ -773,6 +759,8 @@
     txtFieldEmailRecover = nil;
     labelPasswRecover = nil;
     buttonRecover = nil;
+    [self setImgFieldPassword:nil];
+    [self setImgFieldEmail:nil];
     [super viewDidUnload];
     buttonLogin = nil;
     [self setButtonLogin:nil];

@@ -254,10 +254,10 @@
         [self.refreshControl endRefreshing];
     }
 }
-
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [buttonLogo setUserInteractionEnabled:YES];
+    [self.refreshControl endRefreshing];
     NSLog(@"Encountered error: %@",                      error);
     NSLog(@"Encountered error.domain: %@",               error.domain);
     NSLog(@"Encountered error.localizedDescription: %@", error.localizedDescription);

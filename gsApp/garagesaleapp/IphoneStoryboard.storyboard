@@ -1627,6 +1627,21 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NMn-Tg-q1d">
+                                        <rect key="frame" x="10" y="354" width="240" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" backgroundImage="facebookLogin.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonClickHandler:" destination="fgR-qs-ekZ" eventType="touchUpInside" id="0bX-pj-oMl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -1637,7 +1652,10 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonFaceBook" destination="NMn-Tg-q1d" id="vVE-T6-bBk"/>
                         <outlet property="buttonRegister" destination="x3a-Ur-UaV" id="2zz-Ob-C6U"/>
+                        <outlet property="imgFieldEmail" destination="4P2-85-1eL" id="xPC-qw-0ZX"/>
+                        <outlet property="imgFieldPassword" destination="PZK-ya-bSY" id="BLc-dC-r11"/>
                         <outlet property="labelSignup" destination="DfM-55-y3h" id="Gaa-Qn-Bhh"/>
                         <outlet property="scrollView" destination="U4r-OM-IqI" id="tez-3X-gOm"/>
                         <outlet property="textFieldEmail" destination="txG-35-NKy" id="Fa2-ag-RD6"/>
@@ -1897,6 +1915,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="buttonFaceBook" destination="CQc-HQ-ocI" id="fLd-sy-zq8"/>
                         <outlet property="buttonLogin" destination="UtY-p1-8kY" id="6gv-8R-YfN"/>
                         <outlet property="buttonLostPassword" destination="M0e-Cg-xEk" id="LjH-27-LhE"/>
                         <outlet property="buttonRegisterNew" destination="qnv-pc-Zfw" id="KbB-Bo-Mox"/>
@@ -2234,6 +2253,7 @@
         <class className="garageAccountViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addressChanged:"/>
                 <relationship kind="action" name="reloadPage:"/>
                 <relationship kind="outlet" name="city" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
@@ -2416,15 +2436,9 @@
         <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
-                <relationship kind="action" name="buttonClickHandler:"/>
-                <relationship kind="action" name="checkLogin:"/>
-                <relationship kind="action" name="getValidEmail:"/>
-                <relationship kind="action" name="getValidGarageName:"/>
-                <relationship kind="action" name="postNewGarage:"/>
                 <relationship kind="action" name="recoverPassword:"/>
                 <relationship kind="action" name="setEmailWrited:"/>
                 <relationship kind="action" name="setGarageNameWrited:"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="action" name="trackRecoverPassword:"/>
                 <relationship kind="outlet" name="buttonFaceBook" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
@@ -2432,6 +2446,8 @@
                 <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonRegisterNew" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imgFieldEmail" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imgFieldPassword" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelLogin" candidateClass="UILabel"/>

@@ -77,5 +77,6 @@
 
 - (void)loadAttribsToComponents:(BOOL)isFromLoadObject;
 - (IBAction)reloadPage:(id)sender;
+- (IBAction)addressChanged:(id)sender;
 
 @end

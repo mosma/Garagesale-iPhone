@@ -111,6 +111,7 @@
 @property (weak, nonatomic) IBOutlet UIButton       *buttonAddress;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonLogout;
 
+@property (nonatomic) BOOL isAddressChanged;
 
 @property (weak, nonatomic) IBOutlet UIButton       *buttonRightAbout;
 

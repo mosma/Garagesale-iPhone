@@ -67,6 +67,8 @@
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldGarageName;
 @property (weak, nonatomic) IBOutlet UITextField    *textFieldPassword;
+@property (weak, nonatomic) IBOutlet UIImageView    *imgFieldPassword;
+@property (weak, nonatomic) IBOutlet UIImageView    *imgFieldEmail;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonRegister;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonLogin;
 @property (weak, nonatomic) IBOutlet UIButton       *buttonRegisterNew;
@@ -92,8 +94,8 @@
 @property (strong, nonatomic) NSString *FBName;
 @property (strong, nonatomic) NSString *FBEmail;
 @property (strong, nonatomic) NSString *FBLocale;
+@property (strong, nonatomic) NSString *FBId;
 @property (strong, nonatomic) NSString *FBToken;
-
 
 //Actions and functions
 -(void)loadAttribsToComponents;
