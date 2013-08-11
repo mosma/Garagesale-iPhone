@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton       *btCancelSearch;
 @property (weak, nonatomic) IBOutlet UIImageView    *imgTxtField;
 @property (weak, nonatomic) IBOutlet UITextField    *txtFieldSearch;
-
+@property (strong, nonatomic)     UIViewController *parentVC;
 -(void)setSettings;
 
 @end

@@ -169,8 +169,11 @@
         [UIView commitAnimations];
     }
     
-    [viewSearchFooter setSettings];
     [viewSearchFront  setSettings];
+    [viewSearchFooter setSettings];
+    
+    [viewSearchFront setParentVC:self];
+    [viewSearchFooter setParentVC:self];
     
     if (IS_IPHONE_5){
         [viewSearchFront setCenter:CGPointMake(160, 136)];
@@ -291,13 +294,36 @@
 }
 
 - (IBAction)showHideViewSearch:(id)sender{
-    if (isTopViewShowing) {
-        [shadowSearch setHidden:YES];
-        [viewSearchFront.txtFieldSearch resignFirstResponder];
+    if (scrollViewMain.contentOffset.y < 2400){
+        if (isTopViewShowing) {
+            [shadowSearch setHidden:YES];
+            [viewSearchFront.txtFieldSearch resignFirstResponder];
+        }
+        else {
+            [shadowSearch setHidden:NO];
+            [viewSearchFront.txtFieldSearch becomeFirstResponder];
+        }
+    }else{
+        CGPoint bottomOffset = CGPointMake(0, scrollViewMain.contentSize.height-scrollViewMain.frame.size.height);
+        [scrollViewMain setContentOffset:bottomOffset animated:YES];
+        if (isTopViewShowing)
+            [viewSearchFooter.txtFieldSearch resignFirstResponder];
+        else 
+            [viewSearchFooter.txtFieldSearch becomeFirstResponder];
+    }
+    isTopViewShowing = !isTopViewShowing;
+}
+
+- (IBAction)showHideTopPage:(id)sender{
+    if (!isTopViewShowing) {
+        [searchBarProduct setHidden:NO];
+        [shadowSearch setHidden:NO];
+        [searchBarProduct becomeFirstResponder];
     }
     else {
-        [shadowSearch setHidden:NO];
-        [viewSearchFront.txtFieldSearch becomeFirstResponder];
+        [searchBarProduct setHidden:YES];
+        [shadowSearch setHidden:YES];
+        [searchBarProduct resignFirstResponder];
     }
     isTopViewShowing = !isTopViewShowing;
 }
@@ -372,7 +398,8 @@
             [publicity01 setFrame:CGRectMake(0, 0, publicity01.image.size.width, publicity01.image.size.height)];
             [publicity02 setFrame:CGRectMake(0, 0, publicity02.image.size.width, publicity02.image.size.height)];
             
-            [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-330)];
+            [viewSearchFooter setHidden:NO];
+            [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-315)];
             [publicity01      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-120)];
             [publicity02      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-240)];
 
@@ -387,11 +414,6 @@
         }
     }
 }
-//- (id)clone:(id)obj{
-//    NSData *archivedViewData = [NSKeyedArchiver archivedDataWithRootObject:obj];
-//    id clone = [NSKeyedUnarchiver unarchiveObjectWithData:archivedViewData];
-//    return clone;
-//}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (_lastContentOffset < (int)scrollViewMain.contentOffset.y) {
@@ -405,7 +427,10 @@
             [viewSearchFront.txtFieldSearch resignFirstResponder];
         }
     }else{
-        [viewSearchFront setAlpha:1.0];
+        //Conditional to not showing viewSearchFront with viewSearchFooter togheter.
+        if (scrollView.contentOffset.y < 2400)
+            [viewSearchFront setAlpha:1.0];
+        
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
         }else
@@ -497,6 +522,24 @@
     imgV = nil;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+	[theTextField resignFirstResponder];
+    [self gotoProductTableViewController:theTextField.text];
+	return YES;
+}
+
+-(void)gotoProductTableViewController:(id)object{    
+    searchViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
+    
+    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
+                                     [object stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
+    
+    [prdTbl setStrTextSearch:object];
+    
+    [self.navigationController pushViewController:prdTbl animated:YES];
+    prdTbl = nil;
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     // We don't want to do anything until the user clicks
     // the 'Search' button.
@@ -535,38 +578,6 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self gotoProductTableViewController:searchBar.text];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-	[theTextField resignFirstResponder];
-    [self gotoProductTableViewController:theTextField.text];
-	return YES;
-}
-
--(void)gotoProductTableViewController:(id)object{    
-    searchViewController *prdTbl = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductsTable"];
-    
-    [prdTbl setStrLocalResourcePath:[NSString stringWithFormat:@"/search?q=%@",
-                                     [object stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
-    
-    [prdTbl setStrTextSearch:object];
-    
-    [self.navigationController pushViewController:prdTbl animated:YES];
-    prdTbl = nil;
-}
-
-- (IBAction)showHideTopPage:(id)sender{
-    if (!isTopViewShowing) {
-        [searchBarProduct setHidden:NO];
-        [shadowSearch setHidden:NO];
-        [searchBarProduct becomeFirstResponder];
-    }
-    else {
-        [searchBarProduct setHidden:YES];
-        [shadowSearch setHidden:YES];
-        [searchBarProduct resignFirstResponder];
-    }
-    isTopViewShowing = !isTopViewShowing;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -675,5 +686,10 @@
     }];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+	[theTextField resignFirstResponder];
+    [(homeViewController *)_parentVC gotoProductTableViewController:theTextField.text];
+	return YES;
+}
 
 @end
