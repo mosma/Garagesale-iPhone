@@ -294,8 +294,9 @@
 }
 
 - (IBAction)showHideViewSearch:(id)sender{
+    //Control to viewSearchFront
     if (scrollViewMain.contentOffset.y < 2400){
-        if (isTopViewShowing) {
+        if ([viewSearchFront.txtFieldSearch resignFirstResponder]) {
             [shadowSearch setHidden:YES];
             [viewSearchFront.txtFieldSearch resignFirstResponder];
         }
@@ -303,17 +304,18 @@
             [shadowSearch setHidden:NO];
             [viewSearchFront.txtFieldSearch becomeFirstResponder];
         }
+    //Control to viewSearchFront
     }else{
-        CGPoint bottomOffset = CGPointMake(0, scrollViewMain.contentSize.height-scrollViewMain.frame.size.height);
-        [scrollViewMain setContentOffset:bottomOffset animated:YES];
-        if (isTopViewShowing)
+        if ([viewSearchFooter.txtFieldSearch resignFirstResponder])
             [viewSearchFooter.txtFieldSearch resignFirstResponder];
         else 
             [viewSearchFooter.txtFieldSearch becomeFirstResponder];
+        //Set contentOffSet to bottom
+        CGPoint bottomOffset = CGPointMake(0, scrollViewMain.contentSize.height-scrollViewMain.frame.size.height);
+        [scrollViewMain setContentOffset:bottomOffset animated:YES];
     }
     isTopViewShowing = !isTopViewShowing;
 }
-
 - (IBAction)showHideTopPage:(id)sender{
     if (!isTopViewShowing) {
         [searchBarProduct setHidden:NO];
@@ -369,50 +371,96 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    int activity  = [GlobalFunctions getHomeProductsNumber] == 15 ? 80-countLoads : 17;
-    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 229 : 117;
-    
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
-            //Position the activity image view somewhere in
-            //the middle of your current view
-            activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+activity, 46, 45);
-            
-            //Start the animation
-            [activityImageView startAnimating];
-            [activityImageView setAlpha:1.0];
-            [scrollViewMain addSubview:activityImageView];
-            
-            [self getResourcePathProduct];
-            
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+frameSize)];
-            
+            [self getMoreProductsToScroll:scrollView];
             countLoads++;
         }
         if (countLoads == 7) {
-            int spaceNotFinding = 300;
-            [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+spaceNotFinding)];
-            
-            UIImageView *publicity01 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
-            UIImageView *publicity02 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
-            [publicity01 setFrame:CGRectMake(0, 0, publicity01.image.size.width, publicity01.image.size.height)];
-            [publicity02 setFrame:CGRectMake(0, 0, publicity02.image.size.width, publicity02.image.size.height)];
-            
-            [viewSearchFooter setHidden:NO];
-            [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-315)];
-            [publicity01      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-120)];
-            [publicity02      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-240)];
-
-            [self.scrollViewMain addSubview:publicity01];
-            [self.scrollViewMain addSubview:publicity02];
-            [self.scrollViewMain addSubview:viewSearchFooter];
-
-            countLoads++;
+            [self showPublicity:scrollView];
         }
         if (countLoads == 6) {
             countLoads++;
         }
     }
+}
+-(void)getMoreProductsToScroll:(UIScrollView *)scrollView{
+    int activity  = [GlobalFunctions getHomeProductsNumber] == 15 ? 80-countLoads : 17;
+    int frameSize = [GlobalFunctions getHomeProductsNumber] == 15 ? 229 : 117;
+
+    //Position the activity image view somewhere in
+    //the middle of your current view
+    activityImageView.frame = CGRectMake(137, scrollView.contentSize.height+activity, 46, 45);
+    
+    //Start the animation
+    [activityImageView startAnimating];
+    [activityImageView setAlpha:1.0];
+    [scrollViewMain addSubview:activityImageView];
+    
+    [self getResourcePathProduct];
+    
+    [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+frameSize)];
+    
+}
+-(void)showPublicity:(UIScrollView *)scrollView{
+    int spacePublicity = 330;
+    [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+spacePublicity)];
+    
+    UIImageView *publicity00 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
+    UIImageView *publicity01 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
+    [publicity00 setFrame:CGRectMake(0, 0, publicity00.image.size.width, publicity00.image.size.height)];
+    [publicity01 setFrame:CGRectMake(0, 0, publicity01.image.size.width, publicity01.image.size.height)];
+    
+    [viewSearchFooter setHidden:NO];
+    [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-345)];
+    [publicity00      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-280)];
+    [publicity01      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-160)];
+    
+    //Label 1
+    OHAttributedLabel *label00 = [[OHAttributedLabel alloc] initWithFrame:
+                                  CGRectMake(55, 10, publicity00.image.size.width-55, publicity00.image.size.height)];
+    [label00 setBackgroundColor:[UIColor clearColor]];
+    [label00 setNumberOfLines:2];
+
+    NSString *text00 = @" Needs to sell something? \r\n Add a Product";
+    NSMutableAttributedString* attrStr0 = [NSMutableAttributedString
+                                          attributedStringWithString:text00];
+    [attrStr0 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]];
+    [attrStr0 setTextColor:[UIColor whiteColor]];
+    [attrStr0 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]
+               range:[text00 rangeOfString:@"Add a Product"]];
+    [label00 setAttributedText:attrStr0];
+    ///////////
+    
+    //Label 2
+    OHAttributedLabel *label01 = [[OHAttributedLabel alloc] initWithFrame:
+                                  CGRectMake(55, 10, publicity01.image.size.width-55, publicity01.image.size.height)];
+    [label01 setBackgroundColor:[UIColor clearColor]];
+    [label01 setNumberOfLines:7];
+
+    NSString *text01 = @" Learn more \r\n Knows that you can add best \r\n description of your product from \r\n web in tablets and desktoops.\r\n \r\n Just access: \r\n www.gsapp.me/garagename";
+
+    NSMutableAttributedString* attrStr1 = [NSMutableAttributedString
+                                          attributedStringWithString:text01];
+    [attrStr1 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
+    [attrStr1 setTextColor:[UIColor grayColor]];
+    [attrStr1 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
+               range:[text01 rangeOfString:@"Learn more"]];
+    [attrStr1 setTextColor:[UIColor blackColor]
+                     range:[text01 rangeOfString:@"Learn more"]];
+    [attrStr1 setTextColor:[UIColor redColor]
+                range:[text01 rangeOfString:@"www.gsapp.me/garagename"]];
+    [label01 setAttributedText:attrStr1];
+    ///////////
+    
+    [publicity00 addSubview:label00];
+    [publicity01 addSubview:label01];
+
+    [self.scrollViewMain addSubview:publicity01];
+    [self.scrollViewMain addSubview:publicity00];
+    [self.scrollViewMain addSubview:viewSearchFooter];
+    
+    countLoads++;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -685,7 +733,6 @@
         [self.btCancelSearch setHidden:YES];
     }];
 }
-
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
 	[theTextField resignFirstResponder];
     [(homeViewController *)_parentVC gotoProductTableViewController:theTextField.text];
