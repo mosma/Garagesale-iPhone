@@ -438,7 +438,7 @@
     [sharePopOverVC setProdName:labelNomeProduto.text];
     [sharePopOverVC setDescription:labelDescricao.text];
     [sharePopOverVC setImgProduct:imageView.image];
-    [sharePopOverVC setStrUrlImg:urlImage.original] ;
+    [sharePopOverVC setStrUrlImg:urlImage.listing] ;
     [sharePopOverVC setParent:self];
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
