@@ -430,12 +430,15 @@
 {
     sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
+    Caminho *urlImage = (Caminho *)[[[self.product.fotos objectAtIndex:0] caminho] objectAtIndex:0];
+    
     [sharePopOverVC setIdProduct:(NSString *)self.product.id];
     [sharePopOverVC setPriceProduct:self.product.valorEsperado];
     [sharePopOverVC setGarageName:[[self.arrayProfile objectAtIndex:0] garagem]];
     [sharePopOverVC setProdName:labelNomeProduto.text];
     [sharePopOverVC setDescription:labelDescricao.text];
     [sharePopOverVC setImgProduct:imageView.image];
+    [sharePopOverVC setStrUrlImg:urlImage.original] ;
     [sharePopOverVC setParent:self];
     
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
@@ -457,6 +460,7 @@
     popover = nil;
     sharePopOverVC = nil;
     btnView = nil;
+    urlImage = nil;
 }
 
 -(void)topRight:(id)sender

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 //#import <MessageUI/MessageUI.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <Twitter/Twitter.h>
 
-@interface sharePopOverViewController : UIViewController {
+@interface sharePopOverViewController : UIViewController <FBWebDialogsDelegate, MFMailComposeViewControllerDelegate>{
     __weak UIImage  *imgProduct;
     __weak NSString *idProduct;
     __weak NSString *priceProduct;

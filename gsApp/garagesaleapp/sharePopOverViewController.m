@@ -36,31 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self.view setFrame:CGRectMake(0, 20, 320, 460)];
-    
-    //configure addthis -- (this step is optional)
-    //[AddThisSDK setNavigationBarColor:[GlobalFunctions getColorRedNavComponets]];
-//    [AddThisSDK setToolBarColor:[UIColor whiteColor]];
-//    [AddThisSDK setSearchBarColor:[UIColor lightGrayColor]];
-//    
-//    //Facebook connect settings
-//    //CHANGE THIS FACEBOOK API KEY TO YOUR OWN!!
-//    [AddThisSDK setFacebookAPIKey:@"280819525292258"];
-//    [AddThisSDK setFacebookAuthenticationMode:ATFacebookAuthenticationTypeFBConnect];
-//    
-//    
-//    [AddThisSDK setTwitterAuthenticationMode:ATTwitterAuthenticationTypeOAuth];
-//    [AddThisSDK setTwitterConsumerKey:@"VjxdccbCQn88i0uvg8w"];
-//    [AddThisSDK setTwitterConsumerSecret:@"lMMbO9dtewLkuAGwRYIPByztAtHdNtVOQxao9Y"];
-//    [AddThisSDK setTwitterCallBackURL:@"http://garagesaleapp.me/login/ttreturn"];
-//    
-//    [AddThisSDK setTwitterViaText:@"garagesaleapp"];
-//    
-//    [AddThisSDK shouldAutoRotate:NO];
-//    [AddThisSDK setInterfaceOrientation:UIInterfaceOrientationPortrait];
-//    
-//    [AddThisSDK setAddThisPubId:@"ra-4f9585050fbd99b4"];
 }
 
 -(IBAction)facebook:(id)sender
@@ -75,29 +51,73 @@
                      self.garageName,
                      self.idProduct];
     
-    NSString *title = [NSString stringWithFormat:
-                       NSLocalizedString(@"share-facebook-title", nil),
-                       url,
-                       self.priceProduct,
-                       self.prodName];
-    
-    NSString *content = [NSString stringWithFormat:
-                         NSLocalizedString(@"share-facebook-content", nil),
-                         self.description];
-    
-//    if (imgProduct == nil)
-//        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
-//                   withService:@"facebook"
-//                         title: title
-//                   description:content];
-//    else
-//        [AddThisSDK shareImage:imgProduct
-//                   withService:@"facebook"
-//                         title: title
-//                   description:content];
+    [self showFeedDialog];
+
     url = nil;
-    title = nil;
-    content = nil;
+}
+/**
+ * Helper method for parsing URL parameters.
+ */
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [[kv objectAtIndex:1]
+         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
+/**
+ * Method that displays the Feed dialog.
+ */
+- (void)showFeedDialog {
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/%@",
+                     [GlobalFunctions getUrlApplication],
+                     self.garageName,
+                     self.idProduct];
+    
+    // Put together the dialog parameters
+    NSMutableDictionary *params =
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:
+     prodName, @"name",
+     @"See more in gsapp.me", @"caption",
+     description, @"description",
+     url, @"link",
+     strUrlImg, @"picture",
+     nil];
+    
+    // Invoke the dialog
+    [FBWebDialogs presentFeedDialogModallyWithSession:[FBSession activeSession]
+                                           parameters:params
+                                              handler:
+     ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+         if (error) {
+             // Case A: Error launching the dialog or publishing story.
+             NSLog(@"Error publishing story.");
+         } else {
+             if (result == FBWebDialogResultDialogNotCompleted) {
+                 // Case B: User clicked the "x" icon
+                 NSLog(@"User canceled story publishing.");
+             } else {
+                 // Case C: Dialog shown and the user clicks Cancel or Share
+                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                 if (![urlParams valueForKey:@"post_id"]) {
+                     // User clicked the Cancel button
+                     NSLog(@"User canceled story publishing.");
+                 } else {
+                     // User clicked the Share button
+                     NSString *postID = [urlParams valueForKey:@"post_id"];
+                     NSLog(@"Posted story, id: %@", postID);
+                 }
+             }
+         }
+     }];
+    url = nil;
 }
 
 -(IBAction)twitter:(id)sender
@@ -111,25 +131,13 @@
                      [GlobalFunctions getUrlApplication],
                      self.garageName,
                      self.idProduct];
-    
-    NSString *title = [NSString stringWithFormat:
-                       NSLocalizedString(@"share-twitter-title", nil),
-                       self.prodName,
-                       url];
-    
-    NSString *content = [NSString stringWithFormat:
-                         NSLocalizedString(@"share-twitter-content", nil), url];
 
-//    if (imgProduct == nil)
-//        [AddThisSDK shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]
-//                   withService:@"twitter"
-//                         title: title
-//                   description:content];
-//    else
-//        [AddThisSDK shareImage:imgProduct
-//                   withService:@"twitter"
-//                         title: title
-//                   description:content];
+    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+    [twitter setInitialText:[NSString stringWithFormat:@"%@ - %@", prodName, description]];
+    [twitter addImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]];
+    [twitter addURL:[NSURL URLWithString:url]];
+    
+    [self presentViewController:twitter animated:YES completion:nil];
 }
 
 - (IBAction)actionEmailComposer {
@@ -198,6 +206,71 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)otherWayToShareWithFaceBook{
+    
+    /*
+    
+     Ref : 
+     https://developers.facebook.com/docs/tutorials/ios-sdk-games/feed/#step1
+     https://developers.facebook.com/docs/tutorial/iossdk/upgrading-from-3.1-to-3.2/
+     */
+    
+    // This function will invoke the Feed Dialog to post to a user's Timeline and News Feed
+    // It will attemnt to use the Facebook Native Share dialog
+    // If that's not supported we'll fall back to the web based dialog.
+    
+    //    NSString *linkURL = [NSString stringWithFormat:@"http://www.gsapp.me"];
+    //
+    //    // Prepare the native share dialog parameters
+    //    FBShareDialogParams *shareParams = [[FBShareDialogParams alloc] init];
+    //    shareParams.link = [NSURL URLWithString:linkURL];
+    //    shareParams.name = prodName;
+    //    shareParams.caption= @"";
+    //    shareParams.picture= [NSURL URLWithString:strUrlImg];
+    //    shareParams.description = description;
+    //
+    //    if ([FBDialogs canPresentShareDialogWithParams:shareParams]){
+    //
+    //        [FBDialogs presentShareDialogWithParams:shareParams
+    //                                    clientState:nil
+    //                                        handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+    //                                            if(error) {
+    //                                                NSLog(@"Error publishing story.");
+    //                                            } else if (results[@"completionGesture"] && [results[@"completionGesture"] isEqualToString:@"cancel"]) {
+    //                                                NSLog(@"User canceled story publishing.");
+    //                                            } else {
+    //                                                NSLog(@"Story published.");
+    //                                            }
+    //                                        }];
+    //
+    //    }else {
+    //
+    //        // Prepare the web dialog parameters
+    //        NSDictionary *params = @{
+    //                                 @"name" : shareParams.name,
+    //                                 @"caption" : shareParams.caption,
+    //                                 @"description" : shareParams.description,
+    //                                 @"picture" : strUrlImg,
+    //                                 @"link" : linkURL
+    //                                 };
+    //
+    //        // Invoke the dialog
+    //        [FBWebDialogs presentFeedDialogModallyWithSession:nil
+    //                                               parameters:params
+    //                                                  handler:
+    //         ^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+    //             if (error) {
+    //                 NSLog(@"Error publishing story.");
+    //             } else {
+    //                 if (result == FBWebDialogResultDialogNotCompleted) {
+    //                     NSLog(@"User canceled story publishing.");
+    //                 } else {
+    //                     NSLog(@"Story published.");
+    //                 }
+    //             }}];
+    //    }
 }
 
 - (void)viewDidUnload{
