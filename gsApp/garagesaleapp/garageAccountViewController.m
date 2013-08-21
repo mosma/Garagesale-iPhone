@@ -134,7 +134,7 @@
                                   [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
 
     self.refreshControl = [[CKRefreshControl alloc] init];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadPage:) forControlEvents:UIControlEventValueChanged];
 }
 

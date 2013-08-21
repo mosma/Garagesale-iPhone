@@ -65,23 +65,21 @@
 
 - (void)loadAttribsToComponents{
     nibId = [[self.navigationController visibleViewController] nibName];
-    
+    [self.scrollView setContentSize:CGSizeMake(320,470)];
+
     if  ([nibId rangeOfString:@"5xi-Kh-5i5"].length != 0) { //Account ViewController{
         [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                            UITextAlignmentCenter text:NSLocalizedString(@"account", @"") width:210]];
-        [self.scrollView setContentSize:CGSizeMake(320,700)];
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/account", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     } else if
         ([nibId rangeOfString:@"tbg-8m-otZ"].length != 0) { //Address ViewController
             [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                                UITextAlignmentCenter text:NSLocalizedString(@"address", @"") width:210]];
-        [self.scrollView setContentSize:CGSizeMake(320,585)];
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/address", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     }else if
         ([nibId rangeOfString:@"K7a-eB-FnT"].length != 0) { //Password ViewController
             [self.navigationItem setTitleView:[GlobalFunctions getLabelTitleNavBarGeneric:
                                                UITextAlignmentCenter text:NSLocalizedString(@"password", @"") width:210]];
-        [self.scrollView setContentSize:CGSizeMake(320,525)];
         [self setTrackedViewName:[NSString stringWithFormat:@"/%@/settings/password", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]]];
     }
     
@@ -540,6 +538,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self.scrollView setContentSize:CGSizeMake(320,700)];
     if ([keyboardControls.textFields containsObject:textField])
         keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];
@@ -549,13 +548,13 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    [self.scrollView setContentSize:CGSizeMake(320,700)];
     if ([keyboardControls.textFields containsObject:textView])
         keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];
 }
 
 -(IBAction)textFieldEditingEnded:(id)sender{
-    [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
 }
 
@@ -681,6 +680,7 @@
  */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
+    [self.scrollView setContentSize:CGSizeMake(320,470)];
     [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
 }

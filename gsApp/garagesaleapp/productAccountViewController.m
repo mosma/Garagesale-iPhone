@@ -177,7 +177,7 @@
     doneBtn = nil;
     currencyDefault = nil;
 
-    [self.scrollView setContentSize:CGSizeMake(320,587)];
+    [self.scrollView setContentSize:CGSizeMake(320,450)];
     [self setupKeyboardFields];
     
     if (self.product != nil) {
@@ -196,6 +196,7 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [self.scrollView setContentSize:CGSizeMake(320,587)];
     return YES;
 }
 
@@ -822,6 +823,7 @@
 */
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
 {
+    [self.scrollView setContentSize:CGSizeMake(320,450)];
     [scrollView setContentOffset:CGPointZero animated:YES];
     [controls.activeTextField resignFirstResponder];
 }
@@ -875,6 +877,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    [self.scrollView setContentSize:CGSizeMake(320,587)];
     if ([keyboardControls.textFields containsObject:textView])
         keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];
