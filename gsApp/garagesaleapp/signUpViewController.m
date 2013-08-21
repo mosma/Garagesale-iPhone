@@ -769,6 +769,10 @@
     [sender resignFirstResponder];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    isLoadingDone = YES;
+}
+
 - (void)viewDidUnload
 {
     [self setTextFieldGarageName:nil];
