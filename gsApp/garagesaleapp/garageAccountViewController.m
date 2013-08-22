@@ -136,6 +136,7 @@
     self.refreshControl = [[CKRefreshControl alloc] init];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] init];
     [self.refreshControl addTarget:self action:@selector(reloadPage:) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl setTintColor:[UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1.0]];
 }
 
 - (IBAction)reloadPage:(id)sender{
