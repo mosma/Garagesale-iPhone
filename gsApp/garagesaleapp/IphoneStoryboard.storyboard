@@ -1548,7 +1548,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x3a-Ur-UaV" userLabel="buttonRegister">
-                                        <rect key="frame" x="10" y="303" width="300" height="37"/>
+                                        <rect key="frame" x="10" y="353" width="300" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Register" backgroundImage="btBackgroundForms.png">
@@ -1562,10 +1562,6 @@
                                             <action selector="postNewGarage:" destination="fgR-qs-ekZ" eventType="touchUpInside" id="o2f-7G-6U0"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="jPz-c9-cwN">
-                                        <rect key="frame" x="0.0" y="-6" width="320" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sign up" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="DfM-55-y3h" userLabel="LabelSignup">
                                         <rect key="frame" x="11" y="17" width="299" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1574,11 +1570,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="m0M-v0-TFH" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="70" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="120" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Garage name" minimumFontSize="17" id="ROM-tG-AcU" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="21" y="70" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="120" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.67450982332229614" green="0.67450982332229614" blue="0.67450982332229614" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1589,22 +1585,22 @@
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="IbB-4C-H00" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="130" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="180" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your name" minimumFontSize="17" id="DEm-Yc-MmF" userLabel="txtFieldYourName">
-                                        <rect key="frame" x="21" y="130" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="180" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="4P2-85-1eL" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="189" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="239" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="txG-35-NKy" userLabel="txtFieldEmail">
-                                        <rect key="frame" x="21" y="189" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="239" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1615,18 +1611,18 @@
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="PZK-ya-bSY" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="247" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="297" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" id="zJq-dg-DCt" userLabel="txtFieldPassword">
-                                        <rect key="frame" x="21" y="247" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="297" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NMn-Tg-q1d">
-                                        <rect key="frame" x="10" y="354" width="240" height="48"/>
+                                        <rect key="frame" x="10" y="50" width="110" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="facebookLogin.png">
@@ -1640,6 +1636,10 @@
                                             <action selector="buttonClickHandler:" destination="fgR-qs-ekZ" eventType="touchUpInside" id="0bX-pj-oMl"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dotsDetailProduct.png" id="h6E-7c-szu" userLabel="dotsDetailProduct.png">
+                                        <rect key="frame" x="14" y="96" width="295" height="7"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -1813,7 +1813,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UtY-p1-8kY" userLabel="buttonLogin">
-                                        <rect key="frame" x="10" y="186" width="178" height="37"/>
+                                        <rect key="frame" x="10" y="236" width="178" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                         <state key="normal" title="Login" backgroundImage="btBackgroundForms.png">
@@ -1828,7 +1828,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qnv-pc-Zfw" userLabel="buttonLogin">
-                                        <rect key="frame" x="200" y="186" width="108" height="37"/>
+                                        <rect key="frame" x="200" y="236" width="108" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                         <state key="normal" title="Register" backgroundImage="btBackgroundForms.png">
@@ -1839,10 +1839,6 @@
                                             <segue destination="fgR-qs-ekZ" kind="push" id="Wok-pH-dlx"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="topHeaderProductDetail.png" id="v3H-S2-rUR">
-                                        <rect key="frame" x="0.0" y="-6" width="320" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Wsl-Fa-rw8">
                                         <rect key="frame" x="10" y="17" width="298" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1851,29 +1847,29 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="uFG-Ra-uhz" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="69" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="119" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email@..." minimumFontSize="17" clearButtonMode="whileEditing" id="Pgb-b6-fCE" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="21" y="69" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="119" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="textField01iphone.png" id="KS5-U4-UsC" userLabel="textField01iphoneTitle.png">
-                                        <rect key="frame" x="12" y="130" width="296" height="40"/>
+                                        <rect key="frame" x="12" y="180" width="296" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" clearButtonMode="whileEditing" id="bAX-Hx-ohc" userLabel="txtFieldGarageName">
-                                        <rect key="frame" x="21" y="130" width="280" height="40"/>
+                                        <rect key="frame" x="21" y="180" width="280" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.61960786581039429" green="0.61960786581039429" blue="0.61960786581039429" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="M0e-Cg-xEk">
-                                        <rect key="frame" x="12" y="223" width="162" height="44"/>
+                                        <rect key="frame" x="12" y="273" width="162" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Esqueceu a senha?">
@@ -1889,7 +1885,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CQc-HQ-ocI">
-                                        <rect key="frame" x="10" y="266" width="240" height="48"/>
+                                        <rect key="frame" x="10" y="50" width="110" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="facebookLogin.png">
@@ -1903,6 +1899,10 @@
                                             <action selector="buttonClickHandler:" destination="L0X-YO-oem" eventType="touchUpInside" id="oDC-n9-QSL"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dotsDetailProduct.png" id="ufR-Ws-SnF" userLabel="dotsDetailProduct.png">
+                                        <rect key="frame" x="12" y="96" width="295" height="7"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                             </view>
@@ -2217,7 +2217,7 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="113" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
-        <image name="facebookLogin.png" width="240" height="48"/>
+        <image name="facebookLogin.png" width="110" height="30"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="line.png" width="320" height="1"/>
         <image name="loupe.png" width="22" height="23"/>
@@ -2479,6 +2479,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4gr-vC-Jdq"/>
+        <segue reference="Wok-pH-dlx"/>
     </inferredMetricsTieBreakers>
 </document>
