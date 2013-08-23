@@ -57,6 +57,10 @@
 "notAvailable"                  = "Not available";
 "invisible"                     = "Invisible";
 
+"learnMore"                     = " Learn more \r\n Knows that you can add best \r\n description of your product from \r\n web in tablets and desktoops.\r\n \r\n Just access: \r\n www.gsapp.me/garagename";
+
+"needsHelp"                     = " Needs to sell something? \r\n Add a Product";
+
 /*Using in : settingsViewController. */
 "account"                       = "Account";
 "password"                      = "Password";

@@ -57,6 +57,10 @@
 "notAvailable"                  = "Não disponivel";
 "invisible"                     = "Invisível";
 
+"learnMore"                     = " Veja mais \r\n Saiba como você pode ter a  \r\n melhor descrição em sua garagem \r\n  \r\n É só acessar: \r\n www.gsapp.me/suagaragem";
+
+"needsHelp"                     = " Precisa de alguma ajuda? \r\n Adicione um produto";
+
 /*Using in : settingsViewController. */
 "account"                       = "Configurações";
 "password"                      = "Senha";

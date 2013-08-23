@@ -170,7 +170,7 @@
     vH = [[viewHelper alloc] init];
     
     [self.navigationController setNavigationBarHidden:NO];
-    [textFieldUserName becomeFirstResponder];
+    //[textFieldUserName becomeFirstResponder];
     UILabel * lab = [GlobalFunctions getLabelTitleGaragesaleNavBar:UITextAlignmentCenter width:225];
     [self.navigationItem setTitleView:lab];
     lab = nil;

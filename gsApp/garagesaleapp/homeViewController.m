@@ -404,64 +404,120 @@
     
 }
 -(void)showPublicity:(UIScrollView *)scrollView{
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    
+    NSString *learnMoreRANGER;
+    NSString *addProductRANGER;
+    NSString *garageNameRANGER;
+    
+    if ([language isEqualToString:@"en"]){
+        learnMoreRANGER = @"Learn more";
+        addProductRANGER = @"Add a Product";
+        garageNameRANGER = @"www.gsapp.me/garagename";
+    }else{
+        learnMoreRANGER = @"Veja mais";
+        addProductRANGER = @"Adicione um produto";
+        garageNameRANGER = @"www.gsapp.me/suagaragem";
+    }
+    
     int spacePublicity = 330;
     [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+spacePublicity)];
     
-    UIImageView *publicity00 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
-    UIImageView *publicity01 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
-    [publicity00 setFrame:CGRectMake(0, 0, publicity00.image.size.width, publicity00.image.size.height)];
-    [publicity01 setFrame:CGRectMake(0, 0, publicity01.image.size.width, publicity01.image.size.height)];
+    UIImageView *addProduct = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
+    UIImageView *learnMore  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
+    [addProduct setFrame:CGRectMake(0, 0, addProduct.image.size.width, addProduct.image.size.height)];
+    [learnMore  setFrame:CGRectMake(0, 0, learnMore.image.size.width,  learnMore.image.size.height)];
     
     [viewSearchFooter setHidden:NO];
     [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-345)];
-    [publicity00      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-280)];
-    [publicity01      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-160)];
+    [addProduct      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-280)];
+    [learnMore       setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-160)];
     
-    //Label 1
+    UIButton *login  = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *signup = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    
+    login.frame  = CGRectMake(165, scrollView.contentSize.height-300, 135, 40);
+    signup.frame = CGRectMake(20,  scrollView.contentSize.height-300, 135, 40);
+    
+    [login  setTitle:NSLocalizedString(@"signinButton", nil)  forState:UIControlStateNormal];
+    [signup setTitle:NSLocalizedString(@"signupButton", nil) forState:UIControlStateNormal];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addProduct)];
+    [tap  setNumberOfTapsRequired:1];
+    [addProduct addGestureRecognizer:tap];
+    [addProduct setUserInteractionEnabled:YES];
+     
+    [login addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
+    [signup addTarget:self action:@selector(gotoSignUp) forControlEvents:UIControlEventTouchUpInside];
+
     OHAttributedLabel *label00 = [[OHAttributedLabel alloc] initWithFrame:
-                                  CGRectMake(55, 10, publicity00.image.size.width-55, publicity00.image.size.height)];
+                                  CGRectMake(55, 10, addProduct.image.size.width-55, addProduct.image.size.height)];
     [label00 setBackgroundColor:[UIColor clearColor]];
     [label00 setNumberOfLines:2];
-
-    NSString *text00 = @" Needs to sell something? \r\n Add a Product";
+    NSString *text00 = NSLocalizedString(@"needsHelp", nil); 
     NSMutableAttributedString* attrStr0 = [NSMutableAttributedString
                                           attributedStringWithString:text00];
     [attrStr0 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]];
     [attrStr0 setTextColor:[UIColor whiteColor]];
     [attrStr0 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]
-               range:[text00 rangeOfString:@"Add a Product"]];
+               range:[text00 rangeOfString:addProductRANGER]];
     [label00 setAttributedText:attrStr0];
-    ///////////
     
-    //Label 2
+
     OHAttributedLabel *label01 = [[OHAttributedLabel alloc] initWithFrame:
-                                  CGRectMake(55, 10, publicity01.image.size.width-55, publicity01.image.size.height)];
+                                  CGRectMake(55, 10, learnMore.image.size.width-55, learnMore.image.size.height)];
     [label01 setBackgroundColor:[UIColor clearColor]];
     [label01 setNumberOfLines:7];
-
-    NSString *text01 = @" Learn more \r\n Knows that you can add best \r\n description of your product from \r\n web in tablets and desktoops.\r\n \r\n Just access: \r\n www.gsapp.me/garagename";
-
+    NSString *text01 = NSLocalizedString(@"learnMore", nil);
     NSMutableAttributedString* attrStr1 = [NSMutableAttributedString
                                           attributedStringWithString:text01];
     [attrStr1 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
     [attrStr1 setTextColor:[UIColor grayColor]];
-    [attrStr1 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
-               range:[text01 rangeOfString:@"Learn more"]];
-    [attrStr1 setTextColor:[UIColor blackColor]
-                     range:[text01 rangeOfString:@"Learn more"]];
-    [attrStr1 setTextColor:[UIColor redColor]
-                range:[text01 rangeOfString:@"www.gsapp.me/garagename"]];
-    [label01 setAttributedText:attrStr1];
-    ///////////
     
-    [publicity00 addSubview:label00];
-    [publicity01 addSubview:label01];
+    [attrStr1 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
+               range:[text01 rangeOfString:learnMoreRANGER]];
+    
+    [attrStr1 setTextColor:[UIColor blackColor]
+                     range:[text01 rangeOfString:learnMoreRANGER]];
+    
+    [attrStr1 setTextColor:[UIColor redColor]
+                range:[text01 rangeOfString:garageNameRANGER]];
+    [label01 setAttributedText:attrStr1];
 
-    [self.scrollViewMain addSubview:publicity01];
-    [self.scrollViewMain addSubview:publicity00];
+    [addProduct  addSubview:label00];
+    [learnMore   addSubview:label01];
+
+    [self.scrollViewMain addSubview:learnMore];
+    
+    if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil)
+        [self.scrollViewMain addSubview:addProduct];
+    else{
+        [self.scrollViewMain addSubview:login];
+        [self.scrollViewMain addSubview:signup];
+    }
     [self.scrollViewMain addSubview:viewSearchFooter];
     
     countLoads++;
+    
+    addProduct = nil;
+    learnMore = nil;
+    label00 = nil;
+    label01 = nil;
+    text00 = nil;
+    text01 = nil;
+    attrStr0 = nil;
+    attrStr1 = nil;
+    signup = nil;
+    login = nil;
+}
+-(void)gotoLogin{
+    [self performSegueWithIdentifier:@"login" sender:self];
+}
+-(void)gotoSignUp{
+    [self performSegueWithIdentifier:@"signup" sender:self];
+}
+-(void)addProduct{
+    self.tabBarController.selectedIndex = 1;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -482,8 +538,10 @@
         
         if ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil) {
             [GlobalFunctions showTabBar:self.navigationController.tabBarController];
-        }else
-            [viewTopPage setAlpha:1.0];
+        }else {
+            if (scrollView.contentOffset.y < 2400)
+                [viewTopPage setAlpha:1.0];
+        }
     }
 }
 
