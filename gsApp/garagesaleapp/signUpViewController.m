@@ -73,12 +73,11 @@
              }
          }];
         // valid account UI is shown whenever the session is open
-        [self.buttonFaceBook setTitle:@"Log out" forState:UIControlStateNormal];
+        [self.buttonFaceBook setTitle:@"" forState:UIControlStateNormal];
         //[self.textNoteOrLink setText:[NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
-        //appDelegate.session.accessTokenData.accessToken]];
     } else {
         // login-needed account UI is shown whenever the session is closed
-        [self.buttonFaceBook setTitle:@"Log in" forState:UIControlStateNormal];
+        [self.buttonFaceBook setTitle:@"" forState:UIControlStateNormal];
         //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
     }
 }
@@ -195,7 +194,7 @@
 }
 
 - (void)getResourcePathLogin{
-    flagRequest = 0;
+    flagError = 0;
     RKObjectMapping *loginMapping = [Mappings getLoginMapping];
     
     //LoadUrlResourcePath
@@ -278,7 +277,7 @@
     }
 }
 -(void)newRegisterWithFacebook{
-    isLoadingDone = YES;
+    [self finishProgress];
     [[FBRequest requestForMe] startWithCompletionHandler:
      ^(FBRequestConnection *connection,
        NSDictionary<FBGraphUser> *user,
@@ -297,6 +296,7 @@
      }];
 }
 -(void)pushAfterLogin{
+   // [self finishProgress];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     homeViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
     [home setIsFromSignUp:YES];
@@ -327,34 +327,34 @@
     NSLog(@"Encountered an error: %@", error);
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     UIColor *placeHolderColor = [UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f];
-    if (flagRequest == 0){
+    if (flagError == 0){
         [textFieldUserPassword setValue:placeHolderColor
                            forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldUserPassword setPlaceholder: NSLocalizedString(@"form-invalid-email-password",nil)];
         [textFieldUserPassword setText:@""];
-        isLoadingDone = YES;
-    } else if (flagRequest == 1){
+        [self finishProgress];
+    } else if (flagError == 1){
         [textFieldGarageName setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldGarageName setPlaceholder:[NSString stringWithFormat: NSLocalizedString( @"form-invalid-email-exists",nil), textFieldGarageName.text]];
         garageNameWrited = textFieldGarageName.text;
         [textFieldGarageName setText:@""];
-        isLoadingDone = YES;
-    } else if (flagRequest == 2) {
+        [self finishProgress];
+    } else if (flagError == 2) {
         [textFieldEmail setValue:placeHolderColor
                       forKeyPath:@"_placeholderLabel.textColor"];
         [textFieldEmail setPlaceholder: NSLocalizedString(@"form-invalid-email-or-invalid",nil)];
         emailWrited = textFieldEmail.text;
         [textFieldEmail setText:@""];
-        isLoadingDone = YES;
-    } else if (flagRequest == 3) {
+        [self finishProgress];
+    } else if (flagError == 3) {
         [buttonRecover setEnabled:YES];
         [txtFieldEmailRecover setValue:placeHolderColor
                             forKeyPath:@"_placeholderLabel.textColor"];
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         [txtFieldEmailRecover setText:@""];
-        isLoadingDone = YES;
-    } else if (flagRequest == 4) {
+        [self finishProgress];
+    } else if (flagError == 4) {
         [self loginFacebook];
     }
     
@@ -427,8 +427,7 @@
     settingsAccount = nil;
     HUD = nil;
     vH = nil;
-    isLoadingDone = nil;
-    flagRequest = nil;
+    flagError = nil;
     timer = nil;
     garageNameWrited = nil;
     emailWrited = nil;
@@ -502,7 +501,7 @@
         textFieldGarageName.text = [textFieldGarageName.text substringWithRange:NSMakeRange(0, 20)];
     [self setEnableRegisterButton:NO];
     garageNameWrited = textFieldGarageName.text;
-    flagRequest = 1;
+    flagError = 1;
     RKObjectMapping *mapping = [Mappings getValidGarageNameMapping];
     [RKObjManeger  loadObjectsAtResourcePath:[NSString stringWithFormat:@"/garage/%@?validate=true", textFieldGarageName.text] objectMapping:mapping delegate:self];
     [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
@@ -516,7 +515,7 @@
         [txtFieldEmailRecover setPlaceholder: NSLocalizedString(@"form-invalid-email", nil)];
         txtFieldEmailRecover.text = @"";
     } else {
-        flagRequest = 3;
+        flagError = 3;
         [buttonRecover setEnabled:NO];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [txtFieldEmailRecover resignFirstResponder];
@@ -531,9 +530,10 @@
 }
 
 -(IBAction)getValidEmail:(id)sender {
+    //Sender from form
     if ([sender isKindOfClass:[UITextField class]]) {
         [self setEnableRegisterButton:NO];
-        flagRequest = 2;
+        flagError = 2;
         if (![GlobalFunctions isValidEmail:textFieldEmail.text]){
             [textFieldEmail setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
                           forKeyPath:@"_placeholderLabel.textColor"];
@@ -541,27 +541,22 @@
             emailWrited = textFieldEmail.text;
             textFieldEmail.text = @"";
         } else {
-            
-            
-            
             RKObjectMapping *mapping = [Mappings getValidEmailMapping];
             [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?validate=true", textFieldEmail.text] objectMapping:mapping delegate:self];
             [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         }
-
     }
+    //Sender from returnFB function
     else{
-        flagRequest = 4;
-
-    
-        RKObjectMapping *mapping = [Mappings getValidEmailMapping];
-        [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?validate=true", (NSString *)sender] objectMapping:mapping delegate:self];
-        [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
-
+        [self requestEmailFacebookExist:sender];
     }
-    
-    
+}
+-(void)requestEmailFacebookExist:(id)sender{
+    flagError = 4;
+    RKObjectMapping *mapping = [Mappings getValidEmailMapping];
+    [RKObjManeger loadObjectsAtResourcePath:[NSString stringWithFormat:@"/profile/%@?validate=true", (NSString *)sender] objectMapping:mapping delegate:self];
+    [[RKParserRegistry sharedRegistry] setParserClass:[RKJSONParserJSONKit class] forMIMEType:[GlobalFunctions getMIMEType]];
 }
 
 -(BOOL)validateFormNewGarage{
@@ -611,8 +606,7 @@
     [settingsAccount setObject:[[objects objectAtIndex:0] localization]   forKey:@"localization"];
     [settingsAccount setObject:[[objects objectAtIndex:0] idState]        forKey:@"idState"];
     [settingsAccount synchronize];
-    
-    isLoadingDone = YES;
+    [self finishProgress];
 }
 
 - (void)setProfile:(NSArray *)objects{
@@ -645,7 +639,7 @@
     [self getResourcePathLogin];
 }
 
--(void)waitingTask{
+-(void)waitingProgress{
     while (!isLoadingDone)
         continue;//NSLog(@"isLoading");
     [timer invalidate];
@@ -661,7 +655,11 @@
 	isLoadingDone = NO;
     
 	// Show the HUD while the provided method executes in a new thread
-	[HUD showWhileExecuting:@selector(waitingTask) onTarget:self withObject:nil animated:YES];
+	[HUD showWhileExecuting:@selector(waitingProgress) onTarget:self withObject:nil animated:YES];
+}
+-(void)finishProgress{
+    isLoadingDone = YES;
+    [HUD removeFromSuperview];
 }
 
 -(void)cancelRequest{
@@ -669,11 +667,7 @@
     [HUD setCustomView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iconDeletePicsAtGalleryProdAcc.png"]]];
     [HUD setMode:MBProgressHUDModeCustomView];
     [HUD setLabelText:NSLocalizedString(@"image-upload-error-check", nil)];
-    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(finished) userInfo:nil repeats:NO];
-}
-
--(void)finished{
-    isLoadingDone = YES;
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(finishedHud) userInfo:nil repeats:NO];
 }
 
 -(void)setLogin:(NSArray *)objects{
@@ -753,6 +747,14 @@
     [controls.activeTextField resignFirstResponder];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [self finishProgress];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [self finishProgress];
+}
+
 #pragma mark -
 #pragma mark UITextField Delegate
 
@@ -767,10 +769,6 @@
 -(IBAction)textFieldEditingEnded:(id)sender{
     [scrollView setContentOffset:CGPointZero animated:YES];
     [sender resignFirstResponder];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    isLoadingDone = YES;
 }
 
 - (void)viewDidUnload

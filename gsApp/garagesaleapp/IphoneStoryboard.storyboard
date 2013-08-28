@@ -274,7 +274,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" keyboardType="URL"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="yes" keyboardType="URL"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="UWq-Q7-Mfp" userLabel="textViewDescription">
                                         <rect key="frame" x="13" y="240" width="293" height="80"/>
@@ -728,7 +728,6 @@
                                         </state>
                                         <connections>
                                             <action selector="trackAbout:" destination="mXU-mi-vjO" eventType="touchUpInside" id="eEM-td-CSu"/>
-                                            <segue destination="Vnq-S3-BVF" kind="modal" id="Bdh-k9-4Nx"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -756,7 +755,7 @@
         <!--About Account View Controller-->
         <scene sceneID="r7v-3h-4Lo">
             <objects>
-                <viewController id="Vnq-S3-BVF" userLabel="About Account View Controller" customClass="settingsAccountViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="about" id="Vnq-S3-BVF" userLabel="About Account View Controller" customClass="settingsAccountViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b7f-xw-Se0">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2190,43 +2189,297 @@
         </scene>
     </scenes>
     <resources>
-        <image name="aboutTop.png" width="16" height="16"/>
-        <image name="addcam.png" width="16" height="16"/>
-        <image name="backgroundDetailReportGarage.png" width="16" height="16"/>
-        <image name="backgroundGarageDetail.png" width="16" height="16"/>
-        <image name="btBackgroundForms.png" width="16" height="16"/>
-        <image name="btBidThisItem.png" width="16" height="16"/>
-        <image name="btCancelBidItem.png" width="16" height="16"/>
-        <image name="btCancelSearch.png" width="16" height="16"/>
-        <image name="btDeleteProductDetail.png" width="16" height="16"/>
-        <image name="btEmailShare.png" width="16" height="16"/>
-        <image name="btEmailShareOver.png" width="16" height="16"/>
-        <image name="btFacebookShare.png" width="16" height="16"/>
-        <image name="btFacebookShareOver.png" width="16" height="16"/>
-        <image name="btMenuTableBottom.png" width="16" height="16"/>
-        <image name="btMenuTableMiddle.png" width="16" height="16"/>
-        <image name="btMenuTableTop.png" width="16" height="16"/>
-        <image name="btOffer.png" width="16" height="16"/>
-        <image name="btPencilEditProductDetail.png" width="16" height="16"/>
-        <image name="btPencilEditProductTable.png" width="16" height="16"/>
-        <image name="btSearchHomeLogOut.png" width="16" height="16"/>
-        <image name="btSign.png" width="16" height="16"/>
-        <image name="btTwitterShare.png" width="16" height="16"/>
-        <image name="btTwitterShareOver.png" width="16" height="16"/>
-        <image name="closeAbout.png" width="16" height="16"/>
-        <image name="dotsDetailProduct.png" width="16" height="16"/>
-        <image name="dropDownCurrency.png" width="16" height="16"/>
-        <image name="dropDownState.png" width="16" height="16"/>
-        <image name="facebookLogin.png" width="16" height="16"/>
-        <image name="garageNoProducts.png" width="16" height="16"/>
-        <image name="line.png" width="16" height="16"/>
-        <image name="loupe.png" width="16" height="16"/>
-        <image name="rightNavItem.png" width="16" height="16"/>
-        <image name="textField01iphone.png" width="16" height="16"/>
-        <image name="textFieldHomeSearch.png" width="16" height="16"/>
-        <image name="topHeaderProductDetail.png" width="16" height="16"/>
-        <image name="uitextViewBackground.png" width="16" height="16"/>
+        <image name="aboutTop.png" width="320" height="143"/>
+        <image name="addcam.png" width="40" height="70"/>
+        <image name="backgroundDetailReportGarage.png" width="320" height="32"/>
+        <image name="backgroundGarageDetail.png" width="320" height="69"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBidThisItem.png" width="137" height="36"/>
+        <image name="btCancelBidItem.png" width="91" height="36"/>
+        <image name="btCancelSearch.png" width="47" height="37"/>
+        <image name="btDeleteProductDetail.png" width="75" height="25"/>
+        <image name="btEmailShare.png" width="157" height="39"/>
+        <image name="btEmailShareOver.png" width="157" height="39"/>
+        <image name="btFacebookShare.png" width="157" height="40"/>
+        <image name="btFacebookShareOver.png" width="157" height="40"/>
+        <image name="btMenuTableBottom.png" width="301" height="45"/>
+        <image name="btMenuTableMiddle.png" width="301" height="46"/>
+        <image name="btMenuTableTop.png" width="301" height="45"/>
+        <image name="btOffer.png" width="56" height="36"/>
+        <image name="btPencilEditProductDetail.png" width="75" height="25"/>
+        <image name="btPencilEditProductTable.png" width="53" height="26"/>
+        <image name="btSearchHomeLogOut.png" width="42" height="37"/>
+        <image name="btSign.png" width="100" height="37"/>
+        <image name="btTwitterShare.png" width="157" height="44"/>
+        <image name="btTwitterShareOver.png" width="157" height="44"/>
+        <image name="closeAbout.png" width="30" height="30"/>
+        <image name="dotsDetailProduct.png" width="320" height="7"/>
+        <image name="dropDownCurrency.png" width="113" height="32"/>
+        <image name="dropDownState.png" width="150" height="32"/>
+        <image name="facebookLogin.png" width="110" height="30"/>
+        <image name="garageNoProducts.png" width="320" height="339"/>
+        <image name="line.png" width="320" height="1"/>
+        <image name="loupe.png" width="22" height="23"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textFieldHomeSearch.png" width="267" height="38"/>
+        <image name="topHeaderProductDetail.png" width="320" height="65"/>
+        <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
+    <classes>
+        <class className="GAITrackedViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GAITrackedViewController.h"/>
+        </class>
+        <class className="MasterViewController" superclassName="GAITrackedViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
+        </class>
+        <class className="OHAttributedLabel" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OHAttributedLabel.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="galleryScrollViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/galleryScrollViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dimissModal:"/>
+                <relationship kind="action" name="pageControlCliked"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="garageAccountViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/garageAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addressChanged:"/>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="imgGarageLogo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="labelNoProduct" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="labelTotalProducts" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="link" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollViewProducts" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="tableViewProducts" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="viewNoProducts" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewSegmentArea" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewTop" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="homeViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/homeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="reloadPage:"/>
+                <relationship kind="action" name="showHideTopPage:"/>
+                <relationship kind="action" name="showHideViewSearch:"/>
+                <relationship kind="outlet" name="buttonSignIn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonSignUp" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="viewSearchFooter" candidateClass="viewSearchArea"/>
+                <relationship kind="outlet" name="viewSearchFront" candidateClass="viewSearchArea"/>
+                <relationship kind="outlet" name="viewTopPage" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="productAccountViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addProduct:"/>
+                <relationship kind="action" name="animationPicsControl"/>
+                <relationship kind="action" name="cancelRegister:"/>
+                <relationship kind="action" name="deleteProduct:"/>
+                <relationship kind="action" name="getPicsByCamera:"/>
+                <relationship kind="action" name="getPicsByPhotosAlbum:"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="saveProduct"/>
+                <relationship kind="outlet" name="buttonAddPics" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollViewPicsProduct" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="textViewDescription" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="txtFieldCurrency" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldLink" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldState" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldTitle" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldValue" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="productDetailViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/productDetailViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="animationBidView"/>
+                <relationship kind="action" name="bidPost:"/>
+                <relationship kind="action" name="deleteProduct:"/>
+                <relationship kind="action" name="gotoGarageDetailVC"/>
+                <relationship kind="action" name="gotoProductAccountVC:"/>
+                <relationship kind="action" name="gotoUserProductTableVC"/>
+                <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
+                <relationship kind="action" name="pushToByLink"/>
+                <relationship kind="action" name="reportGarage:"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
+                <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonBid" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonBy" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonCancelBid" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonDeleteProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonEditProduct" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonGarageDetail" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonOffer" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonReportThisGarage" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="countLabel" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="countView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="galleryScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="garageDetailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="labelAskSomething" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelBidSent" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCityProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCongrats" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelDescricao" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelEmailProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNameProfile" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNomeProduto" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelOffer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="msgBidSentLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollViewMain" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldOffer" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtViewComment" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="viewBidMsg" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewBidSend" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewControl" candidateClass="UIView"/>
+                <relationship kind="outlet" name="viewReport" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="searchCustomViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/searchCustomViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="currency" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageEditButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imageGravatar" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="productName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="valorEsperado" candidateClass="OHAttributedLabel"/>
+            </relationships>
+        </class>
+        <class className="searchViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/searchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeSegControl"/>
+                <relationship kind="action" name="showSearch:"/>
+                <relationship kind="outlet" name="OHlabelTitleResults" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="viewSegmentArea" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="settingsAccountViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/settingsAccountViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dimissModal:"/>
+                <relationship kind="action" name="logout:"/>
+                <relationship kind="action" name="saveSettings"/>
+                <relationship kind="action" name="trackAbout:"/>
+                <relationship kind="outlet" name="buttonAccount" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonAddress" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonLogout" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonPassword" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonRightAbout" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="city" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="garageName" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="labelAbout" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelAboutAPP" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="labelAddress" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelAnyLink" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCity" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCountry" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelCurrentPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelDistrict" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelNewPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelRepeatPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelTotalProducts" candidateClass="OHAttributedLabel"/>
+                <relationship kind="outlet" name="labelYourName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="save" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="txtFieldAddress" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldAnyLink" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCity" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCountry" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldCurrentPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldDistrict" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldGarageName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldNewPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldRepeatNewPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldYourName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtViewAbout" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="sharePopOverViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/sharePopOverViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="actionEmailComposer"/>
+                <relationship kind="action" name="facebook:"/>
+                <relationship kind="action" name="twitter:"/>
+            </relationships>
+        </class>
+        <class className="signUpViewController" superclassName="MasterViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonClickHandler:"/>
+                <relationship kind="action" name="checkLogin:"/>
+                <relationship kind="action" name="getValidEmail:"/>
+                <relationship kind="action" name="getValidGarageName:"/>
+                <relationship kind="action" name="postNewGarage:"/>
+                <relationship kind="action" name="recoverPassword:"/>
+                <relationship kind="action" name="setEmailWrited:"/>
+                <relationship kind="action" name="setGarageNameWrited:"/>
+                <relationship kind="action" name="textFieldEditingEnded:"/>
+                <relationship kind="action" name="trackRecoverPassword:"/>
+                <relationship kind="outlet" name="buttonFaceBook" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonLostPassword" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonRecover" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonRegister" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonRegisterNew" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imgFieldEmail" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imgFieldPassword" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="labelEmail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelGarageName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelLogin" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPasswRecover" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPassword" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelPersonName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="labelSignup" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="secondView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="textFieldEmail" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldGarageName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldPersonName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldUserName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="textFieldUserPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtFieldEmailRecover" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="viewSearchArea" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/viewSearchArea.h"/>
+            <relationships>
+                <relationship kind="outlet" name="btCancelSearch" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imgTxtField" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="txtFieldSearch" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
         <simulatedOrientationMetrics key="orientation"/>

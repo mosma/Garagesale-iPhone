@@ -48,7 +48,8 @@
 -(void)setupNoMessage{
     self.nomessage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 192, 55)];
     [self.nomessage setCenter:CGPointMake(self.view.frame.size.width/2, -50)];
-    [self.navigationController.tabBarController.selectedViewController.view addSubview:self.nomessage];
+    //[self.navigationController.tabBarController.selectedViewController.view addSubview:self.nomessage];
+    [self.view addSubview:self.nomessage];
 }
 -(void)showNoMessage:(NSString *)name{
     UIImage *img = [UIImage imageNamed:name];
@@ -75,12 +76,17 @@
     bounceAnimation.removedOnCompletion = NO;
     [self.nomessage setCenter:self.navigationController.tabBarController.selectedViewController.view.center];
     [self.nomessage.layer addAnimation:bounceAnimation forKey:@"bounce"];
-    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideNoMessage) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hideNoMessage) userInfo:nil repeats:NO];
 }
 -(void)hideNoMessage{
     [UIView animateWithDuration:0.5 animations:^{
-        [self.nomessage setCenter:CGPointMake(self.view.frame.size.width/2, 800)];
+        [self.nomessage setCenter:CGPointMake(160, 800)];
     }];
+}
+-(void)removeNoMessageFromSuperView{
+    for (UIView *view in [self.view subviews])
+        if ([view isEqual:self.nomessage])
+            [self.nomessage removeFromSuperview];
 }
 
 #pragma mark - isReachability

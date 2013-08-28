@@ -38,4 +38,5 @@
 -(void)addKeyboardControlsAtFields;
 -(void)releaseMemoryCache;
 -(void)showNoMessage:(NSString *)name;
+-(void)removeNoMessageFromSuperView;
 @end

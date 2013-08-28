@@ -671,6 +671,10 @@
 }
 
 -(IBAction)trackAbout:(id)sender{
+    settingsAccountViewController *about = [self.storyboard instantiateViewControllerWithIdentifier:@"about"];
+    [self removeNoMessageFromSuperView];
+    [about removeNoMessageFromSuperView];
+    [self.navigationController presentModalViewController:about animated:YES];
     [self setTrackedViewName:@"/about"];
 }
 

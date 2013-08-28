@@ -701,10 +701,9 @@
         isValid = NO;
     }
     else if (![GlobalFunctions isValidUrl:txtFieldLink.text] && [txtFieldLink.text length]!=0){
-        [txtFieldLink setValue:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]
-                     forKeyPath:@"_placeholderLabel.textColor"];
-        [txtFieldLink setPlaceholder:txtFieldLink.text];
-        [txtFieldLink setText:@""];
+        [txtFieldLink setTextColor:[UIColor colorWithRed:253.0/255.0 green:103.0/255.0 blue:102.0/255.0 alpha:1.f]];
+        //[txtFieldLink setPlaceholder:txtFieldLink.text];
+        //[txtFieldLink setText:@""];
         isValid = NO;
     }
 
@@ -869,7 +868,7 @@
             if ([[[v class] description] rangeOfString:@"UITextSelectionView"].location != NSNotFound)
                 v.hidden = YES;
     }
-    
+    [txtFieldLink setTextColor:[UIColor colorWithRed:165.0/255.0 green:165.0/255.0 blue:165.0/255.0 alpha:1.f]];
     if ([keyboardControls.textFields containsObject:textField])
         keyboardControls.activeTextField = textField;
     [self scrollViewToTextField:textField];

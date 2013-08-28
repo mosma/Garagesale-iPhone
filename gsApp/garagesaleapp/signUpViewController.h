@@ -52,7 +52,7 @@
     MBProgressHUD                   *HUD;
     viewHelper                      *vH;
     BOOL                            isLoadingDone;
-    int                             flagRequest;
+    int                             flagError;
     NSTimer                         *timer;
                                                  
     NSString                        *garageNameWrited;
