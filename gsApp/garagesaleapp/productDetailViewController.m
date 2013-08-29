@@ -430,14 +430,21 @@
 {
     sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
     
-    Caminho *urlImage = (Caminho *)[[[self.product.fotos objectAtIndex:0] caminho] objectAtIndex:0];
+    Caminho *urlImage = [[Caminho alloc] init];
     
+    @try {
+        [sharePopOverVC setImgProduct:imageView.image];
+        urlImage = (Caminho *)[[[self.product.fotos objectAtIndex:0] caminho] objectAtIndex:0];
+    }
+    @catch (NSException *exception) {
+        urlImage.listing = @"";
+        [sharePopOverVC setImgProduct:nil];
+    }
     [sharePopOverVC setIdProduct:(NSString *)self.product.id];
     [sharePopOverVC setPriceProduct:self.product.valorEsperado];
     [sharePopOverVC setGarageName:[[self.arrayProfile objectAtIndex:0] garagem]];
     [sharePopOverVC setProdName:labelNomeProduto.text];
     [sharePopOverVC setDescription:labelDescricao.text];
-    [sharePopOverVC setImgProduct:imageView.image];
     [sharePopOverVC setStrUrlImg:urlImage.listing] ;
     [sharePopOverVC setParent:self];
     

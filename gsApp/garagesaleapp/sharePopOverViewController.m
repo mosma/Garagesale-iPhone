@@ -134,7 +134,8 @@
 
     TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
     [twitter setInitialText:[NSString stringWithFormat:@"%@ - %@", prodName, description]];
-    [twitter addImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]];
+    if (![strUrlImg isEqualToString:@""])
+        [twitter addImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:strUrlImg]]]];
     [twitter addURL:[NSURL URLWithString:url]];
     
     [self presentViewController:twitter animated:YES completion:nil];
@@ -164,8 +165,11 @@
     [mail setToRecipients:[NSArray arrayWithObject:@""]];
     [mail setSubject:title];
     
-    NSData *data = UIImagePNGRepresentation(imgProduct);
-    [mail addAttachmentData:data mimeType:@"image/png" fileName:@"image.png"];
+    if (imgProduct) {
+        NSData *data = UIImagePNGRepresentation(imgProduct);
+        [mail addAttachmentData:data mimeType:@"image/png" fileName:@"image.png"];
+        data = nil;
+    }
     [mail setMessageBody:content isHTML:NO];
     
     [parent presentViewController:mail animated:YES completion:nil];
@@ -173,7 +177,6 @@
     url = nil;
     title = nil;
     content = nil;
-    data = nil;
     mail = nil;
 }
 
