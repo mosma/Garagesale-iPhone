@@ -1621,7 +1621,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NMn-Tg-q1d">
-                                        <rect key="frame" x="10" y="50" width="110" height="30"/>
+                                        <rect key="frame" x="10" y="45" width="300" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="facebookLogin.png">
@@ -1884,7 +1884,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CQc-HQ-ocI">
-                                        <rect key="frame" x="10" y="50" width="110" height="30"/>
+                                        <rect key="frame" x="10" y="45" width="300" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" backgroundImage="facebookLogin.png">
@@ -2216,7 +2216,7 @@
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="113" height="32"/>
         <image name="dropDownState.png" width="150" height="32"/>
-        <image name="facebookLogin.png" width="110" height="30"/>
+        <image name="facebookLogin.png" width="300" height="40"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="line.png" width="320" height="1"/>
         <image name="loupe.png" width="22" height="23"/>
@@ -2312,13 +2312,11 @@
             <relationships>
                 <relationship kind="action" name="animationBidView"/>
                 <relationship kind="action" name="bidPost:"/>
-                <relationship kind="action" name="deleteProduct:"/>
                 <relationship kind="action" name="gotoGarageDetailVC"/>
                 <relationship kind="action" name="gotoProductAccountVC:"/>
                 <relationship kind="action" name="gotoUserProductTableVC"/>
                 <relationship kind="action" name="isNumberKey:" candidateClass="UITextField"/>
                 <relationship kind="action" name="pushToByLink"/>
-                <relationship kind="action" name="reportGarage:"/>
                 <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="outlet" name="OHlabelValorEsperado" candidateClass="OHAttributedLabel"/>
                 <relationship kind="outlet" name="buttonBack" candidateClass="UIButton"/>
@@ -2435,15 +2433,9 @@
         <class className="signUpViewController" superclassName="MasterViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/signUpViewController.h"/>
             <relationships>
-                <relationship kind="action" name="buttonClickHandler:"/>
-                <relationship kind="action" name="checkLogin:"/>
-                <relationship kind="action" name="getValidEmail:"/>
-                <relationship kind="action" name="getValidGarageName:"/>
-                <relationship kind="action" name="postNewGarage:"/>
                 <relationship kind="action" name="recoverPassword:"/>
                 <relationship kind="action" name="setEmailWrited:"/>
                 <relationship kind="action" name="setGarageNameWrited:"/>
-                <relationship kind="action" name="textFieldEditingEnded:"/>
                 <relationship kind="action" name="trackRecoverPassword:"/>
                 <relationship kind="outlet" name="buttonFaceBook" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="buttonLogin" candidateClass="UIButton"/>
