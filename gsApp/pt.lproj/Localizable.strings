@@ -57,30 +57,30 @@
 "notAvailable"                  = "Não disponivel";
 "invisible"                     = "Invisível";
 
-"learnMore"                     = " Veja mais \r\n Saiba como você pode ter a  \r\n melhor descrição em sua garagem \r\n  \r\n É só acessar: \r\n www.gsapp.me/suagaragem";
 
+//Home publicity
 "needsHelp"                     = " Precisa de alguma ajuda? \r\n Adicione um produto";
+"learnMore"                     = " Veja mais \r\n Saiba como você pode ter a  \r\n melhor descrição em sua garagem \r\n  \r\n É só acessar: \r\n gsapp.me/%@ \r\n \r\n \r\n Share your garage \r\n Do you know you can share your \r\n garage with your friend only by \r\n sharing this link: \r\n gsapp.me/%@";
 
-/*Using in : settingsViewController. */
+"veryEasy"                     = " É muito facil! \r\n Cade suas coisas velhas? Faça login \r\n e venda do jeito certo \r\n \r\n Precisando de algo? \r\n Porque você não começa a vender? ";
+
+
+//settingsViewController
+"currentAddress"                = "Seu endereço";
+"currentCity"                   = "Sua cidade";
+"currentDistrict"               = "Seu estado";
+"currentCoutry"                 = "Seu país";
+
 "account"                       = "Configurações";
 "password"                      = "Senha";
 "currentPassw"                  = "Senha atual";
 
-
-/*Using in : settingsViewController. */
 "aboutYou"                      = "Sobre você";
 "anyLink?"                      = "Algum link?";
 "newPassw"                      = "Nova senha";
 "repeatPassw"                   = "Repita a sua nova senha";
 "address"                       = "Endereço";
 "logout"                        = "Deslogar";
-
-/*Using in : settingsViewController. */
-"currentAddress"                = "Seu endereço";
-"currentCity"                   = "Sua cidade";
-"currentDistrict"               = "Seu estado";
-"currentCoutry"                 = "Seu país";
-
 
 
 //general info

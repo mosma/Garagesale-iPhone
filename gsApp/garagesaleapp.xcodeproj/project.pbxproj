@@ -300,6 +300,8 @@
 		CCEB607014BB45AC0078BA72 /* DroidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606D14BB45AC0078BA72 /* DroidSans-Bold.ttf */; };
 		CCEB607114BB45AC0078BA72 /* DroidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */; };
 		CCEFD7B814BC49D4001DD143 /* Garage.m in Sources */ = {isa = PBXBuildFile; fileRef = CCEFD7B714BC49D4001DD143 /* Garage.m */; };
+		CCF8F13B17CFCF1D0036E082 /* publicity03.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF8F13917CFCF1D0036E082 /* publicity03.png */; };
+		CCF8F13C17CFCF1D0036E082 /* publicity03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CCF8F13A17CFCF1D0036E082 /* publicity03@2x.png */; };
 		CCFB4D1114B80F4000F777C5 /* searchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFB4D1014B80F4000F777C5 /* searchViewController.m */; };
 		E27D3DC216C6727B0068EEAB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E27D3DC116C6727B0068EEAB /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -706,6 +708,8 @@
 		CCEB606E14BB45AC0078BA72 /* DroidSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DroidSans.ttf; sourceTree = "<group>"; };
 		CCEFD7B614BC49D4001DD143 /* Garage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Garage.h; sourceTree = "<group>"; };
 		CCEFD7B714BC49D4001DD143 /* Garage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Garage.m; sourceTree = "<group>"; };
+		CCF8F13917CFCF1D0036E082 /* publicity03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = publicity03.png; sourceTree = "<group>"; };
+		CCF8F13A17CFCF1D0036E082 /* publicity03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publicity03@2x.png"; sourceTree = "<group>"; };
 		CCFB4D0F14B80F3F00F777C5 /* searchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchViewController.h; sourceTree = "<group>"; };
 		CCFB4D1014B80F4000F777C5 /* searchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchViewController.m; sourceTree = "<group>"; };
 		E27D3DC116C6727B0068EEAB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -796,6 +800,8 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CCF8F13917CFCF1D0036E082 /* publicity03.png */,
+				CCF8F13A17CFCF1D0036E082 /* publicity03@2x.png */,
 				CC807BBA17B13C8500747143 /* publicity02.png */,
 				CC807BBB17B13C8500747143 /* publicity02@2x.png */,
 				CC807BBC17B13C8500747143 /* publicity01.png */,
@@ -1680,6 +1686,8 @@
 				CC807BBF17B13C8500747143 /* publicity02@2x.png in Resources */,
 				CC807BC017B13C8500747143 /* publicity01.png in Resources */,
 				CC807BC117B13C8500747143 /* publicity01@2x.png in Resources */,
+				CCF8F13B17CFCF1D0036E082 /* publicity03.png in Resources */,
+				CCF8F13C17CFCF1D0036E082 /* publicity03@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1865,10 +1873,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"~/FacebookSDK\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
@@ -1980,7 +1984,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"~/FacebookSDK\"",
+					"$(SRCROOT)/../../../../FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
@@ -2010,7 +2014,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"~/FacebookSDK\"",
+					"$(SRCROOT)/../../../../FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";

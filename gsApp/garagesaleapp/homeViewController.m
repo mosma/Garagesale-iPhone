@@ -312,8 +312,13 @@
         else 
             [viewSearchFooter.txtFieldSearch becomeFirstResponder];
         //Set contentOffSet to bottom
-        CGPoint bottomOffset = CGPointMake(0, scrollViewMain.contentSize.height-scrollViewMain.frame.size.height);
-        [scrollViewMain setContentOffset:bottomOffset animated:YES];
+        @try {
+            CGPoint bottomOffset = CGPointMake(0, scrollViewMain.contentSize.height-scrollViewMain.frame.size.height);
+            [scrollViewMain setContentOffset:bottomOffset animated:YES];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception.reason);
+        }
     }
     isTopViewShowing = !isTopViewShowing;
 }
@@ -406,38 +411,66 @@
 -(void)showPublicity:(UIScrollView *)scrollView{
     NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
     
-    NSString *learnMoreRANGER;
-    NSString *addProductRANGER;
-    NSString *garageNameRANGER;
+    NSString    *titulo1Ranger;
+    NSString    *titulo2Ranger;
+    NSString    *addProductRANGER;
+    NSString    *garageLinkRANGER;
+    UIImageView *learnMore;
+    NSString    *garageName = [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"];
     
+    BOOL isToken = ([[GlobalFunctions getUserDefaults] objectForKey:@"token"] != nil);
     if ([language isEqualToString:@"en"]){
-        learnMoreRANGER = @"Learn more";
-        addProductRANGER = @"Add a Product";
-        garageNameRANGER = @"www.gsapp.me/garagename";
+        if (isToken) {
+            titulo1Ranger = @"See more";
+            titulo2Ranger = @"Share your garage";
+        }else{
+            titulo1Ranger = @"Veeery easy";
+            titulo2Ranger = @"Missing anything?";
+        }
+        addProductRANGER  = @"Add a Product";
     }else{
-        learnMoreRANGER = @"Veja mais";
-        addProductRANGER = @"Adicione um produto";
-        garageNameRANGER = @"www.gsapp.me/suagaragem";
+        if (isToken) {
+            titulo1Ranger = @"Veja mais";
+            titulo2Ranger = @"Compartilhe sua garagem";
+        }else{
+            titulo1Ranger = @"É muito facil!";
+            titulo2Ranger = @"Precisando de algo?";
+        }
+        addProductRANGER  = @"Adicione um produto";
     }
+    garageLinkRANGER  = [NSString stringWithFormat:@"gsapp.me/%@", garageName];
     
-    int spacePublicity = 330;
-    [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+spacePublicity)];
+    int expandScroll = (isToken) ? 435 : 260;
+    int YPositSearch = (isToken) ? 440 : 275;
+    int YPositProduc = (isToken) ? 375 : 210;
+    int YPositLearnM = (isToken) ? 195 : 102;
+    int YPositSignIn = (isToken) ? 205 : 230;
+
+    [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+expandScroll)];
+    
+    NSString *imgName = (isToken) ? @"publicity01" : @"publicity03";
+    learnMore  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     
     UIImageView *addProduct = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
-    UIImageView *learnMore  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity01"]];
     [addProduct setFrame:CGRectMake(0, 0, addProduct.image.size.width, addProduct.image.size.height)];
     [learnMore  setFrame:CGRectMake(0, 0, learnMore.image.size.width,  learnMore.image.size.height)];
     
     [viewSearchFooter setHidden:NO];
-    [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-345)];
-    [addProduct      setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-280)];
-    [learnMore       setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-160)];
+    [viewSearchFooter setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-YPositSearch)];
+    [addProduct       setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-YPositProduc)];
+    [learnMore        setCenter:CGPointMake(self.view.bounds.size.width/2, scrollView.contentSize.height-YPositLearnM)];
     
-    UIButton *login  = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIButton *signup = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *login  = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *signup = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    login.frame  = CGRectMake(165, scrollView.contentSize.height-300, 135, 40);
-    signup.frame = CGRectMake(20,  scrollView.contentSize.height-300, 135, 40);
+    [login  setBackgroundImage:[UIImage imageNamed:@"btSign"] forState:UIControlStateNormal];
+    [signup setBackgroundImage:[UIImage imageNamed:@"btSign"] forState:UIControlStateNormal];
+
+    [login.titleLabel  setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
+    [signup.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
+    
+    login.frame  = CGRectMake(164, scrollView.contentSize.height-YPositSignIn, 136, 40);
+    signup.frame = CGRectMake(20,  scrollView.contentSize.height-YPositSignIn, 136, 40);
     
     [login  setTitle:NSLocalizedString(@"signinButton", nil)  forState:UIControlStateNormal];
     [signup setTitle:NSLocalizedString(@"signupButton", nil) forState:UIControlStateNormal];
@@ -450,42 +483,57 @@
     [login addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
     [signup addTarget:self action:@selector(gotoSignUp) forControlEvents:UIControlEventTouchUpInside];
 
-    OHAttributedLabel *label00 = [[OHAttributedLabel alloc] initWithFrame:
+    
+    
+    
+    OHAttributedLabel *labelAddProduct = [[OHAttributedLabel alloc] initWithFrame:
                                   CGRectMake(55, 10, addProduct.image.size.width-55, addProduct.image.size.height)];
-    [label00 setBackgroundColor:[UIColor clearColor]];
-    [label00 setNumberOfLines:2];
-    NSString *text00 = NSLocalizedString(@"needsHelp", nil); 
+    [labelAddProduct setBackgroundColor:[UIColor clearColor]];
+    [labelAddProduct setNumberOfLines:2];
+    NSString *textNeedsHelp = NSLocalizedString(@"needsHelp", nil);
     NSMutableAttributedString* attrStr0 = [NSMutableAttributedString
-                                          attributedStringWithString:text00];
+                                          attributedStringWithString:textNeedsHelp];
     [attrStr0 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]];
     [attrStr0 setTextColor:[UIColor whiteColor]];
     [attrStr0 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]
-               range:[text00 rangeOfString:addProductRANGER]];
-    [label00 setAttributedText:attrStr0];
+               range:[textNeedsHelp rangeOfString:addProductRANGER]];
+    [labelAddProduct setAttributedText:attrStr0];
     
+    
+    
+    int YPositDescri = (isToken) ? 12 : 15;
+    OHAttributedLabel *labelDescription = [[OHAttributedLabel alloc] initWithFrame:
+                                  CGRectMake(55, YPositDescri, learnMore.image.size.width-55, learnMore.image.size.height)];
+    [labelDescription setBackgroundColor:[UIColor clearColor]];
+    [labelDescription setNumberOfLines:7];
+    [[OHAttributedLabel appearance] setLinkColor:[UIColor redColor]];
+    
+    NSString *textLearnMore;
+    if (isToken)
+        textLearnMore = [NSString stringWithFormat:NSLocalizedString(@"learnMore",nil), garageName, garageName];
+    else
+        textLearnMore = NSLocalizedString(@"veryEasy", nil);
 
-    OHAttributedLabel *label01 = [[OHAttributedLabel alloc] initWithFrame:
-                                  CGRectMake(55, 10, learnMore.image.size.width-55, learnMore.image.size.height)];
-    [label01 setBackgroundColor:[UIColor clearColor]];
-    [label01 setNumberOfLines:7];
-    NSString *text01 = NSLocalizedString(@"learnMore", nil);
     NSMutableAttributedString* attrStr1 = [NSMutableAttributedString
-                                          attributedStringWithString:text01];
+                                          attributedStringWithString:textLearnMore];
     [attrStr1 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
     [attrStr1 setTextColor:[UIColor grayColor]];
-    
     [attrStr1 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
-               range:[text01 rangeOfString:learnMoreRANGER]];
-    
+               range:[textLearnMore rangeOfString:titulo1Ranger]];
+    [attrStr1 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
+                range:[textLearnMore rangeOfString:titulo2Ranger]];
     [attrStr1 setTextColor:[UIColor blackColor]
-                     range:[text01 rangeOfString:learnMoreRANGER]];
-    
+                     range:[textLearnMore rangeOfString:titulo1Ranger]];
+    [attrStr1 setTextColor:[UIColor blackColor]
+                     range:[textLearnMore rangeOfString:titulo2Ranger]];
     [attrStr1 setTextColor:[UIColor redColor]
-                range:[text01 rangeOfString:garageNameRANGER]];
-    [label01 setAttributedText:attrStr1];
-
-    [addProduct  addSubview:label00];
-    [learnMore   addSubview:label01];
+                range:[textLearnMore rangeOfString:garageLinkRANGER]];
+    [labelDescription setAttributedText:attrStr1];
+    
+    
+    
+    [addProduct  addSubview:labelAddProduct];
+    [learnMore   addSubview:labelDescription];
 
     [self.scrollViewMain addSubview:learnMore];
     
@@ -497,18 +545,28 @@
     }
     [self.scrollViewMain addSubview:viewSearchFooter];
     
+    [[GAI sharedInstance].defaultTracker trackEventWithCategory:@"Home"
+                                                     withAction:@"ShowPublicity"
+                                                      withLabel:@"Show Publicity Area at Bottom"
+                                                      withValue:nil];
+    
     countLoads++;
     
     addProduct = nil;
     learnMore = nil;
-    label00 = nil;
-    label01 = nil;
-    text00 = nil;
-    text01 = nil;
+    labelAddProduct = nil;
+    labelDescription = nil;
+    textNeedsHelp = nil;
+    textLearnMore = nil;
     attrStr0 = nil;
     attrStr1 = nil;
     signup = nil;
     login = nil;
+    titulo1Ranger = nil;
+    titulo2Ranger = nil;
+    addProductRANGER = nil;
+    garageLinkRANGER = nil;
+    garageName = nil;
 }
 -(void)gotoLogin{
     [self performSegueWithIdentifier:@"login" sender:self];
