@@ -13,11 +13,13 @@
 #import "ProductPhotos.h"
 #import "MBProgressHUD.h"
 #import "Product.h"
+#import "GKImagePicker.h"
 #import "JSON.h"
 
 @interface productAccountViewController : MasterViewController <UINavigationControllerDelegate, 
                                                                 UIImagePickerControllerDelegate,
                                                                 RKObjectLoaderDelegate,
+                                                                GKImagePickerDelegate,
                                                                 RKRequestDelegate,
                                                                 UIPickerViewDataSource, 
                                                                 UIPickerViewDelegate,
@@ -63,6 +65,8 @@
 @property (weak, nonatomic) IBOutlet UITextView   *textViewDescription;
 @property (weak, nonatomic) IBOutlet UIButton     *buttonAddPics;
 @property (weak, nonatomic) IBOutlet UIButton *buttonDeleteProduct;
+
+@property (strong, nonatomic) IBOutlet GKImagePicker *imagePicker;
 
 @property (nonatomic)           bool      isImagesProductPosted;
 @property (retain, nonatomic)   Product   *product;

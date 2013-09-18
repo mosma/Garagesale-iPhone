@@ -355,7 +355,7 @@
         if (buttonIndex == 0)
             [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypeCamera];
         else if (buttonIndex == 1)
-            [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
+            [self getPicsByPhotosAlbum:nil];
         else if (buttonIndex == 2)
             ;
     }
@@ -366,24 +366,45 @@
 }
 
 -(IBAction)getPicsByPhotosAlbum:(id)sender {
-    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
+//    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
+    self.imagePicker = nil;
+    self.imagePicker = [[GKImagePicker alloc] init];
+    self.imagePicker.cropSize = CGSizeMake(320, 90);
+    self.imagePicker.delegate = self;
+    self.imagePicker.resizeableCropArea = YES;
+
+    [self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
+    //self.imagePicker = nil;
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *originalImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    
+    @try {
+        if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera){
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Erro saving...");
+    }
+    //[self resize:originalImage];
+    [picker dismissModalViewControllerAnimated:YES];
+    [NSTimer scheduledTimerWithTimeInterval:0.9 target:self selector:@selector(getPicsByPhotosAlbum:) userInfo:nil repeats:NO];
+}
+
+-(void)resize:(UIImage *)originalImage{
     UIImage *newImage;
-    
+
     int maxSize = 900;
     float w = originalImage.size.width;
     float h = originalImage.size.height;
     float ratio;
-    
+
     if (w > h)
         ratio = w/h;
     else
         ratio = h/w;
-    
+
     CGSize newSize;
     if (w > h)
         newSize = CGSizeMake(maxSize, roundf(maxSize/ratio));
@@ -397,14 +418,6 @@
 
     NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 0.5);
     UIImage *imageRender = [UIImage imageWithData:dataImage];
-    
-    @try {
-        if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera)
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Erro saving...");
-    }
 
     [scrollViewPicsProduct setFrame:CGRectMake(0,
                                                scrollViewPicsProduct.frame.origin.y,
@@ -415,11 +428,30 @@
                       photoReturn:nil
                           product:self.product
                      isFromPicker:YES];
-    [picker dismissModalViewControllerAnimated:YES];
     originalImage = nil;
     newImage = nil;
     dataImage = nil;
     imageRender = nil;
+}
+
+# pragma mark -
+# pragma mark GKImagePicker Delegate Methods
+
+- (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image{
+    [self resize:image];
+    [self hideImagePicker];
+}
+
+# pragma mark -
+# pragma mark UIImagePickerDelegate Methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
+    //[self resize:image];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)hideImagePicker{
+    [self.imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)deleteProduct:(id)sender {
@@ -525,7 +557,7 @@
         [imagePicker setDelegate:self];
         
         // Allow editing of image ?
-        imagePicker.allowsEditing = YES;
+        //imagePicker.allowsEditing = YES;
         
         // Show image picker
         [self presentModalViewController:imagePicker animated:YES];	

@@ -59,11 +59,13 @@
 
 
 //Home publicity
-"needsHelp"                     = " Precisa de alguma ajuda? \r\n Adicione um produto";
-"learnMore"                     = " Veja mais \r\n Saiba como você pode ter a  \r\n melhor descrição em sua garagem \r\n  \r\n É só acessar: \r\n gsapp.me/%@ \r\n \r\n \r\n Share your garage \r\n Do you know you can share your \r\n garage with your friend only by \r\n sharing this link: \r\n gsapp.me/%@";
+"needsHelp"                     = " Precisa vender algo? \r\n Adicione um produto";
 
-"veryEasy"                     = " É muito facil! \r\n Cade suas coisas velhas? Faça login \r\n e venda do jeito certo \r\n \r\n Precisando de algo? \r\n Porque você não começa a vender? ";
+"learnMore"                     = " Veja mais \r\n Você sabe que pode melhorar a \r\n sua descrição dos produtos \r\n entrando no site e depois \r\n edita-lo  \r\n  \r\n basta acessar: \r\n gsapp.me/%@";
 
+"share-garage"                  = " Compartilhe sua garagem  \r\n com seus amigos basta  clicar \r\n aqui e compartilhar o link: \r\n gsapp.me/%@";
+
+"veryEasy"                     = " É muito facil! \r\n Onde está seu material antigo? \r\n Faça login e venda imediatamente \r\n \r\n Precisa de uma grana? \r\n Começe a vender agora no \r\n Gsapp.me ";
 
 //settingsViewController
 "currentAddress"                = "Seu endereço";
@@ -155,6 +157,7 @@
 "share-response-error-text"     = "Houve um erro ao enviar a sua mensagem.";
 "share-response-error-btn1"     = "Ok!";
 
+"login-with-facebook-btn"       = "Logar com Facebook";
 
 "image-upload-error"            = "Aconteceu algum erro ao conectar-se ao servidor";
 "image-upload-error-btn1"       = "Ok";

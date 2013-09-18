@@ -73,11 +73,11 @@
              }
          }];
         // valid account UI is shown whenever the session is open
-        [self.buttonFaceBook setTitle:@"" forState:UIControlStateNormal];
+        [self.buttonFaceBook setTitle:NSLocalizedString(@"login-with-facebook-btn", nil) forState:UIControlStateNormal];
         //[self.textNoteOrLink setText:[NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@",
     } else {
         // login-needed account UI is shown whenever the session is closed
-        [self.buttonFaceBook setTitle:@"" forState:UIControlStateNormal];
+        [self.buttonFaceBook setTitle:NSLocalizedString(@"login-with-facebook-btn", nil) forState:UIControlStateNormal];
         //[self.textNoteOrLink setText:@"Login to create a link to fetch account data"];
     }
 }
@@ -100,6 +100,8 @@
     
     [self.textFieldUserName setPlaceholder:NSLocalizedString(@"loginUser", @"")];
     [self.textFieldUserPassword setPlaceholder:NSLocalizedString(@"yourPassword", @"")];
+    
+    [self.buttonFaceBook setTitle:NSLocalizedString(@"login-with-facebook-btn", nil) forState:UIControlStateNormal];
     
     //theme info
     [self.buttonRegister.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
@@ -164,6 +166,8 @@
     [textFieldUserName      setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     [textFieldUserPassword  setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
+    [buttonFaceBook         setFont:[UIFont fontWithName:@"Droid Sans" size:16]];
+
     [GlobalFunctions setNavigationBarBackground:self.navigationController];
     
     vH = [[viewHelper alloc] init];

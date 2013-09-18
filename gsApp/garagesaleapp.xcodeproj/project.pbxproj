@@ -102,6 +102,12 @@
 		CC328CCF1572797F0096180B /* btMail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC328CCD1572797F0096180B /* btMail@2x.png */; };
 		CC331F7E15924BA7006360E0 /* btSearchAccount.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7C15924BA7006360E0 /* btSearchAccount.png */; };
 		CC331F7F15924BA7006360E0 /* btSearchAccount@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */; };
+		CC332D9A17E6366E004DA8F8 /* GKResizeableCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D8E17E6366E004DA8F8 /* GKResizeableCropOverlayView.m */; };
+		CC332D9B17E6366E004DA8F8 /* GKImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D8F17E6366E004DA8F8 /* GKImageCropView.m */; };
+		CC332D9C17E6366E004DA8F8 /* GKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D9017E6366E004DA8F8 /* GKImageCropViewController.m */; };
+		CC332D9D17E6366E004DA8F8 /* GKCropBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D9117E6366E004DA8F8 /* GKCropBorderView.m */; };
+		CC332D9E17E6366E004DA8F8 /* GKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D9217E6366E004DA8F8 /* GKImagePicker.m */; };
+		CC332D9F17E6366E004DA8F8 /* GKImageCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC332D9317E6366E004DA8F8 /* GKImageCropOverlayView.m */; };
 		CC3454D01610A7F40020B6BD /* garaDetailbackgroundAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */; };
 		CC3454D91610CD910020B6BD /* garaDetailbackgroundAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */; };
 		CC3454DD1610D07F0020B6BD /* btDeleteProductDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */; };
@@ -460,6 +466,18 @@
 		CC32DB7C1565BA9000FFB88C /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		CC331F7C15924BA7006360E0 /* btSearchAccount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btSearchAccount.png; sourceTree = "<group>"; };
 		CC331F7D15924BA7006360E0 /* btSearchAccount@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchAccount@2x.png"; sourceTree = "<group>"; };
+		CC332D8E17E6366E004DA8F8 /* GKResizeableCropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKResizeableCropOverlayView.m; sourceTree = "<group>"; };
+		CC332D8F17E6366E004DA8F8 /* GKImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropView.m; sourceTree = "<group>"; };
+		CC332D9017E6366E004DA8F8 /* GKImageCropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropViewController.m; sourceTree = "<group>"; };
+		CC332D9117E6366E004DA8F8 /* GKCropBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCropBorderView.m; sourceTree = "<group>"; };
+		CC332D9217E6366E004DA8F8 /* GKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImagePicker.m; sourceTree = "<group>"; };
+		CC332D9317E6366E004DA8F8 /* GKImageCropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropOverlayView.m; sourceTree = "<group>"; };
+		CC332D9417E6366E004DA8F8 /* GKImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImagePicker.h; sourceTree = "<group>"; };
+		CC332D9517E6366E004DA8F8 /* GKResizeableCropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKResizeableCropOverlayView.h; sourceTree = "<group>"; };
+		CC332D9617E6366E004DA8F8 /* GKImageCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropViewController.h; sourceTree = "<group>"; };
+		CC332D9717E6366E004DA8F8 /* GKImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropView.h; sourceTree = "<group>"; };
+		CC332D9817E6366E004DA8F8 /* GKImageCropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropOverlayView.h; sourceTree = "<group>"; };
+		CC332D9917E6366E004DA8F8 /* GKCropBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCropBorderView.h; sourceTree = "<group>"; };
 		CC3454CF1610A7F30020B6BD /* garaDetailbackgroundAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = garaDetailbackgroundAvatar.png; sourceTree = "<group>"; };
 		CC3454D71610CD900020B6BD /* garaDetailbackgroundAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "garaDetailbackgroundAvatar@2x.png"; sourceTree = "<group>"; };
 		CC3454DB1610D07C0020B6BD /* btDeleteProductDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btDeleteProductDetail.png; sourceTree = "<group>"; };
@@ -782,6 +800,7 @@
 		CC2D1677157D6490000B8BD3 /* AddOn */ = {
 			isa = PBXGroup;
 			children = (
+				CC332D8A17E6350A004DA8F8 /* GKImagePicker */,
 				CCDC279E17A8C7D0004954D0 /* JSON */,
 				CCC5AB7D17A193EE00984B97 /* RefreshControl */,
 				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
@@ -1007,6 +1026,25 @@
 				CC8EEDBA14BD41DF00B9DC22 /* UIButtonArrow280x160.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		CC332D8A17E6350A004DA8F8 /* GKImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				CC332D8E17E6366E004DA8F8 /* GKResizeableCropOverlayView.m */,
+				CC332D8F17E6366E004DA8F8 /* GKImageCropView.m */,
+				CC332D9017E6366E004DA8F8 /* GKImageCropViewController.m */,
+				CC332D9117E6366E004DA8F8 /* GKCropBorderView.m */,
+				CC332D9217E6366E004DA8F8 /* GKImagePicker.m */,
+				CC332D9317E6366E004DA8F8 /* GKImageCropOverlayView.m */,
+				CC332D9417E6366E004DA8F8 /* GKImagePicker.h */,
+				CC332D9517E6366E004DA8F8 /* GKResizeableCropOverlayView.h */,
+				CC332D9617E6366E004DA8F8 /* GKImageCropViewController.h */,
+				CC332D9717E6366E004DA8F8 /* GKImageCropView.h */,
+				CC332D9817E6366E004DA8F8 /* GKImageCropOverlayView.h */,
+				CC332D9917E6366E004DA8F8 /* GKCropBorderView.h */,
+			);
+			name = GKImagePicker;
 			sourceTree = "<group>";
 		};
 		CC6085ED1641FA09007CF930 /* SharedClassDelegate */ = {
@@ -1780,6 +1818,12 @@
 				CCDC27AF17A8C7E2004954D0 /* SBJsonBase.m in Sources */,
 				CCDC27B017A8C7E2004954D0 /* SBJsonParser.m in Sources */,
 				CCDC27B117A8C7E2004954D0 /* SBJsonWriter.m in Sources */,
+				CC332D9A17E6366E004DA8F8 /* GKResizeableCropOverlayView.m in Sources */,
+				CC332D9B17E6366E004DA8F8 /* GKImageCropView.m in Sources */,
+				CC332D9C17E6366E004DA8F8 /* GKImageCropViewController.m in Sources */,
+				CC332D9D17E6366E004DA8F8 /* GKCropBorderView.m in Sources */,
+				CC332D9E17E6366E004DA8F8 /* GKImagePicker.m in Sources */,
+				CC332D9F17E6366E004DA8F8 /* GKImageCropOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

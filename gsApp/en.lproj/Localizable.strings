@@ -60,7 +60,9 @@
 //Home publicity
 "needsHelp"                     = " Needs to sell something? \r\n Add a Product";
 
-"learnMore"                     = " See more \r\n Do you know you can improve \r\n your products description by \r\n loggin on the website and editin \r\n then over there? It's already linked \r\n \r\n Just access: \r\n gsapp.me/%@ \r\n \r\n \r\n Share your garage \r\n Do you know you can share your \r\n garage with your friend only by \r\n sharing this link: \r\n gsapp.me/%@";
+"learnMore"                     = " See more \r\n Do you know you can improve \r\n your products description by \r\n loggin on the website and editin \r\n then over there? It's already linked \r\n \r\n Just access: \r\n gsapp.me/%@";
+
+"share-garage"                  = " Share your garage \r\n Do you know you can share your \r\n garage with your friend only by \r\n sharing this link: \r\n gsapp.me/%@";
 
 "veryEasy"                     = " Veeery easy \r\n Where is your old stuff? Make login \r\n and sell then right away \r\n \r\n Missing anything? \r\n Why dont you start selling? ";
 
@@ -153,6 +155,7 @@
 "share-response-error-text"     = "There was some error sending your message.";
 "share-response-error-btn1"     = "Ok!";
 
+"login-with-facebook-btn"       = "Login with Facebook";
 
 "image-upload-error"            = "Some error connecting to the server.";
 "image-upload-error-btn1"       = "Ok";

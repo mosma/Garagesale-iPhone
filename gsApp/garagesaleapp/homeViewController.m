@@ -379,11 +379,18 @@
 {
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
-            [self getMoreProductsToScroll:scrollView];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showPublicity:scrollView];
+            });
+            
+            
+           // [self getMoreProductsToScroll:scrollView];
             countLoads++;
         }
         if (countLoads == 7) {
-            [self showPublicity:scrollView];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showPublicity:scrollView];
+            });
         }
         if (countLoads == 6) {
             countLoads++;
@@ -434,7 +441,7 @@
             titulo2Ranger = @"Compartilhe sua garagem";
         }else{
             titulo1Ranger = @"É muito facil!";
-            titulo2Ranger = @"Precisando de algo?";
+            titulo2Ranger = @"Precisa de uma grana?";
         }
         addProductRANGER  = @"Adicione um produto";
     }
@@ -449,8 +456,10 @@
     [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+expandScroll)];
     
     NSString *imgName = (isToken) ? @"publicity01" : @"publicity03";
-    learnMore  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
     
+    learnMore  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
+    [learnMore setUserInteractionEnabled:YES];
+
     UIImageView *addProduct = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"publicity02"]];
     [addProduct setFrame:CGRectMake(0, 0, addProduct.image.size.width, addProduct.image.size.height)];
     [learnMore  setFrame:CGRectMake(0, 0, learnMore.image.size.width,  learnMore.image.size.height)];
@@ -502,16 +511,24 @@
     
     
     int YPositDescri = (isToken) ? 12 : 15;
-    OHAttributedLabel *labelDescription = [[OHAttributedLabel alloc] initWithFrame:
+    OHAttributedLabel *labelDescription1 = [[OHAttributedLabel alloc] initWithFrame:
                                   CGRectMake(55, YPositDescri, learnMore.image.size.width-55, learnMore.image.size.height)];
-    [labelDescription setBackgroundColor:[UIColor clearColor]];
-    [labelDescription setNumberOfLines:7];
-    [[OHAttributedLabel appearance] setLinkColor:[UIColor redColor]];
+    [labelDescription1 setBackgroundColor:[UIColor clearColor]];
+    [labelDescription1 setNumberOfLines:7];
+
+    OHAttributedLabel *labelDescription2 = [[OHAttributedLabel alloc] initWithFrame:
+                                            CGRectMake(55, YPositDescri+155, learnMore.image.size.width-55, learnMore.image.size.height)];
+    [labelDescription2 setBackgroundColor:[UIColor clearColor]];
+    [labelDescription2 setNumberOfLines:7];
+    
+    [[OHAttributedLabel appearance] setLinkColor:[UIColor colorWithRed:255.0/255.0 green:119.0/255.0 blue:122.0/255.0 alpha:1.0]];
     
     NSString *textLearnMore;
-    if (isToken)
-        textLearnMore = [NSString stringWithFormat:NSLocalizedString(@"learnMore",nil), garageName, garageName];
-    else
+    NSString *textShareGarage;
+    if (isToken){
+        textLearnMore = [NSString stringWithFormat:NSLocalizedString(@"learnMore",nil), garageName];
+        textShareGarage   = [NSString stringWithFormat:NSLocalizedString(@"share-garage",nil), garageName];
+    }else
         textLearnMore = NSLocalizedString(@"veryEasy", nil);
 
     NSMutableAttributedString* attrStr1 = [NSMutableAttributedString
@@ -526,14 +543,34 @@
                      range:[textLearnMore rangeOfString:titulo1Ranger]];
     [attrStr1 setTextColor:[UIColor blackColor]
                      range:[textLearnMore rangeOfString:titulo2Ranger]];
-    [attrStr1 setTextColor:[UIColor redColor]
+
+    [attrStr1 setTextColor:[UIColor colorWithRed:255.0/255.0 green:119.0/255.0 blue:122.0/255.0 alpha:1.0]
                 range:[textLearnMore rangeOfString:garageLinkRANGER]];
-    [labelDescription setAttributedText:attrStr1];
+    [attrStr1 setLink:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@", garageLinkRANGER]] range:[textLearnMore rangeOfString:garageLinkRANGER]];
+    [labelDescription1 setAttributedText:attrStr1];
     
     
+    NSMutableAttributedString* attrStr2 = [NSMutableAttributedString
+                                           attributedStringWithString:textShareGarage];
+    [attrStr2 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]];
+    [attrStr2 setTextColor:[UIColor grayColor]];
+    [attrStr2 setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14.0]
+                range:[textShareGarage rangeOfString:titulo2Ranger]];
+    [attrStr2 setTextColor:[UIColor blackColor]
+                     range:[textShareGarage rangeOfString:titulo2Ranger]];
+
+    [attrStr2 setTextColor:[UIColor colorWithRed:255.0/255.0 green:119.0/255.0 blue:122.0/255.0 alpha:1.0]
+                     range:[textShareGarage rangeOfString:garageLinkRANGER]];
+    [labelDescription2 setAttributedText:attrStr2];
+    
+//    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyTextUrl:)];
+//    [gest setNumberOfTapsRequired:1];
+//    [gest setAccessibilityLabel:garageLinkRANGER];
+//    [labelDescription2 addGestureRecognizer:gest];
     
     [addProduct  addSubview:labelAddProduct];
-    [learnMore   addSubview:labelDescription];
+    [learnMore   addSubview:labelDescription1];
+    [learnMore   addSubview:labelDescription2];
 
     [self.scrollViewMain addSubview:learnMore];
     
@@ -555,7 +592,7 @@
     addProduct = nil;
     learnMore = nil;
     labelAddProduct = nil;
-    labelDescription = nil;
+    labelDescription1 = nil;
     textNeedsHelp = nil;
     textLearnMore = nil;
     attrStr0 = nil;
@@ -576,6 +613,10 @@
 }
 -(void)addProduct{
     self.tabBarController.selectedIndex = 1;
+}
+-(void)copyTextUrl:(UITapGestureRecognizer *)sender{
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = [NSString stringWithFormat:@"http://%@", sender.accessibilityLabel];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
