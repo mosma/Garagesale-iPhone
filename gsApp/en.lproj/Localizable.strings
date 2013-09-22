@@ -66,6 +66,9 @@
 
 "veryEasy"                     = " Veeery easy \r\n Where is your old stuff? Make login \r\n and sell then right away \r\n \r\n Missing anything? \r\n Why dont you start selling? ";
 
+"copyUrl"                      = "COPY URL";
+"great"                        = "Great!";
+
 //settingsViewController
 "currentAddress"                = "Current address";
 "currentCity"                   = "Current city";

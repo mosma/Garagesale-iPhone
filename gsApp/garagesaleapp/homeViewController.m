@@ -379,7 +379,10 @@
 {
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
-            [self getMoreProductsToScroll:scrollView];
+            
+            [self showPublicity:scrollView];
+
+            //[self getMoreProductsToScroll:scrollView];
             countLoads++;
         }
         if (countLoads == 7) {
@@ -507,9 +510,19 @@
     [labelDescription1 setNumberOfLines:7];
 
     OHAttributedLabel *labelDescription2 = [[OHAttributedLabel alloc] initWithFrame:
-                                            CGRectMake(55, YPositDescri+155, learnMore.image.size.width-55, learnMore.image.size.height)];
+                                            CGRectMake(55, YPositDescri+155, 250, 90)];
     [labelDescription2 setBackgroundColor:[UIColor clearColor]];
     [labelDescription2 setNumberOfLines:7];
+    
+    UIButton *btCopy = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btCopy setFrame:CGRectMake(4, labelDescription2.frame.size.height-20, 70, 20)];
+    [btCopy addTarget:self action:@selector(copyTextUrl:) forControlEvents:UIControlEventTouchUpInside];
+    [btCopy setTitle:NSLocalizedString(@"copyUrl", nil) forState:UIControlStateNormal];
+    [btCopy setAccessibilityIdentifier:garageLinkRANGER];
+    btCopy.layer.cornerRadius = 5.0f;
+    [btCopy setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    btCopy.backgroundColor = [UIColor colorWithRed:229.0/255.0 green:229.0/255.0 blue:229.0/255.0 alpha:1.0];
+    btCopy.titleLabel.font = [UIFont systemFontOfSize:10];
     
     [[OHAttributedLabel appearance] setLinkColor:[UIColor colorWithRed:255.0/255.0 green:119.0/255.0 blue:122.0/255.0 alpha:1.0]];
     
@@ -553,14 +566,10 @@
                      range:[textShareGarage rangeOfString:garageLinkRANGER]];
     [labelDescription2 setAttributedText:attrStr2];
     
-//    UITapGestureRecognizer *gest = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(copyTextUrl:)];
-//    [gest setNumberOfTapsRequired:1];
-//    [gest setAccessibilityLabel:garageLinkRANGER];
-//    [labelDescription2 addGestureRecognizer:gest];
-    
     [addProduct  addSubview:labelAddProduct];
     [learnMore   addSubview:labelDescription1];
     [learnMore   addSubview:labelDescription2];
+    [labelDescription2 addSubview:btCopy];
 
     [self.scrollViewMain addSubview:learnMore];
     
@@ -594,6 +603,7 @@
     addProductRANGER = nil;
     garageLinkRANGER = nil;
     garageName = nil;
+    btCopy = nil;
 }
 -(void)gotoLogin{
     [self performSegueWithIdentifier:@"login" sender:self];
@@ -604,9 +614,11 @@
 -(void)addProduct{
     self.tabBarController.selectedIndex = 1;
 }
--(void)copyTextUrl:(UITapGestureRecognizer *)sender{
+-(void)copyTextUrl:(UIButton *)sender{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = [NSString stringWithFormat:@"http://%@", sender.accessibilityLabel];
+    pasteboard.string = [NSString stringWithFormat:@"http://%@", [sender accessibilityIdentifier]];
+    [sender setTitle:NSLocalizedString(@"great", nil) forState:UIControlStateNormal];
+    [sender setUserInteractionEnabled:NO];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
