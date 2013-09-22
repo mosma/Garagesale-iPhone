@@ -43,13 +43,10 @@
     __weak IBOutlet viewSearchArea *viewSearchFront;
     __strong IBOutlet viewSearchArea *viewSearchFooter;
     UISearchBar                  *searchBarProduct;
-//    __weak IBOutlet UITextField  *txtFieldSearch;
     UIView                       *shadowSearch;
-//    __weak IBOutlet UIButton     *btCancelSearch;
 
     __weak IBOutlet UIButton     *buttonSignUp;
     __weak IBOutlet UIButton     *buttonSignIn;
-//    __weak IBOutlet UIImageView  *imgTxtField;
 }
 
 @property (nonatomic, retain) RKObjectManager     *RKObjManeger;
@@ -73,10 +70,7 @@
 - (void)loadAttribsToComponents;
 - (IBAction)reloadPage:(id)sender;
 - (void)gotoProductDetailVC:(id)sender;
-//Control searchBarProduct when no have user session.
 - (IBAction)showHideTopPage:(id)sender;
 - (IBAction)showHideViewSearch:(id)sender;
-//Control searchBarProduct at session user.
-//- (IBAction)showSearchLoged:(id)sender;
 -(void)controlSearchArea;
 @end

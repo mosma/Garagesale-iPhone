@@ -14,12 +14,14 @@
 #import "MBProgressHUD.h"
 #import "Product.h"
 #import "GKImagePicker.h"
+#import "GKImageCropViewController.h"
 #import "JSON.h"
 
 @interface productAccountViewController : MasterViewController <UINavigationControllerDelegate, 
                                                                 UIImagePickerControllerDelegate,
                                                                 RKObjectLoaderDelegate,
                                                                 GKImagePickerDelegate,
+                                                                GKImageCropControllerDelegate,
                                                                 RKRequestDelegate,
                                                                 UIPickerViewDataSource, 
                                                                 UIPickerViewDelegate,

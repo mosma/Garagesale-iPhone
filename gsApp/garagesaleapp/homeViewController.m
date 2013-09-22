@@ -379,12 +379,7 @@
 {
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self showPublicity:scrollView];
-            });
-            
-            
-           // [self getMoreProductsToScroll:scrollView];
+            [self getMoreProductsToScroll:scrollView];
             countLoads++;
         }
         if (countLoads == 7) {
@@ -452,7 +447,7 @@
     int YPositProduc = (isToken) ? 375 : 210;
     int YPositLearnM = (isToken) ? 195 : 102;
     int YPositSignIn = (isToken) ? 205 : 230;
-
+    
     [scrollViewMain setContentSize:CGSizeMake(320,scrollView.contentSize.height+expandScroll)];
     
     NSString *imgName = (isToken) ? @"publicity01" : @"publicity03";
@@ -492,9 +487,6 @@
     [login addTarget:self action:@selector(gotoLogin) forControlEvents:UIControlEventTouchUpInside];
     [signup addTarget:self action:@selector(gotoSignUp) forControlEvents:UIControlEventTouchUpInside];
 
-    
-    
-    
     OHAttributedLabel *labelAddProduct = [[OHAttributedLabel alloc] initWithFrame:
                                   CGRectMake(55, 10, addProduct.image.size.width-55, addProduct.image.size.height)];
     [labelAddProduct setBackgroundColor:[UIColor clearColor]];
@@ -507,8 +499,6 @@
     [attrStr0 setFont:[UIFont fontWithName:@"Droid Sans" size:14.0]
                range:[textNeedsHelp rangeOfString:addProductRANGER]];
     [labelAddProduct setAttributedText:attrStr0];
-    
-    
     
     int YPositDescri = (isToken) ? 12 : 15;
     OHAttributedLabel *labelDescription1 = [[OHAttributedLabel alloc] initWithFrame:

@@ -88,6 +88,11 @@
     [gallery setProdAccount:self];
     [gallery setScrollView:self.scrollViewPicsProduct];
     
+    self.imagePicker = [[GKImagePicker alloc] init];
+    self.imagePicker.cropSize = CGSizeMake(320, 300);
+    self.imagePicker.delegate = self;
+    self.imagePicker.resizeableCropArea = YES;
+    
     [txtFieldState       setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
     
     waiting = [[UILabel alloc] initWithFrame:CGRectMake(130, 30, 200, 40)];
@@ -366,33 +371,21 @@
 }
 
 -(IBAction)getPicsByPhotosAlbum:(id)sender {
-//    [self getTypeCameraOrPhotosAlbum:UIImagePickerControllerSourceTypePhotoLibrary];
-    self.imagePicker = nil;
-    self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(320, 90);
-    self.imagePicker.delegate = self;
-    self.imagePicker.resizeableCropArea = YES;
-
     [self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
-    //self.imagePicker = nil;
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *originalImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    @try {
-        if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera){
-            UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-        }
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Erro saving...");
-    }
-    //[self resize:originalImage];
-    [picker dismissModalViewControllerAnimated:YES];
-    [NSTimer scheduledTimerWithTimeInterval:0.9 target:self selector:@selector(getPicsByPhotosAlbum:) userInfo:nil repeats:NO];
+    GKImageCropViewController *cropController = [[GKImageCropViewController alloc] init];
+    cropController.contentSizeForViewInPopover = picker.contentSizeForViewInPopover;
+    cropController.sourceImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    cropController.resizeableCropArea = self.imagePicker.resizeableCropArea;
+    cropController.cropSize = self.imagePicker.cropSize;
+    cropController.delegate = self;
+    cropController.picker = picker;
+    [picker pushViewController:cropController animated:YES];
 }
 
--(void)resize:(UIImage *)originalImage{
+-(void)resize:(UIImage *)originalImage picker:(UIImagePickerController *)picker{
     UIImage *newImage;
 
     int maxSize = 900;
@@ -419,6 +412,15 @@
     NSData  *dataImage  = UIImageJPEGRepresentation(newImage, 0.5);
     UIImage *imageRender = [UIImage imageWithData:dataImage];
 
+    @try {
+        if ([picker sourceType] == UIImagePickerControllerSourceTypeCamera){
+            UIImageWriteToSavedPhotosAlbum(originalImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Erro saving...");
+    }
+    
     [scrollViewPicsProduct setFrame:CGRectMake(0,
                                                scrollViewPicsProduct.frame.origin.y,
                                                scrollViewPicsProduct.frame.size.width,
@@ -428,28 +430,27 @@
                       photoReturn:nil
                           product:self.product
                      isFromPicker:YES];
+    
+    [picker dismissModalViewControllerAnimated:YES];
+    
     originalImage = nil;
     newImage = nil;
     dataImage = nil;
     imageRender = nil;
 }
 
-# pragma mark -
-# pragma mark GKImagePicker Delegate Methods
-
+#pragma mark -
+#pragma GKImagePickerDelegate
+//Used By Gallery
 - (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image{
-    [self resize:image];
+    [self resize:image picker:imagePicker.imagePickerController];
     [self hideImagePicker];
 }
-
-# pragma mark -
-# pragma mark UIImagePickerDelegate Methods
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
-    //[self resize:image];
-    //[picker dismissViewControllerAnimated:YES completion:nil];
+//Used By Camera
+- (void)imageCropController:(GKImageCropViewController *)imageCropController didFinishWithCroppedImage:(UIImage *)croppedImage{
+    [self resize:croppedImage picker:self.imagePicker.imagePickerController];
+    [imageCropController.picker dismissModalViewControllerAnimated:YES];
 }
-
 - (void)hideImagePicker{
     [self.imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -890,6 +891,7 @@
         keyboardControls.delegate = nil;
     product = nil;
     waiting = nil;
+    self.imagePicker = nil;
     [super releaseMemoryCache];
 }
 
