@@ -45,6 +45,7 @@
     UISearchBar                  *searchBarProduct;
     UIView                       *shadowSearch;
 
+    __weak IBOutlet UIButton     *buttonSearch;
     __weak IBOutlet UIButton     *buttonSignUp;
     __weak IBOutlet UIButton     *buttonSignIn;
 }
@@ -59,6 +60,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton     *buttonSignUp;
 @property (weak, nonatomic) IBOutlet UIButton     *buttonSignIn;
+@property (weak, nonatomic) IBOutlet UIButton     *buttonSearch;
 
 @property (strong, nonatomic) CKRefreshControl    *refreshControl;
 

@@ -107,12 +107,12 @@
                                                        UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:62.0/255.0 green:114.0/255.0 blue:39.0/255.0 alpha:1.0],
+                                   [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
                                    UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:67.0/255.0 green:129.0/255.0 blue:40.0/255.0 alpha:1.0],
+                                   [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
                                    UITextAttributeTextColor,nil] forState:UIControlStateSelected];
     
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -121,7 +121,7 @@
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                   [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
                                    UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateSelected];
     
@@ -131,7 +131,7 @@
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
+                                   [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
                                    UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateSelected];
     
@@ -190,8 +190,12 @@
     [self.buttonSignIn setTitle:NSLocalizedString(@"signinButton", @"") forState:UIControlStateNormal];
     [self.buttonSignUp setTitle:NSLocalizedString(@"signupButton", @"") forState:UIControlStateNormal];
     
-    [self.buttonSignIn.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
-    [self.buttonSignUp.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
+    [self.buttonSignUp.layer setCornerRadius:6];
+    [self.buttonSignIn.layer setCornerRadius:6];
+    [self.buttonSearch.layer setCornerRadius:6];
+
+    [self.buttonSignIn.titleLabel setFont:[UIFont fontWithName:@"DroidSans" size:15.0f]];
+    [self.buttonSignUp.titleLabel setFont:[UIFont fontWithName:@"DroidSans" size:15.0f]];
 
     searchBarProduct.hidden=YES;
     
@@ -205,8 +209,8 @@
     [viewTopPage.layer setCornerRadius:6];
     [viewTopPage.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [viewTopPage.layer setShadowOffset:CGSizeMake(1, 2)];
-    [viewTopPage.layer setShadowOpacity:0.5];
-    viewTopPage.backgroundColor = [UIColor colorWithWhite:1 alpha:0.9];
+    [viewTopPage.layer setShadowOpacity:0.3];
+    viewTopPage.backgroundColor = [UIColor colorWithWhite:1 alpha:0.8];
 
     //set searchBar settings
     [searchBarProduct setPlaceholder:NSLocalizedString(@"searchProduct", @"")];
@@ -379,10 +383,7 @@
 {
     if ([self detectEndofScroll] && !activityImageView.isAnimating){
         if(countLoads < 6){
-            
-            [self showPublicity:scrollView];
-
-            //[self getMoreProductsToScroll:scrollView];
+            [self getMoreProductsToScroll:scrollView];
             countLoads++;
         }
         if (countLoads == 7) {
@@ -510,12 +511,12 @@
     [labelDescription1 setNumberOfLines:7];
 
     OHAttributedLabel *labelDescription2 = [[OHAttributedLabel alloc] initWithFrame:
-                                            CGRectMake(55, YPositDescri+155, 250, 90)];
+                                            CGRectMake(55, YPositDescri+155, 250, 110)];
     [labelDescription2 setBackgroundColor:[UIColor clearColor]];
     [labelDescription2 setNumberOfLines:7];
     
     UIButton *btCopy = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btCopy setFrame:CGRectMake(4, labelDescription2.frame.size.height-20, 70, 20)];
+    [btCopy setFrame:CGRectMake(4, labelDescription2.frame.size.height-25, 70, 20)];
     [btCopy addTarget:self action:@selector(copyTextUrl:) forControlEvents:UIControlEventTouchUpInside];
     [btCopy setTitle:NSLocalizedString(@"copyUrl", nil) forState:UIControlStateNormal];
     [btCopy setAccessibilityIdentifier:garageLinkRANGER];
@@ -844,6 +845,7 @@
     [self setScrollViewMain:nil];
     self.refreshControl = nil;
     [self setRefreshControl:nil];
+    buttonSearch = nil;
     [super viewDidUnload];
 }
 
