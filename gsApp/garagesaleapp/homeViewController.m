@@ -46,7 +46,7 @@
     
     //set searchBar settings
     searchBarProduct = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
-    
+    searchBarProduct.keyboardType = UIKeyboardAppearanceAlert;
     [self setLayoutTabBarController];
     
     //definind searchbar theme
@@ -97,18 +97,19 @@
     
     [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
     [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
+    [tabBar setBackgroundColor:[UIColor clearColor]];
     
     [item0 setTitle: NSLocalizedString( @"menu-explore", nil)];
     [item1 setTitle: NSLocalizedString( @"menu-add-product", nil)];
     [item2 setTitle: NSLocalizedString( @"menu-my-garage", nil)];
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                                       [UIFont fontWithName:@"DroidSans" size:12.0f],
                                                        UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
-                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -116,23 +117,23 @@
                                    UITextAttributeTextColor,nil] forState:UIControlStateSelected];
     
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
-                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                    [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
-                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateSelected];
     
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                   [UIColor colorWithRed:102.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
-                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateNormal];
     
     [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                    [UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0],
-                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans-Bold" size:12.0f],
+                                   UITextAttributeTextColor, [UIFont fontWithName:@"DroidSans" size:12.0f],
                                    UITextAttributeFont, nil] forState:UIControlStateSelected];
     
     if (IS_IPHONE_5) {
@@ -151,6 +152,8 @@
     [item0 setFinishedSelectedImage:selectedImage0 withFinishedUnselectedImage:unselectedImage0];
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
+    
+    [tabBar setShadowImage:[UIImage new]];
 }
 
 - (void)loadAttribsToComponents{
@@ -477,6 +480,12 @@
     [login.titleLabel  setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     [signup.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:15.0f]];
     
+    [login setBackgroundColor:[UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0]];
+    [signup setBackgroundColor:[UIColor colorWithRed:253.0/255.0 green:102.0/255.0 blue:102.0/255.0 alpha:1.0]];
+    
+    [login.layer  setCornerRadius:5];
+    [signup.layer setCornerRadius:5];
+
     login.frame  = CGRectMake(164, scrollView.contentSize.height-YPositSignIn, 136, 40);
     signup.frame = CGRectMake(20,  scrollView.contentSize.height-YPositSignIn, 136, 40);
     
@@ -570,7 +579,8 @@
     [addProduct  addSubview:labelAddProduct];
     [learnMore   addSubview:labelDescription1];
     [learnMore   addSubview:labelDescription2];
-    [labelDescription2 addSubview:btCopy];
+    if (isToken)
+        [labelDescription2 addSubview:btCopy];
 
     [self.scrollViewMain addSubview:learnMore];
     

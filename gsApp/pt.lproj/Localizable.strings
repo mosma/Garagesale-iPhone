@@ -57,6 +57,7 @@
 "notAvailable"                  = "Não disponivel";
 "invisible"                     = "Invisível";
 
+"GKImoveAndScale"               = "Redimensionar";
 
 //Home publicity
 "needsHelp"                     = " Precisa vender algo? \r\n Adicione um produto";

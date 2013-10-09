@@ -20,6 +20,7 @@
 @property (nonatomic, strong) RKObjectManager *RKObjManeger;
 @property (nonatomic, strong) UIImage         *imageAvatar;
 @property (nonatomic, strong) NSString        *avatarName;
+@property (nonatomic, strong) NSUserDefaults  *urlProfile;
 @property (nonatomic) bool                    isCancelRequests;
 
 -(UIImage *)getGarageAvatar:(NSArray *)profile;

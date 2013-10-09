@@ -46,7 +46,10 @@
         //in the case there is no fb ow twitter, we find for the gravatar
         
         imageAvatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getGravatarURL:[[profile objectAtIndex:0] email]]]];
-        
+        _urlProfile = [NSUserDefaults standardUserDefaults];
+        [_urlProfile  setObject:[[self getGravatarURL:[[profile objectAtIndex:0] email]] absoluteString] forKey:[NSString stringWithFormat:@"%@_url", avatarName]];
+        [_urlProfile synchronize];
+
         if(imageAvatar) {
             [self updateAvatar];
             return imageAvatar;
@@ -112,6 +115,9 @@
     if(!idTT) return false;
     //using the returnet userId
     NSString *path = [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@?size=normal", idTT];
+    _urlProfile = [NSUserDefaults standardUserDefaults];
+    [_urlProfile  setObject:path forKey:[NSString stringWithFormat:@"%@_url", avatarName]];
+    [_urlProfile synchronize];
     idTT = nil;
     NSLog(@"%@", path);
     return [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:path]]];
@@ -120,6 +126,9 @@
 //validates a profile for a facebook image
 -(UIImage *)getFBImage:(NSString *)idFaceBook {
     NSString *url1 = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture", idFaceBook];
+    _urlProfile = [NSUserDefaults standardUserDefaults];
+    [_urlProfile  setObject:url1 forKey:[NSString stringWithFormat:@"%@_url", avatarName]];
+    [_urlProfile synchronize];
    //NSString *url2 = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=250&height=250", idFaceBook];
    //NSDictionary *obj = [[NSDictionary alloc] initWithObjectsAndKeys:@"small", url1, @"large", url2, nil];
     UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url1]]];

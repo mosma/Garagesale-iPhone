@@ -108,6 +108,8 @@
     [self.buttonLogin.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [self.buttonRegisterNew.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
     [buttonLostPassword.titleLabel setFont:[UIFont fontWithName:@"Droid Sans" size:14]];
+    
+    [buttonRecover.titleLabel setFont:[UIFont fontWithName:@"DroidSans-Bold" size:14]];
 
     RKObjManeger = [RKObjectManager objectManagerWithBaseURL:[GlobalFunctions getUrlServicePath]];
 

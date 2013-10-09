@@ -227,6 +227,7 @@
                                                                   imageNamed:@"btBackNav.png" rect:CGRectMake(0, 0, 40, 30)];
         
         [self.navigationItem setLeftBarButtonItem:barItemBack];
+        
         barItemBack = nil;
         
         [labelAskSomething setText:NSLocalizedString(@"offer", @"")];

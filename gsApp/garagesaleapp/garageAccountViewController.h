@@ -14,6 +14,7 @@
 #import "OHAttributedLabel.h"
 #import "STSegmentedControl.h"
 #import "CKRefreshControl.h"
+#import "sharePopOverViewController.h"
 
 @interface garageAccountViewController : MasterViewController <RKObjectLoaderDelegate, 
                                                                 UITableViewDelegate,

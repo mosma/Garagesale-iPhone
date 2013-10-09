@@ -52,7 +52,7 @@
                      self.idProduct];
     
     [self showFeedDialog];
-
+    
     url = nil;
 }
 /**

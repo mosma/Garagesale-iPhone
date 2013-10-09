@@ -107,7 +107,7 @@
     
     CGFloat components[] = {
         1., 1., 1., 1.,
-        123./255., 125/255., 132./255., 1.
+        123./255., 225/255., 132./255., 1.
     };
     
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(320, 54), YES, 0.0);

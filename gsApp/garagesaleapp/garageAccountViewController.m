@@ -226,13 +226,16 @@
             [settingsVC.RKObjManeger setAcceptMIMEType:RKMIMETypeJSON];
             [settingsVC.RKObjManeger setSerializationMIMEType:RKMIMETypeJSON];
 
-            UIBarButtonItem *barItemBack = [GlobalFunctions getIconNavigationBar:@selector(gotoSettingsVC)
-                                                                       viewContr:self
-                                                                      imageNamed:@"btSettingsNavItem.png" rect:CGRectMake(0, 0, 38, 32)];
-            
-            [self.navigationItem setRightBarButtonItem:barItemBack];
-            barItemBack = nil;
+            UIButton *btSettings = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btSettings setFrame:CGRectMake(0.0f, 0.0f, 38.0f, 31.0f)];
+            [btSettings setImage:[UIImage imageNamed:@"btSettingsNavItem.png"] forState:UIControlStateNormal];
+            [btSettings addTarget:self action:@selector(gotoSettingsVC) forControlEvents:UIControlEventTouchUpInside];
+            UIBarButtonItem *settings = [[UIBarButtonItem alloc] initWithCustomView:btSettings];
+            [self.navigationItem setLeftBarButtonItem:settings];
+                        
+            settings = nil;
             image = nil;
+            btSettings = nil;
         }
         
         //Generics Garage. From SearchVC and DetailVC
@@ -319,10 +322,74 @@
         [attrStr setFont:[UIFont boldSystemFontOfSize:20]
                    range:[total rangeOfString:[NSString stringWithFormat:@"%i", [mutArrayProducts count]]]];
         
+        UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buttonShare setFrame:CGRectMake(0.0f, 0.0f, 38.0f, 32.0f)];
+        [buttonShare setImage:[UIImage imageNamed:@"addThisButton.png"] forState:UIControlStateNormal];
+        [buttonShare addTarget:self action:@selector(popover:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithCustomView:buttonShare];
+        [self.navigationItem setRightBarButtonItem:share];
+        
         [labelTotalProducts setAttributedText:attrStr];
         [labelTotalProducts setTextAlignment:UITextAlignmentLeft];
         [self loadButtonsProduct];
     }
+}
+
+-(void)popover:(id)sender
+{
+    sharePopOverViewController *sharePopOverVC = [self.storyboard instantiateViewControllerWithIdentifier:@"sharePopOver"];
+    
+    Caminho *urlImage = [[Caminho alloc] init];
+    
+    @try {
+        [sharePopOverVC setImgProduct:self.imgGarageLogo.image];
+   //     urlImage = (Caminho *)[[[self.product.fotos objectAtIndex:0] caminho] objectAtIndex:0];
+    }
+    @catch (NSException *exception) {
+        urlImage.listing = @"";
+        [sharePopOverVC setImgProduct:nil];
+    }
+    
+    NSString *avatarName;
+    if (isGenericGarage)
+        avatarName = [NSString stringWithFormat:@"%@_AvatarImg", profile.garagem];
+    else
+        avatarName = [NSString stringWithFormat:@"%@_AvatarImg", [[GlobalFunctions getUserDefaults] objectForKey:@"garagem"]];
+    
+    NSString *urlImgProfile = [[GlobalFunctions getUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_url", avatarName ]];
+    
+    [sharePopOverVC setIdProduct:@""];
+    [sharePopOverVC setPriceProduct:@""];
+    [sharePopOverVC setGarageName:self.garageName.text];
+    [sharePopOverVC setProdName:self.garageName.text];
+    [sharePopOverVC setDescription:self.description.text];
+    [sharePopOverVC setStrUrlImg:urlImgProfile];
+    [sharePopOverVC setParent:self];
+
+    FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        popover.contentSize = CGSizeMake(300, 500);
+    }
+    else {
+        popover.contentSize = CGSizeMake(170, 145);
+    }
+    
+    popover.arrowDirection = FPPopoverArrowDirectionUp;
+    
+    UIView* btnView = sender;
+    
+    //sender is the UIButton view
+    [popover presentPopoverFromView:btnView];
+    popover = nil;
+    sharePopOverVC = nil;
+    btnView = nil;
+    urlImage = nil;
+}
+-(void)topRight:(id)sender
+{
+    [self popover:self.navigationItem.rightBarButtonItem.customView];
 }
 
 -(void)loadHeader{

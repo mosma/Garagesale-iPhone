@@ -163,7 +163,7 @@
         UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(showSearch:)
                                                                    viewContr:self
                                                                   imageNamed:@"btSearch.png"
-                                                                        rect:CGRectMake(0, 0, 38, 31)];
+                                                                        rect:CGRectMake(0, 0, 20, 20)];
             
         [self.navigationItem setRightBarButtonItem:barItem];
         
