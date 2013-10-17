@@ -153,7 +153,7 @@
     [item1 setFinishedSelectedImage:selectedImage1 withFinishedUnselectedImage:unselectedImage1];
     [item2 setFinishedSelectedImage:selectedImage2 withFinishedUnselectedImage:unselectedImage2];
     
-    [tabBar setShadowImage:[UIImage new]];
+    [tabBar setShadowImage:[UIImage imageNamed:@"tabBarShadowImage.png"]];
 }
 
 - (void)loadAttribsToComponents{

@@ -163,7 +163,7 @@
         UIBarButtonItem *barItem = [GlobalFunctions getIconNavigationBar:@selector(showSearch:)
                                                                    viewContr:self
                                                                   imageNamed:@"btSearch.png"
-                                                                        rect:CGRectMake(0, 0, 20, 20)];
+                                                                        rect:CGRectMake(0, 0, 30, 20)];
             
         [self.navigationItem setRightBarButtonItem:barItem];
         
@@ -175,11 +175,11 @@
         segmentControl = [[STSegmentedControl alloc] initWithItems:objects];
         [segmentControl setFrame:CGRectMake(0, 0, 92, 31)];
         [segmentControl addTarget:self action:@selector(changeSegControl:) forControlEvents:UIControlEventValueChanged];
-        [segmentControl setSelectedSegmentIndex:0];
+        [segmentControl setSelectedSegmentIndex:1];
         [segmentControl setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [viewSegmentArea addSubview:segmentControl];
 
-        [self.tableView setRowHeight:377];
+        [self.tableView setRowHeight:122];
         
         [activityImageView setFrame:CGRectMake(137, self.view.center.y-60, 46, 45)];
         [activityImageView setAlpha:0];
@@ -645,8 +645,8 @@
     
     [self showSearch:nil];
     
-    [segmentControl setSelectedSegmentIndex:0];
-    [self.tableView setRowHeight:377];
+    [segmentControl setSelectedSegmentIndex:1];
+    [self.tableView setRowHeight:122];
     [self getResourceSearch];
     [self searchBar:searchBar activate:NO];
     [searchBarProduct resignFirstResponder];

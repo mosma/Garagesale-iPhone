@@ -363,7 +363,7 @@
     [sharePopOverVC setGarageName:self.garageName.text];
     [sharePopOverVC setProdName:self.garageName.text];
     [sharePopOverVC setDescription:self.description.text];
-    [sharePopOverVC setStrUrlImg:urlImgProfile];
+    [sharePopOverVC setStrUrlImg:@""];
     [sharePopOverVC setParent:self];
 
     FPPopoverController *popover = [[FPPopoverController alloc] initWithViewController:sharePopOverVC];
