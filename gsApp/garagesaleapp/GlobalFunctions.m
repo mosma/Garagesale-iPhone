@@ -273,7 +273,7 @@
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:searchBar.bounds];
     backgroundView.image = [UIImage imageNamed:@"navBarBackground.png"];
     [searchBar insertSubview:backgroundView atIndex:1];
-    [searchBar setTintColor:[GlobalFunctions getColorRedNavComponets]];
+    [searchBar setTintColor:[UIColor whiteColor]];
     backgroundView = nil;
 }
 

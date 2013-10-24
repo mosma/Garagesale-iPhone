@@ -14,7 +14,6 @@
 #import "RestKit/RestKit.h"
 #import "PhotoReturn.h"
 #import "photosGallery.h"
-#import "PDColoredProgressView.h"
 
 
 @interface UploadImageDelegate : UIView <RKRequestDelegate/* , delegatedelete, delegatelongpress */> {
@@ -36,7 +35,7 @@
      */
     int                         totalBytesW;
     int                         totalBytesExpectedToW;
-    PDColoredProgressView       *progressView;
+    UIProgressView       *progressView;
     PhotoReturn                 *photoReturn;
     NSTimer                     *timerUpload;
     
@@ -47,7 +46,7 @@
 @property (nonatomic, retain)   UIImageView     *imageView;
 @property (nonatomic, retain)   UIImageView     *imageViewDelete;
 @property (nonatomic, retain)   UIImage         *imageUpload;
-@property (nonatomic, retain)   PDColoredProgressView  *progressView;
+@property (nonatomic, retain)   UIProgressView  *progressView;
 @property (nonatomic, retain)   PhotoReturn     *photoReturn;
 @property (nonatomic, retain)   NSMutableArray  *nsMutArrayPicsProduct;
 @property (nonatomic, retain)   UIScrollView    *scrollView;

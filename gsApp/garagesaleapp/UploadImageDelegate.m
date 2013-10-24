@@ -26,9 +26,11 @@
     photoReturn = [[PhotoReturn alloc] init];
     refreshGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(uploadPhotos:)];
 
-    progressView = [[PDColoredProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    [progressView setFrame:CGRectMake(5, 50, 60, 7)];
+    progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [progressView setFrame:CGRectMake(5, 50, 60, 17)];
     [progressView setTintColor:[UIColor colorWithRed:105.0/255.0 green:159.0/255.0 blue:77.0/255.0 alpha:1.0]];
+    CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, 3.0f);
+    progressView.transform = transform;
     return self;
 }
 -(void)setTimmer{

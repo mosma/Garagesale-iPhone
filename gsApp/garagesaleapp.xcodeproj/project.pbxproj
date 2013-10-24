@@ -213,8 +213,6 @@
 		CC83744B1680D23C002754B8 /* btEmailShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374471680D23C002754B8 /* btEmailShare@2x.png */; };
 		CC83744C1680D23C002754B8 /* btTwitterShare.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374481680D23C002754B8 /* btTwitterShare.png */; };
 		CC83744D1680D23C002754B8 /* btTwitterShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374491680D23C002754B8 /* btTwitterShare@2x.png */; };
-		CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374501681607F002754B8 /* PDColoredProgressView.m */; };
-		CC8374531681616B002754B8 /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374521681616B002754B8 /* drawing.m */; };
 		CC8B2F8615EBADE400E25FBA /* btSearchBlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */; };
 		CC8BF4A615B878580048AE70 /* addOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A015B878580048AE70 /* addOver.png */; };
 		CC8BF4A715B878580048AE70 /* addOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A115B878580048AE70 /* addOver@2x.png */; };
@@ -591,9 +589,6 @@
 		CC8374471680D23C002754B8 /* btEmailShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btEmailShare@2x.png"; sourceTree = "<group>"; };
 		CC8374481680D23C002754B8 /* btTwitterShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btTwitterShare.png; sourceTree = "<group>"; };
 		CC8374491680D23C002754B8 /* btTwitterShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btTwitterShare@2x.png"; sourceTree = "<group>"; };
-		CC83744F1681607F002754B8 /* PDColoredProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDColoredProgressView.h; sourceTree = "<group>"; };
-		CC8374501681607F002754B8 /* PDColoredProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDColoredProgressView.m; sourceTree = "<group>"; };
-		CC8374521681616B002754B8 /* drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawing.m; sourceTree = "<group>"; };
 		CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchBlock@2x.png"; sourceTree = "<group>"; };
 		CC8BF4A015B878580048AE70 /* addOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addOver.png; sourceTree = "<group>"; };
 		CC8BF4A115B878580048AE70 /* addOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addOver@2x.png"; sourceTree = "<group>"; };
@@ -794,7 +789,6 @@
 				CCDC279E17A8C7D0004954D0 /* JSON */,
 				CCC5AB7D17A193EE00984B97 /* RefreshControl */,
 				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
-				CC83744E16816042002754B8 /* PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
 				CC6F46041667B195004E5D17 /* AsyncImageView */,
 				CCACED961663D12100E00519 /* GoogleAnalitics */,
@@ -1068,16 +1062,6 @@
 				CC6F46021667B182004E5D17 /* AsyncImageView.m */,
 			);
 			name = AsyncImageView;
-			sourceTree = "<group>";
-		};
-		CC83744E16816042002754B8 /* PDColoredProgressview */ = {
-			isa = PBXGroup;
-			children = (
-				CC8374521681616B002754B8 /* drawing.m */,
-				CC83744F1681607F002754B8 /* PDColoredProgressView.h */,
-				CC8374501681607F002754B8 /* PDColoredProgressView.m */,
-			);
-			name = PDColoredProgressview;
 			sourceTree = "<group>";
 		};
 		CC9DCA99165BBED6004C4F54 /* Home */ = {
@@ -1781,8 +1765,6 @@
 				CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */,
 				CC9DCAA1165BC0AA004C4F54 /* photosGallery.m in Sources */,
 				CC001DB2167E8C0C00C9F217 /* STSegmentedControl.m in Sources */,
-				CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */,
-				CC8374531681616B002754B8 /* drawing.m in Sources */,
 				CC6EE8C8168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
 				CC6EE8D7168C743800AB4E87 /* CoreTextUtils.m in Sources */,
 				CC4A812E16973C5B0078F738 /* viewHelper.m in Sources */,
@@ -1876,7 +1858,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -1905,7 +1887,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
@@ -1960,7 +1942,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1989,7 +1971,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -2018,7 +2000,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
@@ -2048,7 +2030,7 @@
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
