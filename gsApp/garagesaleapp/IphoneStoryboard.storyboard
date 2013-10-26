@@ -894,7 +894,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.64705884456634521" green="0.64705884456634521" blue="0.64705884456634521" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardAppearance="alert"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.96803228539156627" green="0.96885589231927716" blue="0.97668015813253017" alpha="1" colorSpace="deviceRGB"/>
@@ -2200,8 +2200,15 @@
         <image name="backgroundDetailReportGarage.png" width="320" height="32"/>
         <image name="backgroundGarageDetail.png" width="320" height="69"/>
         <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
+        <image name="btBackgroundForms.png" width="300" height="37"/>
         <image name="btBidThisItem.png" width="137" height="36"/>
         <image name="btCancelBidItem.png" width="182" height="72"/>
+        <image name="btCancelBidItem.png" width="182" height="72"/>
+        <image name="btCancelSearch.png" width="47" height="37"/>
         <image name="btCancelSearch.png" width="47" height="37"/>
         <image name="btDeleteProductDetail.png" width="75" height="25"/>
         <image name="btEmailShare.png" width="157" height="39"/>
@@ -2217,18 +2224,54 @@
         <image name="btTwitterShare.png" width="157" height="44"/>
         <image name="btTwitterShareOver.png" width="157" height="44"/>
         <image name="closeAbout.png" width="30" height="30"/>
+        <image name="closeAbout.png" width="30" height="30"/>
+        <image name="dotsDetailProduct.png" width="320" height="7"/>
+        <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dotsDetailProduct.png" width="320" height="7"/>
         <image name="dropDownCurrency.png" width="113" height="32"/>
         <image name="dropDownState.png" width="296" height="64"/>
+        <image name="facebookLogin.png" width="300" height="40"/>
         <image name="facebookLogin.png" width="300" height="40"/>
         <image name="garageNoProducts.png" width="320" height="339"/>
         <image name="homeOver.png" width="21" height="21"/>
         <image name="line.png" width="320" height="1"/>
         <image name="loupe.png" width="22" height="23"/>
+        <image name="loupe.png" width="22" height="23"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
+        <image name="rightNavItem.png" width="58" height="31"/>
         <image name="rightNavItem.png" width="58" height="31"/>
         <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textField01iphone.png" width="300" height="40"/>
+        <image name="textFieldHomeSearch.png" width="267" height="38"/>
         <image name="textFieldHomeSearch.png" width="267" height="38"/>
         <image name="topHeaderProductDetail.png" width="320" height="65"/>
+        <image name="topHeaderProductDetail.png" width="320" height="65"/>
+        <image name="topHeaderProductDetail.png" width="320" height="65"/>
+        <image name="uitextViewBackground.png" width="280" height="91"/>
+        <image name="uitextViewBackground.png" width="280" height="91"/>
         <image name="uitextViewBackground.png" width="280" height="91"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

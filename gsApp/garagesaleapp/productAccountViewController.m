@@ -201,7 +201,7 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentSize:CGSizeMake(320,587)];
+    [self.scrollView setContentSize:CGSizeMake(320,625)];
     return YES;
 }
 
@@ -906,7 +906,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    [self.scrollView setContentSize:CGSizeMake(320,587)];
+    [self.scrollView setContentSize:CGSizeMake(320,625)];
     if ([keyboardControls.textFields containsObject:textView])
         keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];

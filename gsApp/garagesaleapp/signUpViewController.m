@@ -718,7 +718,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 383;
+    rc.size.height = 300;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
     
