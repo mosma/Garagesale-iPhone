@@ -273,11 +273,7 @@
                 [buttonAddPics setUserInteractionEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [self.save setUserInteractionEnabled:NO];
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_async(queue, ^(void) {
-                [self loadAttributsToPhotos:objects];
-            });
-            queue = nil;
+            [self loadAttributsToPhotos:objects];
         }
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
@@ -844,7 +840,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 360;
+    rc.size.height = 300;
     v = nil;
     [self.scrollView scrollRectToVisible:rc animated:YES];
 }

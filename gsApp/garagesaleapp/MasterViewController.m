@@ -43,6 +43,9 @@
     [self setupActionSheet];
     [self reachability];
 
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     [self setEdgesForExtendedLayout:UIRectEdgeBottom];
     [self.navigationController.navigationBar setTranslucent:NO];

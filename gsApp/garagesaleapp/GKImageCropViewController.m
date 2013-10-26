@@ -95,10 +95,11 @@
     [self.useButton setBackgroundImage:[[UIImage imageNamed:@"PLCameraSheetDoneButtonPressed.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateHighlighted];
     
     [[self.useButton titleLabel] setFont:[UIFont boldSystemFontOfSize:11]];
-    [[self.useButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
+    //[[self.useButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
     [self.useButton setFrame:CGRectMake(0, 0, 50, 30)];
+    [self.useButton setTitleColor:[UIColor colorWithRed:0.173 green:0.176 blue:0.176 alpha:1] forState:UIControlStateNormal];
     [self.useButton setTitle:NSLocalizedString(@"Ok!",@"") forState:UIControlStateNormal];
-    [self.useButton setTitleShadowColor:[UIColor colorWithRed:0.118 green:0.247 blue:0.455 alpha:1] forState:UIControlStateNormal];
+    //[self.useButton setTitleShadowColor:[UIColor colorWithRed:0.118 green:0.247 blue:0.455 alpha:1] forState:UIControlStateNormal];
     [self.useButton  addTarget:self action:@selector(_actionUse) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -130,7 +131,7 @@
 - (void)_setupToolbar{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-        [self.toolbar setBackgroundImage:[self _toolbarBackgroundImage] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+       // [self.toolbar setBackgroundImage:[self _toolbarBackgroundImage] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         [self.view addSubview:self.toolbar];
         
         [self _setupCancelButton];
@@ -140,6 +141,7 @@
         info.text = NSLocalizedString(@"GKImoveAndScale", @"");
         info.textColor = [UIColor colorWithRed:0.173 green:0.173 blue:0.173 alpha:1];
         info.backgroundColor = [UIColor clearColor];
+        [info setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
         info.shadowColor = [UIColor colorWithRed:0.827 green:0.831 blue:0.839 alpha:1];
         info.shadowOffset = CGSizeMake(0, 1);
         info.font = [UIFont boldSystemFontOfSize:18];

@@ -29,6 +29,8 @@
 {
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
