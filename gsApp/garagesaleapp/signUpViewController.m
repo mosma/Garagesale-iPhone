@@ -184,7 +184,7 @@
     [textFieldGarageName setText:self.FBGarageName];
     [textFieldPersonName setText:self.FBName];
     [textFieldEmail      setText:self.FBEmail];
-    if ([[[FBSession activeSession] accessTokenData] accessToken]) {
+    if ([[FBSession activeSession] isOpen]) {
         [textFieldPassword setText:[[[FBSession activeSession] accessTokenData] accessToken]];
         [textFieldPassword setHidden:YES];
         [_imgFieldPassword setHidden:YES];
@@ -718,7 +718,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 300;
+    rc.size.height = 383;
     
     [self.scrollView scrollRectToVisible:rc animated:YES];
     

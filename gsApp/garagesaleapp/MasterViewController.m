@@ -42,13 +42,6 @@
     [self setupActivityAnimation];
     [self setupActionSheet];
     [self reachability];
-
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-    [self setEdgesForExtendedLayout:UIRectEdgeNone];
-    [self setEdgesForExtendedLayout:UIRectEdgeBottom];
-    [self.navigationController.navigationBar setTranslucent:NO];
 }
 
 #pragma mark - No Message
@@ -154,13 +147,13 @@
     // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
     
     // Set the style of the bar. Default is UIBarStyleBlackTranslucent.
-    [self.keyboardControls setBarStyle:UIBarStyleBlackOpaque];
+    [self.keyboardControls setBarStyle:UIBarStyleBlackTranslucent];
     
     // Set the tint color of the "Previous" and "Next" button. Default is black.
-    [self.keyboardControls setPreviousNextTintColor:[UIColor whiteColor]];
+    [self.keyboardControls setPreviousNextTintColor:[UIColor blackColor]];
     
     // Set the tint color of the done button. Default is a color which looks a lot like the original blue color for a "Done" butotn
-    [self.keyboardControls setDoneTintColor:[UIColor whiteColor]];
+    [self.keyboardControls setDoneTintColor:[UIColor colorWithRed:34.0/255.0 green:164.0/255.0 blue:255.0/255.0 alpha:1.0]];
     
     // Set title for the "Previous" button. Default is "Previous".
     [self.keyboardControls setPreviousTitle:NSLocalizedString(@"keyboard-previous-btn", nil)];

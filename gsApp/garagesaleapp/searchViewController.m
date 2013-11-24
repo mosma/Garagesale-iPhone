@@ -86,10 +86,10 @@
     
     if (IS_IPHONE_5) {
         [self.view setFrame:CGRectMake(0, 0, 320, 568)];
-        [self.tableView setFrame:CGRectMake(0, 0, 320, 573)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 553)];
     } else {
         [self.view setFrame:CGRectMake(0, 0, 320, 480)];
-        [self.tableView setFrame:CGRectMake(0, 0, 320, 485)];
+        [self.tableView setFrame:CGRectMake(0, 0, 320, 465)];
     }
     
     if(searchBarProduct == nil){

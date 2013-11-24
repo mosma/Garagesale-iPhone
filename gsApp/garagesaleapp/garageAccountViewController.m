@@ -90,7 +90,7 @@
         [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 568)];
         [self.scrollViewProducts setFrame:CGRectMake(0, 165, 320, 568)];
         [self.tableViewProducts setFrame:CGRectMake(0, 165, 320, 568)];
-        [self.viewNoProducts setFrame:CGRectMake(0, 0, 320, 504)];
+        [self.viewNoProducts setFrame:CGRectMake(0, 95, 320, 339)];
     } else {
         [self.view setFrame:CGRectMake(0, 0, 320, 480)];
         [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 480)];
@@ -276,8 +276,8 @@
         [link addGestureRecognizer:gestureRec];
         gestureRec = nil;
         
-        if (IS_IPHONE_5) self.scrollViewMain.contentSize  = CGSizeMake(320,688);
-        else             self.scrollViewMain.contentSize  = CGSizeMake(320,600);
+        if (IS_IPHONE_5) self.scrollViewMain.contentSize  = CGSizeMake(320,735);
+        else             self.scrollViewMain.contentSize  = CGSizeMake(320,647);
         
         [self.scrollViewMain setDelegate:self];
         [self.scrollViewProducts setDelegate:self];
@@ -797,10 +797,6 @@
     [prdDetailVC setImageView:imageV];
     imageV = nil;
     [self.navigationController pushViewController:prdDetailVC animated:YES];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell setBackgroundColor:[UIColor clearColor]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

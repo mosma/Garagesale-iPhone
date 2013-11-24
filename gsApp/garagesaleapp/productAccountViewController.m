@@ -201,7 +201,7 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [self.scrollView setContentSize:CGSizeMake(320,625)];
+    [self.scrollView setContentSize:CGSizeMake(320,587)];
     return YES;
 }
 
@@ -273,7 +273,11 @@
                 [buttonAddPics setUserInteractionEnabled:YES];
         }else if ([[objects objectAtIndex:0] isKindOfClass:[PhotoReturn class]]){
             [self.save setUserInteractionEnabled:NO];
-            [self loadAttributsToPhotos:objects];
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_async(queue, ^(void) {
+                [self loadAttributsToPhotos:objects];
+            });
+            queue = nil;
         }
     }@catch (NSException *exception) {
         NSLog(@"%@", exception.name);
@@ -428,6 +432,9 @@
                      isFromPicker:YES];
     
     [picker dismissModalViewControllerAnimated:YES];
+    
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     
     originalImage = nil;
     newImage = nil;
@@ -840,7 +847,7 @@
     CGRect rc = [textField bounds];
     rc = [textField convertRect:rc toView:v];
 
-    rc.size.height = 300;
+    rc.size.height = 360;
     v = nil;
     [self.scrollView scrollRectToVisible:rc animated:YES];
 }
@@ -906,7 +913,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    [self.scrollView setContentSize:CGSizeMake(320,625)];
+    [self.scrollView setContentSize:CGSizeMake(320,587)];
     if ([keyboardControls.textFields containsObject:textView])
         keyboardControls.activeTextField = textView;
     [self scrollViewToTextField:textView];

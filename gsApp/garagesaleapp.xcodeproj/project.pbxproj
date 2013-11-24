@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A41D7FE917F78A6600A8A517 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCDC279A17A8C4FE004954D0 /* FacebookSDK.framework */; };
+		A18342421836F11E00D35C4E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18342411836F11E00D35C4E /* FacebookSDK.framework */; };
 		A41D7FEB17F78A8700A8A517 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A41D7FEA17F78A8700A8A517 /* FBUserSettingsViewResources.bundle */; };
 		A498240D180F7FEB00743FB8 /* tabBarShadowImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A498240C180F7FEB00743FB8 /* tabBarShadowImage.png */; };
 		CC001DB2167E8C0C00C9F217 /* STSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CC001DB1167E8C0C00C9F217 /* STSegmentedControl.m */; };
@@ -213,6 +213,8 @@
 		CC83744B1680D23C002754B8 /* btEmailShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374471680D23C002754B8 /* btEmailShare@2x.png */; };
 		CC83744C1680D23C002754B8 /* btTwitterShare.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374481680D23C002754B8 /* btTwitterShare.png */; };
 		CC83744D1680D23C002754B8 /* btTwitterShare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8374491680D23C002754B8 /* btTwitterShare@2x.png */; };
+		CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374501681607F002754B8 /* PDColoredProgressView.m */; };
+		CC8374531681616B002754B8 /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8374521681616B002754B8 /* drawing.m */; };
 		CC8B2F8615EBADE400E25FBA /* btSearchBlock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */; };
 		CC8BF4A615B878580048AE70 /* addOver.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A015B878580048AE70 /* addOver.png */; };
 		CC8BF4A715B878580048AE70 /* addOver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CC8BF4A115B878580048AE70 /* addOver@2x.png */; };
@@ -351,6 +353,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A18342411836F11E00D35C4E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		A41D7FEA17F78A8700A8A517 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		A498240C180F7FEB00743FB8 /* tabBarShadowImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarShadowImage.png; sourceTree = "<group>"; };
 		CC001DB0167E8C0C00C9F217 /* STSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSegmentedControl.h; sourceTree = "<group>"; };
@@ -589,6 +592,9 @@
 		CC8374471680D23C002754B8 /* btEmailShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btEmailShare@2x.png"; sourceTree = "<group>"; };
 		CC8374481680D23C002754B8 /* btTwitterShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btTwitterShare.png; sourceTree = "<group>"; };
 		CC8374491680D23C002754B8 /* btTwitterShare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btTwitterShare@2x.png"; sourceTree = "<group>"; };
+		CC83744F1681607F002754B8 /* PDColoredProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDColoredProgressView.h; sourceTree = "<group>"; };
+		CC8374501681607F002754B8 /* PDColoredProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDColoredProgressView.m; sourceTree = "<group>"; };
+		CC8374521681616B002754B8 /* drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawing.m; sourceTree = "<group>"; };
 		CC8B2F8415EBADD300E25FBA /* btSearchBlock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btSearchBlock@2x.png"; sourceTree = "<group>"; };
 		CC8BF4A015B878580048AE70 /* addOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addOver.png; sourceTree = "<group>"; };
 		CC8BF4A115B878580048AE70 /* addOver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addOver@2x.png"; sourceTree = "<group>"; };
@@ -680,7 +686,6 @@
 		CCD7958815C3A1D000F0B4D3 /* dropDownCurrency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropDownCurrency@2x.png"; sourceTree = "<group>"; };
 		CCD8373C1520BD1300DCF0FD /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		CCD8373D1520BD1300DCF0FD /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
-		CCDC279A17A8C4FE004954D0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		CCDC279F17A8C7E2004954D0 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		CCDC27A017A8C7E2004954D0 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		CCDC27A117A8C7E2004954D0 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -738,7 +743,7 @@
 				CCB0643614B2A5D20022BA5D /* UIKit.framework in Frameworks */,
 				CCB0643814B2A5D20022BA5D /* Foundation.framework in Frameworks */,
 				CCB0643A14B2A5D20022BA5D /* CoreGraphics.framework in Frameworks */,
-				A41D7FE917F78A6600A8A517 /* FacebookSDK.framework in Frameworks */,
+				A18342421836F11E00D35C4E /* FacebookSDK.framework in Frameworks */,
 				CC60731217A84BCE0021E1C0 /* libsqlite3.dylib in Frameworks */,
 				CCB067A214B3F6130022BA5D /* libRestKit.a in Frameworks */,
 				CCB0678D14B39ACD0022BA5D /* libxml2.dylib in Frameworks */,
@@ -789,6 +794,7 @@
 				CCDC279E17A8C7D0004954D0 /* JSON */,
 				CCC5AB7D17A193EE00984B97 /* RefreshControl */,
 				CCE11D4016A578BA0052F058 /* MTStatusBarOverlay */,
+				CC83744E16816042002754B8 /* PDColoredProgressview */,
 				CC001DAF167E8BD100C9F217 /* STSegmentedControl */,
 				CC6F46041667B195004E5D17 /* AsyncImageView */,
 				CCACED961663D12100E00519 /* GoogleAnalitics */,
@@ -1064,6 +1070,16 @@
 			name = AsyncImageView;
 			sourceTree = "<group>";
 		};
+		CC83744E16816042002754B8 /* PDColoredProgressview */ = {
+			isa = PBXGroup;
+			children = (
+				CC8374521681616B002754B8 /* drawing.m */,
+				CC83744F1681607F002754B8 /* PDColoredProgressView.h */,
+				CC8374501681607F002754B8 /* PDColoredProgressView.m */,
+			);
+			name = PDColoredProgressview;
+			sourceTree = "<group>";
+		};
 		CC9DCA99165BBED6004C4F54 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1137,6 +1153,7 @@
 		CCB0642614B2A5CE0022BA5D = {
 			isa = PBXGroup;
 			children = (
+				A18342411836F11E00D35C4E /* FacebookSDK.framework */,
 				CC60731717A84BF90021E1C0 /* Accounts.framework */,
 				CC60731517A84BED0021E1C0 /* AdSupport.framework */,
 				CC60731317A84BD70021E1C0 /* Social.framework */,
@@ -1164,7 +1181,6 @@
 			isa = PBXGroup;
 			children = (
 				A41D7FEA17F78A8700A8A517 /* FBUserSettingsViewResources.bundle */,
-				CCDC279A17A8C4FE004954D0 /* FacebookSDK.framework */,
 				CC9DCAA8165BED87004C4F54 /* QuartzCore.framework */,
 				CC2D1666157D4B6D000B8BD3 /* CoreText.framework */,
 				CC7D7E5C1545C9C200E47F71 /* Twitter.framework */,
@@ -1765,6 +1781,8 @@
 				CCD0745A165420E200156DAC /* sharePopOverViewController.m in Sources */,
 				CC9DCAA1165BC0AA004C4F54 /* photosGallery.m in Sources */,
 				CC001DB2167E8C0C00C9F217 /* STSegmentedControl.m in Sources */,
+				CC8374511681607F002754B8 /* PDColoredProgressView.m in Sources */,
+				CC8374531681616B002754B8 /* drawing.m in Sources */,
 				CC6EE8C8168B6D4A00AB4E87 /* NSTextCheckingResult+ExtendedURL.m in Sources */,
 				CC6EE8D7168C743800AB4E87 /* CoreTextUtils.m in Sources */,
 				CC4A812E16973C5B0078F738 /* viewHelper.m in Sources */,
@@ -1858,7 +1876,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -1877,17 +1895,18 @@
 		CC860EF314DFCCC400EEF0F4 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
@@ -1895,8 +1914,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
@@ -1942,7 +1961,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1971,7 +1990,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (
@@ -1990,17 +2009,18 @@
 		CCB0646514B2A5D30022BA5D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../FacebookSDK",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
@@ -2008,8 +2028,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
@@ -2020,17 +2040,18 @@
 		CCB0646614B2A5D30022BA5D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tarek Jradi (KU5R9Q6E6Z)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../../FacebookSDK",
+					"\"$(SRCROOT)/../../../Documents/FacebookSDK\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "garagesaleapp/garagesaleapp-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/RestKit/Build\"";
 				INFOPLIST_FILE = "garagesaleapp/garagesaleapp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/garagesaleapp\"",
@@ -2038,8 +2059,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";

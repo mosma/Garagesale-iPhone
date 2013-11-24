@@ -29,8 +29,6 @@
 {
     [super viewDidLoad];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-
     //Set Logo Top Button Not Account.
     buttonLogo = [UIButton buttonWithType:UIButtonTypeCustom];
     [buttonLogo setImage:[UIImage imageNamed:@"logo.png"] forState:UIControlStateNormal];
@@ -47,8 +45,8 @@
     [GlobalFunctions hideTabBar:self.navigationController.tabBarController animated:NO];
     
     //set searchBar settings
-    searchBarProduct = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
-    //searchBarProduct.keyboardType = UIKeyboardAppearanceAlert;
+    searchBarProduct = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    searchBarProduct.keyboardType = UIKeyboardAppearanceAlert;
     [self setLayoutTabBarController];
     
     //definind searchbar theme
@@ -72,11 +70,11 @@
     [self.view addSubview:searchBarProduct];
     
     if (IS_IPHONE_5) {
-        [self.view setFrame:CGRectMake(0, 0, 320, 568)];
-        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 568)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 548)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 548)];
     } else {
-        [self.view setFrame:CGRectMake(0, 0, 320, 480)];
-        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 480)];
+        [self.view setFrame:CGRectMake(0, 0, 320, 460)];
+        [self.scrollViewMain setFrame:CGRectMake(0, 0, 320, 460)];
     }
 
     [self loadAttribsToComponents];
@@ -774,7 +772,6 @@
     // call our activate method so that we can do some
     // additional things when the UISearchBar shows.
     [self.searchBarProduct setShowsCancelButton:YES animated:YES];
-    
     UIButton *cancelButton = nil;
     for(UIView *subView in searchBarProduct.subviews){
         if([subView isKindOfClass:UIButton.class]){

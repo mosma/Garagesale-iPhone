@@ -77,12 +77,12 @@
     [self.cancelButton setBackgroundImage:[[UIImage imageNamed:@"PLCameraSheetButton.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateNormal];
     [self.cancelButton setBackgroundImage:[[UIImage imageNamed:@"PLCameraSheetButtonPressed.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateHighlighted];
     
-    [[self.cancelButton titleLabel] setFont:[UIFont boldSystemFontOfSize:11]];
-    [[self.cancelButton titleLabel] setShadowOffset:CGSizeMake(0, 1)];
-    [self.cancelButton setFrame:CGRectMake(0, 0, 50, 30)];
+    [[self.cancelButton titleLabel] setFont:[UIFont boldSystemFontOfSize:13]];
+    //[[self.cancelButton titleLabel] setShadowOffset:CGSizeMake(0, 1)];
+    [self.cancelButton setFrame:CGRectMake(0, 0, 70, 30)];
     [self.cancelButton setTitle:NSLocalizedString(@"keyboard-cancel-btn",@"") forState:UIControlStateNormal];
-    [self.cancelButton setTitleColor:[UIColor colorWithRed:0.173 green:0.176 blue:0.176 alpha:1] forState:UIControlStateNormal];
-    [self.cancelButton setTitleShadowColor:[UIColor colorWithRed:0.827 green:0.831 blue:0.839 alpha:1] forState:UIControlStateNormal];
+    [self.cancelButton setTitleColor:[UIColor colorWithRed:255.255 green:255.255 blue:255.255 alpha:1] forState:UIControlStateNormal];
+    //[self.cancelButton setTitleShadowColor:[UIColor colorWithRed:0.827 green:0.831 blue:0.839 alpha:1] forState:UIControlStateNormal];
     [self.cancelButton  addTarget:self action:@selector(_actionCancel) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -94,12 +94,11 @@
     [self.useButton setBackgroundImage:[[UIImage imageNamed:@"PLCameraSheetDoneButton.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateNormal];
     [self.useButton setBackgroundImage:[[UIImage imageNamed:@"PLCameraSheetDoneButtonPressed.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0] forState:UIControlStateHighlighted];
     
-    [[self.useButton titleLabel] setFont:[UIFont boldSystemFontOfSize:11]];
-    //[[self.useButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
-    [self.useButton setFrame:CGRectMake(0, 0, 50, 30)];
-    [self.useButton setTitleColor:[UIColor colorWithRed:0.173 green:0.176 blue:0.176 alpha:1] forState:UIControlStateNormal];
+    [[self.useButton titleLabel] setFont:[UIFont boldSystemFontOfSize:13]];
+   // [[self.useButton titleLabel] setShadowOffset:CGSizeMake(0, -1)];
+    [self.useButton setFrame:CGRectMake(0, 0, 70, 30)];
     [self.useButton setTitle:NSLocalizedString(@"Ok!",@"") forState:UIControlStateNormal];
-    //[self.useButton setTitleShadowColor:[UIColor colorWithRed:0.118 green:0.247 blue:0.455 alpha:1] forState:UIControlStateNormal];
+  //  [self.useButton setTitleShadowColor:[UIColor colorWithRed:255.118 green:255.247 blue:255.455 alpha:1] forState:UIControlStateNormal];
     [self.useButton  addTarget:self action:@selector(_actionUse) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -107,8 +106,8 @@
 - (UIImage *)_toolbarBackgroundImage{
     
     CGFloat components[] = {
-        1., 1., 1., 1.,
-        123./255., 225/255., 132./255., 1.
+        0., 0., 0., 0.,
+        0./255., 0/255., 0./255., 1.
     };
     
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(320, 54), YES, 0.0);
@@ -131,7 +130,7 @@
 - (void)_setupToolbar{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-       // [self.toolbar setBackgroundImage:[self _toolbarBackgroundImage] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        [self.toolbar setBackgroundImage:[self _toolbarBackgroundImage] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         [self.view addSubview:self.toolbar];
         
         [self _setupCancelButton];
@@ -139,12 +138,11 @@
         
         UILabel *info = [[UILabel alloc] initWithFrame:CGRectZero];
         info.text = NSLocalizedString(@"GKImoveAndScale", @"");
-        info.textColor = [UIColor colorWithRed:0.173 green:0.173 blue:0.173 alpha:1];
-        info.backgroundColor = [UIColor clearColor];
-        [info setFont:[UIFont fontWithName:@"Droid Sans" size:10]];
-        info.shadowColor = [UIColor colorWithRed:0.827 green:0.831 blue:0.839 alpha:1];
-        info.shadowOffset = CGSizeMake(0, 1);
-        info.font = [UIFont boldSystemFontOfSize:18];
+        info.textColor = [UIColor colorWithRed:255.173 green:255.173 blue:255.173 alpha:1];
+        info.backgroundColor = [UIColor blackColor];
+        //info.shadowColor = [UIColor colorWithRed:0.827 green:0.831 blue:0.839 alpha:1];
+        //info.shadowOffset = CGSizeMake(0, 1);
+        info.font = [UIFont boldSystemFontOfSize:16];
         [info sizeToFit];
         
         UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithCustomView:self.cancelButton];
