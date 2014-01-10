@@ -91,7 +91,7 @@
 
 #pragma mark - isReachability
 - (void)reachability {// Check if the network is available
-    [[RKClient sharedClient] isNetworkAvailable];
+    [[RKClient sharedClient] isNetworkReachable];
     // Register for changes in network availability
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(reachabilityDidChange:)

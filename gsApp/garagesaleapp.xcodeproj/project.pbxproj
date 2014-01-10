@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A15A94B0187BA753007E3DA4 /* saveProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A15A94AF187BA753007E3DA4 /* saveProduct@2x.png */; };
+		A15A94B5187BA889007E3DA4 /* saveProduct.png in Resources */ = {isa = PBXBuildFile; fileRef = A15A94B4187BA889007E3DA4 /* saveProduct.png */; };
 		A18342421836F11E00D35C4E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18342411836F11E00D35C4E /* FacebookSDK.framework */; };
 		A41D7FEB17F78A8700A8A517 /* FBUserSettingsViewResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A41D7FEA17F78A8700A8A517 /* FBUserSettingsViewResources.bundle */; };
 		A498240D180F7FEB00743FB8 /* tabBarShadowImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A498240C180F7FEB00743FB8 /* tabBarShadowImage.png */; };
@@ -353,6 +355,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A15A94AF187BA753007E3DA4 /* saveProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saveProduct@2x.png"; sourceTree = "<group>"; };
+		A15A94B4187BA889007E3DA4 /* saveProduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saveProduct.png; sourceTree = "<group>"; };
 		A18342411836F11E00D35C4E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		A41D7FEA17F78A8700A8A517 /* FBUserSettingsViewResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBUserSettingsViewResources.bundle; sourceTree = "<group>"; };
 		A498240C180F7FEB00743FB8 /* tabBarShadowImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarShadowImage.png; sourceTree = "<group>"; };
@@ -809,6 +813,8 @@
 		CC2EC55D14B74ACD00AEFE04 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A15A94B4187BA889007E3DA4 /* saveProduct.png */,
+				A15A94AF187BA753007E3DA4 /* saveProduct@2x.png */,
 				CCF8F13917CFCF1D0036E082 /* publicity03.png */,
 				A498240C180F7FEB00743FB8 /* tabBarShadowImage.png */,
 				CCF8F13A17CFCF1D0036E082 /* publicity03@2x.png */,
@@ -1706,6 +1712,8 @@
 				CCF8F13C17CFCF1D0036E082 /* publicity03@2x.png in Resources */,
 				A41D7FEB17F78A8700A8A517 /* FBUserSettingsViewResources.bundle in Resources */,
 				A498240D180F7FEB00743FB8 /* tabBarShadowImage.png in Resources */,
+				A15A94B0187BA753007E3DA4 /* saveProduct@2x.png in Resources */,
+				A15A94B5187BA889007E3DA4 /* saveProduct.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

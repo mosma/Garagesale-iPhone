@@ -95,7 +95,7 @@
     UITabBarItem    *item1              = [tabBar.items objectAtIndex:1];
     UITabBarItem    *item2              = [tabBar.items objectAtIndex:2];
     
-    [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBackOver.png"]];
+    [tabBar setSelectionIndicatorImage:[UIImage imageNamed:@"barItemBack.png"]];
     [tabBar setBackgroundImage:[UIImage imageNamed:@"barItemBack.png"]];
     [tabBar setBackgroundColor:[UIColor clearColor]];
     

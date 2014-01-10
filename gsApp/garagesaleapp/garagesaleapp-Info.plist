@@ -49,14 +49,14 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb110358179113655</string>
+				<string>fb280819525292258</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>FacebookAppID</key>
-	<string>110358179113655</string>
+	<string>280819525292258</string>
 	<key>FacebookDisplayName</key>
 	<string>GaragesaleApp</string>
 	<key>LSApplicationCategoryType</key>

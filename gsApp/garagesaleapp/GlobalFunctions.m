@@ -26,19 +26,19 @@
 
 +(NSString *)getUrlServicePath {
     //return @"http://169.254.251.178";//text/html
-    return @"http://gsapi.easylikethat.com";//text/plain
-    //return @"http://api.garagesaleapp.me";//text/plain
+    //return @"http://gsapi.easylikethat.com";//text/plain
+    return @"http://api.garagesaleapp.me";//text/plain
 }
 
 +(NSString *)getUrlApplication {
     //return @"http://169.254.251.178";//text/html
-    return @"http://easylikethat.com";//text/plain
-    //return @"http://garagesaleapp.me";//text/plain
+    //return @"http://easylikethat.com";//text/plain
+    return @"http://garagesaleapp.me";//text/plain
 }
 
 +(NSString *)getMIMEType {
-    return @"text/html";
-    //return @"text/plain";
+    //return @"text/html";
+    return @"text/plain";
 }
 
 +(NSUserDefaults *)getUserDefaults {
