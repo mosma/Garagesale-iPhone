@@ -503,7 +503,7 @@
             [labelTotalProducts setText:@""];
             [self.scrollViewProducts setContentSize:CGSizeMake(320,400)];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            [self showNoMessage:@"noproducts"];
+            [self showNoMessage:@"noproducts" text:NSLocalizedString(@"no-products-popup", nil)];
         }
     [self.refreshControl endRefreshing];
 }

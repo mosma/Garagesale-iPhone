@@ -46,14 +46,28 @@
 
 #pragma mark - No Message
 -(void)setupNoMessage{
-    self.nomessage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 192, 55)];
+    self.nomessage = [[UIBorderLabel alloc] initWithFrame:CGRectMake(0, 0, 192, 55)];
     [self.nomessage setCenter:CGPointMake(self.view.frame.size.width/2, -50)];
     //[self.navigationController.tabBarController.selectedViewController.view addSubview:self.nomessage];
     [self.view addSubview:self.nomessage];
 }
--(void)showNoMessage:(NSString *)name{
-    UIImage *img = [UIImage imageNamed:name];
-    [self.nomessage setImage:img];
+-(void)showNoMessage:(NSString *)image text:(NSString *)text{
+    [self.nomessage setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:image]]];
+    
+    [self.nomessage setText:text];
+    [self.nomessage setFont:[UIFont fontWithName:@"Corben" size:14.0]];
+    [self.nomessage setTextColor:[UIColor whiteColor]];
+    [self.nomessage setNumberOfLines:2];
+    self.nomessage.topInset = 5;
+    self.nomessage.leftInset = 55;
+    [self.nomessage setTextAlignment:NSTextAlignmentLeft];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineHeightMultiple:0.75];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [text length])];
+    self.nomessage.attributedText = attributedString ;
+    
     
     //Animate CAKeyframeAnimation
     self.nomessage.layer.anchorPoint = CGPointMake(0.50, 1.0);
@@ -111,7 +125,7 @@
         //overlay.progress = 0.0;
         [overlay postMessage:NSLocalizedString(@"no-connection-string", nil) duration:10.0 animated:YES];
         //overlay.progress = 0.1;
-        [self showNoMessage:@"nointernet"];
+        [self showNoMessage:@"nointernet" text:NSLocalizedString(@"no-connection-popup", nil)];
     } else if (RKReachabilityReachableViaWiFi == status) {
         //RKLogInfo(@"Online!");
         isReachability = YES;

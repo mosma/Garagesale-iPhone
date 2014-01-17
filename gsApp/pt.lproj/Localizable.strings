@@ -103,6 +103,10 @@
 "recover-password"              = "Recuperar senha";
 "lost-password"                 = "Esqueceu a senha?";
 
+"no-connection-popup"           = "Sem conexão \nde internet";
+"no-products-popup"             = "  Sua Garagem \n  está vazia";
+"no-results-popup"              = "Produto não \nencontrado";
+
 //forms
 "form-invalid-email-password"   = "Email ou senha invalidos";
 "form-invalid-email-exists"     = "Hey, %@ não é um bom nome ou já existe!";

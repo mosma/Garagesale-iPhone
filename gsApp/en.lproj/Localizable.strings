@@ -102,6 +102,10 @@
 "recover-password"              = "Password recover";
 "lost-password"                 = "Forgot your password?";
 
+"no-connection-popup"           = "No internet\nconnection";
+"no-products-popup"             = "   No Products\n   registered";
+"no-results-popup"              = "No results for\nthis product";
+
 //forms
 "form-invalid-email-password"   = "Invalid Password or Email";
 "form-invalid-email-exists"     = "Hey, %@ is invalid name or already exist!";

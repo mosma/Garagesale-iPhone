@@ -303,7 +303,7 @@
         mutArrayProducts = (NSMutableArray *)objects;
         [self awakeFromNib];
     }else{
-        [self showNoMessage:@"noresults"];
+        [self showNoMessage:@"noresults" text:NSLocalizedString(@"no-results-popup", nil)];
     }
     [self loadAttribsToComponents:YES];
 }
@@ -312,7 +312,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     [activityImageView setAlpha:0];
     NSLog(@"Encountered an error: %@", error);
-    [self showNoMessage:@"noresults"];
+    [self showNoMessage:@"noresults" text:NSLocalizedString(@"no-connection-popup", nil)];
 }
 
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {

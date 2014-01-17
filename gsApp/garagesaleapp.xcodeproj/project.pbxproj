@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11C0D4A1881E6AB00FBB22D /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = A11C0D491881E6AB00FBB22D /* icon-120.png */; };
+		A12BDD1C1888159000050163 /* UIBorderLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A12BDD1B1888159000050163 /* UIBorderLabel.m */; };
 		A15A94B0187BA753007E3DA4 /* saveProduct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A15A94AF187BA753007E3DA4 /* saveProduct@2x.png */; };
 		A15A94B5187BA889007E3DA4 /* saveProduct.png in Resources */ = {isa = PBXBuildFile; fileRef = A15A94B4187BA889007E3DA4 /* saveProduct.png */; };
 		A18342421836F11E00D35C4E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18342411836F11E00D35C4E /* FacebookSDK.framework */; };
@@ -355,6 +357,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A11C0D491881E6AB00FBB22D /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
+		A12BDD1A1888159000050163 /* UIBorderLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBorderLabel.h; sourceTree = "<group>"; };
+		A12BDD1B1888159000050163 /* UIBorderLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBorderLabel.m; sourceTree = "<group>"; };
 		A15A94AF187BA753007E3DA4 /* saveProduct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saveProduct@2x.png"; sourceTree = "<group>"; };
 		A15A94B4187BA889007E3DA4 /* saveProduct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saveProduct.png; sourceTree = "<group>"; };
 		A18342411836F11E00D35C4E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -806,6 +811,8 @@
 				CC6B0FD715D622AE00BBB742 /* MBProgressHUD */,
 				CC2D1659157D4A2C000B8BD3 /* OHAttributedLabel */,
 				CCD8373B1520BCC100DCF0FD /* BSKeyboardControls */,
+				A12BDD1A1888159000050163 /* UIBorderLabel.h */,
+				A12BDD1B1888159000050163 /* UIBorderLabel.m */,
 			);
 			name = AddOn;
 			sourceTree = "<group>";
@@ -1228,6 +1235,7 @@
 		CCB0643C14B2A5D20022BA5D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A11C0D491881E6AB00FBB22D /* icon-120.png */,
 				CC5B0A9D14D2C7C900F22D35 /* Localizable.strings */,
 				CC7C41FF16B2C82F002F6CAC /* Currencies.plist */,
 				CCB0643D14B2A5D20022BA5D /* garagesaleapp-Info.plist */,
@@ -1714,6 +1722,7 @@
 				A498240D180F7FEB00743FB8 /* tabBarShadowImage.png in Resources */,
 				A15A94B0187BA753007E3DA4 /* saveProduct@2x.png in Resources */,
 				A15A94B5187BA889007E3DA4 /* saveProduct.png in Resources */,
+				A11C0D4A1881E6AB00FBB22D /* icon-120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1812,6 +1821,7 @@
 				CC332D9D17E6366E004DA8F8 /* GKCropBorderView.m in Sources */,
 				CC332D9E17E6366E004DA8F8 /* GKImagePicker.m in Sources */,
 				CC332D9F17E6366E004DA8F8 /* GKImageCropOverlayView.m in Sources */,
+				A12BDD1C1888159000050163 /* UIBorderLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1922,8 +1932,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
+				PROVISIONING_PROFILE = "F0B72729-2C6C-4CB1-82CF-BAA5A1D4EE84";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F0B72729-2C6C-4CB1-82CF-BAA5A1D4EE84";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
@@ -2036,8 +2046,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
+				PROVISIONING_PROFILE = "F0B72729-2C6C-4CB1-82CF-BAA5A1D4EE84";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F0B72729-2C6C-4CB1-82CF-BAA5A1D4EE84";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
@@ -2067,8 +2077,8 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9FE27B67-DEA0-4649-8202-E5FC964EACFE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB980265-7790-4EF1-AB80-3B8E891CBEC9";
+				PROVISIONING_PROFILE = "D59E3AAA-4BBA-450E-8D90-05310EAAF705";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F0B72729-2C6C-4CB1-82CF-BAA5A1D4EE84";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";

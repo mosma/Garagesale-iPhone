@@ -12,6 +12,7 @@
 #import "BSKeyboardControls.h"
 #import "GlobalFunctions.h"
 #import "GAI.h"
+#import "UIBorderLabel.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
@@ -32,11 +33,11 @@
 }
 
 @property (nonatomic) BOOL isReachability;
-@property (strong, nonatomic) UIImageView *nomessage;
+@property (strong, nonatomic) UIBorderLabel *nomessage;
 
 
 -(void)addKeyboardControlsAtFields;
 -(void)releaseMemoryCache;
--(void)showNoMessage:(NSString *)name;
+-(void)showNoMessage:(NSString *)image text:(NSString *)text;
 -(void)removeNoMessageFromSuperView;
 @end
