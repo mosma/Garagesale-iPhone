@@ -17,7 +17,7 @@ GEM
     monkey-lib (0.5.4)
       backports
     open4 (1.0.1)
-    rack (1.2.1)
+    rack (1.6.12)
     rake (0.8.7)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
